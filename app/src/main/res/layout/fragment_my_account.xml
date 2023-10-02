@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    android:touchscreenBlocksFocus="true">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@color/amtalek_blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@drawable/shape_gray"
+        android:contentDescription="@null"
+        android:padding="@dimen/_8sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_43sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_close">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="@dimen/_86sdp"
+            android:layout_height="@dimen/_86sdp"
+            android:src="@drawable/pic_avatar"
+            android:contentDescription="@null" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/montserratsemibold"
+        android:text="Mohamed Ragab"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_profile" />
+
+    <TextView
+        android:id="@+id/FMyAccount_tv_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:drawablePadding="@dimen/_8sdp"
+        android:fontFamily="@font/montserratregular"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/edit_personal_details"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        app:drawableStartCompat="@drawable/ic_person"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+    <TextView
+        android:id="@+id/FMyAccount_tv_changePassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:drawablePadding="@dimen/_8sdp"
+        android:fontFamily="@font/montserratregular"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/change_password"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        app:drawableStartCompat="@drawable/ic_password_change"
+        app:drawableTint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/FMyAccount_tv_edit"
+        app:layout_constraintStart_toStartOf="@+id/FMyAccount_tv_edit"
+        app:layout_constraintTop_toBottomOf="@+id/FMyAccount_tv_edit" />
+
+    <TextView
+        android:id="@+id/FMyAccount_tv_suspendAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:drawablePadding="@dimen/_8sdp"
+        android:fontFamily="@font/montserratregular"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/suspend_my_account"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        app:drawableStartCompat="@drawable/ic_suspend"
+        app:drawableTint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/FMyAccount_tv_changePassword"
+        app:layout_constraintStart_toStartOf="@+id/FMyAccount_tv_edit"
+        app:layout_constraintTop_toBottomOf="@+id/FMyAccount_tv_changePassword" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

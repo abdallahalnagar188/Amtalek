@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_app"
+    app:startDestination="@id/nav_auth">
+
+    <include app:graph="@navigation/nav_auth" />
+
+    <include app:graph="@navigation/nav_main" />
+
+    <action android:id="@+id/action_to_login"
+        app:destination="@+id/loginFragment"/>
+
+    <dialog
+        android:id="@+id/suspendDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.SuspendDialog"
+        android:label="SuspendDialog"
+        tools:layout="@layout/dialog_suspend">
+        <argument
+            android:name="isRequestSuspend"
+            app:argType="boolean" />
+    </dialog>
+
+</navigation>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="eramo.amtalek.presentation.ui.main.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <deepLink
+            android:id="@+id/deepLink5"
+            app:uri="https://Events.shop/Api/home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.news.NewsFragment"
+        tools:layout="@layout/fragment_news">
+        <argument
+            android:name="manufacturerId"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/brokersFragment"
+        android:name="eramo.amtalek.presentation.ui.main.broker.BrokersFragment"
+        tools:layout="@layout/fragment_brokers" />
+
+    <fragment
+        android:id="@+id/editPersonalDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.myaccount.EditPersonalDetailsFragment"
+        tools:layout="@layout/fragment_edit_personal_details">
+        <argument
+            android:name="memberModel"
+            app:argType="eramo.amtalek.data.remote.dto.general.Member" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.myaccount.ChangePasswordFragment"
+        tools:layout="@layout/fragment_change_password">
+        <argument
+            android:name="memberModel"
+            app:argType="eramo.amtalek.data.remote.dto.general.Member" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myAccountFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.myaccount.MyAccountFragment"
+        tools:layout="@layout/fragment_my_account" />
+
+    <dialog
+        android:id="@+id/loginDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.LoginDialog"
+        android:label="LoginDialog"
+        tools:layout="@layout/dialog_login">
+        <argument
+            android:name="proceedRequire"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/promoCodeDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.PromoCodeDialog"
+        android:label="PromoCodeDialog"
+        tools:layout="@layout/dialog_promo_code" />
+
+    <dialog
+        android:id="@+id/cancelDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.CancelDialog"
+        android:label="CancelDialog"
+        tools:layout="@layout/dialog_cancel">
+        <argument
+            android:name="orderId"
+            app:argType="string" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/projectsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.projects.ProjectsFragment"
+        android:label="ProjectsFragment"
+        tools:layout="@layout/fragment_projects" />
+
+    <fragment
+        android:id="@+id/searchPropertyFragment"
+        android:name="eramo.amtalek.presentation.ui.main.searchProperty.SearchPropertyFragment"
+        android:label="SearchPropertyFragment"
+        tools:layout="@layout/fragment_search_property" />
+
+    <fragment
+        android:id="@+id/searchPropertyResultFragment"
+        android:name="eramo.amtalek.presentation.ui.main.searchProperty.SearchPropertyResultFragment"
+        android:label="SearchPropertyResultFragment"
+        tools:layout="@layout/fragment_search_property_result">
+        <argument
+            android:name="notificationDto"
+            app:argType="eramo.amtalek.data.remote.dto.NotificationDto" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/datePickerDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.DatePickerDialog"
+        android:label="DatePickerDialog"
+        tools:layout="@layout/dialog_date_picker">
+        <deepLink
+            android:id="@+id/deepLink4"
+            app:uri="android-app://eramo.amtalek/datePickerDialog" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/brokersDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragment"
+        android:label="BrokersDetailsFragment"
+        tools:layout="@layout/fragment_broker_details" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.news.NewsDetailsFragment"
+        android:label="NewsDetailsFragment"
+        tools:layout="@layout/fragment_news_details" />
+    <fragment
+        android:id="@+id/projectDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.projects.ProjectDetailsFragment"
+        android:label="ProjectDetailsFragment"
+        tools:layout="@layout/fragment_project_details" />
+    <fragment
+        android:id="@+id/sliderZoomFragment"
+        android:name="eramo.amtalek.presentation.ui.SliderZoomFragment"
+        android:label="SliderZoomFragment"
+        tools:layout="@layout/fragment_slider_zoom">
+        <argument
+            android:name="images"
+            android:defaultValue="@null"
+            app:argType="eramo.amtalek.domain.model.dummy.AlbumModel[]"
+            app:nullable="true" />
+        <argument
+            android:name="position"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="imageUri"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/myOffersFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.MyOffersFragment"
+        android:label="MyOffersFragment"
+        tools:layout="@layout/fragment_my_offers" />
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.FavouritesFragment"
+        android:label="FavouritesFragment"
+        tools:layout="@layout/fragment_favourites" />
+    <fragment
+        android:id="@+id/addPropertyFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.AddPropertyFragment"
+        android:label="AddPropertyFragment"
+        tools:layout="@layout/fragment_add_property" />
+    <fragment
+        android:id="@+id/propertyDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.property.PropertyDetailsFragment"
+        android:label="PropertyDetailsFragment"
+        tools:layout="@layout/fragment_property_details" />
+    <dialog
+        android:id="@+id/commentDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.CommentDialog"
+        android:label="CommentDialog"
+        tools:layout="@layout/dialog_comment" />
+    <fragment
+        android:id="@+id/allPropertiesFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.property.AllPropertiesFragment"
+        android:label="AllPropertiesFragment"
+        tools:layout="@layout/fragment_all_properties" />
+    <dialog
+        android:id="@+id/searchDialog"
+        android:name="eramo.amtalek.presentation.ui.dialog.SearchDialog"
+        android:label="SearchDialog"
+        tools:layout="@layout/dialog_search" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="eramo.amtalek.presentation.ui.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.notification.NotificationFragment"
+        android:label="NotificationFragment"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/notificationInfoFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.notification.NotificationInfoFragment"
+        android:label="NotificationInfoFragment"
+        tools:layout="@layout/fragment_notification_info" />
+</navigation>

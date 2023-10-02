@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_120sdp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@color/amtalek_blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_logo_white"
+        app:layout_constraintBottom_toBottomOf="@+id/navHeader_iv_back"
+        app:layout_constraintStart_toStartOf="@+id/navHeader_iv_profile"
+        app:layout_constraintTop_toTopOf="@+id/navHeader_iv_back" />
+
+    <ImageView
+        android:id="@+id/navHeader_iv_back"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:contentDescription="@null"
+        android:padding="@dimen/_6sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left_white"
+        app:tint="@color/white" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/navHeader_iv_profile"
+        android:layout_width="@dimen/_74sdp"
+        android:layout_height="@dimen/_74sdp"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/pic_avatar"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/_3sdp"
+        app:civ_circle_background_color="@color/gray_low"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+    <TextView
+        android:id="@+id/navHeader_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:fontFamily="@font/montserratregular"
+        android:text="@string/guest_mode"
+        android:textColor="@color/amtalek_blue"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/navHeader_iv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/navHeader_iv_profile" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/navHeader_iv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_name"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/navHeader_tv_myAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/my_account"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_person"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/navHeader_tv_projects"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/projects"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_projects"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_myAccount"
+                app:drawableTint="@color/black" />
+
+            <TextView
+                android:id="@+id/navHeader_tv_myPropertiesOffer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/my_properties_offer"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_my_offers"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_projects" />
+
+            <TextView
+                android:id="@+id/navHeader_tv_favProperties"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/my_favourite_properties"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_heart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_myPropertiesOffer" />
+
+            <TextView
+                android:id="@+id/navHeader_tv_addProperty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/add_property"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_add_property"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_favProperties" />
+
+            <TextView
+                android:id="@+id/navHeader_tv_language"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="end"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/language"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_language"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_addProperty" />
+
+            <TextView
+                android:id="@+id/navHeader_tv_logout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:gravity="center_vertical"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/logout"
+                android:textColor="@color/black_low"
+                android:textSize="@dimen/_12ssp"
+                app:drawableStartCompat="@drawable/ic_logout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/navHeader_tv_language" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

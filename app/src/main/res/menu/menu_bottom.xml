@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/newsFragment"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news" />
+
+    <item
+        android:id="@+id/projectsFragment"
+        android:icon="@drawable/ic_projects"
+        android:title="@string/projects" />
+
+    <item
+        android:id="@+id/homeFragment"
+        android:title="" />
+
+    <item
+        android:id="@+id/searchPropertyFragment"
+        android:icon="@drawable/ic_search_property"
+        android:title="@string/search_property" />
+
+    <item
+        android:id="@+id/brokersFragment"
+        android:icon="@drawable/ic_brokers"
+        android:title="@string/our_brokers" />
+
+</menu>
