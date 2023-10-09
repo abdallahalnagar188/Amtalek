@@ -58,24 +58,31 @@ object Dummy {
         list.add(
             OnBoardingModel(
                 splashTitle = "",
-                splashDetails = "We offer you the best and most comfortable properties To live a better life for you and your family.",
+                splashDetails = "We offer you the best and most comfortable properties To live a better life for you and your family",
                 imgRes = R.drawable.pic_onboarding_one
             )
         )
         list.add(
             OnBoardingModel(
-                splashTitle = "Comfortable",
-                splashDetails = "We bring consumers the best, most comfortable products, so that users can enjoy the best way.",
+                splashTitle = "",
+                splashDetails = "Move around and choose among many distinctive properties that suit your needs at the best price",
                 imgRes = R.drawable.pic_onboarding_two
             )
         )
         list.add(
             OnBoardingModel(
-                splashTitle = "Comfortable",
-                splashDetails = "We bring consumers the best, most comfortable products, so that users can enjoy the best way.",
+                splashTitle = "",
+                splashDetails = "We have provided you with the possibility of investing in your property, selling or renting and find the best return for you",
                 imgRes = R.drawable.pic_onboarding_three
             )
         )
+//        list.add(
+//            OnBoardingModel(
+//                splashTitle = "",
+//                splashDetails = "We have provided you with the possibility of investing in your property, selling or renting and find the best return for you",
+//                imgRes = R.drawable.pic_onboarding_three
+//            )
+//        )
         return list
     }
 

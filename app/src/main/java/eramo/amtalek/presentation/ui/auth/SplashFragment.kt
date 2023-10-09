@@ -17,11 +17,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        StatusBarUtil.transparent()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+//        StatusBarUtil.transparent()
 
         lifecycleScope.launchWhenResumed {
-//            if(!UserUtil.hasDeepLink()) delay(2500L)
-            if(!UserUtil.hasDeepLink()) delay(200L)
+            if(!UserUtil.hasDeepLink()) delay(2500L)
+//            if(!UserUtil.hasDeepLink()) delay(200L)
 
             val shouldNavigateToMain = UserUtil.isRememberUser() || !UserUtil.isFirstTime()
             if (shouldNavigateToMain) {

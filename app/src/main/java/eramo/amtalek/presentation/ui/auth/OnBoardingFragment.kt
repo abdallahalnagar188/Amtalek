@@ -45,17 +45,17 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
 
         binding.apply {
             onBoardingBtnNext.setOnClickListener {
-                if (binding.slider.currentItem < 2)
-                    binding.slider.currentItem = binding.slider.currentItem + 1
-                else navigateToMain()
+//                if (binding.slider.currentItem < 2)
+                binding.slider.currentItem = binding.slider.currentItem + 1
+//                else navigateToMain()
             }
 
-//            onBoardingTvSkip.setOnClickListener { navigateToMain() }
+//            onBoardingBtnStartNow.setOnClickListener { navigateToMain() }
 
             indicatorView.apply {
 //                setSliderWidth(resources.getDimension(com.intuit.ssp.R.dimen._95ssp))
 //                setSliderHeight(resources.getDimension(com.intuit.ssp.R.dimen._2ssp))
-                setSliderWidth((resources.displayMetrics.widthPixels.toFloat() / 3f) - 40f)
+                setSliderWidth((resources.displayMetrics.widthPixels.toFloat() / (Dummy.dummyBoard().size.toFloat())) - 40f)
                 setSliderHeight(resources.getDimension(com.intuit.ssp.R.dimen._2ssp))
                 setSlideMode(IndicatorSlideMode.WORM)
                 setIndicatorStyle(IndicatorStyle.ROUND_RECT)
@@ -67,7 +67,7 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getOnBoarding()
+//        viewModel.getOnBoarding()
     }
 
     private fun fetchLatestDealsState() {
@@ -115,10 +115,12 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
                 }
 
                 override fun onPageSelected(position: Int) {
-                    if (position == 2) {
-                        binding.onBoardingBtnNext.visibility = View.VISIBLE
+                    if (position == (Dummy.dummyBoard().size -1)) {
+                        binding.onBoardingBtnNext.visibility = View.INVISIBLE
+                        binding.onBoardingBtnStartNow.visibility = View.VISIBLE
                     } else {
-//                        binding.onBoardingBtnNext.visibility = View.INVISIBLE
+                        binding.onBoardingBtnNext.visibility = View.VISIBLE
+                        binding.onBoardingBtnStartNow.visibility = View.INVISIBLE
                     }
                 }
 

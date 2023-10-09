@@ -394,6 +394,7 @@
     <string name="currency">Currency</string>
     <string name="min_bathrooms">Min bathrooms</string>
     <string name="min_beds">Min beds</string>
+    <string name="start_now">Start now</string>
 
 
 </resources>

@@ -393,5 +393,6 @@
     <string name="location">الموقع</string>
     <string name="properties">العقارات</string>
     <string name="latest">الأحدث</string>
+    <string name="start_now">إبدأ اﻷن</string>
 
 </resources>

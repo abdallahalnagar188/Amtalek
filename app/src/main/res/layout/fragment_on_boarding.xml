@@ -9,13 +9,15 @@
 
     <com.zhpan.indicator.IndicatorView
         android:id="@+id/indicator_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_50sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:vpi_slider_checked_color="@color/amtalek_blue"
         app:vpi_slider_normal_color="#D9D9D9" />
 
@@ -25,42 +27,42 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_45sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/indicator_view" />
 
     <Button
         android:id="@+id/onBoarding_btn_next"
-        android:layout_width="@dimen/_38sdp"
-        android:layout_height="@dimen/_38sdp"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_25sdp"
         android:background="@drawable/button_background_sqare"
         android:fontFamily="@font/montserratregular"
         android:gravity="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:layout_marginBottom="@dimen/_25sdp"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintStart_toStartOf="@id/slider"
-        app:layout_constraintEnd_toEndOf="@id/slider"
         app:layout_constraintBottom_toBottomOf="@id/slider"
-        />
+        app:layout_constraintEnd_toEndOf="@id/slider"
+        app:layout_constraintStart_toStartOf="@id/slider" />
 
     <Button
-        android:id="@+id/onBoarding_btn_get_started"
-        android:layout_width="wrap_content"
+        android:id="@+id/onBoarding_btn_start_now"
+        android:layout_width="@dimen/_110sdp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_25sdp"
         android:background="@drawable/button_background"
         android:fontFamily="@font/montserratregular"
         android:gravity="center"
+        android:visibility="invisible"
+        android:text="@string/start_now"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:layout_marginBottom="@dimen/_25sdp"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintStart_toStartOf="@id/slider"
-        app:layout_constraintEnd_toEndOf="@id/slider"
         app:layout_constraintBottom_toBottomOf="@id/slider"
-        />
+        app:layout_constraintEnd_toEndOf="@id/slider"
+        app:layout_constraintStart_toStartOf="@id/slider" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
