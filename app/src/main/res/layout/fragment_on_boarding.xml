@@ -1,83 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:layoutDirection="locale">
+
+    <com.zhpan.indicator.IndicatorView
+        android:id="@+id/indicator_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/slider"
+        app:vpi_slider_checked_color="@color/amtalek_blue"
+        app:vpi_slider_normal_color="#D9D9D9" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slider"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_16sdp"
-        app:layout_constraintBottom_toTopOf="@+id/dots"
+        android:layout_marginTop="@dimen/_45sdp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
-
-    <LinearLayout
-        android:id="@+id/dots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_16sdp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/onBoarding_btn_next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0">
-
-        <ImageView
-            android:id="@+id/dotZero"
-            android:layout_width="@dimen/_6sdp"
-            android:layout_height="@dimen/_6sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/shape_red_low" />
-
-        <ImageView
-            android:id="@+id/dotOne"
-            android:layout_width="@dimen/_6sdp"
-            android:layout_height="@dimen/_6sdp"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/shape_red_low" />
-
-        <ImageView
-            android:id="@+id/dotTwo"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_6sdp"
-            android:contentDescription="@null"
-            android:src="@drawable/shape_orange" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/indicator_view" />
 
     <Button
         android:id="@+id/onBoarding_btn_next"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_36sdp"
-        android:layout_marginHorizontal="@dimen/_4sdp"
-        android:background="@drawable/shape_blue"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:background="@drawable/button_background_sqare"
         android:fontFamily="@font/montserratregular"
-        android:text="@string/next"
+        android:gravity="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/_25sdp"
         android:textSize="@dimen/_14ssp"
-        app:layout_constraintBottom_toTopOf="@+id/onBoarding_tv_skip"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+        app:layout_constraintStart_toStartOf="@id/slider"
+        app:layout_constraintEnd_toEndOf="@id/slider"
+        app:layout_constraintBottom_toBottomOf="@id/slider"
+        />
 
-    <TextView
-        android:id="@+id/onBoarding_tv_skip"
+    <Button
+        android:id="@+id/onBoarding_btn_get_started"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
         android:fontFamily="@font/montserratregular"
-        android:padding="@dimen/_14sdp"
-        android:text="@string/skip"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="@+id/onBoarding_btn_next"
-        app:layout_constraintStart_toStartOf="@+id/onBoarding_btn_next" />
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintStart_toStartOf="@id/slider"
+        app:layout_constraintEnd_toEndOf="@id/slider"
+        app:layout_constraintBottom_toBottomOf="@id/slider"
+        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -105,5 +88,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".05" />
+        app:layout_constraintGuide_begin="43dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

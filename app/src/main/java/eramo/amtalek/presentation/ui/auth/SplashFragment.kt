@@ -20,7 +20,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         StatusBarUtil.transparent()
 
         lifecycleScope.launchWhenResumed {
-            if(!UserUtil.hasDeepLink()) delay(2500L)
+//            if(!UserUtil.hasDeepLink()) delay(2500L)
+            if(!UserUtil.hasDeepLink()) delay(200L)
 
             val shouldNavigateToMain = UserUtil.isRememberUser() || !UserUtil.isFirstTime()
             if (shouldNavigateToMain) {

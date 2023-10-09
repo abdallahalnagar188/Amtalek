@@ -3,14 +3,14 @@ package eramo.amtalek.presentation.ui.auth
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentOnBoardingBinding
@@ -39,8 +39,8 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiCancellation { viewModel.cancelRequest() }
-        StatusBarUtil.transparent()
-        addDots(0)
+//        StatusBarUtil.transparent()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupSlider()
 
         binding.apply {
@@ -50,7 +50,17 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
                 else navigateToMain()
             }
 
-            onBoardingTvSkip.setOnClickListener { navigateToMain() }
+//            onBoardingTvSkip.setOnClickListener { navigateToMain() }
+
+            indicatorView.apply {
+//                setSliderWidth(resources.getDimension(com.intuit.ssp.R.dimen._95ssp))
+//                setSliderHeight(resources.getDimension(com.intuit.ssp.R.dimen._2ssp))
+                setSliderWidth((resources.displayMetrics.widthPixels.toFloat() / 3f) - 40f)
+                setSliderHeight(resources.getDimension(com.intuit.ssp.R.dimen._2ssp))
+                setSlideMode(IndicatorSlideMode.WORM)
+                setIndicatorStyle(IndicatorStyle.ROUND_RECT)
+                setupWithViewPager(binding.slider)
+            }
         }
 //        fetchLatestDealsState()
     }
@@ -68,13 +78,16 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
                         LoadingDialog.dismissDialog()
                         slideAdapter.setScreens(state.data ?: emptyList())
                     }
+
                     is UiState.Error -> {
                         LoadingDialog.dismissDialog()
                         showToast(state.message!!.asString(requireContext()))
                     }
+
                     is UiState.Loading -> {
                         LoadingDialog.showDialog()
                     }
+
                     else -> Unit
                 }
             }
@@ -102,13 +115,10 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
                 }
 
                 override fun onPageSelected(position: Int) {
-                    addDots(position)
                     if (position == 2) {
-                        binding.onBoardingBtnNext.text = getString(R.string.txt_get_start)
-                        binding.onBoardingTvSkip.visibility = View.INVISIBLE
+                        binding.onBoardingBtnNext.visibility = View.VISIBLE
                     } else {
-                        binding.onBoardingBtnNext.text = getString(R.string.next)
-                        binding.onBoardingTvSkip.visibility = View.VISIBLE
+//                        binding.onBoardingBtnNext.visibility = View.INVISIBLE
                     }
                 }
 
@@ -117,54 +127,5 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
         }
     }
 
-    private fun addDots(currentPosition: Int) {
-        var lp: ViewGroup.LayoutParams
-        binding.apply {
-            dotZero.apply {
-                setImageResource(R.drawable.shape_red_low)
-                lp = this.layoutParams
-                lp.height = 14
-                lp.width = 14
-                this.layoutParams = lp
-            }
-            dotOne.apply {
-                setImageResource(R.drawable.shape_red_low)
-                lp = this.layoutParams
-                lp.height = 14
-                lp.width = 14
-                this.layoutParams = lp
-            }
-            dotTwo.apply {
-                setImageResource(R.drawable.shape_red_low)
-                lp = this.layoutParams
-                lp.height = 14
-                lp.width = 14
-                this.layoutParams = lp
-            }
 
-            when (currentPosition) {
-                0 -> dotZero.apply {
-                    setImageResource(R.drawable.shape_orange)
-                    lp = this.layoutParams
-                    lp.height = 14
-                    lp.width = 28
-                    this.layoutParams = lp
-                }
-                1 -> dotOne.apply {
-                    setImageResource(R.drawable.shape_orange)
-                    lp = this.layoutParams
-                    lp.height = 14
-                    lp.width = 28
-                    this.layoutParams = lp
-                }
-                2 -> dotTwo.apply {
-                    setImageResource(R.drawable.shape_orange)
-                    lp = this.layoutParams
-                    lp.height = 14
-                    lp.width = 28
-                    this.layoutParams = lp
-                }
-            }
-        }
-    }
 }

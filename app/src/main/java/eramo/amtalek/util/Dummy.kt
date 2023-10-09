@@ -53,12 +53,12 @@ object Dummy {
         return list
     }
 
-    fun dummyBoard(): ArrayList<OnBoardingModel> {
+    fun     dummyBoard(): ArrayList<OnBoardingModel> {
         val list = ArrayList<OnBoardingModel>()
         list.add(
             OnBoardingModel(
-                splashTitle = "Comfortable",
-                splashDetails = "We bring consumers the best, most comfortable products, so that users can enjoy the best way.",
+                splashTitle = "",
+                splashDetails = "We offer you the best and most comfortable properties To live a better life for you and your family.",
                 imgRes = R.drawable.pic_onboarding_one
             )
         )
