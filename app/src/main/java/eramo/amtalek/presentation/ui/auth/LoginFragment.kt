@@ -41,26 +41,24 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
         super.registerApiCancellation { viewModel.cancelRequest() }
         Log.d(TAG, proceedRequire.toString())
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.gray_low)
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         binding.apply {
-            cvBack.setOnClickListener (this@LoginFragment)
             FLoginTvSignUp.setOnClickListener(this@LoginFragment)
-            loginBtnLogin.setOnClickListener(this@LoginFragment)
-            loginTvForgot.setOnClickListener(this@LoginFragment)
+            FLoginBtnLogin.setOnClickListener(this@LoginFragment)
+            FLoginTvForgotPassword.setOnClickListener(this@LoginFragment)
         }
         fetchLoginState()
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.cv_back -> requireActivity().finish()
 
             R.id.FLogin_tv_signUp -> findNavController().navigate(R.id.signUpFragment)
 
-            R.id.login_tv_forgot -> findNavController().navigate(R.id.forgetPasswordFragment)
+            R.id.FLogin_tv_forgot_password -> findNavController().navigate(R.id.forgetPasswordFragment)
 
-            R.id.login_btn_login -> {
+            R.id.FLogin_btn_login -> {
 //                setupLogin()
                 findNavController().navigate(
                     R.id.nav_main, null,
@@ -74,25 +72,25 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
     }
 
     private fun setupLogin() {
-        binding.apply {
-            val phone = loginEtPhone.text.toString().trim()
-            val password = loginEtPassword.text.toString().trim()
-
-            if (TextUtils.isEmpty(phone)) {
-                itlPhone.error = getString(R.string.txt_phone_is_required)
-                return
-            } else if (!PhoneNumberUtils.isGlobalPhoneNumber(phone)) {
-                itlPhone.error = getString(R.string.txt_please_enter_a_valid_phone_number)
-                return
-            } else itlPhone.error = null
-
-            if (TextUtils.isEmpty(password)) {
-                itlPassword.error = getString(R.string.txt_password_is_required)
-                return
-            } else itlPassword.error = null
-
-            viewModel.loginApp(phone, password, true)
-        }
+//        binding.apply {
+//            val phone = loginEtPhone.text.toString().trim()
+//            val password = loginEtPassword.text.toString().trim()
+//
+//            if (TextUtils.isEmpty(phone)) {
+//                itlPhone.error = getString(R.string.txt_phone_is_required)
+//                return
+//            } else if (!PhoneNumberUtils.isGlobalPhoneNumber(phone)) {
+//                itlPhone.error = getString(R.string.txt_please_enter_a_valid_phone_number)
+//                return
+//            } else itlPhone.error = null
+//
+//            if (TextUtils.isEmpty(password)) {
+//                itlPassword.error = getString(R.string.txt_password_is_required)
+//                return
+//            } else itlPassword.error = null
+//
+//            viewModel.loginApp(phone, password, true)
+//        }
     }
 
     private fun fetchLoginState() {

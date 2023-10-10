@@ -53,10 +53,10 @@
     <string name="browse_all_categories">تصفح جميع الفئات</string>
     <string name="password">كلمه السر</string>
     <string name="remember_me">تذكرنى</string>
-    <string name="forgot_password">هل نسيت كلمة السر؟</string>
+    <string name="login_did_you_forgot_password">هل نسيت كلمة المرور ؟</string>
     <string name="or_login_using">أو تسجيل الدخول باستخدام</string>
-    <string name="don_t_have_an_account">ليس لديك حساب</string>
-    <string name="sign_up">إنشاء حساب</string>
+    <string name="don_t_have_an_account">اذا كنت لاتمتلك حساب : </string>
+    <string name="sign_up">إنشئ حساب</string>
     <string name="sign_upl">إنشاء حساب</string>
     <string name="edit_personal_details">تعديل التفاصيل الشخصية</string>
     <string name="change_password">تغيير كلمة السر</string>
@@ -394,5 +394,8 @@
     <string name="properties">العقارات</string>
     <string name="latest">الأحدث</string>
     <string name="start_now">إبدأ اﻷن</string>
+    <string name="log_in_to_your_account">تسجيل الدخول إلى حسابك</string>
+    <string name="hint_e_mail">البريد الإليكترونى</string>
+    <string name="hint_password">كلمة المرور</string>
 
 </resources>

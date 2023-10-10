@@ -56,9 +56,9 @@
     <string name="browse_all_categories">Browse All Categories</string>
     <string name="password">Password</string>
     <string name="remember_me">Remember me</string>
-    <string name="forgot_password">Forgot password?</string>
+    <string name="login_did_you_forgot_password">Did you forgot your password ?</string>
     <string name="or_login_using">Or login using</string>
-    <string name="don_t_have_an_account">Don\'t have an account</string>
+    <string name="don_t_have_an_account">If you do not have an account : </string>
     <string name="sign_up">Sign up</string>
     <string name="sign_upl">SIGN UP</string>
     <string name="edit_personal_details">Edit personal details</string>
@@ -395,6 +395,9 @@
     <string name="min_bathrooms">Min bathrooms</string>
     <string name="min_beds">Min beds</string>
     <string name="start_now">Start now</string>
+    <string name="log_in_to_your_account">Log in to your account</string>
+    <string name="hint_e_mail">E-mail</string>
+    <string name="hint_password">Password</string>
 
 
 </resources>

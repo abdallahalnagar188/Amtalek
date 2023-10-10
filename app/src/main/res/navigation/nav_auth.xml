@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="eramo.amtalek.presentation.ui.auth.ForgetPasswordFragment"
-        android:label="@string/forgot_password"
+        android:label="@string/login_did_you_forgot_password"
         tools:layout="@layout/fragment_forget_password" />
     <fragment
         android:id="@+id/policyFragment"

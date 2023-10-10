@@ -21,6 +21,7 @@ import eramo.amtalek.presentation.viewmodel.auth.OnBoardingViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import javax.inject.Inject
@@ -51,6 +52,7 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
             }
 
 //            onBoardingBtnStartNow.setOnClickListener { navigateToMain() }
+            onBoardingBtnStartNow.setOnClickListener { findNavController().navigate(R.id.loginFragment,null, navOptionsAnimation()) }
 
             indicatorView.apply {
 //                setSliderWidth(resources.getDimension(com.intuit.ssp.R.dimen._95ssp))

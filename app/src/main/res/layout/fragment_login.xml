@@ -1,113 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fillViewport="true"
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
+    android:paddingHorizontal="@dimen/screen_margin_sides"
+    android:paddingTop="@dimen/screen_margin_headers"
     android:scrollbars="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_back"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            app:cardCornerRadius="@dimen/_16sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        <ImageView
+            android:id="@+id/FLogin_iv_logo"
+            android:layout_width="@dimen/_125sdp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_screen_logo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView3">
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/_8sdp"
-                android:src="@drawable/ic_arrow_left_white"
-                android:contentDescription="@null" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/FLogin_tv_login_to_your_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratsemibold"
-            android:gravity="center"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="@string/log_inl"
-            android:textColor="@color/amtalek_blue"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/FLogin_tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/email"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratbold"
+            android:text="@string/log_in_to_your_account"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/cv_back"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            android:textSize="@dimen/_14ssp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FLogin_iv_logo" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_phone"
+            android:id="@+id/FLogin_til_mail"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FLogin_tv_email">
+            app:layout_constraintTop_toBottomOf="@+id/FLogin_tv_login_to_your_account">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_et_phone"
+                android:id="@+id/FLogin_et_mail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/stroke_black"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_mail"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
+                android:hint="@string/hint_e_mail"
                 android:inputType="textEmailAddress"
-                android:maxLength="30"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/FLogin_tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/password"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/cv_back"
-            app:layout_constraintTop_toBottomOf="@+id/itl_phone" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_password"
+            android:id="@+id/FLogin_itl_password"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="@+id/itl_phone"
-            app:layout_constraintStart_toStartOf="@+id/itl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/FLogin_tv_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FLogin_til_mail"
+            app:passwordToggleDrawable="@drawable/ic_toggle_password"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/gray">
 
@@ -115,55 +87,57 @@
                 android:id="@+id/login_et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/stroke_black"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
+                android:hint="@string/hint_password"
                 android:inputType="textPassword"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/login_tv_forgot"
+            android:id="@+id/FLogin_tv_forgot_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/montserratregular"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:fontFamily="@font/montserratmedium"
             android:gravity="center"
-            android:minHeight="48dp"
-            android:text="@string/forgot_password"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="@+id/itl_password"
-            app:layout_constraintStart_toStartOf="@+id/itl_password"
-            app:layout_constraintTop_toBottomOf="@+id/itl_password" />
+            android:minHeight="38dp"
+            android:text="@string/login_did_you_forgot_password"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FLogin_itl_password" />
 
         <Button
-            android:id="@+id/login_btn_login"
+            android:id="@+id/FLogin_btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@drawable/shape_blue"
+            android:layout_marginTop="@dimen/_26sdp"
+            android:background="@drawable/button_background_long"
             android:fontFamily="@font/montserratregular"
             android:text="@string/sign_in"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="@+id/itl_phone"
-            app:layout_constraintStart_toStartOf="@+id/itl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/login_tv_forgot" />
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FLogin_tv_forgot_password" />
 
         <LinearLayout
             android:id="@+id/FLogin_lin_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_8sdp"
-            app:layout_constraintVertical_bias="0"
+            android:layout_marginBottom="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_btn_login">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/tv_doNotHave"
@@ -172,7 +146,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:text="@string/don_t_have_an_account"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
             <TextView
                 android:id="@+id/FLogin_tv_signUp"
@@ -182,7 +156,7 @@
                 android:fontFamily="@font/montserratbold"
                 android:text="@string/sign_up"
                 android:textColor="@color/amtalek_blue"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>
 

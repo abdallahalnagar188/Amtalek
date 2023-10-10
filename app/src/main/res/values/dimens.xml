@@ -3,4 +3,15 @@
     <dimen name="design_fab_image_size" tools:override="true">56dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">10sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">10sp</dimen>
+
+    <!-- Fragments -->
+    <dimen name="screen_margin_sides" >@dimen/_16sdp</dimen>
+    <dimen name="screen_margin_headers" >@dimen/_33sdp</dimen>
+
+    <!-- Edit Texts -->
+    <dimen name="edit_text_margin_top" >@dimen/_22sdp</dimen>
+    <dimen name="edit_text_height" >@dimen/_46sdp</dimen>
+
+    <!-- Texts -->
+    <dimen name="text_margin" >@dimen/_3sdp</dimen>
 </resources>
