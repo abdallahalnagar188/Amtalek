@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootParent"
-    android:background="@drawable/shape_white"
+    android:background="@drawable/edittext_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/lin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="@dimen/_4sdp"
+        android:background="@drawable/edittext_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +45,9 @@
             android:layout_height="@dimen/_18sdp"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_3sdp"
             app:srcCompat="@drawable/ic_arrow_down"
-            app:tint="@color/amtalek_blue_dark"
+            app:tint="@color/text_gray"
             android:contentDescription="@null"/>
     </LinearLayout>
 

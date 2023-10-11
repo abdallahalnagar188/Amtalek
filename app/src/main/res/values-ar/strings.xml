@@ -35,7 +35,6 @@
     <string name="contact_us_directly">اتصل بنا مباشرة</string>
     <string name="full_name">الاسم بالكامل</string>
     <string name="email">بريد الالكتروني</string>
-    <string name="mobile_number">رقم الهاتف المحمول</string>
     <string name="subject">الموضوع</string>
     <string name="message">الرسالة</string>
     <string name="i_am_not_a_robot">انا لست رجل الي</string>
@@ -51,7 +50,6 @@
     <string name="all_products">كل المنتجات</string>
     <string name="categories">الفئات</string>
     <string name="browse_all_categories">تصفح جميع الفئات</string>
-    <string name="password">كلمه السر</string>
     <string name="remember_me">تذكرنى</string>
     <string name="login_did_you_forgot_password">هل نسيت كلمة المرور ؟</string>
     <string name="or_login_using">أو تسجيل الدخول باستخدام</string>
@@ -95,8 +93,7 @@
     <string name="results">النتائج</string>
     <string name="s_product">%s منتجات</string>
     <string name="s_halls">%s قاعات</string>
-    <string name="re_password">إعادة كلمة المرور</string>
-    <string name="agree_to">الموافقة على</string>
+    <string name="agree_to">أوافق على</string>
     <string name="or_signup_using">أو الاشتراك باستخدام</string>
     <string name="have_an_account">هل لديك حساب؟</string>
     <string name="installationl">تثبيت :</string>
@@ -393,9 +390,22 @@
     <string name="location">الموقع</string>
     <string name="properties">العقارات</string>
     <string name="latest">الأحدث</string>
+
+    <!-- Auth -->
     <string name="start_now">إبدأ اﻷن</string>
+
     <string name="log_in_to_your_account">تسجيل الدخول إلى حسابك</string>
-    <string name="hint_e_mail">البريد الإليكترونى</string>
-    <string name="hint_password">كلمة المرور</string>
+    <string name="e_mail">البريد الإليكترونى</string>
+    <string name="password">كلمة المرور</string>
+    <string name="re_password">تأكيد كلمة المرور</string>
+
+
+    <string name="create_your_account_easily">إنشئ حسابك بسهولة</string>
+    <string name="first_name">الإسم الاول</string>
+    <string name="last_name">الإسم الثاني</string>
+    <string name="mobile_number">رقم الهاتف</string>
+    <string name="gender">الفئة:</string>
+    <string name="register_now">سجل الآن</string>
+    <string name="if_you_already_have_an_account">اذا كنت تمتلك حساب بالفعل :</string>
 
 </resources>

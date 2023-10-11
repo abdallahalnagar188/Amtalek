@@ -9,7 +9,6 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
     android:paddingHorizontal="@dimen/screen_margin_sides"
-    android:paddingTop="@dimen/screen_margin_headers"
     android:scrollbars="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +19,7 @@
             android:id="@+id/FLogin_iv_logo"
             android:layout_width="@dimen/_125sdp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_margin_headers"
             android:src="@drawable/splash_screen_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -60,7 +60,7 @@
                 android:drawableStart="@drawable/ic_mail"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
-                android:hint="@string/hint_e_mail"
+                android:hint="@string/e_mail"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
@@ -79,7 +79,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FLogin_til_mail"
-            app:passwordToggleDrawable="@drawable/ic_toggle_password"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/gray">
 
@@ -91,7 +90,7 @@
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
-                android:hint="@string/hint_password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"

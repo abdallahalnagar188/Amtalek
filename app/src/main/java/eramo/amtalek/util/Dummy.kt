@@ -4,6 +4,7 @@ import android.content.Context
 import eramo.amtalek.R
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
+import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -53,7 +54,7 @@ object Dummy {
         return list
     }
 
-    fun     dummyBoard(): ArrayList<OnBoardingModel> {
+    fun dummyBoard(): ArrayList<OnBoardingModel> {
         val list = ArrayList<OnBoardingModel>()
         list.add(
             OnBoardingModel(
@@ -108,6 +109,26 @@ object Dummy {
                 headers = headers
             )
         )
+        return list
+    }
+
+    fun dummyCountriesList():List<CountriesSpinnerModel>{
+        val list = mutableListOf<CountriesSpinnerModel>()
+
+        list.add(CountriesSpinnerModel("Country","https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"))
+        list.add(CountriesSpinnerModel("Egypt","https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"))
+        list.add(CountriesSpinnerModel("KSA","https://cdn.britannica.com/79/5779-050-46C999AF/Flag-Saudi-Arabia.jpg"))
+
+        return list
+    }
+
+    fun dummyCitiesList():List<CountriesSpinnerModel>{
+        val list = mutableListOf<CountriesSpinnerModel>()
+
+        list.add(CountriesSpinnerModel("City","https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+        list.add(CountriesSpinnerModel("Cairo","https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+        list.add(CountriesSpinnerModel("Alex","https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+
         return list
     }
 

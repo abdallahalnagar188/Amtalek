@@ -38,7 +38,6 @@
     <string name="contact_us_directly">Contact us directly</string>
     <string name="full_name">Full name</string>
     <string name="email">Email</string>
-    <string name="mobile_number">Mobile number</string>
     <string name="subject">Subject</string>
     <string name="message">Message</string>
     <string name="i_am_not_a_robot">I am not a robot</string>
@@ -54,7 +53,6 @@
     <string name="all_products">All PRODUCTS</string>
     <string name="categories">Categories</string>
     <string name="browse_all_categories">Browse All Categories</string>
-    <string name="password">Password</string>
     <string name="remember_me">Remember me</string>
     <string name="login_did_you_forgot_password">Did you forgot your password ?</string>
     <string name="or_login_using">Or login using</string>
@@ -80,7 +78,7 @@
     <string name="extras_fees">Extra Fees:</string>
     <string name="pay_type">Pay Type:</string>
     <string name="cancel_order">Cancel Order</string>
-    <string name="terms_and_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="terms_and_conditions"><![CDATA[terms and conditions]]></string>
     <string name="confirm_and_finish"><![CDATA[Confirm & Finish]]></string>
     <string name="start">Start</string>
     <string name="s_dirham">%s DIRHAM</string>
@@ -100,8 +98,7 @@
     <string name="results">Results</string>
     <string name="s_product">%s Products</string>
     <string name="s_halls">%s Halls</string>
-    <string name="re_password">Re password</string>
-    <string name="agree_to">Agree to</string>
+    <string name="agree_to">I agree to the</string>
     <string name="or_signup_using">Or signup using</string>
     <string name="have_an_account">Have an account?</string>
     <string name="installationl">Installation:</string>
@@ -394,10 +391,21 @@
     <string name="currency">Currency</string>
     <string name="min_bathrooms">Min bathrooms</string>
     <string name="min_beds">Min beds</string>
-    <string name="start_now">Start now</string>
-    <string name="log_in_to_your_account">Log in to your account</string>
-    <string name="hint_e_mail">E-mail</string>
-    <string name="hint_password">Password</string>
 
+    <!-- Auth -->
+    <string name="start_now">Start now</string>
+
+    <string name="log_in_to_your_account">Log in to your account</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="re_password">RE-Password</string>
+
+    <string name="create_your_account_easily">Create your account easily</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="gender">Gender</string>
+    <string name="register_now">Confirm</string>
+    <string name="if_you_already_have_an_account">If you already have an account :</string>
 
 </resources>

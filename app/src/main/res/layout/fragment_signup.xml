@@ -1,184 +1,436 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fillViewport="true"
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
+    android:paddingHorizontal="@dimen/screen_margin_sides"
     android:scrollbars="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_back"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            app:cardCornerRadius="@dimen/_16sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        <ImageView
+            android:id="@+id/FSignUp_iv_logo"
+            android:layout_width="@dimen/_125sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/screen_margin_headers"
+            android:src="@drawable/splash_screen_logo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView3">
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/_8sdp"
-                android:src="@drawable/ic_arrow_left_white"
-                android:contentDescription="@null" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/FSignUp_tv_create_your_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratsemibold"
-            android:gravity="center"
-            android:paddingVertical="@dimen/_8sdp"
-            android:text="@string/sign_up"
-            android:textColor="@color/amtalek_blue"
-            android:textSize="@dimen/_16ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/FSignup_tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/email"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratbold"
+            android:text="@string/create_your_account_easily"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/cv_back"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            android:textSize="@dimen/_14ssp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_iv_logo" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_phone"
+            android:id="@+id/FSignUp_til_first_name"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginEnd="@dimen/_6sdp"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/FSignUp_til_last_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FSignup_tv_email">
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_tv_create_your_account">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_et_phone"
+                android:id="@+id/FSignUp_et_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_avatar"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
+                android:hint="@string/first_name"
                 android:inputType="textEmailAddress"
-                android:maxLength="30"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/FSignup_tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/password"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/cv_back"
-            app:layout_constraintTop_toBottomOf="@+id/itl_phone" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_password"
+            android:id="@+id/FSignUp_til_last_name"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="@+id/itl_phone"
-            app:layout_constraintStart_toStartOf="@+id/itl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/FSignup_tv_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/FSignUp_til_first_name"
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_tv_create_your_account">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/FSignUp_et_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_avatar"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/last_name"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FSignUp_til_mobile_number"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratregular"
+            android:textColorHint="@color/gray"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_first_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/FSignUp_et_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_mobile_number"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/mobile_number"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FSignUp_til_email"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratregular"
+            android:textColorHint="@color/gray"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_mobile_number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/FSignUp_et_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_mail"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/e_mail"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/FSignUp_itl_password"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratregular"
+            android:textColorHint="@color/gray"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_til_email"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_et_password"
+                android:id="@+id/FSignUp_et_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
+                android:hint="@string/password"
                 android:inputType="textPassword"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/FSignup_tv_rePassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/re_password"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/cv_back"
-            app:layout_constraintTop_toBottomOf="@+id/itl_password" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_rePassword"
+            android:id="@+id/FSignUp_itl_re_password"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="@+id/itl_phone"
-            app:layout_constraintStart_toStartOf="@+id/itl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/FSignup_tv_rePassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_itl_password"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_et_rePassword"
+                android:id="@+id/FSignUp_et_re_password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
+                android:hint="@string/re_password"
                 android:inputType="textPassword"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <include
+            layout="@layout/layout_default_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_itl_re_password" />
+
+        <Spinner
+            android:id="@+id/FSignUp_countries_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_itl_re_password" />
+
+        <Spinner
+            android:id="@+id/FSignUp_cities_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_countries_spinner" />
+
+        <View
+            android:id="@+id/FSignUp_gender_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginBottom="@dimen/_50sdp"
+            android:background="@drawable/gender_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_cities_spinner" />
+
+        <ImageView
+            android:id="@+id/FSignUp_iv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:src="@drawable/ic_gender"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
+            app:layout_constraintEnd_toStartOf="@id/FSignUp_tv_gender"
+            app:layout_constraintStart_toStartOf="@id/FSignUp_gender_view"
+            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+
+        <TextView
+            android:id="@+id/FSignUp_tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:fontFamily="@font/montserratmedium"
+            android:text="@string/gender"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
+            app:layout_constraintEnd_toStartOf="@id/FSignUp_iv_gender_avatar_female"
+            app:layout_constraintStart_toEndOf="@+id/FSignUp_iv_gender"
+            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+
+        <ImageView
+            android:id="@+id/FSignUp_iv_gender_avatar_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:src="@drawable/ic_avatar_female"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
+            app:layout_constraintEnd_toStartOf="@+id/FSignUp_tv_gender_avatar_female"
+            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+
+        <TextView
+            android:id="@+id/FSignUp_tv_gender_avatar_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:fontFamily="@font/montserratmedium"
+            android:text="@string/female"
+            android:textAllCaps="true"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
+            app:layout_constraintEnd_toStartOf="@id/FSignUp_gender_divider_view"
+
+            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+
+        <View
+            android:id="@+id/FSignUp_gender_divider_view"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="#D9D9D9"
+            app:layout_constraintBottom_toBottomOf="@+id/FSignUp_gender_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.66"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/FSignUp_gender_view" />
+
+
+        <ImageView
+            android:id="@+id/FSignUp_iv_gender_avatar_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:src="@drawable/ic_avatar"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
+            app:layout_constraintStart_toEndOf="@+id/FSignUp_gender_divider_view"
+            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+
+        <TextView
+            android:id="@+id/FSignUp_tv_gender_avatar_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:fontFamily="@font/montserratmedium"
+            android:text="@string/male"
+            android:textAllCaps="true"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
+            app:layout_constraintStart_toEndOf="@+id/FSignUp_iv_gender_avatar_male"
+            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+
+        <CheckBox
+            android:id="@+id/FSignUp_cb_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_32sdp"
+            android:buttonTint="@color/amtalek_blue"
+            android:fontFamily="@font/montserratregular"
+            android:text="@string/agree_to"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_gender_view" />
+
+        <TextView
+            android:id="@+id/FSignUp_tv_terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:fontFamily="@font/montserratmedium"
+            android:text="@string/terms_and_conditions"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/FSignUp_cb_agree"
+            app:layout_constraintStart_toEndOf="@+id/FSignUp_cb_agree"
+            app:layout_constraintTop_toTopOf="@+id/FSignUp_cb_agree" />
 
         <Button
-            android:id="@+id/signup_btn_next"
+            android:id="@+id/FSignUp_btn_register_now"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:layout_marginVertical="@dimen/_16sdp"
-            app:layout_constraintVertical_bias="0"
-            android:background="@drawable/shape_blue"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/button_background_long"
             android:fontFamily="@font/montserratregular"
-            android:text="@string/next"
+            android:text="@string/register_now"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/FSignUp_lin_login"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_cb_agree" />
+
+        <LinearLayout
+            android:id="@+id/FSignUp_lin_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/itl_phone"
-            app:layout_constraintStart_toStartOf="@+id/itl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/itl_rePassword" />
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_btn_register_now"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tv_doNotHave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/if_you_already_have_an_account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp" />
+
+            <TextView
+                android:id="@+id/FSignUp_tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:fontFamily="@font/montserratbold"
+                android:text="@string/log_in"
+                android:textColor="@color/amtalek_blue"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </ScrollView>
