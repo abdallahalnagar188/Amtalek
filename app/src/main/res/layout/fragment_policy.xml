@@ -19,17 +19,12 @@
 
     <ImageView
         android:id="@+id/iv_close"
-        android:layout_width="@dimen/_28sdp"
-        android:layout_height="@dimen/_28sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:background="@drawable/shape_gray"
-        android:contentDescription="@null"
-        android:padding="@dimen/_8sdp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_22sdp"
+        android:src="@drawable/ic_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"  />
 
     <ImageView
         android:id="@+id/imageView7"

@@ -39,8 +39,8 @@
         android:label="@string/login_did_you_forgot_password"
         tools:layout="@layout/fragment_forget_password" />
     <fragment
-        android:id="@+id/policyFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.PolicyFragment"
+        android:id="@+id/termsAndConditionsFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.TermsAndConditionsFragment"
         android:label="PolicyFragment"
         tools:layout="@layout/fragment_policy">
         <deepLink
@@ -53,8 +53,8 @@
         android:label="InformationFragment"
         tools:layout="@layout/fragment_information"/>
     <fragment
-        android:id="@+id/otpFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.OtpFragment"
+        android:id="@+id/otpSignUpFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.OtpSignUpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp" />
 </navigation>

@@ -18,7 +18,7 @@ import eramo.amtalek.presentation.viewmodel.auth.OtpViewModel
 import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
-class OtpFragment : BindingFragment<FragmentOtpBinding>() {
+class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding

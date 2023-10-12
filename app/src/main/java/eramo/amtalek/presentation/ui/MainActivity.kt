@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -197,10 +196,10 @@ class MainActivity : AppCompatActivity(),
                 R.id.suspendDialog,
                 R.id.datePickerDialog,
                 R.id.informationFragment,
-                R.id.policyFragment,
+                R.id.termsAndConditionsFragment,
                 R.id.forgetPasswordFragment,
                 R.id.signUpFragment,
-                R.id.otpFragment,
+                R.id.otpSignUpFragment,
                 R.id.loginFragment,
                 R.id.onBoardingFragment,
                 R.id.splashFragment,

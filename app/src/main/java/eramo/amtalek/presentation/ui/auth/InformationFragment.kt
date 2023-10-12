@@ -21,10 +21,9 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentInformationBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.presentation.viewmodel.auth.PolicyViewModel
+import eramo.amtalek.presentation.viewmodel.auth.TermsAndConditionsViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.deeplink.DeeplinkUtil
-import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint
 class InformationFragment : BindingFragment<FragmentInformationBinding>() {
@@ -33,7 +32,7 @@ class InformationFragment : BindingFragment<FragmentInformationBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentInformationBinding::inflate
 
-    private val viewModel by viewModels<PolicyViewModel>()
+    private val viewModel by viewModels<TermsAndConditionsViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     private var imageUri: Uri? = null

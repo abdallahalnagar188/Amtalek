@@ -31,18 +31,28 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
+        listeners()
+        setupViews()
+    }
+
+    private fun listeners(){
         binding.apply {
-//            cvBack.setOnClickListener { findNavController().popBackStack() }
+            FSignUpTvTerms.setOnClickListener {
+                findNavController().navigate(R.id.termsAndConditionsFragment,null, navOptionsAnimation())
+            }
             FSignUpBtnRegisterNow.setOnClickListener {
-                findNavController().navigate(R.id.otpFragment,null, navOptionsAnimation())
+                findNavController().navigate(R.id.otpSignUpFragment,null, navOptionsAnimation())
             }
             FSignUpTvLogin.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment, null, navOptionsAnimation())
             }
         }
+    }
+
+    private fun setupViews(){
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         setupCountriesSpinner()
         setupCitiesSpinner()
@@ -50,6 +60,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         setupTermsAndConditionsCheckBox()
     }
 
+    // -------------------------------------- setupViews -------------------------------------- //
     private fun setupCountriesSpinner() {
         val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), Dummy.dummyCountriesList())
         binding.FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter

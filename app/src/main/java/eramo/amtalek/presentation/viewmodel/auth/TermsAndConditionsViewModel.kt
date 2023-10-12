@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class PolicyViewModel @Inject constructor(
+class TermsAndConditionsViewModel @Inject constructor(
     private val getAppPolicyUseCase: GetAppPolicyUseCase
 ) : ViewModel() {
 

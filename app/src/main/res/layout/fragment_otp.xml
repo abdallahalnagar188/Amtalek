@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
     android:paddingHorizontal="@dimen/screen_margin_sides"
-    tools:context=".presentation.ui.auth.OtpFragment">
+    tools:context=".presentation.ui.auth.OtpSignUpFragment">
 
     <ImageView
         android:id="@+id/FOtp_iv_back"
@@ -19,7 +19,8 @@
         android:layout_marginEnd="@dimen/_6sdp"
         android:src="@drawable/ic_back"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@null" />
 
     <ImageView
         android:id="@+id/FOtp_iv_mail"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@drawable/ic_mail_otp"
+        android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
