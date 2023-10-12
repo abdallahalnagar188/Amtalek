@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true"
+    android:layoutDirection="locale"
+    android:paddingHorizontal="@dimen/screen_margin_sides"
+    tools:context=".presentation.ui.auth.OtpFragment">
+
+    <ImageView
+        android:id="@+id/FOtp_iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/FOtp_iv_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/ic_mail_otp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/FOtp_tv_account_confirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/edit_text_margin_top"
+        android:fontFamily="@font/montserratbold"
+        android:text="@string/account_confirmation_code_otp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FOtp_iv_mail" />
+
+    <TextView
+        android:id="@+id/FOtp_tv_otp_sent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:fontFamily="@font/montserratsemibold"
+        android:gravity="center"
+        android:padding="@dimen/_2sdp"
+        android:text="@string/we_have_sent_a_confirmation_code_to_e_ramo_mail_com"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/_11ssp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FOtp_tv_account_confirmation" />
+
+    <View
+        android:id="@+id/FOtp_otp_view"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_marginTop="@dimen/edit_text_margin_top"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:background="@drawable/edittext_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FOtp_tv_otp_sent" />
+
+    <View
+        android:id="@+id/FOtp_otp_view_divider_one"
+        android:layout_width="@dimen/_1sdp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="@+id/FOtp_otp_view"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_two"
+        app:layout_constraintStart_toStartOf="@+id/FOtp_otp_view"
+        app:layout_constraintTop_toTopOf="@+id/FOtp_otp_view" />
+
+    <View
+        android:id="@+id/FOtp_otp_view_divider_two"
+        android:layout_width="@dimen/_1sdp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="@+id/FOtp_otp_view"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_three"
+        app:layout_constraintStart_toEndOf="@id/FOtp_otp_view_divider_one"
+        app:layout_constraintTop_toTopOf="@+id/FOtp_otp_view" />
+
+    <View
+        android:id="@+id/FOtp_otp_view_divider_three"
+        android:layout_width="@dimen/_1sdp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="@+id/FOtp_otp_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/FOtp_otp_view_divider_two"
+        app:layout_constraintTop_toTopOf="@+id/FOtp_otp_view" />
+
+    <EditText
+        android:id="@+id/FOtp_et_one"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/montserratmedium"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/FOtp_otp_view"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_one"
+        app:layout_constraintStart_toStartOf="@id/FOtp_otp_view"
+        app:layout_constraintTop_toTopOf="@id/FOtp_otp_view"
+        tools:text="1" />
+
+    <EditText
+        android:id="@+id/FOtp_et_two"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/montserratmedium"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/FOtp_otp_view"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_two"
+        app:layout_constraintStart_toStartOf="@id/FOtp_otp_view_divider_one"
+        app:layout_constraintTop_toTopOf="@id/FOtp_otp_view"
+        tools:text="1" />
+
+    <EditText
+        android:id="@+id/FOtp_et_three"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/montserratmedium"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/FOtp_otp_view"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_three"
+        app:layout_constraintStart_toStartOf="@id/FOtp_otp_view_divider_two"
+        app:layout_constraintTop_toTopOf="@id/FOtp_otp_view"
+        tools:text="1" />
+
+    <EditText
+        android:id="@+id/FOtp_et_four"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/montserratmedium"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/FOtp_otp_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/FOtp_otp_view_divider_three"
+        app:layout_constraintTop_toTopOf="@id/FOtp_otp_view"
+        tools:text="1" />
+
+    <Button
+        android:id="@+id/FOtp_btn_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/button_background_long"
+        android:fontFamily="@font/montserratregular"
+        android:text="@string/confirm"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FOtp_otp_view" />
+
+    <TextView
+        android:id="@+id/FOtp_tv_have_not_received_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratregular"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:gravity="center"
+        android:text="@string/if_you_haven_t_received_a_message_yet"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toTopOf="@id/FOtp_tv_resend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/FOtp_tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:fontFamily="@font/montserratmedium"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@id/FOtp_tv_have_not_received_message"
+        app:layout_constraintStart_toEndOf="@id/FOtp_tv_have_not_received_message"
+        app:layout_constraintTop_toTopOf="@id/FOtp_tv_have_not_received_message"
+        tools:text="0:59" />
+
+    <TextView
+        android:id="@+id/FOtp_tv_resend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:fontFamily="@font/montserratbold"
+        android:text="@string/resend_the_code"
+        android:textColor="@color/amtalek_blue"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

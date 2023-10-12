@@ -52,4 +52,9 @@
         android:name="eramo.amtalek.presentation.ui.auth.InformationFragment"
         android:label="InformationFragment"
         tools:layout="@layout/fragment_information"/>
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.OtpFragment"
+        android:label="fragment_otp"
+        tools:layout="@layout/fragment_otp" />
 </navigation>

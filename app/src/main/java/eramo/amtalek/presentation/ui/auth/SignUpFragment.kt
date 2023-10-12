@@ -36,9 +36,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
         binding.apply {
 //            cvBack.setOnClickListener { findNavController().popBackStack() }
-//            signupBtnNext.setOnClickListener {
-//                findNavController().navigate(R.id.informationFragment,null, navOptionsAnimation())
-//            }
+            FSignUpBtnRegisterNow.setOnClickListener {
+                findNavController().navigate(R.id.otpFragment,null, navOptionsAnimation())
+            }
             FSignUpTvLogin.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment, null, navOptionsAnimation())
             }
@@ -165,8 +165,10 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             FSignUpCbAgree.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     FSignUpBtnRegisterNow.background = ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
+                    FSignUpBtnRegisterNow.isEnabled = true
                 } else {
                     FSignUpBtnRegisterNow.background = ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+                    FSignUpBtnRegisterNow.isEnabled = false
                 }
 
             }

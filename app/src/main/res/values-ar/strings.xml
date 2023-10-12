@@ -2,7 +2,6 @@
     <string name="app_name">Amtalek</string>
 
     <string name="are_you_sure_to_cancel">هل أنت متأكد من الإلغاء؟</string>
-    <string name="confirm">تأكيد</string>
     <string name="powered_by">© Events 2022 | تم تطويره بواسطة e-RAMO بدعم من Kiev Consultancy</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
@@ -407,5 +406,11 @@
     <string name="gender">الفئة:</string>
     <string name="register_now">سجل الآن</string>
     <string name="if_you_already_have_an_account">اذا كنت تمتلك حساب بالفعل :</string>
+
+    <string name="account_confirmation_code_otp">رمز تأكيد الحساب OTP</string>
+    <string name="we_have_sent_a_confirmation_code_to_e_ramo_mail_com">لقد أرسلنا رمز تأكيد على E-Ramo@mail.com</string>
+    <string name="confirm">تأكيد</string>
+    <string name="if_you_haven_t_received_a_message_yet">اذا لم تصلك رسالة بعد</string>
+    <string name="resend_the_code">إعادة إرسال الرمز</string>
 
 </resources>

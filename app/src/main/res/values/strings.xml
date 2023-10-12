@@ -3,7 +3,6 @@
     <string name="map_api_key" translatable="false">AIzaSyAsJmPNAuOje9uNhxDDso5vR2nhLwWDJo8</string>
 
     <string name="cancel">Cancel</string>
-    <string name="confirm">Confirm</string>
     <string name="powered_by">© The Events 2022 | Developed by e-RAMO Powered By Kiev Consultancy</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
@@ -407,5 +406,11 @@
     <string name="gender">Gender</string>
     <string name="register_now">Confirm</string>
     <string name="if_you_already_have_an_account">If you already have an account :</string>
+
+    <string name="account_confirmation_code_otp">Account confirmation code OTP</string>
+    <string name="we_have_sent_a_confirmation_code_to_e_ramo_mail_com">We have sent a confirmation code to\n E-Ramo@mail.com</string>
+    <string name="confirm">Confirm</string>
+    <string name="if_you_haven_t_received_a_message_yet">If you haven\'t received a message yet</string>
+    <string name="resend_the_code">Resend the code</string>
 
 </resources>

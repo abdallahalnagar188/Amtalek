@@ -1,9 +1,12 @@
 package eramo.amtalek.presentation.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -96,6 +99,16 @@ class MainActivity : AppCompatActivity(),
         }
         setupDrawer()
         setupNavBottomVisibility()
+
+    }
+
+    // Hide keyboard onTouch outside
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -187,6 +200,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.policyFragment,
                 R.id.forgetPasswordFragment,
                 R.id.signUpFragment,
+                R.id.otpFragment,
                 R.id.loginFragment,
                 R.id.onBoardingFragment,
                 R.id.splashFragment,
