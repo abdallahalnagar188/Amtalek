@@ -12,11 +12,12 @@ import javax.inject.Inject
 @HiltViewModel
 class OtpForgetPasswordViewModel @Inject constructor() : ViewModel() {
 
+    private lateinit var timer: CountDownTimer
     private val _timerState = MutableStateFlow("")
     val timerState: StateFlow<String> = _timerState
 
     fun startTimer() {
-        val timer = object : CountDownTimer(60000, 1000) {
+        timer = object : CountDownTimer(60000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 _timerState.value = formatMilliseconds(millisUntilFinished)
             }

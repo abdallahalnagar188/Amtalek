@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -19,6 +20,8 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
+import java.text.NumberFormat
+import java.util.Locale
 
 fun Activity.hideSoftKeyboard() {
     currentFocus?.let {
@@ -32,11 +35,22 @@ fun Fragment.showToast(message: String) {
     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 }
 
+fun Fragment.onBackPressed(code: () -> Unit) {
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        code()
+    }
+}
+
 fun ImageView.setColor(color: Int) {
     this.setColorFilter(
         ContextCompat.getColor(context, color),
         android.graphics.PorterDuff.Mode.SRC_IN
     )
+}
+
+fun convertToArabicNumber(englishNumber: Int): String {
+    val arabicFormat = NumberFormat.getInstance(Locale("ar"))
+    return arabicFormat.format(englishNumber)
 }
 
 fun NavController.isFragmentExist(destinationId: Int) =

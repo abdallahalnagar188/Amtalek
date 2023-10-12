@@ -18,7 +18,6 @@
     <string name="total_s_dirham">الإجمالي:%s درهم</string>
     <string name="proceed_to_buy">التوجه الى الشراء</string>
     <string name="current_password">كلمة المرور الحالية</string>
-    <string name="new_password">كلمة المرور الجديدة</string>
     <string name="retype_new_password">أعد كتابة كلمة السر الجديدة</string>
     <string name="save">حفظ</string>
     <string name="payment_completed">تم الدفع</string>
@@ -415,5 +414,8 @@
 
     <string name="did_you_forget_your_password">هل نسبت كلمة المرور الخاصه بك ؟</string>
     <string name="send_code">إرسال الكود</string>
+
+    <string name="new_password">كلمة المرور الجديدة</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
 
 </resources>

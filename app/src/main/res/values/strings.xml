@@ -21,7 +21,6 @@
     <string name="shipping_s_dirham">SHIPPING: %s DIRHAM</string>
     <string name="proceed_to_buy">Proceed to buy</string>
     <string name="current_password">Current password</string>
-    <string name="new_password">New password</string>
     <string name="retype_new_password">Retype new password</string>
     <string name="save">Save</string>
     <string name="payment_completed">Payment Completed</string>
@@ -415,7 +414,8 @@
 
     <string name="did_you_forget_your_password">Did you forget your password ?</string>
     <string name="send_code">Send Code</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
 
 </resources>

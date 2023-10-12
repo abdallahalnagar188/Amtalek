@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentOtpForgetPasswordBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.auth.OtpForgetPasswordViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.onBackPressed
 
-
+@AndroidEntryPoint
 class OtpForgetPasswordFragment : BindingFragment<FragmentOtpForgetPasswordBinding>() {
 
     override val isRefreshingEnabled: Boolean get() = false
@@ -35,21 +40,27 @@ class OtpForgetPasswordFragment : BindingFragment<FragmentOtpForgetPasswordBindi
 
     private fun listeners() {
         binding.apply {
-            FOtpBtnConfirm.setOnClickListener {  }
+            FOtpBtnConfirm.setOnClickListener {
+                findNavController().navigate(
+                    R.id.changePassowrdForgetPasswordFragment, null,
+                    navOptionsAnimation()
+                )
+            }
             FOtpTvResend.setOnClickListener { viewModel.startTimer() }
-            FOtpIvBack.setOnClickListener { findNavController().popBackStack() }
+            FOtpIvBack.setOnClickListener { findNavController().popBackStack(R.id.loginFragment, false) }
+            this@OtpForgetPasswordFragment.onBackPressed { findNavController().popBackStack(R.id.loginFragment, false) }
 
         }
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         setupEditTextsListener()
     }
 
-    private fun fetchData(){
+    private fun fetchData() {
         fetchTimerState()
     }
 
@@ -98,7 +109,8 @@ class OtpForgetPasswordFragment : BindingFragment<FragmentOtpForgetPasswordBindi
 
     // -------------------------------------- fetchData -------------------------------------- //
     private fun fetchTimerState() {
-        lifecycleScope.launchWhenCreated {
+//        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.timerState.collect { time ->
                 binding.FOtpTvTimer.text = time
 
