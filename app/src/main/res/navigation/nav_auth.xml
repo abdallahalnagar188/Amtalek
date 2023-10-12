@@ -57,4 +57,9 @@
         android:name="eramo.amtalek.presentation.ui.auth.OtpSignUpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp" />
+    <fragment
+        android:id="@+id/otpForgetPasswordFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.OtpForgetPasswordFragment"
+        android:label="fragment_otp_forget_password"
+        tools:layout="@layout/fragment_otp_forget_password" />
 </navigation>

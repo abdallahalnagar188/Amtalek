@@ -10,21 +10,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.databinding.FragmentOtpBinding
+import eramo.amtalek.databinding.FragmentOtpForgetPasswordBinding
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.viewmodel.auth.OtpSignUpViewModel
+import eramo.amtalek.presentation.viewmodel.auth.OtpForgetPasswordViewModel
 import eramo.amtalek.util.StatusBarUtil
 
-@AndroidEntryPoint
-class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
+
+class OtpForgetPasswordFragment : BindingFragment<FragmentOtpForgetPasswordBinding>() {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentOtpBinding::inflate
+        get() = FragmentOtpForgetPasswordBinding::inflate
 
-    private val viewModel by viewModels<OtpSignUpViewModel>()
+    private val viewModel by viewModels<OtpForgetPasswordViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,8 +35,9 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     private fun listeners() {
         binding.apply {
-            FOtpIvBack.setOnClickListener { findNavController().popBackStack() }
+            FOtpBtnConfirm.setOnClickListener {  }
             FOtpTvResend.setOnClickListener { viewModel.startTimer() }
+            FOtpIvBack.setOnClickListener { findNavController().popBackStack() }
 
         }
     }

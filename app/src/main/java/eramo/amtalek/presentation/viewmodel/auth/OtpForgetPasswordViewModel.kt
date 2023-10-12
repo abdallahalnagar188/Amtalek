@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class OtpViewModel @Inject constructor() : ViewModel() {
+class OtpForgetPasswordViewModel @Inject constructor() : ViewModel() {
 
     private val _timerState = MutableStateFlow("")
     val timerState: StateFlow<String> = _timerState

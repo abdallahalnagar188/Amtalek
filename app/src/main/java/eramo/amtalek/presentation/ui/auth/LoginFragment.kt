@@ -38,7 +38,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.registerApiCancellation { viewModel.cancelRequest() }
+//        super.registerApiCancellation { viewModel.cancelRequest() }
         Log.d(TAG, proceedRequire.toString())
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
