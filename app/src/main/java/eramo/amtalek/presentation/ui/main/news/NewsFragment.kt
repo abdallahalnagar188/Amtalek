@@ -47,7 +47,7 @@ class NewsFragment : BindingFragment<FragmentNewsBinding>(),
     private fun setupToolbar() {
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment)}
+//            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment)}
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
             }

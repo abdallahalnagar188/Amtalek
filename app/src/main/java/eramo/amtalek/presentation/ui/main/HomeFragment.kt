@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -19,6 +20,8 @@ import eramo.amtalek.presentation.adapters.dummy.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.dummy.DummyNewsAdapter
 import eramo.amtalek.presentation.adapters.dummy.DummyPropertyPreviewAdapter
 import eramo.amtalek.presentation.adapters.dummy.DummySliderTopAdapter
+import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
+import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
@@ -60,10 +63,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         super.registerApiCancellation { viewModel.cancelRequest() }
         viewModel.getCartCount()
 
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
 
-        initToolbar()
+        setupViews()
         setupSliderTop()
         setupSliderBetween()
 
@@ -100,14 +101,40 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
+    private fun setupViews(){
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+
+        initToolbar()
+    }
+
+    private fun setupCountriesSpinner() {
+        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
+
+        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
+//
+//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+    }
+
     private fun initToolbar() {
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
+//            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
             }
         }
+
+        setupCountriesSpinner()
     }
 
     private fun setupSliderTop() {

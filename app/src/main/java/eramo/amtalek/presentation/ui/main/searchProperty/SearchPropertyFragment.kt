@@ -49,7 +49,7 @@ class SearchPropertyFragment : BindingFragment<FragmentSearchPropertyBinding>() 
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            ivSearch.isVisible = false
+//            ivSearch.isVisible = false
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)

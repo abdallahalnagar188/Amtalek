@@ -417,5 +417,6 @@
 
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="how_can_we_help_you">How can we help you</string>
 
 </resources>
