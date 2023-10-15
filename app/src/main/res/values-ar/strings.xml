@@ -131,7 +131,7 @@
     <string name="maintenance">اعمال صيانة</string>
     <string name="store">المتجر</string>
     <string name="cart">السلة</string>
-    <string name="english">الانجليزية</string>
+    <string name="english">English</string>
     <string name="arabic">العربية</string>
     <string name="promo_code_is_used">البرموكود مستخدم بالفعل</string>
     <string name="select_a_payment_type">اختر طريقة الدفع</string>
@@ -178,7 +178,7 @@
     <string name="active">نشط</string>
     <string name="inactive">غير نشط</string>
     <string name="my_favourite">المفضلة</string>
-    <string name="notifications">الاشعارات</string>
+    <string name="notifications">الإشعارات</string>
     <string name="default_notification_channel_id">123</string>
     <string name="taxes_cost_s_dirham">تكلفة الضريبة: %s درهم</string>
     <string name="notification_info">معلومات الاشعار</string>
@@ -418,5 +418,10 @@
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="how_can_we_help_you">كيف يمكننا مساعدتك</string>
+    <string name="favourite">عقاراتى المفضلة</string>
+    <string name="chat">الدردشة</string>
+    <string name="buy_packages">تابع باقتك</string>
+    <string name="new_projects">أحدث المشاريع</string>
+    <string name="help">مركز المساعده</string>
 
 </resources>

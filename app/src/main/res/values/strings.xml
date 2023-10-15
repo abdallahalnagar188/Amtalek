@@ -135,7 +135,7 @@
     <string name="store">Store</string>
     <string name="cart">Cart</string>
     <string name="english">English</string>
-    <string name="arabic">Arabic</string>
+    <string name="arabic">العربية</string>
     <string name="promo_code_is_used">Promo code is used</string>
     <string name="select_a_payment_type">Select a payment type</string>
     <string name="enter_a_query">Enter a query</string>
@@ -290,7 +290,7 @@
     <string name="our_brokers">Our brokers</string>
     <string name="leave_a_comment">Leave a comment</string>
     <string name="add_comment">Add comment</string>
-    <string name="add_your_property">Add your property</string>
+    <string name="add_your_property">Add Your Property</string>
     <string name="location">Location</string>
     <string name="nickname">Nickname</string>
     <string name="price">Price</string>
@@ -418,5 +418,10 @@
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="how_can_we_help_you">How can we help you</string>
+    <string name="favourite">Favourite</string>
+    <string name="chat">Chat</string>
+    <string name="buy_packages">Buy Packages</string>
+    <string name="new_projects">New Projects</string>
+    <string name="help">Help</string>
 
 </resources>

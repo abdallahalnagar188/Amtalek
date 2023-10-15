@@ -122,6 +122,18 @@ class MainActivity : AppCompatActivity(),
     private fun setupDrawer() {
         binding.inDrawerHeader.apply {
 
+                Constants.setupLangChooser(
+                    this@MainActivity,
+                    layoutLangIvFlag,
+                    layoutLangCvHeader,
+                    layoutLangCvBody,
+                    layoutLangArrow,
+                    layoutLangIvCheckEn,
+                    layoutLangIvCheckAr,
+                    layoutLangLinChoiceEn,
+                    layoutLangLinChoiceAr
+                )
+
             navHeaderIvBack.setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
