@@ -30,9 +30,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:fabCradleMargin="10dp"
-                app:fabCradleRoundedCornerRadius="10dp"
-                app:fabCradleVerticalOffset="10dp">
+                app:fabCradleMargin="0dp"
+                app:fabCradleRoundedCornerRadius="0dp"
+                app:fabCradleVerticalOffset="0dp"
+                >
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/main_bn"
@@ -42,6 +43,7 @@
                     app:labelVisibilityMode="labeled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:menu="@menu/menu_bottom" />
 
@@ -54,7 +56,10 @@
                 android:backgroundTint="@color/amtalek_blue"
                 android:contentDescription="@string/app_name"
                 app:layout_anchor="@id/main_bottomAppBar"
-                app:srcCompat="@drawable/ic_home"
+                app:srcCompat="@drawable/ic_fab"
+                app:elevation="@dimen/_4sdp"
+                app:fabCustomSize = "@dimen/_50sdp"
+                app:maxImageSize = "@dimen/_50sdp"
                 app:tint="@null" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

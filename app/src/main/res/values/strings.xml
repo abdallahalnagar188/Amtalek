@@ -426,5 +426,9 @@
     <string name="service">Service</string>
     <string name="join_us">Join Us</string>
     <string name="sign_out">Sign Out</string>
+    <string name="brokers">Brokers</string>
+    <string name="market">Market</string>
+    <string name="hot_offer">Hot Offer</string>
+    <string name="my_estate">My Estate</string>
 
 </resources>

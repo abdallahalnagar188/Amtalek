@@ -426,4 +426,9 @@
     <string name="join_us">إنضم إلينا</string>
     <string name="sign_out">تسجيل الخروج</string>
 
+    <string name="brokers">المطورون</string>
+    <string name="market">السوق</string>
+    <string name="hot_offer">العروض</string>
+    <string name="my_estate">عقاراتى</string>
+
 </resources>

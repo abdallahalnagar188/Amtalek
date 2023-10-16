@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/newsFragment"
-        android:icon="@drawable/ic_news"
-        android:title="@string/news" />
+        android:icon="@drawable/ic_my_estate"
+        android:title="@string/my_estate" />
 
     <item
         android:id="@+id/projectsFragment"
-        android:icon="@drawable/ic_projects"
-        android:title="@string/projects" />
+        android:icon="@drawable/ic_hot_offers"
+        android:title="@string/hot_offer" />
 
     <item
         android:id="@+id/homeFragment"
@@ -17,12 +17,12 @@
 
     <item
         android:id="@+id/searchPropertyFragment"
-        android:icon="@drawable/ic_search_property"
-        android:title="@string/search_property" />
+        android:icon="@drawable/ic_market"
+        android:title="@string/market" />
 
     <item
         android:id="@+id/brokersFragment"
         android:icon="@drawable/ic_brokers"
-        android:title="@string/our_brokers" />
+        android:title="@string/brokers" />
 
 </menu>
