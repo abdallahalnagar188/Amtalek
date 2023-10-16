@@ -40,9 +40,9 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>() {
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            toolbarIvMenu.setOnClickListener {
-                viewModelShared.openDrawer.value = true
-            }
+//            toolbarIvMenu.setOnClickListener {
+//                viewModelShared.openDrawer.value = true
+//            }
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }

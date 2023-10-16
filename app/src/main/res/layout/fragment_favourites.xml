@@ -4,56 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_low"
+    android:background="@color/gray_background"
+    android:fitsSystemWindows="true"
     android:layoutDirection="locale">
 
     <include
         android:id="@+id/in_toolbar"
-        layout="@layout/layout_toolbar_sub"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        layout="@layout/layout_toolbar_with_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView49"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:text="@string/advanced_search"
-        android:textColor="@color/amtalek_blue_dark"
-        android:textSize="@dimen/_14ssp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_toolbar" />
-
-    <TextView
-        android:id="@+id/textView50"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:text="@string/favourite_properties_4"
-        android:textColor="@color/amtalek_blue_dark"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView49" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_properties"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginVertical="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_11sdp"
+        android:layout_marginVertical="@dimen/_25sdp"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
         android:orientation="vertical"
         android:paddingBottom="@dimen/_86sdp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView50"
-        app:spanCount="2"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
         tools:listitem="@layout/item_property_preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
