@@ -12,261 +12,312 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/_16sdp">
 
-        <ImageView
-            android:id="@+id/imageView6"
+        <include
+            android:id="@+id/in_toolbar"
+            layout="@layout/layout_toolbar_with_title"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_130sdp"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            android:src="@color/amtalek_blue_dark"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="@dimen/_28sdp"
-            android:layout_height="@dimen/_28sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
+            android:id="@+id/iv_cover"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_135sdp"
             android:contentDescription="@null"
-            android:padding="@dimen/_4sdp"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_person"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
-
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:contentDescription="@null"
-            android:padding="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_close"
-            app:srcCompat="@drawable/ic_arrow_left"
-            app:tint="@color/white" />
-
-        <TextView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:fontFamily="@font/montserratsemibold"
-            android:text="@string/profile"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_back"
-            app:layout_constraintStart_toEndOf="@+id/iv_back"
-            app:layout_constraintTop_toTopOf="@+id/iv_back" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_43sdp"
+            android:src="@color/gray_layer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6">
-
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="@dimen/_86sdp"
-                android:layout_height="@dimen/_86sdp"
-                android:contentDescription="@null"
-                android:src="@drawable/pic_avatar" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@+id/in_toolbar" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/gray_low"
-            app:cardCornerRadius="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_profile"
-            app:layout_constraintEnd_toEndOf="@+id/cv_profile">
+            android:id="@+id/cv_cover_image_picker"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_14sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_30sdp"
+            app:cardElevation="@dimen/_4sdp"
+            app:layout_constraintStart_toStartOf="@+id/iv_cover"
+            app:layout_constraintTop_toTopOf="@+id/iv_cover">
 
             <ImageView
-                android:id="@+id/iv_camera"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:contentDescription="@null"
                 android:padding="@dimen/_8sdp"
                 android:src="@drawable/ic_camera" />
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/full_name"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/itl_name"
-            app:layout_constraintTop_toBottomOf="@+id/cv_profile" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_profile"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:cardCornerRadius="@dimen/_60sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/in_toolbar">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:padding="@dimen/_5sdp"
+                android:src="@color/green" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_profile_image_picker"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_30sdp"
+            app:cardElevation="@dimen/_4sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_profile"
+            app:layout_constraintEnd_toEndOf="@+id/cv_profile">
+
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:padding="@dimen/_8sdp"
+                android:src="@drawable/ic_camera" />
+        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_name"
+            android:id="@+id/til_first_name"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginStart="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginEnd="@dimen/_6sdp"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/til_last_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name">
+            app:layout_constraintTop_toBottomOf="@+id/cv_profile">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_name"
+                android:id="@+id/et_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_avatar"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
-                android:inputType="text"
-                android:maxLength="30"
+                android:hint="@string/first_name"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/date_of_birth"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/tv_name"
-            app:layout_constraintTop_toBottomOf="@+id/itl_name" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_date"
+            android:id="@+id/til_last_name"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginEnd="@dimen/screen_margin_sides"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
-
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_42sdp"
-                android:background="@drawable/edittext_background"
-                android:fontFamily="@font/montserratregular"
-                android:gravity="center_vertical"
-                android:paddingStart="@dimen/_12sdp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
-                tools:ignore="RtlSymmetry" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/address"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/tv_name"
-            app:layout_constraintTop_toBottomOf="@+id/itl_date" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_address"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:fontFamily="@font/montserratregular"
-            android:textColorHint="@color/gray"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_address">
+            app:layout_constraintStart_toEndOf="@id/til_first_name"
+            app:layout_constraintTop_toBottomOf="@+id/cv_profile">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_address"
+                android:id="@+id/et_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_avatar"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
-                android:inputType="text"
-                android:maxLength="30"
+                android:hint="@string/last_name"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/mobile_number"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="@+id/tv_name"
-            app:layout_constraintTop_toBottomOf="@+id/itl_address" />
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itl_phone"
+            android:id="@+id/til_mobile_number"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_phone">
+            app:layout_constraintTop_toBottomOf="@+id/til_first_name">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_phone"
+                android:id="@+id/et_mobile_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_mobile_number"
+                android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
-                android:inputType="phone"
-                android:maxLength="30"
+                android:hint="@string/mobile_number"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/black"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratregular"
+            android:textColorHint="@color/gray"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_mobile_number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_mail"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/e_mail"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/itl_password"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratregular"
+            android:textColorHint="@color/gray"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_email"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/gray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/itl_re_password"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:fontFamily="@font/montserratregular"
+            android:textColorHint="@color/gray"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itl_password"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/gray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_re_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_background"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="@dimen/_8sdp"
+                android:fontFamily="@font/montserratregular"
+                android:hint="@string/re_password"
+                android:inputType="textPassword"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/countries_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:spinnerMode="dropdown"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itl_re_password" />
+
+        <Spinner
+            android:id="@+id/cities_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/spinner_background"
+            android:paddingHorizontal="@dimen/_6sdp"
+            android:spinnerMode="dropdown"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/countries_spinner" />
 
         <Button
-            android:id="@+id/btn_save"
+            android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
-            android:layout_marginVertical="@dimen/_16sdp"
-            android:background="@drawable/shape_blue"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="@drawable/button_background_long"
             android:fontFamily="@font/montserratregular"
-            android:text="@string/done"
+            android:text="@string/register_now"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/itl_phone"
-            app:layout_constraintStart_toStartOf="@+id/itl_phone"
-            app:layout_constraintTop_toBottomOf="@+id/itl_phone" />
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cities_spinner" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

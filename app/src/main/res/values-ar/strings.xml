@@ -417,6 +417,7 @@
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
     <string name="how_can_we_help_you">كيف يمكننا مساعدتك</string>
+
     <string name="favourite">عقاراتى المفضلة</string>
     <string name="chat">الدردشة</string>
     <string name="buy_packages">تابع باقتك</string>
@@ -431,4 +432,5 @@
     <string name="hot_offer">العروض</string>
     <string name="my_estate">عقاراتى</string>
 
+    <string name="edit_profile">تعديل البيانات</string>
 </resources>

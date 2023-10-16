@@ -138,11 +138,11 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
-//            navHeaderTvMyAccount.setOnClickListener {
-//                navController.navigate(R.id.myAccountFragment)
-//
-//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-//            }
+            navHeaderClUserCell.setOnClickListener {
+                navController.navigate(R.id.myAccountFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
 
 //            navHeaderTvProjects.setOnClickListener {
 //                navController.navigate(R.id.projectsFragment)

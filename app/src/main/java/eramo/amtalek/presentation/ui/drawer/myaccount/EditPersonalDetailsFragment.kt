@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.AdapterView
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
@@ -18,10 +19,13 @@ import com.theartofdev.edmodo.cropper.CropImage
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentEditPersonalDetailsBinding
+import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
+import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.EditPersonalDetailsViewModel
-import eramo.amtalek.util.*
+import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
 class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsBinding>() {
@@ -52,10 +56,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.registerApiRequest { viewModel.countries() }
-        super.registerApiCancellation { viewModel.cancelRequest() }
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue)
+//        super.registerApiRequest { viewModel.countries() }
+//        super.registerApiCancellation { viewModel.cancelRequest() }
 
         val activityResultLauncher = registerForActivityResult(activityResultContract) {
             it?.let { uri ->
@@ -65,22 +67,69 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             }
         }
 
+        setupViews()
+        listeners()
+
+//        fetchDateValue()
+    }
+
+    private fun listeners() {
         binding.apply {
-            ivBack.setOnClickListener { findNavController().popBackStack() }
-            cvCamera.setOnClickListener { activityResultLauncher.launch(null) }
-            itlDate.setOnClickListener {
-                findNavController().navigate(R.id.datePickerDialog)
+            inToolbar.ivBack.setOnClickListener { findNavController().popBackStack() }
+            btnConfirm.setOnClickListener { findNavController().popBackStack() }
+
+//            cvCamera.setOnClickListener { activityResultLauncher.launch(null) }
+        }
+    }
+
+    private fun setupViews() {
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+        binding.inToolbar.tvTitle.text = getString(R.string.edit_profile)
+
+        setupCountriesSpinner()
+        setupCitiesSpinner()
+    }
+
+    // -------------------------------------- setupViews -------------------------------------- //
+    private fun setupCountriesSpinner() {
+        val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), Dummy.dummyCountriesList())
+        binding.countriesSpinner.adapter = countriesSpinnerAdapter
+
+        binding.countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
+//
+//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
             }
 
-            btnSave.setOnClickListener { findNavController().popBackStack() }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
         }
-        fetchDateValue()
+    }
+
+    private fun setupCitiesSpinner() {
+        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+        binding.citiesSpinner.adapter = citiesSpinnerAdapter
+
+        binding.citiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
+//
+//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
     }
 
     private fun fetchDateValue() {
         viewModelShared.dateString.observe(viewLifecycleOwner) {
             it?.let { value ->
-                binding.tvDate.text = value
+//                binding.tvDate.text = value
                 viewModelShared.dateString.value = null
             }
         }

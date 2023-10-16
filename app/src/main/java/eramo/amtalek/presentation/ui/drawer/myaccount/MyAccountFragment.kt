@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.drawer.myaccount
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -34,7 +35,7 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
         super.onViewCreated(view, savedInstanceState)
         super.registerApiRequest { viewModel.getProfile() }
         super.registerApiCancellation { viewModel.cancelRequest() }
-        StatusBarUtil.transparent()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.amtalek_blue)
 
         binding.apply {
             FMyAccountTvEdit.setOnClickListener(this@MyAccountFragment)

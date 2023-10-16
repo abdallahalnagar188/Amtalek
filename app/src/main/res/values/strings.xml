@@ -418,6 +418,7 @@
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="how_can_we_help_you">How can we help you</string>
+
     <string name="favourite">Favourite</string>
     <string name="chat">Chat</string>
     <string name="buy_packages">Buy Packages</string>
@@ -426,9 +427,12 @@
     <string name="service">Service</string>
     <string name="join_us">Join Us</string>
     <string name="sign_out">Sign Out</string>
+
     <string name="brokers">Brokers</string>
     <string name="market">Market</string>
     <string name="hot_offer">Hot Offer</string>
     <string name="my_estate">My Estate</string>
+
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>
