@@ -2,7 +2,6 @@
     <string name="app_name">Amtalek</string>
 
     <string name="are_you_sure_to_cancel">هل أنت متأكد من الإلغاء؟</string>
-    <string name="powered_by">© Events 2022 | تم تطويره بواسطة e-RAMO بدعم من Kiev Consultancy</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">تحذير!</string>
@@ -423,5 +422,8 @@
     <string name="buy_packages">تابع باقتك</string>
     <string name="new_projects">أحدث المشاريع</string>
     <string name="help">مركز المساعده</string>
+    <string name="service">خدمة العملاء</string>
+    <string name="join_us">إنضم إلينا</string>
+    <string name="sign_out">تسجيل الخروج</string>
 
 </resources>

@@ -3,7 +3,7 @@
     <string name="map_api_key" translatable="false">AIzaSyAsJmPNAuOje9uNhxDDso5vR2nhLwWDJo8</string>
 
     <string name="cancel">Cancel</string>
-    <string name="powered_by">© The Events 2022 | Developed by e-RAMO Powered By Kiev Consultancy</string>
+    <string name="powered_by" translatable="false">© Amtalek 2023 | Developed by e-RAMO\n V 0.1</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">Warning!</string>
@@ -423,5 +423,8 @@
     <string name="buy_packages">Buy Packages</string>
     <string name="new_projects">New Projects</string>
     <string name="help">Help</string>
+    <string name="service">Service</string>
+    <string name="join_us">Join Us</string>
+    <string name="sign_out">Sign Out</string>
 
 </resources>

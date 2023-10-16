@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CustomCardViewStyle"
-    android:layout_width="@dimen/_240sdp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale">
 
@@ -196,7 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/_3sdp"
-                    tools:src="@color/green" />
+                    android:src="@color/green" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -210,7 +210,7 @@
                 app:layout_constraintBottom_toTopOf="@id/navHeader_tv_user_city"
                 app:layout_constraintStart_toEndOf="@id/navHeader_cv_profile"
                 app:layout_constraintTop_toTopOf="@+id/navHeader_cv_profile"
-                tools:text="Mohamed" />
+                android:text="Mohamed" />
 
             <TextView
                 android:id="@+id/navHeader_tv_user_city"
@@ -223,7 +223,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/navHeader_cv_profile"
                 app:layout_constraintStart_toEndOf="@id/navHeader_cv_profile"
                 app:layout_constraintTop_toBottomOf="@id/navHeader_tv_user_name"
-                tools:text="Cairo" />
+                android:text="Cairo" />
 
             <ImageView
                 android:layout_width="@dimen/_37sdp"
@@ -232,7 +232,8 @@
                 android:src="@drawable/ic_arrow_right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -271,7 +272,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_favourite" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_favourite" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -306,7 +308,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_nav_headder_notifications" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_nav_headder_notifications" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -324,18 +327,17 @@
                         android:id="@+id/navHeader_tv_notifications_counter"
                         android:layout_width="@dimen/_16sdp"
                         android:layout_height="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_14sdp"
                         android:background="@drawable/shape_red"
                         android:fontFamily="@font/montserratsemibold"
                         android:gravity="center"
-                        tools:text="4"
-                        android:layoutDirection="ltr"
+                        android:layoutDirection="locale"
                         android:textColor="@color/white"
-                        android:layout_marginEnd="@dimen/_14sdp"
                         android:textSize="@dimen/_7ssp"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="4" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -358,7 +360,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_nav_headder_messaging" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_nav_headder_messaging" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -376,18 +379,17 @@
                         android:id="@+id/navHeader_tv_messaging_counter"
                         android:layout_width="@dimen/_16sdp"
                         android:layout_height="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_14sdp"
                         android:background="@drawable/shape_red"
                         android:fontFamily="@font/montserratsemibold"
                         android:gravity="center"
-                        tools:text="4"
-                        android:layoutDirection="ltr"
+                        android:layoutDirection="locale"
                         android:textColor="@color/white"
-                        android:layout_marginEnd="@dimen/_14sdp"
                         android:textSize="@dimen/_7ssp"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="4" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -410,7 +412,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_add_property" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_add_property" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -445,7 +448,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_packages" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_packages" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -480,7 +484,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_new_projects" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_new_projects" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -504,7 +509,7 @@
                     android:background="@drawable/nav_headder_cell_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/navHeader_buy_packages">
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_new_projects">
 
                     <ImageView
                         android:id="@+id/navHeader_iv_help"
@@ -515,7 +520,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@drawable/ic_help" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_help" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -530,6 +536,137 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/navHeader_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/nav_headder_cell_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_help">
+
+                    <ImageView
+                        android:id="@+id/navHeader_iv_service"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_service" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratsemibold"
+                        android:text="@string/service"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_service"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/navHeader_join_us"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/nav_headder_cell_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_service">
+
+                    <ImageView
+                        android:id="@+id/navHeader_iv_join_us"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_join_us" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratsemibold"
+                        android:text="@string/join_us"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_join_us"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/navHeader_sign_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/nav_headder_cell_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_join_us">
+
+                    <ImageView
+                        android:id="@+id/navHeader_iv_sign_out"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/ic_sign_out" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratsemibold"
+                        android:text="@string/sign_out"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_sign_out"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/navHeader_iv_logo"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:src="@drawable/splash_screen_logo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_sign_out"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center"
+                    android:text="@string/powered_by"
+                    android:textSize="@dimen/_8ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_iv_logo" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

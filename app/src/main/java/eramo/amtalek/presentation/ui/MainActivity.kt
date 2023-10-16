@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(),
 
             viewModelShared.profileData.observe(this@MainActivity) { member ->
                 inDrawerHeader.apply {
-                    navHeaderTvName.text = member.userName
+                    navHeaderTvUserName.text = member.userName
                     UserUtil.saveUserProfile(EventsApi.IMAGE_URL_PROFILE + member.mImage!!)
                     Glide.with(this@MainActivity)
                         .load(EventsApi.IMAGE_URL_PROFILE + member.mImage)
@@ -138,63 +138,63 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
-            navHeaderTvMyAccount.setOnClickListener {
-                navController.navigate(R.id.myAccountFragment)
+//            navHeaderTvMyAccount.setOnClickListener {
+//                navController.navigate(R.id.myAccountFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
+//            navHeaderTvProjects.setOnClickListener {
+//                navController.navigate(R.id.projectsFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-            navHeaderTvProjects.setOnClickListener {
-                navController.navigate(R.id.projectsFragment)
+//            navHeaderTvMyPropertiesOffer.setOnClickListener {
+//                navController.navigate(R.id.myOffersFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
+//            navHeaderTvFavProperties.setOnClickListener {
+//                navController.navigate(R.id.favouritesFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-            navHeaderTvMyPropertiesOffer.setOnClickListener {
-                navController.navigate(R.id.myOffersFragment)
+//            navHeaderTvAddProperty.setOnClickListener {
+//                navController.navigate(R.id.addPropertyFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
+//            navHeaderTvLanguage.setOnClickListener {
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//
+//                if (LocalUtil.isEnglish()) {
+//                    LocalUtil.setLocal(this@MainActivity, "ar")
+//                    ActivityCompat.recreate(this@MainActivity)
+//                } else {
+//                    LocalUtil.setLocal(this@MainActivity, "en")
+//                    ActivityCompat.recreate(this@MainActivity)
+//                }
+//            }
 
-            navHeaderTvFavProperties.setOnClickListener {
-                navController.navigate(R.id.favouritesFragment)
-
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            navHeaderTvAddProperty.setOnClickListener {
-                navController.navigate(R.id.addPropertyFragment)
-
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            navHeaderTvLanguage.setOnClickListener {
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-
-                if (LocalUtil.isEnglish()) {
-                    LocalUtil.setLocal(this@MainActivity, "ar")
-                    ActivityCompat.recreate(this@MainActivity)
-                } else {
-                    LocalUtil.setLocal(this@MainActivity, "en")
-                    ActivityCompat.recreate(this@MainActivity)
-                }
-            }
-
-            navHeaderTvLogout.setOnClickListener {
-                if (UserUtil.isUserLogin()) {
-                    UserUtil.clearUserInfo()
-                    navController.navigate(
-                        NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
-                        NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
-                    )
-                } else {
-                    navController.navigate(
-                        NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build()
-                    )
-                }
-
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
+//            navHeaderTvLogout.setOnClickListener {
+//                if (UserUtil.isUserLogin()) {
+//                    UserUtil.clearUserInfo()
+//                    navController.navigate(
+//                        NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+//                        NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+//                    )
+//                } else {
+//                    navController.navigate(
+//                        NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build()
+//                    )
+//                }
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
         }
     }
 
