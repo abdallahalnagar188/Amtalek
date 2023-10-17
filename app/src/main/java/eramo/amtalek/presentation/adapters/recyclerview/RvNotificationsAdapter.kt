@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import eramo.amtalek.databinding.ItemNotificationBinding
+import eramo.amtalek.domain.model.extentions.NotificationsModel
 import javax.inject.Inject
 
-class DummyNotificationAdapter @Inject constructor() :
-    ListAdapter<String, DummyNotificationAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvNotificationsAdapter @Inject constructor() :
+    ListAdapter<NotificationsModel, RvNotificationsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -33,9 +35,15 @@ class DummyNotificationAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: String) {
+        fun bind(model: NotificationsModel) {
             binding.apply {
+                tvTitle.text = model.title
+                tvBody.text = model.body
+                tvDate.text = model.date
 
+                Glide.with(itemView)
+                    .load(model.imageUrl)
+                    .into(ivImage)
             }
         }
     }
@@ -45,20 +53,20 @@ class DummyNotificationAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNotificationClick(model: String)
+        fun onNotificationClick(model: NotificationsModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<String>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<NotificationsModel>() {
             override fun areItemsTheSame(
-                oldItem: String,
-                newItem: String
+                oldItem: NotificationsModel,
+                newItem: NotificationsModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: String,
-                newItem: String
+                oldItem: NotificationsModel,
+                newItem: NotificationsModel
             ) = oldItem == newItem
         }
     }

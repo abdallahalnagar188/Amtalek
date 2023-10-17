@@ -1,54 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
     android:elevation="@dimen/_2sdp"
-    android:background="@drawable/shape_blue_low"
-    android:padding="@dimen/_8sdp">
+    android:paddingHorizontal="@dimen/_6sdp"
+    android:paddingVertical="@dimen/_5sdp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_image"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/amtalek_blue"
+        app:strokeWidth="@dimen/_1sdp">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:padding="@dimen/_1sdp"
+            tools:src="@color/colorAccent" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginStart="@dimen/_42sdp"
+        android:layout_marginTop="@dimen/_32ssp"
+        android:src="@drawable/status_shape_green"
+        app:layout_constraintBottom_toBottomOf="@id/cv_image"
+        app:layout_constraintEnd_toEndOf="@id/cv_image"
+        app:layout_constraintStart_toStartOf="@id/cv_image"
+        app:layout_constraintTop_toTopOf="@id/cv_image" />
 
     <TextView
-        android:id="@+id/itemCategory_tv_time"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_4sdp"
-        android:fontFamily="@font/montserratregular"
-        android:gravity="center"
-        android:text="@string/april_02_15_48"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/_10ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="@dimen/_17sdp"
+        android:fontFamily="@font/montserratsemibold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:textDirection="locale"
+        app:layout_constraintEnd_toStartOf="@id/tv_date"
+        app:layout_constraintStart_toEndOf="@id/cv_image"
+        app:layout_constraintTop_toTopOf="@id/cv_image"
+        tools:text="Amtalek" />
 
     <TextView
-        android:id="@+id/itemCategory_tv_title"
+        android:id="@+id/tv_body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:textColor="#ADB5BD"
+        android:textSize="@dimen/_12ssp"
+        android:textDirection="locale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cv_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="Lörem ipsum åke Mattsson innovatör en innovationssystem." />
+
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserratsemibold"
-        android:gravity="center"
-        android:text="@string/new_notification"
-        android:textColor="@color/black_low"
-        android:textSize="@dimen/_12ssp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/itemCategory_tv_time" />
-
-    <TextView
-        android:id="@+id/itemCategory_tv_body"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:maxLines="3"
-        android:ellipsize="end"
-        android:fontFamily="@font/montserratregular"
-        android:lineSpacingExtra="@dimen/_2sdp"
-        android:text="@string/l_rem_ipsum_beh_resk_stafettl_kare_exod_ling_l_ngar_prel_anabelt_och_intrassa_b_lig_er_dek_antiskop_och_semipyse_oling_plan_nera_p_asar_megaden_unesk"
         android:textColor="@color/black"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategory_tv_title" />
+        app:layout_constraintTop_toTopOf="@id/cv_image"
+        tools:text="3 Days ago" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,7 +53,6 @@ class RvMyFavouritesAdapter @Inject constructor() :
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price))
                 tvTitle.text = model.title
                 tvLabel.text = model.type
-//                tvArea.text = formatNumber(model.area)
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()

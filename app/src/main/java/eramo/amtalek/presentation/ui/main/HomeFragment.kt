@@ -65,6 +65,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
 
         setupViews()
+        listeners()
         setupSliderTop()
         setupSliderBetween()
 
@@ -101,148 +102,158 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupViews(){
+    private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initToolbar()
     }
 
-    private fun setupCountriesSpinner() {
-        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
+    private fun listeners() {
+        binding.inToolbar.inNotification.root.setOnClickListener {
+            findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+        }
 
-        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    }
+
+
+private fun setupCountriesSpinner() {
+    val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+    binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
+
+    binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 //                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
 //
 //                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
-            }
+        }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
 
-            }
         }
     }
+}
 
-    private fun initToolbar() {
-        binding.inToolbar.apply {
-            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
+private fun initToolbar() {
+    binding.inToolbar.apply {
+        toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
 //            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
-            inNotification.root.setOnClickListener {
-                findNavController().navigate(R.id.notificationFragment)
-            }
-        }
-
-        setupCountriesSpinner()
-    }
-
-    private fun setupSliderTop() {
-        binding.apply {
-            carouselSliderTop.registerLifecycle(lifecycle)
-            carouselSliderTop.setData(Dummy.dummyCarouselList())
-            carouselSliderTop.setIndicator(dotFeatured)
-            carouselSliderTop.carouselListener = object : CarouselListener {
-                override fun onCreateViewHolder(
-                    layoutInflater: LayoutInflater,
-                    parent: ViewGroup
-                ): ViewBinding {
-                    return ItemSliderTopBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                }
-
-                override fun onBindViewHolder(
-                    binding: ViewBinding,
-                    item: CarouselItem,
-                    position: Int
-                ) {
-                    val currentBinding = binding as ItemSliderTopBinding
-                    currentBinding.apply {
-
-                    }
-
-                }
-            }
+        inNotification.root.setOnClickListener {
+            findNavController().navigate(R.id.notificationFragment)
         }
     }
 
-    private fun setupSliderBetween() {
-        binding.apply {
-            carouselSliderBetween.registerLifecycle(lifecycle)
-            carouselSliderBetween.setData(Dummy.dummyCarouselList())
-            carouselSliderBetween.setIndicator(dotAds)
-            carouselSliderBetween.carouselListener = object : CarouselListener {
-                override fun onCreateViewHolder(
-                    layoutInflater: LayoutInflater,
-                    parent: ViewGroup
-                ): ViewBinding {
-                    return ItemAdsBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
+    setupCountriesSpinner()
+}
+
+private fun setupSliderTop() {
+    binding.apply {
+        carouselSliderTop.registerLifecycle(lifecycle)
+        carouselSliderTop.setData(Dummy.dummyCarouselList())
+        carouselSliderTop.setIndicator(dotFeatured)
+        carouselSliderTop.carouselListener = object : CarouselListener {
+            override fun onCreateViewHolder(
+                layoutInflater: LayoutInflater,
+                parent: ViewGroup
+            ): ViewBinding {
+                return ItemSliderTopBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
+                )
+            }
+
+            override fun onBindViewHolder(
+                binding: ViewBinding,
+                item: CarouselItem,
+                position: Int
+            ) {
+                val currentBinding = binding as ItemSliderTopBinding
+                currentBinding.apply {
+
                 }
 
-                override fun onBindViewHolder(
-                    binding: ViewBinding,
-                    item: CarouselItem,
-                    position: Int
-                ) {
-                    val currentBinding = binding as ItemAdsBinding
-                    currentBinding.apply {
-
-                    }
-
-                }
             }
         }
     }
+}
 
-    private fun selectedTabPosition(position: Int) {
-        binding.apply {
-            tvSale.setBackgroundResource(R.drawable.ic_gray_end)
-            tvLatest.setBackgroundResource(R.color.gray_low)
-            tvRent.setBackgroundResource(R.drawable.ic_gray_start)
+private fun setupSliderBetween() {
+    binding.apply {
+        carouselSliderBetween.registerLifecycle(lifecycle)
+        carouselSliderBetween.setData(Dummy.dummyCarouselList())
+        carouselSliderBetween.setIndicator(dotAds)
+        carouselSliderBetween.carouselListener = object : CarouselListener {
+            override fun onCreateViewHolder(
+                layoutInflater: LayoutInflater,
+                parent: ViewGroup
+            ): ViewBinding {
+                return ItemAdsBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
+                )
+            }
 
-            tvSale
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
-            tvLatest
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
-            tvRent
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
+            override fun onBindViewHolder(
+                binding: ViewBinding,
+                item: CarouselItem,
+                position: Int
+            ) {
+                val currentBinding = binding as ItemAdsBinding
+                currentBinding.apply {
 
-            when (position) {
-                0 -> {
-                    tvSale.setBackgroundResource(R.drawable.ic_blue_end)
-                    tvSale.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 }
-                1 -> {
-                    tvLatest.setBackgroundResource(R.color.amtalek_blue_dark)
-                    tvLatest.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-                2 -> {
-                    tvRent.setBackgroundResource(R.drawable.ic_blue_start)
-                    tvRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
+
             }
         }
     }
+}
 
-    override fun onFeaturedClick(model: String) {
-        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
+private fun selectedTabPosition(position: Int) {
+    binding.apply {
+        tvSale.setBackgroundResource(R.drawable.ic_gray_end)
+        tvLatest.setBackgroundResource(R.color.gray_low)
+        tvRent.setBackgroundResource(R.drawable.ic_gray_start)
+
+        tvSale
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
+        tvLatest
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
+        tvRent
+            .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
+
+        when (position) {
+            0 -> {
+                tvSale.setBackgroundResource(R.drawable.ic_blue_end)
+                tvSale.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+
+            1 -> {
+                tvLatest.setBackgroundResource(R.color.amtalek_blue_dark)
+                tvLatest.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+
+            2 -> {
+                tvRent.setBackgroundResource(R.drawable.ic_blue_start)
+                tvRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            }
+        }
     }
+}
+
+override fun onFeaturedClick(model: String) {
+    findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
+}
 
 //    override fun onPropertyClick(model: String) {
 //        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
 //    }
 
-    override fun onNewsClick(model: String) {
-        findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
-    }
+override fun onNewsClick(model: String) {
+    findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
+}
 
-    override fun onPropertyClick(model: MyFavouritesModel) {
-    }
+override fun onPropertyClick(model: MyFavouritesModel) {
+}
 }

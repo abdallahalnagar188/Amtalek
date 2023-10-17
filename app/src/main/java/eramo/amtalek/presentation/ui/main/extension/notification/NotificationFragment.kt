@@ -9,46 +9,59 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentNotificationBinding
-import eramo.amtalek.presentation.adapters.recyclerview.DummyNotificationAdapter
+import eramo.amtalek.domain.model.extentions.NotificationsModel
+import eramo.amtalek.presentation.adapters.recyclerview.RvNotificationsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
-import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class NotificationFragment : BindingFragment<FragmentNotificationBinding>(),
-    DummyNotificationAdapter.OnItemClickListener {
+    RvNotificationsAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentNotificationBinding::inflate
 
     @Inject
-    lateinit var dummyNotificationAdapter: DummyNotificationAdapter
+    lateinit var rvNotificationsAdapter: RvNotificationsAdapter
 
     private val viewModelShared by activityViewModels<SharedViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
+        setupViews()
+
+    }
+
+    private fun setupViews() {
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+
         setupScreenHeader()
 
-        dummyNotificationAdapter.setListener(this)
-        dummyNotificationAdapter.submitList(Dummy.list())
-        binding.FFavouriteRvNotification.adapter = dummyNotificationAdapter
+        initNotificationsRv(Dummy.dummyNotificationsList())
     }
 
     private fun setupScreenHeader() {
-        binding.inHeaderScreen.apply {
+        binding.inToolbar.apply {
+            tvTitle.text = getString(R.string.s_Notifications,Dummy.dummyNotificationsList().size.toString())
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
 
-    override fun onNotificationClick(model: String) {
-        findNavController().navigate(R.id.notificationInfoFragment, null, navOptionsAnimation())
+    private fun initNotificationsRv(data: List<NotificationsModel>) {
+        rvNotificationsAdapter.setListener(this@NotificationFragment)
+        binding.rvNotification.adapter = rvNotificationsAdapter
+        rvNotificationsAdapter.submitList(data)
+
+    }
+
+
+    override fun onNotificationClick(model: NotificationsModel) {
+
     }
 
 }

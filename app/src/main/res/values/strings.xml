@@ -446,6 +446,8 @@
     <string name="my_favourite">My Favourite</string>
     <string name="by_broker">By Broker</string>
 
+    <string name="s_Notifications">Notifications (%s)</string>
+
     <string name="fake_onboarding_one">We offer you the best and most comfortable properties To live a better life for you and your family</string>
     <string name="fake_onboarding_two">Move around and choose among many distinctive properties that suit your needs at the best price</string>
     <string name="fake_onboarding_three">We have provided you with the possibility of investing in your property, selling or renting and find the best return for you</string>

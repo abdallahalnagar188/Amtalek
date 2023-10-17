@@ -9,12 +9,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -22,18 +19,22 @@ import com.bumptech.glide.Glide
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.EventsApi
 import eramo.amtalek.databinding.ActivityMainBinding
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.dialog.WarningDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.util.*
-import eramo.amtalek.util.deeplink.DeeplinkUtil
+import eramo.amtalek.util.LocalUtil
+import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.TAG
+import eramo.amtalek.util.TOPIC
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.deeplink.DeeplinkHandler
 import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
+import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.notification.FirebaseMessageReceiver
+import eramo.amtalek.util.setupLangChooser
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
@@ -120,17 +121,17 @@ class MainActivity : AppCompatActivity(),
     private fun setupDrawer() {
         binding.inDrawerHeader.apply {
 
-                setupLangChooser(
-                    this@MainActivity,
-                    layoutLangIvFlag,
-                    layoutLangCvHeader,
-                    layoutLangCvBody,
-                    layoutLangArrow,
-                    layoutLangIvCheckEn,
-                    layoutLangIvCheckAr,
-                    layoutLangLinChoiceEn,
-                    layoutLangLinChoiceAr
-                )
+            setupLangChooser(
+                this@MainActivity,
+                layoutLangIvFlag,
+                layoutLangCvHeader,
+                layoutLangCvBody,
+                layoutLangArrow,
+                layoutLangIvCheckEn,
+                layoutLangIvCheckAr,
+                layoutLangLinChoiceEn,
+                layoutLangLinChoiceAr
+            )
 
             navHeaderIvBack.setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
@@ -144,6 +145,12 @@ class MainActivity : AppCompatActivity(),
 
             navHeaderMyFavourite.setOnClickListener {
                 navController.navigate(R.id.favouritesFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            navHeaderNotifications.setOnClickListener {
+                navController.navigate(R.id.notificationFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -225,6 +232,8 @@ class MainActivity : AppCompatActivity(),
                 R.id.changePasswordFragment,
                 R.id.editPersonalDetailsFragment,
                 R.id.myAccountFragment,
+                R.id.favouritesFragment,
+                R.id.notificationFragment,
                 R.id.cancelDialog -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE

@@ -6,6 +6,7 @@ import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
+import eramo.amtalek.domain.model.extentions.NotificationsModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -169,6 +170,47 @@ object Dummy {
 
             )
         )
+
+        return list
+    }
+
+    fun dummyNotificationsList(): List<NotificationsModel> {
+        val list = mutableListOf<NotificationsModel>()
+
+        list.add(
+            NotificationsModel(
+                "https://amtalek.com/amtalekadmin/public/assets/images/logo_en-removebg-preview.png",
+                "Amtalek","Lörem ipsum åke Mattsson innovatör en innovationssystem.","3 Days ago"
+
+            )
+        )
+
+
+        list.add(
+            NotificationsModel(
+                "https://imgv3.fotor.com/images/slider-image/a-man-holding-a-camera-with-image-filter.jpg",
+                "Random","Want to get more involved Want to get more involved Want to get more involved","3 Days ago"
+
+            )
+        )
+
+        list.add(
+            NotificationsModel(
+                "https://amtalek.com/amtalekadmin/public/assets/images/logo_en-removebg-preview.png",
+                "Amtalek","Lörem ipsum åke Mattsson innovatör en innovationssystem.","3 Days ago"
+
+            )
+        )
+
+
+        list.add(
+            NotificationsModel(
+                "https://imgv3.fotor.com/images/slider-image/a-man-holding-a-camera-with-image-filter.jpg",
+                "Random","Want to get more involved Want to get more involved Want to get more involved","3 Days ago"
+
+            )
+        )
+
 
         return list
     }
