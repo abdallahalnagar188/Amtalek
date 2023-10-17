@@ -1,26 +1,26 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemRealEstateBinding
+import eramo.amtalek.databinding.ItemSliderTopBinding
 import javax.inject.Inject
 
-class DummyRealEstateAdapter @Inject constructor() :
-    ListAdapter<String, DummyRealEstateAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummySliderTopAdapter @Inject constructor() :
+    ListAdapter<String, DummySliderTopAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemRealEstateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemSliderTopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemRealEstateBinding) :
+    inner class ProductViewHolder(private val binding: ItemSliderTopBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 //        init {

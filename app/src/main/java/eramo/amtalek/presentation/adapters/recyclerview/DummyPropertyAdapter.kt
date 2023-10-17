@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,22 +6,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eramo.amtalek.R
-import eramo.amtalek.databinding.ItemDescriptionBinding
+import eramo.amtalek.databinding.ItemPropertyBinding
 import javax.inject.Inject
 
-class DummyDescriptionAdapter @Inject constructor() :
-    ListAdapter<String, DummyDescriptionAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyPropertyAdapter @Inject constructor() :
+    ListAdapter<String, DummyPropertyAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemDescriptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemPropertyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemDescriptionBinding) :
+    inner class ProductViewHolder(private val binding: ItemPropertyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 //        init {
@@ -35,10 +35,13 @@ class DummyDescriptionAdapter @Inject constructor() :
 //        }
 
         fun bind(model: String) {
+            var isFav = false
             binding.apply {
-                inInput1.et.setBackgroundResource(R.drawable.shape_white)
-                inInput2.et.setBackgroundResource(R.drawable.shape_white)
-                ivRemove.setOnClickListener { listener.onDeleteClick(bindingAdapterPosition) }
+                ivFav.setOnClickListener {
+                    isFav = !isFav
+                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
+                    else ivFav.setImageResource(R.drawable.ic_heart)
+                }
             }
         }
     }
@@ -48,7 +51,7 @@ class DummyDescriptionAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onDeleteClick(position: Int)
+        fun onProductClick(model: String)
     }
 
     //check difference

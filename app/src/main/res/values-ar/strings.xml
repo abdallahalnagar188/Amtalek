@@ -444,4 +444,9 @@
     <string name="my_favourite_properties">عقاراتي المفضلة</string>
     <string name="my_favourite">عقاراتي المفضلة</string>
     <string name="by_broker">بواسطة</string>
+
+    <string name="fake_onboarding_one">نقدم إليك أفضل العقارات وأكثرها راحة لعيش حياة أفضل أنت وعائلتك</string>
+    <string name="fake_onboarding_two">تنقل وإختار بين العديد من العقارات المميزة والمناسبة لإحتياجاتك بأفضل سعر</string>
+    <string name="fake_onboarding_three">وفرنالك إمكانية استثمار عقارك بيع او إيجار وإيجاد أفضل عائد لك</string>
+
 </resources>

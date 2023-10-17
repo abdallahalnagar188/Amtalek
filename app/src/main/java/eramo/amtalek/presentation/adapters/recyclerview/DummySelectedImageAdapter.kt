@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.net.Uri
 import android.view.LayoutInflater

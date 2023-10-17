@@ -1,37 +1,37 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemOfferBinding
+import eramo.amtalek.databinding.ItemNewsBinding
 import javax.inject.Inject
 
-class DummyOfferAdapter @Inject constructor() :
-    ListAdapter<String, DummyOfferAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyNewsAdapter @Inject constructor() :
+    ListAdapter<String, DummyNewsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemOfferBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemOfferBinding) :
+    inner class ProductViewHolder(private val binding: ItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-//        init {
-//            binding.root.setOnClickListener {
-//                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-//                    getItem(bindingAdapterPosition).let {
-//                        listener.onProductClick(it)
-//                    }
-//                }
-//            }
-//        }
+        init {
+            binding.root.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    getItem(bindingAdapterPosition).let {
+                        listener.onNewsClick(it)
+                    }
+                }
+            }
+        }
 
         fun bind(model: String) {
             binding.apply {
@@ -45,7 +45,7 @@ class DummyOfferAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onProductClick(model: String)
+        fun onNewsClick(model: String)
     }
 
     //check difference

@@ -1,26 +1,26 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemBrokerBinding
+import eramo.amtalek.databinding.ItemNewsPreviewBinding
 import javax.inject.Inject
 
-class DummyBrokerAdapter @Inject constructor() :
-    ListAdapter<String, DummyBrokerAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyNewsPreviewAdapter @Inject constructor() :
+    ListAdapter<String, DummyNewsPreviewAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemBrokerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemNewsPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemBrokerBinding) :
+    inner class ProductViewHolder(private val binding: ItemNewsPreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {

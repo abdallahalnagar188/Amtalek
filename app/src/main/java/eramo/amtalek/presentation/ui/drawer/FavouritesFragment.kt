@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentFavouritesBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
-import eramo.amtalek.presentation.adapters.dummy.RvMyFavouritesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy.dummyMyFavouritesList

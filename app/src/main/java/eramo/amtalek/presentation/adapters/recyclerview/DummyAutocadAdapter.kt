@@ -1,27 +1,26 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.R
-import eramo.amtalek.databinding.ItemPropertyBinding
+import eramo.amtalek.databinding.ItemAutocadBinding
 import javax.inject.Inject
 
-class DummyPropertyAdapter @Inject constructor() :
-    ListAdapter<String, DummyPropertyAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyAutocadAdapter @Inject constructor() :
+    ListAdapter<String, DummyAutocadAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemPropertyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemAutocadBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemPropertyBinding) :
+    inner class ProductViewHolder(private val binding: ItemAutocadBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 //        init {
@@ -35,13 +34,8 @@ class DummyPropertyAdapter @Inject constructor() :
 //        }
 
         fun bind(model: String) {
-            var isFav = false
             binding.apply {
-                ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
-                }
+
             }
         }
     }

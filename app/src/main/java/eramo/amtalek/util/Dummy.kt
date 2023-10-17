@@ -55,26 +55,26 @@ object Dummy {
         return list
     }
 
-    fun dummyBoard(): ArrayList<OnBoardingModel> {
+    fun dummyBoard(context: Context): ArrayList<OnBoardingModel> {
         val list = ArrayList<OnBoardingModel>()
         list.add(
             OnBoardingModel(
                 splashTitle = "",
-                splashDetails = "We offer you the best and most comfortable properties To live a better life for you and your family",
+                splashDetails = context.getString(R.string.fake_onboarding_one),
                 imgRes = R.drawable.pic_onboarding_one
             )
         )
         list.add(
             OnBoardingModel(
                 splashTitle = "",
-                splashDetails = "Move around and choose among many distinctive properties that suit your needs at the best price",
+                splashDetails = context.getString(R.string.fake_onboarding_two),
                 imgRes = R.drawable.pic_onboarding_two
             )
         )
         list.add(
             OnBoardingModel(
                 splashTitle = "",
-                splashDetails = "We have provided you with the possibility of investing in your property, selling or renting and find the best return for you",
+                splashDetails = context.getString(R.string.fake_onboarding_three),
                 imgRes = R.drawable.pic_onboarding_three
             )
         )

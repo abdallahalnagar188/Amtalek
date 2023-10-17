@@ -13,10 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentProjectDetailsBinding
 import eramo.amtalek.presentation.adapters.BannerSliderAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyAlbumAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyAutocadAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyProjectAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyRealEstateAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyAlbumAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyAutocadAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.SliderZoomFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel

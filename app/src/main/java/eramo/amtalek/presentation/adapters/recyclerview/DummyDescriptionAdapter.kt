@@ -1,41 +1,44 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemNotificationBinding
+import eramo.amtalek.R
+import eramo.amtalek.databinding.ItemDescriptionBinding
 import javax.inject.Inject
 
-class DummyNotificationAdapter @Inject constructor() :
-    ListAdapter<String, DummyNotificationAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyDescriptionAdapter @Inject constructor() :
+    ListAdapter<String, DummyDescriptionAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemDescriptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemNotificationBinding) :
+    inner class ProductViewHolder(private val binding: ItemDescriptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        init {
-            binding.root.setOnClickListener {
-                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    getItem(bindingAdapterPosition).let {
-                        listener.onNotificationClick(it)
-                    }
-                }
-            }
-        }
+//        init {
+//            binding.root.setOnClickListener {
+//                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+//                    getItem(bindingAdapterPosition).let {
+//                        listener.onProductClick(it)
+//                    }
+//                }
+//            }
+//        }
 
         fun bind(model: String) {
             binding.apply {
-
+                inInput1.et.setBackgroundResource(R.drawable.shape_white)
+                inInput2.et.setBackgroundResource(R.drawable.shape_white)
+                ivRemove.setOnClickListener { listener.onDeleteClick(bindingAdapterPosition) }
             }
         }
     }
@@ -45,7 +48,7 @@ class DummyNotificationAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNotificationClick(model: String)
+        fun onDeleteClick(position: Int)
     }
 
     //check difference

@@ -1,33 +1,33 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemCheckboxBinding
+import eramo.amtalek.databinding.ItemCommentBinding
 import javax.inject.Inject
 
-class DummyCheckboxAdapter @Inject constructor() :
-    ListAdapter<String, DummyCheckboxAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyCommentAdapter @Inject constructor() :
+    ListAdapter<String, DummyCommentAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemCheckboxBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemCheckboxBinding) :
+    inner class ProductViewHolder(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 //        init {
 //            binding.root.setOnClickListener {
 //                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
 //                    getItem(bindingAdapterPosition).let {
-//                        listener.onProductClick(it)
+//                        listener.onNewsClick(it)
 //                    }
 //                }
 //            }
@@ -35,7 +35,7 @@ class DummyCheckboxAdapter @Inject constructor() :
 
         fun bind(model: String) {
             binding.apply {
-                checkBox.text = model
+
             }
         }
     }
@@ -45,7 +45,7 @@ class DummyCheckboxAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onProductClick(model: String)
+        fun onNewsClick(model: String)
     }
 
     //check difference

@@ -19,6 +19,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.OnBoardingViewModel
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
@@ -57,7 +58,7 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
             indicatorView.apply {
 //                setSliderWidth(resources.getDimension(com.intuit.ssp.R.dimen._95ssp))
 //                setSliderHeight(resources.getDimension(com.intuit.ssp.R.dimen._2ssp))
-                setSliderWidth((resources.displayMetrics.widthPixels.toFloat() / (Dummy.dummyBoard().size.toFloat())) - 40f)
+                setSliderWidth((resources.displayMetrics.widthPixels.toFloat() / (Dummy.dummyBoard(requireContext()).size.toFloat())) - 40f)
                 setSliderHeight(resources.getDimension(com.intuit.ssp.R.dimen._2ssp))
                 setSlideMode(IndicatorSlideMode.WORM)
                 setIndicatorStyle(IndicatorStyle.ROUND_RECT)
@@ -65,6 +66,14 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
             }
         }
 //        fetchLatestDealsState()
+
+        if (!LocalUtil.isEnglish()){
+            binding.slider.rotationY = 180f
+            binding.indicatorView.rotationY = 180f
+        }else{
+            binding.slider.rotationY = 0f
+            binding.indicatorView.rotationY = 0f
+        }
     }
 
     override fun onStart() {
@@ -106,7 +115,7 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
 
     private fun setupSlider() {
         binding.slider.apply {
-            slideAdapter.setScreens(Dummy.dummyBoard())
+            slideAdapter.setScreens(Dummy.dummyBoard(requireContext()))
             adapter = slideAdapter
             addOnPageChangeListener(object : OnPageChangeListener {
                 override fun onPageScrolled(
@@ -117,7 +126,7 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
                 }
 
                 override fun onPageSelected(position: Int) {
-                    if (position == (Dummy.dummyBoard().size -1)) {
+                    if (position == (Dummy.dummyBoard(requireContext()).size -1)) {
                         binding.onBoardingBtnNext.visibility = View.INVISIBLE
                         binding.onBoardingBtnStartNow.visibility = View.VISIBLE
                     } else {

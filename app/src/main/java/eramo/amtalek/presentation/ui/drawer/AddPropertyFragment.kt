@@ -1,6 +1,5 @@
 package eramo.amtalek.presentation.ui.drawer
 
-import android.R.attr.data
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -16,9 +15,9 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddPropertyBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyCheckboxAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyDescriptionAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummySelectedImageAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyCheckboxAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyDescriptionAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummySelectedImageAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.SliderZoomFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel

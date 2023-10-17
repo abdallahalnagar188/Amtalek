@@ -10,8 +10,8 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentProjectsBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyProjectAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyRealEstateAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyProjectAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyRealEstateAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel

@@ -13,6 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.EventsApi
 import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.util.LocalUtil
 import javax.inject.Inject
 
 class OnBoardingAdapter @Inject constructor(@ApplicationContext private var context: Context) :
@@ -44,6 +45,12 @@ class OnBoardingAdapter @Inject constructor(@ApplicationContext private var cont
         imageView.setImageResource(screensList[position].imgRes!!)
         tvHeading.text = screensList[position].splashTitle
         tvBody.text = screensList[position].splashDetails
+
+        if (!LocalUtil.isEnglish()){
+            tvBody.rotationY = 180f
+        }else{
+            tvBody.rotationY = 0f
+        }
         container.addView(view)
         return view
     }

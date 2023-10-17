@@ -1,26 +1,26 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemAutocadBinding
+import eramo.amtalek.databinding.ItemCheckboxBinding
 import javax.inject.Inject
 
-class DummyAutocadAdapter @Inject constructor() :
-    ListAdapter<String, DummyAutocadAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyCheckboxAdapter @Inject constructor() :
+    ListAdapter<String, DummyCheckboxAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemAutocadBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemCheckboxBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemAutocadBinding) :
+    inner class ProductViewHolder(private val binding: ItemCheckboxBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
 //        init {
@@ -35,7 +35,7 @@ class DummyAutocadAdapter @Inject constructor() :
 
         fun bind(model: String) {
             binding.apply {
-
+                checkBox.text = model
             }
         }
     }

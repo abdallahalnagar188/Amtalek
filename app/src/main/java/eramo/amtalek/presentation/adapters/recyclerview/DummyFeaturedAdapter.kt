@@ -1,37 +1,37 @@
-package eramo.amtalek.presentation.adapters.dummy
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.databinding.ItemSliderTopBinding
+import eramo.amtalek.databinding.ItemFeaturedBinding
 import javax.inject.Inject
 
-class DummySliderTopAdapter @Inject constructor() :
-    ListAdapter<String, DummySliderTopAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class DummyFeaturedAdapter @Inject constructor() :
+    ListAdapter<String, DummyFeaturedAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemSliderTopBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemFeaturedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemSliderTopBinding) :
+    inner class ProductViewHolder(private val binding: ItemFeaturedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-//        init {
-//            binding.root.setOnClickListener {
-//                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-//                    getItem(bindingAdapterPosition).let {
-//                        listener.onProductClick(it)
-//                    }
-//                }
-//            }
-//        }
+        init {
+            binding.root.setOnClickListener {
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    getItem(bindingAdapterPosition).let {
+                        listener.onFeaturedClick(it)
+                    }
+                }
+            }
+        }
 
         fun bind(model: String) {
             binding.apply {
@@ -45,7 +45,7 @@ class DummySliderTopAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onProductClick(model: String)
+        fun onFeaturedClick(model: String)
     }
 
     //check difference

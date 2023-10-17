@@ -17,10 +17,10 @@ import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemAdsBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
-import eramo.amtalek.presentation.adapters.dummy.DummyFeaturedAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyNewsAdapter
-import eramo.amtalek.presentation.adapters.dummy.RvMyFavouritesAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummySliderTopAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummySliderTopAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel

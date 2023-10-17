@@ -14,9 +14,9 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.databinding.ItemAdsBinding
 import eramo.amtalek.presentation.adapters.BannerSliderAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyAlbumAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyCommentAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyPropertyAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyAlbumAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyCommentAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyPropertyAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.MapFragment
 import eramo.amtalek.presentation.ui.SliderZoomFragmentArgs

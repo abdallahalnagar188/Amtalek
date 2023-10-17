@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBrokersBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyBrokerAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyBrokerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.CartViewModel

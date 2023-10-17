@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentNotificationBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyNotificationAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.DummyNotificationAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy
