@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAllPropertiesBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyPropertyPreviewAdapter
+import eramo.amtalek.presentation.adapters.dummy.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
@@ -19,8 +19,7 @@ import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AllPropertiesFragment : BindingFragment<FragmentAllPropertiesBinding>(),
-    DummyPropertyPreviewAdapter.OnItemClickListener {
+class AllPropertiesFragment : BindingFragment<FragmentAllPropertiesBinding>(){
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -30,7 +29,7 @@ class AllPropertiesFragment : BindingFragment<FragmentAllPropertiesBinding>(),
     private val viewModel: ShopViewModel by viewModels()
 
     @Inject
-    lateinit var dummyPropertyPreviewAdapter: DummyPropertyPreviewAdapter
+    lateinit var rvMyFavouritesAdapter: RvMyFavouritesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,10 +37,10 @@ class AllPropertiesFragment : BindingFragment<FragmentAllPropertiesBinding>(),
         StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
         setupToolbar()
 
-        dummyPropertyPreviewAdapter.setListener(this)
+//        rvMyFavouritesAdapter.setListener(this)
         binding.apply {
-            dummyPropertyPreviewAdapter.submitList(Dummy.list())
-            rvProperties.adapter = dummyPropertyPreviewAdapter
+//            rvMyFavouritesAdapter.submitList(Dummy.list())
+            rvProperties.adapter = rvMyFavouritesAdapter
 
             ivFilter.setOnClickListener {
                 findNavController().navigate(R.id.searchDialog)
@@ -56,8 +55,8 @@ class AllPropertiesFragment : BindingFragment<FragmentAllPropertiesBinding>(),
         }
     }
 
-    override fun onPropertyClick(model: String) {
-        findNavController().navigate(R.id.propertyDetailsFragment)
-    }
+//    override fun onPropertyClick(model: String) {
+//        findNavController().navigate(R.id.propertyDetailsFragment)
+//    }
 
 }

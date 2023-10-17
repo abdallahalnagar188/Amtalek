@@ -11,7 +11,7 @@ import eramo.amtalek.domain.model.products.CategoryModel
 import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.repository.CartRepository
 import eramo.amtalek.domain.usecase.product.*
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -77,7 +77,7 @@ class ShopViewModel @Inject constructor(
     fun allProducts() {
         allProductsJob?.cancel()
         allProductsJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 allProductsByUserIdUseCase().cachedIn(viewModelScope).collect {
                     _allProductsState.value = it
@@ -89,7 +89,7 @@ class ShopViewModel @Inject constructor(
     fun productsByCat(catId: String) {
         productsByCatJob?.cancel()
         productsByCatJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 allCategorizationByUserIdUseCase(catId).cachedIn(viewModelScope).collect {
                     _productsByCatState.value = it
@@ -101,7 +101,7 @@ class ShopViewModel @Inject constructor(
     fun allCategories() {
         allCategoriesJob?.cancel()
         allCategoriesJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeProductsManufacturerByUserIdUseCase().collect { result ->
                     when (result) {
@@ -178,7 +178,7 @@ class ShopViewModel @Inject constructor(
     fun getCartCount() {
         cartCountJob?.cancel()
         cartCountJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 val result = if (UserUtil.isUserLogin())
                     cartRepository.getCartCountApi()

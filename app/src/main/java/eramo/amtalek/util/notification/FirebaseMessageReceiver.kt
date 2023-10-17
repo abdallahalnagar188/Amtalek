@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import eramo.amtalek.data.remote.dto.NotificationDto
-import eramo.amtalek.util.Constants
 
 class FirebaseMessageReceiver : FirebaseMessagingService() {
 

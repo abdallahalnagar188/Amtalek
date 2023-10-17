@@ -1,12 +1,14 @@
 package eramo.amtalek.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import eramo.amtalek.data.local.Converters
 import eramo.amtalek.data.local.EventsDB
@@ -87,6 +89,12 @@ object AppModule {
     @Singleton
     fun provideCartRepository(EventsApi: EventsApi, db: EventsDB): CartRepository {
         return CartRepositoryImpl(EventsApi, db.dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context {
+        return context
     }
 
 }

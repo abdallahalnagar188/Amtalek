@@ -7,7 +7,7 @@ import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.usecase.product.RemoveFavouriteUseCase
 import eramo.amtalek.domain.usecase.product.UserFavListByUserIdUseCase
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -42,7 +42,7 @@ class FavouriteViewModel @Inject constructor(
     fun userFav() {
         userFavJob?.cancel()
         userFavJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 userFavListByUserIdUseCase().collect { result ->
                     when (result) {

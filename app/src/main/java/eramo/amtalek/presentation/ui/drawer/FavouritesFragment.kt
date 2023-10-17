@@ -9,42 +9,52 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentFavouritesBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyPropertyPreviewAdapter
+import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.presentation.adapters.dummy.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.Dummy.dummyMyFavouritesList
 import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>() {
+class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(), RvMyFavouritesAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentFavouritesBinding::inflate
 
     @Inject
-    lateinit var dummyPropertyPreviewAdapter: DummyPropertyPreviewAdapter
+    lateinit var rvMyFavouritesAdapter: RvMyFavouritesAdapter
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
+        setupViews()
+    }
+
+    private fun setupViews() {
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
-        binding.apply {
-            dummyPropertyPreviewAdapter.submitList(Dummy.list())
-            rvProperties.adapter = dummyPropertyPreviewAdapter
-        }
+        initFavouritesRv(dummyMyFavouritesList(requireContext()))
     }
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-//            toolbarIvMenu.setOnClickListener {
-//                viewModelShared.openDrawer.value = true
-//            }
+            tvTitle.text = getString(R.string.my_favourite_properties)
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
+    }
+
+    private fun initFavouritesRv(data: List<MyFavouritesModel>) {
+        rvMyFavouritesAdapter.setListener(this@FavouritesFragment)
+        binding.rvProperties.adapter = rvMyFavouritesAdapter
+        rvMyFavouritesAdapter.submitList(data)
+    }
+
+    override fun onPropertyClick(model: MyFavouritesModel) {
+
     }
 
 }

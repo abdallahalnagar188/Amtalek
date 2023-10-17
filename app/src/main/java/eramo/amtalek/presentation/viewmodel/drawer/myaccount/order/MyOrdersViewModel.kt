@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.products.orders.OrderModel
 import eramo.amtalek.domain.repository.OrderRepository
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -31,7 +31,7 @@ class MyOrdersViewModel @Inject constructor(
     fun myOrders() {
         myOrdersJob?.cancel()
         myOrdersJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 orderRepository.allMyOrders().collect { result ->
                     when (result) {

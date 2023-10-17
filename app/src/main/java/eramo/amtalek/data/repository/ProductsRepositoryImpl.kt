@@ -63,7 +63,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
                         "1",
                         "4",
                         UserUtil.getUserId(),
-                        Constants.TEXT_NO
+                        TEXT_NO
                     )
                 }
             result.collect { apiState ->
@@ -87,7 +87,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
                         "1",
                         "4",
                         UserUtil.getUserId(),
-                        Constants.TEXT_YES
+                        TEXT_YES
                     )
                 }
             result.collect { apiState ->

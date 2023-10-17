@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.databinding.FragmentSliderZoomBinding
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.presentation.adapters.ZoomSliderAdapter
-import eramo.amtalek.util.Constants.TAG
 import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint

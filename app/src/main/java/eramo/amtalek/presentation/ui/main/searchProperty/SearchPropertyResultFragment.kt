@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSearchPropertyResultBinding
-import eramo.amtalek.presentation.adapters.dummy.DummyPropertyPreviewAdapter
+import eramo.amtalek.presentation.adapters.dummy.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
@@ -22,7 +22,7 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
         get() = FragmentSearchPropertyResultBinding::inflate
 
     @Inject
-    lateinit var dummyPropertyPreviewAdapter: DummyPropertyPreviewAdapter
+    lateinit var rvMyFavouritesAdapter: RvMyFavouritesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,8 +30,8 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
         setupToolbar()
 
         binding.apply {
-            dummyPropertyPreviewAdapter.submitList(Dummy.list())
-            rvProperties.adapter = dummyPropertyPreviewAdapter
+//            rvMyFavouritesAdapter.submitList(Dummy.list())
+            rvProperties.adapter = rvMyFavouritesAdapter
         }
     }
 

@@ -19,7 +19,6 @@ import eramo.amtalek.databinding.FragmentLoginBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
-import eramo.amtalek.util.Constants.TAG
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
@@ -39,7 +38,6 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiCancellation { viewModel.cancelRequest() }
-        Log.d(TAG, proceedRequire.toString())
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
@@ -99,7 +97,6 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
                 when (state) {
                     is UiState.Success -> {
                         LoadingDialog.dismissDialog()
-                        Log.d(TAG, "proceed value: $proceedRequire")
                         if (proceedRequire) switchLocalCartToRemote()
                         else findNavController().navigate(
                             R.id.nav_main, null,

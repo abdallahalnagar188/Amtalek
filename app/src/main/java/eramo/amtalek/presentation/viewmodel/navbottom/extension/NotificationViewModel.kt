@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.domain.repository.ProductsRepository
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -33,7 +33,7 @@ class NotificationViewModel @Inject constructor(
     fun getNotification() {
         notificationsJob?.cancel()
         notificationsJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 productsRepository.getUserNotifications().collect { result ->
                     when (result) {
@@ -42,10 +42,12 @@ class NotificationViewModel @Inject constructor(
                                 _notificationsState.value = UiState.Success(data)
                             } ?: run { _notificationsState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _notificationsState.value =
                                 UiState.Error(result.message!!)
                         }
+
                         is Resource.Loading -> {
                             _notificationsState.value = UiState.Loading()
                         }

@@ -176,7 +176,6 @@
     <string name="shipping_s_dirham">الشحن: %s درهم</string>
     <string name="active">نشط</string>
     <string name="inactive">غير نشط</string>
-    <string name="my_favourite">المفضلة</string>
     <string name="notifications">الإشعارات</string>
     <string name="default_notification_channel_id">123</string>
     <string name="taxes_cost_s_dirham">تكلفة الضريبة: %s درهم</string>
@@ -320,8 +319,6 @@
     <string name="favourite_properties_4">العقارات المفضلة (4)</string>
     <string name="featured_properties_in_egypt">عقارات مميزة في مصر</string>
     <string name="latest_properties_in_egypt">أحدث العقارات في مصر</string>
-    <string name="for_sale">للبيع</string>
-    <string name="for_rent">للإيجار</string>
     <string name="see_all_properties">مشاهدة جميع العقارات</string>
     <string name="latest_news">أحدث الأخبار</string>
     <string name="see_all_news">رؤية كل الأخبار</string>
@@ -369,11 +366,9 @@
     <string name="my_offerl">عرضي:</string>
     <string name="display_project">عرض المشروع</string>
     <string name="out">نفذ</string>
-    <string name="featured">مميز</string>
     <string name="amalek_help_you">عمالك يساعدك</string>
     <string name="amtalek_has_many_properties_and_clients">تمتلك امتالك العديد من الخصائص والعملاء</string>
     <string name="my_properties_offer">عرض ممتلكاتي</string>
-    <string name="my_favourite_properties">ممتلكاتي المفضلة</string>
     <string name="add_property">أضف عقار</string>
     <string name="language">English</string>
     <string name="property_status">حالة الملكية</string>
@@ -433,4 +428,20 @@
     <string name="my_estate">عقاراتى</string>
 
     <string name="edit_profile">تعديل البيانات</string>
+
+    <string name="for_sale">للبيع</string>
+    <string name="for_rent">للإيجار</string>
+    <string name="featured">مميز</string>
+
+    <string name="fake_title">شقة سكنية للبيع تشطيب سوبر لوكس</string>
+    <string name="fake_location">الشيخ زايد الجيزة</string>
+    <string name="fake_date">منذ 3 أيام</string>
+
+    <string name="s_egp">%s ج.م</string>
+    <string name="s_meter_square">sqft %s</string>
+    <string name="s_meter_square_me">%s متر&#xB2;</string>
+
+    <string name="my_favourite_properties">عقاراتي المفضلة</string>
+    <string name="my_favourite">عقاراتي المفضلة</string>
+    <string name="by_broker">بواسطة</string>
 </resources>

@@ -9,7 +9,7 @@ import eramo.amtalek.domain.model.request.SearchRequest
 import eramo.amtalek.domain.repository.ProductsRepository
 import eramo.amtalek.domain.usecase.product.AddFavouriteUseCase
 import eramo.amtalek.domain.usecase.product.RemoveFavouriteUseCase
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -61,7 +61,7 @@ class SearchViewModel @Inject constructor(
     fun productFilter(filterRequest: SearchRequest) {
         filterJob?.cancel()
         filterJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 productsRepository.productFilter(filterRequest).collect { result ->
                     when (result) {
@@ -70,10 +70,12 @@ class SearchViewModel @Inject constructor(
                                 _filterState.value = UiState.Success(data)
                             } ?: run { _filterState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _filterState.value =
                                 UiState.Error(result.message!!)
                         }
+
                         is Resource.Loading -> {
                             _filterState.value = UiState.Loading()
                         }
@@ -86,17 +88,19 @@ class SearchViewModel @Inject constructor(
     fun productSearch(title: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 productsRepository.productSearch(title).collect { result ->
                     when (result) {
                         is Resource.Success -> {
                             _searchState.value = UiState.Success(result.data)
                         }
+
                         is Resource.Error -> {
                             _searchState.value =
                                 UiState.Error(result.message!!)
                         }
+
                         is Resource.Loading -> {
                             _searchState.value = UiState.Loading()
                         }
@@ -117,11 +121,13 @@ class SearchViewModel @Inject constructor(
                                 _addFavouriteState.emit(UiState.Success(it))
                             } ?: run { _addFavouriteState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _addFavouriteState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _addFavouriteState.emit(UiState.Loading())
                         }
@@ -142,11 +148,13 @@ class SearchViewModel @Inject constructor(
                                 _removeFavouriteState.emit(UiState.Success(it))
                             } ?: run { _removeFavouriteState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _removeFavouriteState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _removeFavouriteState.emit(UiState.Loading())
                         }

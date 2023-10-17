@@ -8,7 +8,7 @@ import eramo.amtalek.domain.model.products.PaymentTypesModel
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.repository.CartRepository
 import eramo.amtalek.domain.repository.OrderRepository
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -42,7 +42,7 @@ class CheckoutStepThreeViewModel @Inject constructor(
     fun paymentTypes() {
         orderJob?.cancel()
         orderJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 orderRepository.paymentTypes().collect { result ->
                     when (result) {

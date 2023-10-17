@@ -1,6 +1,5 @@
 package eramo.amtalek.presentation.viewmodel.navbottom.extension
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -8,9 +7,10 @@ import eramo.amtalek.data.remote.dto.products.orders.CartCountResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.repository.CartRepository
-import eramo.amtalek.domain.usecase.product.*
-import eramo.amtalek.util.Constants
-import eramo.amtalek.util.Constants.TAG
+import eramo.amtalek.domain.usecase.product.AddFavouriteUseCase
+import eramo.amtalek.domain.usecase.product.GetProductByIdUseCase
+import eramo.amtalek.domain.usecase.product.RemoveFavouriteUseCase
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -67,7 +67,7 @@ class ProductDetailsViewModel @Inject constructor(
         productJob?.cancel()
         productJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                delay(Constants.ANIMATION_DELAY)
+                delay(ANIMATION_DELAY)
                 getProductByIdUseCase(productId).collect { result ->
                     when (result) {
                         is Resource.Success -> {
@@ -75,11 +75,13 @@ class ProductDetailsViewModel @Inject constructor(
                                 _productState.emit(UiState.Success(it))
                             } ?: run { _productState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _productState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _productState.emit(UiState.Loading())
                         }
@@ -100,11 +102,13 @@ class ProductDetailsViewModel @Inject constructor(
                                 _addFavouriteState.emit(UiState.Success(it))
                             } ?: run { _addFavouriteState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _addFavouriteState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _addFavouriteState.emit(UiState.Loading())
                         }
@@ -125,11 +129,13 @@ class ProductDetailsViewModel @Inject constructor(
                                 _removeFavouriteState.emit(UiState.Success(it))
                             } ?: run { _removeFavouriteState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _removeFavouriteState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _removeFavouriteState.emit(UiState.Loading())
                         }
@@ -156,7 +162,6 @@ class ProductDetailsViewModel @Inject constructor(
                         with_installation
                     )
                 } else {
-                    Log.d(TAG, "addToCart: to database")
                     repository.addToCartDB(productModel, product_qty)
                 }
 
@@ -168,11 +173,13 @@ class ProductDetailsViewModel @Inject constructor(
                             } ?: run { _addToCartState.emit(UiState.Empty()) }
                             getCartCount()
                         }
+
                         is Resource.Error -> {
                             _addToCartState.emit(
                                 UiState.Error(it.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _addToCartState.emit(UiState.Loading())
                         }
@@ -198,10 +205,12 @@ class ProductDetailsViewModel @Inject constructor(
                                 _cartCountState.value = UiState.Success(it)
                             } ?: run { _cartCountState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _cartCountState.value =
                                 UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
                             _cartCountState.value = UiState.Loading()
                         }

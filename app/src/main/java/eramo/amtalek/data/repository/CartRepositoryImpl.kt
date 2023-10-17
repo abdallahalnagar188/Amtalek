@@ -40,7 +40,7 @@ class CartRepositoryImpl(
                             modelNumber = productModel.modelNumber,
                             productQty = product_qty.toInt(),
                             productPrice = productModel.displayPrice,
-                            withInstallation = Constants.TEXT_NO,
+                            withInstallation = TEXT_NO,
                             manufacturerEnName = productModel.manufacturerName,
                             modelEnName = productModel.modelName,
                             powerEnName = productModel.powerName,

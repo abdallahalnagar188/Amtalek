@@ -1,6 +1,8 @@
 package eramo.amtalek.util
 
 import android.app.Activity
+import android.os.Build
+import android.text.Html
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -12,15 +14,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.paging.PagingConfig
 import eramo.amtalek.R
-import eramo.amtalek.util.Constants.TAG
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 import java.text.NumberFormat
+import java.text.ParseException
 import java.util.Locale
 
 fun Activity.hideSoftKeyboard() {
@@ -48,11 +51,6 @@ fun ImageView.setColor(color: Int) {
     )
 }
 
-fun convertToArabicNumber(englishNumber: Int): String {
-    val arabicFormat = NumberFormat.getInstance(Locale("ar"))
-    return arabicFormat.format(englishNumber)
-}
-
 fun NavController.isFragmentExist(destinationId: Int) =
     try {
         getBackStackEntry(destinationId)
@@ -78,7 +76,7 @@ fun navOptionsAnimation(): NavOptions {
             .build()
 }
 
-fun pagingConfig() = PagingConfig(pageSize = Constants.PAGING_PER_PAGE, enablePlaceholders = false)
+fun pagingConfig() = PagingConfig(pageSize = PAGING_PER_PAGE, enablePlaceholders = false)
 
 fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow {
     emit(ApiState.Loading())
@@ -97,3 +95,34 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
         emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
     }
 }
+
+// -------------------------------------------------------------- //
+
+fun htmlFormatToString(htmlTxt: String): CharSequence {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        Html.fromHtml(htmlTxt, Html.FROM_HTML_MODE_COMPACT)
+    else Html.fromHtml(htmlTxt)
+}
+
+@Throws(ParseException::class)
+fun removePriceComma(value: String): String {
+    return value.replace(",", "")
+}
+
+fun formatPrice(price: Double): String {
+    return "%,.2f".format(Locale.ENGLISH, removePriceComma(price.toString()).toDouble())
+}
+
+fun formatNumber(input: Int): String {
+    return "%,d".format(Locale.ENGLISH,input)
+}
+
+fun parseErrorResponse(string: String): String {
+    return JSONObject(string).getString("message")
+}
+
+fun convertToArabicNumber(englishNumber: Int): String {
+    val arabicFormat = NumberFormat.getInstance(Locale("ar"))
+    return arabicFormat.format(englishNumber)
+}
+// -------------------------------------------------------------- //

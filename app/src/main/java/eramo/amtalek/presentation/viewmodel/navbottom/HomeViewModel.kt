@@ -15,8 +15,7 @@ import eramo.amtalek.domain.repository.CartRepository
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.domain.usecase.drawer.UpdateFirebaseDeviceTokenUseCase
 import eramo.amtalek.domain.usecase.product.*
-import eramo.amtalek.util.Constants
-import eramo.amtalek.util.Constants.TAG
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.notification.FirebaseMessageReceiver
 import eramo.amtalek.util.state.Resource
@@ -138,7 +137,7 @@ class HomeViewModel @Inject constructor(
     fun latestDeals() {
         latestDealsJob?.cancel()
         latestDealsJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeDealsByUserIdUseCase().collect { result ->
                     when (result) {
@@ -161,7 +160,7 @@ class HomeViewModel @Inject constructor(
     fun allProducts() {
         allProductsJob?.cancel()
         allProductsJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeProductsByUserIdUseCase().collect { result ->
                     when (result) {
@@ -184,7 +183,7 @@ class HomeViewModel @Inject constructor(
     fun allFeatured() {
         allFeaturedJob?.cancel()
         allFeaturedJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeFeaturedByUserIdUseCase().collect { result ->
                     when (result) {
@@ -207,7 +206,7 @@ class HomeViewModel @Inject constructor(
     fun allProductsManufacturer() {
         allProductsManufacturerJob?.cancel()
         allProductsManufacturerJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeProductsManufacturerByUserIdUseCase().collect { result ->
                     when (result) {
@@ -280,7 +279,7 @@ class HomeViewModel @Inject constructor(
     fun getProfile() {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 getProfileUseCase().collect { result ->
                     when (result) {
@@ -325,7 +324,7 @@ class HomeViewModel @Inject constructor(
     fun getHomeAds() {
         homeAdsJob?.cancel()
         homeAdsJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeAdsUseCase().collect { result ->
                     when (result) {
@@ -348,7 +347,7 @@ class HomeViewModel @Inject constructor(
     fun getHomeOffers() {
         homeOffersJob?.cancel()
         homeOffersJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 homeOffersUseCase().collect { result ->
                     when (result) {
@@ -371,7 +370,7 @@ class HomeViewModel @Inject constructor(
     fun getCartCount() {
         cartCountJob?.cancel()
         cartCountJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 val result = if (UserUtil.isUserLogin())
                     cartRepository.getCartCountApi()

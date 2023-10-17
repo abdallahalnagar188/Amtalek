@@ -30,8 +30,6 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.dialog.WarningDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.*
-import eramo.amtalek.util.Constants.TAG
-import eramo.amtalek.util.Constants.TOPIC
 import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.deeplink.DeeplinkHandler
 import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
@@ -122,7 +120,7 @@ class MainActivity : AppCompatActivity(),
     private fun setupDrawer() {
         binding.inDrawerHeader.apply {
 
-                Constants.setupLangChooser(
+                setupLangChooser(
                     this@MainActivity,
                     layoutLangIvFlag,
                     layoutLangCvHeader,
@@ -140,6 +138,12 @@ class MainActivity : AppCompatActivity(),
 
             navHeaderClUserCell.setOnClickListener {
                 navController.navigate(R.id.myAccountFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            navHeaderMyFavourite.setOnClickListener {
+                navController.navigate(R.id.favouritesFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }

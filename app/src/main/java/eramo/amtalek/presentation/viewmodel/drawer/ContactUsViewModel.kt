@@ -7,7 +7,7 @@ import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.usecase.drawer.ContactMsgUseCase
 import eramo.amtalek.domain.usecase.drawer.GetAppInfoUseCase
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -41,7 +41,7 @@ class ContactUsViewModel @Inject constructor(
     private fun getAppInfo() {
         getAppInfoJob?.cancel()
         getAppInfoJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 getAppInfoUseCase().collect { result ->
                     when (result) {

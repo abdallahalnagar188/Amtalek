@@ -16,12 +16,12 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemAdsBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
+import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.presentation.adapters.dummy.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.dummy.DummyNewsAdapter
-import eramo.amtalek.presentation.adapters.dummy.DummyPropertyPreviewAdapter
+import eramo.amtalek.presentation.adapters.dummy.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.dummy.DummySliderTopAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
-import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
@@ -35,7 +35,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     DummyFeaturedAdapter.OnItemClickListener,
-    DummyPropertyPreviewAdapter.OnItemClickListener,
+    RvMyFavouritesAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = true
@@ -52,7 +52,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     lateinit var dummyFeaturedAdapter: DummyFeaturedAdapter
 
     @Inject
-    lateinit var dummyPropertyPreviewAdapter: DummyPropertyPreviewAdapter
+    lateinit var rvMyFavouritesAdapter: RvMyFavouritesAdapter
 
     @Inject
     lateinit var dummyNewsAdapter: DummyNewsAdapter
@@ -69,7 +69,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupSliderBetween()
 
         dummyFeaturedAdapter.setListener(this)
-        dummyPropertyPreviewAdapter.setListener(this)
+        rvMyFavouritesAdapter.setListener(this)
         dummyNewsAdapter.setListener(this)
         binding.apply {
             inSearch.inCurrency.tvText.hint = getString(R.string.currency)
@@ -77,8 +77,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             dummyFeaturedAdapter.submitList(Dummy.list())
             rvFeatures.adapter = dummyFeaturedAdapter
 
-            dummyPropertyPreviewAdapter.submitList(Dummy.list())
-            rvProperties.adapter = dummyPropertyPreviewAdapter
+//            rvMyFavouritesAdapter.submitList(Dummy.list())
+            rvProperties.adapter = rvMyFavouritesAdapter
 
             dummyNewsAdapter.submitList(Dummy.list())
             rvNews.adapter = dummyNewsAdapter
@@ -235,11 +235,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
     }
 
-    override fun onPropertyClick(model: String) {
-        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
-    }
+//    override fun onPropertyClick(model: String) {
+//        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
+//    }
 
     override fun onNewsClick(model: String) {
         findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
+    }
+
+    override fun onPropertyClick(model: MyFavouritesModel) {
     }
 }

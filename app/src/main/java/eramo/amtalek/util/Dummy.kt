@@ -3,6 +3,7 @@ package eramo.amtalek.util
 import android.content.Context
 import eramo.amtalek.R
 import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -112,22 +113,62 @@ object Dummy {
         return list
     }
 
-    fun dummyCountriesList():List<CountriesSpinnerModel>{
+    fun dummyCountriesList(): List<CountriesSpinnerModel> {
         val list = mutableListOf<CountriesSpinnerModel>()
 
-        list.add(CountriesSpinnerModel("Country","https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"))
-        list.add(CountriesSpinnerModel("Egypt","https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"))
-        list.add(CountriesSpinnerModel("KSA","https://cdn.britannica.com/79/5779-050-46C999AF/Flag-Saudi-Arabia.jpg"))
+        list.add(
+            CountriesSpinnerModel(
+                "Country",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"
+            )
+        )
+        list.add(
+            CountriesSpinnerModel(
+                "Egypt",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"
+            )
+        )
+        list.add(CountriesSpinnerModel("KSA", "https://cdn.britannica.com/79/5779-050-46C999AF/Flag-Saudi-Arabia.jpg"))
 
         return list
     }
 
-    fun dummyCitiesList():List<CountriesSpinnerModel>{
+    fun dummyCitiesList(): List<CountriesSpinnerModel> {
         val list = mutableListOf<CountriesSpinnerModel>()
 
-        list.add(CountriesSpinnerModel("City","https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
-        list.add(CountriesSpinnerModel("Cairo","https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
-        list.add(CountriesSpinnerModel("Alex","https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+        list.add(CountriesSpinnerModel("City", "https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+        list.add(CountriesSpinnerModel("Cairo", "https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+        list.add(CountriesSpinnerModel("Alex", "https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
+
+        return list
+    }
+
+    fun dummyMyFavouritesList(context: Context): List<MyFavouritesModel> {
+        val list = mutableListOf<MyFavouritesModel>()
+
+        list.add(
+            MyFavouritesModel(
+                "https://www.jkath.com/wp-content/uploads/2022/12/4603_Arden_Ave_024-copy.jpg",
+                context.getString(R.string.for_sale), 0, 0, 500000.0,
+                context.getString(R.string.fake_title), 120, 2, 4,
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+
+            )
+        )
+
+        list.add(
+            MyFavouritesModel(
+                "https://www.jkath.com/wp-content/uploads/2022/12/4603_Arden_Ave_024-copy.jpg",
+                context.getString(R.string.for_sale), 1, 1, 500000.0,
+                context.getString(R.string.fake_title), 1050, 2, 4,
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+
+            )
+        )
 
         return list
     }

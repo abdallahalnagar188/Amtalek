@@ -12,7 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import eramo.amtalek.R
 
-object Constants {
+//object Constants {
     const val TOPIC = "/topics/MyTopic"
 
     const val TEXT_YES = "yes"
@@ -27,11 +27,8 @@ object Constants {
     const val ERAMO_WEBSITE = "https://www.e-ramo.net"
     const val ERAMO_PHONE = "tel:+201011559674"
 
-    fun htmlFormatToString(htmlTxt: String): CharSequence {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            Html.fromHtml(htmlTxt, Html.FROM_HTML_MODE_COMPACT)
-        else Html.fromHtml(htmlTxt)
-    }
+    const val TRUE = 1
+    const val FALSE = 0
 
     fun createSpinnerAdapter(context: Context, list: List<StringWithTag>) =
         ArrayAdapter(context, R.layout.layout_spinner_item, list)
@@ -88,4 +85,4 @@ object Constants {
         body.visibility = View.VISIBLE
         iconArrow.setImageResource(R.drawable.ic_arrow_up)
     }
-}
+//}

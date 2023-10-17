@@ -9,7 +9,7 @@ import eramo.amtalek.domain.model.products.CategoryModel
 import eramo.amtalek.domain.repository.ProductsRepository
 import eramo.amtalek.domain.usecase.product.GetFilterCategoriesUseCase
 import eramo.amtalek.domain.usecase.product.HomeProductsManufacturerByUserIdUseCase
-import eramo.amtalek.util.Constants
+import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -56,7 +56,7 @@ class FilterViewModel @Inject constructor(
     private fun filterCategories() {
         filterCategoriesJob?.cancel()
         filterCategoriesJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 getFilterCategoriesUseCase().collect { result ->
                     when (result) {
@@ -81,7 +81,7 @@ class FilterViewModel @Inject constructor(
     private fun maxProductPrice() {
         maxPriceJob?.cancel()
         maxPriceJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 productsRepository.maxProductPrice().collect { result ->
                     when (result) {
@@ -106,7 +106,7 @@ class FilterViewModel @Inject constructor(
     private fun minProductPrice() {
         minPriceJob?.cancel()
         minPriceJob = viewModelScope.launch {
-            delay(Constants.ANIMATION_DELAY)
+            delay(ANIMATION_DELAY)
             withContext(coroutineContext) {
                 productsRepository.minProductPrice().collect { result ->
                     when (result) {

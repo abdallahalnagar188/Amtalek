@@ -178,7 +178,6 @@
     <string name="in_stock_value">In Stock (%s left)</string>
     <string name="active">active</string>
     <string name="inactive">inactive</string>
-    <string name="my_favourite">My Favourites</string>
     <string name="notifications">Notifications</string>
     <string name="default_notification_channel_id">123</string>
     <string name="taxes_cost_s_dirham">TAXES COST: %s DIRHAM</string>
@@ -325,9 +324,7 @@
     <string name="favourite_properties_4">Favourite properties (4)</string>
     <string name="featured_properties_in_egypt">Featured properties in Egypt</string>
     <string name="latest_properties_in_egypt">Latest properties in Egypt</string>
-    <string name="for_sale">For sale</string>
     <string name="latest">Latest</string>
-    <string name="for_rent">For rent</string>
     <string name="see_all_properties">See all properties</string>
     <string name="latest_news">Latest news</string>
     <string name="see_all_news">See all news</string>
@@ -375,11 +372,9 @@
     <string name="my_offerl">My offer:</string>
     <string name="display_project">Display project</string>
     <string name="out">Out</string>
-    <string name="featured">Featured</string>
     <string name="amalek_help_you">Amalek help you</string>
     <string name="amtalek_has_many_properties_and_clients">Amtalek has many properties and clients</string>
     <string name="my_properties_offer">My Properties Offer</string>
-    <string name="my_favourite_properties">My favourite properties</string>
     <string name="add_property">Add property</string>
     <string name="language">العربية</string>
     <string name="property_status">property status</string>
@@ -435,4 +430,19 @@
 
     <string name="edit_profile">Edit Profile</string>
 
+    <string name="for_sale">For Sale</string>
+    <string name="for_rent">For Rent</string>
+    <string name="featured">Featured</string>
+
+    <string name="fake_title">Residential apartment for sale super finishing</string>
+    <string name="fake_location">Sheikh Zayed Giza</string>
+    <string name="fake_date">3 Days ago</string>
+
+    <string name="s_egp">%s EGP</string>
+    <string name="s_meter_square">%s sqft</string>
+    <string name="s_meter_square_me">%s m&#xB2;</string>
+
+    <string name="my_favourite_properties">My Favourite</string>
+    <string name="my_favourite">My Favourite</string>
+    <string name="by_broker">By Broker</string>
 </resources>
