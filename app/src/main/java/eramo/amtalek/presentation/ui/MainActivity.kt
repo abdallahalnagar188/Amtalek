@@ -161,6 +161,15 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
+
+
+
+            navHeaderJoinUs.setOnClickListener {
+                navController.navigate(R.id.joinUsFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
 //            navHeaderTvProjects.setOnClickListener {
 //                navController.navigate(R.id.projectsFragment)
 //
@@ -241,6 +250,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.favouritesFragment,
                 R.id.notificationFragment,
                 R.id.latestProjectsFragment,
+                R.id.joinUsFragment,
                 R.id.cancelDialog -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE

@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:fontFamily="@font/montserratmedium"
+        android:fontFamily="@font/montserratbold"
         android:text="@string/by_broker"
         android:textColor="@color/white"
         android:textSize="@dimen/_8ssp"

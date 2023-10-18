@@ -453,4 +453,16 @@
     <string name="fake_onboarding_three">We have provided you with the possibility of investing in your property, selling or renting and find the best return for you</string>
 
     <string name="latest_projects">Latest projects</string>
+
+    <string name="delegate_name">Delegate name:</string>
+    <string name="company_name">Company name:</string>
+    <string name="phone_number">Phone number:</string>
+    <string name="email_join_us">E-mail:</string>
+    <string name="tax_card">Tax Card:</string>
+    <string name="upload_a_copy_of_the_identity_card">Upload a copy of the identity card</string>
+    <string name="file_format_pdf_jpeg_png">File format: pdf, jpeg, png</string>
+
+    <string name="add_your_notes_optional">Add your notes (optional)</string>
+
+    <string name="no_image_chosen">No image chosen</string>
 </resources>

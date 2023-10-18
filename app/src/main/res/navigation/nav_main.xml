@@ -201,4 +201,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.LatestProjectsFragment"
         android:label="fragment_latest_projects"
         tools:layout="@layout/fragment_latest_projects" />
+    <fragment
+        android:id="@+id/joinUsFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.JoinUsFragment"
+        android:label="fragment_join_us"
+        tools:layout="@layout/fragment_join_us" />
 </navigation>

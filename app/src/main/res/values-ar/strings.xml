@@ -452,4 +452,16 @@
     <string name="fake_onboarding_three">وفرنالك إمكانية استثمار عقارك بيع او إيجار وإيجاد أفضل عائد لك</string>
 
     <string name="latest_projects">أحدث المشاريع</string>
+
+    <string name="delegate_name">إسم المفوض:</string>
+    <string name="company_name">إسم الشركة:</string>
+    <string name="phone_number">رقم الهاتف:</string>
+    <string name="email_join_us">البريد الإليكترونى:</string>
+    <string name="tax_card">رقم السجل التجاري:</string>
+    <string name="upload_a_copy_of_the_identity_card">تحميل صورة البطاقة الضريبية</string>
+    <string name="file_format_pdf_jpeg_png">صيغة الملف : pdf , jpeg , png</string>
+
+    <string name="add_your_notes_optional">أضف ملاحظاتك (إختياري)</string>
+
+    <string name="no_image_chosen">لم يتم أختيار صورة</string>
 </resources>

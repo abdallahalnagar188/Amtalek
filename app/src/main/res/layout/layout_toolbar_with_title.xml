@@ -16,7 +16,7 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Edit Profile"
+        tools:text="Fragment Title"
         android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratmedium"
