@@ -8,6 +8,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
+import eramo.amtalek.domain.model.main.brokers.BrokerModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -244,6 +245,39 @@ object Dummy {
             LatestProjectsModel(
                 "https://housing-images.n7net.in/4f2250e8/cb8632c10a1fd97e6aa3e692731579b0/v0/medium/nyati_era-lohegaon-pune-nyati_group.jpeg",
                 "Sheikh Zayed Compound", "Sheikh Zayed Giza", "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+            )
+        )
+
+        return list
+    }
+
+    fun dummyBrokersList(): List<BrokerModel> {
+        val list = mutableListOf<BrokerModel>()
+
+        list.add(
+            BrokerModel(
+                "https://www.era-egypt.com/wp-content/uploads/2021/06/ERA-2004.png",
+                "ERA Estate Development Company",
+                "A leading real estate company in real estate design and implementation for more than 100 years",
+                4,250
+            )
+        )
+
+        list.add(
+            BrokerModel(
+                "https://images.wuzzuf-data.net/files/company_logo/Real-Estate-Broker-in-Maadi--Cairo--Egypt--Egypt-26682-1503846837.jpg",
+                "Lana Real Estate Development Company",
+                "A leading real estate company in real estate design and implementation for more than 100 years",
+                1,50
+            )
+        )
+
+        list.add(
+            BrokerModel(
+                "https://realestatewithshahid.com/wp-content/uploads/2021/10/RES-logo.png",
+                "RES Real Estate Development Company",
+                "A leading real estate company in real estate design and implementation for more than 100 years",
+                3,200
             )
         )
 

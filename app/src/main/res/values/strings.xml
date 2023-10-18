@@ -213,7 +213,6 @@
     <string name="send_invite">Send invite</string>
     <string name="for_every_friend_who_joins_we_will_give_you_15_points">For every friend who joins we will give you 15 points</string>
     <string name="suspend_my_account">Suspend my account</string>
-    <string name="profile">Profile</string>
     <string name="developed_by">Devoloped by</string>
     <string name="do_you_have_an_discount_code">Do you have an discount code?</string>
     <string name="leave_us_a_message_we_will_get_in_contact_with_you_as_soon_as_possible">Leave us a message, we will get in contact with you as soon as possible</string>
@@ -465,4 +464,10 @@
     <string name="add_your_notes_optional">Add your notes (optional)</string>
 
     <string name="no_image_chosen">No image chosen</string>
+
+    <string name="profile">Profile</string>
+
+    <string name="s_residential_projects">%s residential projects</string>
+    <string name="s_property">%s Property</string>
+
 </resources>

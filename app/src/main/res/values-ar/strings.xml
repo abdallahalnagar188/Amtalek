@@ -211,7 +211,6 @@
     <string name="send_invite">ارسل دعوة</string>
     <string name="for_every_friend_who_joins_we_will_give_you_15_points">سنمنحك 15 نقطة مقابل كل صديق ينضم</string>
     <string name="suspend_my_account">تعليق حسابي</string>
-    <string name="profile">الملف الشخصي</string>
     <string name="developed_by">مطور بواسطة</string>
     <string name="do_you_have_an_discount_code">هل لديك كود خصم؟</string>
     <string name="leave_us_a_message_we_will_get_in_contact_with_you_as_soon_as_possible">اترك لنا رسالة ، وسوف نتواصل معك في أقرب وقت ممكن</string>
@@ -464,4 +463,10 @@
     <string name="add_your_notes_optional">أضف ملاحظاتك (إختياري)</string>
 
     <string name="no_image_chosen">لم يتم أختيار صورة</string>
+
+    <string name="profile">الملف الشخصي</string>
+
+    <string name="s_residential_projects">%s مشروعات سكنية</string>
+    <string name="s_property">%s شقة</string>
+
 </resources>

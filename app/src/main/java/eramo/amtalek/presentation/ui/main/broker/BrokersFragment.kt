@@ -3,14 +3,15 @@ package eramo.amtalek.presentation.ui.main.broker
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBrokersBinding
-import eramo.amtalek.presentation.adapters.recyclerview.DummyBrokerAdapter
+import eramo.amtalek.domain.model.main.brokers.BrokerModel
+import eramo.amtalek.presentation.adapters.recyclerview.RvBrokersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.CartViewModel
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
-    DummyBrokerAdapter.OnItemClickListener {
+    RvBrokersAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -30,35 +31,55 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     private val viewModel: CartViewModel by viewModels()
 
     @Inject
-    lateinit var dummyBrokerAdapter: DummyBrokerAdapter
+    lateinit var rvBrokersAdapter: RvBrokersAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.registerApiRequest { viewModel.cartData() }
-        super.registerApiCancellation { viewModel.cancelRequest() }
 
-        StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
-        setupToolbar()
+        setupViews()
 
-        dummyBrokerAdapter.setListener(this)
-        binding.apply {
-            dummyBrokerAdapter.submitList(Dummy.list())
-            rvBrokers.adapter = dummyBrokerAdapter
-        }
     }
 
-    private fun setupToolbar() {
-        binding.inToolbar.apply {
-            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-//            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
-            inNotification.root.setOnClickListener {
-                findNavController().navigate(R.id.notificationFragment)
+    private fun setupViews() {
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+        setupToolbar()
+
+        initRv(Dummy.dummyBrokersList())
+    }
+
+    private fun initRv(data: List<BrokerModel>) {
+        rvBrokersAdapter.setListener(this@BrokersFragment)
+        binding.rvBrokers.adapter = rvBrokersAdapter
+        rvBrokersAdapter.submitList(data)
+
+        setupSearchRv(data)
+    }
+
+    private fun setupSearchRv(data: List<BrokerModel>) {
+        binding.etSearch.addTextChangedListener { text ->
+            if (text.toString().isEmpty()) {
+                rvBrokersAdapter.submitList(data)
+            } else {
+                val list = data.filter {
+                    it.title.lowercase().contains(text.toString().lowercase())
+                }
+                rvBrokersAdapter.submitList(null)
+                rvBrokersAdapter.submitList(list)
             }
         }
     }
 
-    override fun onProductClick(model: String) {
-        findNavController().navigate(R.id.brokersDetailsFragment)
+
+    private fun setupToolbar() {
+        binding.inToolbar.apply {
+            tvTitle.text = getString(R.string.brokers)
+            toolbarIvMenu.setOnClickListener {
+                viewModelShared.openDrawer.value = true
+            }
+        }
     }
 
+    override fun onBrokerClick(model: BrokerModel) {
+
+    }
 }
