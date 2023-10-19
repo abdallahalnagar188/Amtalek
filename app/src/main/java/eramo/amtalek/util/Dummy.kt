@@ -151,8 +151,8 @@ object Dummy {
 
         list.add(
             MyFavouritesModel(
-                "https://www.jkath.com/wp-content/uploads/2022/12/4603_Arden_Ave_024-copy.jpg",
-                context.getString(R.string.for_sale), 0, 0, 500000.0,
+                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+                context.getString(R.string.for_sell), 0, 0, 500000.0,
                 context.getString(R.string.fake_title), 120, 2, 4,
                 context.getString(R.string.fake_location),
                 context.getString(R.string.fake_date),
@@ -163,8 +163,8 @@ object Dummy {
 
         list.add(
             MyFavouritesModel(
-                "https://www.jkath.com/wp-content/uploads/2022/12/4603_Arden_Ave_024-copy.jpg",
-                context.getString(R.string.for_sale), 1, 1, 500000.0,
+                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+                context.getString(R.string.for_sell), 1, 1, 2500000.0,
                 context.getString(R.string.fake_title), 1050, 2, 4,
                 context.getString(R.string.fake_location),
                 context.getString(R.string.fake_date),
@@ -172,6 +172,53 @@ object Dummy {
 
             )
         )
+        list.add(
+            MyFavouritesModel(
+                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+                context.getString(R.string.for_sell), 0, 0, 500000.0,
+                context.getString(R.string.fake_title), 120, 2, 4,
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+
+            )
+        )
+
+        list.add(
+            MyFavouritesModel(
+                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+                context.getString(R.string.for_sell), 1, 1, 2500000.0,
+                context.getString(R.string.fake_title), 1050, 2, 4,
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+
+            )
+        )
+        list.add(
+            MyFavouritesModel(
+                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+                context.getString(R.string.for_sell), 0, 0, 500000.0,
+                context.getString(R.string.fake_title), 120, 2, 4,
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+
+            )
+        )
+
+        list.add(
+            MyFavouritesModel(
+                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+                context.getString(R.string.for_sell), 1, 1, 2500000.0,
+                context.getString(R.string.fake_title), 1050, 2, 4,
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+
+            )
+        )
+
 
         return list
     }

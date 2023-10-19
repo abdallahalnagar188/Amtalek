@@ -152,7 +152,7 @@
                     android:background="@drawable/ic_blue_end"
                     android:fontFamily="@font/montserratsemibold"
                     android:gravity="center"
-                    android:text="@string/for_sale"
+                    android:text="@string/for_sell"
                     android:padding="@dimen/_8sdp"
                     android:textAllCaps="false"
                     android:textColor="@color/white"

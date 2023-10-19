@@ -213,7 +213,7 @@
             android:background="@drawable/ic_gray_end"
             android:gravity="end"
             android:padding="@dimen/_4sdp"
-            android:text="@string/for_sale"
+            android:text="@string/for_sell"
             android:textColor="@color/black"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toTopOf="@+id/view15"

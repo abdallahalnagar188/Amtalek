@@ -374,7 +374,6 @@
     <string name="amalek_help_you">Amalek help you</string>
     <string name="amtalek_has_many_properties_and_clients">Amtalek has many properties and clients</string>
     <string name="my_properties_offer">My Properties Offer</string>
-    <string name="add_property">Add property</string>
     <string name="language">العربية</string>
     <string name="property_status">property status</string>
     <string name="beds_number">beds number</string>
@@ -429,7 +428,7 @@
 
     <string name="edit_profile">Edit Profile</string>
 
-    <string name="for_sale">For Sale</string>
+    <string name="for_sell">For Sell</string>
     <string name="for_rent">For Rent</string>
     <string name="featured">Featured</string>
 
@@ -469,5 +468,7 @@
 
     <string name="s_residential_projects">%s residential projects</string>
     <string name="s_property">%s Property</string>
+
+    <string name="add_property">Add property</string>
 
 </resources>

@@ -15,9 +15,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.news.NewsFragment"
-        tools:layout="@layout/fragment_news">
+        android:id="@+id/myEstateFragment"
+        android:name="eramo.amtalek.presentation.ui.main.myestate.MyEstateFragment"
+        tools:layout="@layout/fragment_my_estate">
         <argument
             android:name="manufacturerId"
             android:defaultValue=""
@@ -117,10 +117,10 @@
         android:label="BrokersDetailsFragment"
         tools:layout="@layout/fragment_broker_details" />
     <fragment
-        android:id="@+id/newsDetailsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.news.NewsDetailsFragment"
+        android:id="@+id/nyEstateRentFragment"
+        android:name="eramo.amtalek.presentation.ui.main.myestate.MyEstateRentFragment"
         android:label="NewsDetailsFragment"
-        tools:layout="@layout/fragment_news_details" />
+        tools:layout="@layout/fragment_my_estate_rent" />
     <fragment
         android:id="@+id/projectDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.projects.ProjectDetailsFragment"
@@ -206,4 +206,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.JoinUsFragment"
         android:label="fragment_join_us"
         tools:layout="@layout/fragment_join_us" />
+    <fragment
+        android:id="@+id/myEstateSellFragment"
+        android:name="eramo.amtalek.presentation.ui.main.myestate.MyEstateSellFragment"
+        android:label="fragment_my_estate_sell"
+        tools:layout="@layout/fragment_my_estate_sell" />
 </navigation>

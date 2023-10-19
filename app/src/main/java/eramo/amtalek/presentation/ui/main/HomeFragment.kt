@@ -97,7 +97,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
 
             tvSeeAllNews.setOnClickListener {
-                findNavController().navigate(R.id.newsFragment, null, navOptionsAnimation())
+                findNavController().navigate(R.id.myEstateFragment, null, navOptionsAnimation())
             }
         }
     }
@@ -251,7 +251,7 @@ override fun onFeaturedClick(model: String) {
 //    }
 
 override fun onNewsClick(model: String) {
-    findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
+    findNavController().navigate(R.id.nyEstateRentFragment, null, navOptionsAnimation())
 }
 
 override fun onPropertyClick(model: MyFavouritesModel) {

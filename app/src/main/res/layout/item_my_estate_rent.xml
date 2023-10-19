@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_125sdp"
+    android:layout_margin="@dimen/_4sdp"
+    android:background="@color/gray_background"
+    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/gray_low"
+    app:strokeWidth="@dimen/_1sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="@dimen/_115sdp"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/amtalek_blue" />
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="@dimen/_55sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/property_label_background"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:gravity="center"
+            android:textColor="@color/amtalek_blue"
+            android:paddingVertical="@dimen/_6sdp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_image"
+            android:text="@string/for_rent" />
+
+        <TextView
+            android:id="@+id/tv_featured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/property_featured_label_background3"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:gravity="center"
+            android:paddingStart="@dimen/_16sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textSize="@dimen/_8ssp"
+            android:textColor="@color/black"
+            android:paddingVertical="@dimen/_6sdp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/iv_image"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_image"
+            android:text="@string/featured" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toTopOf="@id/tv_title"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4,000,000 EGP" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="1"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toTopOf="@id/iv_area"
+            app:layout_constraintEnd_toEndOf="@id/iv_edit"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            tools:text="Residential apartment for sale in manshetercity" />
+
+        <ImageView
+            android:id="@+id/iv_area"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:src="@drawable/ic_area"
+            app:layout_constraintBottom_toTopOf="@id/iv_location"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_area"
+            app:layout_constraintStart_toEndOf="@id/iv_area"
+            app:layout_constraintTop_toTopOf="@+id/iv_area"
+            tools:text="8,111 sqft" />
+
+
+        <ImageView
+            android:id="@+id/iv_bathroom"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:src="@drawable/ic_bathroom"
+            app:layout_constraintStart_toEndOf="@id/tv_area"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+        <TextView
+            android:id="@+id/tv_bathroom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_bathroom"
+            app:layout_constraintStart_toEndOf="@id/iv_bathroom"
+            app:layout_constraintTop_toTopOf="@+id/iv_bathroom"
+            tools:text="5" />
+
+        <ImageView
+            android:id="@+id/iv_bed"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:src="@drawable/ic_bed"
+            app:layout_constraintStart_toEndOf="@id/tv_bathroom"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_bed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_bed"
+            app:layout_constraintStart_toEndOf="@id/iv_bed"
+            app:layout_constraintTop_toTopOf="@+id/iv_bed"
+            tools:text="10" />
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:src="@drawable/ic_location_green"
+            app:layout_constraintBottom_toTopOf="@id/iv_clock"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_area" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_location"
+            app:layout_constraintStart_toEndOf="@id/iv_location"
+            app:layout_constraintTop_toTopOf="@id/iv_location"
+            tools:text="Sheikh Zayed Giza" />
+
+        <ImageView
+            android:id="@+id/iv_clock"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_location" />
+
+        <TextView
+            android:id="@+id/tv_date_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_clock"
+            app:layout_constraintStart_toEndOf="@id/iv_clock"
+            app:layout_constraintTop_toTopOf="@id/iv_clock"
+            tools:text="4 Days ago" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

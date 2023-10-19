@@ -74,7 +74,7 @@
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         android:fontFamily="@font/montserratbold"
-        android:text="@string/for_sale"
+        android:text="@string/for_sell"
         android:textColor="@color/amtalek_blue_dark"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toTopOf="@+id/textView7"

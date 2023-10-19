@@ -43,6 +43,7 @@
             android:background="@drawable/property_label_background"
             android:paddingHorizontal="@dimen/_5sdp"
             android:gravity="center"
+            android:textColor="@color/amtalek_blue"
             android:paddingVertical="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="@+id/iv_image"

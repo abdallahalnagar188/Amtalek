@@ -368,7 +368,6 @@
     <string name="amalek_help_you">عمالك يساعدك</string>
     <string name="amtalek_has_many_properties_and_clients">تمتلك امتالك العديد من الخصائص والعملاء</string>
     <string name="my_properties_offer">عرض ممتلكاتي</string>
-    <string name="add_property">أضف عقار</string>
     <string name="language">English</string>
     <string name="property_status">حالة الملكية</string>
     <string name="beds_number">عدد الأسرة</string>
@@ -428,7 +427,7 @@
 
     <string name="edit_profile">تعديل البيانات</string>
 
-    <string name="for_sale">للبيع</string>
+    <string name="for_sell">للبيع</string>
     <string name="for_rent">للإيجار</string>
     <string name="featured">مميز</string>
 
@@ -469,4 +468,5 @@
     <string name="s_residential_projects">%s مشروعات سكنية</string>
     <string name="s_property">%s شقة</string>
 
+    <string name="add_property">إضافة عقار</string>
 </resources>

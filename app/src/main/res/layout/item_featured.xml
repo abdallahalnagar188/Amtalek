@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_yellow_end"
         android:paddingHorizontal="@dimen/_4sdp"
-        android:text="@string/for_sale"
+        android:text="@string/for_sell"
         android:textSize="@dimen/_10ssp"
         android:gravity="end"
         app:layout_constraintBottom_toTopOf="@+id/view14"
