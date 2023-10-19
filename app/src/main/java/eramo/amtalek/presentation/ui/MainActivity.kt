@@ -55,13 +55,13 @@ class MainActivity : AppCompatActivity(),
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        FirebaseApp.initializeApp(this)
-        FirebaseMessageReceiver.sharedPref = getSharedPreferences("sharedPref", MODE_PRIVATE)
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
-        FirebaseMessaging.getInstance().token.addOnSuccessListener { firebaseToken ->
-            FirebaseMessageReceiver.token = firebaseToken
-            Log.d(TAG, "onCreate: $firebaseToken")
-        }
+//        FirebaseApp.initializeApp(this)
+//        FirebaseMessageReceiver.sharedPref = getSharedPreferences("sharedPref", MODE_PRIVATE)
+//        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+//        FirebaseMessaging.getInstance().token.addOnSuccessListener { firebaseToken ->
+//            FirebaseMessageReceiver.token = firebaseToken
+//            Log.d(TAG, "onCreate: $firebaseToken")
+//        }
 
         //setup navStart
         val navHostFragment = supportFragmentManager
