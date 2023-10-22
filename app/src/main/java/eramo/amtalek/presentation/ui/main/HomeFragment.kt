@@ -21,6 +21,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummySliderTopAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -48,6 +49,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var dummySliderTopAdapter: DummySliderTopAdapter
+
+    @Inject
+    lateinit var rvHomeFeaturedRealEstateAdapter: RvHomeFeaturedRealEstateAdapter
 
     @Inject
     lateinit var dummyFeaturedAdapter: DummyFeaturedAdapter
@@ -109,6 +113,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         initToolbar()
         setupCarouselSliderTop()
+        setupFeaturedRealEstateRv(Dummy.dummyMyFavouritesList(requireContext()))
     }
 
     private fun listeners() {
@@ -153,7 +158,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 //        carouselSliderTop.registerLifecycle(lifecycle)
             carouselSliderTop.registerLifecycle(viewLifecycleOwner.lifecycle)
             carouselSliderTop.setData(Dummy.dummyCarouselList())
-            carouselSliderTop.setIndicator(dotFeatured)
+            carouselSliderTop.setIndicator(carouselSliderTopDots)
 
 
             carouselSliderTop.carouselListener = object : CarouselListener {
@@ -179,6 +184,40 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     }
 
                 }
+            }
+        }
+    }
+
+    private fun setupFeaturedRealEstateRv(data: List<MyFavouritesModel>) {
+        binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
+        rvHomeFeaturedRealEstateAdapter.submitList(data)
+        setupFeaturedRealEstateHeaderListener()
+    }
+
+    private fun setupFeaturedRealEstateHeaderListener() {
+
+        binding.apply {
+
+            inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+            inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+            inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+
+            inFeaturedRealEstate.tvAll.setOnClickListener {
+                inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+                inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+                inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+            }
+
+            inFeaturedRealEstate.tvForSell.setOnClickListener {
+                inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+                inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+                inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+            }
+
+            inFeaturedRealEstate.tvForRent.setOnClickListener {
+                inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+                inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
+                inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
             }
         }
     }

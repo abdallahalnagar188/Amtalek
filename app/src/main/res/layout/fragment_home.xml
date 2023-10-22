@@ -55,7 +55,7 @@
                 app:showTopShadow="false" />
 
             <me.relex.circleindicator.CircleIndicator2
-                android:id="@+id/dot_featured"
+                android:id="@+id/carousel_sliderTop_dots"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_18sdp"
                 app:ci_animator="@animator/scale_with_alpha"
@@ -65,15 +65,27 @@
                 app:layout_constraintStart_toStartOf="@+id/carousel_sliderTop"
                 app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop" />
 
+
+            <include
+                android:id="@+id/in_featured_real_estate"
+                layout="@layout/featured_real_estate_home_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop_dots" />
+
             <include
                 android:id="@+id/in_search"
                 layout="@layout/layout_search_property"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_16sdp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dot_featured" />
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop_dots" />
 
             <TextView
                 android:id="@+id/textView38"

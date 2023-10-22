@@ -139,7 +139,6 @@
     <string name="promo_code_is_used">Promo code is used</string>
     <string name="select_a_payment_type">Select a payment type</string>
     <string name="enter_a_query">Enter a query</string>
-    <string name="all">All</string>
     <string name="success">Success</string>
     <string name="product_added_successfully">Product added successfully</string>
     <string name="payment_cash">Cash</string>
@@ -470,5 +469,9 @@
     <string name="s_property">%s Property</string>
 
     <string name="add_property">Add property</string>
+
+    <string name="featured_real_estate_in_egypt">Featured real estate in Egypt</string>
+    <string name="see_more">See More</string>
+    <string name="all">All</string>
 
 </resources>

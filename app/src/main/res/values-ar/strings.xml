@@ -135,7 +135,6 @@
     <string name="promo_code_is_used">البرموكود مستخدم بالفعل</string>
     <string name="select_a_payment_type">اختر طريقة الدفع</string>
     <string name="enter_a_query">ادخل كلمة للبحث</string>
-    <string name="all">الكل</string>
     <string name="success">تم بنجاح</string>
     <string name="product_added_successfully">تم اضافة المنتج بنجاح</string>
     <string name="payment_cash">كاش</string>
@@ -469,4 +468,9 @@
     <string name="s_property">%s شقة</string>
 
     <string name="add_property">إضافة عقار</string>
+
+    <string name="featured_real_estate_in_egypt">عقارات مميزة فى مصر</string>
+    <string name="see_more">مشاهدة الكل</string>
+    <string name="all">الكل</string>
+
 </resources>
