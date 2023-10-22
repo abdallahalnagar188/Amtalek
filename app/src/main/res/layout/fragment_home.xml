@@ -87,6 +87,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/in_featured_real_estate" />
 
             <include
+                android:id="@+id/in_properties_by_city"
+                layout="@layout/find_properties_by_city_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_featured_projects" />
+
+            <include
                 android:id="@+id/in_search"
                 layout="@layout/layout_search_property"
                 android:layout_width="match_parent"
@@ -172,6 +182,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_16sdp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView39">
@@ -243,6 +254,7 @@
                 android:padding="@dimen/_8sdp"
                 android:text="@string/see_all_properties"
                 android:textColor="@color/white"
+                android:visibility="invisible"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -256,12 +268,14 @@
                 android:text="@string/latest_news"
                 android:textColor="@color/amtalek_blue_dark"
                 android:textSize="@dimen/_14ssp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_seeAllProperties" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_news"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
@@ -276,6 +290,7 @@
                 android:id="@+id/tv_seeAllNews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="invisible"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/shape_blue"
                 android:padding="@dimen/_8sdp"

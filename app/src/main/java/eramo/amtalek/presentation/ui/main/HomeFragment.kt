@@ -17,12 +17,14 @@ import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemAdsBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummySliderTopAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFindPropertyByCityAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -56,6 +58,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var rvHomeFeaturedProjectsAdapter: RvHomeFeaturedProjectsAdapter
+
+    @Inject
+    lateinit var rvHomeFindPropertyByCityAdapter: RvHomeFindPropertyByCityAdapter
 
     @Inject
     lateinit var dummyFeaturedAdapter: DummyFeaturedAdapter
@@ -119,6 +124,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupCarouselSliderTop()
         setupFeaturedRealEstateRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
+        setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
     }
 
     private fun listeners() {
@@ -230,6 +236,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
+
+    }
+
+    private fun setupFindPropertiesByCityRv(data: List<PropertiesByCityModel>) {
+        binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
+        rvHomeFindPropertyByCityAdapter.submitList(data)
 
     }
 

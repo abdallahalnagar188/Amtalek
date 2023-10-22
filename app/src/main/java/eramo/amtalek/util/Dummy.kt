@@ -9,6 +9,7 @@ import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
+import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -327,6 +328,37 @@ object Dummy {
                 3,200
             )
         )
+
+        return list
+    }
+
+    fun dummyPropertiesByCityList(): List<PropertiesByCityModel> {
+        val list = mutableListOf<PropertiesByCityModel>()
+
+        list.add(
+            PropertiesByCityModel(
+                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg","Cairo",210,150
+            )
+        )
+
+        list.add(
+            PropertiesByCityModel(
+                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg","Alexandria",210,150
+            )
+        )
+
+        list.add(
+            PropertiesByCityModel(
+                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg","Cairo",210,150
+            )
+        )
+
+        list.add(
+            PropertiesByCityModel(
+                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg","Alexandria",210,150
+            )
+        )
+
 
         return list
     }

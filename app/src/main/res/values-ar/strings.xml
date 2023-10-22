@@ -474,5 +474,8 @@
     <string name="see_more">مشاهدة الكل</string>
     <string name="all">الكل</string>
     <string name="project">مشروع</string>
+    <string name="find_your_property_in_the_city">إبحث عن عقارك بالمدينة</string>
 
+    <string name="s_properties_for_sell">عقارات للبيع: %S</string>
+    <string name="s_properties_for_rent">عقارات للإيجار: %s</string>
 </resources>

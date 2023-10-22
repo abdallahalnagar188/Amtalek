@@ -475,5 +475,9 @@
     <string name="see_more">See More</string>
     <string name="all">All</string>
     <string name="project">Project</string>
+    <string name="find_your_property_in_the_city">Find your property in the city</string>
+
+    <string name="s_properties_for_sell">Properties for sell: %s</string>
+    <string name="s_properties_for_rent">Properties for rent: %s</string>
 
 </resources>
