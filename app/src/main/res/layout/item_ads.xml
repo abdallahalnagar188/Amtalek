@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/_4sdp"
-    android:padding="@dimen/_2sdp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_imgAds"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
         android:contentDescription="@null"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/shape_gray_layer" />
+        tools:srcCompat="@drawable/shape_gray_layer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

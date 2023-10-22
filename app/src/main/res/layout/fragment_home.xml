@@ -44,14 +44,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:nextButtonId="@id/btn_next_carousel"
+                app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
+                app:previousButtonId="@id/btn_previous_carousel"
+                app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
                 app:showBottomShadow="false"
                 app:showCaption="false"
                 app:showIndicator="false"
                 app:showNavigationButtons="true"
-                app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
-                app:previousButtonId="@id/btn_previous_carousel"
-                app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
-                app:nextButtonId="@id/btn_next_carousel"
                 app:showTopShadow="false" />
 
             <me.relex.circleindicator.CircleIndicator2
@@ -96,6 +96,39 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/in_featured_projects" />
 
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel_sliderBetween"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_160sdp"
+                android:layout_marginVertical="@dimen/home_margin_top"
+                android:translationZ="8dp"
+                app:autoPlay="true"
+                app:autoPlayDelay="2000"
+                app:carouselType="BLOCK"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_properties_by_city"
+                app:nextButtonId="@id/btn_next_carousel"
+                app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
+                app:previousButtonId="@id/btn_previous_carousel"
+                app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
+                app:showBottomShadow="false"
+                app:showCaption="false"
+                app:showIndicator="false"
+                app:showNavigationButtons="true"
+                app:showTopShadow="false" />
+
+            <me.relex.circleindicator.CircleIndicator2
+                android:id="@+id/carousel_sliderBetween_dots"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                app:ci_animator="@animator/scale_with_alpha"
+                app:ci_drawable="@drawable/ic_dot_selected"
+                app:ci_drawable_unselected="@drawable/ic_dot_unselected"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween" />
+
             <include
                 android:id="@+id/in_search"
                 layout="@layout/layout_search_property"
@@ -125,44 +158,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:visibility="invisible"
                 android:orientation="horizontal"
+                android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView38"
                 tools:listitem="@layout/item_featured" />
 
-            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                android:id="@+id/carousel_sliderBetween"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_margin="@dimen/_16sdp"
-                android:translationZ="8dp"
-                app:autoPlay="true"
-                app:autoPlayDelay="3000"
-                app:carouselType="BLOCK"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_features"
-                app:showBottomShadow="false"
-                app:showCaption="false"
-                app:showIndicator="false"
-                app:showNavigationButtons="false"
-                app:showTopShadow="false" />
-
-            <me.relex.circleindicator.CircleIndicator2
-                android:id="@+id/dot_ads"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                app:ci_animator="@animator/scale_with_alpha"
-                app:ci_drawable="@drawable/ic_dot_selected"
-                android:visibility="invisible"
-                app:ci_drawable_unselected="@drawable/ic_dot_unselected"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween" />
 
             <TextView
                 android:id="@+id/textView39"
@@ -173,9 +176,9 @@
                 android:textColor="@color/amtalek_blue_dark"
                 android:textSize="@dimen/_14ssp"
                 android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dot_ads" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
@@ -236,8 +239,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:visibility="invisible"
                 android:orientation="vertical"
+                android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -254,8 +257,8 @@
                 android:padding="@dimen/_8sdp"
                 android:text="@string/see_all_properties"
                 android:textColor="@color/white"
-                android:visibility="invisible"
                 android:textSize="@dimen/_12ssp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_properties" />
@@ -275,11 +278,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_news"
-                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:orientation="horizontal"
+                android:visibility="invisible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -290,13 +293,13 @@
                 android:id="@+id/tv_seeAllNews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="@drawable/shape_blue"
                 android:padding="@dimen/_8sdp"
                 android:text="@string/see_all_news"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_news" />

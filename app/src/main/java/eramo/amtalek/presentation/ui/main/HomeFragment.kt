@@ -81,7 +81,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupViews()
         listeners()
 
-        setupSliderBetween()
 
         dummyFeaturedAdapter.setListener(this)
         rvMyFavouritesAdapter.setListener(this)
@@ -125,6 +124,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupFeaturedRealEstateRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
+        setupSliderBetween()
+
     }
 
     private fun listeners() {
@@ -247,15 +248,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun setupSliderBetween() {
         binding.apply {
-            carouselSliderBetween.registerLifecycle(lifecycle)
+//            carouselSliderBetween.registerLifecycle(lifecycle)
+            carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
             carouselSliderBetween.setData(Dummy.dummyCarouselList())
-            carouselSliderBetween.setIndicator(dotAds)
+            carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
             carouselSliderBetween.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
                 ): ViewBinding {
-                    return ItemAdsBinding.inflate(
+//                    return ItemAdsBinding.inflate(
+                    return ItemSliderTopBinding.inflate(
                         layoutInflater,
                         parent,
                         false
@@ -267,9 +270,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     item: CarouselItem,
                     position: Int
                 ) {
-                    val currentBinding = binding as ItemAdsBinding
+//                    val currentBinding = binding as ItemAdsBinding
+                    val currentBinding = binding as ItemSliderTopBinding
                     currentBinding.apply {
-
+                        imageView13.setImage(item)
                     }
 
                 }
