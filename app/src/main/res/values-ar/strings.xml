@@ -470,7 +470,9 @@
     <string name="add_property">إضافة عقار</string>
 
     <string name="featured_real_estate_in_egypt">عقارات مميزة فى مصر</string>
+    <string name="featured_projects_in_egypt">أهم المشاريع العقارية في مصر</string>
     <string name="see_more">مشاهدة الكل</string>
     <string name="all">الكل</string>
+    <string name="project">مشروع</string>
 
 </resources>

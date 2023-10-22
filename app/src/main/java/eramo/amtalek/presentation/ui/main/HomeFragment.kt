@@ -21,6 +21,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummySliderTopAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -52,6 +53,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var rvHomeFeaturedRealEstateAdapter: RvHomeFeaturedRealEstateAdapter
+
+    @Inject
+    lateinit var rvHomeFeaturedProjectsAdapter: RvHomeFeaturedProjectsAdapter
 
     @Inject
     lateinit var dummyFeaturedAdapter: DummyFeaturedAdapter
@@ -114,6 +118,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         initToolbar()
         setupCarouselSliderTop()
         setupFeaturedRealEstateRv(Dummy.dummyMyFavouritesList(requireContext()))
+        setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
     }
 
     private fun listeners() {
@@ -220,6 +225,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
             }
         }
+    }
+
+    private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
+        binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
+        rvHomeFeaturedProjectsAdapter.submitList(data)
+
     }
 
     private fun setupSliderBetween() {

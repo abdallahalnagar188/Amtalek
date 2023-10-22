@@ -471,7 +471,9 @@
     <string name="add_property">Add property</string>
 
     <string name="featured_real_estate_in_egypt">Featured real estate in Egypt</string>
+    <string name="featured_projects_in_egypt">Featured projects in Egypt</string>
     <string name="see_more">See More</string>
     <string name="all">All</string>
+    <string name="project">Project</string>
 
 </resources>
