@@ -3,6 +3,7 @@ package eramo.amtalek.util
 import android.content.Context
 import eramo.amtalek.R
 import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.drawer.MessagingChatModel
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
@@ -402,7 +403,7 @@ object Dummy {
         return list
     }
 
-    fun dummyProjectsList(context: Context):List<ProjectModel>{
+    fun dummyProjectsList(context: Context): List<ProjectModel> {
         val list = mutableListOf<ProjectModel>()
 
         list.add(
@@ -430,6 +431,23 @@ object Dummy {
                 "https://cairo.realestate/uploads/images/2023-02/logo6.jpg"
             )
         )
+        return list
+    }
+
+    fun dummyMessagingChatList(): List<MessagingChatModel> {
+        val list = mutableListOf<MessagingChatModel>()
+
+        list.add(
+            MessagingChatModel(
+                "https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg",
+                1,
+                "Erlan Sadewa",
+                "Aight, noted",
+                "1h ago",
+                2
+            )
+        )
+
         return list
     }
 

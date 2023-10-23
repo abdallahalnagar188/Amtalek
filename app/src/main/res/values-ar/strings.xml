@@ -489,4 +489,9 @@
 
     <string name="hot_offer_title">أهم العروض</string>
 
+    <string name="messages">الدردشة</string>
+    <string name="offer">العروض</string>
+    <string name="chats">الدردشة</string>
+    <string name="search_chat">بحث عن محادثة</string>
+
 </resources>

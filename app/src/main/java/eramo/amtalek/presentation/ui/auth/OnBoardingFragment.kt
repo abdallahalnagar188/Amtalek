@@ -52,8 +52,8 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
 //                else navigateToMain()
             }
 
-//            onBoardingBtnStartNow.setOnClickListener { navigateToMain() }
-            onBoardingBtnStartNow.setOnClickListener { findNavController().navigate(R.id.loginFragment,null, navOptionsAnimation()) }
+            onBoardingBtnStartNow.setOnClickListener { navigateToMain() }
+//            onBoardingBtnStartNow.setOnClickListener { findNavController().navigate(R.id.loginFragment,null, navOptionsAnimation()) }
 
             indicatorView.apply {
 //                setSliderWidth(resources.getDimension(com.intuit.ssp.R.dimen._95ssp))

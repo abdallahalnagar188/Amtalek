@@ -49,7 +49,6 @@
         app:layout_constraintStart_toStartOf="@id/slider"
         />
 
-        />
 
     <Button
         android:id="@+id/onBoarding_btn_start_now"

@@ -161,6 +161,12 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
+            navHeaderMessaging.setOnClickListener {
+                navController.navigate(R.id.messagingFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
 
 
 

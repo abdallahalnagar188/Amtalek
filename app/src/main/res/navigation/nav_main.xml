@@ -221,4 +221,19 @@
         android:name="eramo.amtalek.presentation.ui.main.offers.HotOffersRentFragment"
         android:label="fragment_hot_offers_rent"
         tools:layout="@layout/fragment_hot_offers_rent" />
+    <fragment
+        android:id="@+id/messagingFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingFragment"
+        android:label="fragment_messaging"
+        tools:layout="@layout/fragment_messaging" />
+    <fragment
+        android:id="@+id/messagingChatFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragment"
+        android:label="fragment_messaging_chat"
+        tools:layout="@layout/fragment_messaging_chat" />
+    <fragment
+        android:id="@+id/messagingOfferFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingOfferFragment"
+        android:label="fragment_messaging_offer"
+        tools:layout="@layout/fragment_messaging_offer" />
 </navigation>
