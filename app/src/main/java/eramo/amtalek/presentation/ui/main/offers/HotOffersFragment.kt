@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.projects
+package eramo.amtalek.presentation.ui.main.offers
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.databinding.FragmentProjectsBinding
+import eramo.amtalek.databinding.FragmentHotOffersBinding
 import eramo.amtalek.presentation.adapters.recyclerview.DummyProjectAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyRealEstateAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -21,12 +21,12 @@ import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProjectsFragment : BindingFragment<FragmentProjectsBinding>(),
+class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     DummyProjectAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentProjectsBinding::inflate
+        get() = FragmentHotOffersBinding::inflate
 
     private val viewModelShared: SharedViewModel by activityViewModels()
     private val viewModel: ShopViewModel by viewModels()

@@ -478,4 +478,12 @@
 
     <string name="s_properties_for_sell">عقارات للبيع: %S</string>
     <string name="s_properties_for_rent">عقارات للإيجار: %s</string>
+
+    <string name="the_newest_apartments_in_egypt">أحدث الشقق فى مصر</string>
+
+    <string name="the_newest_villas_in_egypt">أحدث الفيلات فى مصر</string>
+
+    <string name="the_newest_duplexes_in_egypt">أحدث الدوبلكس فى مصر</string>
+    <string name="important_news">اهم اﻷخبار</string>
+
 </resources>

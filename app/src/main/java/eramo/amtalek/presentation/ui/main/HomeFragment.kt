@@ -14,9 +14,9 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentHomeBinding
-import eramo.amtalek.databinding.ItemAdsBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
@@ -25,6 +25,10 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFindPropertyByCityAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestDuplexesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -61,6 +65,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var rvHomeFindPropertyByCityAdapter: RvHomeFindPropertyByCityAdapter
+
+    // ---------------------------------------------------------------------------
+    @Inject
+    lateinit var rvHomeNewestPropertiesAdapter: RvHomeNewestPropertiesAdapter
+
+    @Inject
+    lateinit var rvHomeNewestVillasAdapter: RvHomeNewestVillasAdapter
+
+    @Inject
+    lateinit var rvHomeNewestDuplexesAdapter: RvHomeNewestDuplexesAdapter
+    // ---------------------------------------------------------------------------
+
+    @Inject
+    lateinit var rvHomeNewsAdapter: RvHomeNewsAdapter
 
     @Inject
     lateinit var dummyFeaturedAdapter: DummyFeaturedAdapter
@@ -121,11 +139,18 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         initToolbar()
         setupCarouselSliderTop()
+
         setupFeaturedRealEstateRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
+
         setupSliderBetween()
 
+        setupNewestPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
+        setupNewestVillasRv(Dummy.dummyMyFavouritesList(requireContext()))
+        setupNewestDuplexesRv(Dummy.dummyMyFavouritesList(requireContext()))
+
+        setupNewsRv(Dummy.dummyNewsList())
     }
 
     private fun listeners() {
@@ -134,7 +159,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
 
     }
-
 
     private fun setupCountriesSpinner() {
         val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
@@ -200,52 +224,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupFeaturedRealEstateRv(data: List<MyFavouritesModel>) {
-        binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
-        rvHomeFeaturedRealEstateAdapter.submitList(data)
-        setupFeaturedRealEstateHeaderListener()
-    }
-
-    private fun setupFeaturedRealEstateHeaderListener() {
-
-        binding.apply {
-
-            inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-            inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-            inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-
-            inFeaturedRealEstate.tvAll.setOnClickListener {
-                inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-                inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-            }
-
-            inFeaturedRealEstate.tvForSell.setOnClickListener {
-                inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-                inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-            }
-
-            inFeaturedRealEstate.tvForRent.setOnClickListener {
-                inFeaturedRealEstate.tvAll.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-                inFeaturedRealEstate.tvForSell.setTextColor(ContextCompat.getColor(requireContext(),R.color.text_faded_gray))
-                inFeaturedRealEstate.tvForRent.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-            }
-        }
-    }
-
-    private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
-        binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
-        rvHomeFeaturedProjectsAdapter.submitList(data)
-
-    }
-
-    private fun setupFindPropertiesByCityRv(data: List<PropertiesByCityModel>) {
-        binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
-        rvHomeFindPropertyByCityAdapter.submitList(data)
-
-    }
-
     private fun setupSliderBetween() {
         binding.apply {
 //            carouselSliderBetween.registerLifecycle(lifecycle)
@@ -279,6 +257,161 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 }
             }
         }
+    }
+
+    private fun setupFeaturedRealEstateRv(data: List<MyFavouritesModel>) {
+        binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
+        rvHomeFeaturedRealEstateAdapter.submitList(data)
+        setupFeaturedRealEstateHeaderListener()
+    }
+
+    private fun setupFeaturedRealEstateHeaderListener() {
+
+        binding.inFeaturedRealEstate.apply {
+
+            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+            tvAll.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForSell.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForRent.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+        }
+    }
+
+
+    private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
+        binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
+        rvHomeFeaturedProjectsAdapter.submitList(data)
+
+    }
+
+    private fun setupFindPropertiesByCityRv(data: List<PropertiesByCityModel>) {
+        binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
+        rvHomeFindPropertyByCityAdapter.submitList(data)
+
+    }
+
+    private fun setupNewestPropertiesRv(data: List<MyFavouritesModel>) {
+        binding.inNewestPropertiesLayout.rv.adapter = rvHomeNewestPropertiesAdapter
+        rvHomeNewestPropertiesAdapter.submitList(data)
+        setupNewestPropertiesHeaderListener()
+    }
+
+    private fun setupNewestPropertiesHeaderListener() {
+
+        binding.inNewestPropertiesLayout.apply {
+
+            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+            tvAll.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForSell.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForRent.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+        }
+    }
+
+    private fun setupNewestVillasRv(data: List<MyFavouritesModel>) {
+        binding.inNewestVillasLayout.rv.adapter = rvHomeNewestVillasAdapter
+        rvHomeNewestVillasAdapter.submitList(data)
+        setupNewestVillasHeaderListener()
+    }
+
+    private fun setupNewestVillasHeaderListener() {
+
+        binding.inNewestVillasLayout.apply {
+
+            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+            tvAll.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForSell.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForRent.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+        }
+    }
+
+    private fun setupNewestDuplexesRv(data: List<MyFavouritesModel>) {
+        binding.inNewestDuplexesLayout.rv.adapter = rvHomeNewestDuplexesAdapter
+        rvHomeNewestDuplexesAdapter.submitList(data)
+        setupNewestDuplexesHeaderListener()
+    }
+
+    private fun setupNewestDuplexesHeaderListener() {
+
+        binding.inNewestDuplexesLayout.apply {
+
+            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+            tvAll.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForSell.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            }
+
+            tvForRent.setOnClickListener {
+                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            }
+        }
+    }
+
+    private fun setupNewsRv(data: List<NewsModel>) {
+        binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
+        rvHomeNewsAdapter.submitList(data)
+
     }
 
     private fun selectedTabPosition(position: Int) {

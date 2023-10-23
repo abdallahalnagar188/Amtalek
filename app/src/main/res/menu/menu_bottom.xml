@@ -7,7 +7,7 @@
         android:title="@string/my_estate" />
 
     <item
-        android:id="@+id/projectsFragment"
+        android:id="@+id/hotOffersFragment"
         android:icon="@drawable/ic_hot_offers"
         android:title="@string/hot_offer" />
 

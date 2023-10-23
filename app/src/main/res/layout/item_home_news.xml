@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_200sdp"
+    android:layout_height="@dimen/_200sdp"
+    android:layout_margin="@dimen/_4sdp"
+    android:background="@color/gray_background"
+    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/gray_low"
+    app:strokeWidth="@dimen/_1sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            app:cardCornerRadius="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/pic_property" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_14sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratsemibold"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_image"
+            tools:text="Latest igy market" />
+
+        <TextView
+            android:id="@+id/tv_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginVertical="@dimen/_6sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="Latest igy market Latest igy market Latest igy market Latest igy market Latest igy market Latest igy market Latest Latest Latest " />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

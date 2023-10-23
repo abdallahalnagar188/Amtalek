@@ -147,6 +147,10 @@ dependencies {
 
     // Image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    // Justified textview
+    implementation 'com.codesgood:justifiedtextview:1.1.0'
+
 }
 
 // Allow references to generated code

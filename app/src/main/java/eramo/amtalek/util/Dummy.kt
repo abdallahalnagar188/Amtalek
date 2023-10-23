@@ -9,6 +9,7 @@ import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
+import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
@@ -307,7 +308,7 @@ object Dummy {
                 "https://www.era-egypt.com/wp-content/uploads/2021/06/ERA-2004.png",
                 "ERA Estate Development Company",
                 "A leading real estate company in real estate design and implementation for more than 100 years",
-                4,250
+                4, 250
             )
         )
 
@@ -316,7 +317,7 @@ object Dummy {
                 "https://images.wuzzuf-data.net/files/company_logo/Real-Estate-Broker-in-Maadi--Cairo--Egypt--Egypt-26682-1503846837.jpg",
                 "Lana Real Estate Development Company",
                 "A leading real estate company in real estate design and implementation for more than 100 years",
-                1,50
+                1, 50
             )
         )
 
@@ -325,7 +326,7 @@ object Dummy {
                 "https://realestatewithshahid.com/wp-content/uploads/2021/10/RES-logo.png",
                 "RES Real Estate Development Company",
                 "A leading real estate company in real estate design and implementation for more than 100 years",
-                3,200
+                3, 200
             )
         )
 
@@ -337,28 +338,65 @@ object Dummy {
 
         list.add(
             PropertiesByCityModel(
-                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg","Cairo",210,150
+                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg", "Cairo", 210, 150
             )
         )
 
         list.add(
             PropertiesByCityModel(
-                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg","Alexandria",210,150
+                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg",
+                "Alexandria",
+                210,
+                150
             )
         )
 
         list.add(
             PropertiesByCityModel(
-                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg","Cairo",210,150
+                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg", "Cairo", 210, 150
             )
         )
 
         list.add(
             PropertiesByCityModel(
-                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg","Alexandria",210,150
+                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg",
+                "Alexandria",
+                210,
+                150
             )
         )
 
+
+        return list
+    }
+
+    fun dummyNewsList(): List<NewsModel> {
+        val list = mutableListOf<NewsModel>()
+
+        list.add(
+            NewsModel(
+                "https://st.depositphotos.com/1010613/2974/i/450/depositphotos_29748299-stock-photo-young-man-reading-newspaper.jpg",
+                "Housing Market Predictions",
+                "Changes to the federal funds rate can indirectly influence mortgage rates. Yet, housing market experts are less concerned about one more interest rate hike this year than what the Fed has in store for rates in the coming years."
+            )
+        )
+
+        list.add(
+            NewsModel(
+                "https://st4.depositphotos.com/1000128/22519/i/450/depositphotos_225191638-stock-photo-render-illustration-macro-view-printing.jpg",
+                "When Will the Housing Market Recover",
+                "But Gumbinger says don’t hope they cool too quickly. Rapidly falling rates could create a surge of demand that wipes away any inventory gains, causing home prices to rebound.\n" +
+                        "\n"
+            )
+        )
+
+        list.add(
+            NewsModel(
+                "https://media-cldnry.s-nbcnews.com/image/upload/t_focal-758x379,f_auto,q_auto:best/rockcms/2022-10/221020-home-sales-al-1433-481d18.jpg",
+                "Housing Inventory Outlook",
+                "Housing stock remains at near historic lows—especially entry-level supply—consequently propping up demand and sustaining ultra-high home prices."
+            )
+        )
 
         return list
     }

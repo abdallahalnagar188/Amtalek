@@ -480,4 +480,11 @@
     <string name="s_properties_for_sell">Properties for sell: %s</string>
     <string name="s_properties_for_rent">Properties for rent: %s</string>
 
+    <string name="the_newest_apartments_in_egypt">The newest apartments in Egypt</string>
+
+    <string name="the_newest_villas_in_egypt">The newest villas in Egypt</string>
+
+    <string name="the_newest_duplexes_in_egypt">The newest duplexes in Egypt</string>
+    <string name="important_news">Important news</string>
+
 </resources>

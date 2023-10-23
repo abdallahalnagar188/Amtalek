@@ -130,6 +130,46 @@
                 app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween" />
 
             <include
+                android:id="@+id/in_newest_properties_layout"
+                layout="@layout/newest_properties_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween_dots" />
+
+            <include
+                android:id="@+id/in_newest_villas_layout"
+                layout="@layout/newest_villas_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_newest_properties_layout" />
+
+            <include
+                android:id="@+id/in_newest_duplexes_layout"
+                layout="@layout/newest_duplexes_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_newest_villas_layout" />
+
+            <include
+                android:id="@+id/in_news_layout"
+                layout="@layout/news_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_newest_duplexes_layout" />
+
+            <include
                 android:id="@+id/in_search"
                 layout="@layout/layout_search_property"
                 android:layout_width="match_parent"
