@@ -211,4 +211,14 @@
         android:name="eramo.amtalek.presentation.ui.main.myestate.MyEstateSellFragment"
         android:label="fragment_my_estate_sell"
         tools:layout="@layout/fragment_my_estate_sell" />
+    <fragment
+        android:id="@+id/hotOffersSellFragment"
+        android:name="eramo.amtalek.presentation.ui.main.offers.HotOffersSellFragment"
+        android:label="fragment_hot_offers_sell"
+        tools:layout="@layout/fragment_hot_offers_sell" />
+    <fragment
+        android:id="@+id/hotOffersRentFragment"
+        android:name="eramo.amtalek.presentation.ui.main.offers.HotOffersRentFragment"
+        android:label="fragment_hot_offers_rent"
+        tools:layout="@layout/fragment_hot_offers_rent" />
 </navigation>

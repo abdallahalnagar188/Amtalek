@@ -8,6 +8,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
+import eramo.amtalek.domain.model.main.ProjectModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
@@ -398,6 +399,37 @@ object Dummy {
             )
         )
 
+        return list
+    }
+
+    fun dummyProjectsList(context: Context):List<ProjectModel>{
+        val list = mutableListOf<ProjectModel>()
+
+        list.add(
+            ProjectModel(
+                "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/19665/townhouse.jpg",
+                context.getString(R.string.fake_Compound),
+                context.getString(R.string.fake_title),
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                1,
+                "By SOROUH",
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+            )
+        )
+
+        list.add(
+            ProjectModel(
+                "https://img.sakneen.com/1632740971867-SAltZ.PNG",
+                context.getString(R.string.fake_Compound),
+                context.getString(R.string.fake_title),
+                context.getString(R.string.fake_location),
+                context.getString(R.string.fake_date),
+                0,
+                "By Tallat",
+                "https://cairo.realestate/uploads/images/2023-02/logo6.jpg"
+            )
+        )
         return list
     }
 

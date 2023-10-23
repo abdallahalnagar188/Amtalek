@@ -430,6 +430,7 @@
     <string name="for_rent">للإيجار</string>
     <string name="featured">مميز</string>
 
+    <string name="fake_Compound">كومبوند فى الشيخ زايد</string>
     <string name="fake_title">شقة سكنية للبيع تشطيب سوبر لوكس</string>
     <string name="fake_location">الشيخ زايد الجيزة</string>
     <string name="fake_date">منذ 3 أيام</string>
@@ -485,5 +486,7 @@
 
     <string name="the_newest_duplexes_in_egypt">أحدث الدوبلكس فى مصر</string>
     <string name="important_news">اهم اﻷخبار</string>
+
+    <string name="hot_offer_title">أهم العروض</string>
 
 </resources>

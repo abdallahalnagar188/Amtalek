@@ -431,6 +431,7 @@
     <string name="for_rent">For Rent</string>
     <string name="featured">Featured</string>
 
+    <string name="fake_Compound">Sheikh Zayed Compound</string>
     <string name="fake_title">Residential apartment for sale super finishing</string>
     <string name="fake_location">Sheikh Zayed Giza</string>
     <string name="fake_date">3 Days ago</string>
@@ -486,5 +487,9 @@
 
     <string name="the_newest_duplexes_in_egypt">The newest duplexes in Egypt</string>
     <string name="important_news">Important news</string>
+
+    <string name="hot_offer_title">Hot Offer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
