@@ -4,6 +4,7 @@ import android.content.Context
 import eramo.amtalek.R
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
+import eramo.amtalek.domain.model.drawer.MessagingOffersModel
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
@@ -447,6 +448,97 @@ object Dummy {
                 2
             )
         )
+
+        list.add(
+            MessagingChatModel(
+                "https://www.lightstalking.com/wp-content/uploads/Photo-by-Christian-Ferrer-1024x683.jpg",
+                1,
+                "Athalia Putri",
+                "Good morning, did you sleep well?",
+                "3m ago",
+                12
+            )
+        )
+
+        list.add(
+            MessagingChatModel(
+                "https://i.pinimg.com/474x/68/ec/58/68ec58955b672bd6163d3adeb9af4059.jpg",
+                1,
+                "Evata Blroksil Danial Macolle jack",
+                "How is it going? Do you fell good now days",
+                "1h ago",
+                7
+            )
+        )
+
+        list.add(
+            MessagingChatModel(
+                "https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg",
+                1,
+                "Erlan Sadewa",
+                "Aight, noted",
+                "1h ago",
+                2
+            )
+        )
+
+        list.add(
+            MessagingChatModel(
+                "https://www.lightstalking.com/wp-content/uploads/Photo-by-Christian-Ferrer-1024x683.jpg",
+                1,
+                "Athalia Putri",
+                "Good morning, did you sleep well?",
+                "3m ago",
+                12
+            )
+        )
+
+        list.add(
+            MessagingChatModel(
+                "https://i.pinimg.com/474x/68/ec/58/68ec58955b672bd6163d3adeb9af4059.jpg",
+                1,
+                "Evata Blroksil",
+                "How is it going?",
+                "1h ago",
+                7
+            )
+        )
+
+        return list
+    }
+
+    fun dummyMessagingOffersList(): List<MessagingOffersModel> {
+        val list = mutableListOf<MessagingOffersModel>()
+
+        list.add(
+            MessagingOffersModel(
+                "https://img.freepik.com/free-photo/portrait-smiling-happy-young-man-isolated-white_186202-6708.jpg",
+                1,
+                "Mike john",
+                "Good morning, Got my offer?",
+                "2 Days ago",
+                2,
+                "https://img.freepik.com/free-photo/handsome-young-man-with-arms-crossed-white-background_23-2148222620.jpg",
+                "Residential apartment for sale, super",
+                350000
+            )
+        )
+
+        list.add(
+            MessagingOffersModel(
+                "https://img.freepik.com/free-photo/portrait-smiling-happy-young-man-isolated-white_186202-6708.jpg",
+                1,
+                "Mike john",
+                "Good morning, Got my offer?",
+                "2 Days ago",
+                2,
+                "https://img.freepik.com/free-photo/handsome-young-man-with-arms-crossed-white-background_23-2148222620.jpg",
+                "Residential apartment for sale, super",
+                350000
+            )
+        )
+
+
 
         return list
     }

@@ -69,7 +69,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
         }
     }
 
-
     private fun setupToolbar() {
         binding.inToolbar.apply {
             tvTitle.text = getString(R.string.brokers)

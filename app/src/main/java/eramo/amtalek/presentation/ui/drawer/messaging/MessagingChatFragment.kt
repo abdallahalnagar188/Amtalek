@@ -3,12 +3,13 @@ package eramo.amtalek.presentation.ui.drawer.messaging
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentMessagingChatBinding
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
-import eramo.amtalek.presentation.adapters.recyclerview.RvMessagingChatAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
@@ -41,5 +42,20 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>() {
         binding.rv.adapter = rvMessagingChatAdapter
         rvMessagingChatAdapter.submitList(data)
 
+        setupSearchRv(data)
+    }
+
+    private fun setupSearchRv(data: List<MessagingChatModel>) {
+        binding.etSearch.addTextChangedListener { text ->
+            if (text.toString().isEmpty()) {
+                rvMessagingChatAdapter.submitList(data)
+            } else {
+                val list = data.filter {
+                    it.senderName.lowercase().contains(text.toString().lowercase())
+                }
+                rvMessagingChatAdapter.submitList(null)
+                rvMessagingChatAdapter.submitList(list)
+            }
+        }
     }
 }

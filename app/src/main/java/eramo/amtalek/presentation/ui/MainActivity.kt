@@ -255,6 +255,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.myAccountFragment,
                 R.id.favouritesFragment,
                 R.id.notificationFragment,
+                R.id.messagingFragment,
                 R.id.latestProjectsFragment,
                 R.id.joinUsFragment,
                 R.id.cancelDialog -> {

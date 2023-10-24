@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
-    android:elevation="@dimen/_2sdp"
     android:paddingHorizontal="@dimen/_6sdp"
     android:paddingVertical="@dimen/_5sdp">
 
@@ -24,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
+            android:scaleType="centerCrop"
             tools:src="@color/colorAccent" />
     </com.google.android.material.card.MaterialCardView>
 
@@ -44,9 +44,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_4sdp"
         android:fontFamily="@font/montserratsemibold"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_12ssp"
         android:textDirection="locale"
         android:ellipsize="end"
         android:maxLines="1"
@@ -63,7 +64,7 @@
         android:layout_marginEnd="@dimen/_45sdp"
         android:layout_marginTop="@dimen/_1sdp"
         android:textColor="#ADB5BD"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_11ssp"
         android:textDirection="locale"
         android:ellipsize="end"
         android:maxLines="1"
@@ -79,6 +80,7 @@
         android:background="@drawable/shape_red"
         android:fontFamily="@font/montserratbold"
         android:gravity="center"
+        android:layout_marginStart="@dimen/_12sdp"
         tools:text="4"
         android:textColor="@color/white"
         android:textSize="@dimen/_7ssp"
@@ -94,7 +96,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserratsemibold"
         android:textColor="@color/black"
-        android:textSize="@dimen/_10ssp"
+        android:textSize="@dimen/_9ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/cv_image"
         tools:text="3 Days ago" />

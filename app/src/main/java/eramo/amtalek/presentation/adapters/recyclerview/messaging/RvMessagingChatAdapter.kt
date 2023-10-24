@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.adapters.recyclerview
+package eramo.amtalek.presentation.adapters.recyclerview.messaging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,7 +39,7 @@ class RvMessagingChatAdapter @Inject constructor() :
         fun bind(model: MessagingChatModel) {
             binding.apply {
 
-                tvName.text = model.lastMessage
+                tvName.text = model.senderName
                 tvMessage.text = model.lastMessage
                 tvCount.text = model.unseenCount.toString()
                 tvDate.text = model.date
