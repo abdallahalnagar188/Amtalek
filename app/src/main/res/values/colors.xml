@@ -30,6 +30,7 @@
 
     <color name="gold">#FFC700</color>
     <color name="text_gray">#6C6C6C</color>
+    <color name="comments_likes_number_gray">#828282</color>
     <color name="text_faded_gray">#AAAAAA</color>
     <color name="green">#34A851</color>
 

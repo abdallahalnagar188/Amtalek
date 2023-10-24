@@ -16,7 +16,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/searchPropertyFragment"
+        android:id="@+id/marketFragment"
         android:icon="@drawable/ic_market"
         android:title="@string/market" />
 

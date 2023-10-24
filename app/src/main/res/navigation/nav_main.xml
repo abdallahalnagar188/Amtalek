@@ -87,13 +87,13 @@
 
     <fragment
         android:id="@+id/searchPropertyFragment"
-        android:name="eramo.amtalek.presentation.ui.main.searchProperty.SearchPropertyFragment"
+        android:name="eramo.amtalek.presentation.ui.main.market.SearchPropertyFragment"
         android:label="SearchPropertyFragment"
         tools:layout="@layout/fragment_search_property" />
 
     <fragment
         android:id="@+id/searchPropertyResultFragment"
-        android:name="eramo.amtalek.presentation.ui.main.searchProperty.SearchPropertyResultFragment"
+        android:name="eramo.amtalek.presentation.ui.main.market.SearchPropertyResultFragment"
         android:label="SearchPropertyResultFragment"
         tools:layout="@layout/fragment_search_property_result">
         <argument
@@ -236,4 +236,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingOfferFragment"
         android:label="fragment_messaging_offer"
         tools:layout="@layout/fragment_messaging_offer" />
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="eramo.amtalek.presentation.ui.main.market.MarketFragment"
+        android:label="fragment_market"
+        tools:layout="@layout/fragment_market" />
 </navigation>

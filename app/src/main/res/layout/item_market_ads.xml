@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_20sdp"
+    app:rippleColor="@android:color/transparent"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/amtalek_blue"
+    app:strokeWidth="@dimen/_1sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_user_image"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle"
+            tools:src="@color/gold" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_user_image"
+            app:layout_constraintStart_toEndOf="@+id/iv_user_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_user_image"
+            tools:text="Sohila mahmoud" />
+
+        <ImageView
+            android:id="@+id/iv_clock"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:src="@drawable/ic_clock"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            app:layout_constraintEnd_toStartOf="@id/tv_date_posted"
+            app:layout_constraintTop_toTopOf="@id/tv_date_posted"
+            app:layout_constraintBottom_toBottomOf="@id/tv_date_posted"/>
+
+        <TextView
+            android:id="@+id/tv_date_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:fontFamily="@font/montserratbold"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4 Days ago" />
+
+        <ImageView
+            android:id="@+id/iv_image_post"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_220sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_user_image"
+            />
+
+        <ImageView
+            android:id="@+id/iv_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_heart_fill"
+            android:layout_marginEnd="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_price" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_post"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="4,000,000 EGP" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="2"
+            android:textDirection="locale"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_price"
+            tools:text="Residential apartment for sale in manshetercity " />
+
+        <ImageView
+            android:id="@+id/iv_area"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:src="@drawable/ic_area"
+            app:layout_constraintStart_toStartOf="@id/tv_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_area"
+            app:layout_constraintStart_toEndOf="@id/iv_area"
+            app:layout_constraintTop_toTopOf="@+id/iv_area"
+            tools:text="8,111 sqft" />
+
+        <ImageView
+            android:id="@+id/iv_bathroom"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_bathroom"
+            app:layout_constraintTop_toTopOf="@+id/iv_area"
+            app:layout_constraintBottom_toBottomOf="@id/iv_area"
+            app:layout_constraintStart_toEndOf="@id/tv_area"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_bathroom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_bathroom"
+            app:layout_constraintStart_toEndOf="@id/iv_bathroom"
+            app:layout_constraintTop_toTopOf="@+id/iv_bathroom"
+            tools:text="5" />
+
+        <ImageView
+            android:id="@+id/iv_bed"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_bed"
+            app:layout_constraintTop_toTopOf="@id/tv_bathroom"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bathroom"
+            app:layout_constraintStart_toEndOf="@id/tv_bathroom"
+            />
+
+        <TextView
+            android:id="@+id/tv_bed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_bed"
+            app:layout_constraintStart_toEndOf="@id/iv_bed"
+            app:layout_constraintTop_toTopOf="@+id/iv_bed"
+            tools:text="10" />
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:src="@drawable/ic_location_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_area"/>
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textSize="@dimen/_9ssp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textDirection="locale"
+            app:layout_constraintBottom_toBottomOf="@id/iv_location"
+            app:layout_constraintStart_toEndOf="@id/iv_location"
+            app:layout_constraintEnd_toStartOf="@id/btn_buy_now"
+            app:layout_constraintTop_toTopOf="@id/iv_location"
+            tools:text="Sheikh Zayed Giza" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_buy_now"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/amtalek_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_area"
+            app:layout_constraintBottom_toBottomOf="@id/iv_location"
+            app:strokeWidth="@dimen/_1sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:paddingHorizontal="@dimen/_12sdp">
+
+                <TextView
+                    android:id="@+id/tv_buy_now"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/buy_now"
+                    android:textColor="@color/amtalek_blue"
+                    android:textSize="@dimen/_9ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_buy_now"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                   />
+
+                <ImageView
+                    android:id="@+id/iv_buy_now"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="@color/amtalek_blue"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_buy_now"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/view_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="#F1F1F1"
+            app:layout_constraintTop_toBottomOf="@id/iv_location"
+            android:layout_marginTop="@dimen/_18sdp"/>
+
+        <ImageView
+            android:id="@+id/iv_comments"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:src="@drawable/ic_comments"
+            android:layout_marginStart="@dimen/_17sdp"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toStartOf="@id/view_footer"
+            />
+
+        <TextView
+            android:id="@+id/tv_comments_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/iv_comments"
+            tools:text="20"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:textColor="@color/comments_likes_number_gray"
+            android:fontFamily="@font/montserratsemibold"
+            />
+
+        <ImageView
+            android:id="@+id/iv_likes"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:src="@drawable/ic_like"
+            android:layout_marginStart="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/tv_comments_number"
+            />
+
+        <TextView
+            android:id="@+id/tv_likes_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/iv_likes"
+            tools:text="20"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:textColor="@color/comments_likes_number_gray"
+            android:fontFamily="@font/montserratsemibold"
+            />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:src="@drawable/ic_share_posts"
+            android:layout_marginEnd="@dimen/_17sdp"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

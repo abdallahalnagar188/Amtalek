@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.searchProperty
+package eramo.amtalek.presentation.ui.main.market
 
 import android.os.Bundle
 import android.view.LayoutInflater

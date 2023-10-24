@@ -66,6 +66,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_search"
-        tools:listitem="@layout/item_broker" />
+        tools:listitem="@layout/item_market_ads" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

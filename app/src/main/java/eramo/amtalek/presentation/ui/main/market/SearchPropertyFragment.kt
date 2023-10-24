@@ -1,9 +1,8 @@
-package eramo.amtalek.presentation.ui.main.searchProperty
+package eramo.amtalek.presentation.ui.main.market
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController

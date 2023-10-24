@@ -543,4 +543,33 @@ object Dummy {
         return list
     }
 
+    fun dummyMarketPostsList(): MutableList<MarketPostsTypeModel> {
+        val list = mutableListOf<MarketPostsTypeModel>()
+
+        list.add(
+            MarketPostsTypeModel(
+                MarketPostType.ADVERTISEMENT
+            )
+        )
+
+        list.add(
+            MarketPostsTypeModel(
+                MarketPostType.TEXT
+            )
+        )
+
+        list.add(
+            MarketPostsTypeModel(
+                MarketPostType. PHOTOS
+            )
+        )
+
+        list.add(
+            MarketPostsTypeModel(
+                MarketPostType. TEXT_AND_PHOTOS
+            )
+        )
+
+        return list
+    }
 }

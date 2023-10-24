@@ -30,6 +30,11 @@ import eramo.amtalek.R
     const val TRUE = 1
     const val FALSE = 0
 
+//    const val ADVERTISEMENT = 1001
+//    const val TEXT = 1002
+//    const val PHOTOS = 1003
+//    const val TEXT_AND_PHOTOS = 1004
+
     fun createSpinnerAdapter(context: Context, list: List<StringWithTag>) =
         ArrayAdapter(context, R.layout.layout_spinner_item, list)
 
