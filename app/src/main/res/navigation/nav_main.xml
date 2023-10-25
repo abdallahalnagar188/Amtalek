@@ -241,4 +241,22 @@
         android:name="eramo.amtalek.presentation.ui.main.market.MarketFragment"
         android:label="fragment_market"
         tools:layout="@layout/fragment_market" />
+    <fragment
+        android:id="@+id/imagesListFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragment"
+        android:label="fragment_images_list"
+        tools:layout="@layout/fragment_images_list" >
+        <argument
+            android:name="imagesList"
+            app:argType="string[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageViewFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.imagviewer.ImageViewFragment"
+        android:label="fragment_image_view"
+        tools:layout="@layout/fragment_image_view" >
+        <argument
+            android:name="image"
+            app:argType="android.graphics.Bitmap" />
+    </fragment>
 </navigation>

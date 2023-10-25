@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -16,8 +15,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
-import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.EventsApi
@@ -27,13 +24,10 @@ import eramo.amtalek.presentation.ui.dialog.WarningDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
-import eramo.amtalek.util.TAG
-import eramo.amtalek.util.TOPIC
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.deeplink.DeeplinkHandler
 import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
 import eramo.amtalek.util.hideSoftKeyboard
-import eramo.amtalek.util.notification.FirebaseMessageReceiver
 import eramo.amtalek.util.setupLangChooser
 
 @AndroidEntryPoint
@@ -258,6 +252,8 @@ class MainActivity : AppCompatActivity(),
                 R.id.messagingFragment,
                 R.id.latestProjectsFragment,
                 R.id.joinUsFragment,
+                R.id.imagesListFragment,
+                R.id.imageViewFragment,
                 R.id.cancelDialog -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE

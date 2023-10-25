@@ -158,6 +158,10 @@ dependencies {
 
 
 //    implementation 'com.github.colourmoon:readmore-textview:v1.0.2'
+
+    // Image zoom
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1' // last SupportLib version
+
 }
 
 // Allow references to generated code

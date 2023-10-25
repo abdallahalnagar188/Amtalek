@@ -59,7 +59,6 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
                 TextAndPhotosViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_market_text_and_photos, parent, false))
             }
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -172,6 +171,10 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
                 tvCommentsCount.text = model.commentsCount.toString()
                 tvLikesCount.text = model.likesCount.toString()
+
+                imagesLayout.setOnClickListener {
+                    listener.onPhotosClickPhotosPost(model)
+                }
             }
         }
 
@@ -223,8 +226,8 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
     }
 
     interface OnItemClickListener {
-//        fun onHeaderClick(model: DataModel)
-//        fun onItemClick(model: DataModel)
+        //        fun onHeaderClick(model: DataModel)
+        fun onPhotosClickPhotosPost(model: MarketPostsModel)
     }
 
     // DiffCallback
