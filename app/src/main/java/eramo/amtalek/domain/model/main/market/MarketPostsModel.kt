@@ -21,6 +21,9 @@ data class MarketPostsModel(
     // TEXT
     val postBody:String? = null,
 
+    // PHOTOS
+    val photosList:List<String>? = null,
+
     val commentsCount: Int,
     val likesCount: Int
 )

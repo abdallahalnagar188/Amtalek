@@ -17,7 +17,6 @@ import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
-import me.thekusch.view.ReadMoreTextView
 import javax.inject.Inject
 
 
@@ -63,7 +62,6 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as BindView).bind(getItem(position))
     }
@@ -71,7 +69,6 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
     interface BindView {
         fun bind(model: MarketPostsModel)
     }
-
 
     inner class AdvertisementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BindView {
 
@@ -130,7 +127,7 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
                 tvDatePosted.text = model.datePosted
 
-                tvPostBody.text =   model.postBody
+                tvPostBody.text = model.postBody
                 tvPostBody.isExpanded = false
 //                tvPostBody.textMode = ReadMoreTextView.Companion.TextMode.LINE.ordinal
 //                tvPostBody.anchorPoint = 3
@@ -159,6 +156,22 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
         override fun bind(model: MarketPostsModel) {
             binding.apply {
 
+                tvUserName.text = model.userName
+                Glide.with(itemView).load(model.userImageUrl).into(ivUserImage)
+
+                tvDatePosted.text = model.datePosted
+
+                Glide.with(itemView).load(model.photosList?.get(0)).into(imageOne)
+                Glide.with(itemView).load(model.photosList?.get(1)).into(imageTwo)
+                Glide.with(itemView).load(model.photosList?.get(2)).into(imageThree)
+                Glide.with(itemView).load(model.photosList?.get(3)).into(imageFour)
+                Glide.with(itemView).load(model.photosList?.get(4)).into(imageFive)
+
+                tvRestImagesCount.text = (model.photosList?.size?.minus(5)).toString()
+                tvRestImagesCount.text = "+${(model.photosList?.size?.minus(5))}"
+
+                tvCommentsCount.text = model.commentsCount.toString()
+                tvLikesCount.text = model.likesCount.toString()
             }
         }
 
@@ -179,7 +192,18 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
         override fun bind(model: MarketPostsModel) {
             binding.apply {
+                tvUserName.text = model.userName
+                Glide.with(itemView).load(model.userImageUrl).into(ivUserImage)
 
+                tvDatePosted.text = model.datePosted
+
+                tvPostBody.text = model.postBody
+                tvPostBody.isExpanded = false
+
+                Glide.with(itemView).load(model.photosList?.get(0)).into(ivImage)
+
+                tvCommentsCount.text = model.commentsCount.toString()
+                tvLikesCount.text = model.likesCount.toString()
             }
         }
 

@@ -1,39 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_280sdp"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
     app:cardCornerRadius="@dimen/_20sdp"
-    app:cardElevation="0dp">
+    app:cardElevation="0dp"
+    app:rippleColor="@android:color/transparent"
+    app:strokeColor="@color/amtalek_blue"
+    app:strokeWidth="@dimen/_1sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/amtalek_blue">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textColor="@color/white"
-            android:text="PHOTOS_AND_TEXT"
-            />
+        android:layout_height="match_parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_broker_logo"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            android:layout_marginTop="@dimen/_50sdp"
-            tools:src="@color/gold"
+            android:id="@+id/iv_user_image"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle"/>
+            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle"
+            tools:src="@color/gold" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_user_image"
+            app:layout_constraintStart_toEndOf="@+id/iv_user_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_user_image"
+            tools:text="Sohila mahmoud" />
+
+        <ImageView
+            android:id="@+id/iv_clock"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="@id/tv_date_posted"
+            app:layout_constraintEnd_toStartOf="@id/tv_date_posted"
+            app:layout_constraintTop_toTopOf="@id/tv_date_posted" />
+
+        <TextView
+            android:id="@+id/tv_date_posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:fontFamily="@font/montserratbold"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4 Days ago" />
+
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_220sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            tools:src="@color/green"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_user_image"/>
+
+        <me.thekusch.view.ReadMoreTextView
+            android:id="@+id/tv_post_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:textMode="length"
+            app:anchorPoint="150"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_image"
+            app:readLessText="@string/read_less"
+            app:readMoreText="@string/read_more"
+            tools:text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق." />
+
+        <View
+            android:id="@+id/view_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="#F1F1F1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_post_body" />
+
+        <ImageView
+            android:id="@+id/iv_comments"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_17sdp"
+            android:src="@drawable/ic_comments"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toStartOf="@id/view_footer"
+            app:layout_constraintTop_toTopOf="@id/view_footer" />
+
+        <TextView
+            android:id="@+id/tv_comments_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/comments_likes_number_gray"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/iv_comments"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            tools:text="20" />
+
+        <ImageView
+            android:id="@+id/iv_likes"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:src="@drawable/ic_like"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/tv_comments_count"
+            app:layout_constraintTop_toTopOf="@id/view_footer" />
+
+        <TextView
+            android:id="@+id/tv_likes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/comments_likes_number_gray"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/iv_likes"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+            tools:text="20" />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_marginEnd="@dimen/_17sdp"
+            android:src="@drawable/ic_share_posts"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/view_footer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

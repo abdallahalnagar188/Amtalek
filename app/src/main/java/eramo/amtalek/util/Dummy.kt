@@ -547,6 +547,15 @@ object Dummy {
 
     fun dummyMarketPostsList(): MutableList<MarketPostsModel> {
         val list = mutableListOf<MarketPostsModel>()
+        val imagesList = mutableListOf<String>()
+
+        imagesList.add("https://st.depositphotos.com/2249091/2496/i/450/depositphotos_24962203-stock-photo-travertine-house-modern-living-room.jpg")
+        imagesList.add("https://previews.123rf.com/images/bialasiewicz/bialasiewicz1501/bialasiewicz150101112/35845723-horizontal-view-of-living-space-inside-house.jpg")
+        imagesList.add("https://page-assets.foxtons.co.uk/news-images/2018/01/london-property-transformation-1/720.jpg")
+        imagesList.add("https://st.depositphotos.com/2249091/2496/i/450/depositphotos_24962203-stock-photo-travertine-house-modern-living-room.jpg")
+        imagesList.add("https://thumbs.dreamstime.com/b/house-interior-hallway-classic-staircase-entrance-contrast-hardwood-floor-carpet-covered-43909337.jpg")
+        imagesList.add("https://page-assets.foxtons.co.uk/news-images/2018/01/london-property-transformation-1/720.jpg")
+        imagesList.add("https://page-assets.foxtons.co.uk/news-images/2018/01/london-property-transformation-1/720.jpg")
 
         list.add(
             MarketPostsModel(
@@ -607,6 +616,59 @@ object Dummy {
             )
         )
 
+        list.add(
+            MarketPostsModel(
+                MarketPostType.PHOTOS,
+
+                userName = "Maged",
+                userImageUrl = "https://img.freepik.com/free-photo/portrait-smiling-happy-young-man-isolated-white_186202-6708.jpg",
+                datePosted = "Yesterday",
+                photosList = imagesList,
+                likesCount = 10,
+                commentsCount = 19
+
+            )
+        )
+
+        list.add(
+            MarketPostsModel(
+                MarketPostType.TEXT_AND_PHOTOS,
+
+                userName = "Amr Tarik",
+                userImageUrl = "https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png",
+                datePosted = "Now",
+                postBody = "Permission is hereby granted, free of charge, to any person obtaining a copy" +
+                        "of this software and associated documentation files to deal" +
+                        "in the Software without restriction, including without limitation the rights" +
+                        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell" +
+                        "copies of the Software, and to permit persons to whom the Software is" +
+                        "furnished to do so, subject to the following conditions",
+                photosList = mutableListOf("https://previews.123rf.com/images/bialasiewicz/bialasiewicz1211/bialasiewicz121100028/16119427-inside-of-stylish-and-new-flat-living-room.jpg"),
+                likesCount = 10,
+                commentsCount = 19
+
+            )
+        )
+
+
+        list.add(
+            MarketPostsModel(
+                MarketPostType.TEXT,
+
+                userName = "Amr Tarik",
+                userImageUrl = "https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png",
+                datePosted = "Now",
+                postBody = "Permission is hereby granted, free of charge, to any person obtaining a copy" +
+                        "of this software and associated documentation files to deal" +
+                        "in the Software without restriction, including without limitation the rights" +
+                        "to use, copy, modify, merge, publish, distribute, sublicense, and/or sell" +
+                        "copies of the Software, and to permit persons to whom the Software is" +
+                        "furnished to do so, subject to the following conditions",
+                likesCount = 10,
+                commentsCount = 19
+
+            )
+        )
         return list
     }
 }
