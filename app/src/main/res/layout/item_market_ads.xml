@@ -70,9 +70,27 @@
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             tools:src="@color/green"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_user_image"
             />
+
+        <TextView
+            android:id="@+id/tv_featured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/property_post_label_background"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:gravity="center"
+            android:layout_marginVertical="@dimen/_38sdp"
+            android:paddingStart="@dimen/_16sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textSize="@dimen/_8ssp"
+            android:textColor="@color/white"
+            android:paddingVertical="@dimen/_6sdp"
+            app:layout_constraintStart_toStartOf="@+id/iv_image_post"
+            app:layout_constraintTop_toTopOf="@+id/iv_image_post"
+            android:text="@string/featured" />
 
         <ImageView
             android:id="@+id/iv_fav"
@@ -180,7 +198,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/iv_bed"
             app:layout_constraintStart_toEndOf="@id/iv_bed"
             app:layout_constraintTop_toTopOf="@+id/iv_bed"
-            tools:text="10" />
+            tools:text="1" />
 
         <ImageView
             android:id="@+id/iv_location"
@@ -196,7 +214,7 @@
             android:id="@+id/tv_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginStart="@dimen/_2sdp"
             android:fontFamily="@font/montserratsemibold"
             android:textSize="@dimen/_9ssp"
             android:ellipsize="end"
@@ -280,7 +298,7 @@
             />
 
         <TextView
-            android:id="@+id/tv_comments_number"
+            android:id="@+id/tv_comments_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/view_footer"
@@ -301,11 +319,11 @@
             android:layout_marginStart="@dimen/_16sdp"
             app:layout_constraintTop_toTopOf="@id/view_footer"
             app:layout_constraintBottom_toBottomOf="@id/view_footer"
-            app:layout_constraintStart_toEndOf="@id/tv_comments_number"
+            app:layout_constraintStart_toEndOf="@id/tv_comments_count"
             />
 
         <TextView
-            android:id="@+id/tv_likes_number"
+            android:id="@+id/tv_likes_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/view_footer"

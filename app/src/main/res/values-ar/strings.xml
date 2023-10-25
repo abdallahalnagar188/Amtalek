@@ -494,4 +494,6 @@
     <string name="chats">الدردشة</string>
     <string name="search_chat">بحث عن محادثة</string>
 
+    <string name="s_market">السوق (%s)</string>
+
 </resources>

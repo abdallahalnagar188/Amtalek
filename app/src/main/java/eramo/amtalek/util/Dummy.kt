@@ -14,6 +14,8 @@ import eramo.amtalek.domain.model.main.ProjectModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
+import eramo.amtalek.domain.model.main.market.MarketPostType
+import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -543,30 +545,46 @@ object Dummy {
         return list
     }
 
-    fun dummyMarketPostsList(): MutableList<MarketPostsTypeModel> {
-        val list = mutableListOf<MarketPostsTypeModel>()
+    fun dummyMarketPostsList(): MutableList<MarketPostsModel> {
+        val list = mutableListOf<MarketPostsModel>()
 
         list.add(
-            MarketPostsTypeModel(
-                MarketPostType.ADVERTISEMENT
+            MarketPostsModel(
+                MarketPostType.ADVERTISEMENT,
+                "https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png",
+                "Ahmed Ali",
+                "4 Days ago",
+                "https://www.semsarmasr.com/media/238/realestate_%D8%B4%D9%82%D8%A9-%D8%A8%D8%AD%D8%B1%D9%8A%D8%A9-%D8%B3%D9%88%D8%A8%D8%B1-%D9%84%D9%88%D9%83%D8%B3-130%D9%85%D8%AA%D8%B1-%D9%85%D9%88%D9%82%D8%B9-%D9%85%D8%AA%D9%85%D9%8A%D8%B2-%D9%83%D9%85%D8%A8%D9%88%D9%86%D8%AF-%D8%AF%D8%A7%D8%B1-%D9%85%D8%B5%D8%B1-%D8%A7%D9%84%D8%AD%D9%8A-%D8%A7%D9%84%D9%85%D8%AA%D9%85%D9%8A%D8%B2-%D9%85%D8%AF%D9%8A%D9%86%D8%A9-%D8%A8%D8%AF%D8%B1_120230902242423.jpg",
+                0,
+                450000.0,
+                "Department in badr city with good location",
+                130,
+                1,
+                4,
+                "Badr city",
+                14,
+                5
+
             )
         )
 
         list.add(
-            MarketPostsTypeModel(
-                MarketPostType.TEXT
-            )
-        )
+            MarketPostsModel(
+                MarketPostType.ADVERTISEMENT,
+                "https://img.freepik.com/free-photo/portrait-smiling-happy-young-man-isolated-white_186202-6708.jpg",
+                "Yousif Gamal",
+                "2 Days ago",
+                "https://www.luxorpropertysales.com/wp-content/uploads/2022/08/IMG-20220515-WA0063-488x326.jpg",
+                1,
+                25000000.0,
+                "Department in badr city with good location",
+                330,
+                4,
+                8,
+                "Badr city",
+                10,
+                19
 
-        list.add(
-            MarketPostsTypeModel(
-                MarketPostType. PHOTOS
-            )
-        )
-
-        list.add(
-            MarketPostsTypeModel(
-                MarketPostType. TEXT_AND_PHOTOS
             )
         )
 
