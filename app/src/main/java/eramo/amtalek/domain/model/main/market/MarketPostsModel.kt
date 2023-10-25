@@ -9,15 +9,18 @@ data class MarketPostsModel(
     val userImageUrl: String,
     val userName: String,
     val datePosted: String,
-    val postImageUrl: String,
-    val isFavourite: Int,
-    val price: Double,
-    val postTitle: String,
-    val area: Int,
-    val bathroomsCount: Int,
-    val bedsCount: Int,
-    val location: String,
+    val postImageUrl: String?= null,
+    val isFavourite: Int?=null,
+    val price: Double?= null,
+    val postTitle: String?= null,
+    val area: Int?= null,
+    val bathroomsCount: Int?= null,
+    val bedsCount: Int?= null,
+    val location: String?= null,
+
+    // TEXT
+    val postBody:String? = null,
 
     val commentsCount: Int,
-    val likesCount: Int,
+    val likesCount: Int
 )

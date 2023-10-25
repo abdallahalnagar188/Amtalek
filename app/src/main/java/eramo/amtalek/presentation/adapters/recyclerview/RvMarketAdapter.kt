@@ -17,6 +17,7 @@ import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
+import me.thekusch.view.ReadMoreTextView
 import javax.inject.Inject
 
 
@@ -86,11 +87,11 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
                 Glide.with(itemView).load(model.postImageUrl).into(ivImagePost)
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price))
+                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price ?: 0.0))
 
                 tvTitle.text = model.postTitle
 
-                tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
+                tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area ?: 0))
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
@@ -119,12 +120,25 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
     inner class TextViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BindView {
 
-        private val binding = ItemMarketTextBinding.bind(itemView)
+        private var binding = ItemMarketTextBinding.bind(itemView)
 
         override fun bind(model: MarketPostsModel) {
             binding.apply {
 
+                tvUserName.text = model.userName
+                Glide.with(itemView).load(model.userImageUrl).into(ivUserImage)
+
+                tvDatePosted.text = model.datePosted
+
+                tvPostBody.text =   model.postBody
+                tvPostBody.isExpanded = false
+//                tvPostBody.textMode = ReadMoreTextView.Companion.TextMode.LINE.ordinal
+//                tvPostBody.anchorPoint = 3
+
+                tvCommentsCount.text = model.commentsCount.toString()
+                tvLikesCount.text = model.likesCount.toString()
             }
+
         }
 
         init {

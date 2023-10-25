@@ -151,6 +151,13 @@ dependencies {
     // Justified textview
     implementation 'com.codesgood:justifiedtextview:1.1.0'
 
+    // ReadMore TextView
+    implementation 'com.github.Muratthekus:ReadMoreText:v1.1'
+
+//    implementation 'com.borjabravo:readmoretextview:2.1.0'
+
+
+//    implementation 'com.github.colourmoon:readmore-textview:v1.0.2'
 }
 
 // Allow references to generated code

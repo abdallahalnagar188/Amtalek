@@ -496,4 +496,7 @@
 
     <string name="s_market">السوق (%s)</string>
 
+    <string name="read_more">أقرأ المزيد</string>
+    <string name="read_less">أقرأ أقل</string>
+
 </resources>
