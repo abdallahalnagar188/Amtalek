@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -27,6 +29,7 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.deeplink.DeeplinkHandler
 import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
+import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
 
@@ -168,6 +171,16 @@ class MainActivity : AppCompatActivity(),
                 navController.navigate(R.id.joinUsFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            navHeaderSignOut.setOnClickListener {
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+
+                navController.navigate(
+                    NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+                    NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+                )
             }
 
 //            navHeaderTvProjects.setOnClickListener {

@@ -501,4 +501,6 @@
 
     <string name="s_plus">+%s</string>
 
+    <string name="press_back_again_to_exist">أضغط مره أخرى للخروج</string>
+
 </resources>

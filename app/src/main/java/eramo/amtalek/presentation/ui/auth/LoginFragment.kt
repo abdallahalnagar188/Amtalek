@@ -1,9 +1,6 @@
 package eramo.amtalek.presentation.ui.auth
 
 import android.os.Bundle
-import android.telephony.PhoneNumberUtils
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -20,6 +17,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -35,6 +33,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
     private val args by navArgs<LoginFragmentArgs>()
     private val proceedRequire get() = args.proceedRequire
 
+    private var backPressedTime: Long = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiCancellation { viewModel.cancelRequest() }
@@ -47,6 +47,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
             FLoginTvForgotPassword.setOnClickListener(this@LoginFragment)
         }
         fetchLoginState()
+
+        this@LoginFragment.onBackPressed { pressBackAgainToExist() }
     }
 
     override fun onClick(v: View?) {
@@ -106,13 +108,16 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
                                 .build()
                         )
                     }
+
                     is UiState.Error -> {
                         LoadingDialog.dismissDialog()
                         showToast(state.message!!.asString(requireContext()))
                     }
+
                     is UiState.Loading -> {
                         LoadingDialog.showDialog()
                     }
+
                     else -> Unit
                 }
             }
@@ -127,15 +132,26 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
                         LoadingDialog.dismissDialog()
                         findNavController().popBackStack()
                     }
+
                     is Resource.Error -> {
                         LoadingDialog.dismissDialog()
                         showToast(it.message!!.asString(requireContext()))
                     }
+
                     is Resource.Loading -> {
                         LoadingDialog.showDialog()
                     }
                 }
             }
         }
+    }
+
+    private fun pressBackAgainToExist() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            requireActivity().finish()
+        } else {
+            showToast(getString(R.string.press_back_again_to_exist))
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

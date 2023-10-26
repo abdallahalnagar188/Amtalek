@@ -25,9 +25,9 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFindPropertyByCityAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestDuplexesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestDuplexesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -36,6 +36,8 @@ import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.onBackPressed
+import eramo.amtalek.util.showToast
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -53,6 +55,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private val viewModel by viewModels<HomeViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
+
+    private var backPressedTime: Long = 0
 
     @Inject
     lateinit var dummySliderTopAdapter: DummySliderTopAdapter
@@ -158,6 +162,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
         }
 
+        this@HomeFragment.onBackPressed { pressBackAgainToExist() }
     }
 
     private fun setupCountriesSpinner() {
@@ -444,6 +449,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 }
             }
         }
+    }
+
+    private fun pressBackAgainToExist() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            requireActivity().finish()
+        } else {
+            showToast(getString(R.string.press_back_again_to_exist))
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
     override fun onFeaturedClick(model: String) {
