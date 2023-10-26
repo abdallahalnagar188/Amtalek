@@ -15,6 +15,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,7 +48,7 @@ class NotificationFragment : BindingFragment<FragmentNotificationBinding>(),
 
     private fun setupScreenHeader() {
         binding.inToolbar.apply {
-            tvTitle.text = getString(R.string.s_Notifications,Dummy.dummyNotificationsList().size.toString())
+            tvTitle.text = getString(R.string.s_Notifications, Dummy.dummyNotificationsList().size.toString())
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
@@ -59,9 +60,8 @@ class NotificationFragment : BindingFragment<FragmentNotificationBinding>(),
 
     }
 
-
     override fun onNotificationClick(model: NotificationsModel) {
-
+        findNavController().navigate(R.id.notificationDetailsFragment, null, navOptionsAnimation())
     }
 
 }

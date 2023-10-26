@@ -1,6 +1,8 @@
 package eramo.amtalek.util
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.util.Log
@@ -42,6 +44,10 @@ fun Fragment.onBackPressed(code: () -> Unit) {
     requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
         code()
     }
+}
+
+ fun Fragment.openLinkInBrowser(link: String) {
+    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
 }
 
 fun ImageView.setColor(color: Int) {

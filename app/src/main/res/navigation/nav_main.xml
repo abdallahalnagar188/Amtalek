@@ -192,10 +192,10 @@
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification" />
     <fragment
-        android:id="@+id/notificationInfoFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.notification.NotificationInfoFragment"
+        android:id="@+id/notificationDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.notification.NotificationDetailsFragment"
         android:label="NotificationInfoFragment"
-        tools:layout="@layout/fragment_notification_info" />
+        tools:layout="@layout/fragment_notification_details" />
     <fragment
         android:id="@+id/latestProjectsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.LatestProjectsFragment"
