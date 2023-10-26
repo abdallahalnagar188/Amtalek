@@ -264,4 +264,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.MyAddPropertyFragmentFragment"
         android:label="fragment_my_add_property_fragment"
         tools:layout="@layout/fragment_my_add_property_fragment" />
+    <fragment
+        android:id="@+id/packagesFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.PackagesFragment"
+        android:label="fragment_packages"
+        tools:layout="@layout/fragment_packages" />
 </navigation>

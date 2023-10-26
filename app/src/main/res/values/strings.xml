@@ -220,7 +220,6 @@
     <string name="about_venue">About Venue</string>
     <string name="l_rem_ipsum_beh_resk_stafettl_kare_exod_ling_l_ngar_prel_anabelt_och_intrassa_b_lig_er_dek_antiskop_och_semipyse_oling_plan_nera_p_asar_megaden_unesk">Lörem ipsum behåresk stafettläkare exodöling längar. Prel anabelt och intrassa, bälig. Er dek antiskop och semipyse. Oling plan nera, på asar. Megaden unesk.</string>
     <string name="choose_your_date">Choose Your Date</string>
-    <string name="packages">Packages</string>
     <string name="extra_guests">Extra guests?</string>
     <string name="_30_dirham_guest">30 DIRHAM/GUEST</string>
     <string name="extra_decorations">Extra Decorations?</string>
@@ -535,5 +534,7 @@
     <string name="sports_club">Sports club</string>
 
     <string name="property_added">Property added</string>
+
+    <string name="packages">Packages</string>
 
 </resources>

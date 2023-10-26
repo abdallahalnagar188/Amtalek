@@ -218,7 +218,6 @@
     <string name="about_venue">حول المكان</string>
     <string name="l_rem_ipsum_beh_resk_stafettl_kare_exod_ling_l_ngar_prel_anabelt_och_intrassa_b_lig_er_dek_antiskop_och_semipyse_oling_plan_nera_p_asar_megaden_unesk">لوريم إيبسوم الطبيب مشعر العصا هجرة الشوق. بريل أنبل ومتشابك ، وسيم. Er dek antiscope و semipyse. أولينج بلان نيرا ، في أسار. ميجا غير رسمي.</string>
     <string name="choose_your_date">اختر تاريخك</string>
-    <string name="packages">الحزم</string>
     <string name="extra_guests">المزيد من الضيوف؟</string>
     <string name="_30_dirham_guest">30 درهم/ضيف</string>
     <string name="extra_decorations">زينة اضافية؟</string>
@@ -534,5 +533,7 @@
     <string name="sports_club">نادي رياضي</string>
 
     <string name="property_added">تمت إضافة العقار</string>
+
+    <string name="packages">باقات مميزة</string>
 
 </resources>
