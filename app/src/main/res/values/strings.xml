@@ -504,4 +504,36 @@
 
     <string name="press_back_again_to_exist">Press back again to exist</string>
 
+    <string name="property_address">Property address:</string>
+    <string name="property_price">Price:                 EGP</string>
+    <string name="property_country">Country: Egypt</string>
+    <string name="property_governorate">Governorate: Cairo</string>
+    <string name="property_region">Region: Nasr city</string>
+    <string name="add_property_property_type">Type: Apartments</string>
+    <string name="property_video_url">Link Video: URL</string>
+    <string name="property_payment">Payment:</string>
+    <string name="property_furniture">Furniture:</string>
+    <string name="property_area">Space:</string>
+    <string name="property_bedrooms">Bedrooms:</string>
+    <string name="property_bathrooms">Bathrooms:</string>
+    <string name="property_finishing">Finishing:</string>
+    <string name="property_currency">Currency:</string>
+
+    <string name="edit_text_hint_description">Description:</string>
+    <string name="property_details">Property Details</string>
+    <string name="property_features">Property Features</string>
+    <string name="add_property_btn">Add property</string>
+
+    <string name="quiet_area">Quiet area</string>
+    <string name="transports">Transports</string>
+    <string name="location_radio_button">Location</string>
+    <string name="gym">GYM</string>
+    <string name="market_radio_button">Market</string>
+    <string name="pool">Pool</string>
+    <string name="church">Church</string>
+    <string name="mosque">Mosque</string>
+    <string name="sports_club">Sports club</string>
+
+    <string name="property_added">Property added</string>
+
 </resources>

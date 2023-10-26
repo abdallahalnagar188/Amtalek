@@ -503,4 +503,36 @@
 
     <string name="press_back_again_to_exist">أضغط مره أخرى للخروج</string>
 
+    <string name="property_address">عنوان اﻷعلان:</string>
+    <string name="property_price">السعر: ج.م</string>
+    <string name="property_country">البلد: مصر</string>
+    <string name="property_governorate">المحافظة: القاهرة</string>
+    <string name="property_region">المنطقة: مدينة نصر</string>
+    <string name="add_property_property_type">النوع: شقق</string>
+    <string name="property_video_url">رابط فيديو: URL</string>
+    <string name="property_payment">الدفع:</string>
+    <string name="property_furniture">الفرش:</string>
+    <string name="property_area">المساحة:</string>
+    <string name="property_bedrooms">غرف النوم:</string>
+    <string name="property_bathrooms">دورة المياه:</string>
+    <string name="property_finishing">التشطيب:</string>
+    <string name="property_currency">العملة:</string>
+
+    <string name="edit_text_hint_description">وصف الإعلان:</string>
+    <string name="property_details">تفاصيل العقار</string>
+    <string name="property_features">وسائل الراحة</string>
+    <string name="add_property_btn">إضافة العقار</string>
+
+    <string name="quiet_area">منطقة هادئة</string>
+    <string name="transports">وسائل الموصلات</string>
+    <string name="location_radio_button">موقع المشروع</string>
+    <string name="gym">صالة حديد</string>
+    <string name="market_radio_button">مركز تسوق</string>
+    <string name="pool">حمام سباحة</string>
+    <string name="church">كنسية</string>
+    <string name="mosque">مسجد</string>
+    <string name="sports_club">نادي رياضي</string>
+
+    <string name="property_added">تمت إضافة العقار</string>
+
 </resources>

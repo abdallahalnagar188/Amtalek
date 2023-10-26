@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    tools:context=".presentation.ui.drawer.MyAddPropertyFragmentFragment">
+
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/layout_toolbar_with_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_property_address"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/text_gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_property_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:hint="@string/property_address"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_property_price"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/text_gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_property_address">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_property_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:hint="@string/property_price"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/spinner_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/til_property_price" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_country"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_country"
+                app:layout_constraintStart_toStartOf="@id/spinner_country"
+                app:layout_constraintTop_toTopOf="@id/spinner_country" />
+
+            <View
+                android:id="@+id/spinner_government"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_country" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_governorate"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_government"
+                app:layout_constraintStart_toStartOf="@id/spinner_government"
+                app:layout_constraintTop_toTopOf="@id/spinner_government" />
+
+            <View
+                android:id="@+id/spinner_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_government" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_region"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_region"
+                app:layout_constraintStart_toStartOf="@id/spinner_region"
+                app:layout_constraintTop_toTopOf="@id/spinner_region" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_description"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_region">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="start"
+                    android:hint="@string/edit_text_hint_description"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/spinner_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/til_description" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_type"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_type"
+                app:layout_constraintStart_toStartOf="@id/spinner_type"
+                app:layout_constraintTop_toTopOf="@id/spinner_type" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/identity_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/edittext_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_type">
+
+                <ImageView
+                    android:id="@+id/iv_pick_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:src="@drawable/ic_pick_image"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_upload_id"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_upload_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/upload_a_copy_of_the_identity_card"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@id/tv_id_format"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_pick_image" />
+
+                <TextView
+                    android:id="@+id/tv_id_format"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/montserratmedium"
+                    android:text="@string/file_format_pdf_jpeg_png"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_upload_id" />
+
+                <ImageView
+                    android:id="@+id/iv_image_picked"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_50sdp"
+                    android:scaleType="centerInside"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/pic_onboarding_three" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_video_url"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/identity_card">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_video_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="start"
+                    android:hint="@string/property_video_url"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_property_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_33sdp"
+                android:fontFamily="@font/montserratbold"
+                android:text="@string/property_details"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_video_url" />
+
+            <View
+                android:id="@+id/spinner_payment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toStartOf="@id/spinner_furniture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_property_details" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_payment"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_payment"
+                app:layout_constraintStart_toStartOf="@id/spinner_payment"
+                app:layout_constraintTop_toTopOf="@id/spinner_payment" />
+
+            <View
+                android:id="@+id/spinner_furniture"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/screen_margin_sides"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/spinner_payment"
+                app:layout_constraintTop_toBottomOf="@+id/tv_property_details" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_furniture"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_furniture"
+                app:layout_constraintStart_toStartOf="@id/spinner_furniture"
+                app:layout_constraintTop_toTopOf="@id/spinner_furniture" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_property_area"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_furniture">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_property_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="start"
+                    android:hint="@string/property_area"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/spinner_bedrooms"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toStartOf="@id/spinner_bathrooms"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_property_area" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_bedrooms"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_bedrooms"
+                app:layout_constraintStart_toStartOf="@id/spinner_bedrooms"
+                app:layout_constraintTop_toTopOf="@id/spinner_bedrooms" />
+
+            <View
+                android:id="@+id/spinner_bathrooms"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:layout_marginEnd="@dimen/screen_margin_sides"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/spinner_bedrooms"
+                app:layout_constraintTop_toBottomOf="@+id/til_property_area" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_bathrooms"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_bathrooms"
+                app:layout_constraintStart_toStartOf="@id/spinner_bathrooms"
+                app:layout_constraintTop_toTopOf="@id/spinner_bathrooms" />
+
+            <View
+                android:id="@+id/spinner_finishing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_bedrooms" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_finishing"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_finishing"
+                app:layout_constraintStart_toStartOf="@id/spinner_finishing"
+                app:layout_constraintTop_toTopOf="@id/spinner_finishing" />
+
+            <View
+                android:id="@+id/spinner_currency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_finishing" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:text="@string/property_currency"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="@id/spinner_currency"
+                app:layout_constraintStart_toStartOf="@id/spinner_currency"
+                app:layout_constraintTop_toTopOf="@id/spinner_currency" />
+
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:background="#F9F9F9"
+                app:layout_constraintBottom_toTopOf="@id/btn_confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinner_currency">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_property_features"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_18sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/montserratbold"
+                        android:text="@string/property_features"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15ssp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <CheckBox
+                        android:id="@+id/rb_one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/quiet_area"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toStartOf="@id/rb_two"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_property_features" />
+
+                    <CheckBox
+                        android:id="@+id/rb_two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/transports"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toStartOf="@id/rb_three"
+                        app:layout_constraintStart_toEndOf="@id/rb_one"
+                        app:layout_constraintTop_toBottomOf="@id/tv_property_features" />
+
+                    <CheckBox
+                        android:id="@+id/rb_three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/location_radio_button"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/rb_two"
+                        app:layout_constraintTop_toBottomOf="@id/tv_property_features" />
+
+                    <CheckBox
+                        android:id="@+id/rb_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/gym"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toTopOf="@id/rb_seven"
+                        app:layout_constraintStart_toStartOf="@id/rb_one"
+                        app:layout_constraintTop_toBottomOf="@id/rb_one" />
+
+                    <CheckBox
+                        android:id="@+id/rb_five"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/market_radio_button"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toTopOf="@id/rb_eight"
+                        app:layout_constraintStart_toStartOf="@id/rb_two"
+                        app:layout_constraintTop_toBottomOf="@id/rb_one" />
+
+                    <CheckBox
+                        android:id="@+id/rb_six"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/pool"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toTopOf="@id/rb_nine"
+                        app:layout_constraintStart_toStartOf="@id/rb_three"
+                        app:layout_constraintTop_toBottomOf="@id/rb_one" />
+
+                    <CheckBox
+                        android:id="@+id/rb_seven"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/church"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="@id/rb_four"
+                        app:layout_constraintTop_toBottomOf="@id/rb_four" />
+
+                    <CheckBox
+                        android:id="@+id/rb_eight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="@string/mosque"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="@id/rb_five"
+                        app:layout_constraintTop_toBottomOf="@id/rb_four" />
+
+                    <CheckBox
+                        android:id="@+id/rb_nine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:button="@drawable/radio_button_selector"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="@string/sports_club"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/rb_six"
+                        app:layout_constraintTop_toBottomOf="@id/rb_four" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_add_property"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/button_background_long"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/add_property_btn"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radio_group" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

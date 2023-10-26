@@ -17,6 +17,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,6 +38,7 @@ class MyEstateFragment : BindingFragment<FragmentMyEstateBinding>(),
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+        listeners()
     }
 
     private fun setupViews() {
@@ -44,6 +46,14 @@ class MyEstateFragment : BindingFragment<FragmentMyEstateBinding>(),
         setupToolbar()
 
         setupTabLayoutPager()
+    }
+
+    private fun listeners() {
+        binding.apply {
+            btnAddProperty.setOnClickListener {
+                findNavController().navigate(R.id.myAddPropertyFragmentFragment, null, navOptionsAnimation())
+            }
+        }
     }
 
     private fun setupToolbar() {

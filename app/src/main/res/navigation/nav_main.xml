@@ -259,4 +259,9 @@
             android:name="image"
             app:argType="android.graphics.Bitmap" />
     </fragment>
+    <fragment
+        android:id="@+id/myAddPropertyFragmentFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.MyAddPropertyFragmentFragment"
+        android:label="fragment_my_add_property_fragment"
+        tools:layout="@layout/fragment_my_add_property_fragment" />
 </navigation>

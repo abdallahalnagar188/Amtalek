@@ -57,6 +57,7 @@
         app:strokeWidth="@dimen/_1sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_add_property"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"

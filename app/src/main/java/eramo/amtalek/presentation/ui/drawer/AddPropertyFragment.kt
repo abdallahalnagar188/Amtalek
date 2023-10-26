@@ -147,6 +147,7 @@ class AddPropertyFragment : BindingFragment<FragmentAddPropertyBinding>(),
             R.id.sliderZoomFragment,
             SliderZoomFragmentArgs(imageUri = model.toString()).toBundle()
         )
+
     }
 
     override fun onRemoveClick(position: Int) {

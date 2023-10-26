@@ -164,6 +164,12 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
+            navHeaderAddYourProperty.setOnClickListener {
+                navController.navigate(R.id.myAddPropertyFragmentFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
 
 
 
@@ -264,6 +270,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.notificationFragment,
                 R.id.notificationDetailsFragment,
                 R.id.messagingFragment,
+                R.id.myAddPropertyFragmentFragment,
                 R.id.latestProjectsFragment,
                 R.id.joinUsFragment,
                 R.id.imagesListFragment,
