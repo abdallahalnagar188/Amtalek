@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderClUserCell.setOnClickListener {
-                navController.navigate(R.id.myAccountFragment)
+                navController.navigate(R.id.myProfileFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -272,6 +272,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.changePasswordFragment,
                 R.id.editPersonalDetailsFragment,
                 R.id.myAccountFragment,
+                R.id.myProfileFragment,
                 R.id.favouritesFragment,
                 R.id.notificationFragment,
                 R.id.notificationDetailsFragment,

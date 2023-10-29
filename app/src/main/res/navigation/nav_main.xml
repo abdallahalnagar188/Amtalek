@@ -269,4 +269,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.PackagesFragment"
         android:label="fragment_packages"
         tools:layout="@layout/fragment_packages" />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="eramo.amtalek.presentation.ui.social.MyProfileFragment"
+        android:label="fragment_my_profile"
+        tools:layout="@layout/fragment_my_profile" />
 </navigation>
