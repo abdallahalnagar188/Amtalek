@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
         android:orientation="vertical"
@@ -31,5 +32,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/in_toolbar"
-        tools:listitem="@layout/item_property_preview" />
+        tools:listitem="@layout/item_packages" />
 </androidx.constraintlayout.widget.ConstraintLayout>

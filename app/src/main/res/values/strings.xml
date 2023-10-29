@@ -536,5 +536,14 @@
     <string name="property_added">Property added</string>
 
     <string name="packages">Packages</string>
+    <string name="free">Free</string>
+
+    <string name="s_normal_listing">NORMAL LISTING : %s</string>
+    <string name="s_featured_listings">FEATURED LISTINGS : %s</string>
+    <string name="s_social_media_promotion">SOCIAL MEDIA PROMOTION : %s</string>
+    <string name="s_leads_management">LEADS MANAGEMENT : %s</string>
+    <string name="s_extra_lead">+Extra Lead: %s EGP</string>
+    <string name="select_this_plan">Select this plan</string>
+    <string name="egp_month">EGP/Month</string>
 
 </resources>

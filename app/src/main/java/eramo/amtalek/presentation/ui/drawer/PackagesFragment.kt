@@ -8,14 +8,15 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPackagesBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPackagesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PackagesFragment : BindingFragment<FragmentPackagesBinding>() {
+class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -33,6 +34,8 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>() {
     private fun setupViews() {
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
+
+        initRv(Dummy.dummyPackagesList())
     }
 
     private fun setupToolbar() {
@@ -42,9 +45,14 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>() {
         }
     }
 
-    private fun initRv(data: List<MyFavouritesModel>) {
+    private fun initRv(data: List<PackageModel>) {
+        rvPackagesAdapter.setListener(this@PackagesFragment)
         binding.rv.adapter = rvPackagesAdapter
-//        rvMyFavouritesAdapter.submitList(data)
+        rvPackagesAdapter.submitList(data)
+    }
+
+    override fun onSelectClick(model: PackageModel) {
+
     }
 }
 

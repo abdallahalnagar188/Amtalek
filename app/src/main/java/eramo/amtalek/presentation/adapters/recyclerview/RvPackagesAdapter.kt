@@ -1,17 +1,19 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPackagesBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.PackageModel
 import javax.inject.Inject
 
 
 class RvPackagesAdapter @Inject constructor() :
-    ListAdapter<MyFavouritesModel, RvPackagesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<PackageModel, RvPackagesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -29,15 +31,32 @@ class RvPackagesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onPropertyClick(it)
+//                        listener.onSelectClick(it)
                     }
                 }
             }
         }
 
-        fun bind(model: MyFavouritesModel) {
+        fun bind(model: PackageModel) {
+            binding.apply {
+                tvTitle.text = model.title
+                tvDescription.text = model.description
+                tvPrice.text = model.price.toString()
 
+                tvNormalListing.text = itemView.context.getString(R.string.s_normal_listing, model.normal.toString())
+                tvFeaturedListing.text = itemView.context.getString(R.string.s_featured_listings, model.featured.toString())
+                tvSocialMediaPromotion.text = itemView.context.getString(R.string.s_social_media_promotion, model.promotion.toString())
+                tvLeadsManagement.text = itemView.context.getString(R.string.s_leads_management, model.leads.toString())
 
+                tvExtraLeads.text = itemView.context.getString(R.string.s_extra_lead, model.extraLeadsPrice.toString())
+
+                cover.setBackgroundColor(Color.parseColor(model.coverColor))
+                cvPrice.setCardBackgroundColor(Color.parseColor(model.priceColor))
+
+                btnSelect.setOnClickListener {
+                    listener.onSelectClick(model)
+                }
+            }
         }
     }
 
@@ -46,20 +65,20 @@ class RvPackagesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: MyFavouritesModel)
+        fun onSelectClick(model: PackageModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<MyFavouritesModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PackageModel>() {
             override fun areItemsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: PackageModel,
+                newItem: PackageModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: PackageModel,
+                newItem: PackageModel
             ) = oldItem == newItem
         }
     }

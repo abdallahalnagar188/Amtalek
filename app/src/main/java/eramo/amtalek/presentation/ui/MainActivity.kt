@@ -170,6 +170,12 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
+            navHeaderBuyPackages.setOnClickListener {
+                navController.navigate(R.id.packagesFragment)
+
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
 
 
 
@@ -270,6 +276,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.notificationFragment,
                 R.id.notificationDetailsFragment,
                 R.id.messagingFragment,
+                R.id.packagesFragment,
                 R.id.myAddPropertyFragmentFragment,
                 R.id.latestProjectsFragment,
                 R.id.joinUsFragment,

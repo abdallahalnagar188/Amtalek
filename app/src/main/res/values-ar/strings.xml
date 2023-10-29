@@ -535,5 +535,14 @@
     <string name="property_added">تمت إضافة العقار</string>
 
     <string name="packages">باقات مميزة</string>
+    <string name="free">Free</string>
+
+    <string name="s_normal_listing">عادى : %S</string>
+    <string name="s_featured_listings">مميز : %S</string>
+    <string name="s_social_media_promotion">ترقية : %S</string>
+    <string name="s_leads_management">عملاء : %S</string>
+    <string name="s_extra_lead">عملاء إضافين: %s ج.م</string>
+    <string name="select_this_plan">أختر هذه الباقة</string>
+    <string name="egp_month">جنيه/شهر</string>
 
 </resources>
