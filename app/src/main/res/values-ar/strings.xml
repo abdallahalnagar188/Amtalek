@@ -552,7 +552,9 @@
     <string name="whatsapp">واتساب</string>
     <string name="call_us">إتصل بنا</string>
     <string name="s_projects">(%s) المشاريع</string>
-    <string name="s_satisfied_customers">العملاء الراضيين (%s)</string>
+    <string name="s_satisfied_customers">(%s) العملاء الراضيين</string>
     <string name="s_all_properties">كل العقارات (%s)</string>
+
+    <string name="s_completed_projects">(%S) المشاريع المكتملة</string>
 
 </resources>

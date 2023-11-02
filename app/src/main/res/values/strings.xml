@@ -555,4 +555,6 @@
     <string name="s_satisfied_customers">(%s) Satisfied customers</string>
     <string name="s_all_properties">All Properties (%s)</string>
 
+    <string name="s_completed_projects">(%s) Completed projects</string>
+
 </resources>

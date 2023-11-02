@@ -282,6 +282,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.latestProjectsFragment,
                 R.id.joinUsFragment,
                 R.id.brokersDetailsFragment,
+                R.id.completedProjectsFragment,
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,
                 R.id.cancelDialog -> {

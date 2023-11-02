@@ -274,4 +274,9 @@
         android:name="eramo.amtalek.presentation.ui.social.MyProfileFragment"
         android:label="fragment_my_profile"
         tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/completedProjectsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.broker.CompletedProjectsFragment"
+        android:label="fragment_completed_projects"
+        tools:layout="@layout/fragment_completed_projects" />
 </navigation>

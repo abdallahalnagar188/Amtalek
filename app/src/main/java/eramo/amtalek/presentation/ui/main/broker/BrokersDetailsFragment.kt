@@ -15,6 +15,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertie
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import javax.inject.Inject
 
@@ -37,18 +38,28 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), 
 //        super.registerApiCancellation { viewModel.cancelRequest() }
 
         setupViews()
+        setupListeners()
     }
 
     private fun setupViews() {
-        StatusBarUtil.transparent()
         setupToolbar()
         assignData()
-        setupHeaderListener()
 
         initRv(Dummy.dummyMyFavouritesList(requireContext()))
     }
 
-    private fun setupToolbar(){
+    private fun setupListeners() {
+        setupHeaderListener()
+
+        binding.apply {
+            btnProjects.setOnClickListener {
+                findNavController().navigate(R.id.completedProjectsFragment, null, navOptionsAnimation())
+            }
+        }
+    }
+
+    private fun setupToolbar() {
+        StatusBarUtil.transparent()
         binding.apply {
             ivShare.setOnClickListener { showToast("share") }
             ivBack.setOnClickListener { findNavController().popBackStack() }
@@ -83,7 +94,7 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), 
         }
     }
 
-    private fun assignData(){
+    private fun assignData() {
         binding.apply {
             tvTitle.text = "Lana Real Estate Development Company"
             tvDescription.text = "A leading real estate company in real estate design for more than 100 years"
