@@ -2,6 +2,7 @@ package eramo.amtalek.util
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.graphics.Color
 import android.os.Build
 import android.view.View
 import android.view.Window

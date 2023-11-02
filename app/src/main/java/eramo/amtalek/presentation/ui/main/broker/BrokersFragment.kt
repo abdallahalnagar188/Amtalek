@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -17,6 +18,7 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.CartViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -79,6 +81,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     }
 
     override fun onBrokerClick(model: BrokerModel) {
-
+        findNavController().navigate(R.id.brokersDetailsFragment, null, navOptionsAnimation())
     }
 }

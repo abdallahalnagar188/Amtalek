@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_110sdp"
+    app:cardCornerRadius="@dimen/_22ssp"
+    app:cardElevation="@dimen/_6sdp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_34sdp"
+            android:background="#005879"
+            android:fontFamily="@font/montserratsemibold"
+            android:gravity="center"
+            android:text="@string/contact_us_throw"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_divider_one"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@color/gray_layer"
+            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
+            app:layout_constraintEnd_toStartOf="@id/view_divider_two"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+        <View
+            android:id="@+id/view_divider_two"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginVertical="@dimen/_2sdp"
+            android:background="@color/gray_layer"
+            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/view_divider_one"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/btn_messaging"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/_4sdp"
+            android:gravity="center"
+            app:layout_constraintWidth_percent="0.34"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="@string/messaging"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_8ssp"
+            app:drawableStartCompat="@drawable/ic_messaging_yellow"
+            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
+            app:layout_constraintEnd_toStartOf="@id/view_divider_one"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/montserratsemibold"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/btn_whatsapp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/_4sdp"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="@string/whatsapp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_8ssp"
+            app:drawableStartCompat="@drawable/ic_whatsapp_green"
+            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
+            app:layout_constraintEnd_toStartOf="@id/view_divider_two"
+            app:layout_constraintStart_toEndOf="@id/view_divider_one"
+            android:fontFamily="@font/montserratsemibold"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/btn_call"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:drawablePadding="@dimen/_4sdp"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:text="@string/call_us"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_8ssp"
+            android:fontFamily="@font/montserratsemibold"
+            app:drawableStartCompat="@drawable/ic_calling"
+            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/view_divider_two"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <View
+            android:id="@+id/view_bottom_background"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_22sdp"
+            android:background="#F9F9F9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
