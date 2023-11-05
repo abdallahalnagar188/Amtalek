@@ -285,6 +285,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.completedProjectsFragment,
                 R.id.satisfiedCustomersFragment,
                 R.id.newsDetailsFragment,
+                R.id.offersChatFragment,
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,
                 R.id.cancelDialog -> {

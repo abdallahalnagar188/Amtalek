@@ -32,7 +32,7 @@ class RvMessagingOffersAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onPropertyClick(it)
+                        listener.onChatClick(it)
                     }
                 }
             }
@@ -60,8 +60,7 @@ class RvMessagingOffersAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-//        fun onPropertyClick(model: MyFavouritesModel)
-//        fun onEditPropertyClick(model: MyFavouritesModel)
+        fun onChatClick(model: MessagingOffersModel)
     }
 
     //check difference

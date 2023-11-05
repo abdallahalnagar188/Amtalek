@@ -561,5 +561,6 @@
     <string name="your_rate">تقييمك:</string>
     <string name="rate_send">إرسال التقييم</string>
     <string name="write_a_comment">أكتب تعليق</string>
+    <string name="visit_profile">الملف الشخصي</string>
 
 </resources>

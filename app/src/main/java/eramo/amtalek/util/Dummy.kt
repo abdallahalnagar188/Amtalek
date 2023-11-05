@@ -18,6 +18,8 @@ import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.market.MarketPostType
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
+import eramo.amtalek.domain.model.social.messaging.ChatMessageModel
+import eramo.amtalek.domain.model.social.messaging.ChatMessageType
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -797,6 +799,38 @@ object Dummy {
                 imageUrl = "https://static.vecteezy.com/system/resources/thumbnails/006/299/370/original/world-breaking-news-digital-earth-hud-rotating-globe-rotating-free-video.jpg"
             )
         )
+
+
+        return list
+    }
+
+    fun dummyChatList(): MutableList<ChatMessageModel> {
+        val list = mutableListOf<ChatMessageModel>()
+
+        list.add(
+            ChatMessageModel(
+                ChatMessageType.SENDER,"How much does the property cost"
+            )
+        )
+
+        list.add(
+            ChatMessageModel(
+                ChatMessageType.RECEIVER,"What is your recommendation? What is your recommendation "
+            )
+        )
+
+        list.add(
+            ChatMessageModel(
+                ChatMessageType.SENDER,"How much does the property cost How much does the property cost How much does the property cost"
+            )
+        )
+
+        list.add(
+            ChatMessageModel(
+                ChatMessageType.RECEIVER,"What is your recommendation?"
+            )
+        )
+
 
 
         return list

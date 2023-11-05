@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.drawer.messaging.OffersChatFragment">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/layout_toolbar_with_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_broker_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_76sdp"
+        android:background="@color/amtalek_blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_broker_logo"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@id/view_broker_header"
+            app:layout_constraintStart_toStartOf="@id/view_broker_header"
+            app:layout_constraintTop_toTopOf="@id/view_broker_header"
+            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle"
+            tools:src="@color/gold" />
+
+        <TextView
+            android:id="@+id/tv_broker_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toTopOf="@id/tv_broker_id"
+            app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_broker_logo"
+            app:layout_constraintTop_toTopOf="@id/iv_broker_logo"
+            tools:text="Lana Realstate company" />
+
+        <TextView
+            android:id="@+id/tv_broker_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_9sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratregular"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_broker_logo"
+            app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
+            app:layout_constraintStart_toEndOf="@id/iv_broker_logo"
+            app:layout_constraintTop_toBottomOf="@id/tv_broker_name"
+            tools:text="Lana.Eramo12" />
+
+        <TextView
+            android:id="@+id/tv_visit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_9sdp"
+            android:layout_marginEnd="@dimen/_2ssp"
+            android:fontFamily="@font/montserratregular"
+            android:gravity="center"
+            android:text="@string/visit_profile"
+            android:textColor="#EAB010"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_broker"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_broker"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/screen_margin_sides"
+            android:src="@drawable/ic_arrow_right_goldt"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_offer_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_76sdp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_broker_header">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_image"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_offer_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                tools:src="@color/colorAccent" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_offer_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/tv_offer_price"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow_offer"
+            app:layout_constraintStart_toEndOf="@id/cv_image"
+            app:layout_constraintTop_toTopOf="@id/cv_image"
+            tools:text="شقة سكنية للبيع تشطيب سوبر لوكس" />
+
+        <TextView
+            android:id="@+id/tv_offer_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratsemibold"
+            android:maxLines="1"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/cv_image"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow_offer"
+            app:layout_constraintStart_toEndOf="@id/cv_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_offer_title"
+            tools:text="4,000,000 ج.م" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_offer"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/screen_margin_sides"
+            android:src="@drawable/ic_arrow_right_raw"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/_86sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_offer_header"
+        tools:listitem="@layout/item_chat_sender" />
+</androidx.constraintlayout.widget.ConstraintLayout>
