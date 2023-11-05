@@ -284,4 +284,9 @@
         android:name="eramo.amtalek.presentation.ui.main.broker.SatisfiedCustomersFragment"
         android:label="fragment_satisfied_customers"
         tools:layout="@layout/fragment_satisfied_customers" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.NewsDetailsFragment"
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" />
 </navigation>

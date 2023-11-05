@@ -30,7 +30,7 @@ class RvHomeNewsAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onFeaturedRealEstateClick(it)
+                        listener.onNewsClick(it)
                     }
                 }
             }
@@ -51,7 +51,7 @@ class RvHomeNewsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onFeaturedRealEstateClick(model: NewsModel)
+        fun onNewsClick(model: NewsModel)
     }
 
     //check difference

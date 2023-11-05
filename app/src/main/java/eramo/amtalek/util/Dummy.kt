@@ -776,4 +776,29 @@ object Dummy {
 
         return list
     }
+
+    fun dummyCarouselImagesList(): MutableList<CarouselItem> {
+        val list = mutableListOf<CarouselItem>()
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2020/07/breakingnews-live-blog-1568185450-1595123397-1596072840.jpg"
+            )
+        )
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/BBC_News_2022_%28Alt%29.svg/1200px-BBC_News_2022_%28Alt%29.svg.png"
+            )
+        )
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://static.vecteezy.com/system/resources/thumbnails/006/299/370/original/world-breaking-news-digital-earth-hud-rotating-globe-rotating-free-video.jpg"
+            )
+        )
+
+
+        return list
+    }
 }

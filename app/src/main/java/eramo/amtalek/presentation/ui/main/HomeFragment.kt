@@ -47,6 +47,7 @@ import javax.inject.Inject
 class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     DummyFeaturedAdapter.OnItemClickListener,
     RvMyFavouritesAdapter.OnItemClickListener,
+    RvHomeNewsAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = true
@@ -158,8 +159,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun listeners() {
-        binding.inToolbar.inNotification.root.setOnClickListener {
-            findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+        binding.apply {
+
+
+            inToolbar.inNotification.root.setOnClickListener {
+                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+            }
+            inToolbar.inMessaging.root.setOnClickListener {
+                findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
+            }
         }
 
         this@HomeFragment.onBackPressed { pressBackAgainToExist() }
@@ -414,6 +422,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun setupNewsRv(data: List<NewsModel>) {
+        rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
 
@@ -469,9 +478,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 //    }
 
     override fun onNewsClick(model: String) {
-        findNavController().navigate(R.id.nyEstateRentFragment, null, navOptionsAnimation())
+//        findNavController().navigate(R.id.nyEstateRentFragment, null, navOptionsAnimation())
     }
 
     override fun onPropertyClick(model: MyFavouritesModel) {
+    }
+
+    override fun onNewsClick(model: NewsModel) {
+        findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
     }
 }

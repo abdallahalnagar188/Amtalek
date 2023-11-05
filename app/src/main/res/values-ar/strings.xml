@@ -560,5 +560,6 @@
     <string name="title_rate">عنوان التقييم:</string>
     <string name="your_rate">تقييمك:</string>
     <string name="rate_send">إرسال التقييم</string>
+    <string name="write_a_comment">أكتب تعليق</string>
 
 </resources>
