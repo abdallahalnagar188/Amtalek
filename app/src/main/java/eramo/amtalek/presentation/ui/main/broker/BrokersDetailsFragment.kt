@@ -55,6 +55,10 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), 
             btnProjects.setOnClickListener {
                 findNavController().navigate(R.id.completedProjectsFragment, null, navOptionsAnimation())
             }
+
+            btnSatisfiedCustomers.setOnClickListener {
+                findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())
+            }
         }
     }
 

@@ -495,7 +495,7 @@
 
     <string name="s_market">السوق (%s)</string>
 
-    <string name="read_more">أقرأ المزيد</string>
+    <string name="read_more">…أقرأ المزيد</string>
     <string name="read_less">أقرأ أقل</string>
 
     <string name="s_plus">+%s</string>
@@ -552,9 +552,13 @@
     <string name="whatsapp">واتساب</string>
     <string name="call_us">إتصل بنا</string>
     <string name="s_projects">(%s) المشاريع</string>
-    <string name="s_satisfied_customers">(%s) العملاء الراضيين</string>
+    <string name="s_satisfied_customers">(%s) العملاء الراضين</string>
     <string name="s_all_properties">كل العقارات (%s)</string>
 
     <string name="s_completed_projects">(%S) المشاريع المكتملة</string>
+    <string name="rate">التقييم</string>
+    <string name="title_rate">عنوان التقييم:</string>
+    <string name="your_rate">تقييمك:</string>
+    <string name="rate_send">إرسال التقييم</string>
 
 </resources>

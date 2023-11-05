@@ -17,6 +17,7 @@ import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.market.MarketPostType
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
+import eramo.amtalek.domain.model.social.RatingCommentsModel
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object Dummy {
@@ -676,44 +677,102 @@ object Dummy {
     fun dummyPackagesList(): MutableList<PackageModel> {
         val list = mutableListOf<PackageModel>()
 
-        list.add(PackageModel(
-            "Free",
-            "is free and will always free",
-            0,
-            5,
-            1,
-            1,
-            10,
-            25,
-            "#1E617A",
-            "#1E617A"
-        ))
+        list.add(
+            PackageModel(
+                "Free",
+                "is free and will always free",
+                0,
+                5,
+                1,
+                1,
+                10,
+                25,
+                "#1E617A",
+                "#1E617A"
+            )
+        )
 
-        list.add(PackageModel(
-            "Basic",
-            "FOR SMALL BUSSINESS",
-            500,
-            15,
-            5,
-            2,
-            30,
-            25,
-            "#1E617A",
-            "#1E617A"
-        ))
+        list.add(
+            PackageModel(
+                "Basic",
+                "FOR SMALL BUSSINESS",
+                500,
+                15,
+                5,
+                2,
+                30,
+                25,
+                "#1E617A",
+                "#1E617A"
+            )
+        )
 
-        list.add(PackageModel(
-            "Pro",
-            "FOR MEDIUM BUSSINESS",
-            1500,
-            150,
-            10,
-            3,
-            150,
-            25,
-            "#E74335",
-            "#EAB010"
-        ))
+        list.add(
+            PackageModel(
+                "Pro",
+                "FOR MEDIUM BUSSINESS",
+                1500,
+                150,
+                10,
+                3,
+                150,
+                25,
+                "#E74335",
+                "#EAB010"
+            )
+        )
+
+        return list
+    }
+
+    fun dummyRatingCommentsList(): MutableList<RatingCommentsModel> {
+        val list = mutableListOf<RatingCommentsModel>()
+
+        list.add(
+            RatingCommentsModel(
+                "Abdallah",
+                "abdalla98",
+                "https://i.pinimg.com/564x/86/62/65/866265369891b45de4a7241df1c633b3.jpg",
+                "Lörem ipsum epibäras Gunnar Björklund content manager, content editor, Thomas Berglund prer. Big data kontris.",
+                "Tuesday: May 21, 2023",
+                4.5f
+            )
+        )
+
+        list.add(
+            RatingCommentsModel(
+                "Ahmed Ali",
+                "ahmed776",
+                "https://www.hairpalace.co.uk/wp-content/uploads/2023/06/Christian-Bale-long-hair.jpg",
+                "Lörem ipsum epibäras Gunnar Björklund content manager, content editor, Thomas Berglund prer. Big data kontris. Lörem ipsum epibäras Gunnar Björklund content manager Lörem ipsum epibäras Gunnar Björklund content manager",
+                "Tuesday: May 21, 2023",
+                3.5f
+            )
+        )
+
+        list.add(
+            RatingCommentsModel(
+                "Abdallah",
+                "abdalla98",
+                "https://i.pinimg.com/564x/86/62/65/866265369891b45de4a7241df1c633b3.jpg",
+                "تناولت الحلقة: 1- القدرة تتعلق بالمقدورات (بالأشياء المقدورة) تعلقًا صَلوحيًّا قديمًا وتعلقًا تنجيزيًّا حادثًا 2- الإرادة لها تعلقان: صلوحي قديم وتنجيزي قديم 3- العلم له تعلق تنجيزي قديم فقط 4- الكلام والسمع والبصر لها ثلاثة تعلقات: صلوحي قديم وتنجيزي قديم وتنجيزي حادث 6- التنجيزي الحادث هو ما يعبر عنه الحنفية بالتكوين 7- الإمام الأشعري نقض بناء المعتزلة 8- نهضة الأمة بالرد على أهل الضلال بالعلم 9- لا مشيئة للعباد إلا ما شاء الله لهم."
+                        ,
+                "Tuesday: May 21, 2023",
+                4.5f
+            )
+        )
+
+        list.add(
+            RatingCommentsModel(
+                "Ahmed Ali",
+                "ahmed776",
+                "https://www.hairpalace.co.uk/wp-content/uploads/2023/06/Christian-Bale-long-hair.jpg",
+                "Lörem ipsum epibäras Gunnar Björklund content manager, content editor, Thomas Berglund prer. Big data kontris.",
+                "Tuesday: May 21, 2023",
+                3.5f
+            )
+        )
+
 
         return list
     }

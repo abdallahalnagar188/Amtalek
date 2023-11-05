@@ -279,4 +279,9 @@
         android:name="eramo.amtalek.presentation.ui.main.broker.CompletedProjectsFragment"
         android:label="fragment_completed_projects"
         tools:layout="@layout/fragment_completed_projects" />
+    <fragment
+        android:id="@+id/satisfiedCustomersFragment"
+        android:name="eramo.amtalek.presentation.ui.main.broker.SatisfiedCustomersFragment"
+        android:label="fragment_satisfied_customers"
+        tools:layout="@layout/fragment_satisfied_customers" />
 </navigation>

@@ -496,7 +496,7 @@
 
     <string name="s_market">Market (%s)</string>
 
-    <string name="read_more">Read more</string>
+    <string name="read_more"> …read more</string>
     <string name="read_less">Read less</string>
 
     <string name="s_plus">+%s</string>
@@ -556,5 +556,10 @@
     <string name="s_all_properties">All Properties (%s)</string>
 
     <string name="s_completed_projects">(%s) Completed projects</string>
+
+    <string name="rate">Rate</string>
+    <string name="title_rate">Title Rate:</string>
+    <string name="your_rate">Rate:</string>
+    <string name="rate_send">Send</string>
 
 </resources>

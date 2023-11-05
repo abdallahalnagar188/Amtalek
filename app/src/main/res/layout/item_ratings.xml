@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_55sdp">
+
+    <RatingBar
+        android:id="@+id/rate_bar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:stepSize="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_user_image"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_48sdp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle"
+        tools:src="@color/gold" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_75sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserratmedium"
+        android:maxLines="1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toTopOf="@id/tv_user_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_user_image"
+        app:layout_constraintTop_toTopOf="@id/iv_user_image"
+        tools:text="Abdallah Ahmed" />
+
+    <TextView
+        android:id="@+id/tv_user_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_75sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/montserratregular"
+        android:maxLines="1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text_gray"
+        app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_user_image"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+        tools:text="Abdallah Ahmed" />
+
+    <kr.co.prnd.readmore.ReadMoreTextView
+        android:id="@+id/tv_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/montserratmedium"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_user_image"
+        app:readLessText="@string/read_less"
+        app:readMoreColor="#79A0FC"
+        app:readMoreMaxLine="3"
+        app:readMoreText="@string/read_more"
+        tools:text="Lörem ipsum epibäras Gunnar Björklund content manager, content editor, Thomas Berglund prer. Big data kontris. Thomas Berglund prer. Big data kontris Thomas Berglund prer. Big data kontris Thomas Berglund prer. Big data kontris Thomas Berglund prer. Big data kontris" />
+
+    <ImageView
+        android:id="@+id/iv_clock"
+        android:layout_width="@dimen/_12sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/ic_clock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_comment"
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_4sdp"
+        android:layout_marginEnd="@dimen/_75sdp"
+        android:fontFamily="@font/montserratmedium"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_clock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_clock"
+        app:layout_constraintTop_toTopOf="@id/iv_clock"
+        tools:text="Tuesday: May 21, 2023" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

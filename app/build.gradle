@@ -154,6 +154,9 @@ dependencies {
     // ReadMore TextView
     implementation 'com.github.Muratthekus:ReadMoreText:v1.1'
 
+    implementation 'kr.co.prnd:readmore-textview:1.0.0'    // new
+
+
 //    implementation 'com.borjabravo:readmoretextview:2.1.0'
 
 
