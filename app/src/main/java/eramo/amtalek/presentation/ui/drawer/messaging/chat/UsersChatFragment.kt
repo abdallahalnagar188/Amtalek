@@ -13,6 +13,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,9 +43,9 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
 
     private fun setupListeners() {
         binding.apply {
-//            viewBrokerHeader.setOnClickListener {
-//                findNavController().navigate(R.id.brokersDetailsFragment,null, navOptionsAnimation())
-//            }
+            viewUserHeader.setOnClickListener {
+                findNavController().navigate(R.id.userProfileFragment, null, navOptionsAnimation())
+            }
         }
     }
 

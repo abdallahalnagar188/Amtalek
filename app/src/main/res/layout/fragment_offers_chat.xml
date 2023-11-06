@@ -195,6 +195,8 @@
         android:layout_marginBottom="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_4sdp"
         app:cardElevation="0dp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@id/til_write_message"
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/amtalek_blue"

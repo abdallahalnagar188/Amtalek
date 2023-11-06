@@ -64,6 +64,7 @@ class OffersChatFragment : BindingFragment<FragmentOffersChatBinding>() {
 
             tvOfferTitle.text = "شقة سكنية للبيع تشطيب سوبر لوكس"
             tvOfferPrice.text = "4,000,000 ج.م"
+            Glide.with(requireContext()).load("https://www.era-egypt.com/wp-content/uploads/2021/06/ERA-2004.png").into(ivOfferImage)
 
         }
     }

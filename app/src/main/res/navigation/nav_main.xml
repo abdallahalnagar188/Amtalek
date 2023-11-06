@@ -299,4 +299,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragment"
         android:label="fragment_users_chat"
         tools:layout="@layout/fragment_users_chat" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="eramo.amtalek.presentation.ui.social.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

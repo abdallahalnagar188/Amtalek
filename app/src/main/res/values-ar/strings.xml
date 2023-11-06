@@ -563,5 +563,7 @@
     <string name="rate_send">إرسال التقييم</string>
     <string name="write_a_comment">أكتب تعليق</string>
     <string name="visit_profile">الملف الشخصي</string>
+    <string name="message2">رسالة</string>
+    <string name="follow">متابعة</string>
 
 </resources>
