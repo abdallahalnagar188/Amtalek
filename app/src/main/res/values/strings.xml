@@ -412,6 +412,7 @@
 
     <string name="favourite">Favourite</string>
     <string name="chat">Chat</string>
+    <string name="chat_messaging">Chat</string>
     <string name="buy_packages">Buy Packages</string>
     <string name="new_projects">New Projects</string>
     <string name="help">Help</string>
