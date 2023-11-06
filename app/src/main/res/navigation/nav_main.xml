@@ -291,12 +291,12 @@
         tools:layout="@layout/fragment_news_details" />
     <fragment
         android:id="@+id/offersChatFragment"
-        android:name="eramo.amtalek.presentation.ui.drawer.messaging.OffersChatFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.OffersChatFragment"
         android:label="fragment_offers_chat"
         tools:layout="@layout/fragment_offers_chat" />
     <fragment
         android:id="@+id/usersChatFragment"
-        android:name="eramo.amtalek.presentation.ui.drawer.messaging.UsersChatFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragment"
         android:label="fragment_users_chat"
         tools:layout="@layout/fragment_users_chat" />
 </navigation>

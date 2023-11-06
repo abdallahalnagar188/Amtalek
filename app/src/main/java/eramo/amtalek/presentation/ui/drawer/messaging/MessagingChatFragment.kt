@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -13,10 +14,11 @@ import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingCha
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>() {
+class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(), RvMessagingChatAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -39,6 +41,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>() {
 
 
     private fun initChatRv(data: List<MessagingChatModel>) {
+        rvMessagingChatAdapter.setListener(this@MessagingChatFragment)
         binding.rv.adapter = rvMessagingChatAdapter
         rvMessagingChatAdapter.submitList(data)
 
@@ -57,5 +60,9 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>() {
                 rvMessagingChatAdapter.submitList(list)
             }
         }
+    }
+
+    override fun onChatClick(model: MessagingChatModel) {
+        findNavController().navigate(R.id.usersChatFragment, null, navOptionsAnimation())
     }
 }

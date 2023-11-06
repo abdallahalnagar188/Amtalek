@@ -286,6 +286,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.satisfiedCustomersFragment,
                 R.id.newsDetailsFragment,
                 R.id.offersChatFragment,
+                R.id.usersChatFragment,
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,
                 R.id.cancelDialog -> {

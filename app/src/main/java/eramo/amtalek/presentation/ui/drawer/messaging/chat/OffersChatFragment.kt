@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.drawer.messaging
+package eramo.amtalek.presentation.ui.drawer.messaging.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater
