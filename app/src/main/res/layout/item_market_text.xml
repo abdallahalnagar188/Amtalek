@@ -63,18 +63,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="4 Days ago" />
 
-        <me.thekusch.view.ReadMoreTextView
+        <kr.co.prnd.readmore.ReadMoreTextView
             android:id="@+id/tv_post_body"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            app:textMode="length"
-            app:anchorPoint="150"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_user_image"
+            android:fontFamily="@font/montserratmedium"
+            android:textAlignment="viewStart"
             app:readLessText="@string/read_less"
+            app:readMoreColor="@color/read_more_color"
+            app:readMoreMaxLine="3"
             app:readMoreText="@string/read_more"
             tools:text="هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق." />
 

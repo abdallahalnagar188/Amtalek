@@ -46,7 +46,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
     private fun setupListeners() {
         binding.apply {
             ivBack.setOnClickListener { findNavController().popBackStack() }
-            ivEdit.setOnClickListener { findNavController().navigate(R.id.editPersonalDetailsFragment, null, navOptionsAnimation()) }
+            ivEdit.setOnClickListener { findNavController().navigate(R.id.myAccountFragment, null, navOptionsAnimation()) }
         }
 
         setupHeaderListener()

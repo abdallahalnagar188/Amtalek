@@ -76,7 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_user_image"
         app:readLessText="@string/read_less"
-        app:readMoreColor="#79A0FC"
+        app:readMoreColor="@color/read_more_color"
         app:readMoreMaxLine="3"
         app:readMoreText="@string/read_more"
         tools:text="Lörem ipsum epibäras Gunnar Björklund content manager, content editor, Thomas Berglund prer. Big data kontris. Thomas Berglund prer. Big data kontris Thomas Berglund prer. Big data kontris Thomas Berglund prer. Big data kontris Thomas Berglund prer. Big data kontris" />

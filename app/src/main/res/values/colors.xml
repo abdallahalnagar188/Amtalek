@@ -35,4 +35,6 @@
     <color name="text_faded_gray">#AAAAAA</color>
     <color name="green">#34A851</color>
 
+    <color name="read_more_color">#6630c6</color>
+
 </resources>

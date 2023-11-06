@@ -127,7 +127,7 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
                 tvDatePosted.text = model.datePosted
 
                 tvPostBody.text = model.postBody
-                tvPostBody.isExpanded = false
+//                tvPostBody.isExpanded = false
 //                tvPostBody.textMode = ReadMoreTextView.Companion.TextMode.LINE.ordinal
 //                tvPostBody.anchorPoint = 3
 
@@ -201,7 +201,7 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
                 tvDatePosted.text = model.datePosted
 
                 tvPostBody.text = model.postBody
-                tvPostBody.isExpanded = false
+//                tvPostBody.isExpanded = false
 
                 Glide.with(itemView).load(model.photosList?.get(0)).into(ivImage)
 
