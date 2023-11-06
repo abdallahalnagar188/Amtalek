@@ -304,4 +304,14 @@
         android:name="eramo.amtalek.presentation.ui.social.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/propertyDetailsSellFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragment"
+        android:label="fragment_property_details_sell"
+        tools:layout="@layout/fragment_property_details_sell" />
+    <fragment
+        android:id="@+id/propertyDetailsRentFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragment"
+        android:label="fragment_property_details_rent"
+        tools:layout="@layout/fragment_property_details_rent" />
 </navigation>

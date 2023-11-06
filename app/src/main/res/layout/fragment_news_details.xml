@@ -16,20 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:translationZ="8dp"
+            app:showNavigationButtons="false"
             app:autoPlay="false"
             app:autoPlayDelay="2000"
+            app:showTopShadow="false"
             app:carouselType="BLOCK"
             app:imageScaleType="centerCrop"
-            app:layout_constraintCircleRadius="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showBottomShadow="false"
-            app:showCaption="false"
-            app:showIndicator="false"
-            app:showNavigationButtons="false"
-            app:showTopShadow="false" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <me.relex.circleindicator.CircleIndicator2
             android:id="@+id/image_slider_dots"
@@ -41,6 +36,7 @@
             app:layout_constraintEnd_toEndOf="@+id/image_slider"
             app:layout_constraintStart_toStartOf="@+id/image_slider"
             app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+
 
         <ImageView
             android:id="@+id/iv_back"
@@ -69,13 +65,13 @@
             android:layout_marginHorizontal="@dimen/screen_margin_sides"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/montserratsemibold"
+            android:text="Market latest news"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
-            android:text="Market latest news" />
+            app:layout_constraintTop_toBottomOf="@id/image_slider_dots" />
 
         <TextView
             android:id="@+id/tv_body"
@@ -84,18 +80,18 @@
             android:layout_marginHorizontal="@dimen/screen_margin_sides"
             android:layout_marginTop="@dimen/_4sdp"
             android:fontFamily="@font/montserratmedium"
-            android:textAlignment="viewStart"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
             android:text="Lörem ipsum drop shipping Inger Hansson Henrik Sjögren.
 Marcus Sjöberg Linda Lundgren.
 Prehånas bede Karl Lind attribution kås.
 Sofia Björklund metaosmos Alf Martinsson Viola Jakobsson Agneta Jonsson.
 Prende Alf Persson.
-" />
+"
+            android:textAlignment="viewStart"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
             android:id="@+id/tv_write_comment"
