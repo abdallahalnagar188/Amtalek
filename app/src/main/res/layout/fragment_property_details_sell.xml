@@ -1,14 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".presentation.ui.main.extension.PropertyDetailsSellFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:autoPlay="false"
+            app:autoPlayDelay="2000"
+            app:carouselType="BLOCK"
+            app:imageScaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showNavigationButtons="false"
+            app:showTopShadow="false" />
+
+        <me.relex.circleindicator.CircleIndicator2
+            android:id="@+id/image_slider_dots"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_18sdp"
+            app:ci_animator="@animator/scale_with_alpha"
+            app:ci_drawable="@drawable/ic_dot_selected"
+            app:ci_drawable_unselected="@drawable/ic_dot_unselected"
+            app:layout_constraintEnd_toEndOf="@+id/image_slider"
+            app:layout_constraintStart_toStartOf="@+id/image_slider"
+            app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:src="@drawable/ic_back_dark"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:src="@drawable/ic_share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:src="@drawable/ic_favourite_with_frame"
+            app:layout_constraintEnd_toStartOf="@id/iv_share"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/montserratbold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
+            tools:text="4,000,000 EGP" />
+
+        <TextView
+            android:id="@id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="1"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            tools:text="Residential apartment for sale, super lux with elevator" />
+
+        <ImageView
+            android:id="@+id/iv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:src="@drawable/ic_location_black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_location"
+            app:layout_constraintTop_toTopOf="@id/iv_location"
+            tools:text="Sheikh Zayed , Giza" />
+
+        <ImageView
+            android:id="@+id/iv_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintBottom_toBottomOf="@id/tv_date"
+            app:layout_constraintEnd_toStartOf="@id/tv_date"
+            app:layout_constraintTop_toTopOf="@id/tv_date"
+            app:tint="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/screen_margin_sides"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratmedium"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="8/7/2023" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/property_content_constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:background="@color/amtalek_blue_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_location">
+
+            <ImageView
+                android:id="@+id/iv_finishing"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/ic_finishing"
+                app:layout_constraintBottom_toTopOf="@+id/tv_finishing"
+                app:layout_constraintEnd_toStartOf="@id/iv_location2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_finishing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:gravity="center"
+                android:text="Finished\n available"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_finishing"
+                app:layout_constraintStart_toStartOf="@id/iv_finishing"
+                app:layout_constraintTop_toBottomOf="@id/iv_finishing" />
+
+            <ImageView
+                android:id="@+id/iv_location2"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:src="@drawable/ic_compass_white"
+                app:layout_constraintBottom_toTopOf="@+id/tv_location2"
+                app:layout_constraintEnd_toStartOf="@id/iv_area"
+                app:layout_constraintStart_toEndOf="@id/iv_finishing"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_location2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:gravity="center"
+                android:text="New Cairo"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_location2"
+                app:layout_constraintStart_toStartOf="@id/iv_location2"
+                app:layout_constraintTop_toBottomOf="@id/iv_location2" />
+
+            <ImageView
+                android:id="@+id/iv_area"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:src="@drawable/ic_area_rounded_white"
+                app:layout_constraintBottom_toTopOf="@+id/tv_area"
+                app:layout_constraintEnd_toStartOf="@id/iv_bathrooms"
+                app:layout_constraintStart_toEndOf="@id/iv_location2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:gravity="center"
+                android:text="111\n m2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_area"
+                app:layout_constraintStart_toStartOf="@id/iv_area"
+                app:layout_constraintTop_toBottomOf="@id/iv_area" />
+
+            <ImageView
+                android:id="@+id/iv_bathrooms"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:src="@drawable/ic_bathrooms2"
+                app:layout_constraintBottom_toTopOf="@+id/tv_area"
+                app:layout_constraintEnd_toStartOf="@id/iv_bedrooms"
+                app:layout_constraintStart_toEndOf="@id/iv_area"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_bathrooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:gravity="center"
+                android:text="2\n bedrooms"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_bathrooms"
+                app:layout_constraintStart_toStartOf="@id/iv_bathrooms"
+                app:layout_constraintTop_toBottomOf="@id/iv_bathrooms" />
+
+            <ImageView
+                android:id="@+id/iv_bedrooms"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:src="@drawable/ic_bedrooms2"
+                app:layout_constraintBottom_toTopOf="@+id/tv_area"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_bathrooms"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_bedrooms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserratbold"
+                android:gravity="center"
+                android:text="2\n bedrooms"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/iv_bedrooms"
+                app:layout_constraintStart_toStartOf="@id/iv_bedrooms"
+                app:layout_constraintTop_toBottomOf="@id/iv_bedrooms" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            app:layout_constraintTop_toBottomOf="@id/property_content_constraintLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/linear_gradient"
+            >
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

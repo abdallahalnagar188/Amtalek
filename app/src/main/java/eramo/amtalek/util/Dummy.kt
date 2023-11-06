@@ -804,6 +804,37 @@ object Dummy {
         return list
     }
 
+    fun dummyCarouselPropertiesImagesList(): MutableList<CarouselItem> {
+        val list = mutableListOf<CarouselItem>()
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://previews.123rf.com/images/bialasiewicz/bialasiewicz1211/bialasiewicz121100028/16119427-inside-of-stylish-and-new-flat-living-room.jpg"
+            )
+        )
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://www.luxorpropertysales.com/wp-content/uploads/2022/08/IMG-20220515-WA0063-488x326.jpg"
+            )
+        )
+        list.add(
+            CarouselItem(
+                imageUrl = "https://previews.123rf.com/images/bialasiewicz/bialasiewicz1211/bialasiewicz121100028/16119427-inside-of-stylish-and-new-flat-living-room.jpg"
+            )
+        )
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://www.luxorpropertysales.com/wp-content/uploads/2022/08/IMG-20220515-WA0063-488x326.jpg"
+            )
+        )
+
+
+
+        return list
+    }
+
     fun dummyChatList(): MutableList<ChatMessageModel> {
         val list = mutableListOf<ChatMessageModel>()
 
