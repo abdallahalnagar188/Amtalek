@@ -34,7 +34,7 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onFeaturedRealEstateClick(it)
+//                        listener.onFeaturedRealEstateClick(it)
                     }
                 }
             }

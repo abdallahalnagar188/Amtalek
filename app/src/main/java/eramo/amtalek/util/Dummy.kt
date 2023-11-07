@@ -175,7 +175,7 @@ object Dummy {
         list.add(
             MyFavouritesModel(
                 "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_sell), 1, 1, 2500000.0,
+                context.getString(R.string.for_rent), 1, 1, 2500000.0,
                 context.getString(R.string.fake_title), 1050, 2, 4,
                 context.getString(R.string.fake_location),
                 context.getString(R.string.fake_date),

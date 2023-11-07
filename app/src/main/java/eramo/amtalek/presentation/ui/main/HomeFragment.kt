@@ -474,7 +474,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
     override fun onFeaturedRealEstateClick(model: MyFavouritesModel) {
-        findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+        when (model.type) {
+            getString(R.string.for_sell) -> {
+                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            }
+
+            getString(R.string.for_rent) -> {
+                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            }
+        }
     }
 
     override fun onFeaturedClick(model: String) {
