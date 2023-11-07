@@ -522,6 +522,7 @@
     <string name="edit_text_hint_description">Description:</string>
     <string name="property_details">Property Details</string>
     <string name="property_features">Property Features</string>
+    <string name="project_features">Project Features</string>
     <string name="add_property_btn">Add property</string>
 
     <string name="quiet_area">Quiet area</string>
@@ -580,7 +581,12 @@
     <string name="floors_with_dots">Floors:</string>
     <string name="floor_with_dots">Floor:</string>
     <string name="real_estate_video">Real estate video</string>
+    <string name="project_video">Project video</string>
     <string name="similar_properties">Similar properties</string>
     <string name="s_ratings">Ratings (%s)</string>
+
+    <string name="autocad_drawings">Autocad drawings</string>
+    <string name="register_with_us">Register with us</string>
+    <string name="notes_with_dots">Notes:</string>
 
 </resources>

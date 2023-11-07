@@ -521,6 +521,7 @@
     <string name="edit_text_hint_description">وصف الإعلان:</string>
     <string name="property_details">تفاصيل العقار</string>
     <string name="property_features">وسائل الراحة</string>
+    <string name="project_features">وسائل الراحة</string>
     <string name="add_property_btn">إضافة العقار</string>
 
     <string name="quiet_area">منطقة هادئة</string>
@@ -580,7 +581,12 @@
     <string name="floors_with_dots">اﻷدوار:</string>
     <string name="floor_with_dots">اﻷرضية:</string>
     <string name="real_estate_video">فيديو للعقار</string>
+    <string name="project_video">فيديو للمشروع</string>
     <string name="similar_properties">عقارات مشابهة</string>
     <string name="s_ratings">التقييمات (%S)</string>
+
+    <string name="autocad_drawings">رسومات الأوتوكاد</string>
+    <string name="register_with_us">سجل معنا</string>
+    <string name="notes_with_dots">ملاحظات:</string>
 
 </resources>

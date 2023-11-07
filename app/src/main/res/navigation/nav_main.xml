@@ -314,4 +314,9 @@
         android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragment"
         android:label="fragment_property_details_rent"
         tools:layout="@layout/fragment_property_details_rent" />
+    <fragment
+        android:id="@+id/myProjectDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.MyProjectDetailsFragment"
+        android:label="fragment_my_project_details"
+        tools:layout="@layout/fragment_my_project_details" />
 </navigation>

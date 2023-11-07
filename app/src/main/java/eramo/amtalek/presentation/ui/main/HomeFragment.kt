@@ -49,6 +49,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvMyFavouritesAdapter.OnItemClickListener,
     RvHomeNewsAdapter.OnItemClickListener,
     RvHomeFeaturedRealEstateAdapter.OnItemClickListener,
+    RvHomeFeaturedProjectsAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = true
@@ -310,6 +311,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
 
     private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
+        rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
 
@@ -485,6 +487,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
+    override fun onFeaturedProjectClick(model: MyFavouritesModel) {
+        findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
+    }
+
     override fun onFeaturedClick(model: String) {
         findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
     }
@@ -503,4 +509,5 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     override fun onNewsClick(model: NewsModel) {
         findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
     }
+
 }
