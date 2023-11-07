@@ -48,6 +48,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     DummyFeaturedAdapter.OnItemClickListener,
     RvMyFavouritesAdapter.OnItemClickListener,
     RvHomeNewsAdapter.OnItemClickListener,
+    RvHomeFeaturedRealEstateAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener {
 
     override val isRefreshingEnabled: Boolean get() = true
@@ -273,6 +274,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun setupFeaturedRealEstateRv(data: List<MyFavouritesModel>) {
+        rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
         setupFeaturedRealEstateHeaderListener()
@@ -467,6 +469,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             showToast(getString(R.string.press_back_again_to_exist))
         }
         backPressedTime = System.currentTimeMillis()
+    }
+
+    // ------------------------------------------------------------------------------------------------------------------------------------ //
+
+    override fun onFeaturedRealEstateClick(model: MyFavouritesModel) {
+        findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
     }
 
     override fun onFeaturedClick(model: String) {

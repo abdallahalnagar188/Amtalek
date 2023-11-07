@@ -562,11 +562,25 @@
     <string name="title_rate">Title Rate:</string>
     <string name="your_rate">Rate:</string>
     <string name="rate_send">Send</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="write_a_comment">Write a comment</string>
     <string name="visit_profile">Visit profile</string>
     <string name="message2">Message</string>
     <string name="follow">Follow</string>
+
+    <string name="property_owner">Property owner :</string>
+    <string name="details">Details</string>
+    <string name="property_code">Property code:</string>
+    <string name="area_with_dots">Area:</string>
+    <string name="bedrooms_with_dots">Bedrooms:</string>
+    <string name="bathrooms_with_dots">Bathrooms:</string>
+    <string name="furniture_with_dots">Furniture:</string>
+    <string name="payment_with_dots">Payment:</string>
+    <string name="finishing_with_dots">Finishing:</string>
+    <string name="floors_with_dots">Floors:</string>
+    <string name="floor_with_dots">Floor:</string>
+    <string name="real_estate_video">Real estate video</string>
+    <string name="similar_properties">Similar properties</string>
+    <string name="s_ratings">Ratings (%s)</string>
 
 </resources>

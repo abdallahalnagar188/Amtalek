@@ -2,6 +2,10 @@
     <gradient
         android:startColor="#3395B1"
         android:endColor="#01425A"
-        android:type="linear"
+        android:type="radial"
+        android:gradientRadius="@dimen/_350sdp"
+        android:centerX="0"
+        android:centerY="2.3"
+        android:useLevel="false"
         android:angle="45"/>
 </shape>

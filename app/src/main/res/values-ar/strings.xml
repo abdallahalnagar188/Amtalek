@@ -560,10 +560,27 @@
     <string name="rate">التقييم</string>
     <string name="title_rate">عنوان التقييم:</string>
     <string name="your_rate">تقييمك:</string>
+
     <string name="rate_send">إرسال التقييم</string>
     <string name="write_a_comment">أكتب تعليق</string>
     <string name="visit_profile">الملف الشخصي</string>
     <string name="message2">رسالة</string>
     <string name="follow">متابعة</string>
+
+    <string name="property_owner">صاحب العقار :</string>
+    <string name="details">التفاصيل</string>
+
+    <string name="property_code">كود العقار:</string>
+    <string name="area_with_dots">المساحة:</string>
+    <string name="bedrooms_with_dots">غرف النوم:</string>
+    <string name="bathrooms_with_dots">الحمام:</string>
+    <string name="furniture_with_dots">مفروش:</string>
+    <string name="payment_with_dots">طريقة الدفع:</string>
+    <string name="finishing_with_dots">التسليم:</string>
+    <string name="floors_with_dots">اﻷدوار:</string>
+    <string name="floor_with_dots">اﻷرضية:</string>
+    <string name="real_estate_video">فيديو للعقار</string>
+    <string name="similar_properties">عقارات مشابهة</string>
+    <string name="s_ratings">التقييمات (%S)</string>
 
 </resources>

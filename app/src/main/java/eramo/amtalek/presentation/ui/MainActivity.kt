@@ -288,6 +288,10 @@ class MainActivity : AppCompatActivity(),
                 R.id.offersChatFragment,
                 R.id.usersChatFragment,
                 R.id.userProfileFragment,
+
+                R.id.propertyDetailsSellFragment,
+                R.id.propertyDetailsRentFragment,
+
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,
                 R.id.cancelDialog -> {
