@@ -6,20 +6,30 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import dagger.hilt.android.AndroidEntryPoint
+import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentMyProjectDetailsBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 @AndroidEntryPoint
-class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding>() {
+class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding>(), OnMapReadyCallback {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyProjectDetailsBinding::inflate
+
+    private lateinit var mMap: GoogleMap
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +40,17 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     private fun setupViews() {
         setupToolbar()
 
+        mapSetup()
+
+//        val mapFragment = childFragmentManager.findFragmentById(R.id.my_map) as SupportMapFragment
+//        mapFragment.getMapAsync(this)
+
+
         assignFakeData()
+
+        binding.tvTitle.setOnClickListener {
+            findNavController().navigate(R.id.mapFragment, null, navOptionsAnimation())
+        }
     }
 
     private fun setupToolbar() {
@@ -39,6 +59,31 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             ivShare.setOnClickListener { showToast("share") }
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
+    }
+
+
+    private fun mapSetup() {
+        val mapFragment = childFragmentManager.findFragmentById(R.id.my_map) as SupportMapFragment
+        mapFragment.getMapAsync(this@MyProjectDetailsFragment)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+//
+        val sydney = LatLng(30.058680306396965, 31.348735526984008)
+//
+//        val sydney = LatLng(-34.0, 151.0)
+//        mMap.addMarker(
+//            MarkerOptions()
+//                .position(sydney)
+//                .title("Marker in Sydney")
+//        )
+//
+////        30.058680306396965, 31.348735526984008
+////        mMap.addMarker(MarkerOptions()
+////            .position(sydney)
+////            .title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     private fun assignFakeData() {

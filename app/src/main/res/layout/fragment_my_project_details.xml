@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layoutDirection="locale"
     android:layout_height="match_parent"
+    android:layoutDirection="locale"
     tools:context=".presentation.ui.main.extension.MyProjectDetailsFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -18,8 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_110sdp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:paddingBottom="@dimen/_110sdp">
 
             <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                 android:id="@+id/image_slider"
@@ -126,8 +126,8 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/montserratmedium"
                 android:maxLines="1"
-                android:textColor="@color/black"
                 android:textAlignment="viewStart"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_location"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -307,8 +307,8 @@
                 android:id="@+id/autocad_drawings_slider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_250sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
                 app:autoPlay="false"
                 app:autoPlayDelay="2000"
                 app:carouselType="BLOCK"
@@ -372,26 +372,38 @@
                     app:showFullScreenButton="true" />
             </androidx.cardview.widget.CardView>
 
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/my_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/youtube_video_view" />
+
             <TextView
                 android:id="@+id/tv_register_with_us"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/montserratbold"
                 android:text="@string/register_with_us"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/youtube_video_view" />
+                app:layout_constraintTop_toBottomOf="@id/my_map" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_name"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/text_gray"
                 app:hintEnabled="false"
@@ -417,8 +429,8 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/text_gray"
                 app:hintEnabled="false"
@@ -444,8 +456,8 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/text_gray"
                 app:hintEnabled="false"
