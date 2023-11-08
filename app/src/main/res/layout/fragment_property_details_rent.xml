@@ -453,7 +453,7 @@
                 android:id="@+id/property_features_layout"
                 layout="@layout/property_features_layout"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_150sdp"
                 android:layout_marginTop="@dimen/_50sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

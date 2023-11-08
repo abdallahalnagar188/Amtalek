@@ -18,8 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_110sdp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:paddingBottom="@dimen/_110sdp">
 
             <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                 android:id="@+id/image_slider"
@@ -126,8 +126,8 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/montserratmedium"
                 android:maxLines="1"
-                android:textColor="@color/black"
                 android:textAlignment="viewStart"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_location"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -453,7 +453,7 @@
                 android:id="@+id/property_features_layout"
                 layout="@layout/property_features_layout"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_150sdp"
                 android:layout_marginTop="@dimen/_50sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -633,9 +633,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -835,6 +835,29 @@ object Dummy {
         return list
     }
 
+    fun dummyCarouselAutocadImagesList(): MutableList<CarouselItem> {
+        val list = mutableListOf<CarouselItem>()
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://dwgmodels.com/uploads/posts/2016-10/1476942695_two_story_house_plans.jpg"
+            )
+        )
+
+        list.add(
+            CarouselItem(
+                imageUrl = "https://i.pinimg.com/736x/41/ce/9f/41ce9fa7e141ecb159685618c0261ce0.jpg"
+            )
+        )
+        list.add(
+            CarouselItem(
+                imageUrl = "https://i.pinimg.com/736x/ec/e4/98/ece498700c3cf179090133257eb889ed.jpg"
+            )
+        )
+
+        return list
+    }
+
     fun dummyChatList(): MutableList<ChatMessageModel> {
         val list = mutableListOf<ChatMessageModel>()
 
