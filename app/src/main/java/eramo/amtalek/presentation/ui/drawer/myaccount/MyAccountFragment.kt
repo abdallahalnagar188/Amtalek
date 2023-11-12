@@ -39,7 +39,7 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
         binding.apply {
             FMyAccountTvEdit.setOnClickListener(this@MyAccountFragment)
-            FMyAccountTvChangePassword.setOnClickListener(this@MyAccountFragment)
+            FMyAccountTvMySubscriptions.setOnClickListener(this@MyAccountFragment)
             FMyAccountTvSuspendAccount.setOnClickListener(this@MyAccountFragment)
             ivClose.setOnClickListener(this@MyAccountFragment)
         }
@@ -60,14 +60,14 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
                 )
             }
 
-            R.id.FMyAccount_tv_changePassword -> {
+            R.id.FMyAccount_tv_my_subscriptions -> {
 //                if (memberModel == null) {
 //                    return
 //                }
 //                val args = Bundle()
 //                args.putParcelable(NavKeys.MEMBER_MODEL, memberModel)
                 findNavController().navigate(
-                    R.id.changePasswordFragment,
+                    R.id.packageDetailsFragment,
                     null,
                     navOptionsAnimation()
                 )

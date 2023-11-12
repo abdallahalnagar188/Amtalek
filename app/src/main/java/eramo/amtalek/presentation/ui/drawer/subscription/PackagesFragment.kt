@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.drawer
+package eramo.amtalek.presentation.ui.drawer.subscription
 
 import android.os.Bundle
 import android.view.LayoutInflater

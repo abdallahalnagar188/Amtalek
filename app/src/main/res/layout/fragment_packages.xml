@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
-    tools:context=".presentation.ui.drawer.PackagesFragment">
+    tools:context=".presentation.ui.drawer.subscription.PackagesFragment">
 
     <include
         android:id="@+id/in_toolbar"

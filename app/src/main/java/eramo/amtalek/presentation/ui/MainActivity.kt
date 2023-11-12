@@ -292,6 +292,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.propertyDetailsSellFragment,
                 R.id.propertyDetailsRentFragment,
                 R.id.myProjectDetailsFragment,
+                R.id.packageDetailsFragment,
 
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,

@@ -266,7 +266,7 @@
         tools:layout="@layout/fragment_my_add_property_fragment" />
     <fragment
         android:id="@+id/packagesFragment"
-        android:name="eramo.amtalek.presentation.ui.drawer.PackagesFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.subscription.PackagesFragment"
         android:label="fragment_packages"
         tools:layout="@layout/fragment_packages" />
     <fragment
@@ -324,4 +324,9 @@
         android:name="eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment"
         android:label="fragment_comments_bottom_dialog"
         tools:layout="@layout/fragment_comments_bottom_dialog" />
+    <fragment
+        android:id="@+id/packageDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.subscription.PackageDetailsFragment"
+        android:label="fragment_package_details"
+        tools:layout="@layout/fragment_package_details" />
 </navigation>

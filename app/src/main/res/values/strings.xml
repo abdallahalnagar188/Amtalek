@@ -539,6 +539,7 @@
     <string name="property_added">Property added</string>
 
     <string name="packages">Packages</string>
+    <string name="packages_details">Packages details</string>
     <string name="free">Free</string>
 
     <string name="s_normal_listing">NORMAL LISTING : %s</string>
@@ -593,5 +594,8 @@
     <string name="s_comments">Comments (%s)</string>
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="my_subscriptions">My subscriptions</string>
+    <string name="recharge_the_package">Recharge the package</string>
+    <string name="change_package">Change package</string>
 
 </resources>
