@@ -39,7 +39,7 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onFeaturedRealEstateClick(it)
+                        listener.onNewestPropertyClick(it)
                     }
                 }
             }
@@ -95,7 +95,7 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onFeaturedRealEstateClick(model: MyFavouritesModel)
+        fun onNewestPropertyClick(model: MyFavouritesModel)
     }
 
     //check difference

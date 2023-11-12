@@ -49,6 +49,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvMyFavouritesAdapter.OnItemClickListener,
     RvHomeNewsAdapter.OnItemClickListener,
     RvHomeFeaturedRealEstateAdapter.OnItemClickListener,
+    RvHomeFindPropertyByCityAdapter.OnItemClickListener,
+    RvHomeNewestPropertiesAdapter.OnItemClickListener,
+    RvHomeNewestVillasAdapter.OnItemClickListener,
+    RvHomeNewestDuplexesAdapter.OnItemClickListener,
     RvHomeFeaturedProjectsAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener {
 
@@ -318,12 +322,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun setupFindPropertiesByCityRv(data: List<PropertiesByCityModel>) {
+        rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
 
     }
 
     private fun setupNewestPropertiesRv(data: List<MyFavouritesModel>) {
+        rvHomeNewestPropertiesAdapter.setListener(this@HomeFragment)
         binding.inNewestPropertiesLayout.rv.adapter = rvHomeNewestPropertiesAdapter
         rvHomeNewestPropertiesAdapter.submitList(data)
         setupNewestPropertiesHeaderListener()
@@ -358,6 +364,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun setupNewestVillasRv(data: List<MyFavouritesModel>) {
+        rvHomeNewestVillasAdapter.setListener(this@HomeFragment)
         binding.inNewestVillasLayout.rv.adapter = rvHomeNewestVillasAdapter
         rvHomeNewestVillasAdapter.submitList(data)
         setupNewestVillasHeaderListener()
@@ -392,6 +399,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun setupNewestDuplexesRv(data: List<MyFavouritesModel>) {
+        rvHomeNewestDuplexesAdapter.setListener(this@HomeFragment)
         binding.inNewestDuplexesLayout.rv.adapter = rvHomeNewestDuplexesAdapter
         rvHomeNewestDuplexesAdapter.submitList(data)
         setupNewestDuplexesHeaderListener()
@@ -498,6 +506,51 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 //    override fun onPropertyClick(model: String) {
 //        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
 //    }
+
+
+    override fun onPropertyByCityClick(model: PropertiesByCityModel) {
+        findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+
+    }
+
+    override fun onNewestPropertyClick(model: MyFavouritesModel) {
+        when (model.type) {
+            getString(R.string.for_sell) -> {
+                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            }
+
+            getString(R.string.for_rent) -> {
+                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            }
+        }
+    }
+
+
+    override fun onNewestVillaClick(model: MyFavouritesModel) {
+        when (model.type) {
+            getString(R.string.for_sell) -> {
+                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            }
+
+            getString(R.string.for_rent) -> {
+                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            }
+        }
+    }
+
+
+    override fun onNewestDuplexesClick(model: MyFavouritesModel) {
+        when (model.type) {
+            getString(R.string.for_sell) -> {
+                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            }
+
+            getString(R.string.for_rent) -> {
+                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            }
+        }
+    }
+
 
     override fun onNewsClick(model: String) {
 //        findNavController().navigate(R.id.nyEstateRentFragment, null, navOptionsAnimation())
