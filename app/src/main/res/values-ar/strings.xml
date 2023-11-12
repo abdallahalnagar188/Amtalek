@@ -596,5 +596,8 @@
     <string name="my_subscriptions">أشتراكى</string>
     <string name="recharge_the_package">إعادة شحن الباقة</string>
     <string name="change_package">إختار باقة أخرى</string>
+    <string name="your_e_wallet">محفظتك الإليكترونية</string>
+    <string name="wallet_amount">مبلع المحفظة</string>
+    <string name="add_card">أضف بطاقة</string>
 
 </resources>

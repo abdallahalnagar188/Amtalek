@@ -329,4 +329,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.PackageDetailsFragment"
         android:label="fragment_package_details"
         tools:layout="@layout/fragment_package_details" />
+    <fragment
+        android:id="@+id/rechargePackageFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.subscription.RechargePackageFragment"
+        android:label="fragment_recharge_package"
+        tools:layout="@layout/fragment_recharge_package" />
 </navigation>

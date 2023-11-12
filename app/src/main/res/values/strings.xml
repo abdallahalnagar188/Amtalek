@@ -597,5 +597,8 @@
     <string name="my_subscriptions">My subscriptions</string>
     <string name="recharge_the_package">Recharge the package</string>
     <string name="change_package">Change package</string>
+    <string name="your_e_wallet">Your e-wallet:</string>
+    <string name="wallet_amount">Wallet amount</string>
+    <string name="add_card">Add card</string>
 
 </resources>

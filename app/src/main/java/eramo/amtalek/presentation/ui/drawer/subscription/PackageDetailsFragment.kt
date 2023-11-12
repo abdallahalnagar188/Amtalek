@@ -11,6 +11,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPackageDetailsBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint
 class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() {
@@ -23,6 +24,7 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+        listeners()
 
     }
 
@@ -37,6 +39,18 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
         binding.inToolbar.apply {
             tvTitle.text = getString(R.string.packages_details)
             ivBack.setOnClickListener { findNavController().popBackStack() }
+        }
+    }
+
+    private fun listeners() {
+        binding.apply {
+            btnRechargePackage.setOnClickListener {
+                findNavController().navigate(R.id.rechargePackageFragment, null, navOptionsAnimation())
+            }
+
+            btnChangePackage.setOnClickListener {
+                findNavController().navigate(R.id.packagesFragment, null, navOptionsAnimation())
+            }
         }
     }
 
