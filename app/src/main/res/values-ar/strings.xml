@@ -590,4 +590,6 @@
     <string name="register_with_us">سجل معنا</string>
     <string name="notes_with_dots">ملاحظات:</string>
 
+    <string name="s_comments">التعليقات (%S)</string>
+
 </resources>

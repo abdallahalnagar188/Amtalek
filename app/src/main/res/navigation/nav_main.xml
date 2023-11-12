@@ -319,4 +319,9 @@
         android:name="eramo.amtalek.presentation.ui.main.extension.MyProjectDetailsFragment"
         android:label="fragment_my_project_details"
         tools:layout="@layout/fragment_my_project_details" />
+    <dialog
+        android:id="@+id/commentsBottomDialogFragment"
+        android:name="eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment"
+        android:label="fragment_comments_bottom_dialog"
+        tools:layout="@layout/fragment_comments_bottom_dialog" />
 </navigation>

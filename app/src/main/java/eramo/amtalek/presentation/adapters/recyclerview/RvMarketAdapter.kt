@@ -20,7 +20,8 @@ import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
-class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, RecyclerView.ViewHolder>(PRODUCT_COMPARATOR) {
+class RvMarketAdapter @Inject constructor() :
+    ListAdapter<MarketPostsModel, RecyclerView.ViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
 
@@ -44,19 +45,31 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             MarketPostType.ADVERTISEMENT.code -> {
-                AdvertisementViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_market_ads, parent, false))
+                AdvertisementViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_market_ads, parent, false)
+                )
             }
 
             MarketPostType.TEXT.code -> {
-                TextViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_market_text, parent, false))
+                TextViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_market_text, parent, false)
+                )
             }
 
             MarketPostType.PHOTOS.code -> {
-                PhotosViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_market_photos, parent, false))
+                PhotosViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_market_photos, parent, false)
+                )
             }
 
             else -> {
-                TextAndPhotosViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_market_text_and_photos, parent, false))
+                TextAndPhotosViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_market_text_and_photos, parent, false)
+                )
             }
         }
     }
@@ -69,7 +82,8 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
         fun bind(model: MarketPostsModel)
     }
 
-    inner class AdvertisementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BindView {
+    inner class AdvertisementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        BindView {
 
         private val binding = ItemMarketAdsBinding.bind(itemView)
 
@@ -83,11 +97,15 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
                 Glide.with(itemView).load(model.postImageUrl).into(ivImagePost)
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price ?: 0.0))
+                tvPrice.text =
+                    itemView.context.getString(R.string.s_egp, formatPrice(model.price ?: 0.0))
 
                 tvTitle.text = model.postTitle
 
-                tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area ?: 0))
+                tvArea.text = itemView.context.getString(
+                    R.string.s_meter_square,
+                    formatNumber(model.area ?: 0)
+                )
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
@@ -100,6 +118,10 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
+
+                ivComments.setOnClickListener {
+                    listener.onCommentsClickAdvertisementPost(model)
+                }
             }
         }
 
@@ -107,7 +129,7 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onHeaderClick(it)
+//                        listener.onCommentsClickAdvertisement(it)
                     }
                 }
             }
@@ -133,6 +155,10 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
                 tvCommentsCount.text = model.commentsCount.toString()
                 tvLikesCount.text = model.likesCount.toString()
+
+                ivComments.setOnClickListener {
+                    listener.onCommentsClickTextPost(model)
+                }
             }
 
         }
@@ -175,6 +201,10 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
                 imagesLayout.setOnClickListener {
                     listener.onPhotosClickPhotosPost(model)
                 }
+
+                ivComments.setOnClickListener {
+                    listener.onCommentsClickPhotosPost(model)
+                }
             }
         }
 
@@ -189,7 +219,8 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
         }
     }
 
-    inner class TextAndPhotosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), BindView {
+    inner class TextAndPhotosViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        BindView {
 
         private val binding = ItemMarketTextAndPhotosBinding.bind(itemView)
 
@@ -207,6 +238,10 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
 
                 tvCommentsCount.text = model.commentsCount.toString()
                 tvLikesCount.text = model.likesCount.toString()
+
+                ivComments.setOnClickListener {
+                    listener.onCommentsClickTextAndPhotosPost(model)
+                }
             }
         }
 
@@ -226,8 +261,19 @@ class RvMarketAdapter @Inject constructor() : ListAdapter<MarketPostsModel, Recy
     }
 
     interface OnItemClickListener {
-        //        fun onHeaderClick(model: DataModel)
+
+        // AdvertisementViewHolder
+        fun onCommentsClickAdvertisementPost(model: MarketPostsModel)
+
+        // TextViewHolder
+        fun onCommentsClickTextPost(model: MarketPostsModel)
+
+        // PhotosViewHolder
+        fun onCommentsClickPhotosPost(model: MarketPostsModel)
         fun onPhotosClickPhotosPost(model: MarketPostsModel)
+
+        // TextAndPhotosViewHolder
+        fun onCommentsClickTextAndPhotosPost(model: MarketPostsModel)
     }
 
     // DiffCallback

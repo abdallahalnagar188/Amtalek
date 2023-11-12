@@ -13,14 +13,18 @@ import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMarketAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
+import eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.showToast
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MarketFragment : BindingFragment<FragmentMarketBinding>(), RvMarketAdapter.OnItemClickListener {
+class MarketFragment : BindingFragment<FragmentMarketBinding>(),
+    RvMarketAdapter.OnItemClickListener,
+    CommentsBottomDialogFragment.CommentsBottomDialogOnClickListener {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -47,7 +51,8 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(), RvMarketAdapter
     private fun setupToolbar() {
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-            tvTitle.text = getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
+            tvTitle.text =
+                getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
         }
     }
 
@@ -57,10 +62,45 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(), RvMarketAdapter
         rvMarketAdapter.submitList(Dummy.dummyMarketPostsList())
     }
 
+    private fun initBottomSheetDialog() {
+//        binding.inToolbar.tvTitle.setOnClickListener {
+
+        CommentsBottomDialogFragment().setListener(this@MarketFragment)
+        CommentsBottomDialogFragment().show(this@MarketFragment.childFragmentManager, "")
+//        }
+    }
+
+    override fun onBottomSheetDialogClick(text: String) {
+        showToast(text)
+    }
+
+
+    //------------------------------------- AdvertisementViewHolder ------------------------------------- //
+    override fun onCommentsClickAdvertisementPost(model: MarketPostsModel) {
+        initBottomSheetDialog()
+    }
+
+    // ------------------------------------- TextViewHolder ------------------------------------- //
+    override fun onCommentsClickTextPost(model: MarketPostsModel) {
+        initBottomSheetDialog()
+    }
+
+    // ------------------------------------- TextAndPhotosViewHolderI ------------------------------------- //
+    override fun onCommentsClickTextAndPhotosPost(model: MarketPostsModel) {
+        initBottomSheetDialog()
+    }
+
+    // ------------------------------------- PhotosViewHolder ------------------------------------- //
+    override fun onCommentsClickPhotosPost(model: MarketPostsModel) {
+        initBottomSheetDialog()
+    }
+
     override fun onPhotosClickPhotosPost(model: MarketPostsModel) {
         findNavController().navigate(
-            R.id.imagesListFragment, ImagesListFragmentArgs(model.photosList?.toTypedArray() ?: emptyArray()).toBundle(),
+            R.id.imagesListFragment,
+            ImagesListFragmentArgs(model.photosList?.toTypedArray() ?: emptyArray()).toBundle(),
             navOptionsAnimation()
         )
     }
+
 }

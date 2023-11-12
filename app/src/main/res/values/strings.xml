@@ -589,7 +589,9 @@
     <string name="autocad_drawings">Autocad drawings</string>
     <string name="register_with_us">Register with us</string>
     <string name="notes_with_dots">Notes:</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="s_comments">Comments (%s)</string>
+
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
 </resources>
