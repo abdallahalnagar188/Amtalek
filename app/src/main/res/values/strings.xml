@@ -601,4 +601,8 @@
     <string name="wallet_amount">Wallet amount</string>
     <string name="add_card">Add card</string>
 
+    <string name="card_number">Card number</string>
+    <string name="expiry_date">Expiry date</string>
+    <string name="cvv" translatable="false">CVV</string>
+
 </resources>

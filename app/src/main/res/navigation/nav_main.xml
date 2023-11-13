@@ -334,4 +334,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.RechargePackageFragment"
         android:label="fragment_recharge_package"
         tools:layout="@layout/fragment_recharge_package" />
+    <fragment
+        android:id="@+id/addCardFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.subscription.AddCardFragment"
+        android:label="fragment_add_card"
+        tools:layout="@layout/fragment_add_card" />
 </navigation>

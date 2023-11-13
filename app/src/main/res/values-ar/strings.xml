@@ -600,4 +600,7 @@
     <string name="wallet_amount">مبلع المحفظة</string>
     <string name="add_card">أضف بطاقة</string>
 
+    <string name="card_number">رقم البطاقة</string>
+    <string name="expiry_date">تاريخ الإنتهاء</string>
+
 </resources>
