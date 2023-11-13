@@ -610,5 +610,6 @@
     <string name="operation_accomplished_successfully">تمت العملية بنجاح</string>
     <string name="back_to_home">رجوع للرئيسية</string>
     <string name="send_notes">إرسال ملاحطة</string>
+    <string name="how_is_your_experience_with_the_amtalek_app">كيف كانت تجربتك مع تطبيق The Amtalek</string>
 
 </resources>
