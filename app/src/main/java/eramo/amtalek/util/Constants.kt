@@ -15,6 +15,9 @@ import eramo.amtalek.R
 //object Constants {
     const val TOPIC = "/topics/MyTopic"
 
+    const val API_HEADER_LANG_EN = "en"
+    const val API_HEADER_LANG_AR = "ar"
+
     const val TEXT_YES = "yes"
     const val TEXT_NO = "no"
 
