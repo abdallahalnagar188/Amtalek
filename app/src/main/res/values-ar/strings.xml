@@ -602,5 +602,10 @@
 
     <string name="card_number">رقم البطاقة</string>
     <string name="expiry_date">تاريخ الإنتهاء</string>
+    <string name="total_amount">المبلغ الإجمالى</string>
+    <string name="discount_code">كود الخصم</string>
+    <string name="buy_now_small_letters">شراء الأن</string>
+
+    <string name="recharge_the_package_2">شحن الباقة</string>
 
 </resources>

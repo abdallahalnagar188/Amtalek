@@ -295,6 +295,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.packageDetailsFragment,
                 R.id.rechargePackageFragment,
                 R.id.addCardFragment,
+                R.id.buyPackageStepOneFragment,
 
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,

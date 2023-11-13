@@ -141,7 +141,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/screen_margin_sides"
                         android:fontFamily="@font/montserratsemibold"
-                        android:text="Total amount"
+                        android:text="@string/total_amount"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cv_price" />
 
@@ -275,7 +275,7 @@
                         android:layout_marginBottom="@dimen/_16sdp"
                         android:background="@drawable/button_background_long"
                         android:fontFamily="@font/montserratregular"
-                        android:text="@string/buy_now"
+                        android:text="@string/buy_now_small_letters"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
