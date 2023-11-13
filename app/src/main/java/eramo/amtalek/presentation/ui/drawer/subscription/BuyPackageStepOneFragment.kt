@@ -11,6 +11,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBuyPackageStepOneBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint
 class BuyPackageStepOneFragment : BindingFragment<FragmentBuyPackageStepOneBinding>() {
@@ -23,6 +24,7 @@ class BuyPackageStepOneFragment : BindingFragment<FragmentBuyPackageStepOneBindi
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+        listeners()
     }
 
     private fun setupViews() {
@@ -30,6 +32,14 @@ class BuyPackageStepOneFragment : BindingFragment<FragmentBuyPackageStepOneBindi
         setupToolbar()
 
         setupFakeData()
+    }
+
+    private fun listeners() {
+        binding.apply {
+            btnNext.setOnClickListener {
+                findNavController().navigate(R.id.buyPackageStepTwoFragment, null, navOptionsAnimation())
+            }
+        }
     }
 
     private fun setupToolbar() {

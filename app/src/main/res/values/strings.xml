@@ -609,5 +609,8 @@
     <string name="buy_now_small_letters">Buy now</string>
 
     <string name="recharge_the_package_2">Recharge the package</string>
+    <string name="operation_accomplished_successfully">Operation accomplished successfully</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="send_notes">Send notes</string>
 
 </resources>

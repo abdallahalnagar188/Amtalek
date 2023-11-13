@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_layout"
+    tools:context=".presentation.ui.drawer.subscription.BuyPackageStepTwoFragment">
+
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/layout_toolbar_with_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="@dimen/_170sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/screen_margin_sides"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/splash_screen_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_operation_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_margin_sides"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:fontFamily="@font/montserratbold"
+        android:text="@string/operation_accomplished_successfully"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+
+    <TextView
+        android:id="@+id/tv_operation_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/screen_margin_sides"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:fontFamily="@font/montserratmedium"
+        android:text="لقد تم شحن مبلغ 5000 جنيه مصريا الى محفظتك
+ الالكترونية : البنك الاهلي
+رقم المحفظة : 0255189798798
+شكرا لك إذا كنت تريد توضيح شئ لنا برجاء ارسل
+ لنا ملاحظة لتحسين الخدمة"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_operation_status" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_send_notes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_22sdp"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:backgroundTint="@color/amtalek_blue"
+        android:text="@string/send_notes"
+        app:cornerRadius="@dimen/_6ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_back_to_home" />
+
+    <ImageView
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_26sdp"
+        android:src="@drawable/ic_profiles_group"
+        app:layout_constraintBottom_toTopOf="@id/btn_send_notes"
+        app:layout_constraintStart_toStartOf="@id/btn_send_notes"
+        />
+
+    <TextView
+        android:id="@+id/tv_back_to_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:fontFamily="@font/montserratbold"
+        android:gravity="center"
+        android:text="@string/back_to_home"
+        android:textColor="@color/amtalek_blue_dark"
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toStartOf="@id/btn_send_notes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_send_notes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

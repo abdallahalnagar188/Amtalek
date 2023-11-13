@@ -344,4 +344,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.BuyPackageStepOneFragment"
         android:label="fragment_buy_package_step_one"
         tools:layout="@layout/fragment_buy_package_step_one" />
+    <fragment
+        android:id="@+id/buyPackageStepTwoFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.subscription.BuyPackageStepTwoFragment"
+        android:label="fragment_buy_package_step_two"
+        tools:layout="@layout/fragment_buy_package_step_two" />
 </navigation>
