@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
 import eramo.amtalek.databinding.CitySpinnerItemBinding
+import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 
 
-class CitiesSpinnerAdapter(context: Context, list: List<CountryModel>) :
-    ArrayAdapter<CountryModel>(context, 0, list) {
+class CitiesSpinnerAdapter(context: Context, list: List<CityModel>) :
+    ArrayAdapter<CityModel>(context, 0, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -41,7 +42,7 @@ class CitiesSpinnerAdapter(context: Context, list: List<CountryModel>) :
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
 
-//            LSpinnerTvCountryName.text = getItem(position)?.countryName
+            tvCityName.text = getItem(position)?.name
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }
 

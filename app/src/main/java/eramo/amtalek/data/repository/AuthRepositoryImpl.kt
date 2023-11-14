@@ -2,12 +2,17 @@ package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.model.auth.*
+import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.LoginModel
+import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
-import eramo.amtalek.util.*
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiText
+import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -146,15 +151,15 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         }
     }
 
-    override suspend fun allCities(countryId: String): Flow<Resource<List<CitiesModel>>> {
+    override suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>> {
         return flow {
-            val result = toResultFlow { AmtalekApi.allCities(countryId) }
+            val result = toResultFlow { AmtalekApi.getCities(countryId) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> emit(Resource.Error(apiState.message!!))
                     is ApiState.Success -> {
-                        val list = apiState.data?.allCities?.map { it.toCitiesModel() }
+                        val list = apiState.data?.data?.map { it!!.toCityModel() }
                         emit(Resource.Success(list))
                     }
                 }

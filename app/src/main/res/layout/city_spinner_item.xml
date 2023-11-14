@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="@dimen/edit_text_height">
 
         <ImageView
             android:id="@+id/LSpinner_iv_flag"
@@ -13,20 +13,20 @@
             android:layout_margin="@dimen/_6sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/splash_screen_logo" />
 
-
     <TextView
-        android:id="@+id/LSpinner_tv_country_name"
+        android:id="@+id/tv_city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_6sdp"
         android:textColor="@color/text_gray"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="@id/LSpinner_iv_flag"
         app:layout_constraintStart_toEndOf="@id/LSpinner_iv_flag"
         app:layout_constraintTop_toTopOf="@id/LSpinner_iv_flag"
-        tools:text="Egypt" />
+        tools:text="Cairo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

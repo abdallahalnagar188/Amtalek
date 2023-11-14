@@ -255,105 +255,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_countries_spinner" />
 
-        <View
-            android:id="@+id/FSignUp_gender_view"
+        <include
+            android:id="@+id/gender_selection_layout"
+            layout="@layout/gender_selection_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginTop="@dimen/edit_text_margin_top"
-            android:layout_marginBottom="@dimen/_50sdp"
-            android:background="@drawable/gender_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/FSignUp_cities_spinner" />
-
-        <ImageView
-            android:id="@+id/FSignUp_iv_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_14sdp"
-            android:src="@drawable/ic_gender"
-            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
-            app:layout_constraintEnd_toStartOf="@id/FSignUp_tv_gender"
-            app:layout_constraintStart_toStartOf="@id/FSignUp_gender_view"
-            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
-
-        <TextView
-            android:id="@+id/FSignUp_tv_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_14sdp"
-            android:fontFamily="@font/montserratmedium"
-            android:text="@string/gender"
-            android:textColor="@color/amtalek_blue"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
-            app:layout_constraintEnd_toStartOf="@id/FSignUp_iv_gender_avatar_female"
-            app:layout_constraintStart_toEndOf="@+id/FSignUp_iv_gender"
-            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
-
-        <ImageView
-            android:id="@+id/FSignUp_iv_gender_avatar_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:src="@drawable/ic_avatar_female"
-            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
-            app:layout_constraintEnd_toStartOf="@+id/FSignUp_tv_gender_avatar_female"
-            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
-
-        <TextView
-            android:id="@+id/FSignUp_tv_gender_avatar_female"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_14sdp"
-            android:fontFamily="@font/montserratmedium"
-            android:text="@string/female"
-            android:textAllCaps="true"
-            android:textColor="@color/amtalek_blue"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
-            app:layout_constraintEnd_toStartOf="@id/FSignUp_gender_divider_view"
-
-            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
-
-        <View
-            android:id="@+id/FSignUp_gender_divider_view"
-            android:layout_width="@dimen/_1sdp"
-            android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:background="#D9D9D9"
-            app:layout_constraintBottom_toBottomOf="@+id/FSignUp_gender_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.66"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/FSignUp_gender_view" />
-
-
-        <ImageView
-            android:id="@+id/FSignUp_iv_gender_avatar_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_14sdp"
-            android:src="@drawable/ic_avatar"
-            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
-            app:layout_constraintStart_toEndOf="@+id/FSignUp_gender_divider_view"
-            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
-
-        <TextView
-            android:id="@+id/FSignUp_tv_gender_avatar_male"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:fontFamily="@font/montserratmedium"
-            android:text="@string/male"
-            android:textAllCaps="true"
-            android:textColor="@color/amtalek_blue"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@id/FSignUp_gender_view"
-            app:layout_constraintStart_toEndOf="@+id/FSignUp_iv_gender_avatar_male"
-            app:layout_constraintTop_toTopOf="@id/FSignUp_gender_view" />
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_cities_spinner" />
 
         <CheckBox
             android:id="@+id/FSignUp_cb_agree"
@@ -363,9 +273,9 @@
             android:buttonTint="@color/amtalek_blue"
             android:fontFamily="@font/montserratregular"
             android:text="@string/agree_to"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FSignUp_gender_view" />
+            app:layout_constraintTop_toBottomOf="@+id/gender_selection_layout" />
 
         <TextView
             android:id="@+id/FSignUp_tv_terms"
@@ -375,7 +285,7 @@
             android:fontFamily="@font/montserratmedium"
             android:text="@string/terms_and_conditions"
             android:textColor="@color/amtalek_blue"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/FSignUp_cb_agree"
             app:layout_constraintStart_toEndOf="@+id/FSignUp_cb_agree"
@@ -391,7 +301,7 @@
             android:text="@string/register_now"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toTopOf="@+id/FSignUp_lin_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -415,7 +325,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:text="@string/if_you_already_have_an_account"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_9ssp" />
 
             <TextView
                 android:id="@+id/FSignUp_tv_login"
@@ -425,7 +335,7 @@
                 android:fontFamily="@font/montserratbold"
                 android:text="@string/log_in"
                 android:textColor="@color/amtalek_blue"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_9ssp" />
 
         </LinearLayout>
 

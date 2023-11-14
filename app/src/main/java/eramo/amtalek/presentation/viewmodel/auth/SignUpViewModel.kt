@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.model.auth.CitiesModel
-import eramo.amtalek.domain.model.auth.CountriesModel
+import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
@@ -25,30 +24,28 @@ class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
-    val registerState: StateFlow<UiState<ResultModel>> = _registerState
 
     private val _countriesState = MutableStateFlow<UiState<List<CountryModel>>>(UiState.Empty())
     val countriesState: StateFlow<UiState<List<CountryModel>>> = _countriesState
 
-//    private val _countriesState = MutableStateFlow<UiState<List<CountriesModel>>>(UiState.Empty())
-//    val countriesState: StateFlow<UiState<List<CountriesModel>>> = _countriesState
+    private val _citiesState = MutableStateFlow<UiState<List<CityModel>>>(UiState.Empty())
+    val citiesState: StateFlow<UiState<List<CityModel>>> = _citiesState
 
-    private val _cityState = MutableStateFlow<UiState<List<CitiesModel>>>(UiState.Empty())
-    val cityState: StateFlow<UiState<List<CitiesModel>>> = _cityState
+    private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val registerState: StateFlow<UiState<ResultModel>> = _registerState
 
     private val _regionState = MutableStateFlow<UiState<List<RegionsModel>>>(UiState.Empty())
     val regionState: StateFlow<UiState<List<RegionsModel>>> = _regionState
 
     private var getCountriesJob: Job? = null
+    private var getCitiesJob: Job? = null
     private var registerJob: Job? = null
-    private var cityJob: Job? = null
     private var regionJob: Job? = null
 
     fun cancelRequest() {
         getCountriesJob?.cancel()
+        getCitiesJob?.cancel()
         registerJob?.cancel()
-        cityJob?.cancel()
         regionJob?.cancel()
     }
 
@@ -81,9 +78,11 @@ class SignUpViewModel @Inject constructor(
                         is Resource.Success -> {
                             _registerState.value = UiState.Success(it.data)
                         }
+
                         is Resource.Error -> {
                             _registerState.value = UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
                             _registerState.value = UiState.Loading()
                         }
@@ -102,9 +101,11 @@ class SignUpViewModel @Inject constructor(
                         is Resource.Success -> {
                             _countriesState.value = UiState.Success(it.data)
                         }
+
                         is Resource.Error -> {
                             _countriesState.value = UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
                             _countriesState.value = UiState.Loading()
                         }
@@ -114,20 +115,22 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun cities(countryId: Int) {
-        cityJob?.cancel()
-        cityJob = viewModelScope.launch {
+    fun getCities(countryId: String) {
+        getCitiesJob?.cancel()
+        getCitiesJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.allCities(countryId.toString()).collect {
+                authRepository.getCities(countryId).collect {
                     when (it) {
                         is Resource.Success -> {
-                            _cityState.value = UiState.Success(it.data)
+                            _citiesState.value = UiState.Success(it.data)
                         }
+
                         is Resource.Error -> {
-                            _cityState.value = UiState.Error(it.message!!)
+                            _citiesState.value = UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
-                            _cityState.value = UiState.Loading()
+                            _citiesState.value = UiState.Loading()
                         }
                     }
                 }
@@ -144,9 +147,11 @@ class SignUpViewModel @Inject constructor(
                         is Resource.Success -> {
                             _regionState.value = UiState.Success(it.data)
                         }
+
                         is Resource.Error -> {
                             _regionState.value = UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
                             _regionState.value = UiState.Loading()
                         }

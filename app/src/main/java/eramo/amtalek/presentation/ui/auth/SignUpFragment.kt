@@ -15,7 +15,9 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSignupBinding
+import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
@@ -34,6 +36,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private val viewModel by viewModels<SignUpViewModel>()
 
     private var selectedCountryId = -1
+    private var selectedCityId = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,8 +52,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
-        setupCitiesSpinner()
-
         setupGenderSwitch()
 
         setupTermsAndConditionsCheckBox()
@@ -62,6 +63,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun fetchData() {
         fetchCountries()
+        fetchCities()
     }
 
     private fun listeners() {
@@ -87,6 +89,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val model = parent?.getItemAtPosition(position) as CountryModel
                 selectedCountryId = model.id
+
+                viewModel.getCities(model.id.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -95,15 +99,15 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun setupCitiesSpinner() {
-//        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-//        binding.FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
+    private fun setupCitiesSpinner(data:List<CityModel>) {
+        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
+        binding.FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
 
         binding.FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
-//
-//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
+                val model = parent?.getItemAtPosition(position) as CityModel
+
+                selectedCityId = model.id
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -220,6 +224,33 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                             LoadingDialog.dismissDialog()
 
                             setupCountriesSpinner(state.data ?: emptyList())
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchCities() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.citiesState.collect { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            setupCitiesSpinner(state.data ?: emptyList())
                         }
 
                         is UiState.Error -> {

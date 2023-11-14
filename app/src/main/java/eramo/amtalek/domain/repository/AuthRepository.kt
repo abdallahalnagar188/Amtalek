@@ -32,7 +32,7 @@ interface AuthRepository {
 
     suspend fun getCountries(): Flow<Resource<List<CountryModel>>>
 
-    suspend fun allCities(countryId: String): Flow<Resource<List<CitiesModel>>>
+    suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>>
 
     suspend fun allRegions(cityId: String): Flow<Resource<List<RegionsModel>>>
 
