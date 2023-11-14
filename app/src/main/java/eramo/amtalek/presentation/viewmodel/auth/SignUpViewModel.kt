@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.domain.usecase.auth.RegisterUseCase
 import eramo.amtalek.util.state.Resource
@@ -34,19 +33,14 @@ class SignUpViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val registerState: StateFlow<UiState<ResultModel>> = _registerState
 
-    private val _regionState = MutableStateFlow<UiState<List<RegionsModel>>>(UiState.Empty())
-    val regionState: StateFlow<UiState<List<RegionsModel>>> = _regionState
-
     private var getCountriesJob: Job? = null
     private var getCitiesJob: Job? = null
     private var registerJob: Job? = null
-    private var regionJob: Job? = null
 
     fun cancelRequest() {
         getCountriesJob?.cancel()
         getCitiesJob?.cancel()
         registerJob?.cancel()
-        regionJob?.cancel()
     }
 
     fun registerApp(
@@ -138,26 +132,4 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun regions(cityId: Int) {
-        regionJob?.cancel()
-        regionJob = viewModelScope.launch {
-            withContext(coroutineContext) {
-                authRepository.allRegions(cityId.toString()).collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _regionState.value = UiState.Success(it.data)
-                        }
-
-                        is Resource.Error -> {
-                            _regionState.value = UiState.Error(it.message!!)
-                        }
-
-                        is Resource.Loading -> {
-                            _regionState.value = UiState.Loading()
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

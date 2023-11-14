@@ -614,4 +614,13 @@
     <string name="send_notes">Send notes</string>
     <string name="how_is_your_experience_with_the_amtalek_app">How is your experience with The Amtalek app</string>
 
+    <string name="first_name_is_required">First name is required</string>
+    <string name="last_name_is_required">Last name is required</string>
+    <string name="mobile_number_is_required">Mobile number is required</string>
+    <string name="please_enter_a_valid_email">Please enter a valid email</string>
+    <string name="email_is_required">Email is required</string>
+    <string name="enter_a_password">Enter a password</string>
+    <string name="password_must_contains_eight_chars">Password must contains eight chars at lest</string>
+    <string name="password_does_not_match">Password does not match</string>
+
 </resources>

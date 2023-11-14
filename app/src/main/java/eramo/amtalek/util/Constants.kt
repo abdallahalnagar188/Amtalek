@@ -13,10 +13,17 @@ import androidx.core.app.ActivityCompat
 import eramo.amtalek.R
 
 //object Constants {
-    const val TOPIC = "/topics/MyTopic"
 
     const val API_HEADER_LANG_EN = "en"
     const val API_HEADER_LANG_AR = "ar"
+
+    const val SIGN_UP_GENDER_MALE = "Male"
+    const val SIGN_UP_GENDER_FEMALE = "Female"
+    const val SIGN_UP_GENDER_CREATED_FROM = "Android"
+    const val SIGN_UP_GENDER_ACCEPT_CONDITION = "yes"
+    const val SIGN_UP_GENDER_ACCEPT_NOT_ROBOT = "yes"
+
+    const val TOPIC = "/topics/MyTopic"
 
     const val TEXT_YES = "yes"
     const val TEXT_NO = "no"

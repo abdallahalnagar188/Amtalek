@@ -9,7 +9,7 @@
     <dimen name="screen_margin_headers" >@dimen/_33sdp</dimen>
 
     <!-- Edit Texts -->
-    <dimen name="edit_text_margin_top" >@dimen/_22sdp</dimen>
+    <dimen name="edit_text_margin_top" >@dimen/_18sdp</dimen>
     <dimen name="edit_text_height" >@dimen/_46sdp</dimen>
 
     <!-- Texts -->

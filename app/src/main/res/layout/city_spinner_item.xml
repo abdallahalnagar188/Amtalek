@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_6sdp"
-        android:textColor="@color/text_gray"
+        android:textColor="@color/black"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="@id/LSpinner_iv_flag"
         app:layout_constraintStart_toEndOf="@id/LSpinner_iv_flag"
