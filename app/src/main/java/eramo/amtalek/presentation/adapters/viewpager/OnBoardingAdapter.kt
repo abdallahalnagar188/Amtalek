@@ -8,10 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager.widget.PagerAdapter
-import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ApplicationContext
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.EventsApi
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.util.LocalUtil
 import javax.inject.Inject

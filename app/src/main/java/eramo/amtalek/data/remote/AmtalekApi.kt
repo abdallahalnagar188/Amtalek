@@ -19,16 +19,10 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
-interface EventsApi {
+interface AmtalekApi {
     companion object {
-        const val BASE_URL = "https://Events.shop/Api/"
-        const val IMAGE_URL_GENERAL = "https://Events.shop/"
-        const val DEEPLINK_URL = "https://Events.shop/product/"
-        const val IMAGE_URL_ADS = "https://Events.shop/uploads/ads/"
-        const val IMAGE_URL_SPLASH = "https://Events.shop/uploads/splash/"
-        const val IMAGE_URL_PRODUCT = "https://Events.shop/uploads/products/"
+        const val BASE_URL = "https://amtalek.com/amtalekadmin/public/api/"
         const val IMAGE_URL_PROFILE = "https://Events.shop/uploads/web_users/"
-        const val IMAGE_URL_MANUFACTURERS = "https://Events.shop/uploads/cats/"
         const val IMAGE_URL_SPECIAL_OFFERS = "https://Events.shop/uploads/special_offers/"
     }
 
@@ -71,8 +65,11 @@ interface EventsApi {
         @Field("user_pass") user_pass: String
     ): Response<ResultDto>
 
-    @GET("AllCountries")
-    suspend fun allCountries(): Response<AllCountriesResponse>
+    @GET("mobile/countries")
+    suspend fun getCountries(): Response<CountriesResponse>
+
+//    @GET("AllCountries")
+//    suspend fun allCountries(): Response<AllCountriesResponse>
 
     @GET("AllCities/{countryId}")
     suspend fun allCities(@Path("countryId") countryId: String): Response<AllCitiesResponse>

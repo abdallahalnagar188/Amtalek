@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CitiesModel
 import eramo.amtalek.domain.model.auth.CountriesModel
+import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.domain.usecase.auth.RegisterUseCase
@@ -27,8 +28,11 @@ class SignUpViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val registerState: StateFlow<UiState<ResultModel>> = _registerState
 
-    private val _countriesState = MutableStateFlow<UiState<List<CountriesModel>>>(UiState.Empty())
-    val countriesState: StateFlow<UiState<List<CountriesModel>>> = _countriesState
+    private val _countriesState = MutableStateFlow<UiState<List<CountryModel>>>(UiState.Empty())
+    val countriesState: StateFlow<UiState<List<CountryModel>>> = _countriesState
+
+//    private val _countriesState = MutableStateFlow<UiState<List<CountriesModel>>>(UiState.Empty())
+//    val countriesState: StateFlow<UiState<List<CountriesModel>>> = _countriesState
 
     private val _cityState = MutableStateFlow<UiState<List<CitiesModel>>>(UiState.Empty())
     val cityState: StateFlow<UiState<List<CitiesModel>>> = _cityState
@@ -36,14 +40,14 @@ class SignUpViewModel @Inject constructor(
     private val _regionState = MutableStateFlow<UiState<List<RegionsModel>>>(UiState.Empty())
     val regionState: StateFlow<UiState<List<RegionsModel>>> = _regionState
 
+    private var getCountriesJob: Job? = null
     private var registerJob: Job? = null
-    private var countryJob: Job? = null
     private var cityJob: Job? = null
     private var regionJob: Job? = null
 
     fun cancelRequest() {
+        getCountriesJob?.cancel()
         registerJob?.cancel()
-        countryJob?.cancel()
         cityJob?.cancel()
         regionJob?.cancel()
     }
@@ -89,11 +93,11 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun countries() {
-        countryJob?.cancel()
-        countryJob = viewModelScope.launch {
+    fun getCountries() {
+        getCountriesJob?.cancel()
+        getCountriesJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.allCountries().collect {
+                authRepository.getCountries().collect {
                     when (it) {
                         is Resource.Success -> {
                             _countriesState.value = UiState.Success(it.data)
@@ -111,8 +115,8 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun cities(countryId: Int) {
-        countryJob?.cancel()
-        countryJob = viewModelScope.launch {
+        cityJob?.cancel()
+        cityJob = viewModelScope.launch {
             withContext(coroutineContext) {
                 authRepository.allCities(countryId.toString()).collect {
                     when (it) {
@@ -132,8 +136,8 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun regions(cityId: Int) {
-        countryJob?.cancel()
-        countryJob = viewModelScope.launch {
+        regionJob?.cancel()
+        regionJob = viewModelScope.launch {
             withContext(coroutineContext) {
                 authRepository.allRegions(cityId.toString()).collect {
                     when (it) {

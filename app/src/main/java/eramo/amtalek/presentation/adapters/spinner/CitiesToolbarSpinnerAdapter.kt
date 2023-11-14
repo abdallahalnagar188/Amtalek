@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import eramo.amtalek.databinding.CitiesToolbarSpinnerItemBinding
-import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 
 
-class CitiesToolbarSpinnerAdapter(context: Context, list: List<CountriesSpinnerModel>) :
-    ArrayAdapter<CountriesSpinnerModel>(context, 0, list) {
+class CitiesToolbarSpinnerAdapter(context: Context, list: List<String>) :
+    ArrayAdapter<String>(context, 0, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -33,7 +32,7 @@ class CitiesToolbarSpinnerAdapter(context: Context, list: List<CountriesSpinnerM
         }
 
         binding.apply {
-            LSpinnerTvCity.text = getItem(position)?.countryName
+//            LSpinnerTvCity.text = getItem(position)?.countryName
         }
 
         return row

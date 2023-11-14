@@ -1,6 +1,6 @@
 package eramo.amtalek.data.repository
 
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.*
 import eramo.amtalek.domain.repository.AuthRepository
@@ -11,11 +11,11 @@ import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
+class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
 
     override suspend fun onBoardingScreens(): Flow<Resource<List<OnBoardingModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.onBoardingScreens() }
+            val result = toResultFlow { AmtalekApi.onBoardingScreens() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -42,7 +42,7 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.register(
+                AmtalekApi.register(
                     user_name,
                     user_email,
                     user_phone,
@@ -73,7 +73,7 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
         user_pass: String
     ): Flow<Resource<LoginModel>> {
         return flow {
-            val result = toResultFlow { EventsApi.loginApp(user_phone, user_pass) }
+            val result = toResultFlow { AmtalekApi.loginApp(user_phone, user_pass) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -89,7 +89,7 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
 
     override suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>> {
         return flow {
-            val result = toResultFlow { EventsApi.forgetPass(user_email) }
+            val result = toResultFlow { AmtalekApi.forgetPass(user_email) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -110,7 +110,7 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.updatePass(
+                AmtalekApi.updatePass(
                     UserUtil.getUserId(),
                     current_pass,
                     user_pass
@@ -130,15 +130,15 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
         }
     }
 
-    override suspend fun allCountries(): Flow<Resource<List<CountriesModel>>> {
+    override suspend fun getCountries(): Flow<Resource<List<CountryModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.allCountries() }
+            val result = toResultFlow { AmtalekApi.getCountries() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> emit(Resource.Error(apiState.message!!))
                     is ApiState.Success -> {
-                        val list = apiState.data?.allCountries?.map { it.toCountriesModel() }
+                        val list = apiState.data?.data?.map { it!!.toCountryModel() }
                         emit(Resource.Success(list))
                     }
                 }
@@ -148,7 +148,7 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
 
     override suspend fun allCities(countryId: String): Flow<Resource<List<CitiesModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.allCities(countryId) }
+            val result = toResultFlow { AmtalekApi.allCities(countryId) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -162,9 +162,10 @@ class AuthRepositoryImpl(private val EventsApi: EventsApi) : AuthRepository {
         }
     }
 
+
     override suspend fun allRegions(cityId: String): Flow<Resource<List<RegionsModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.allRegions(cityId) }
+            val result = toResultFlow { AmtalekApi.allRegions(cityId) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())

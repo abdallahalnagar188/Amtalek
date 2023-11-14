@@ -2,7 +2,7 @@ package eramo.amtalek.data.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.util.PAGING_PER_PAGE
 import eramo.amtalek.util.PAGING_START_INDEX
@@ -11,7 +11,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class PagingCategories(
-    private val EventsApi: EventsApi,
+    private val AmtalekApi: AmtalekApi,
     private val catId: String
 ) : PagingSource<Int, ProductModel>() {
 
@@ -19,7 +19,7 @@ class PagingCategories(
         val page = params.key ?: PAGING_START_INDEX
 
         return try {
-            val result = EventsApi.allCategorizationByUserId(
+            val result = AmtalekApi.allCategorizationByUserId(
                 page.toString(),
                 PAGING_PER_PAGE.toString(),
                 catId,

@@ -1,6 +1,6 @@
 package eramo.amtalek.data.repository
 
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.products.orders.CustomerPromoCodes
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.products.PaymentTypesModel
@@ -15,11 +15,11 @@ import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
+class OrderRepositoryImpl(private val AmtalekApi: AmtalekApi) : OrderRepository {
 
     override suspend fun customerPromoCodes(): Flow<Resource<List<CustomerPromoCodes>>> {
         return flow {
-            val result = toResultFlow { EventsApi.customerPromoCodes(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.customerPromoCodes(UserUtil.getUserId()) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -32,7 +32,7 @@ class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
 
     override suspend fun productExtras(productId: String): Flow<Resource<List<AllProductExtrasModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.productExtras(productId) }
+            val result = toResultFlow { AmtalekApi.productExtras(productId) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -49,7 +49,7 @@ class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
 
     override suspend fun saveOrderRequest(orderRequest: OrderRequest): Flow<Resource<ResultModel>> {
         return flow {
-            val result = toResultFlow { EventsApi.saveOrderRequest(orderRequest) }
+            val result = toResultFlow { AmtalekApi.saveOrderRequest(orderRequest) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -66,7 +66,7 @@ class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
 
     override suspend fun allMyOrders(): Flow<Resource<List<OrderModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.allMyOrders(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.allMyOrders(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -82,7 +82,7 @@ class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
 
     override suspend fun getOrderById(orderId: String): Flow<Resource<List<OrderModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.getOrderById(orderId) }
+            val result = toResultFlow { AmtalekApi.getOrderById(orderId) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -99,7 +99,7 @@ class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
     override suspend fun cancelProductOrder(order_id: String): Flow<Resource<ResultModel>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.cancelProductOrder(UserUtil.getUserId(), order_id) }
+                toResultFlow { AmtalekApi.cancelProductOrder(UserUtil.getUserId(), order_id) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -122,7 +122,7 @@ class OrderRepositoryImpl(private val EventsApi: EventsApi) : OrderRepository {
 
     override suspend fun paymentTypes(): Flow<Resource<List<PaymentTypesModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.paymentTypes() }
+            val result = toResultFlow { AmtalekApi.paymentTypes() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())

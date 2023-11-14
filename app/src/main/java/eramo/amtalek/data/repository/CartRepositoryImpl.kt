@@ -2,7 +2,7 @@ package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.local.EventsDao
 import eramo.amtalek.data.local.entity.CartDataEntity
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.products.orders.*
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.products.ProductModel
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class CartRepositoryImpl(
-    private val EventsApi: EventsApi,
+    private val AmtalekApi: AmtalekApi,
     private val dao: EventsDao
 ) : CartRepository {
 
@@ -67,7 +67,7 @@ class CartRepositoryImpl(
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.addToCart(
+                AmtalekApi.addToCart(
                     UserUtil.getUserId(), product_id, product_qty,
                     product_price, with_installation
                 )
@@ -105,7 +105,7 @@ class CartRepositoryImpl(
 
     override suspend fun getCartDataApi(): Flow<Resource<Map<String, Any>>> {
         return flow {
-            val result = toResultFlow { EventsApi.getCartData(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.getCartData(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -162,7 +162,7 @@ class CartRepositoryImpl(
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.updateCartItem(
+                AmtalekApi.updateCartItem(
                     UserUtil.getUserId(),
                     main_id,
                     product_id,
@@ -200,7 +200,7 @@ class CartRepositoryImpl(
     override suspend fun removeCartItemApi(main_id: String): Flow<Resource<ResultModel>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.removeCartItem(UserUtil.getUserId(), main_id) }
+                toResultFlow { AmtalekApi.removeCartItem(UserUtil.getUserId(), main_id) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -229,7 +229,7 @@ class CartRepositoryImpl(
 
     override suspend fun removeAllCartApi(): Flow<Resource<ResultModel>> {
         return flow {
-            val result = toResultFlow { EventsApi.removeAllCart(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.removeAllCart(UserUtil.getUserId()) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -259,7 +259,7 @@ class CartRepositoryImpl(
 
     override suspend fun getCartCountApi(): Flow<Resource<CartCountResponse>> {
         return flow {
-            val result = toResultFlow { EventsApi.getCartCount(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.getCartCount(UserUtil.getUserId()) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -275,7 +275,7 @@ class CartRepositoryImpl(
             emit(Resource.Loading())
             val orderList = dao.getCartList().map { it.toOrderItem() }
             val result = toResultFlow {
-                EventsApi.addListToCart(
+                AmtalekApi.addListToCart(
                     OrderRequest(
                         UserUtil.getUserId(),
                         orderItemList = orderList

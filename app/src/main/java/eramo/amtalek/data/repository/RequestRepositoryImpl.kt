@@ -1,6 +1,6 @@
 package eramo.amtalek.data.repository
 
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.drawer.myaccount.RequestModel
 import eramo.amtalek.domain.repository.RequestRepository
@@ -12,7 +12,7 @@ import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class RequestRepositoryImpl(private val EventsApi: EventsApi) : RequestRepository {
+class RequestRepositoryImpl(private val AmtalekApi: AmtalekApi) : RequestRepository {
 
     override suspend fun questionsRequest(
         user_name: String,
@@ -22,7 +22,7 @@ class RequestRepositoryImpl(private val EventsApi: EventsApi) : RequestRepositor
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.questionsRequest(
+                AmtalekApi.questionsRequest(
                     UserUtil.getUserId(),
                     user_name,
                     user_email,
@@ -52,7 +52,7 @@ class RequestRepositoryImpl(private val EventsApi: EventsApi) : RequestRepositor
 
     override suspend fun newRequests(): Flow<Resource<List<RequestModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.newRequests(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.newRequests(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -68,7 +68,7 @@ class RequestRepositoryImpl(private val EventsApi: EventsApi) : RequestRepositor
 
     override suspend fun repliedRequests(): Flow<Resource<List<RequestModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.repliedRequests(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.repliedRequests(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -84,7 +84,7 @@ class RequestRepositoryImpl(private val EventsApi: EventsApi) : RequestRepositor
 
     override suspend fun cancelledRequests(): Flow<Resource<List<RequestModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.cancelledRequests(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.cancelledRequests(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())

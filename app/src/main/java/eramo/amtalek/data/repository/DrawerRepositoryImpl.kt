@@ -1,6 +1,6 @@
 package eramo.amtalek.data.repository
 
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.data.remote.dto.general.Member
@@ -17,12 +17,12 @@ import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class DrawerRepositoryImpl(private val EventsApi: EventsApi) : DrawerRepository {
+class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepository {
 
     override suspend fun updateFirebaseDeviceToken(deviceToken: String): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.updateFirebaseDeviceToken(
+                AmtalekApi.updateFirebaseDeviceToken(
                     UserUtil.getUserId(),
                     deviceToken
                 )
@@ -43,7 +43,7 @@ class DrawerRepositoryImpl(private val EventsApi: EventsApi) : DrawerRepository 
 
     override suspend fun getProfile(): Flow<Resource<Member>> {
         return flow {
-            val result = toResultFlow { EventsApi.getProfile(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.getProfile(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -68,7 +68,7 @@ class DrawerRepositoryImpl(private val EventsApi: EventsApi) : DrawerRepository 
     ): Flow<Resource<EditProfileResponse>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.editProfile(
+                AmtalekApi.editProfile(
                     user_id,
                     user_pass,
                     user_name,
@@ -93,7 +93,7 @@ class DrawerRepositoryImpl(private val EventsApi: EventsApi) : DrawerRepository 
 
     override suspend fun getAppInfo(): Flow<Resource<AppInfoResponse>> {
         return flow {
-            val result = toResultFlow { EventsApi.getAppInfo() }
+            val result = toResultFlow { AmtalekApi.getAppInfo() }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -106,7 +106,7 @@ class DrawerRepositoryImpl(private val EventsApi: EventsApi) : DrawerRepository 
 
     override suspend fun getAppPolicy(): Flow<Resource<List<PolicyInfoModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.getAppPolicy() }
+            val result = toResultFlow { AmtalekApi.getAppPolicy() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -129,7 +129,7 @@ class DrawerRepositoryImpl(private val EventsApi: EventsApi) : DrawerRepository 
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                EventsApi.contactMsg(
+                AmtalekApi.contactMsg(
                     UserUtil.getUserId(),
                     user_name,
                     user_email,

@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
     android:paddingHorizontal="@dimen/screen_margin_sides"
-    android:scrollbars="vertical">
+    android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:fontFamily="@font/montserratbold"
             android:text="@string/create_your_account_easily"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_iv_logo" />
@@ -65,7 +65,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +94,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -122,7 +122,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -150,7 +150,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -181,7 +181,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -213,7 +213,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -392,21 +392,21 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp"
+            app:layout_constraintBottom_toTopOf="@+id/FSignUp_lin_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/FSignUp_lin_login"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_cb_agree" />
 
         <LinearLayout
             android:id="@+id/FSignUp_lin_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FSignUp_btn_register_now"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FSignUp_btn_register_now">
 
             <TextView
                 android:id="@+id/tv_doNotHave"

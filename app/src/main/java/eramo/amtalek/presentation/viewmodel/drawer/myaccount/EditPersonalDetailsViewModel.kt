@@ -116,19 +116,19 @@ class EditPersonalDetailsViewModel @Inject constructor(
         countryJob?.cancel()
         countryJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.allCountries().collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _countriesState.value = UiState.Success(it.data)
-                        }
-                        is Resource.Error -> {
-                            _countriesState.value = UiState.Error(it.message!!)
-                        }
-                        is Resource.Loading -> {
-                            _countriesState.value = UiState.Loading()
-                        }
-                    }
-                }
+//                authRepository.allCountries().collect {
+//                    when (it) {
+//                        is Resource.Success -> {
+//                            _countriesState.value = UiState.Success(it.data)
+//                        }
+//                        is Resource.Error -> {
+//                            _countriesState.value = UiState.Error(it.message!!)
+//                        }
+//                        is Resource.Loading -> {
+//                            _countriesState.value = UiState.Loading()
+//                        }
+//                    }
+//                }
             }
         }
     }

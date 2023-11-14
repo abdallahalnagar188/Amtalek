@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.bumptech.glide.Glide
 import eramo.amtalek.databinding.CountrySpinnerItemBinding
-import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
+import eramo.amtalek.domain.model.auth.CountryModel
 
 
-class CountriesSpinnerAdapter(context: Context, list: List<CountriesSpinnerModel>) :
-    ArrayAdapter<CountriesSpinnerModel>(context, 0, list) {
+class CountriesSpinnerAdapter(context: Context, list: List<CountryModel>) :
+    ArrayAdapter<CountryModel>(context, 0, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -41,8 +41,8 @@ class CountriesSpinnerAdapter(context: Context, list: List<CountriesSpinnerModel
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
 
-            LSpinnerTvCountryName.text = getItem(position)?.countryName
-            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
+            tvCountryName.text = getItem(position)?.name
+//            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }
 
         return row

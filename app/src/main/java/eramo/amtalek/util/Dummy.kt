@@ -9,7 +9,6 @@ import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
-import eramo.amtalek.domain.model.dummy.CountriesSpinnerModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
 import eramo.amtalek.domain.model.main.ProjectModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
@@ -127,35 +126,6 @@ object Dummy {
         return list
     }
 
-    fun dummyCountriesList(): List<CountriesSpinnerModel> {
-        val list = mutableListOf<CountriesSpinnerModel>()
-
-        list.add(
-            CountriesSpinnerModel(
-                "Country",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"
-            )
-        )
-        list.add(
-            CountriesSpinnerModel(
-                "Egypt",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/255px-Flag_of_Egypt.svg.png"
-            )
-        )
-        list.add(CountriesSpinnerModel("KSA", "https://cdn.britannica.com/79/5779-050-46C999AF/Flag-Saudi-Arabia.jpg"))
-
-        return list
-    }
-
-    fun dummyCitiesList(): List<CountriesSpinnerModel> {
-        val list = mutableListOf<CountriesSpinnerModel>()
-
-        list.add(CountriesSpinnerModel("City", "https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
-        list.add(CountriesSpinnerModel("Cairo", "https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
-        list.add(CountriesSpinnerModel("Alex", "https://gcdnb.pbrd.co/images/M5I41IAETit8.png"))
-
-        return list
-    }
 
     fun dummyMyFavouritesList(context: Context): List<MyFavouritesModel> {
         val list = mutableListOf<MyFavouritesModel>()

@@ -3,7 +3,7 @@ package eramo.amtalek.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingData
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.data.remote.paging.PagingCategories
@@ -23,11 +23,11 @@ import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsRepository {
+class ProductsRepositoryImpl(private val AmtalekApi: AmtalekApi) : ProductsRepository {
 
     override suspend fun getUserNotifications(): Flow<Resource<List<NotificationDto>>> {
         return flow {
-            val result = toResultFlow { EventsApi.getUserNotifications(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.getUserNotifications(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -41,7 +41,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun getProductById(productId: String): Flow<Resource<ProductModel>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.getProductById(productId, UserUtil.getUserId()) }
+                toResultFlow { AmtalekApi.getProductById(productId, UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -59,7 +59,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
         return flow {
             val result =
                 toResultFlow {
-                    EventsApi.allProductsByUserId(
+                    AmtalekApi.allProductsByUserId(
                         "1",
                         "4",
                         UserUtil.getUserId(),
@@ -83,7 +83,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
         return flow {
             val result =
                 toResultFlow {
-                    EventsApi.allProductsByUserId(
+                    AmtalekApi.allProductsByUserId(
                         "1",
                         "4",
                         UserUtil.getUserId(),
@@ -106,14 +106,14 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun allProductsByUserId(): Flow<PagingData<ProductModel>> {
         return Pager(
             config = pagingConfig(),
-            pagingSourceFactory = { PagingProducts(EventsApi) }
+            pagingSourceFactory = { PagingProducts(AmtalekApi) }
         ).flow
     }
 
     override suspend fun allCategorizationByUserId(catId: String): Flow<PagingData<ProductModel>> {
         return Pager(
             config = pagingConfig(),
-            pagingSourceFactory = { PagingCategories(EventsApi, catId) }
+            pagingSourceFactory = { PagingCategories(AmtalekApi, catId) }
         ).flow
     }
 
@@ -121,7 +121,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
         return flow {
             val result =
                 toResultFlow {
-                    EventsApi.allProductsManufacturersByUserId(
+                    AmtalekApi.allProductsManufacturersByUserId(
                         "1",
                         "100",
                         UserUtil.getUserId()
@@ -143,14 +143,14 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun allProductsManufacturersByUserId(): Flow<PagingData<CategoryModel>> {
         return Pager(
             config = pagingConfig(),
-            pagingSourceFactory = { PagingManufacturers(EventsApi) }
+            pagingSourceFactory = { PagingManufacturers(AmtalekApi) }
         ).flow
     }
 
     override suspend fun homeDealsByUserId(): Flow<Resource<Map<String, Any>>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.latestDealsByUserId("1", "4", UserUtil.getUserId()) }
+                toResultFlow { AmtalekApi.latestDealsByUserId("1", "4", UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -171,14 +171,14 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun latestDealsByUserId(): Flow<PagingData<ProductModel>> {
         return Pager(
             config = pagingConfig(),
-            pagingSourceFactory = { PagingDeals(EventsApi) }
+            pagingSourceFactory = { PagingDeals(AmtalekApi) }
         ).flow
     }
 
     override suspend fun addFavourite(property_id: String): Flow<Resource<ResultModel>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.addFavourite(UserUtil.getUserId(), property_id) }
+                toResultFlow { AmtalekApi.addFavourite(UserUtil.getUserId(), property_id) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -196,7 +196,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun removeFavourite(property_id: String): Flow<Resource<ResultModel>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.removeFavourite(UserUtil.getUserId(), property_id) }
+                toResultFlow { AmtalekApi.removeFavourite(UserUtil.getUserId(), property_id) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -213,7 +213,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
 
     override suspend fun userFavListByUserId(): Flow<Resource<List<ProductModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.userFavListByUserId(UserUtil.getUserId()) }
+            val result = toResultFlow { AmtalekApi.userFavListByUserId(UserUtil.getUserId()) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -232,7 +232,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun productFilter(searchRequest: SearchRequest): Flow<Resource<List<ProductModel>>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.productFilter(UserUtil.getUserId(), searchRequest) }
+                toResultFlow { AmtalekApi.productFilter(UserUtil.getUserId(), searchRequest) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -251,7 +251,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
     override suspend fun productSearch(title: String): Flow<Resource<List<ProductModel>>> {
         return flow {
             val result =
-                toResultFlow { EventsApi.productSearch(UserUtil.getUserId(), title) }
+                toResultFlow { AmtalekApi.productSearch(UserUtil.getUserId(), title) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -267,7 +267,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
 
     override suspend fun maxProductPrice(): Flow<Resource<PriceResponse>> {
         return flow {
-            val result = toResultFlow { EventsApi.maxProductPrice() }
+            val result = toResultFlow { AmtalekApi.maxProductPrice() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -280,7 +280,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
 
     override suspend fun minProductPrice(): Flow<Resource<PriceResponse>> {
         return flow {
-            val result = toResultFlow { EventsApi.minProductPrice() }
+            val result = toResultFlow { AmtalekApi.minProductPrice() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -295,7 +295,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
         return flow {
             val result =
                 toResultFlow {
-                    EventsApi.getFilterCategories(
+                    AmtalekApi.getFilterCategories(
                         "1",
                         "100",
                         UserUtil.getUserId()
@@ -316,7 +316,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
 
     override suspend fun homeAds(): Flow<Resource<List<AdsModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.homeAds() }
+            val result = toResultFlow { AmtalekApi.homeAds() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
@@ -332,7 +332,7 @@ class ProductsRepositoryImpl(private val EventsApi: EventsApi) : ProductsReposit
 
     override suspend fun homeOffers(): Flow<Resource<List<OffersModel>>> {
         return flow {
-            val result = toResultFlow { EventsApi.allSpecialOffers() }
+            val result = toResultFlow { AmtalekApi.allSpecialOffers() }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())

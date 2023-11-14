@@ -180,8 +180,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun setupCountriesSpinner() {
-        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
+//        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+//        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
 
         binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

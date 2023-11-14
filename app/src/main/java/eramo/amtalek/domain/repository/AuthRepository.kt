@@ -30,7 +30,7 @@ interface AuthRepository {
         user_pass: String
     ): Flow<Resource<ResultModel>>
 
-    suspend fun allCountries(): Flow<Resource<List<CountriesModel>>>
+    suspend fun getCountries(): Flow<Resource<List<CountryModel>>>
 
     suspend fun allCities(countryId: String): Flow<Resource<List<CitiesModel>>>
 

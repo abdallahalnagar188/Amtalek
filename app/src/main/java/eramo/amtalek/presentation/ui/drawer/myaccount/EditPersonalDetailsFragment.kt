@@ -93,8 +93,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
 
     // -------------------------------------- setupViews -------------------------------------- //
     private fun setupCountriesSpinner() {
-        val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), Dummy.dummyCountriesList())
-        binding.countriesSpinner.adapter = countriesSpinnerAdapter
+//        val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), Dummy.dummyCountriesList())
+//        binding.countriesSpinner.adapter = countriesSpinnerAdapter
 
         binding.countriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -110,8 +110,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     }
 
     private fun setupCitiesSpinner() {
-        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-        binding.citiesSpinner.adapter = citiesSpinnerAdapter
+//        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+//        binding.citiesSpinner.adapter = citiesSpinnerAdapter
 
         binding.citiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

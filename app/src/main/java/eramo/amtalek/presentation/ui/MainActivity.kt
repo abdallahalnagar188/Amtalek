@@ -19,7 +19,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.databinding.ActivityMainBinding
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.dialog.WarningDialog
@@ -85,9 +85,9 @@ class MainActivity : AppCompatActivity(),
             viewModelShared.profileData.observe(this@MainActivity) { member ->
                 inDrawerHeader.apply {
                     navHeaderTvUserName.text = member.userName
-                    UserUtil.saveUserProfile(EventsApi.IMAGE_URL_PROFILE + member.mImage!!)
+                    UserUtil.saveUserProfile(AmtalekApi.IMAGE_URL_PROFILE + member.mImage!!)
                     Glide.with(this@MainActivity)
-                        .load(EventsApi.IMAGE_URL_PROFILE + member.mImage)
+                        .load(AmtalekApi.IMAGE_URL_PROFILE + member.mImage)
                         .into(navHeaderIvProfile)
                 }
             }

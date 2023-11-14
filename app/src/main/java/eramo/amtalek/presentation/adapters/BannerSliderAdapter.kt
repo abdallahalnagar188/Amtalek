@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.smarteist.autoimageslider.SliderViewAdapter
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.EventsApi
 import eramo.amtalek.databinding.ItemImageSliderBinding
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import javax.inject.Inject

@@ -7,18 +7,22 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSignupBinding
-import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
+import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint
 class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
@@ -29,20 +33,44 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private val viewModel by viewModels<SignUpViewModel>()
 
+    private var selectedCountryId = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        listeners()
         setupViews()
+        listeners()
+
+        requestData()
+        fetchData()
     }
 
-    private fun listeners(){
+    private fun setupViews() {
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+
+        setupCitiesSpinner()
+
+        setupGenderSwitch()
+
+        setupTermsAndConditionsCheckBox()
+    }
+
+    private fun requestData() {
+        viewModel.getCountries()
+    }
+
+    private fun fetchData() {
+        fetchCountries()
+    }
+
+    private fun listeners() {
         binding.apply {
             FSignUpTvTerms.setOnClickListener {
-                findNavController().navigate(R.id.termsAndConditionsFragment,null, navOptionsAnimation())
+                findNavController().navigate(R.id.termsAndConditionsFragment, null, navOptionsAnimation())
             }
             FSignUpBtnRegisterNow.setOnClickListener {
-                findNavController().navigate(R.id.otpSignUpFragment,null, navOptionsAnimation())
+                findNavController().navigate(R.id.otpSignUpFragment, null, navOptionsAnimation())
             }
             FSignUpTvLogin.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment, null, navOptionsAnimation())
@@ -50,26 +78,15 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun setupViews(){
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
-
-        setupCountriesSpinner()
-        setupCitiesSpinner()
-        setupGenderSwitch()
-        setupTermsAndConditionsCheckBox()
-    }
-
     // -------------------------------------- setupViews -------------------------------------- //
-    private fun setupCountriesSpinner() {
-        val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), Dummy.dummyCountriesList())
+    private fun setupCountriesSpinner(data: List<CountryModel>) {
+        val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
         binding.FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter
 
         binding.FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
-//
-//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
+                val model = parent?.getItemAtPosition(position) as CountryModel
+                selectedCountryId = model.id
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -79,8 +96,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     }
 
     private fun setupCitiesSpinner() {
-        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-        binding.FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
+//        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+//        binding.FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
 
         binding.FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -170,19 +187,51 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
 
             // default
-            FSignUpBtnRegisterNow.background = ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+            FSignUpBtnRegisterNow.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
 
             // listener
             FSignUpCbAgree.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    FSignUpBtnRegisterNow.background = ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
+                    FSignUpBtnRegisterNow.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
                     FSignUpBtnRegisterNow.isEnabled = true
                 } else {
-                    FSignUpBtnRegisterNow.background = ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+                    FSignUpBtnRegisterNow.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
                     FSignUpBtnRegisterNow.isEnabled = false
                 }
 
             }
         }
     }
+
+    // -------------------------------------- fetchData -------------------------------------- //
+    private fun fetchCountries() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.countriesState.collect { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            setupCountriesSpinner(state.data ?: emptyList())
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
 }

@@ -12,7 +12,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import eramo.amtalek.data.local.Converters
 import eramo.amtalek.data.local.EventsDB
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
+import eramo.amtalek.data.remote.MyInterceptor
 import eramo.amtalek.data.repository.*
 import eramo.amtalek.domain.repository.*
 import eramo.amtalek.util.parser.GsonParser
@@ -28,18 +29,19 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitInstance(okHttpClient: OkHttpClient): EventsApi =
+    fun provideRetrofitInstance(okHttpClient: OkHttpClient): AmtalekApi =
         Retrofit.Builder()
-            .baseUrl(EventsApi.BASE_URL)
+            .baseUrl(AmtalekApi.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()
-            .create(EventsApi::class.java)
+            .create(AmtalekApi::class.java)
 
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(MyInterceptor())
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)
@@ -57,38 +59,38 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAuthRepository(EventsApi: EventsApi): AuthRepository {
-        return AuthRepositoryImpl(EventsApi)
+    fun provideAuthRepository(AmtalekApi: AmtalekApi): AuthRepository {
+        return AuthRepositoryImpl(AmtalekApi)
     }
 
     @Provides
     @Singleton
-    fun provideDrawerRepository(EventsApi: EventsApi): DrawerRepository {
-        return DrawerRepositoryImpl(EventsApi)
+    fun provideDrawerRepository(AmtalekApi: AmtalekApi): DrawerRepository {
+        return DrawerRepositoryImpl(AmtalekApi)
     }
 
     @Provides
     @Singleton
-    fun provideProductsRepository(EventsApi: EventsApi): ProductsRepository {
-        return ProductsRepositoryImpl(EventsApi)
+    fun provideProductsRepository(AmtalekApi: AmtalekApi): ProductsRepository {
+        return ProductsRepositoryImpl(AmtalekApi)
     }
 
     @Provides
     @Singleton
-    fun provideRequestRepository(EventsApi: EventsApi): RequestRepository {
-        return RequestRepositoryImpl(EventsApi)
+    fun provideRequestRepository(AmtalekApi: AmtalekApi): RequestRepository {
+        return RequestRepositoryImpl(AmtalekApi)
     }
 
     @Provides
     @Singleton
-    fun provideOrderRepository(EventsApi: EventsApi): OrderRepository {
-        return OrderRepositoryImpl(EventsApi)
+    fun provideOrderRepository(AmtalekApi: AmtalekApi): OrderRepository {
+        return OrderRepositoryImpl(AmtalekApi)
     }
 
     @Provides
     @Singleton
-    fun provideCartRepository(EventsApi: EventsApi, db: EventsDB): CartRepository {
-        return CartRepositoryImpl(EventsApi, db.dao)
+    fun provideCartRepository(AmtalekApi: AmtalekApi, db: EventsDB): CartRepository {
+        return CartRepositoryImpl(AmtalekApi, db.dao)
     }
 
     @Provides

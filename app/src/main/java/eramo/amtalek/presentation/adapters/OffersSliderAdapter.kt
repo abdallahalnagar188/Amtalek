@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.smarteist.autoimageslider.SliderViewAdapter
-import eramo.amtalek.data.remote.EventsApi
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.databinding.ItemImageSliderBinding
 import eramo.amtalek.domain.model.OffersModel
 import javax.inject.Inject
@@ -42,7 +42,7 @@ class OffersSliderAdapter @Inject constructor() :
         fun bind(model: OffersModel) {
             binding.apply {
                 Glide.with(itemView)
-                    .load(EventsApi.IMAGE_URL_SPECIAL_OFFERS + model.image)
+                    .load(AmtalekApi.IMAGE_URL_SPECIAL_OFFERS + model.image)
                     .into(itemImageSliderIv)
             }
             itemView.setOnClickListener {

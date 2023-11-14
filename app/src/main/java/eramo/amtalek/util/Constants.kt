@@ -22,7 +22,7 @@ import eramo.amtalek.R
     const val TEXT_NO = "no"
 
     const val ANIMATION_DELAY = 450L
-    const val TAG = "Events-Log"
+    const val TAG = "amtalek"
 
     const val PAGING_START_INDEX = 1
     const val PAGING_PER_PAGE = 4

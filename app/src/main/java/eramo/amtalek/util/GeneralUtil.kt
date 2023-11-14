@@ -88,8 +88,13 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
     emit(ApiState.Loading())
     try {
         val response = call()
-        if (response.isSuccessful) emit(ApiState.Success(response.body()))
-        else emit(ApiState.Error(UiText.DynamicString(response.message())))
+        if (response.isSuccessful) {
+            emit(ApiState.Success(response.body()))
+        } else {
+            val errorBodyJson = JSONObject(response.errorBody()!!.charStream().readText())
+            emit(ApiState.Error(UiText.DynamicString(errorBodyJson.toString())))
+        }
+
     } catch (e: HttpException) {
         Log.d(TAG, e.message.toString())
         emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
