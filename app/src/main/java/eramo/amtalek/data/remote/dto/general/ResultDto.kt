@@ -11,7 +11,7 @@ data class ResultDto(
 ) {
     fun toResultModel(): ResultModel {
         return ResultModel(
-            success = success ?: 0,
+            status = success ?: 0,
             message = if (LocalUtil.isEnglish()) messageEn ?: "" else messageAr ?: ""
         )
     }

@@ -11,30 +11,23 @@ import javax.inject.Singleton
 @Singleton
 class RegisterUseCase @Inject constructor(private val repository: AuthRepository) {
     suspend operator fun invoke(
-        user_name: String,
-        user_email: String,
-        user_phone: String,
-        user_pass: String,
-        address: String,
+        firstName: String,
+        lastName: String,
+        phone: String,
+        email: String,
+        password: String,
+        confirmPassword: String,
+        gender: String,
         countryId: String,
-        cityId: String,
-        regionId: String,
-        gender: String
+        cityId: String
     ): Flow<Resource<ResultModel>> {
-        val isBlank = user_name.isBlank() || user_email.isBlank()
-                || user_phone.isBlank() || user_pass.isBlank() || address.isBlank()
+        val isBlank = firstName.isBlank() || lastName.isBlank()
+                || phone.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank() || gender.isBlank() || countryId.isBlank() || cityId.isBlank()
 
         return if (isBlank) flow { }
         else repository.register(
-            user_name,
-            user_email,
-            user_phone,
-            user_pass,
-            address,
-            countryId,
-            cityId,
-            regionId,
-            gender
-        )
+            firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
+
+            )
     }
 }

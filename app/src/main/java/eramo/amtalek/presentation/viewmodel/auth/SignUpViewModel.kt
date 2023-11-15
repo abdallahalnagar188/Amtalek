@@ -33,40 +33,39 @@ class SignUpViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val registerState: StateFlow<UiState<ResultModel>> = _registerState
 
+    private var registeredEmail: String? = null
+
     private var getCountriesJob: Job? = null
     private var getCitiesJob: Job? = null
     private var registerJob: Job? = null
+    private var sendVerificationCodeEmailJob: Job? = null
 
     fun cancelRequest() {
         getCountriesJob?.cancel()
         getCitiesJob?.cancel()
         registerJob?.cancel()
+        sendVerificationCodeEmailJob?.cancel()
     }
 
-    fun registerApp(
-        fullName: String,
-        email: String,
+    fun register(
+        firstName: String,
+        lastName: String,
         phone: String,
+        email: String,
         password: String,
-        address: String,
+        confirmPassword: String,
+        gender: String,
         countryId: String,
-        cityId: String,
-        regionId: String,
-        gender: String
+        cityId: String
     ) {
         registerJob?.cancel()
         registerJob = viewModelScope.launch {
             withContext(coroutineContext) {
+
+                registeredEmail = email
+
                 registerUseCase(
-                    fullName,
-                    email,
-                    phone,
-                    password,
-                    address,
-                    countryId,
-                    cityId,
-                    regionId,
-                    gender
+                    firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
                 ).collect {
                     when (it) {
                         is Resource.Success -> {
@@ -79,6 +78,29 @@ class SignUpViewModel @Inject constructor(
 
                         is Resource.Loading -> {
                             _registerState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun sendVerificationCodeEmail() {
+        sendVerificationCodeEmailJob?.cancel()
+        sendVerificationCodeEmailJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                authRepository.getCountries().collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _countriesState.value = UiState.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _countriesState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _countriesState.value = UiState.Loading()
                         }
                     }
                 }

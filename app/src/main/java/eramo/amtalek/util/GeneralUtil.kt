@@ -18,7 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.paging.PagingConfig
+import com.google.gson.Gson
 import eramo.amtalek.R
+import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
@@ -112,6 +114,11 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
 
 // -------------------------------------------------------------- //
 
+ fun parseErrorResponse(jsonString: String): String {
+    val jsonObject = Gson().fromJson(jsonString, ResultModel::class.java)
+    return jsonObject.message
+}
+
 fun htmlFormatToString(htmlTxt: String): CharSequence {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         Html.fromHtml(htmlTxt, Html.FROM_HTML_MODE_COMPACT)
@@ -129,10 +136,6 @@ fun formatPrice(price: Double): String {
 
 fun formatNumber(input: Int): String {
     return "%,d".format(Locale.ENGLISH,input)
-}
-
-fun parseErrorResponse(string: String): String {
-    return JSONObject(string).getString("message")
 }
 
 fun convertToArabicNumber(englishNumber: Int): String {

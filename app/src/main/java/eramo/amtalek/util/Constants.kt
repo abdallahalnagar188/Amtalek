@@ -17,6 +17,12 @@ import eramo.amtalek.R
     const val API_HEADER_LANG_EN = "en"
     const val API_HEADER_LANG_AR = "ar"
 
+    const val API_SUCCESS_CODE = 1
+    const val API_FAILURE_CODE = 0
+
+    const val API_OPERATION_TYPE_VERIFY_CODE = "verify_code"
+    const val API_OPERATION_TYPE_FORGET_PASSWORD = "forget_password"
+
     const val SIGN_UP_GENDER_MALE = "Male"
     const val SIGN_UP_GENDER_FEMALE = "Female"
     const val SIGN_UP_GENDER_CREATED_FROM = "Android"

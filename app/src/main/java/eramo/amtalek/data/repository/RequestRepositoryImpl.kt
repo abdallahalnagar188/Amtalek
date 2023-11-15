@@ -36,7 +36,7 @@ class RequestRepositoryImpl(private val AmtalekApi: AmtalekApi) : RequestReposit
                     is ApiState.Error -> emit(Resource.Error(it.message!!))
                     is ApiState.Success -> {
                         val dataModel = it.data?.toResultModel()
-                        if (dataModel?.success == 1) emit(Resource.Success(dataModel))
+                        if (dataModel?.status == 1) emit(Resource.Success(dataModel))
                         else emit(
                             Resource.Error(
                                 UiText.DynamicString(

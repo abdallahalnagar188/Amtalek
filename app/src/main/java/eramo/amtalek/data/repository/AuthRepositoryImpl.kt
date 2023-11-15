@@ -8,6 +8,9 @@ import eramo.amtalek.domain.model.auth.LoginModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
+import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
+import eramo.amtalek.util.SIGN_UP_GENDER_CREATED_FROM
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
@@ -35,28 +38,23 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
     }
 
     override suspend fun register(
-        user_name: String,
-        user_email: String,
-        user_phone: String,
-        user_pass: String,
-        address: String,
+        firstName: String,
+        lastName: String,
+        phone: String,
+        email: String,
+        password: String,
+        confirmPassword: String,
+        gender: String,
         countryId: String,
-        cityId: String,
-        regionId: String,
-        gender: String
+        cityId: String
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
                 AmtalekApi.register(
-                    user_name,
-                    user_email,
-                    user_phone,
-                    user_pass,
-                    address,
-                    countryId,
-                    cityId,
-                    regionId,
-                    gender
+                    firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
+                    SIGN_UP_GENDER_CREATED_FROM,
+                    SIGN_UP_GENDER_ACCEPT_CONDITION,
+                    SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
                 )
             }
             result.collect {
@@ -65,8 +63,7 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
                     is ApiState.Error -> emit(Resource.Error(it.message!!))
                     is ApiState.Success -> {
                         val model = it.data?.toResultModel()
-                        if (it.data?.success == 1) emit(Resource.Success(model))
-                        else emit(Resource.Error(UiText.DynamicString(model?.message ?: "Error")))
+                        emit(Resource.Success(model))
                     }
                 }
             }

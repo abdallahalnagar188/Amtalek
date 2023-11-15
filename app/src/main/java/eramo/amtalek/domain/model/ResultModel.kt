@@ -1,6 +1,6 @@
 package eramo.amtalek.domain.model
 
 data class ResultModel(
-    var success: Int,
+    var status: Int,
     var message: String
 )

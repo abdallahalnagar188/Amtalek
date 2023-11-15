@@ -105,8 +105,19 @@
         android:layout_marginVertical="@dimen/_10sdp"
         android:background="#D9D9D9"
         app:layout_constraintBottom_toBottomOf="@+id/FOtp_otp_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_four"
         app:layout_constraintStart_toEndOf="@id/FOtp_otp_view_divider_two"
+        app:layout_constraintTop_toTopOf="@+id/FOtp_otp_view" />
+
+    <View
+        android:id="@+id/FOtp_otp_view_divider_four"
+        android:layout_width="@dimen/_1sdp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="#D9D9D9"
+        app:layout_constraintBottom_toBottomOf="@+id/FOtp_otp_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/FOtp_otp_view_divider_three"
         app:layout_constraintTop_toTopOf="@+id/FOtp_otp_view" />
 
     <EditText
@@ -184,8 +195,28 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/FOtp_otp_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/FOtp_otp_view_divider_four"
         app:layout_constraintStart_toStartOf="@id/FOtp_otp_view_divider_three"
+        app:layout_constraintTop_toTopOf="@id/FOtp_otp_view"
+        tools:text="1" />
+
+    <EditText
+        android:id="@+id/FOtp_et_five"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/montserratmedium"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="1"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/FOtp_otp_view"
+        app:layout_constraintStart_toEndOf="@id/FOtp_otp_view_divider_four"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/FOtp_otp_view"
         tools:text="1" />
 

@@ -4,21 +4,22 @@ import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.*
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
+import retrofit2.http.Field
 
 interface AuthRepository {
 
     suspend fun onBoardingScreens(): Flow<Resource<List<OnBoardingModel>>>
 
     suspend fun register(
-        user_name: String,
-        user_email: String,
-        user_phone: String,
-        user_pass: String,
-        address: String,
+        firstName: String,
+        lastName: String,
+        phone: String,
+        email: String,
+        password: String,
+        confirmPassword: String,
+        gender: String,
         countryId: String,
-        cityId: String,
-        regionId: String,
-        gender: String
+        cityId: String
     ): Flow<Resource<ResultModel>>
 
     suspend fun loginApp(user_phone: String, user_pass: String): Flow<Resource<LoginModel>>

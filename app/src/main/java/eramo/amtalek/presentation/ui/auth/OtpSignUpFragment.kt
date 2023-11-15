@@ -84,8 +84,16 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
             }
 
             FOtpEtFour.addTextChangedListener {
-                if (FOtpEtFour.text?.length == 0) {
+                if (FOtpEtThree.text?.length == 1) {
+                    FOtpEtFive.requestFocus()
+                } else {
                     FOtpEtThree.requestFocus()
+                }
+            }
+
+            FOtpEtFive.addTextChangedListener {
+                if (FOtpEtFive.text?.length == 0) {
+                    FOtpEtFour.requestFocus()
                     FOtpBtnConfirm.background = ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
                     FOtpBtnConfirm.isEnabled = false
                 } else {

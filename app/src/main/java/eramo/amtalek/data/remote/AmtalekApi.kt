@@ -1,6 +1,7 @@
 package eramo.amtalek.data.remote
 
 import eramo.amtalek.data.remote.dto.NotificationDto
+import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.*
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
@@ -33,18 +34,42 @@ interface AmtalekApi {
     suspend fun onBoardingScreens(): Response<OnBoardingDto>
 
     @FormUrlEncoded
-    @POST("register")
+    @POST("mobile/sign-up")
     suspend fun register(
-        @Field("user_name") user_name: String,
-        @Field("user_email") user_email: String,
-        @Field("user_phone") user_phone: String?,
-        @Field("user_pass") user_pass: String?,
-        @Field("address") address: String?,
-        @Field("country_id") countryId: String?,
-        @Field("city_id") cityId: String?,
-        @Field("region_id") regionId: String?,
-        @Field("gender") gender: String?
-    ): Response<ResultDto>
+        @Field("first_name") firstName: String,
+        @Field("last_name") lastName: String,
+        @Field("phone") phone: String?,
+        @Field("email") email: String?,
+        @Field("password") password: String?,
+        @Field("confirm_password") confirmPassword: String?,
+        @Field("gender") gender: String?,
+        @Field("country") countryId: String?,
+        @Field("city") cityId: String?,
+        @Field("created_from") createdFrom: String?,
+        @Field("accept_condition") acceptCondition: String?,
+        @Field("not_ropot") notRobot: String?
+    ): Response<SuccessfulResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/send-email")
+    suspend fun sendVerificationCodeEmail(
+        @Field("email") email: String,
+        @Field("operation_type") operationType: String,
+    ): Response<SuccessfulResponse>
+
+//    @FormUrlEncoded
+//    @POST("register")
+//    suspend fun register(
+//        @Field("user_name") user_name: String,
+//        @Field("user_email") user_email: String,
+//        @Field("user_phone") user_phone: String?,
+//        @Field("user_pass") user_pass: String?,
+//        @Field("address") address: String?,
+//        @Field("country_id") countryId: String?,
+//        @Field("city_id") cityId: String?,
+//        @Field("region_id") regionId: String?,
+//        @Field("gender") gender: String?
+//    ): Response<ResultDto>
 
     @FormUrlEncoded
     @POST("login_app")

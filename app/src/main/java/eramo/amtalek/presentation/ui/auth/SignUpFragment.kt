@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +27,14 @@ import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
+import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.parseErrorResponse
 import eramo.amtalek.util.setTextViewDrawableColor
+import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 
 
@@ -56,20 +60,12 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
         requestData()
         fetchData()
-
-        binding.FSignUpBtnRegisterNow.setOnClickListener {
-            isUserDataValid()
-        }
-//        binding.genderSelectionLayout.btnMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
-//        setTextViewDrawableColor(binding.genderSelectionLayout.btnMale,R.color.amtalek_blue)
-
     }
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
-        setupTermsAndConditionsCheckBox()
     }
 
     private fun requestData() {
@@ -79,17 +75,20 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private fun fetchData() {
         fetchCountries()
         fetchCities()
+
+        fetchRegisterState()
     }
 
     private fun listeners() {
         setupGenderSwitch()
+        setupTermsAndConditionsCheckBox()
 
         binding.apply {
             FSignUpTvTerms.setOnClickListener {
                 findNavController().navigate(R.id.termsAndConditionsFragment, null, navOptionsAnimation())
             }
             FSignUpBtnRegisterNow.setOnClickListener {
-                findNavController().navigate(R.id.otpSignUpFragment, null, navOptionsAnimation())
+                validateAndSignUp()
             }
             FSignUpTvLogin.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment, null, navOptionsAnimation())
@@ -257,8 +256,45 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun isUserDataValid() {
+    private fun fetchRegisterState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.registerState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            if (state.data?.status == API_SUCCESS_CODE){
+
+                            }else{
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+                                Log.e("signUp", state.data?.message!!)
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val string = state.message!!.asString(requireContext())
+
+                            showToast(parseErrorResponse(string))
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun validateAndSignUp() {
         binding.apply {
+
 
             val firstName = FSignUpEtFirstName.text.toString().trim()
             val lastname = FSignUpEtLastName.text.toString().trim()
@@ -287,10 +323,12 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             if (TextUtils.isEmpty(mobileNumber)) {
                 FSignUpTilMobileNumber.error = getString(R.string.mobile_number_is_required)
                 FSignUpTilMobileNumber.requestFocus()
+
                 return
             } else if (mobileNumber.length < 11) {
                 FSignUpTilMobileNumber.error = getString(R.string.please_enter_a_valid_number)
                 FSignUpTilMobileNumber.requestFocus()
+
                 return
             } else {
                 FSignUpTilMobileNumber.error = null
@@ -335,7 +373,17 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 FSignUpTilRePassword.error = null
             }
 
-
+            viewModel.register(
+                firstName,
+                lastname,
+                mobileNumber,
+                email,
+                password,
+                rePassword,
+                selectedGender,
+                selectedCountryId.toString(),
+                selectedCityId.toString()
+            )
         }
     }
 
