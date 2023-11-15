@@ -77,6 +77,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         fetchCities()
 
         fetchRegisterState()
+        fetchSendingVerificationCodeEmailState()
     }
 
     private fun listeners() {
@@ -119,7 +120,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
         binding.FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
 
-        binding.FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val model = parent?.getItemAtPosition(position) as CityModel
 
@@ -265,12 +266,49 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                         is UiState.Success -> {
                             LoadingDialog.dismissDialog()
 
-                            if (state.data?.status == API_SUCCESS_CODE){
-
-                            }else{
+                            if (state.data?.status == API_SUCCESS_CODE) {
+                                viewModel.sendVerificationCodeEmail()
+                            } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }
-                                Log.e("signUp", state.data?.message!!)
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val string = state.message!!.asString(requireContext())
+
+                            showToast(parseErrorResponse(string))
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchSendingVerificationCodeEmailState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.sendVerificationCodeEmailState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            if (state.data?.status == API_SUCCESS_CODE) {
+                                showToast(
+                                    getString(R.string.success) + "\n" +  state.data?.message
+                                )
+                                findNavController().navigate(R.id.otpSignUpFragment,null, navOptionsAnimation())
+                            } else {
+                                showToast(getString(R.string.something_went_wrong))
+                            }
                         }
 
                         is UiState.Error -> {

@@ -33,6 +33,9 @@ class SignUpViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val registerState: StateFlow<UiState<ResultModel>> = _registerState
 
+    private val _sendVerificationCodeEmailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val sendVerificationCodeEmailState: StateFlow<UiState<ResultModel>> = _sendVerificationCodeEmailState
+
     private var registeredEmail: String? = null
 
     private var getCountriesJob: Job? = null
@@ -89,18 +92,20 @@ class SignUpViewModel @Inject constructor(
         sendVerificationCodeEmailJob?.cancel()
         sendVerificationCodeEmailJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.getCountries().collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _countriesState.value = UiState.Success(it.data)
-                        }
+                registeredEmail?.let { email ->
+                    authRepository.sendVerificationCodeEmail(email).collect {
+                        when (it) {
+                            is Resource.Success -> {
+                                _sendVerificationCodeEmailState.value = UiState.Success(it.data)
+                            }
 
-                        is Resource.Error -> {
-                            _countriesState.value = UiState.Error(it.message!!)
-                        }
+                            is Resource.Error -> {
+                                _sendVerificationCodeEmailState.value = UiState.Error(it.message!!)
+                            }
 
-                        is Resource.Loading -> {
-                            _countriesState.value = UiState.Loading()
+                            is Resource.Loading -> {
+                                _sendVerificationCodeEmailState.value = UiState.Loading()
+                            }
                         }
                     }
                 }

@@ -8,6 +8,7 @@ import eramo.amtalek.domain.model.auth.LoginModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.util.API_OPERATION_TYPE_VERIFY_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
 import eramo.amtalek.util.SIGN_UP_GENDER_CREATED_FROM
@@ -56,6 +57,24 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
                     SIGN_UP_GENDER_ACCEPT_CONDITION,
                     SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
                 )
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun sendVerificationCodeEmail(email: String): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.sendVerificationCodeEmail(email, API_OPERATION_TYPE_VERIFY_CODE)
             }
             result.collect {
                 when (it) {

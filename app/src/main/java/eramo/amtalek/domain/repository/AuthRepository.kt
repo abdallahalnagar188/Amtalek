@@ -22,6 +22,10 @@ interface AuthRepository {
         cityId: String
     ): Flow<Resource<ResultModel>>
 
+    suspend fun sendVerificationCodeEmail(
+        email: String
+    ): Flow<Resource<ResultModel>>
+
     suspend fun loginApp(user_phone: String, user_pass: String): Flow<Resource<LoginModel>>
 
     suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>>
