@@ -2,12 +2,15 @@ package eramo.amtalek.util
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -135,5 +138,16 @@ fun parseErrorResponse(string: String): String {
 fun convertToArabicNumber(englishNumber: Int): String {
     val arabicFormat = NumberFormat.getInstance(Locale("ar"))
     return arabicFormat.format(englishNumber)
+}
+
+fun TextView.setTextViewDrawableColor(color: Int) {
+    this.compoundDrawablesRelative.filterNotNull().forEach { drawable ->
+        drawable.mutate()
+        drawable.colorFilter =
+            PorterDuffColorFilter(
+                ContextCompat.getColor(this.context, color),
+                PorterDuff.Mode.SRC_IN
+            )
+    }
 }
 // -------------------------------------------------------------- //

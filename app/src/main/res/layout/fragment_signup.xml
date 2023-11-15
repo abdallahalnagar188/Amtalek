@@ -48,6 +48,7 @@
             android:layout_marginEnd="@dimen/_6sdp"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
+            app:helperText=" "
             app:hintEnabled="false"
             app:layout_constraintEnd_toStartOf="@id/FSignUp_til_last_name"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FSignUp_et_first_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_avatar"
                 android:drawablePadding="@dimen/_8sdp"
@@ -78,6 +79,7 @@
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
+            app:helperText=" "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/FSignUp_til_first_name"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_tv_create_your_account">
@@ -85,7 +87,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FSignUp_et_last_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_avatar"
                 android:drawablePadding="@dimen/_8sdp"
@@ -106,6 +108,7 @@
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
+            app:helperText=" "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_first_name">
@@ -113,7 +116,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FSignUp_et_mobile_number"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_mobile_number"
                 android:drawablePadding="@dimen/_8sdp"
@@ -134,6 +137,7 @@
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
             app:hintEnabled="false"
+            app:helperText=" "
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_mobile_number">
@@ -141,7 +145,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FSignUp_et_email"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_mail"
                 android:drawablePadding="@dimen/_8sdp"
@@ -154,7 +158,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/FSignUp_itl_password"
+            android:id="@+id/FSignUp_til_password"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -166,12 +170,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_til_email"
             app:passwordToggleEnabled="true"
+            app:helperText=" "
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FSignUp_et_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="@dimen/_8sdp"
@@ -186,7 +191,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/FSignUp_itl_re_password"
+            android:id="@+id/FSignUp_til_re_password"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -196,14 +201,15 @@
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/FSignUp_itl_password"
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_til_password"
             app:passwordToggleEnabled="true"
+            app:helperText=" "
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FSignUp_et_re_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="@dimen/_8sdp"
@@ -225,7 +231,7 @@
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/FSignUp_itl_re_password" />
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_til_re_password" />
 
         <Spinner
             android:id="@+id/FSignUp_countries_spinner"
@@ -239,13 +245,13 @@
             android:textAlignment="viewStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/FSignUp_itl_re_password" />
+            app:layout_constraintTop_toBottomOf="@id/FSignUp_til_re_password" />
 
         <Spinner
             android:id="@+id/FSignUp_cities_spinner"
             android:layout_width="0dp"
             android:layout_height="@dimen/edit_text_height"
-            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginTop="@dimen/views_margin_top"
             android:layout_marginBottom="@dimen/_24sdp"
             android:background="@drawable/spinner_background"
             android:paddingHorizontal="@dimen/_6sdp"
@@ -260,7 +266,7 @@
             layout="@layout/gender_selection_layout"
             android:layout_width="0dp"
             android:layout_height="@dimen/edit_text_height"
-            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginTop="@dimen/views_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_cities_spinner" />
@@ -269,7 +275,7 @@
             android:id="@+id/FSignUp_cb_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_34sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:buttonTint="@color/amtalek_blue"
             android:fontFamily="@font/montserratregular"
             android:text="@string/agree_to"

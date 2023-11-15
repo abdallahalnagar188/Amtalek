@@ -1,7 +1,9 @@
 package eramo.amtalek.presentation.ui.auth
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +30,9 @@ import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.setTextViewDrawableColor
 import eramo.amtalek.util.state.UiState
+
 
 @AndroidEntryPoint
 class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
@@ -56,6 +60,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.FSignUpBtnRegisterNow.setOnClickListener {
             isUserDataValid()
         }
+//        binding.genderSelectionLayout.btnMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+//        setTextViewDrawableColor(binding.genderSelectionLayout.btnMale,R.color.amtalek_blue)
+
     }
 
     private fun setupViews() {
@@ -131,74 +138,43 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
             // Default
             selectedGender = SIGN_UP_GENDER_MALE
-            FSignUpTvGenderAvatarMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
-            FSignUpIvGenderAvatarMale.setColorFilter(
-                ContextCompat.getColor(requireContext(), R.color.amtalek_blue),
-                android.graphics.PorterDuff.Mode.SRC_IN
-            )
+
+            // male color
+            btnMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+            btnMale.setTextViewDrawableColor(R.color.amtalek_blue)
+
+            // female color
+            btnFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
+            btnFemale.setTextViewDrawableColor(R.color.text_gray)
 
             // male onClickListener
-            FSignUpIvGenderAvatarMale.setOnClickListener {
+            btnMale.setOnClickListener {
                 selectedGender = SIGN_UP_GENDER_MALE
-                FSignUpTvGenderAvatarMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
-                FSignUpIvGenderAvatarMale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.amtalek_blue),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
 
-                FSignUpTvGenderAvatarFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
-                FSignUpIvGenderAvatarFemale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.text_gray),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
+                // male color
+                btnMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+                btnMale.setTextViewDrawableColor(R.color.amtalek_blue)
 
-            }
+                // female color
+                btnFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
+                btnFemale.setTextViewDrawableColor(R.color.text_gray)
 
-            FSignUpTvGenderAvatarMale.setOnClickListener {
-                selectedGender = SIGN_UP_GENDER_MALE
-                FSignUpTvGenderAvatarMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
-                FSignUpIvGenderAvatarMale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.amtalek_blue),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
-
-                FSignUpTvGenderAvatarFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
-                FSignUpIvGenderAvatarFemale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.text_gray),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
             }
 
             // female onClickListener
-            FSignUpIvGenderAvatarFemale.setOnClickListener {
+            btnFemale.setOnClickListener {
                 selectedGender = SIGN_UP_GENDER_FEMALE
-                FSignUpTvGenderAvatarFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
-                FSignUpIvGenderAvatarFemale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.amtalek_blue),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
 
-                FSignUpTvGenderAvatarMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
-                FSignUpIvGenderAvatarMale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.text_gray),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
+                // male color
+                btnMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
+                btnMale.setTextViewDrawableColor(R.color.text_gray)
+
+                // female color
+                btnFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+                btnFemale.setTextViewDrawableColor(R.color.amtalek_blue)
+
             }
 
-            FSignUpTvGenderAvatarFemale.setOnClickListener {
-                selectedGender = SIGN_UP_GENDER_FEMALE
-                FSignUpTvGenderAvatarFemale.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
-                FSignUpIvGenderAvatarFemale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.amtalek_blue),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
-
-                FSignUpTvGenderAvatarMale.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
-                FSignUpIvGenderAvatarMale.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.text_gray),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )
-            }
         }
     }
 
@@ -208,6 +184,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             // default
             FSignUpBtnRegisterNow.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+            FSignUpBtnRegisterNow.isEnabled = false
 
             // listener
             FSignUpCbAgree.setOnCheckedChangeListener { _, isChecked ->
@@ -311,6 +288,10 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 FSignUpTilMobileNumber.error = getString(R.string.mobile_number_is_required)
                 FSignUpTilMobileNumber.requestFocus()
                 return
+            } else if (mobileNumber.length < 11) {
+                FSignUpTilMobileNumber.error = getString(R.string.please_enter_a_valid_number)
+                FSignUpTilMobileNumber.requestFocus()
+                return
             } else {
                 FSignUpTilMobileNumber.error = null
             }
@@ -327,31 +308,68 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 FSignUpTilEmail.error = null
             }
 
+            // remove error on text changed
+            passwordEditTextsListener()
+
             if (TextUtils.isEmpty(password)) {
-                FSignUpEtPassword.error = getString(R.string.enter_a_password)
-                FSignUpEtPassword.requestFocus()
+                FSignUpTilPassword.error = getString(R.string.enter_a_password)
+                FSignUpTilPassword.requestFocus()
                 return
             } else if (password.length < 8) {
-                FSignUpEtPassword.error = getString(R.string.password_must_contains_eight_chars)
-                FSignUpEtPassword.requestFocus()
+                FSignUpTilPassword.error = getString(R.string.password_must_contains_eight_chars)
+                FSignUpTilPassword.requestFocus()
                 return
             } else {
-                FSignUpEtPassword.error = null
+                FSignUpTilPassword.error = null
             }
 
             if (TextUtils.isEmpty(rePassword)) {
-                FSignUpEtRePassword.error = getString(R.string.enter_a_password)
-                FSignUpEtRePassword.requestFocus()
+                FSignUpTilRePassword.error = getString(R.string.retype_the_password)
+                FSignUpTilRePassword.requestFocus()
                 return
             } else if (password != rePassword) {
-                FSignUpEtPassword.error = getString(R.string.password_does_not_match)
-                FSignUpEtPassword.requestFocus()
+                FSignUpTilRePassword.error = getString(R.string.password_does_not_match)
+                FSignUpTilRePassword.requestFocus()
                 return
             } else {
-                FSignUpEtPassword.error = null
+                FSignUpTilRePassword.error = null
             }
 
 
+        }
+    }
+
+    private fun passwordEditTextsListener() {
+        binding.apply {
+            FSignUpEtPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    FSignUpTilPassword.error = null
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+            })
+
+            FSignUpEtRePassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    FSignUpTilRePassword.error = null
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+            })
         }
     }
 
