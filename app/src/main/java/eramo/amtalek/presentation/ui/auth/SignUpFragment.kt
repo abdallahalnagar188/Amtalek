@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +31,6 @@ import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
-import eramo.amtalek.util.parseErrorResponse
 import eramo.amtalek.util.setTextViewDrawableColor
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
@@ -60,6 +58,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
         requestData()
         fetchData()
+        binding.FSignUpIvLogo.setOnClickListener {
+            findNavController().navigate(R.id.otpSignUpFragment,null, navOptionsAnimation())
+        }
     }
 
     private fun setupViews() {
@@ -220,6 +221,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                         is UiState.Error -> {
                             LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
                         }
 
                         else -> {}
@@ -247,6 +250,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                         is UiState.Error -> {
                             LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
                         }
 
                         else -> {}
@@ -275,9 +280,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                         is UiState.Error -> {
                             LoadingDialog.dismissDialog()
-                            val string = state.message!!.asString(requireContext())
-
-                            showToast(parseErrorResponse(string))
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
@@ -303,9 +307,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                             if (state.data?.status == API_SUCCESS_CODE) {
                                 showToast(
-                                    getString(R.string.success) + "\n" +  state.data?.message
+                                    getString(R.string.success) + "\n" + state.data?.message
                                 )
-                                findNavController().navigate(R.id.otpSignUpFragment,null, navOptionsAnimation())
+                                findNavController().navigate(R.id.otpSignUpFragment, null, navOptionsAnimation())
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }
@@ -313,9 +317,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                         is UiState.Error -> {
                             LoadingDialog.dismissDialog()
-                            val string = state.message!!.asString(requireContext())
-
-                            showToast(parseErrorResponse(string))
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {

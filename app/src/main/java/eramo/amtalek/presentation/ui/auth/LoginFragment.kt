@@ -44,6 +44,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
         binding.apply {
             FLoginTvSignUp.setOnClickListener(this@LoginFragment)
             FLoginBtnLogin.setOnClickListener(this@LoginFragment)
+            FLoginIvBack.setOnClickListener(this@LoginFragment)
             FLoginTvForgotPassword.setOnClickListener(this@LoginFragment)
         }
         fetchLoginState()
@@ -59,6 +60,17 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
             R.id.FLogin_tv_forgot_password -> findNavController().navigate(R.id.forgetPasswordFragment)
 
             R.id.FLogin_btn_login -> {
+//                setupLogin()
+                findNavController().navigate(
+                    R.id.nav_main, null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_auth, true)
+                        .setPopUpTo(R.id.nav_main, true)
+                        .build()
+                )
+            }
+
+            R.id.FLogin_iv_back -> {
 //                setupLogin()
                 findNavController().navigate(
                     R.id.nav_main, null,

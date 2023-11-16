@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.paging.PagingConfig
+import com.google.android.gms.common.util.IOUtils
 import com.google.gson.Gson
 import eramo.amtalek.R
 import eramo.amtalek.domain.model.ResultModel
@@ -25,7 +26,7 @@ import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import org.json.JSONObject
+import okio.BufferedSource
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -51,7 +52,7 @@ fun Fragment.onBackPressed(code: () -> Unit) {
     }
 }
 
- fun Fragment.openLinkInBrowser(link: String) {
+fun Fragment.openLinkInBrowser(link: String) {
     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
 }
 
@@ -95,26 +96,38 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
         val response = call()
         if (response.isSuccessful) {
             emit(ApiState.Success(response.body()))
+            Log.e("networkResponse", "Success\n" + response.body().toString())
+
         } else {
-            val errorBodyJson = JSONObject(response.errorBody()!!.charStream().readText())
-            emit(ApiState.Error(UiText.DynamicString(errorBodyJson.toString())))
+//            val errorBodyJson = JSONObject(response.errorBody()!!.charStream().readText())
+//            emit(ApiState.Error(UiText.DynamicString(errorBodyJson.toString())))
+
+            val errorBody = response.errorBody()?.string()
+            val errorObject = Gson().fromJson(errorBody, ResultModel::class.java)
+            emit(ApiState.Error(UiText.DynamicString(errorObject.message)))
+            Log.e("networkResponse", "Failure\n $errorBody")
         }
 
     } catch (e: HttpException) {
-        Log.d(TAG, e.message.toString())
+//        Log.d(TAG, e.message.toString())
+        Log.e("networkResponse", "HttpException\n ${e.message.toString()}")
         emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
+
     } catch (e: IOException) {
-        Log.d(TAG, e.message.toString())
+//        Log.d(TAG, e.message.toString())
+        Log.e("networkResponse", "IOException\n ${e.message.toString()}")
         emit(ApiState.Error(UiText.StringResource(R.string.check_your_internet_connection)))
+
     } catch (e: Exception) {
-        Log.d(TAG, e.message.toString())
+//        Log.d(TAG, e.message.toString())
+        Log.e("networkResponse", "Exception\n ${e.message.toString()}")
         emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
     }
 }
 
 // -------------------------------------------------------------- //
 
- fun parseErrorResponse(jsonString: String): String {
+fun parseErrorResponse(jsonString: String): String {
     val jsonObject = Gson().fromJson(jsonString, ResultModel::class.java)
     return jsonObject.message
 }
@@ -135,7 +148,7 @@ fun formatPrice(price: Double): String {
 }
 
 fun formatNumber(input: Int): String {
-    return "%,d".format(Locale.ENGLISH,input)
+    return "%,d".format(Locale.ENGLISH, input)
 }
 
 fun convertToArabicNumber(englishNumber: Int): String {
