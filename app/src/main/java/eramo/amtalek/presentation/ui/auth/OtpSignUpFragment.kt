@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -20,6 +21,8 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.OtpSignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 
@@ -32,6 +35,9 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     private val viewModel by viewModels<OtpSignUpViewModel>()
 
+    private val args by navArgs<OtpSignUpFragmentArgs>()
+    private val registeredEmail get() = args.registeredEmail
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -40,9 +46,18 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
         fetchData()
     }
 
+    private fun setupViews() {
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+
+        binding.FOtpTvOtpSent.text = registeredEmail
+
+        setupEditTextsListener()
+    }
+
     private fun listeners() {
         binding.apply {
-            FOtpIvBack.setOnClickListener { findNavController().popBackStack() }
+            FOtpIvBack.setOnClickListener { findNavController().popBackStack(R.id.loginFragment, false) }
             FOtpTvResend.setOnClickListener {
                 viewModel.startTimer()
                 FOtpTvResend.visibility = View.GONE
@@ -50,19 +65,18 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
                 FOtpTvTimer.visibility = View.VISIBLE
 
             }
+            FOtpBtnConfirm.setOnClickListener {
+                viewModel.checkOtpCode(registeredEmail, enteredOtpCode())
+            }
         }
-    }
-
-    private fun setupViews() {
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
-
-        setupEditTextsListener()
+        this@OtpSignUpFragment.onBackPressed { findNavController().popBackStack(R.id.loginFragment, false) }
     }
 
     private fun fetchData() {
         fetchTimerState()
         fetchEnableResendEvent()
+
+        fetchCheckingOtpCodeState()
     }
 
     // -------------------------------------- setupViews -------------------------------------- //
@@ -119,6 +133,14 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
         }
     }
 
+    private fun enteredOtpCode(): String {
+        binding.apply {
+            return FOtpEtOne.text.toString().trim() + FOtpEtTwo.text.toString().trim() + FOtpEtThree.text.toString()
+                .trim() + FOtpEtFour.text.toString().trim() + FOtpEtFive.text.toString().trim()
+        }
+
+    }
+
     // -------------------------------------- fetchData -------------------------------------- //
     private fun fetchTimerState() {
         lifecycleScope.launchWhenCreated {
@@ -148,5 +170,39 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
         }
     }
 
+    private fun fetchCheckingOtpCodeState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.checkOtpCodeState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            if (state.data?.status == API_SUCCESS_CODE) {
+                                showToast(state.data.message)
+                                findNavController().popBackStack(R.id.loginFragment, false)
+                            } else {
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
 
 }

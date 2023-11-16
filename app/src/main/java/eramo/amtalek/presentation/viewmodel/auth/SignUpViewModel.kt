@@ -36,7 +36,7 @@ class SignUpViewModel @Inject constructor(
     private val _sendVerificationCodeEmailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val sendVerificationCodeEmailState: StateFlow<UiState<ResultModel>> = _sendVerificationCodeEmailState
 
-    private var registeredEmail: String? = null
+     var registeredEmail: String? = null
 
     private var getCountriesJob: Job? = null
     private var getCitiesJob: Job? = null

@@ -26,6 +26,12 @@ interface AuthRepository {
         email: String
     ): Flow<Resource<ResultModel>>
 
+    suspend fun checkOtpCode(
+        email: String,
+        otpCode: String,
+        operationType: String
+    ): Flow<Resource<ResultModel>>
+
     suspend fun loginApp(user_phone: String, user_pass: String): Flow<Resource<LoginModel>>
 
     suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>>
@@ -38,7 +44,5 @@ interface AuthRepository {
     suspend fun getCountries(): Flow<Resource<List<CountryModel>>>
 
     suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>>
-
-    suspend fun allRegions(cityId: String): Flow<Resource<List<RegionsModel>>>
 
 }

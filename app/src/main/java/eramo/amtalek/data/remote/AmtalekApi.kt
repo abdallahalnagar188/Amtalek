@@ -57,6 +57,14 @@ interface AmtalekApi {
         @Field("operation_type") operationType: String,
     ): Response<SuccessfulResponse>
 
+    @FormUrlEncoded
+    @POST("mobile/check-code")
+    suspend fun checkOtpCode(
+        @Field("email") email: String,
+        @Field("code") otpCode: String,
+        @Field("operation_type") operationType: String
+    ): Response<SuccessfulResponse>
+
 //    @FormUrlEncoded
 //    @POST("register")
 //    suspend fun register(
@@ -95,9 +103,6 @@ interface AmtalekApi {
 
     @GET("mobile/cities/{countryId}")
     suspend fun getCities(@Path("countryId") countryId: String): Response<CitiesResponse>
-
-    @GET("AllRegions/{cityId}")
-    suspend fun allRegions(@Path("cityId") cityId: String): Response<AllRegionsResponse>
 
     //____________________________________________________________________________________________//
     // Drawer

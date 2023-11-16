@@ -397,7 +397,7 @@
     <string name="if_you_already_have_an_account">اذا كنت تمتلك حساب بالفعل :</string>
 
     <string name="account_confirmation_code_otp">رمز تأكيد الحساب OTP</string>
-    <string name="we_have_sent_a_confirmation_code_to_e_ramo_mail_com">لقد أرسلنا رمز تأكيد على E-Ramo@mail.com</string>
+    <string name="we_have_sent_a_confirmation_code_to_e_ramo_mail_com">لقد أرسلنا رمز تأكيد على</string>
     <string name="confirm">تأكيد</string>
     <string name="if_you_haven_t_received_a_message_yet">اذا لم تصلك رسالة بعد</string>
     <string name="resend_the_code">إعادة إرسال الرمز</string>
@@ -622,5 +622,7 @@
     <string name="retype_the_password">أعد إدخال كلمة المرور</string>
     <string name="password_must_contains_eight_chars">كلمة المرور يجب ان تتكون من ثمانية خانات على اﻷقل</string>
     <string name="password_does_not_match">كلمة المرور غير متطابقة</string>
+
+    <string name="please_enter_a_valid_code">من فضلك أدخل رمز صحيح</string>
 
 </resources>

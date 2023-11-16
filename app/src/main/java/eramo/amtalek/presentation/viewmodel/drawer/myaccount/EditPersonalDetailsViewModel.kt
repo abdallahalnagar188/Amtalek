@@ -154,26 +154,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
 //        }
 //    }
 
-    fun regions(cityId: Int) {
-        countryJob?.cancel()
-        countryJob = viewModelScope.launch {
-            withContext(coroutineContext) {
-                authRepository.allRegions(cityId.toString()).collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _regionState.value = UiState.Success(it.data)
-                        }
-                        is Resource.Error -> {
-                            _regionState.value = UiState.Error(it.message!!)
-                        }
-                        is Resource.Loading -> {
-                            _regionState.value = UiState.Loading()
-                        }
-                    }
-                }
-            }
-        }
-    }
+
 
     private fun convertToRequestBody(part: String): RequestBody? {
         return try {

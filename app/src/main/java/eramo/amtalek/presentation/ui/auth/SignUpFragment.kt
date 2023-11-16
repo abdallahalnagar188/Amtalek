@@ -49,7 +49,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private var selectedCityId = -1
     private lateinit var selectedGender: String
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,7 +58,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         requestData()
         fetchData()
         binding.FSignUpIvLogo.setOnClickListener {
-            findNavController().navigate(R.id.otpSignUpFragment,null, navOptionsAnimation())
+            findNavController().navigate(R.id.otpSignUpFragment,OtpSignUpFragmentArgs("").toBundle(),
+                navOptionsAnimation()
+            )
         }
     }
 
@@ -307,9 +308,15 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                             if (state.data?.status == API_SUCCESS_CODE) {
                                 showToast(
-                                    getString(R.string.success) + "\n" + state.data?.message
+                                    getString(R.string.success) + "\n" + state.data.message
                                 )
-                                findNavController().navigate(R.id.otpSignUpFragment, null, navOptionsAnimation())
+
+                                findNavController().navigate(
+                                    R.id.otpSignUpFragment,
+                                    OtpSignUpFragmentArgs(viewModel.registeredEmail!!).toBundle(),
+                                    navOptionsAnimation()
+                                )
+
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }

@@ -56,7 +56,12 @@
         android:id="@+id/otpSignUpFragment"
         android:name="eramo.amtalek.presentation.ui.auth.OtpSignUpFragment"
         android:label="fragment_otp"
-        tools:layout="@layout/fragment_otp" />
+        tools:layout="@layout/fragment_otp" >
+
+        <argument
+            android:name="registeredEmail"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/otpForgetPasswordFragment"
         android:name="eramo.amtalek.presentation.ui.auth.OtpForgetPasswordFragment"

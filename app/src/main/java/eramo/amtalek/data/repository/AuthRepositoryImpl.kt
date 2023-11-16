@@ -6,7 +6,6 @@ import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.LoginModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.API_OPERATION_TYPE_VERIFY_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
@@ -75,6 +74,28 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         return flow {
             val result = toResultFlow {
                 AmtalekApi.sendVerificationCodeEmail(email, API_OPERATION_TYPE_VERIFY_CODE)
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun checkOtpCode(
+        email: String,
+        otpCode: String,
+        operationType: String
+    ): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.checkOtpCode(email, otpCode, API_OPERATION_TYPE_VERIFY_CODE)
             }
             result.collect {
                 when (it) {
@@ -184,19 +205,4 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
     }
 
 
-    override suspend fun allRegions(cityId: String): Flow<Resource<List<RegionsModel>>> {
-        return flow {
-            val result = toResultFlow { AmtalekApi.allRegions(cityId) }
-            result.collect { apiState ->
-                when (apiState) {
-                    is ApiState.Loading -> emit(Resource.Loading())
-                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
-                    is ApiState.Success -> {
-                        val list = apiState.data?.allRegions?.map { it.toRegionsModel() }
-                        emit(Resource.Success(list))
-                    }
-                }
-            }
-        }
-    }
 }
