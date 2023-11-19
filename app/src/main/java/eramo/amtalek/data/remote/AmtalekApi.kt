@@ -80,11 +80,19 @@ interface AmtalekApi {
 //    ): Response<ResultDto>
 
     @FormUrlEncoded
-    @POST("login_app")
-    suspend fun loginApp(
-        @Field("user_phone") user_phone: String?,
-        @Field("user_pass") user_pass: String?
-    ): Response<LoginDto>
+    @POST("mobile/login")
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("firebase_token") firebaseToken: String
+    ): Response<LoginResponse>
+
+//    @FormUrlEncoded
+//    @POST("login_app")
+//    suspend fun loginApp(
+//        @Field("user_phone") user_phone: String?,
+//        @Field("user_pass") user_pass: String?
+//    ): Response<LoginDto>
 
     @FormUrlEncoded
     @POST("ForgetPass")

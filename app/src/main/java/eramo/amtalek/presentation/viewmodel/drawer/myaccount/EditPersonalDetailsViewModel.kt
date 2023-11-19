@@ -183,19 +183,19 @@ class EditPersonalDetailsViewModel @Inject constructor(
         user_phone: String,
         m_image: String
     ) {
-        UserUtil.saveUserInfo(
-            UserUtil.isRememberUser(),
-            UserUtil.getUserId(),
-            UserUtil.getUserToken(),
-            user_name,
-            user_pass,
-            address,
-            countryId,
-            cityId,
-            regionId,
-            user_phone,
-            user_email,
-            m_image,
-        )
+//        UserUtil.saveUserInfo(
+//            UserUtil.isRememberUser(),
+//            UserUtil.getUserId(),
+//            UserUtil.getUserToken(),
+//            user_name,
+//            user_pass,
+//            address,
+//            countryId,
+//            cityId,
+//            regionId,
+//            user_phone,
+//            user_email,
+//            m_image,
+//        )
     }
 }

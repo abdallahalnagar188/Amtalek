@@ -32,7 +32,11 @@ interface AuthRepository {
         operationType: String
     ): Flow<Resource<ResultModel>>
 
-    suspend fun loginApp(user_phone: String, user_pass: String): Flow<Resource<LoginModel>>
+    suspend fun login(
+        email: String,
+        password: String,
+        firebaseToken: String
+    ): Flow<Resource<UserModel>>
 
     suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>>
 

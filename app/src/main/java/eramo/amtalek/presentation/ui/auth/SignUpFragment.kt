@@ -57,29 +57,11 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
         requestData()
         fetchData()
-        binding.FSignUpIvLogo.setOnClickListener {
-            findNavController().navigate(R.id.otpSignUpFragment,OtpSignUpFragmentArgs("").toBundle(),
-                navOptionsAnimation()
-            )
-        }
     }
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
-
-    }
-
-    private fun requestData() {
-        viewModel.getCountries()
-    }
-
-    private fun fetchData() {
-        fetchCountries()
-        fetchCities()
-
-        fetchRegisterState()
-        fetchSendingVerificationCodeEmailState()
     }
 
     private fun listeners() {
@@ -98,6 +80,19 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
+    private fun requestData() {
+        viewModel.getCountries()
+    }
+
+    private fun fetchData() {
+        fetchCountries()
+        fetchCities()
+
+        fetchRegisterState()
+        fetchSendingVerificationCodeEmailState()
+    }
+
 
     // -------------------------------------- setupViews -------------------------------------- //
     private fun setupCountriesSpinner(data: List<CountryModel>) {

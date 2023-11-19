@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
@@ -19,7 +23,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.databinding.ActivityMainBinding
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.dialog.WarningDialog
@@ -32,6 +35,7 @@ import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
 import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
+import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
@@ -82,16 +86,20 @@ class MainActivity : AppCompatActivity(),
                 }
             }
 
-            viewModelShared.profileData.observe(this@MainActivity) { member ->
-                inDrawerHeader.apply {
-                    navHeaderTvUserName.text = member.userName
-                    UserUtil.saveUserProfile(AmtalekApi.IMAGE_URL_PROFILE + member.mImage!!)
-                    Glide.with(this@MainActivity)
-                        .load(AmtalekApi.IMAGE_URL_PROFILE + member.mImage)
-                        .into(navHeaderIvProfile)
-                }
-            }
+//            viewModelShared.profileData.observe(this@MainActivity) { member ->
+//                inDrawerHeader.apply {
+//                    navHeaderTvUserName.text = member.userName
+////                    UserUtil.saveUserProfile(AmtalekApi.IMAGE_URL_PROFILE + member.mImage!!)
+//                    Glide.with(this@MainActivity)
+//                        .load(AmtalekApi.IMAGE_URL_PROFILE + member.mImage)
+//                        .into(navHeaderIvProfile)
+//                }
+//            }
+
         }
+
+        fetchProfileDataState()
+
         setupDrawer()
         setupNavBottomVisibility()
 
@@ -325,4 +333,34 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    private fun fetchProfileDataState() {
+        lifecycleScope.launchWhenStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModelShared.profileData.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            binding.inDrawerHeader.apply {
+//                                navHeaderTvUserName.text = state.data?.firstName + " " + state.data?.lastName
+                                navHeaderTvUserName.text = getString(R.string.S_user_name, state.data?.firstName , state.data?.lastName)
+                                navHeaderTvUserCity.text = state.data?.cityName
+                                Glide.with(this@MainActivity)
+                                    .load(state.data?.profileImageUrl)
+                                    .into(navHeaderIvProfile)
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(this@MainActivity)
+                            Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
 }

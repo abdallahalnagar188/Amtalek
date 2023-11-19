@@ -19,18 +19,18 @@
             android:id="@+id/FLogin_iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_22sdp"
             android:layout_marginStart="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_back_reversed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@null" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/FLogin_iv_logo"
             android:layout_width="@dimen/_125sdp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:src="@drawable/splash_screen_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FLogin_iv_back"
@@ -41,11 +41,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/text_margin"
-            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/montserratbold"
             android:text="@string/log_in_to_your_account"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FLogin_iv_logo" />
@@ -54,10 +54,11 @@
             android:id="@+id/FLogin_til_mail"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="@dimen/edit_text_height"
-            android:layout_marginTop="@dimen/edit_text_margin_top"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
+            app:helperText=" "
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,26 +67,28 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/FLogin_et_mail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_mail"
                 android:drawablePadding="@dimen/_8sdp"
                 android:fontFamily="@font/montserratregular"
                 android:hint="@string/e_mail"
                 android:inputType="textEmailAddress"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/FLogin_itl_password"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
-            android:layout_height="@dimen/edit_text_height"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
+            app:helperText=" "
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -94,9 +97,9 @@
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/login_et_password"
+                android:id="@+id/FLogin_et_password"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/edit_text_height"
                 android:background="@drawable/edittext_background"
                 android:drawableStart="@drawable/ic_password"
                 android:drawablePadding="@dimen/_8sdp"
@@ -106,7 +109,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                android:textSize="@dimen/_12ssp" />
+                android:textSize="@dimen/_10ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,13 +118,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/text_margin"
-            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_2sdp"
             android:fontFamily="@font/montserratmedium"
             android:gravity="center"
             android:minHeight="38dp"
             android:text="@string/login_did_you_forgot_password"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/_11ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FLogin_itl_password" />
 
@@ -135,7 +138,7 @@
             android:text="@string/sign_in"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FLogin_tv_forgot_password" />
@@ -156,7 +159,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:text="@string/don_t_have_an_account"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_9ssp" />
 
             <TextView
                 android:id="@+id/FLogin_tv_signUp"
@@ -166,7 +169,7 @@
                 android:fontFamily="@font/montserratbold"
                 android:text="@string/sign_up"
                 android:textColor="@color/amtalek_blue"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_9ssp" />
 
         </LinearLayout>
 

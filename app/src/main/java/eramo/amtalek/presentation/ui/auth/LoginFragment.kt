@@ -1,11 +1,18 @@
 package eramo.amtalek.presentation.ui.auth
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,6 +22,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentLoginBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
+import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.onBackPressed
@@ -23,12 +31,13 @@ import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint
-class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListener {
+class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentLoginBinding::inflate
 
+    private val viewModelShared: SharedViewModel by activityViewModels()
     private val viewModel by viewModels<LoginViewModel>()
     private val args by navArgs<LoginFragmentArgs>()
     private val proceedRequire get() = args.proceedRequire
@@ -38,101 +47,165 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>(), View.OnClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiCancellation { viewModel.cancelRequest() }
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        setupViews()
+        listeners()
+
+        fetchData()
+    }
+
+    private fun setupViews() {
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
+    }
+
+    private fun listeners() {
+        setupBtnLoginAvailability()
+
         binding.apply {
-            FLoginTvSignUp.setOnClickListener(this@LoginFragment)
-            FLoginBtnLogin.setOnClickListener(this@LoginFragment)
-            FLoginIvBack.setOnClickListener(this@LoginFragment)
-            FLoginTvForgotPassword.setOnClickListener(this@LoginFragment)
+
+            FLoginTvSignUp.setOnClickListener {
+                findNavController().navigate(R.id.signUpFragment)
+            }
+
+            FLoginTvForgotPassword.setOnClickListener {
+                findNavController().navigate(R.id.forgetPasswordFragment)
+            }
+
+            FLoginBtnLogin.setOnClickListener {
+                // setupLogin()
+//                findNavController().navigate(
+//                    R.id.nav_main, null,
+//                    NavOptions.Builder()
+//                        .setPopUpTo(R.id.nav_auth, true)
+//                        .setPopUpTo(R.id.nav_main, true)
+//                        .build()
+//                )
+
+                binding.apply {
+                    viewModel.login(
+                        FLoginEtMail.text.toString().trim(),
+                        FLoginEtPassword.text.toString().trim(),
+                        "test",
+                        true
+                    )
+                }
+            }
+
+            FLoginIvBack.setOnClickListener {
+                findNavController().navigate(
+                    R.id.nav_main, null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.nav_auth, true)
+                        .setPopUpTo(R.id.nav_main, true)
+                        .build()
+                )
+            }
         }
-        fetchLoginState()
 
         this@LoginFragment.onBackPressed { pressBackAgainToExist() }
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
+    private fun fetchData() {
+        fetchLoginState()
+    }
 
-            R.id.FLogin_tv_signUp -> findNavController().navigate(R.id.signUpFragment)
+    private fun fetchLoginState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loginState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
 
-            R.id.FLogin_tv_forgot_password -> findNavController().navigate(R.id.forgetPasswordFragment)
+//                            viewModelShared.profileData.value = state.data!!
+                            viewModelShared.profileData.value = UiState.Success(state.data!!)
+//                            if (proceedRequire) switchLocalCartToRemote()
+//                            else
+                            findNavController().navigate(
+                                R.id.nav_main, null,
+                                NavOptions.Builder()
+                                    .setPopUpTo(R.id.nav_auth, true)
+                                    .setPopUpTo(R.id.nav_main, true)
+                                    .build()
+                            )
+                        }
 
-            R.id.FLogin_btn_login -> {
-//                setupLogin()
-                findNavController().navigate(
-                    R.id.nav_main, null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.nav_auth, true)
-                        .setPopUpTo(R.id.nav_main, true)
-                        .build()
-                )
-            }
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
 
-            R.id.FLogin_iv_back -> {
-//                setupLogin()
-                findNavController().navigate(
-                    R.id.nav_main, null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.nav_auth, true)
-                        .setPopUpTo(R.id.nav_main, true)
-                        .build()
-                )
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> Unit
+                    }
+                }
             }
         }
     }
 
-    private fun setupLogin() {
-//        binding.apply {
-//            val phone = loginEtPhone.text.toString().trim()
-//            val password = loginEtPassword.text.toString().trim()
-//
-//            if (TextUtils.isEmpty(phone)) {
-//                itlPhone.error = getString(R.string.txt_phone_is_required)
-//                return
-//            } else if (!PhoneNumberUtils.isGlobalPhoneNumber(phone)) {
-//                itlPhone.error = getString(R.string.txt_please_enter_a_valid_phone_number)
-//                return
-//            } else itlPhone.error = null
-//
-//            if (TextUtils.isEmpty(password)) {
-//                itlPassword.error = getString(R.string.txt_password_is_required)
-//                return
-//            } else itlPassword.error = null
-//
-//            viewModel.loginApp(phone, password, true)
-//        }
-    }
+    private fun setupBtnLoginAvailability() {
+        binding.apply {
 
-    private fun fetchLoginState() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.loginState.collect { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        LoadingDialog.dismissDialog()
-                        if (proceedRequire) switchLocalCartToRemote()
-                        else findNavController().navigate(
-                            R.id.nav_main, null,
-                            NavOptions.Builder()
-                                .setPopUpTo(R.id.nav_auth, true)
-                                .setPopUpTo(R.id.nav_main, true)
-                                .build()
-                        )
-                    }
+            // default
+            FLoginBtnLogin.background =
+                ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+            FLoginBtnLogin.isEnabled = false
 
-                    is UiState.Error -> {
-                        LoadingDialog.dismissDialog()
-                        showToast(state.message!!.asString(requireContext()))
-                    }
-
-                    is UiState.Loading -> {
-                        LoadingDialog.showDialog()
-                    }
-
-                    else -> Unit
+            // listener editText email
+            FLoginEtMail.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
                 }
-            }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (FLoginEtMail.text.toString().trim().isNotEmpty() &&
+                        Patterns.EMAIL_ADDRESS.matcher(FLoginEtMail.text.toString().trim()).matches() &&
+                        FLoginEtPassword.text.toString().trim().length >= 8
+                    ) {
+                        FLoginBtnLogin.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
+                        FLoginBtnLogin.isEnabled = true
+
+                    } else {
+                        FLoginBtnLogin.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+                        FLoginBtnLogin.isEnabled = false
+                    }
+                }
+            })
+
+            // listener editText Password
+            FLoginEtPassword.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if (FLoginEtMail.text.toString().trim().isNotEmpty() &&
+                        Patterns.EMAIL_ADDRESS.matcher(FLoginEtMail.text.toString().trim()).matches() &&
+                        FLoginEtPassword.text.toString().trim().length >= 8
+                    ) {
+                        FLoginBtnLogin.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
+                        FLoginBtnLogin.isEnabled = true
+
+                    } else {
+                        FLoginBtnLogin.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
+                        FLoginBtnLogin.isEnabled = false
+                    }
+                }
+            })
         }
     }
 

@@ -4,8 +4,8 @@ import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
-import eramo.amtalek.domain.model.auth.LoginModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.API_OPERATION_TYPE_VERIFY_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
@@ -110,19 +110,20 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         }
     }
 
-    override suspend fun loginApp(
-        user_phone: String,
-        user_pass: String
-    ): Flow<Resource<LoginModel>> {
+    override suspend fun login(
+        email: String,
+        password: String,
+        firebaseToken: String
+    ): Flow<Resource<UserModel>> {
         return flow {
-            val result = toResultFlow { AmtalekApi.loginApp(user_phone, user_pass) }
+            val result = toResultFlow { AmtalekApi.login(email, password, firebaseToken) }
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> emit(Resource.Error(it.message!!))
                     is ApiState.Success -> {
-                        if (it.data?.success == 1) emit(Resource.Success(it.data.toLoginModel()))
-                        else emit(Resource.Error(UiText.DynamicString(it.data?.message ?: "Error")))
+                        val model = it.data?.data?.toUserModel()
+                        emit(Resource.Success(model))
                     }
                 }
             }

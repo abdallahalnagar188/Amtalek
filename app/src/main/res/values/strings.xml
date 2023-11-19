@@ -627,4 +627,6 @@
 
     <string name="please_enter_a_valid_code">Please enter a valid code</string>
 
+    <string name="S_user_name" translatable="false">%s %s</string>
+
 </resources>
