@@ -340,8 +340,8 @@ class MainActivity : AppCompatActivity(),
                     when (state) {
                         is UiState.Success -> {
                             binding.inDrawerHeader.apply {
-//                                navHeaderTvUserName.text = state.data?.firstName + " " + state.data?.lastName
-                                navHeaderTvUserName.text = getString(R.string.S_user_name, state.data?.firstName , state.data?.lastName)
+                                navHeaderTvUserName.text =
+                                    getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
                                 navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
                                     .load(state.data?.profileImageUrl)
@@ -352,9 +352,6 @@ class MainActivity : AppCompatActivity(),
                         is UiState.Error -> {
                             val errorMessage = state.message!!.asString(this@MainActivity)
                             Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
-                        }
-
-                        is UiState.Loading -> {
                         }
 
                         else -> Unit

@@ -10,10 +10,14 @@ import javax.inject.Singleton
 
 @Singleton
 class ForgotPassUseCase @Inject constructor(private val repository: AuthRepository) {
-    suspend operator fun invoke(
-        user_email: String
-    ): Flow<Resource<ResultModel>> {
-        return if (user_email.isBlank()) flow { }
-        else repository.forgetPass(user_email)
+//    suspend operator fun invoke(
+//        user_email: String
+//    ): Flow<Resource<ResultModel>> {
+//        return if (user_email.isBlank()) flow { }
+//        else repository.forgetPass(user_email)
+//    }
+
+    suspend fun sendForgetPasswordCodeEmail(email: String): Flow<Resource<ResultModel>> {
+        return repository.sendForgetPasswordCodeEmail(email)
     }
 }

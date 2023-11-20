@@ -65,20 +65,6 @@ interface AmtalekApi {
         @Field("operation_type") operationType: String
     ): Response<SuccessfulResponse>
 
-//    @FormUrlEncoded
-//    @POST("register")
-//    suspend fun register(
-//        @Field("user_name") user_name: String,
-//        @Field("user_email") user_email: String,
-//        @Field("user_phone") user_phone: String?,
-//        @Field("user_pass") user_pass: String?,
-//        @Field("address") address: String?,
-//        @Field("country_id") countryId: String?,
-//        @Field("city_id") cityId: String?,
-//        @Field("region_id") regionId: String?,
-//        @Field("gender") gender: String?
-//    ): Response<ResultDto>
-
     @FormUrlEncoded
     @POST("mobile/login")
     suspend fun login(
@@ -86,13 +72,6 @@ interface AmtalekApi {
         @Field("password") password: String,
         @Field("firebase_token") firebaseToken: String
     ): Response<LoginResponse>
-
-//    @FormUrlEncoded
-//    @POST("login_app")
-//    suspend fun loginApp(
-//        @Field("user_phone") user_phone: String?,
-//        @Field("user_pass") user_pass: String?
-//    ): Response<LoginDto>
 
     @FormUrlEncoded
     @POST("ForgetPass")

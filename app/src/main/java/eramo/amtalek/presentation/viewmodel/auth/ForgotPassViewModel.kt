@@ -19,31 +19,32 @@ class ForgotPassViewModel @Inject constructor(
     private val forgotPassUseCase: ForgotPassUseCase
 ) : ViewModel() {
 
-    private val _forgotPassState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
-    val forgotPassState: StateFlow<UiState<ResultModel>> = _forgotPassState
+    private val _sendForgotPasswordMailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val sendForgotPasswordMailState: StateFlow<UiState<ResultModel>> = _sendForgotPasswordMailState
 
-    private var forgotPassJob: Job? = null
+    private var sendForgotPassMailJob: Job? = null
 
-    fun cancelRequest() = forgotPassJob?.cancel()
+    fun cancelRequest() {
+        sendForgotPassMailJob?.cancel()
+    }
 
-    fun forgotPassApp(email: String) {
-        forgotPassJob?.cancel()
-        forgotPassJob = viewModelScope.launch {
+    fun sendForgotPasswordMail(email: String) {
+        sendForgotPassMailJob?.cancel()
+        sendForgotPassMailJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                forgotPassUseCase(email).collect { result ->
+                forgotPassUseCase.sendForgetPasswordCodeEmail(email).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _forgotPassState.value =
-                                    UiState.Success(data = result.data)
-                            } ?: run { _forgotPassState.value = UiState.Empty() }
+                            _sendForgotPasswordMailState.value = UiState.Success(result.data)
                         }
+
                         is Resource.Error -> {
-                            _forgotPassState.value =
+                            _sendForgotPasswordMailState.value =
                                 UiState.Error(result.message!!)
                         }
+
                         is Resource.Loading -> {
-                            _forgotPassState.value = UiState.Loading()
+                            _sendForgotPasswordMailState.value = UiState.Loading()
                         }
                     }
                 }

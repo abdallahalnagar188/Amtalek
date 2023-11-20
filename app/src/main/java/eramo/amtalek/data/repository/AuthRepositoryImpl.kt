@@ -7,6 +7,7 @@ import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.util.API_OPERATION_TYPE_FORGET_PASSWORD
 import eramo.amtalek.util.API_OPERATION_TYPE_VERIFY_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
@@ -74,6 +75,24 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         return flow {
             val result = toResultFlow {
                 AmtalekApi.sendVerificationCodeEmail(email, API_OPERATION_TYPE_VERIFY_CODE)
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun sendForgetPasswordCodeEmail(email: String): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.sendVerificationCodeEmail(email, API_OPERATION_TYPE_FORGET_PASSWORD)
             }
             result.collect {
                 when (it) {
