@@ -49,6 +49,8 @@ interface AuthRepository {
         firebaseToken: String
     ): Flow<Resource<UserModel>>
 
+    suspend fun logout(): Flow<Resource<ResultModel>>
+
     suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>>
 
     suspend fun updatePass(

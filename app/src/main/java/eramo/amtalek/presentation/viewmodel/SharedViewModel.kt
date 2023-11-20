@@ -2,54 +2,64 @@ package eramo.amtalek.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
-import eramo.amtalek.domain.model.request.OrderExtraList
-import eramo.amtalek.domain.model.request.OrderItemList
-import eramo.amtalek.domain.model.request.OrderRequest
+import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SharedViewModel @Inject constructor() : ViewModel() {
+class SharedViewModel @Inject constructor(
+    private val authRepository: AuthRepository
+) : ViewModel() {
 
     val openDrawer = MutableLiveData<Boolean>()
-
-    //    val profileData = MutableLiveData<Member>()
-    val cartCount = MutableLiveData<Int>()
-
     val profileData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
-
     val dateString = MutableLiveData<String?>(null)
 
     //____________________________________________________________________________________________//
-    // order
 
-    var orderItemList = ArrayList<OrderItemList>()
-    var orderExtraList = ArrayList<OrderExtraList>()
-    var paymentType = ""
-    var orderPromoCode = 0
+    private val _logoutState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val logoutState: StateFlow<UiState<ResultModel>> = _logoutState
 
-    fun getOrderRequestInstance(): OrderRequest {
-        return OrderRequest(
-            userId = UserUtil.getUserId(),
-            userName = UserUtil.getUserFirstName(),
-            userPhone = UserUtil.getUserPhone(),
-            payType = paymentType,
-            token = UserUtil.getUserToken(),
-            promoCode = orderPromoCode,
-            orderItemList = orderItemList,
-            orderExtraList = orderExtraList,
-        )
+    private var logoutJob: Job? = null
+
+    fun cancelRequest() {
+        logoutJob?.cancel()
     }
 
-    fun resetOrder() {
-        orderExtraList.clear()
-        orderItemList.clear()
-        paymentType = ""
-        orderPromoCode = 0
+    fun logout() {
+        logoutJob?.cancel()
+        logoutJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                authRepository.logout().collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            UserUtil.clearUserInfo()
+                            _logoutState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            UserUtil.clearUserInfo()
+                            _logoutState.value = UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _logoutState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

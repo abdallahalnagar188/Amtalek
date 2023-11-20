@@ -172,6 +172,22 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         }
     }
 
+    override suspend fun logout(): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow { AmtalekApi.logout(UserUtil.getUserToken()) }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
     override suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow { AmtalekApi.forgetPass(user_email) }

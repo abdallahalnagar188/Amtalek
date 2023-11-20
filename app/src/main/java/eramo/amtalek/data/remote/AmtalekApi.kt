@@ -83,6 +83,11 @@ interface AmtalekApi {
         @Field("firebase_token") firebaseToken: String
     ): Response<LoginResponse>
 
+    @POST("mobile/logout")
+    suspend fun logout(
+        @Header("Authorization") userToken: String,
+    ): Response<SuccessfulResponse>
+
     @FormUrlEncoded
     @POST("ForgetPass")
     suspend fun forgetPass(@Field("user_email") user_email: String): Response<ResultDto>

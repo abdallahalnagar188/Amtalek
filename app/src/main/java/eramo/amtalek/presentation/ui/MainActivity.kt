@@ -35,6 +35,7 @@ import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
 import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
+import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity(),
         }
 
         setUserInfo()
+        fetchLogoutState()
 
         setupDrawer()
         setupNavBottomVisibility()
@@ -184,9 +186,6 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
-
-
-
             navHeaderJoinUs.setOnClickListener {
                 navController.navigate(R.id.joinUsFragment)
 
@@ -194,13 +193,16 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderSignOut.setOnClickListener {
-
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
 
-                navController.navigate(
-                    NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
-                    NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
-                )
+                if (UserUtil.isUserLogin()) {
+                    viewModelShared.logout()
+                }else{
+                    navController.navigate(
+                        NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+                        NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build())
+
+                }
             }
 
 //            navHeaderTvProjects.setOnClickListener {
@@ -333,27 +335,42 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    private fun setUserInfo(){
+    private fun setUserInfo() {
         fetchProfileDataState()
 
-        if (UserUtil.isUserLogin()){
+        if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
                 navHeaderTvUserName.text =
                     getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
                 navHeaderTvUserCity.text = UserUtil.getCityName()
+
+                navHeaderTvSignOut.text = getString(R.string.sign_out)
+
                 Glide.with(this@MainActivity)
                     .load(
-                        if (UserUtil.getUserProfileImageUrl() != ""){
+                        if (UserUtil.getUserProfileImageUrl() != "") {
                             UserUtil.getUserProfileImageUrl()
-                        }else{
+                        } else {
                             R.drawable.ic_avatar
                         }
 
                     )
                     .into(navHeaderIvProfile)
             }
+        } else {
+            binding.inDrawerHeader.apply {
+                navHeaderTvUserName.text = getString(R.string.guest_mode)
+                navHeaderTvUserCity.text = ""
+
+                navHeaderTvSignOut.text = getString(R.string.sign_in)
+
+                Glide.with(this@MainActivity)
+                    .load(R.drawable.ic_avatar)
+                    .into(navHeaderIvProfile)
+            }
         }
     }
+
     private fun fetchProfileDataState() {
         lifecycleScope.launchWhenStarted {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -381,4 +398,41 @@ class MainActivity : AppCompatActivity(),
             }
         }
     }
+
+    private fun fetchLogoutState() {
+        lifecycleScope.launchWhenStarted {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModelShared.logoutState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+                            navController.navigate(
+                                NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+                                NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+                            )
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(this@MainActivity)
+                            Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+
+                            navController.navigate(
+                                NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+                                NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+                            )
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
 }
