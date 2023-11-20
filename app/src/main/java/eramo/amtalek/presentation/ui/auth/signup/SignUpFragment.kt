@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
@@ -96,36 +97,66 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     // -------------------------------------- setupViews -------------------------------------- //
     private fun setupCountriesSpinner(data: List<CountryModel>) {
-        val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
-        binding.FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter
+        binding.apply {
+            val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
+            FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter
 
-        binding.FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val model = parent?.getItemAtPosition(position) as CountryModel
-                selectedCountryId = model.id
+            FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CountryModel
+                    selectedCountryId = model.id
 
-                viewModel.getCities(model.id.toString())
+                    viewModel.getCities(model.id.toString())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
+            // refresh onClick if getting list fail
+            FSignUpCountriesSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
             }
         }
     }
 
     private fun setupCitiesSpinner(data: List<CityModel>) {
-        val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
-        binding.FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
+        binding.apply {
+            val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
+            FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
 
-        binding.FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val model = parent?.getItemAtPosition(position) as CityModel
+            FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CityModel
 
-                selectedCityId = model.id
+                    selectedCityId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
+            // refresh onClick if getting list fail
+            FSignUpCitiesSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
             }
         }
     }
@@ -219,6 +250,13 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
+
+                            /**
+                            initialize spinners onConnection fail
+                            with empty lists to enable refresh onClick
+                             **/
+                            setupCountriesSpinner(emptyList())
+                            setupCitiesSpinner(emptyList())
                         }
 
                         else -> {}

@@ -244,6 +244,8 @@
             android:paddingHorizontal="@dimen/_6sdp"
             android:spinnerMode="dropdown"
             android:textAlignment="viewStart"
+            android:clickable="true"
+            android:allowClickWhenDisabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_til_re_password" />
