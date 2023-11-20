@@ -89,6 +89,29 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         }
     }
 
+    override suspend fun changePasswordForgetPassword(
+        email: String,
+        code: String,
+        newPassword: String,
+        rePassword: String
+    ): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.changePasswordForgetPassword(email, code, newPassword, rePassword)
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
     override suspend fun sendForgetPasswordCodeEmail(email: String): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
@@ -114,7 +137,7 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                AmtalekApi.checkOtpCode(email, otpCode, API_OPERATION_TYPE_VERIFY_CODE)
+                AmtalekApi.checkOtpCode(email, otpCode, operationType)
             }
             result.collect {
                 when (it) {

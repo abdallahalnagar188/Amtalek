@@ -30,6 +30,13 @@ interface AuthRepository {
         email: String
     ): Flow<Resource<ResultModel>>
 
+    suspend fun changePasswordForgetPassword(
+        email: String,
+        code: String,
+        newPassword: String,
+        rePassword: String
+    ): Flow<Resource<ResultModel>>
+
     suspend fun checkOtpCode(
         email: String,
         otpCode: String,

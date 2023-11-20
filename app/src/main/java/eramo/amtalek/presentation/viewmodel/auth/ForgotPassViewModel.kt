@@ -24,6 +24,8 @@ class ForgotPassViewModel @Inject constructor(
 
     private var sendForgotPassMailJob: Job? = null
 
+    var registeredEmail: String? = null
+
     fun cancelRequest() {
         sendForgotPassMailJob?.cancel()
     }
@@ -32,6 +34,9 @@ class ForgotPassViewModel @Inject constructor(
         sendForgotPassMailJob?.cancel()
         sendForgotPassMailJob = viewModelScope.launch {
             withContext(coroutineContext) {
+
+                registeredEmail = email
+
                 forgotPassUseCase.sendForgetPasswordCodeEmail(email).collect { result ->
                     when (result) {
                         is Resource.Success -> {

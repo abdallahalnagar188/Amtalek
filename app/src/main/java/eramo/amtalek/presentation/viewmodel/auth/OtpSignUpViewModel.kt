@@ -34,10 +34,15 @@ class OtpSignUpViewModel @Inject constructor(
     private val _checkOtpCodeState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val checkOtpCodeState: StateFlow<UiState<ResultModel>> = _checkOtpCodeState
 
+    private val _resendForgotPasswordMailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val resendForgotPasswordMailState: StateFlow<UiState<ResultModel>> = _resendForgotPasswordMailState
+
     private var checkOtpCodeJob: Job? = null
+    private var resendForgotPassMailJob: Job? = null
 
     fun cancelRequest() {
         checkOtpCodeJob?.cancel()
+        resendForgotPassMailJob?.cancel()
     }
 
     fun startTimer() {
@@ -53,8 +58,6 @@ class OtpSignUpViewModel @Inject constructor(
             }
         }
         timer.start()
-
-
     }
 
     private fun formatMilliseconds(milliseconds: Long): String {
@@ -85,6 +88,30 @@ class OtpSignUpViewModel @Inject constructor(
 
                         is Resource.Loading -> {
                             _checkOtpCodeState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun resendForgotPasswordMail(email: String) {
+        resendForgotPassMailJob?.cancel()
+        resendForgotPassMailJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                authRepository.sendForgetPasswordCodeEmail(email).collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _resendForgotPasswordMailState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _resendForgotPasswordMailState.value =
+                                UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _resendForgotPasswordMailState.value = UiState.Loading()
                         }
                     }
                 }

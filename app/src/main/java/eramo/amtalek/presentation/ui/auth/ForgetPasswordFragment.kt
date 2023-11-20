@@ -79,11 +79,14 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
 
                             if (state.data?.status == API_SUCCESS_CODE) {
 
-                                findNavController().navigate(
-                                    R.id.otpForgetPasswordFragment,
-                                    null,
-                                    navOptionsAnimation()
-                                )
+                                viewModel.registeredEmail?.let { registeredEmail ->
+
+                                    findNavController().navigate(
+                                        R.id.otpForgetPasswordFragment,
+                                        OtpForgetPasswordFragmentArgs(registeredEmail).toBundle(),
+                                        navOptionsAnimation()
+                                    )
+                                }
 
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
