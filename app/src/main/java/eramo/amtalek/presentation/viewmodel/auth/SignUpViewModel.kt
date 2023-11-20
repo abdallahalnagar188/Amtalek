@@ -23,7 +23,6 @@ class SignUpViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-
     private val _countriesState = MutableStateFlow<UiState<List<CountryModel>>>(UiState.Empty())
     val countriesState: StateFlow<UiState<List<CountryModel>>> = _countriesState
 
@@ -67,7 +66,7 @@ class SignUpViewModel @Inject constructor(
 
                 registeredEmail = email
 
-                registerUseCase(
+                registerUseCase.register(
                     firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
                 ).collect {
                     when (it) {
@@ -93,7 +92,7 @@ class SignUpViewModel @Inject constructor(
         sendVerificationCodeEmailJob = viewModelScope.launch {
             withContext(coroutineContext) {
                 registeredEmail?.let { email ->
-                    authRepository.sendVerificationCodeEmail(email).collect {
+                    registerUseCase.sendVerificationCodeEmail(email).collect {
                         when (it) {
                             is Resource.Success -> {
                                 _sendVerificationCodeEmailState.value = UiState.Success(it.data)

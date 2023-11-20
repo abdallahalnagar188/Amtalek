@@ -30,12 +30,12 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.SignUpFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.signup.SignUpFragment"
         android:label="@string/sign_up"
         tools:layout="@layout/fragment_signup"/>
     <fragment
         android:id="@+id/forgetPasswordFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.ForgetPasswordFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.forgetpassword.ForgetPasswordFragment"
         android:label="@string/login_did_you_forgot_password"
         tools:layout="@layout/fragment_forget_password" />
     <fragment
@@ -49,12 +49,12 @@
     </fragment>
     <fragment
         android:id="@+id/informationFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.InformationFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.signup.InformationFragment"
         android:label="InformationFragment"
         tools:layout="@layout/fragment_information"/>
     <fragment
         android:id="@+id/otpSignUpFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.OtpSignUpFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.signup.OtpSignUpFragment"
         android:label="fragment_otp"
         tools:layout="@layout/fragment_otp" >
 
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/otpForgetPasswordFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.OtpForgetPasswordFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.forgetpassword.OtpForgetPasswordFragment"
         android:label="fragment_otp_forget_password"
         tools:layout="@layout/fragment_otp_forget_password" >
         <argument
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePassowrdForgetPasswordFragment"
-        android:name="eramo.amtalek.presentation.ui.auth.ChangePasswordForgetPasswordFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.forgetpassword.ChangePasswordForgetPasswordFragment"
         android:label="fragment_change_passowrd_forget_password"
         tools:layout="@layout/fragment_change_password_forget_password" >
         <argument

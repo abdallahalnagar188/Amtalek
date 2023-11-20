@@ -74,7 +74,25 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
     override suspend fun sendVerificationCodeEmail(email: String): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
-                AmtalekApi.sendVerificationCodeEmail(email, API_OPERATION_TYPE_VERIFY_CODE)
+                AmtalekApi.sendOtpCodeEmail(email, API_OPERATION_TYPE_VERIFY_CODE)
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun sendForgetPasswordCodeEmail(email: String): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.sendOtpCodeEmail(email, API_OPERATION_TYPE_FORGET_PASSWORD)
             }
             result.collect {
                 when (it) {
@@ -98,24 +116,6 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         return flow {
             val result = toResultFlow {
                 AmtalekApi.changePasswordForgetPassword(email, code, newPassword, rePassword)
-            }
-            result.collect {
-                when (it) {
-                    is ApiState.Loading -> emit(Resource.Loading())
-                    is ApiState.Error -> emit(Resource.Error(it.message!!))
-                    is ApiState.Success -> {
-                        val model = it.data?.toResultModel()
-                        emit(Resource.Success(model))
-                    }
-                }
-            }
-        }
-    }
-
-    override suspend fun sendForgetPasswordCodeEmail(email: String): Flow<Resource<ResultModel>> {
-        return flow {
-            val result = toResultFlow {
-                AmtalekApi.sendVerificationCodeEmail(email, API_OPERATION_TYPE_FORGET_PASSWORD)
             }
             result.collect {
                 when (it) {

@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.auth
+package eramo.amtalek.presentation.ui.auth.signup
 
 import android.os.Bundle
 import android.text.Editable

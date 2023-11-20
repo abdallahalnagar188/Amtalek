@@ -52,11 +52,10 @@ interface AmtalekApi {
 
     @FormUrlEncoded
     @POST("mobile/send-email")
-    suspend fun sendVerificationCodeEmail(
+    suspend fun sendOtpCodeEmail(
         @Field("email") email: String,
         @Field("operation_type") operationType: String,
     ): Response<SuccessfulResponse>
-
 
     @FormUrlEncoded
     @POST("mobile/check-code")

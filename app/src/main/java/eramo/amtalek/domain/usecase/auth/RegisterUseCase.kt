@@ -10,7 +10,8 @@ import javax.inject.Singleton
 
 @Singleton
 class RegisterUseCase @Inject constructor(private val repository: AuthRepository) {
-    suspend operator fun invoke(
+
+    suspend fun register(
         firstName: String,
         lastName: String,
         phone: String,
@@ -29,5 +30,12 @@ class RegisterUseCase @Inject constructor(private val repository: AuthRepository
             firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
 
             )
+    }
+
+    suspend fun sendVerificationCodeEmail(
+        email: String
+    ): Flow<Resource<ResultModel>> {
+        return repository.sendVerificationCodeEmail(email)
+
     }
 }

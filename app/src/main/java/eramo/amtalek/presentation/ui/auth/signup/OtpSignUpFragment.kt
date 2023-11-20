@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.auth
+package eramo.amtalek.presentation.ui.auth.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,7 +21,6 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.OtpSignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.StatusBarUtil
-import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
@@ -64,7 +63,9 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
                 FOtpTvHaveNotReceivedMessage.visibility = View.VISIBLE
                 FOtpTvTimer.visibility = View.VISIBLE
 
+                viewModel.resendVerificationCodeEmail(registeredEmail)
             }
+
             FOtpBtnConfirm.setOnClickListener {
                 viewModel.checkOtpCode(registeredEmail, enteredOtpCode())
             }
@@ -77,6 +78,7 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
         fetchEnableResendEvent()
 
         fetchCheckingOtpCodeState()
+        fetchResendingVerificationCodeEmailState()
     }
 
     // -------------------------------------- setupViews -------------------------------------- //
@@ -182,6 +184,40 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
                             if (state.data?.status == API_SUCCESS_CODE) {
                                 showToast(state.data.message)
                                 findNavController().popBackStack(R.id.loginFragment, false)
+                            } else {
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchResendingVerificationCodeEmailState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.resendVerificationCodeEmailState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            if (state.data?.status == API_SUCCESS_CODE) {
+                                showToast(state.data.message)
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }

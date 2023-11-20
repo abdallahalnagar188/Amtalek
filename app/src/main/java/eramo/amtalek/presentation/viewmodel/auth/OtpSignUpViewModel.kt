@@ -34,15 +34,15 @@ class OtpSignUpViewModel @Inject constructor(
     private val _checkOtpCodeState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val checkOtpCodeState: StateFlow<UiState<ResultModel>> = _checkOtpCodeState
 
-    private val _resendForgotPasswordMailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
-    val resendForgotPasswordMailState: StateFlow<UiState<ResultModel>> = _resendForgotPasswordMailState
+    private val _resendVerificationCodeEmailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val resendVerificationCodeEmailState: StateFlow<UiState<ResultModel>> = _resendVerificationCodeEmailState
 
     private var checkOtpCodeJob: Job? = null
-    private var resendForgotPassMailJob: Job? = null
+    private var resendVerificationCodeEmailJob: Job? = null
 
     fun cancelRequest() {
         checkOtpCodeJob?.cancel()
-        resendForgotPassMailJob?.cancel()
+        resendVerificationCodeEmailJob?.cancel()
     }
 
     fun startTimer() {
@@ -95,23 +95,22 @@ class OtpSignUpViewModel @Inject constructor(
         }
     }
 
-    fun resendForgotPasswordMail(email: String) {
-        resendForgotPassMailJob?.cancel()
-        resendForgotPassMailJob = viewModelScope.launch {
+    fun resendVerificationCodeEmail(email: String) {
+        resendVerificationCodeEmailJob?.cancel()
+        resendVerificationCodeEmailJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.sendForgetPasswordCodeEmail(email).collect { result ->
-                    when (result) {
+                authRepository.sendVerificationCodeEmail(email).collect {
+                    when (it) {
                         is Resource.Success -> {
-                            _resendForgotPasswordMailState.value = UiState.Success(result.data)
+                            _resendVerificationCodeEmailState.value = UiState.Success(it.data)
                         }
 
                         is Resource.Error -> {
-                            _resendForgotPasswordMailState.value =
-                                UiState.Error(result.message!!)
+                            _resendVerificationCodeEmailState.value = UiState.Error(it.message!!)
                         }
 
                         is Resource.Loading -> {
-                            _resendForgotPasswordMailState.value = UiState.Loading()
+                            _resendVerificationCodeEmailState.value = UiState.Loading()
                         }
                     }
                 }

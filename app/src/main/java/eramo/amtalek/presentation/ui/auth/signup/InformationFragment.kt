@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.auth
+package eramo.amtalek.presentation.ui.auth.signup
 
 import android.content.Context
 import android.content.Intent

@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
     android:paddingHorizontal="@dimen/screen_margin_sides"
-    tools:context=".presentation.ui.auth.OtpSignUpFragment">
+    tools:context=".presentation.ui.auth.signup.OtpSignUpFragment">
 
     <ImageView
         android:id="@+id/FOtp_iv_back"

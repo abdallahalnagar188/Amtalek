@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.auth
+package eramo.amtalek.presentation.ui.auth.forgetpassword
 
 import android.os.Bundle
 import android.text.Editable
@@ -78,7 +78,6 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
                             LoadingDialog.dismissDialog()
 
                             if (state.data?.status == API_SUCCESS_CODE) {
-
                                 viewModel.registeredEmail?.let { registeredEmail ->
 
                                     findNavController().navigate(

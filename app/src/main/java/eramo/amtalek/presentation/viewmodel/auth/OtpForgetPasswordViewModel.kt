@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.domain.usecase.auth.ForgotPassUseCase
-import eramo.amtalek.util.API_OPERATION_TYPE_FORGET_PASSWORD
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -23,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OtpForgetPasswordViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
     private val forgotPassUseCase: ForgotPassUseCase
 ) : ViewModel() {
 
@@ -79,7 +76,7 @@ class OtpForgetPasswordViewModel @Inject constructor(
         checkOtpCodeJob?.cancel()
         checkOtpCodeJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.checkOtpCode(email, otpCode, API_OPERATION_TYPE_FORGET_PASSWORD).collect {
+                forgotPassUseCase.checkOtpCode(email, otpCode).collect {
                     when (it) {
                         is Resource.Success -> {
                             _checkOtpCodeState.value = UiState.Success(it.data)

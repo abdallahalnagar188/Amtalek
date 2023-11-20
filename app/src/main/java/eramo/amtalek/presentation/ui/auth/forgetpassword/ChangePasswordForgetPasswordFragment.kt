@@ -1,10 +1,9 @@
-package eramo.amtalek.presentation.ui.auth
+package eramo.amtalek.presentation.ui.auth.forgetpassword
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager

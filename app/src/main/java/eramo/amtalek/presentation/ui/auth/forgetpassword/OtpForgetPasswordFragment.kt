@@ -1,7 +1,6 @@
-package eramo.amtalek.presentation.ui.auth
+package eramo.amtalek.presentation.ui.auth.forgetpassword
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -81,6 +80,7 @@ class OtpForgetPasswordFragment : BindingFragment<FragmentOtpForgetPasswordBindi
         fetchTimerState()
         fetchEnableResendEvent()
         fetchCheckingOtpCodeState()
+        fetchResendingOtpMailState()
     }
 
     // -------------------------------------- setupViews -------------------------------------- //
@@ -191,6 +191,39 @@ class OtpForgetPasswordFragment : BindingFragment<FragmentOtpForgetPasswordBindi
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchResendingOtpMailState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.resendForgotPasswordMailState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            if (state.data?.status != API_SUCCESS_CODE) {
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+
                         }
 
                         is UiState.Error -> {
