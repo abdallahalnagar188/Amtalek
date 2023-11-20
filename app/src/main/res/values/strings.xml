@@ -629,4 +629,6 @@
 
     <string name="S_user_name" translatable="false">%s %s</string>
 
+    <string name="please_enter_your_email">Please enter your email</string>
+
 </resources>

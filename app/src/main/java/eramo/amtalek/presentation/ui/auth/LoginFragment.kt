@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.ui.auth
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -83,14 +84,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 //                        .build()
 //                )
 
-                binding.apply {
-                    viewModel.login(
-                        FLoginEtMail.text.toString().trim(),
-                        FLoginEtPassword.text.toString().trim(),
-                        "test",
-                        true
-                    )
-                }
+                validateAndLogin()
+
             }
 
             FLoginIvBack.setOnClickListener {
@@ -167,8 +162,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (FLoginEtMail.text.toString().trim().isNotEmpty() &&
-                        Patterns.EMAIL_ADDRESS.matcher(FLoginEtMail.text.toString().trim()).matches() &&
-                        FLoginEtPassword.text.toString().trim().length >= 8
+                        FLoginEtPassword.text.toString().trim().isNotEmpty()
                     ) {
                         FLoginBtnLogin.background =
                             ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
@@ -192,8 +186,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (FLoginEtMail.text.toString().trim().isNotEmpty() &&
-                        Patterns.EMAIL_ADDRESS.matcher(FLoginEtMail.text.toString().trim()).matches() &&
-                        FLoginEtPassword.text.toString().trim().length >= 8
+                        FLoginEtPassword.text.toString().trim().isNotEmpty()
                     ) {
                         FLoginBtnLogin.background =
                             ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
@@ -206,6 +199,31 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                     }
                 }
             })
+        }
+    }
+
+    private fun validateAndLogin() {
+        binding.apply {
+            val email = FLoginEtMail.text.toString().trim()
+
+            if (TextUtils.isEmpty(email)) {
+                FLoginTilMail.error = getString(R.string.please_enter_your_email)
+                FLoginTilMail.requestFocus()
+                return
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                FLoginTilMail.error = getString(R.string.please_enter_a_valid_email)
+                FLoginTilMail.requestFocus()
+                return
+            } else {
+                FLoginTilMail.error = null
+            }
+
+            viewModel.login(
+                email,
+                FLoginEtPassword.text.toString().trim(),
+                "test",
+                true
+            )
         }
     }
 

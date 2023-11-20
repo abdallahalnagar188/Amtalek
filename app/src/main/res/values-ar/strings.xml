@@ -625,4 +625,6 @@
 
     <string name="please_enter_a_valid_code">من فضلك أدخل رمز صحيح</string>
 
+    <string name="please_enter_your_email">من فضلك أدخل بريدك الإليكترونى</string>
+
 </resources>
