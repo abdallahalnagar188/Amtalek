@@ -67,6 +67,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun listeners() {
         setupGenderSwitch()
+
+        // remove error on text changed
+        passwordEditTextsListener()
         setupTermsAndConditionsCheckBox()
 
         binding.apply {
@@ -427,9 +430,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 FSignUpTilEmail.error = null
             }
 
-            // remove error on text changed
-            passwordEditTextsListener()
-
             if (TextUtils.isEmpty(password)) {
                 FSignUpTilPassword.error = getString(R.string.enter_a_password)
                 FSignUpTilPassword.requestFocus()
@@ -499,6 +499,18 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 }
 
             })
+
+            // onTouch method
+//            binding.FSignUpEtPassword.setOnTouchListener { view, event ->
+//                when (event?.action) {
+//                    MotionEvent.ACTION_DOWN -> {
+//                        view.performClick()
+//                        binding.FSignUpTilPassword.error = null
+//                        return@setOnTouchListener false
+//                    }
+//                    else -> return@setOnTouchListener false
+//                }
+//            }
         }
     }
 
