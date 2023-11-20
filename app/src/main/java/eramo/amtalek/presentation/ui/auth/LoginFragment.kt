@@ -65,7 +65,6 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
         setupBtnLoginAvailability()
 
         binding.apply {
-
             FLoginTvSignUp.setOnClickListener {
                 findNavController().navigate(R.id.signUpFragment)
             }
@@ -75,17 +74,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
             }
 
             FLoginBtnLogin.setOnClickListener {
-                // setupLogin()
-//                findNavController().navigate(
-//                    R.id.nav_main, null,
-//                    NavOptions.Builder()
-//                        .setPopUpTo(R.id.nav_auth, true)
-//                        .setPopUpTo(R.id.nav_main, true)
-//                        .build()
-//                )
-
                 validateAndLogin()
-
             }
 
             FLoginIvBack.setOnClickListener {
@@ -114,10 +103,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                         is UiState.Success -> {
                             LoadingDialog.dismissDialog()
 
-//                            viewModelShared.profileData.value = state.data!!
                             viewModelShared.profileData.value = UiState.Success(state.data!!)
-//                            if (proceedRequire) switchLocalCartToRemote()
-//                            else
                             findNavController().navigate(
                                 R.id.nav_main, null,
                                 NavOptions.Builder()

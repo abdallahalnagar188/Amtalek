@@ -57,14 +57,6 @@ interface AmtalekApi {
         @Field("operation_type") operationType: String,
     ): Response<SuccessfulResponse>
 
-    @FormUrlEncoded
-    @POST("mobile/forget-password")
-    suspend fun changePasswordForgetPassword(
-        @Field("email") email: String,
-        @Field("code") code: String,
-        @Field("new_password") newPassword: String,
-        @Field("confirm_new_password") rePassword: String
-    ): Response<SuccessfulResponse>
 
     @FormUrlEncoded
     @POST("mobile/check-code")
@@ -72,6 +64,15 @@ interface AmtalekApi {
         @Field("email") email: String,
         @Field("code") otpCode: String,
         @Field("operation_type") operationType: String
+    ): Response<SuccessfulResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/forget-password")
+    suspend fun changePasswordForgetPassword(
+        @Field("email") email: String,
+        @Field("code") code: String,
+        @Field("new_password") newPassword: String,
+        @Field("confirm_new_password") rePassword: String
     ): Response<SuccessfulResponse>
 
     @FormUrlEncoded

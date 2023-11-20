@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(),
 
         }
 
-        fetchProfileDataState()
+        setUserInfo()
 
         setupDrawer()
         setupNavBottomVisibility()
@@ -333,6 +333,27 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
+    private fun setUserInfo(){
+        fetchProfileDataState()
+
+        if (UserUtil.isUserLogin()){
+            binding.inDrawerHeader.apply {
+                navHeaderTvUserName.text =
+                    getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
+                navHeaderTvUserCity.text = UserUtil.getCityName()
+                Glide.with(this@MainActivity)
+                    .load(
+                        if (UserUtil.getUserProfileImageUrl() != ""){
+                            UserUtil.getUserProfileImageUrl()
+                        }else{
+                            R.drawable.ic_avatar
+                        }
+
+                    )
+                    .into(navHeaderIvProfile)
+            }
+        }
+    }
     private fun fetchProfileDataState() {
         lifecycleScope.launchWhenStarted {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

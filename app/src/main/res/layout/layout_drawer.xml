@@ -184,7 +184,7 @@
                 android:layout_width="@dimen/_55sdp"
                 android:layout_height="@dimen/_55sdp"
                 android:layout_marginStart="@dimen/_8sdp"
-                app:cardCornerRadius="@dimen/_40sdp"
+                app:cardCornerRadius="@dimen/_50sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -196,7 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/_3sdp"
-                    android:src="@color/green" />
+                    android:src="@drawable/ic_avatar" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -282,7 +282,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/favourite"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_favourite"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -318,7 +318,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/notifications"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_notifications"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -370,7 +370,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/chat"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_messaging"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -422,7 +422,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/add_your_property"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_add_your_property"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -458,7 +458,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/buy_packages"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_buy_packages"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -494,84 +494,13 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/new_projects"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_new_projects"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/navHeader_help"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/nav_headder_cell_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/navHeader_new_projects">
-
-                    <ImageView
-                        android:id="@+id/navHeader_iv_help"
-                        android:layout_width="@dimen/_16sdp"
-                        android:layout_height="@dimen/_16sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription"
-                        android:src="@drawable/ic_help" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/montserratsemibold"
-                        android:text="@string/help"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_help"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/navHeader_service"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@drawable/nav_headder_cell_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/navHeader_help">
-
-                    <ImageView
-                        android:id="@+id/navHeader_iv_service"
-                        android:layout_width="@dimen/_16sdp"
-                        android:layout_height="@dimen/_16sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_2sdp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription"
-                        android:src="@drawable/ic_service" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/montserratsemibold"
-                        android:text="@string/service"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_service"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/navHeader_join_us"
@@ -581,7 +510,7 @@
                     android:background="@drawable/nav_headder_cell_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/navHeader_service">
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_new_projects">
 
                     <ImageView
                         android:id="@+id/navHeader_iv_join_us"
@@ -602,7 +531,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/join_us"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_join_us"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -638,7 +567,7 @@
                         android:fontFamily="@font/montserratsemibold"
                         android:text="@string/sign_out"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_sign_out"
                         app:layout_constraintTop_toTopOf="parent" />
