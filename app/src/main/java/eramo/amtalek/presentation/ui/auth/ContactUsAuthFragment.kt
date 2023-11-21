@@ -6,13 +6,22 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentContactUsAuthBinding
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
+import eramo.amtalek.presentation.viewmodel.auth.ContactUsAuthViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.openLinkInBrowser
+import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint
 class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
@@ -20,6 +29,8 @@ class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
     override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentContactUsAuthBinding::inflate
+
+    private val viewModel by viewModels<ContactUsAuthViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,6 +43,8 @@ class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
 
         setupToolbar()
         listeners()
+
+        fetchData()
     }
 
     private fun setupToolbar() {
@@ -45,6 +58,56 @@ class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
         sendBtnAvailability()
         binding.apply {
             btnSend.setOnClickListener { validateAndSendMessage() }
+        }
+    }
+
+    private fun fetchData() {
+        fetchGetContactUsInfoState()
+    }
+
+    private fun fetchGetContactUsInfoState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getContactUsInfoState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+                            binding.apply {
+                                FContactUsTvLocation.text = state.data?.address
+                                FContactUsTvEmail.text = state.data?.mail
+                                FContactUsTvPhone.text = state.data?.phone
+
+                                FContactUsIvTwitter.setOnClickListener {
+                                    this@ContactUsAuthFragment.openLinkInBrowser(state.data?.twitterUrl!!)
+                                }
+                                FContactUsIvWebsite.setOnClickListener {
+                                    this@ContactUsAuthFragment.openLinkInBrowser(state.data?.linkedinUrl!!)
+                                }
+                                FContactUsIvInsta.setOnClickListener {
+                                    this@ContactUsAuthFragment.openLinkInBrowser(state.data?.instagramUrl!!)
+                                }
+                                FContactUsIvFacebook.setOnClickListener {
+                                    this@ContactUsAuthFragment.openLinkInBrowser(state.data?.facebookUrl!!)
+                                }
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
         }
     }
 
@@ -92,7 +155,7 @@ class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
         }
     }
 
-    private fun sendBtnAvailability(){
+    private fun sendBtnAvailability() {
         binding.apply {
 
             // default
@@ -102,12 +165,12 @@ class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
 
 
             // listener
-            checkBox.setOnCheckedChangeListener{ _, isChecked ->
-                if (isChecked){
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
                     btnSend.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
                     btnSend.isEnabled = true
-                }else{
+                } else {
                     btnSend.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
                     btnSend.isEnabled = false

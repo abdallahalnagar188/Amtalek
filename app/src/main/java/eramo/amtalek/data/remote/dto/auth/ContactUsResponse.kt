@@ -2,6 +2,7 @@ package eramo.amtalek.data.remote.dto.auth
 
 
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 
 data class ContactUsResponse(
     @SerializedName("status")
@@ -31,4 +32,17 @@ data class ContactUsResponse(
         @SerializedName("youtube")
         val youtube: String?
     )
+
+    fun toContactUsInfoModel(): ContactUsInfoModel {
+        return ContactUsInfoModel(
+            data?.get(0)?.address ?: "",
+            data?.get(0)?.phone ?: "",
+            data?.get(0)?.mail ?: "",
+            data?.get(0)?.facebook ?: "",
+            data?.get(0)?.twitter ?: "",
+            data?.get(0)?.instagram ?: "",
+            data?.get(0)?.linkedIn ?: "",
+            data?.get(0)?.youtube ?: ""
+        )
+    }
 }

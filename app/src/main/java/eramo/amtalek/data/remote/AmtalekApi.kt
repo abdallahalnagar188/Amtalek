@@ -108,9 +108,6 @@ interface AmtalekApi {
     @GET("mobile/cities/{countryId}")
     suspend fun getCities(@Path("countryId") countryId: String): Response<CitiesResponse>
 
-    //____________________________________________________________________________________________//
-    // Contact
-
     @GET("mobile/contact-us")
     suspend fun contactUsInfo(): Response<ContactUsResponse>
 

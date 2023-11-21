@@ -1,10 +1,13 @@
 package eramo.amtalek.domain.repository
 
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.model.auth.*
+import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.domain.model.auth.ContactUsInfoModel
+import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Field
 
 interface AuthRepository {
 
@@ -62,5 +65,7 @@ interface AuthRepository {
     suspend fun getCountries(): Flow<Resource<List<CountryModel>>>
 
     suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>>
+
+    suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>>
 
 }

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.usecase.drawer.ContactMsgUseCase
 import eramo.amtalek.domain.usecase.drawer.GetAppInfoUseCase
 import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
@@ -21,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ContactUsViewModel @Inject constructor(
     private val getAppInfoUseCase: GetAppInfoUseCase,
-    private val contactMsgUseCase: ContactMsgUseCase
+//    private val contactMsgUseCase: ContactMsgUseCase
 ) : ViewModel() {
 
     private val _getAppInfoState = MutableStateFlow<UiState<AppInfoResponse>>(UiState.Empty())
@@ -63,33 +62,33 @@ class ContactUsViewModel @Inject constructor(
         }
     }
 
-    fun contactMsg(
-        fullName: String,
-        email: String,
-        phone: String,
-        subject: String,
-        message: String
-    ) {
-        getAppInfoJob?.cancel()
-        getAppInfoJob = viewModelScope.launch {
-            withContext(coroutineContext) {
-                contactMsgUseCase(fullName, email, phone, subject, message).collect { result ->
-                    when (result) {
-                        is Resource.Success -> {
-                            result.data?.let {
-                                _contactMsgState.value = UiState.Success(it)
-                            } ?: run { _contactMsgState.value = UiState.Empty() }
-                        }
-                        is Resource.Error -> {
-                            _contactMsgState.value =
-                                UiState.Error(result.message!!)
-                        }
-                        is Resource.Loading -> {
-                            _contactMsgState.value = UiState.Loading()
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    fun contactMsg(
+//        fullName: String,
+//        email: String,
+//        phone: String,
+//        subject: String,
+//        message: String
+//    ) {
+//        getAppInfoJob?.cancel()
+//        getAppInfoJob = viewModelScope.launch {
+//            withContext(coroutineContext) {
+//                contactMsgUseCase(fullName, email, phone, subject, message).collect { result ->
+//                    when (result) {
+//                        is Resource.Success -> {
+//                            result.data?.let {
+//                                _contactMsgState.value = UiState.Success(it)
+//                            } ?: run { _contactMsgState.value = UiState.Empty() }
+//                        }
+//                        is Resource.Error -> {
+//                            _contactMsgState.value =
+//                                UiState.Error(result.message!!)
+//                        }
+//                        is Resource.Loading -> {
+//                            _contactMsgState.value = UiState.Loading()
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

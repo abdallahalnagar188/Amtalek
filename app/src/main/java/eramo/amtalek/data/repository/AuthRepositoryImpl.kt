@@ -3,6 +3,7 @@ package eramo.amtalek.data.repository
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.UserModel
@@ -259,6 +260,22 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
                     is ApiState.Success -> {
                         val list = apiState.data?.data?.map { it!!.toCityModel() }
                         emit(Resource.Success(list))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>> {
+        return flow {
+            val result = toResultFlow { AmtalekApi.contactUsInfo() }
+            result.collect { apiState ->
+                when (apiState) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
+                    is ApiState.Success -> {
+                        val data = apiState.data?.toContactUsInfoModel()
+                        emit(Resource.Success(data))
                     }
                 }
             }
