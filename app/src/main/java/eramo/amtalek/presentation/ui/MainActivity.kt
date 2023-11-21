@@ -200,7 +200,8 @@ class MainActivity : AppCompatActivity(),
                 }else{
                     navController.navigate(
                         NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
-                        NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build())
+                        NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+                    )
 
                 }
             }
@@ -434,5 +435,4 @@ class MainActivity : AppCompatActivity(),
             }
         }
     }
-
 }

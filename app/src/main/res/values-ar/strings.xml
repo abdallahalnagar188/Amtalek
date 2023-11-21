@@ -54,7 +54,7 @@
     <string name="sign_up">إنشئ حساب</string>
     <string name="sign_upl">إنشاء حساب</string>
     <string name="edit_personal_details">تعديل التفاصيل الشخصية</string>
-    <string name="change_password">تغيير كلمة السر</string>
+    <string name="change_password">تغيير كلمة المرور</string>
     <string name="my_orders">طلباتي</string>
     <string name="my_queries">استفساراتي</string>
     <string name="next">التالى</string>
@@ -209,7 +209,7 @@
     <string name="send_whatsapp_invite">إرسال دعوة whatsapp</string>
     <string name="send_invite">ارسل دعوة</string>
     <string name="for_every_friend_who_joins_we_will_give_you_15_points">سنمنحك 15 نقطة مقابل كل صديق ينضم</string>
-    <string name="suspend_my_account">تعليق حسابي</string>
+    <string name="suspend_my_account">حذق الحساب</string>
     <string name="developed_by">مطور بواسطة</string>
     <string name="do_you_have_an_discount_code">هل لديك كود خصم؟</string>
     <string name="leave_us_a_message_we_will_get_in_contact_with_you_as_soon_as_possible">اترك لنا رسالة ، وسوف نتواصل معك في أقرب وقت ممكن</string>
@@ -619,12 +619,15 @@
     <string name="email_is_required">البريد الإلكترونى مطلوب</string>
     <string name="please_enter_a_valid_email">من فضلك أدخل بريد إليكترونى صحيح</string>
     <string name="enter_a_password">أكتب كلمة مرور</string>
+    <string name="enter_current_password">أكتب كلمة مرور الحالية</string>
     <string name="retype_the_password">أعد إدخال كلمة المرور</string>
     <string name="password_must_contains_eight_chars">كلمة المرور يجب ان تتكون من ثمانية خانات على اﻷقل</string>
     <string name="password_does_not_match">كلمة المرور غير متطابقة</string>
+    <string name="password_is_the_same_current">كلمة المرور متطابقة مع كلمة المرور \n الحالية أدخل كلمة مرور جديدة</string>
 
     <string name="please_enter_a_valid_code">من فضلك أدخل رمز صحيح</string>
 
     <string name="please_enter_your_email">من فضلك أدخل بريدك الإليكترونى</string>
+    <string name="change">تغيير</string>
 
 </resources>

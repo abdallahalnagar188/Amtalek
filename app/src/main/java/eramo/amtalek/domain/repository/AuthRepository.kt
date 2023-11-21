@@ -51,11 +51,10 @@ interface AuthRepository {
 
     suspend fun logout(): Flow<Resource<ResultModel>>
 
-    suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>>
-
-    suspend fun updatePass(
-        current_pass: String,
-        user_pass: String
+    suspend fun updatePassword(
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
     ): Flow<Resource<ResultModel>>
 
     suspend fun getCountries(): Flow<Resource<List<CountryModel>>>

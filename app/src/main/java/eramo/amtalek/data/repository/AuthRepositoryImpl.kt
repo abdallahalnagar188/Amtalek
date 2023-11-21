@@ -1,5 +1,6 @@
 package eramo.amtalek.data.repository
 
+import android.util.Log
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
@@ -15,7 +16,6 @@ import eramo.amtalek.util.SIGN_UP_GENDER_CREATED_FROM
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
-import eramo.amtalek.util.state.UiText
 import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -188,34 +188,19 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         }
     }
 
-    override suspend fun forgetPass(user_email: String): Flow<Resource<ResultModel>> {
-        return flow {
-            val result = toResultFlow { AmtalekApi.forgetPass(user_email) }
-            result.collect {
-                when (it) {
-                    is ApiState.Loading -> emit(Resource.Loading())
-                    is ApiState.Error -> emit(Resource.Error(it.message!!))
-                    is ApiState.Success -> {
-                        val model = it.data?.toResultModel()
-                        if (it.data?.success == 1) emit(Resource.Success(model))
-                        else emit(Resource.Error(UiText.DynamicString(model?.message ?: "Error")))
-                    }
-                }
-            }
-        }
-    }
-
-    override suspend fun updatePass(
-        current_pass: String,
-        user_pass: String
+    override suspend fun updatePassword(
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
     ): Flow<Resource<ResultModel>> {
+        Log.e("updatePassword","${UserUtil.getUserToken()} $currentPassword $newPassword $confirmPassword")
         return flow {
             val result = toResultFlow {
-                AmtalekApi.updatePass(
-                    UserUtil.getUserId(),
-                    current_pass,
-                    user_pass
+                AmtalekApi.updatePassword(
+                    UserUtil.getUserToken(),
+                    currentPassword, newPassword, confirmPassword
                 )
+
             }
             result.collect {
                 when (it) {
@@ -223,8 +208,7 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
                     is ApiState.Error -> emit(Resource.Error(it.message!!))
                     is ApiState.Success -> {
                         val model = it.data?.toResultModel()
-                        if (it.data?.success == 1) emit(Resource.Success(model))
-                        else emit(Resource.Error(UiText.DynamicString(model?.message ?: "Error")))
+                        emit(Resource.Success(model))
                     }
                 }
             }

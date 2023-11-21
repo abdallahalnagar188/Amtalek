@@ -88,16 +88,13 @@ interface AmtalekApi {
     ): Response<SuccessfulResponse>
 
     @FormUrlEncoded
-    @POST("ForgetPass")
-    suspend fun forgetPass(@Field("user_email") user_email: String): Response<ResultDto>
-
-    @FormUrlEncoded
-    @POST("update_pass")
-    suspend fun updatePass(
-        @Field("user_id") user_id: String,
-        @Field("current_pass") current_pass: String,
-        @Field("user_pass") user_pass: String
-    ): Response<ResultDto>
+    @POST("mobile/update-password")
+    suspend fun updatePassword(
+        @Header("Authorization") userToken: String,
+        @Field("current_password") currentPassword: String,
+        @Field("new_password") newPassword: String,
+        @Field("confirm_new_password") confirmPassword: String
+    ): Response<SuccessfulResponse>
 
     @GET("mobile/countries")
     suspend fun getCountries(): Response<CountriesResponse>

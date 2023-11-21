@@ -19,29 +19,33 @@ class ChangePasswordViewModel @Inject constructor(
     private val updatePassUseCase: UpdatePassUseCase
 ) : ViewModel() {
 
-    private val _updatePassState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
-    val updatePassState: StateFlow<UiState<ResultModel>> = _updatePassState
+    private val _updatePasswordState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val updatePasswordState: StateFlow<UiState<ResultModel>> = _updatePasswordState
 
-    private var updatePassJob: Job? = null
+    private var updatePasswordJob: Job? = null
 
-    fun cancelRequest() = updatePassJob?.cancel()
+    fun cancelRequest() = updatePasswordJob?.cancel()
 
-    fun updatePass(currentPass: String, newPass: String) {
-        updatePassJob?.cancel()
-        updatePassJob = viewModelScope.launch {
+    fun updatePassword(
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ) {
+        updatePasswordJob?.cancel()
+        updatePasswordJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                updatePassUseCase(currentPass, newPass).collect { result ->
+                updatePassUseCase(currentPassword, newPassword, confirmPassword).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _updatePassState.value = UiState.Success(it)
-                            } ?: run { _updatePassState.value = UiState.Empty() }
+                            _updatePasswordState.value = UiState.Success(result.data)
                         }
+
                         is Resource.Error -> {
-                            _updatePassState.value = UiState.Error(result.message!!)
+                            _updatePasswordState.value = UiState.Error(result.message!!)
                         }
+
                         is Resource.Loading -> {
-                            _updatePassState.value = UiState.Loading()
+                            _updatePasswordState.value = UiState.Loading()
                         }
                     }
                 }

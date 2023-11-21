@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui.drawer.myaccount
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -16,7 +15,6 @@ import eramo.amtalek.databinding.FragmentMyAccountBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.MyAccountViewModel
-import eramo.amtalek.util.NavKeys
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 
@@ -42,6 +40,8 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
             FMyAccountTvMySubscriptions.setOnClickListener(this@MyAccountFragment)
             FMyAccountTvSuspendAccount.setOnClickListener(this@MyAccountFragment)
             ivClose.setOnClickListener(this@MyAccountFragment)
+
+            FMyAccountTvChangePassword.setOnClickListener(this@MyAccountFragment)
         }
     }
 
@@ -73,6 +73,14 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
                 )
             }
 
+            R.id.FMyAccount_tv_change_password -> {
+                findNavController().navigate(
+                    R.id.changePasswordFragment,
+                    null,
+                    navOptionsAnimation()
+                )
+            }
+
             R.id.FMyAccount_tv_suspendAccount -> {
                 Navigation.findNavController(requireActivity(), R.id.main_navHost)
                     .navigate(R.id.suspendDialog)
@@ -81,5 +89,5 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
             R.id.iv_close -> findNavController().popBackStack()
         }
     }
-    
+
 }

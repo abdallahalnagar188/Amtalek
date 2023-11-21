@@ -35,7 +35,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         get() = FragmentEditPersonalDetailsBinding::inflate
 
     private val viewModel by viewModels<EditPersonalDetailsViewModel>()
-    private val args by navArgs<EditPersonalDetailsFragmentArgs>()
+//    private val args by navArgs<EditPersonalDetailsFragmentArgs>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     //    private val memberModel get() = args.memberModel

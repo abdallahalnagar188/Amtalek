@@ -621,14 +621,17 @@
     <string name="please_enter_a_valid_email">Please enter a valid email</string>
     <string name="email_is_required">Email is required</string>
     <string name="enter_a_password">Enter a password</string>
+    <string name="enter_current_password">Enter your current password</string>
     <string name="retype_the_password">Retype the password</string>
     <string name="password_must_contains_eight_chars">Password must contains eight chars at lest</string>
     <string name="password_does_not_match">Password does not match</string>
+    <string name="password_is_the_same_current">Password is the same as the current password, Please enter a new one</string>
 
     <string name="please_enter_a_valid_code">Please enter a valid code</string>
 
     <string name="S_user_name" translatable="false">%s %s</string>
 
     <string name="please_enter_your_email">Please enter your email</string>
+    <string name="change">Change</string>
 
 </resources>

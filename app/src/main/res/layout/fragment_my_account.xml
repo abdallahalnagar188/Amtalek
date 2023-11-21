@@ -78,6 +78,23 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <TextView
+        android:id="@+id/FMyAccount_tv_change_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:drawablePadding="@dimen/_8sdp"
+        android:fontFamily="@font/montserratregular"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/change_password"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        app:drawableStartCompat="@drawable/ic_edit_raw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FMyAccount_tv_edit" />
+
+    <TextView
         android:id="@+id/FMyAccount_tv_my_subscriptions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -92,7 +109,7 @@
         app:drawableTint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/FMyAccount_tv_edit"
         app:layout_constraintStart_toStartOf="@+id/FMyAccount_tv_edit"
-        app:layout_constraintTop_toBottomOf="@+id/FMyAccount_tv_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/FMyAccount_tv_change_password" />
 
     <TextView
         android:id="@+id/FMyAccount_tv_suspendAccount"

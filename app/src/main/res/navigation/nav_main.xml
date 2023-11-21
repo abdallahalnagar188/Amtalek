@@ -33,18 +33,14 @@
         android:id="@+id/editPersonalDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.myaccount.EditPersonalDetailsFragment"
         tools:layout="@layout/fragment_edit_personal_details">
-        <argument
-            android:name="memberModel"
-            app:argType="eramo.amtalek.data.remote.dto.general.Member" />
+
     </fragment>
 
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.myaccount.ChangePasswordFragment"
         tools:layout="@layout/fragment_change_password">
-        <argument
-            android:name="memberModel"
-            app:argType="eramo.amtalek.data.remote.dto.general.Member" />
+
     </fragment>
 
     <fragment

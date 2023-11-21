@@ -11,12 +11,13 @@ import javax.inject.Singleton
 @Singleton
 class UpdatePassUseCase @Inject constructor(private val repository: AuthRepository) {
     suspend operator fun invoke(
-        current_pass: String,
-        user_pass: String
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
     ): Flow<Resource<ResultModel>> {
-        val isBlank = current_pass.isBlank() || user_pass.isBlank()
+        val isBlank = currentPassword.isBlank() || newPassword.isBlank() || confirmPassword.isBlank()
 
         return if (isBlank) flow { }
-        else repository.updatePass(current_pass, user_pass)
+        else repository.updatePassword(currentPassword, newPassword, confirmPassword)
     }
 }
