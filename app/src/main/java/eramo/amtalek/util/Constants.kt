@@ -28,6 +28,7 @@ import eramo.amtalek.R
     const val SIGN_UP_GENDER_MALE = "Male"
     const val SIGN_UP_GENDER_FEMALE = "Female"
     const val SIGN_UP_GENDER_CREATED_FROM = "Android"
+    const val FROM_ANDROID = "Android"
     const val SIGN_UP_GENDER_ACCEPT_CONDITION = "yes"
     const val SIGN_UP_GENDER_ACCEPT_NOT_ROBOT = "yes"
 

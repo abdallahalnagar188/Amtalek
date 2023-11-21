@@ -23,7 +23,6 @@ import retrofit2.http.*
 interface AmtalekApi {
     companion object {
         const val BASE_URL = "https://amtalek.com/amtalekadmin/public/api/"
-        const val IMAGE_URL_PROFILE = "https://Events.shop/uploads/web_users/"
         const val IMAGE_URL_SPECIAL_OFFERS = "https://Events.shop/uploads/special_offers/"
     }
 
@@ -108,6 +107,13 @@ interface AmtalekApi {
 
     @GET("mobile/cities/{countryId}")
     suspend fun getCities(@Path("countryId") countryId: String): Response<CitiesResponse>
+
+    //____________________________________________________________________________________________//
+    // Contact
+
+    @GET("mobile/contact-us")
+    suspend fun contactUsInfo(): Response<ContactUsResponse>
+
 
     //____________________________________________________________________________________________//
     // Drawer

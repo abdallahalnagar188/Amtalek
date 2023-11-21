@@ -409,7 +409,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 FSignUpTilMobileNumber.requestFocus()
 
                 return
-            } else if (mobileNumber.length < 11) {
+            } else if (mobileNumber.length != 11) {
                 FSignUpTilMobileNumber.error = getString(R.string.please_enter_a_valid_number)
                 FSignUpTilMobileNumber.requestFocus()
 

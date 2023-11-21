@@ -634,4 +634,7 @@
 
     <string name="suspended_account_string">الحساب متوقف</string>
 
+    <string name="please_enter_your_name">من فضلك أدخل أسمك</string>
+    <string name="are_you_robot">هل انت روبوت</string>
+
 </resources>

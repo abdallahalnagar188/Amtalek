@@ -637,5 +637,7 @@
     <string name="this_account_has_a_deletion_request_if_you_need_help_about_your_account_your_are_welcome_for_contact_us">This account has a deletion request, If you need help about your account your are welcome for contact us.</string>
 
     <string name="suspended_account_string">Account suspended</string>
+    <string name="please_enter_your_name">Please enter your name</string>
+    <string name="are_you_robot">Are you robot</string>
 
 </resources>
