@@ -274,7 +274,7 @@
     <string name="conference">Conference</string>
     <string name="decorations">Decorations</string>
     <string name="tables">Tables</string>
-    <string name="are_you_sure_to_suspend">Are you sure to suspend?</string>
+    <string name="are_you_sure_to_suspend">Are you sure to delete your account?</string>
     <string name="this_account_is_suspended">This account is suspended</string>
     <string name="added_successfully">Added successfully</string>
     <string name="deleted_successfully">Deleted successfully</string>
@@ -633,5 +633,10 @@
 
     <string name="please_enter_your_email">Please enter your email</string>
     <string name="change">Change</string>
+
+    <string name="this_account_has_a_deletion_request_if_you_need_help_about_your_account_your_are_welcome_for_contact_us">This account has a deletion request, If you need help about your account your are welcome for contact us.</string>
+
+    <string name="suspended_account_string">Account suspended</string>
+
 
 </resources>

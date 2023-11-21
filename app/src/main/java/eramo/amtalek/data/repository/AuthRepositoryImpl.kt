@@ -1,6 +1,5 @@
 package eramo.amtalek.data.repository
 
-import android.util.Log
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
@@ -10,6 +9,7 @@ import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.API_OPERATION_TYPE_FORGET_PASSWORD
 import eramo.amtalek.util.API_OPERATION_TYPE_VERIFY_CODE
+import eramo.amtalek.util.API_SUSPEND_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
 import eramo.amtalek.util.SIGN_UP_GENDER_CREATED_FROM
@@ -193,7 +193,6 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
         newPassword: String,
         confirmPassword: String
     ): Flow<Resource<ResultModel>> {
-        Log.e("updatePassword","${UserUtil.getUserToken()} $currentPassword $newPassword $confirmPassword")
         return flow {
             val result = toResultFlow {
                 AmtalekApi.updatePassword(
@@ -202,6 +201,25 @@ class AuthRepositoryImpl(private val AmtalekApi: AmtalekApi) : AuthRepository {
                 )
 
             }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun suspendAccount(): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.suspendAccount(UserUtil.getUserToken(), API_SUSPEND_CODE)
+            }
+
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())

@@ -57,6 +57,8 @@ interface AuthRepository {
         confirmPassword: String
     ): Flow<Resource<ResultModel>>
 
+    suspend fun suspendAccount(): Flow<Resource<ResultModel>>
+
     suspend fun getCountries(): Flow<Resource<List<CountryModel>>>
 
     suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>>

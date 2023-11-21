@@ -116,7 +116,13 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                         is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
+
+                            if (errorMessage == getString(R.string.suspended_account_string)) {
+
+                                findNavController().navigate(R.id.deletedAccountDialogFragment)
+                            } else {
+                                showToast(errorMessage)
+                            }
                         }
 
                         is UiState.Loading -> {

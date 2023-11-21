@@ -83,4 +83,9 @@
             android:name="enteredCode"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/deletedAccountDialogFragment"
+        android:name="eramo.amtalek.presentation.ui.dialog.DeletedAccountDialogFragment"
+        android:label="fragment_deleted_account_dialog"
+        tools:layout="@layout/fragment_deleted_account_dialog" />
 </navigation>

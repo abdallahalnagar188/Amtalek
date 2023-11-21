@@ -96,6 +96,13 @@ interface AmtalekApi {
         @Field("confirm_new_password") confirmPassword: String
     ): Response<SuccessfulResponse>
 
+    @FormUrlEncoded
+    @POST("mobile/suspend")
+    suspend fun suspendAccount(
+        @Header("Authorization") userToken: String,
+        @Field("status") status: String
+    ): Response<SuccessfulResponse>
+
     @GET("mobile/countries")
     suspend fun getCountries(): Response<CountriesResponse>
 
