@@ -35,10 +35,9 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         get() = FragmentEditPersonalDetailsBinding::inflate
 
     private val viewModel by viewModels<EditPersonalDetailsViewModel>()
-//    private val args by navArgs<EditPersonalDetailsFragmentArgs>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
-    //    private val memberModel get() = args.memberModel
+
     private var imageUri: Uri? = null
     private val activityResultContract = object : ActivityResultContract<Any, Uri?>() {
         override fun createIntent(context: Context, input: Any?): Intent {
@@ -56,8 +55,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        super.registerApiRequest { viewModel.countries() }
-//        super.registerApiCancellation { viewModel.cancelRequest() }
+
 
         val activityResultLauncher = registerForActivityResult(activityResultContract) {
             it?.let { uri ->
@@ -126,12 +124,4 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         }
     }
 
-    private fun fetchDateValue() {
-        viewModelShared.dateString.observe(viewLifecycleOwner) {
-            it?.let { value ->
-//                binding.tvDate.text = value
-                viewModelShared.dateString.value = null
-            }
-        }
-    }
 }

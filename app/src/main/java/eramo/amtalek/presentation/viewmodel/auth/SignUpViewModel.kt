@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
-import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.domain.usecase.auth.CountriesAndCitiesUseCase
 import eramo.amtalek.domain.usecase.auth.RegisterUseCase
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase,
-    private val authRepository: AuthRepository
+    private val countriesAndCitiesUseCase: CountriesAndCitiesUseCase
 ) : ViewModel() {
 
     private val _countriesState = MutableStateFlow<UiState<List<CountryModel>>>(UiState.Empty())
@@ -35,7 +35,7 @@ class SignUpViewModel @Inject constructor(
     private val _sendVerificationCodeEmailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val sendVerificationCodeEmailState: StateFlow<UiState<ResultModel>> = _sendVerificationCodeEmailState
 
-     var registeredEmail: String? = null
+    var registeredEmail: String? = null
 
     private var getCountriesJob: Job? = null
     private var getCitiesJob: Job? = null
@@ -116,7 +116,7 @@ class SignUpViewModel @Inject constructor(
         getCountriesJob?.cancel()
         getCountriesJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.getCountries().collect {
+                countriesAndCitiesUseCase.getCountries().collect {
                     when (it) {
                         is Resource.Success -> {
                             _countriesState.value = UiState.Success(it.data)
@@ -139,7 +139,7 @@ class SignUpViewModel @Inject constructor(
         getCitiesJob?.cancel()
         getCitiesJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                authRepository.getCities(countryId).collect {
+                countriesAndCitiesUseCase.getCities(countryId).collect {
                     when (it) {
                         is Resource.Success -> {
                             _citiesState.value = UiState.Success(it.data)
