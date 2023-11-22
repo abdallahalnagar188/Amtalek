@@ -175,7 +175,6 @@ class EditPersonalDetailsViewModel @Inject constructor(
         }
     }
 
-
     private fun convertToRequestBody(part: String): RequestBody? {
         return try {
             RequestBody.create(MediaType.parse("multipart/form-data"), part)

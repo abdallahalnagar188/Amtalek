@@ -1,6 +1,5 @@
 package eramo.amtalek.domain.usecase.drawer
 
-import eramo.amtalek.data.remote.dto.general.Member
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.DrawerRepository
 import eramo.amtalek.util.state.Resource

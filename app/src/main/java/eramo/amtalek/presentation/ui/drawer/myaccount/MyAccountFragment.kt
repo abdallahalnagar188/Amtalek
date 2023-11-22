@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.general.Member
@@ -16,6 +17,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.MyAccountViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint
@@ -42,6 +44,9 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
             ivClose.setOnClickListener(this@MyAccountFragment)
 
             FMyAccountTvChangePassword.setOnClickListener(this@MyAccountFragment)
+
+            Glide.with(requireContext()).load(UserUtil.getUserProfileImageUrl()).into(ivProfile)
+            textView20.text = getString(R.string.S_user_name,UserUtil.getUserFirstName(), UserUtil.getUserLastName())
         }
     }
 
