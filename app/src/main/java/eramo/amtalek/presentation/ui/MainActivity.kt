@@ -354,7 +354,7 @@ class MainActivity : AppCompatActivity(),
                         if (UserUtil.getUserProfileImageUrl() != "") {
                             UserUtil.getUserProfileImageUrl()
                         } else {
-                            R.drawable.ic_avatar
+                            R.drawable.avatar
                         }
 
                     )
@@ -368,7 +368,7 @@ class MainActivity : AppCompatActivity(),
                 navHeaderTvSignOut.text = getString(R.string.sign_in)
 
                 Glide.with(this@MainActivity)
-                    .load(R.drawable.ic_avatar)
+                    .load(R.drawable.avatar)
                     .into(navHeaderIvProfile)
             }
         }
@@ -385,7 +385,13 @@ class MainActivity : AppCompatActivity(),
                                     getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
                                 navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
-                                    .load(state.data?.profileImageUrl)
+                                    .load(
+                                        if (state.data?.profileImageUrl != ""){
+                                            state.data?.profileImageUrl
+                                        }else{
+                                            R.drawable.avatar
+                                        }
+                                    )
                                     .into(navHeaderIvProfile)
                             }
                         }

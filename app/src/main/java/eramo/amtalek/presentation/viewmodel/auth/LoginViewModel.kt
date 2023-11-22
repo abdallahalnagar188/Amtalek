@@ -3,15 +3,22 @@ package eramo.amtalek.presentation.viewmodel.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.CartRepository
 import eramo.amtalek.domain.usecase.auth.LoginUseCase
+import eramo.amtalek.domain.usecase.auth.RegisterUseCase
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -19,15 +26,25 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val repository: CartRepository
+    private val repository: CartRepository,
+    private val registerUseCase: RegisterUseCase,
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
     val loginState: StateFlow<UiState<UserModel>> = _loginState
 
-    private var loginJob: Job? = null
+    private val _sendVerificationCodeEmailState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val sendVerificationCodeEmailState = _sendVerificationCodeEmailState
 
-    fun cancelRequest() = loginJob?.cancel()
+    private var loginJob: Job? = null
+    private var sendVerificationCodeEmailJob: Job? = null
+
+    fun cancelRequest() {
+        loginJob?.cancel()
+        sendVerificationCodeEmailJob?.cancel()
+
+    }
+
 
     fun login(
         email: String,
@@ -57,6 +74,34 @@ class LoginViewModel @Inject constructor(
                         }
                     }
                 }
+            }
+        }
+    }
+
+    fun sendVerificationCodeEmail(email: String) {
+        sendVerificationCodeEmailJob?.cancel()
+        sendVerificationCodeEmailJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+
+                registerUseCase.sendVerificationCodeEmail(email).collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _sendVerificationCodeEmailState.value = UiState.Success(it.data)
+
+//                            delay(1000)
+                            _sendVerificationCodeEmailState.value = UiState.Empty()
+                        }
+
+                        is Resource.Error -> {
+                            _sendVerificationCodeEmailState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _sendVerificationCodeEmailState.value = UiState.Loading()
+                        }
+                    }
+                }
+
             }
         }
     }

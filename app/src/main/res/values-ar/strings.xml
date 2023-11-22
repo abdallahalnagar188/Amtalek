@@ -640,4 +640,7 @@
 
     <string name="no_image_chose">لم يتم اختيار صورة</string>
 
+    <string name="please_verify_account">يرجى ادخال رمز التحقق</string>
+    <string name="please_verify_account_an_email_sent">حسابك يحتاج للتفعيل\nتحقق من بريدك الإليكترونى</string>
+
 </resources>

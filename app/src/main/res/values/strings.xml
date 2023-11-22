@@ -643,4 +643,7 @@
 
     <string name="no_image_chose">No image chose</string>
 
+    <string name="please_verify_account">Please Verify Code</string>
+    <string name="please_verify_account_an_email_sent">Please Verify your account\nCheck your email</string>
+
 </resources>

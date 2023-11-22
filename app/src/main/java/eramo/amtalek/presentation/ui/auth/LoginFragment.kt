@@ -22,10 +22,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentLoginBinding
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.auth.signup.OtpSignUpFragmentArgs
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
+import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
@@ -93,6 +96,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
     private fun fetchData() {
         fetchLoginState()
+        fetchSendingVerificationCodeEmailState()
     }
 
     private fun fetchLoginState() {
@@ -117,11 +121,19 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
 
-                            if (errorMessage == getString(R.string.suspended_account_string)) {
+                            when (errorMessage) {
+                                getString(R.string.please_verify_account) -> {
+                                    showToast(getString(R.string.please_verify_account_an_email_sent))
+                                    viewModel.sendVerificationCodeEmail(binding.FLoginEtMail.text.toString().trim())
+                                }
 
-                                findNavController().navigate(R.id.deletedAccountDialogFragment)
-                            } else {
-                                showToast(errorMessage)
+                                getString(R.string.suspended_account_string)->{
+                                    findNavController().navigate(R.id.deletedAccountDialogFragment)
+                                }
+
+                                else ->{
+                                    showToast(errorMessage)
+                                }
                             }
                         }
 
@@ -131,6 +143,46 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
                         else -> Unit
                     }
+                }
+            }
+        }
+    }
+
+    private fun fetchSendingVerificationCodeEmailState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.sendVerificationCodeEmailState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+
+                            if (state.data?.status == API_SUCCESS_CODE) {
+
+                                findNavController().navigate(
+                                    R.id.otpSignUpFragment,
+                                    OtpSignUpFragmentArgs(binding.FLoginEtMail.text.toString().trim()).toBundle(),
+                                    navOptionsAnimation()
+                                )
+
+                            } else {
+                                showToast(getString(R.string.something_went_wrong))
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
                 }
             }
         }

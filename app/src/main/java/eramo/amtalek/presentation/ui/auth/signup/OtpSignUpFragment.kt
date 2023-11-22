@@ -56,7 +56,9 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     private fun listeners() {
         binding.apply {
-            FOtpIvBack.setOnClickListener { findNavController().popBackStack(R.id.loginFragment, false) }
+            FOtpIvBack.setOnClickListener {
+                findNavController().navigate(R.id.loginFragment)
+            }
             FOtpTvResend.setOnClickListener {
                 viewModel.startTimer()
                 FOtpTvResend.visibility = View.GONE
@@ -70,7 +72,7 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
                 viewModel.checkOtpCode(registeredEmail, enteredOtpCode())
             }
         }
-        this@OtpSignUpFragment.onBackPressed { findNavController().popBackStack(R.id.loginFragment, false) }
+        this@OtpSignUpFragment.onBackPressed { findNavController().navigate(R.id.loginFragment) }
     }
 
     private fun fetchData() {
@@ -145,9 +147,11 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     // -------------------------------------- fetchData -------------------------------------- //
     private fun fetchTimerState() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.timerState.collect { time ->
-                binding.FOtpTvTimer.text = time
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.timerState.collect { time ->
+                    binding.FOtpTvTimer.text = time
+                }
             }
         }
     }
