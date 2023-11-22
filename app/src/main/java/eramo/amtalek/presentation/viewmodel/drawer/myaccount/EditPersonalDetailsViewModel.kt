@@ -4,16 +4,16 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.usecase.auth.CountriesAndCitiesUseCase
-import eramo.amtalek.domain.usecase.drawer.UpdateProfileUseCase
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
+import eramo.amtalek.domain.usecase.drawer.UpdateProfileUseCase
 import eramo.amtalek.util.UPLOAD_COVER_IMAGE_KEY
 import eramo.amtalek.util.UPLOAD_PROFILE_IMAGE_KEY
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -58,13 +58,14 @@ class EditPersonalDetailsViewModel @Inject constructor(
         getCitiesJob?.cancel()
     }
 
-   private fun getProfile() {
+    private fun getProfile() {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
                 getProfileUseCase().collect { result ->
                     when (result) {
                         is Resource.Success -> {
+                            saveUserInfo(result.data!!)
                             _getProfileState.value = UiState.Success(result.data)
                         }
 
@@ -110,6 +111,8 @@ class EditPersonalDetailsViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             _updateProfileState.value = UiState.Success(result.data)
+
+                            getProfile()
                         }
 
                         is Resource.Error -> {
@@ -125,65 +128,6 @@ class EditPersonalDetailsViewModel @Inject constructor(
             }
         }
     }
-
-//    fun editProfile(
-//        user_id: String,
-//        user_pass: String,
-//        user_name: String,
-//        address: String,
-//        countryId: String,
-//        cityId: String,
-//        regionId: String,
-//        user_email: String,
-//        user_phone: String,
-//        m_image: Uri?
-//    ) {
-//        editProfileJob?.cancel()
-//        editProfileJob = viewModelScope.launch {
-//            withContext(coroutineContext) {
-//                updateProfileUseCase(
-//                    convertToRequestBody(user_id),
-//                    convertToRequestBody(user_pass),
-//                    convertToRequestBody(user_name),
-//                    convertToRequestBody(address),
-//                    convertToRequestBody(countryId),
-//                    convertToRequestBody(cityId),
-//                    convertToRequestBody(regionId),
-//                    convertToRequestBody(user_email),
-//                    convertToRequestBody(user_phone),
-//                    convertFileToMultipart(m_image,"")
-//                ).collect { result ->
-//                    when (result) {
-//                        is Resource.Success -> {
-//                            result.data?.let {
-//                                _editProfileState.value = UiState.Success(it)
-//                            } ?: run { _editProfileState.value = UiState.Empty() }
-//                            saveUserInfo(
-//                                user_name,
-//                                user_pass,
-//                                address,
-//                                countryId,
-//                                cityId,
-//                                regionId,
-//                                user_email,
-//                                user_phone,
-//                                result.data?.member?.mImage ?: ""
-//                            )
-//                        }
-//
-//                        is Resource.Error -> {
-//                            _editProfileState.value =
-//                                UiState.Error(result.message!!)
-//                        }
-//
-//                        is Resource.Loading -> {
-//                            _editProfileState.value = UiState.Loading()
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     fun getCountries() {
         getCountriesJob?.cancel()
@@ -248,31 +192,14 @@ class EditPersonalDetailsViewModel @Inject constructor(
         } else null
     }
 
-    private fun saveUserInfo(
-        user_name: String,
-        user_pass: String,
-        address: String,
-        countryId: String,
-        cityId: String,
-        regionId: String,
-        user_email: String,
-        user_phone: String,
-        m_image: String
-    ) {
-//        UserUtil.saveUserInfo(
-//            UserUtil.isRememberUser(),
-//            UserUtil.getUserId(),
-//            UserUtil.getUserToken(),
-//            user_name,
-//            user_pass,
-//            address,
-//            countryId,
-//            cityId,
-//            regionId,
-//            user_phone,
-//            user_email,
-//            m_image,
-//        )
+    private fun saveUserInfo(user: UserModel) {
+        UserUtil.saveUserInfo(
+            true,
+            UserUtil.getUserToken(), user.id.toString(),
+            user.firstName, user.lastName, user.phone,
+            user.email, user.countryId.toString(),
+            user.countryName, user.cityId.toString(), user.cityName, user.bio, user.profileImageUrl, user.coverImageUrl
+        )
     }
 
     init {
