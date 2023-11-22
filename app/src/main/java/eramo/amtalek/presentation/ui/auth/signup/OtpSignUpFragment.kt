@@ -187,7 +187,7 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
                             if (state.data?.status == API_SUCCESS_CODE) {
                                 showToast(state.data.message)
-                                findNavController().popBackStack(R.id.loginFragment, false)
+                                findNavController().navigate(R.id.loginFragment)
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }
