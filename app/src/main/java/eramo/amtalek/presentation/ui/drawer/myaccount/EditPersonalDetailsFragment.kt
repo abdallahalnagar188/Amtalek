@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.ui.drawer.myaccount
 
-import android.content.Context
-import android.content.Intent
+import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,8 +10,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -21,7 +20,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
-import com.theartofdev.edmodo.cropper.CropImage
+import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentEditPersonalDetailsBinding
@@ -52,46 +51,86 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     private var selectedCountryId = -1
     private var selectedCityId = -1
 
-    private var imageUri: Uri? = null
-    private val activityResultContract = object : ActivityResultContract<Any, Uri?>() {
-        override fun createIntent(context: Context, input: Any?): Intent {
-            return CropImage.activity()
-                .setAspectRatio(1, 1)
-                .getIntent(requireActivity())
+    private var profileImageUri: Uri? = null
+    private var coverImageUri: Uri? = null
+
+    private val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    val fileUri = data?.data!!
+                    profileImageUri = fileUri
+                    binding.ivProfile.setImageURI(fileUri)
+                }
+
+                ImagePicker.RESULT_ERROR -> {
+                    showToast(ImagePicker.getError(data))
+                }
+
+                else -> {
+                    showToast(getString(R.string.no_image_chose))
+                }
+            }
         }
 
-        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-            if (resultCode == AppCompatActivity.RESULT_OK)
-                return CropImage.getActivityResult(intent).uri
-            return Uri.parse("")
+    private val startForCoverImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    val fileUri = data?.data!!
+                    coverImageUri = fileUri
+                    binding.ivCover.setImageURI(fileUri)
+                }
+
+                ImagePicker.RESULT_ERROR -> {
+                    showToast(ImagePicker.getError(data))
+                }
+
+                else -> {
+                    showToast(getString(R.string.no_image_chose))
+                }
+            }
         }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val activityResultLauncher = registerForActivityResult(activityResultContract) {
-            it?.let { uri ->
-                imageUri = uri
-                if (it.toString().isNotEmpty())
-                    binding.ivProfile.setImageURI(it)
-            }
-        }
-
         setupViews()
         listeners()
 
-        requestData()
         fetchData()
     }
 
     private fun listeners() {
         binding.apply {
             inToolbar.ivBack.setOnClickListener { findNavController().popBackStack() }
+
+            cvProfileImagePicker.setOnClickListener {
+                ImagePicker.with(requireActivity())
+                    .compress(1024)
+                    .cropSquare()
+                    .createIntent { intent ->
+                        startForProfileImageResult.launch(intent)
+                    }
+            }
+
+            cvCoverImagePicker.setOnClickListener {
+                ImagePicker.with(requireActivity())
+                    .compress(1024)
+                    .cropSquare()
+                    .createIntent { intent ->
+                        startForCoverImageResult.launch(intent)
+                    }
+            }
+
             btnConfirm.setOnClickListener { validateAndUpdateProfile() }
 
-//            cvCamera.setOnClickListener { activityResultLauncher.launch(null) }
         }
     }
 
@@ -100,10 +139,6 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         binding.inToolbar.tvTitle.text = getString(R.string.edit_profile)
 
-    }
-
-    private fun requestData() {
-        viewModel.getProfile()
     }
 
     private fun fetchData() {
@@ -257,16 +292,18 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                 selectedCountryId.toString(),
                 selectedCityId.toString(),
                 bio,
-                null,
-                null
+                profileImageUri,
+                coverImageUri
             )
 
+            profileImageUri = null
+            coverImageUri = null
         }
     }
 
     private fun fetchGetProfileState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.getProfileState.collect { state ->
                     when (state) {
 

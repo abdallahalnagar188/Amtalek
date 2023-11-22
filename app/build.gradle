@@ -156,18 +156,15 @@ dependencies {
 
     // ReadMore TextView
     implementation 'com.github.Muratthekus:ReadMoreText:v1.1'
-
     implementation 'kr.co.prnd:readmore-textview:1.0.0'    // new
-
-
 //    implementation 'com.borjabravo:readmoretextview:2.1.0'
-
-
 //    implementation 'com.github.colourmoon:readmore-textview:v1.0.2'
 
     // Image zoom
-    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1' // last SupportLib version
+    implementation 'com.github.MikeOrtiz:TouchImageView:1.4.1'
 
+    // Image picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
 }
 
 // Allow references to generated code

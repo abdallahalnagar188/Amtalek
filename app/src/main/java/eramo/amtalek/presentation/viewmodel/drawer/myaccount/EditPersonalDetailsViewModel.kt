@@ -58,7 +58,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
         getCitiesJob?.cancel()
     }
 
-    fun getProfile() {
+   private fun getProfile() {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
@@ -273,5 +273,9 @@ class EditPersonalDetailsViewModel @Inject constructor(
 //            user_email,
 //            m_image,
 //        )
+    }
+
+    init {
+        getProfile()
     }
 }

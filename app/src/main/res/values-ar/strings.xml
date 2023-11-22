@@ -638,4 +638,6 @@
     <string name="are_you_robot">هل انت روبوت</string>
     <string name="bio">نبذة عنى</string>
 
+    <string name="no_image_chose">لم يتم اختيار صورة</string>
+
 </resources>

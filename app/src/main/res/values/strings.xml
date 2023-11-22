@@ -641,4 +641,6 @@
     <string name="are_you_robot">Are you robot</string>
     <string name="bio">Bio</string>
 
+    <string name="no_image_chose">No image chose</string>
+
 </resources>
