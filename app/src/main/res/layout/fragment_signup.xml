@@ -78,8 +78,8 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
-            app:hintEnabled="false"
             app:helperText=" "
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/FSignUp_til_first_name"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_tv_create_your_account">
@@ -107,8 +107,8 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
-            app:hintEnabled="false"
             app:helperText=" "
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_first_name">
@@ -137,8 +137,8 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
-            app:hintEnabled="false"
             app:helperText=" "
+            app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_mobile_number">
@@ -166,12 +166,12 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
+            app:helperText=" "
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_til_email"
             app:passwordToggleEnabled="true"
-            app:helperText=" "
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -199,12 +199,12 @@
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:fontFamily="@font/montserratregular"
             android:textColorHint="@color/gray"
+            app:helperText=" "
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_til_password"
             app:passwordToggleEnabled="true"
-            app:helperText=" "
             app:passwordToggleTint="@color/gray">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -240,12 +240,12 @@
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginTop="@dimen/edit_text_margin_top"
             android:layout_marginBottom="@dimen/_24sdp"
+            android:allowClickWhenDisabled="true"
             android:background="@drawable/spinner_background"
+            android:clickable="true"
             android:paddingHorizontal="@dimen/_6sdp"
             android:spinnerMode="dropdown"
             android:textAlignment="viewStart"
-            android:clickable="true"
-            android:allowClickWhenDisabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/FSignUp_til_re_password" />

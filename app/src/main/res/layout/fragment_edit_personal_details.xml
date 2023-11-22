@@ -27,6 +27,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/background_layout"
             android:paddingBottom="@dimen/_16sdp">
 
 
@@ -103,12 +104,13 @@
                 android:id="@+id/til_first_name"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:layout_marginEnd="@dimen/_6sdp"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
+                app:helperText=" "
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toStartOf="@id/til_last_name"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +119,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_first_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/ic_avatar"
                     android:drawablePadding="@dimen/_8sdp"
@@ -126,19 +128,20 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_last_name"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_6sdp"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginTop="@dimen/_14sdp"
                 android:layout_marginEnd="@dimen/screen_margin_sides"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
+                app:helperText=" "
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/til_first_name"
@@ -147,7 +150,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_last_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/ic_avatar"
                     android:drawablePadding="@dimen/_8sdp"
@@ -156,18 +159,19 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_mobile_number"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
+                app:helperText=" "
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +180,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_mobile_number"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/ic_mobile_number"
                     android:drawablePadding="@dimen/_8sdp"
@@ -185,18 +189,19 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_email"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
+                app:helperText=" "
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -205,7 +210,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/ic_mail"
                     android:drawablePadding="@dimen/_8sdp"
@@ -214,18 +219,19 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/itl_password"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
+                app:helperText=" "
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,7 +242,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="@dimen/_8sdp"
@@ -246,7 +252,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -254,11 +260,12 @@
                 android:id="@+id/itl_re_password"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
+                app:helperText=" "
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -269,7 +276,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_re_password"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
                     android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="@dimen/_8sdp"
@@ -279,7 +286,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Spinner
@@ -302,7 +309,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_24sdp"
                 android:background="@drawable/spinner_background"
                 android:paddingHorizontal="@dimen/_6sdp"
@@ -317,13 +324,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:background="@drawable/button_background_long"
                 android:fontFamily="@font/montserratregular"
                 android:text="@string/register_now"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cities_spinner" />
