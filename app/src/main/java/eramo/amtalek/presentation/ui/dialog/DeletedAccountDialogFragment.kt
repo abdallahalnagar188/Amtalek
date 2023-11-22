@@ -31,7 +31,7 @@ class DeletedAccountDialogFragment : DialogFragment(R.layout.fragment_deleted_ac
 
         binding.apply {
             DFCancelBtnConfirm.setOnClickListener {
-                dismiss()
+                dialog?.dismiss()
                 findNavController().navigate(R.id.contactUsAuthFragment)
             }
 

@@ -34,7 +34,7 @@
     <string name="email">بريد الالكتروني</string>
     <string name="subject">الموضوع</string>
     <string name="message">الرسالة</string>
-    <string name="i_am_not_a_robot">انا لست رجل الي</string>
+    <string name="i_am_not_a_robot">انا لست روبوت</string>
     <string name="send">إرسال</string>
     <string name="favourites">المفضلة</string>
     <string name="filter">تصفية</string>
@@ -186,7 +186,7 @@
     <string name="request_description">يرجي ملئ هذه الخانات لطلب طلب زيارة إلي موقعك, هذا الطلب يتم عمله كي تقوم بطلب زيارة أستفسارات التكييفات الخاصه بك, لذلك يرجي إنتظار تليفون تأكيدي من طرفنا بعد ملئ البيانات لتأكيد ميعاد الزيارة. ولأي تفاصيل ومعلومات إضافية يرجي الإتصال</string>
     <string name="rate_us">قيمنا</string>
     <string name="invite_a_friend">أدع صديقا</string>
-    <string name="what_do_you_want_to_tell_us_about">ماذا تريد ان تخبرنا عنه؟</string>
+    <string name="what_do_you_want_to_tell_us_about">ماذا تريد ان تخبرنا؟</string>
     <string name="total_shipping">إجمالي الشحن:</string>
     <string name="total_taxes">إجمالي الضرائب:</string>
     <string name="sign_in">تسجيل الدخول</string>

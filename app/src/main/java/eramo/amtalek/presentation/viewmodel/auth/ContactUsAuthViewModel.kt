@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.viewmodel.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 import eramo.amtalek.domain.usecase.auth.ContactUsUseCase
 import eramo.amtalek.util.state.Resource
@@ -23,13 +24,20 @@ class ContactUsAuthViewModel @Inject constructor(
     private val _getContactUsInfoState = MutableStateFlow<UiState<ContactUsInfoModel>>(UiState.Empty())
     val getContactUsInfoState: StateFlow<UiState<ContactUsInfoModel>> = _getContactUsInfoState
 
-    private var _getContactUsInfoJob: Job? = null
+    private val _sendContactUsMessageState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val sendContactUsMessageState: StateFlow<UiState<ResultModel>> = _sendContactUsMessageState
 
-    fun cancelRequest() = _getContactUsInfoJob?.cancel()
+    private var getContactUsInfoJob: Job? = null
+    private var sendContactUsMessageJob: Job? = null
+
+    fun cancelRequest() {
+        getContactUsInfoJob?.cancel()
+        sendContactUsMessageJob?.cancel()
+    }
 
     private fun getContactUsInfo() {
-        _getContactUsInfoJob?.cancel()
-        _getContactUsInfoJob = viewModelScope.launch {
+        getContactUsInfoJob?.cancel()
+        getContactUsInfoJob = viewModelScope.launch {
             withContext(coroutineContext) {
                 contactUsUseCase.getContactUsInfo().collect { result ->
                     when (result) {
@@ -44,6 +52,35 @@ class ContactUsAuthViewModel @Inject constructor(
 
                         is Resource.Loading -> {
                             _getContactUsInfoState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+     fun sendContactUsMessage(
+        name: String,
+        mobileNumber: String,
+        email: String,
+        message: String
+    ) {
+        sendContactUsMessageJob?.cancel()
+        sendContactUsMessageJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                contactUsUseCase.sendContactUsMessage(name, mobileNumber, email, message).collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _sendContactUsMessageState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _sendContactUsMessageState.value =
+                                UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _sendContactUsMessageState.value = UiState.Loading()
                         }
                     }
                 }

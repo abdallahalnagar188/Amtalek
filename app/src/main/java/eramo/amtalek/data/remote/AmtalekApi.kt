@@ -111,6 +111,17 @@ interface AmtalekApi {
     @GET("mobile/contact-us")
     suspend fun contactUsInfo(): Response<ContactUsResponse>
 
+    @FormUrlEncoded
+    @POST("mobile/contact-us-message")
+    suspend fun sendContactUsMessage(
+        @Field("name") name: String,
+        @Field("phone") mobileNumber: String,
+        @Field("email") email: String,
+        @Field("message") message: String,
+        @Field("from") from: String,
+        @Field("not_ropot") notRobot: String
+    ): Response<SuccessfulResponse>
+
 
     //____________________________________________________________________________________________//
     // Drawer
