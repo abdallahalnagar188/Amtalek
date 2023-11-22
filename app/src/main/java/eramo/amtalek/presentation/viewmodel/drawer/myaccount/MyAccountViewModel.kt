@@ -33,9 +33,9 @@ class MyAccountViewModel @Inject constructor(
                 getProfileUseCase().collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _getProfileState.value = UiState.Success(it)
-                            } ?: run { _getProfileState.value = UiState.Empty() }
+//                            result.data?.let {
+//                                _getProfileState.value = UiState.Success(it)
+//                            } ?: run { _getProfileState.value = UiState.Empty() }
                         }
                         is Resource.Error -> {
                             _getProfileState.value = UiState.Error(result.message!!)

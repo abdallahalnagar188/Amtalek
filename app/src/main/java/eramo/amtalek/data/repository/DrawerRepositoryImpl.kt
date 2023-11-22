@@ -3,13 +3,13 @@ package eramo.amtalek.data.repository
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
-import eramo.amtalek.data.remote.dto.general.Member
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
 import eramo.amtalek.domain.repository.DrawerRepository
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
-import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.UiText
 import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +18,54 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepository {
+
+
+    override suspend fun getProfile(): Flow<Resource<UserModel>> {
+        return flow {
+            val result = toResultFlow { AmtalekApi.getProfile(UserUtil.getUserToken()) }
+            result.collect { apiState ->
+                when (apiState) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
+                    is ApiState.Success -> {
+                        val model = apiState.data?.toUserModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun updateProfile(
+        firstName: RequestBody?,
+        lastName: RequestBody?,
+        mobileNumber: RequestBody?,
+        email: RequestBody?,
+        countryId: RequestBody?,
+        cityId: RequestBody?,
+        bio: RequestBody?,
+        profileImage: MultipartBody.Part?,
+        coverImage: MultipartBody.Part?
+    ): Flow<Resource<ResultModel>> {
+        return flow {
+            val result = toResultFlow {
+                AmtalekApi.updateProfile(
+                    UserUtil.getUserToken(),
+                    firstName, lastName, mobileNumber, email, countryId, cityId, bio, profileImage, coverImage
+                )
+            }
+            result.collect { apiState ->
+                when (apiState) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
+                    is ApiState.Success -> {
+                        val model = apiState.data?.toResultModel()
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
 
     override suspend fun updateFirebaseDeviceToken(deviceToken: String): Flow<Resource<ResultModel>> {
         return flow {
@@ -36,19 +84,6 @@ class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepositor
                             emit(Resource.Success(it.toResultModel()))
                         } ?: emit(Resource.Error(UiText.DynamicString("Empty member")))
                     }
-                }
-            }
-        }
-    }
-
-    override suspend fun getProfile(): Flow<Resource<Member>> {
-        return flow {
-            val result = toResultFlow { AmtalekApi.getProfile(UserUtil.getUserId()) }
-            result.collect { apiState ->
-                when (apiState) {
-                    is ApiState.Loading -> emit(Resource.Loading())
-                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
-                    is ApiState.Success -> emit(Resource.Success(apiState.data))
                 }
             }
         }

@@ -30,6 +30,9 @@ import eramo.amtalek.R
     const val SIGN_UP_GENDER_ACCEPT_CONDITION = "yes"
     const val SIGN_UP_GENDER_ACCEPT_NOT_ROBOT = "yes"
 
+    const val UPLOAD_PROFILE_IMAGE_KEY = "image"
+    const val UPLOAD_COVER_IMAGE_KEY = "cover"
+
     const val FROM_ANDROID = "Android"
     const val NOT_ROBOT = "yes"
 

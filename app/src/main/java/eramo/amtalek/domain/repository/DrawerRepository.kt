@@ -4,17 +4,31 @@ import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.data.remote.dto.general.Member
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Part
 
 interface DrawerRepository {
 
     suspend fun updateFirebaseDeviceToken(deviceToken: String): Flow<Resource<ResultModel>>
 
-    suspend fun getProfile(): Flow<Resource<Member>>
+    suspend fun getProfile(): Flow<Resource<UserModel>>
+
+    suspend fun updateProfile(
+        firstName: RequestBody?,
+        lastName: RequestBody?,
+        mobileNumber: RequestBody?,
+        email: RequestBody?,
+        countryId: RequestBody?,
+        cityId: RequestBody?,
+        bio: RequestBody?,
+        profileImage: MultipartBody.Part?,
+        coverImage: MultipartBody.Part?
+    ): Flow<Resource<ResultModel>>
 
     suspend fun editProfile(
         user_id: RequestBody?,

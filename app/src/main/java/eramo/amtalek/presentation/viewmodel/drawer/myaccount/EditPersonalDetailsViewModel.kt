@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
-import eramo.amtalek.domain.model.auth.CitiesModel
-import eramo.amtalek.domain.model.auth.CountriesModel
-import eramo.amtalek.domain.model.auth.RegionsModel
-import eramo.amtalek.domain.repository.AuthRepository
-import eramo.amtalek.domain.usecase.drawer.EditProfileUseCase
-import eramo.amtalek.util.UserUtil
+import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.UserModel
+import eramo.amtalek.domain.usecase.auth.CountriesAndCitiesUseCase
+import eramo.amtalek.domain.usecase.drawer.UpdateProfileUseCase
+import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
+import eramo.amtalek.util.UPLOAD_COVER_IMAGE_KEY
+import eramo.amtalek.util.UPLOAD_PROFILE_IMAGE_KEY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -22,89 +25,56 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class EditPersonalDetailsViewModel @Inject constructor(
-    private val editProfileUseCase: EditProfileUseCase,
-    private val authRepository: AuthRepository
+    private val countriesAndCitiesUseCase: CountriesAndCitiesUseCase,
+    private val getProfileUseCase: GetProfileUseCase,
+    private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
 
-    private val _editProfileState = MutableStateFlow<UiState<EditProfileResponse>>(UiState.Empty())
-    val editProfileState: StateFlow<UiState<EditProfileResponse>> = _editProfileState
+    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
 
-    private val _countriesState = MutableStateFlow<UiState<List<CountriesModel>>>(UiState.Empty())
-    val countriesState: StateFlow<UiState<List<CountriesModel>>> = _countriesState
+    private val _updateProfileState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
+    val updateProfileState: StateFlow<UiState<ResultModel>> = _updateProfileState
 
-    private val _cityState = MutableStateFlow<UiState<List<CitiesModel>>>(UiState.Empty())
-    val cityState: StateFlow<UiState<List<CitiesModel>>> = _cityState
+    private val _countriesState = MutableStateFlow<UiState<List<CountryModel>>>(UiState.Empty())
+    val countriesState: StateFlow<UiState<List<CountryModel>>> = _countriesState
 
-    private val _regionState = MutableStateFlow<UiState<List<RegionsModel>>>(UiState.Empty())
-    val regionState: StateFlow<UiState<List<RegionsModel>>> = _regionState
+    private val _citiesState = MutableStateFlow<UiState<List<CityModel>>>(UiState.Empty())
+    val citiesState: StateFlow<UiState<List<CityModel>>> = _citiesState
 
-    private var editProfileJob: Job? = null
-    private var countryJob: Job? = null
-    private var cityJob: Job? = null
-    private var regionJob: Job? = null
+    private var getProfileJob: Job? = null
+    private var updateProfileJob: Job? = null
+    private var getCountriesJob: Job? = null
+    private var getCitiesJob: Job? = null
 
     fun cancelRequest() {
-        editProfileJob?.cancel()
-        countryJob?.cancel()
-        cityJob?.cancel()
-        regionJob?.cancel()
+        getProfileJob?.cancel()
+        updateProfileJob?.cancel()
+        getCountriesJob?.cancel()
+        getCitiesJob?.cancel()
     }
 
-    fun editProfile(
-        user_id: String,
-        user_pass: String,
-        user_name: String,
-        address: String,
-        countryId: String,
-        cityId: String,
-        regionId: String,
-        user_email: String,
-        user_phone: String,
-        m_image: Uri?
-    ) {
-        editProfileJob?.cancel()
-        editProfileJob = viewModelScope.launch {
+    fun getProfile() {
+        getProfileJob?.cancel()
+        getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                editProfileUseCase(
-                    convertToRequestBody(user_id),
-                    convertToRequestBody(user_pass),
-                    convertToRequestBody(user_name),
-                    convertToRequestBody(address),
-                    convertToRequestBody(countryId),
-                    convertToRequestBody(cityId),
-                    convertToRequestBody(regionId),
-                    convertToRequestBody(user_email),
-                    convertToRequestBody(user_phone),
-                    convertFileToMultipart(m_image)
-                ).collect { result ->
+                getProfileUseCase().collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _editProfileState.value = UiState.Success(it)
-                            } ?: run { _editProfileState.value = UiState.Empty() }
-                            saveUserInfo(
-                                user_name,
-                                user_pass,
-                                address,
-                                countryId,
-                                cityId,
-                                regionId,
-                                user_email,
-                                user_phone,
-                                result.data?.member?.mImage ?: ""
-                            )
+                            _getProfileState.value = UiState.Success(result.data)
                         }
+
                         is Resource.Error -> {
-                            _editProfileState.value =
+                            _getProfileState.value =
                                 UiState.Error(result.message!!)
                         }
+
                         is Resource.Loading -> {
-                            _editProfileState.value = UiState.Loading()
+                            _getProfileState.value = UiState.Loading()
                         }
                     }
                 }
@@ -112,41 +82,102 @@ class EditPersonalDetailsViewModel @Inject constructor(
         }
     }
 
-    fun countries() {
-        countryJob?.cancel()
-        countryJob = viewModelScope.launch {
+    fun updateProfile(
+        firstName: String,
+        lastName: String,
+        mobileNumber: String,
+        email: String,
+        countryId: String,
+        cityId: String,
+        bio: String,
+        profileImage: Uri?,
+        coverImage: Uri?
+    ) {
+        updateProfileJob?.cancel()
+        updateProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-//                authRepository.allCountries().collect {
-//                    when (it) {
-//                        is Resource.Success -> {
-//                            _countriesState.value = UiState.Success(it.data)
-//                        }
-//                        is Resource.Error -> {
-//                            _countriesState.value = UiState.Error(it.message!!)
-//                        }
-//                        is Resource.Loading -> {
-//                            _countriesState.value = UiState.Loading()
-//                        }
-//                    }
-//                }
+                updateProfileUseCase(
+                    convertToRequestBody(firstName),
+                    convertToRequestBody(lastName),
+                    convertToRequestBody(mobileNumber),
+                    convertToRequestBody(email),
+                    convertToRequestBody(countryId),
+                    convertToRequestBody(cityId),
+                    convertToRequestBody(bio),
+                    convertFileToMultipart(profileImage, UPLOAD_PROFILE_IMAGE_KEY),
+                    convertFileToMultipart(coverImage, UPLOAD_COVER_IMAGE_KEY)
+                ).collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _updateProfileState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _updateProfileState.value =
+                                UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _updateProfileState.value = UiState.Loading()
+                        }
+                    }
+                }
             }
         }
     }
 
-//    fun cities(countryId: Int) {
-//        countryJob?.cancel()
-//        countryJob = viewModelScope.launch {
+//    fun editProfile(
+//        user_id: String,
+//        user_pass: String,
+//        user_name: String,
+//        address: String,
+//        countryId: String,
+//        cityId: String,
+//        regionId: String,
+//        user_email: String,
+//        user_phone: String,
+//        m_image: Uri?
+//    ) {
+//        editProfileJob?.cancel()
+//        editProfileJob = viewModelScope.launch {
 //            withContext(coroutineContext) {
-//                authRepository.allCities(countryId.toString()).collect {
-//                    when (it) {
+//                updateProfileUseCase(
+//                    convertToRequestBody(user_id),
+//                    convertToRequestBody(user_pass),
+//                    convertToRequestBody(user_name),
+//                    convertToRequestBody(address),
+//                    convertToRequestBody(countryId),
+//                    convertToRequestBody(cityId),
+//                    convertToRequestBody(regionId),
+//                    convertToRequestBody(user_email),
+//                    convertToRequestBody(user_phone),
+//                    convertFileToMultipart(m_image,"")
+//                ).collect { result ->
+//                    when (result) {
 //                        is Resource.Success -> {
-//                            _cityState.value = UiState.Success(it.data)
+//                            result.data?.let {
+//                                _editProfileState.value = UiState.Success(it)
+//                            } ?: run { _editProfileState.value = UiState.Empty() }
+//                            saveUserInfo(
+//                                user_name,
+//                                user_pass,
+//                                address,
+//                                countryId,
+//                                cityId,
+//                                regionId,
+//                                user_email,
+//                                user_phone,
+//                                result.data?.member?.mImage ?: ""
+//                            )
 //                        }
+//
 //                        is Resource.Error -> {
-//                            _cityState.value = UiState.Error(it.message!!)
+//                            _editProfileState.value =
+//                                UiState.Error(result.message!!)
 //                        }
+//
 //                        is Resource.Loading -> {
-//                            _cityState.value = UiState.Loading()
+//                            _editProfileState.value = UiState.Loading()
 //                        }
 //                    }
 //                }
@@ -154,6 +185,51 @@ class EditPersonalDetailsViewModel @Inject constructor(
 //        }
 //    }
 
+    fun getCountries() {
+        getCountriesJob?.cancel()
+        getCountriesJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                countriesAndCitiesUseCase.getCountries().collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _countriesState.value = UiState.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _countriesState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _countriesState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getCities(countryId: String) {
+        getCitiesJob?.cancel()
+        getCitiesJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                countriesAndCitiesUseCase.getCities(countryId).collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _citiesState.value = UiState.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _citiesState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _citiesState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
     private fun convertToRequestBody(part: String): RequestBody? {
@@ -164,11 +240,11 @@ class EditPersonalDetailsViewModel @Inject constructor(
         }
     }
 
-    private fun convertFileToMultipart(imageUri: Uri?): MultipartBody.Part? {
+    private fun convertFileToMultipart(imageUri: Uri?, key: String): MultipartBody.Part? {
         return if (imageUri != null) {
             val file = File(imageUri.path!!)
             val requestBody = RequestBody.create(MediaType.parse("*/*"), file)
-            MultipartBody.Part.createFormData("m_image", file.name, requestBody)
+            MultipartBody.Part.createFormData(key, file.name, requestBody)
         } else null
     }
 

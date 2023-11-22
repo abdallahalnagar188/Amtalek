@@ -4,10 +4,10 @@ import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.*
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
-import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
-import eramo.amtalek.data.remote.dto.general.Member
+import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
+import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.products.*
 import eramo.amtalek.data.remote.dto.products.orders.*
@@ -126,6 +126,26 @@ interface AmtalekApi {
     //____________________________________________________________________________________________//
     // Drawer
 
+    @GET("mobile/get-profile")
+    suspend fun getProfile(
+        @Header("Authorization") userToken: String,
+    ): Response<GetProfileResponse>
+
+    @Multipart
+    @POST("mobile/update-profile")
+    suspend fun updateProfile(
+        @Header("Authorization") userToken:String,
+        @Part("first_name") firstName: RequestBody?,
+        @Part("last_name") lastName: RequestBody?,
+        @Part("phone") mobileNumber: RequestBody?,
+        @Part("email") email: RequestBody?,
+        @Part("country") countryId: RequestBody?,
+        @Part("city") cityId: RequestBody?,
+        @Part("bio") bio: RequestBody?,
+        @Part profileImage: MultipartBody.Part?,
+        @Part coverImage: MultipartBody.Part?
+    ): Response<SuccessfulResponse>
+
     @FormUrlEncoded
     @POST("updateDeviceToken")
     suspend fun updateFirebaseDeviceToken(
@@ -133,9 +153,9 @@ interface AmtalekApi {
         @Field("device_token") deviceToken: String
     ): Response<ResultDto>
 
-    @FormUrlEncoded
-    @POST("getProfile")
-    suspend fun getProfile(@Field("user_id") user_id: String): Response<Member>
+//    @FormUrlEncoded
+//    @POST("getProfile")
+//    suspend fun getProfile(@Field("user_id") user_id: String): Response<Member>
 
     @Multipart
     @POST("edit_profile")

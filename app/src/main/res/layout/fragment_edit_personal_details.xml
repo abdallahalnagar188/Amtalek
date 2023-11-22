@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="locale">
 
     <include
@@ -30,22 +31,21 @@
             android:background="@color/background_layout"
             android:paddingBottom="@dimen/_16sdp">
 
-
             <ImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_135sdp"
                 android:contentDescription="@null"
-                android:scaleType="fitXY"
-                android:src="@color/gray_layer"
+                tools:src="@color/gray_layer"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_cover_image_picker"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
                 android:layout_margin="@dimen/_14sdp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/_30sdp"
@@ -76,14 +76,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
+                    android:scaleType="centerCrop"
                     android:padding="@dimen/_5sdp"
-                    android:src="@color/green" />
+                    tools:src="@color/green" />
             </com.google.android.material.card.MaterialCardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_profile_image_picker"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
                 android:layout_margin="@dimen/_5sdp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/_30sdp"
@@ -222,73 +223,6 @@
                     android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/itl_password"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/gray"
-                app:helperText=" "
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/til_email"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/gray">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:drawableStart="@drawable/ic_password"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_10ssp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/itl_re_password"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/edit_text_margin_top"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/gray"
-                app:helperText=" "
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/itl_password"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/gray">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_re_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:drawableStart="@drawable/ic_password"
-                    android:drawablePadding="@dimen/_8sdp"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/re_password"
-                    android:inputType="textPassword"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_10ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
             <Spinner
                 android:id="@+id/countries_spinner"
                 android:layout_width="0dp"
@@ -302,7 +236,7 @@
                 android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/itl_re_password" />
+                app:layout_constraintTop_toBottomOf="@id/til_email" />
 
             <Spinner
                 android:id="@+id/cities_spinner"
@@ -319,6 +253,35 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/countries_spinner" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_bio"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:helperText=" "
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cities_spinner">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_140sdp"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="start"
+                    android:hint="@string/bio"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <Button
                 android:id="@+id/btn_confirm"
                 android:layout_width="0dp"
@@ -333,7 +296,7 @@
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cities_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/til_bio" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
