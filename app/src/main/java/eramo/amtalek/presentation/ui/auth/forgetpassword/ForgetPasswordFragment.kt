@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.ui.auth.forgetpassword
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -54,7 +55,7 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
 
         binding.apply {
             FForgetBtnSendCode.setOnClickListener {
-                viewModel.sendForgotPasswordMail(FForgetEtEmail.text.toString().trim())
+                validateAndSendForgotPasswordMail()
             }
 
             FForgetTvSignUp.setOnClickListener {
@@ -127,9 +128,7 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (FForgetEtEmail.text.toString().trim().isNotEmpty() &&
-                        Patterns.EMAIL_ADDRESS.matcher(FForgetEtEmail.text.toString().trim()).matches()
-                    ) {
+                    if (FForgetEtEmail.text.toString().trim().isNotEmpty()) {
                         FForgetBtnSendCode.background =
                             ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
                         FForgetBtnSendCode.isEnabled = true
@@ -144,4 +143,21 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
         }
     }
 
+    private fun validateAndSendForgotPasswordMail(){
+        val email = binding.FForgetEtEmail.text.toString().trim()
+
+        if (TextUtils.isEmpty(email)) {
+            binding.FForgetTilEmail.error = getString(R.string.email_is_required)
+            binding.FForgetTilEmail.requestFocus()
+            return
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.FForgetTilEmail.error = getString(R.string.please_enter_a_valid_email)
+            binding.FForgetTilEmail.requestFocus()
+            return
+        } else {
+            binding.FForgetTilEmail.error = null
+        }
+
+        viewModel.sendForgotPasswordMail(email)
+    }
 }
