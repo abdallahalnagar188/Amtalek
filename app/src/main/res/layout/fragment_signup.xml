@@ -64,6 +64,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:hint="@string/first_name"
                 android:inputType="textPersonName"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_10ssp" />
@@ -94,6 +95,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:hint="@string/last_name"
                 android:inputType="textPersonName"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_10ssp" />
@@ -153,6 +155,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:hint="@string/e_mail"
                 android:inputType="textEmailAddress"
+                android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_10ssp" />
