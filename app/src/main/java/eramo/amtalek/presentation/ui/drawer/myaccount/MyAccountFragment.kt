@@ -45,8 +45,15 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
             FMyAccountTvChangePassword.setOnClickListener(this@MyAccountFragment)
 
-            Glide.with(requireContext()).load(UserUtil.getUserProfileImageUrl()).into(ivProfile)
-            textView20.text = getString(R.string.S_user_name,UserUtil.getUserFirstName(), UserUtil.getUserLastName())
+            Glide.with(requireContext()).load(
+                if (UserUtil.getUserProfileImageUrl() != "") {
+                    UserUtil.getUserProfileImageUrl()
+                } else {
+                    R.drawable.avatar
+                }
+            ).into(ivProfile)
+
+            textView20.text = getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
         }
     }
 

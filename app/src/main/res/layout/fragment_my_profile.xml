@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/amtalek_blue" />
+            android:src="@color/amtalek_blue" />
 
         <ImageView
             android:id="@+id/iv_back"

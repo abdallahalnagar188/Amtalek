@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="locale">
 
     <include
@@ -36,8 +36,8 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_135sdp"
                 android:contentDescription="@null"
-                tools:src="@color/gray_layer"
                 android:scaleType="centerCrop"
+                android:src="@color/amtalek_blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -76,8 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
-                    android:scaleType="centerCrop"
                     android:padding="@dimen/_4sdp"
+                    android:scaleType="centerCrop"
                     tools:src="@color/green" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -218,6 +218,7 @@
                     android:fontFamily="@font/montserratregular"
                     android:hint="@string/e_mail"
                     android:inputType="textEmailAddress"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/_10ssp" />
@@ -258,8 +259,8 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/gray"
                 app:helperText=" "

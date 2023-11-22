@@ -114,7 +114,9 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
             tvLocation.text = user.cityName
             tvBio.text = user.bio
 
-            Glide.with(requireContext()).load(user.coverImageUrl).into(ivUserCover)
+            if (user.coverImageUrl != "") {
+                Glide.with(requireContext()).load(user.coverImageUrl).into(ivUserCover)
+            }
 
             if (user.profileImageUrl != "") {
                 Glide.with(requireContext()).load(user.profileImageUrl).into(ivUserProfile)

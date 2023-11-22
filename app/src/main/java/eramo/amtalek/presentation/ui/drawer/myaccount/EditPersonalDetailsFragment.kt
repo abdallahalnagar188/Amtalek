@@ -435,7 +435,9 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             etEmail.setText(user.email)
             etBio.setText(user.bio)
 
-            Glide.with(requireContext()).load(user.coverImageUrl).into(ivCover)
+            if (user.coverImageUrl != "") {
+                Glide.with(requireContext()).load(user.coverImageUrl).into(ivCover)
+            }
 
             if (user.profileImageUrl != "") {
                 Glide.with(requireContext()).load(user.profileImageUrl).into(ivProfile)
