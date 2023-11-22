@@ -5,24 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/edit_text_height">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/LSpinner_cv_flag"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_margin="@dimen/_6sdp"
-        app:cardCornerRadius="@dimen/_4sdp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/LSpinner_iv_flag"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_margin="@dimen/_6sdp"
             android:scaleType="centerCrop"
-            android:src="@drawable/splash_screen_logo" />
-    </androidx.cardview.widget.CardView>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_flag" />
 
     <TextView
         android:id="@+id/tv_country_name"
@@ -31,9 +24,9 @@
         android:layout_marginStart="@dimen/_6sdp"
         android:textColor="@color/black"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintBottom_toBottomOf="@id/LSpinner_cv_flag"
-        app:layout_constraintStart_toEndOf="@id/LSpinner_cv_flag"
-        app:layout_constraintTop_toTopOf="@id/LSpinner_cv_flag"
+        app:layout_constraintBottom_toBottomOf="@id/LSpinner_iv_flag"
+        app:layout_constraintStart_toEndOf="@id/LSpinner_iv_flag"
+        app:layout_constraintTop_toTopOf="@id/LSpinner_iv_flag"
         tools:text="Egypt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
