@@ -30,12 +30,12 @@ import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.EditPersonalDetailsViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsBinding>() {
@@ -142,8 +142,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     }
 
     private fun fetchData() {
-        fetchCities()
         fetchCountries()
+        fetchCities()
         fetchGetProfileState()
         fetchUpdateProfileState()
     }
@@ -308,7 +308,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     when (state) {
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            delay(1000)
+                            dismissShimmerEffect()
                             userModel = state.data!!
                             assignDataToTheViews(userModel)
 
@@ -316,13 +317,13 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -340,18 +341,18 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     when (state) {
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             showToast(state.data?.message!!)
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -368,17 +369,17 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                 viewModel.countriesState.collect { state ->
                     when (state) {
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
 
                             setupCountriesSpinner(state.data ?: emptyList())
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
 
@@ -404,17 +405,16 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                 viewModel.citiesState.collect { state ->
                     when (state) {
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
-
+                            dismissShimmerEffect()
                             setupCitiesSpinner(state.data!!)
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
@@ -444,6 +444,24 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             } else {
                 Glide.with(requireContext()).load(R.drawable.avatar).into(ivProfile)
             }
+        }
+    }
+
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
+
+            viewLayout.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            viewLayout.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
         }
     }
 }

@@ -53,6 +53,8 @@ import eramo.amtalek.R
     const val TRUE = 1
     const val FALSE = 0
 
+    const val SHIMMER_EFFECT_DURATION = "1200"
+
 //    const val ADVERTISEMENT = 1001
 //    const val TEXT = 1002
 //    const val PHOTOS = 1003
