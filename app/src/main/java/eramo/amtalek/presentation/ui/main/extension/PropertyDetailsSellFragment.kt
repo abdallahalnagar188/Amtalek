@@ -22,7 +22,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsSellBinding::inflate
 

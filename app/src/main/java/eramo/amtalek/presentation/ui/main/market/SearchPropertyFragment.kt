@@ -18,7 +18,6 @@ import eramo.amtalek.util.StatusBarUtil
 @AndroidEntryPoint
 class SearchPropertyFragment : BindingFragment<FragmentSearchPropertyBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchPropertyBinding::inflate
 
@@ -27,8 +26,8 @@ class SearchPropertyFragment : BindingFragment<FragmentSearchPropertyBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.registerApiRequest { viewModel.getNotification() }
-        super.registerApiCancellation { viewModel.cancelRequest() }
+//        super.registerApiRequest { viewModel.getNotification() }
+//        super.registerApiCancellation { viewModel.cancelRequest() }
         StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
         setupToolbar()
 

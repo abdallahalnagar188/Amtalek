@@ -25,7 +25,6 @@ import javax.inject.Inject
 class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     RvBrokersAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokersBinding::inflate
 

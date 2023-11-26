@@ -21,7 +21,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserProfileFragment : BindingFragment<FragmentUserProfileBinding>(), RvUserProfilePostsAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentUserProfileBinding::inflate
 

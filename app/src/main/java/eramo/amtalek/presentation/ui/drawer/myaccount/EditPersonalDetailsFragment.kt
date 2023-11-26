@@ -40,7 +40,6 @@ import kotlinx.coroutines.delay
 @AndroidEntryPoint
 class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentEditPersonalDetailsBinding::inflate
 

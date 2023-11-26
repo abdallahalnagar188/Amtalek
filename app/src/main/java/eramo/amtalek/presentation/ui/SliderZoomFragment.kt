@@ -16,7 +16,6 @@ import eramo.amtalek.util.StatusBarUtil
 @AndroidEntryPoint
 class SliderZoomFragment : BindingFragment<FragmentSliderZoomBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSliderZoomBinding::inflate
 

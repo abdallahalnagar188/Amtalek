@@ -20,7 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(), RvMessagingChatAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMessagingChatBinding::inflate
 

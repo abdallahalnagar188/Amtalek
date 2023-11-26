@@ -32,7 +32,6 @@ class AddPropertyFragment : BindingFragment<FragmentAddPropertyBinding>(),
     DummySelectedImageAdapter.OnItemClickListener,
     DummyDescriptionAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddPropertyBinding::inflate
 

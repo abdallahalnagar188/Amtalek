@@ -18,7 +18,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LatestProjectsFragment : BindingFragment<FragmentLatestProjectsBinding>(), RvLatestProjectsAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentLatestProjectsBinding::inflate
 

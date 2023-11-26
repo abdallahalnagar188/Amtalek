@@ -56,7 +56,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvHomeFeaturedProjectsAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = true
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
 

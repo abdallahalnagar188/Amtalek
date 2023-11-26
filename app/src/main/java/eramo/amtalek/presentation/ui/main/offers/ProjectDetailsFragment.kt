@@ -29,7 +29,6 @@ class ProjectDetailsFragment : BindingFragment<FragmentProjectDetailsBinding>(),
     BannerSliderAdapter.OnItemClickListener,
     DummyAlbumAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentProjectDetailsBinding::inflate
 

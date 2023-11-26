@@ -26,7 +26,6 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
     RvMarketAdapter.OnItemClickListener,
     CommentsBottomDialogFragment.CommentsBottomDialogOnClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMarketBinding::inflate
 

@@ -19,7 +19,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ImagesListFragment : BindingFragment<FragmentImagesListBinding>(), RvImagesListAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentImagesListBinding::inflate
 

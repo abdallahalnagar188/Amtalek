@@ -20,7 +20,6 @@ import eramo.amtalek.util.showToast
 @AndroidEntryPoint
 class JoinUsFragment : BindingFragment<FragmentJoinUsBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentJoinUsBinding::inflate
 

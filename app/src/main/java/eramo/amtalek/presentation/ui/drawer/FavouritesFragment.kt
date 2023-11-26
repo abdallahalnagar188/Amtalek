@@ -20,7 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(), RvMyFavouritesAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentFavouritesBinding::inflate
 

@@ -22,7 +22,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsRentBinding::inflate
 

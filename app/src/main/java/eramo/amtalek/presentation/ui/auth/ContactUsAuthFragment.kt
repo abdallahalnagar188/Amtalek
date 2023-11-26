@@ -30,7 +30,6 @@ import eramo.amtalek.util.state.UiState
 @AndroidEntryPoint
 class ContactUsAuthFragment : BindingFragment<FragmentContactUsAuthBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentContactUsAuthBinding::inflate
 

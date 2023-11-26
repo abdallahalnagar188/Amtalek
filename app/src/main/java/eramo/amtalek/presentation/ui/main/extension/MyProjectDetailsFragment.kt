@@ -25,7 +25,6 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 @AndroidEntryPoint
 class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding>(), OnMapReadyCallback {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyProjectDetailsBinding::inflate
 

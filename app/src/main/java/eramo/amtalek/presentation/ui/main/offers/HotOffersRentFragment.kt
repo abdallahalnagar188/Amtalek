@@ -22,7 +22,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersRentBinding::inflate
 

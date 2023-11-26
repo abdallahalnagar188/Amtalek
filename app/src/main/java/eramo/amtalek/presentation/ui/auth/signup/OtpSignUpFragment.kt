@@ -28,7 +28,6 @@ import eramo.amtalek.util.state.UiState
 @AndroidEntryPoint
 class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentOtpBinding::inflate
 

@@ -26,7 +26,6 @@ import javax.inject.Inject
 class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     DummyProjectAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersBinding::inflate
 

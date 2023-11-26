@@ -23,7 +23,6 @@ import eramo.amtalek.util.navOptionsAnimation
 @AndroidEntryPoint
 class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyAccountBinding::inflate
 
@@ -33,8 +32,8 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.registerApiRequest { viewModel.getProfile() }
-        super.registerApiCancellation { viewModel.cancelRequest() }
+//        super.registerApiRequest { viewModel.getProfile() }
+//        super.registerApiCancellation { viewModel.cancelRequest() }
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.amtalek_blue)
 
         binding.apply {

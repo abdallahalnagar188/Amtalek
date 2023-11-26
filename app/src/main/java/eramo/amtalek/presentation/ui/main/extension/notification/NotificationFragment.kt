@@ -22,7 +22,6 @@ import javax.inject.Inject
 class NotificationFragment : BindingFragment<FragmentNotificationBinding>(),
     RvNotificationsAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentNotificationBinding::inflate
 

@@ -16,7 +16,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MyEstateSellFragment : BindingFragment<FragmentMyEstateSellBinding>(), RvMyEstateSellAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyEstateSellBinding::inflate
 

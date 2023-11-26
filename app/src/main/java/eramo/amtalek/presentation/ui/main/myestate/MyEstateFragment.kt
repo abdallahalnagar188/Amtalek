@@ -24,7 +24,6 @@ import javax.inject.Inject
 class MyEstateFragment : BindingFragment<FragmentMyEstateBinding>(),
     DummyNewsPreviewAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyEstateBinding::inflate
 

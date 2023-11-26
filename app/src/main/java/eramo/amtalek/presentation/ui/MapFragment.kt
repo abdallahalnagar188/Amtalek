@@ -18,7 +18,6 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 @AndroidEntryPoint
 class MapFragment : BindingFragment<FragmentMapBinding>(), OnMapReadyCallback {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMapBinding::inflate
 

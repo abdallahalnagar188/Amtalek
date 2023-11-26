@@ -13,7 +13,7 @@ import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
 class ImageViewFragment : BindingFragment<FragmentImageViewBinding>() {
-    override val isRefreshingEnabled: Boolean get() = false
+
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentImageViewBinding::inflate
 

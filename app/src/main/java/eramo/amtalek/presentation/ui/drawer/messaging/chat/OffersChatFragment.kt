@@ -19,7 +19,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class OffersChatFragment : BindingFragment<FragmentOffersChatBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentOffersChatBinding::inflate
 

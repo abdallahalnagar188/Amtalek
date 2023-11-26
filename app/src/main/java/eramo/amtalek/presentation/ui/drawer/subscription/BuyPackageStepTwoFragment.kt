@@ -15,7 +15,6 @@ import eramo.amtalek.util.navOptionsAnimation
 @AndroidEntryPoint
 class BuyPackageStepTwoFragment : BindingFragment<FragmentBuyPackageStepTwoBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBuyPackageStepTwoBinding::inflate
 

@@ -19,7 +19,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MyOffersFragment : BindingFragment<FragmentMyOffersBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyOffersBinding::inflate
 

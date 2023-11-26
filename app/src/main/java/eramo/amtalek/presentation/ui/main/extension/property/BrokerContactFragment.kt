@@ -15,7 +15,6 @@ import eramo.amtalek.util.showToast
 @AndroidEntryPoint
 class BrokerContactFragment : BindingFragment<FragmentBrokerContactBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokerContactBinding::inflate
 

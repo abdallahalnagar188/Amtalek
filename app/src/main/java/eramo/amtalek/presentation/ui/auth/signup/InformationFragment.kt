@@ -28,7 +28,6 @@ import eramo.amtalek.util.deeplink.DeeplinkUtil
 @AndroidEntryPoint
 class InformationFragment : BindingFragment<FragmentInformationBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentInformationBinding::inflate
 

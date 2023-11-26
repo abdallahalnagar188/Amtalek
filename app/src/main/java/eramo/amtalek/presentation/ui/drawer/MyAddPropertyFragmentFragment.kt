@@ -15,7 +15,6 @@ import eramo.amtalek.util.showToast
 @AndroidEntryPoint
 class MyAddPropertyFragmentFragment : BindingFragment<FragmentMyAddPropertyFragmentBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyAddPropertyFragmentBinding::inflate
 

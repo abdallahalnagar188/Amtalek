@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SatisfiedCustomersFragment : BindingFragment<FragmentSatisfiedCustomersBinding>() {
-    override val isRefreshingEnabled: Boolean get() = false
+
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSatisfiedCustomersBinding::inflate
 

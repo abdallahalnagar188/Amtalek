@@ -33,7 +33,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     BannerSliderAdapter.OnItemClickListener,
     DummyAlbumAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsBinding::inflate
 
@@ -51,8 +50,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        super.registerApiRequest { viewModel.cartData() }
-        super.registerApiCancellation { viewModel.cancelRequest() }
+//        super.registerApiRequest { viewModel.cartData() }
+//        super.registerApiCancellation { viewModel.cancelRequest() }
 
         StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
         setupToolbar()

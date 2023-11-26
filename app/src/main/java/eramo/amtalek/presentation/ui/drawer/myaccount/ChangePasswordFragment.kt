@@ -32,7 +32,6 @@ import eramo.amtalek.util.state.UiState
 @AndroidEntryPoint
 class ChangePasswordFragment : BindingFragment<FragmentChangePasswordBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentChangePasswordBinding::inflate
 

@@ -16,7 +16,6 @@ import eramo.amtalek.util.openLinkInBrowser
 @AndroidEntryPoint
 class NotificationDetailsFragment : BindingFragment<FragmentNotificationDetailsBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentNotificationDetailsBinding::inflate
 

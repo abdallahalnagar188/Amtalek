@@ -30,7 +30,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentOnBoardingBinding::inflate
 

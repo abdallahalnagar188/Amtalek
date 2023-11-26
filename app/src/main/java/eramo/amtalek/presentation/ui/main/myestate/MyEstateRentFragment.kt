@@ -20,7 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MyEstateRentFragment : BindingFragment<FragmentMyEstateRentBinding>(), RvMyEstateRentAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyEstateRentBinding::inflate
 

@@ -20,7 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MessagingOfferFragment : BindingFragment<FragmentMessagingOfferBinding>(), RvMessagingOffersAdapter.OnItemClickListener {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMessagingOfferBinding::inflate
 

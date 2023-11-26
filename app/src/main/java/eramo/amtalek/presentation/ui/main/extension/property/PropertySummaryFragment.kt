@@ -23,7 +23,6 @@ import eramo.amtalek.util.DataCharts.drawLineChart
 @AndroidEntryPoint
 class PropertySummaryFragment : BindingFragment<FragmentPropertySummaryBinding>() {
 
-    override val isRefreshingEnabled: Boolean get() = false
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertySummaryBinding::inflate
 
