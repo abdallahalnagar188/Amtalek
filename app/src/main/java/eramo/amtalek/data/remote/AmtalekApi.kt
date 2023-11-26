@@ -9,6 +9,7 @@ import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
+import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.products.*
 import eramo.amtalek.data.remote.dto.products.orders.*
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
@@ -124,6 +125,15 @@ interface AmtalekApi {
 
 
     //____________________________________________________________________________________________//
+    // Home
+
+    @GET("mobile/home")
+    suspend fun getHome(
+        @Header("Authorization") userToken: String?
+    ): Response<HomeResponse>
+
+
+    // ____________________________________________________________________________________________//
     // Drawer
 
     @GET("mobile/get-profile")

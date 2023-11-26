@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,9 @@ import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +35,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasA
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
@@ -38,6 +43,7 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -109,6 +115,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupViews()
         listeners()
 
+        requestApis()
+        fetchData()
+
 
         dummyFeaturedAdapter.setListener(this)
         rvMyFavouritesAdapter.setListener(this)
@@ -176,6 +185,46 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
 
         this@HomeFragment.onBackPressed { pressBackAgainToExist() }
+    }
+
+    private fun requestApis(){
+        viewModel.getHome()
+    }
+
+    private fun fetchData(){
+        fetchHomeState()
+    }
+
+    // -------------------------------------- fetchData -------------------------------------- //
+
+    private fun fetchHomeState(){
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.homeState.collect { state ->
+                        when (state) {
+
+                            is UiState.Success -> {
+                                LoadingDialog.dismissDialog()
+                                Log.e("homeData",state.data?.data.toString())
+                            }
+
+                            is UiState.Error -> {
+                                LoadingDialog.dismissDialog()
+                                val errorMessage = state.message!!.asString(requireContext())
+                                showToast(errorMessage)
+                            }
+
+                            is UiState.Loading -> {
+                                LoadingDialog.showDialog()
+                            }
+
+                            else -> {}
+                        }
+
+                    }
+                }
+            }
+
     }
 
     private fun setupCountriesSpinner() {

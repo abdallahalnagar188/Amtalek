@@ -1,10 +1,10 @@
 package eramo.amtalek.presentation.viewmodel.navbottom
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.general.Member
+import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.products.orders.CartCountResponse
 import eramo.amtalek.domain.model.OffersModel
 import eramo.amtalek.domain.model.ResultModel
@@ -12,19 +12,31 @@ import eramo.amtalek.domain.model.products.AdsModel
 import eramo.amtalek.domain.model.products.CategoryModel
 import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.repository.CartRepository
+import eramo.amtalek.domain.repository.HomeRepository
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.domain.usecase.drawer.UpdateFirebaseDeviceTokenUseCase
-import eramo.amtalek.domain.usecase.product.*
+import eramo.amtalek.domain.usecase.product.AddFavouriteUseCase
+import eramo.amtalek.domain.usecase.product.HomeAdsUseCase
+import eramo.amtalek.domain.usecase.product.HomeDealsByUserIdUseCase
+import eramo.amtalek.domain.usecase.product.HomeFeaturedByUserIdUseCase
+import eramo.amtalek.domain.usecase.product.HomeOffersUseCase
+import eramo.amtalek.domain.usecase.product.HomeProductsByUserIdUseCase
+import eramo.amtalek.domain.usecase.product.HomeProductsManufacturerByUserIdUseCase
+import eramo.amtalek.domain.usecase.product.RemoveFavouriteUseCase
 import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.notification.FirebaseMessageReceiver
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,7 +52,11 @@ class HomeViewModel @Inject constructor(
     private val homeAdsUseCase: HomeAdsUseCase,
     private val homeOffersUseCase: HomeOffersUseCase,
     private val cartRepository: CartRepository,
+    private val homeRepository: HomeRepository
 ) : ViewModel() {
+
+    private val _homeState = MutableStateFlow<UiState<HomeResponse>>(UiState.Empty())
+    val homeState: StateFlow<UiState<HomeResponse>> = _homeState
 
     private val _initScreenState = MutableStateFlow<UiState<Boolean>>(UiState.Empty())
     val initScreenState: StateFlow<UiState<Boolean>> = _initScreenState
@@ -80,6 +96,7 @@ class HomeViewModel @Inject constructor(
     private val _cartCountState = MutableStateFlow<UiState<CartCountResponse>>(UiState.Empty())
     val cartCountState: StateFlow<UiState<CartCountResponse>> = _cartCountState
 
+    private var getHomeJob: Job? = null
     private var initScreenJob: Job? = null
     private var latestDealsJob: Job? = null
     private var allProductsJob: Job? = null
@@ -94,6 +111,7 @@ class HomeViewModel @Inject constructor(
     private var cartCountJob: Job? = null
 
     fun cancelRequest() {
+        getHomeJob?.cancel()
         initScreenJob?.cancel()
         latestDealsJob?.cancel()
         allProductsJob?.cancel()
@@ -106,6 +124,30 @@ class HomeViewModel @Inject constructor(
         homeAdsJob?.cancel()
         homeOffersJob?.cancel()
         cartCountJob?.cancel()
+    }
+
+    fun getHome() {
+        getHomeJob?.cancel()
+        getHomeJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+
+                homeRepository.getHome().collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _homeState.value = UiState.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _homeState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _homeState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     fun getScreenApis() {
@@ -146,11 +188,13 @@ class HomeViewModel @Inject constructor(
                                 _latestDealsState.value = UiState.Success(data)
                             } ?: run { _latestDealsState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _latestDealsState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -169,11 +213,13 @@ class HomeViewModel @Inject constructor(
                                 _allProductsState.value = UiState.Success(data)
                             } ?: run { _allProductsState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _allProductsState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -192,11 +238,13 @@ class HomeViewModel @Inject constructor(
                                 _allFeaturedState.value = UiState.Success(data)
                             } ?: run { _allFeaturedState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _allFeaturedState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -215,11 +263,13 @@ class HomeViewModel @Inject constructor(
                                 _allProductsManufacturerState.value = UiState.Success(data)
                             } ?: run { _allProductsManufacturerState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _allProductsManufacturerState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -237,11 +287,13 @@ class HomeViewModel @Inject constructor(
                                 _addFavouriteState.emit(UiState.Success(it))
                             } ?: run { _addFavouriteState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _addFavouriteState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _addFavouriteState.emit(UiState.Loading())
                         }
@@ -262,11 +314,13 @@ class HomeViewModel @Inject constructor(
                                 _removeFavouriteState.emit(UiState.Success(it))
                             } ?: run { _removeFavouriteState.emit(UiState.Empty()) }
                         }
+
                         is Resource.Error -> {
                             _removeFavouriteState.emit(
                                 UiState.Error(result.message!!)
                             )
                         }
+
                         is Resource.Loading -> {
                             _removeFavouriteState.emit(UiState.Loading())
                         }
@@ -288,11 +342,13 @@ class HomeViewModel @Inject constructor(
 //                                _getProfileState.value = UiState.Success(it)
 //                            } ?: run { _getProfileState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _getProfileState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -310,11 +366,13 @@ class HomeViewModel @Inject constructor(
                                 _firebaseTokenState.value = UiState.Success(it)
                             } ?: run { _firebaseTokenState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _firebaseTokenState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -333,11 +391,13 @@ class HomeViewModel @Inject constructor(
                                 _homeAdsState.value = UiState.Success(it)
                             } ?: run { _homeAdsState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _homeAdsState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -356,11 +416,13 @@ class HomeViewModel @Inject constructor(
                                 _homeOffersState.value = UiState.Success(it)
                             } ?: run { _homeOffersState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _homeOffersState.value =
                                 UiState.Error(result.message!!)
                         }
-                        else->Unit
+
+                        else -> Unit
                     }
                 }
             }
@@ -384,9 +446,11 @@ class HomeViewModel @Inject constructor(
                                 _cartCountState.value = UiState.Success(it)
                             } ?: run { _cartCountState.value = UiState.Empty() }
                         }
+
                         is Resource.Error -> {
                             _cartCountState.value = UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
                             _cartCountState.value = UiState.Loading()
                         }

@@ -65,6 +65,12 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideHomeRepository(AmtalekApi: AmtalekApi): HomeRepository {
+        return HomeRepositoryImpl(AmtalekApi)
+    }
+
+    @Provides
+    @Singleton
     fun provideDrawerRepository(AmtalekApi: AmtalekApi): DrawerRepository {
         return DrawerRepositoryImpl(AmtalekApi)
     }
