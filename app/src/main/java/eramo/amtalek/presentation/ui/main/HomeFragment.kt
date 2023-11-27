@@ -164,8 +164,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         initToolbar()
 
 
-        setupSliderBetween()
-
         setupNewestPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupNewestVillasRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupNewestDuplexesRv(Dummy.dummyMyFavouritesList(requireContext()))
@@ -228,7 +226,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun parseHomeResponse(data: HomeResponse) {
-       val topCarouselSliderList =  parseTopCarouselSliderList(data.data?.sliders)
+        val topCarouselSliderList = parseTopCarouselSliderList(data.data?.sliders)
         setupCarouselSliderTop(topCarouselSliderList)
 
         setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
@@ -237,6 +235,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
 
 
+        val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
+        setupSliderBetween(betweenCarouselSliderList)
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
@@ -273,25 +273,71 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun parseTopCarouselSliderList(data: List<HomeResponse.Data.Slider?>?):ArrayList<CarouselItem>{
+    private fun parseTopCarouselSliderList(data: List<HomeResponse.Data.Slider?>?): ArrayList<CarouselItem> {
         val list = ArrayList<CarouselItem>()
         val headers = mutableMapOf<String, String>()
         headers["header_key"] = "header_value"
 
-        for (i in data!!){
+        for (i in data!!) {
             list.add(
                 CarouselItem(
                     imageUrl = i?.image,
-
-                    )
+                )
             )
         }
 
         return list
     }
 
+    private fun parseBetweenCarouselSliderList(data: List<HomeResponse.Data.Adds?>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
 
+        for (i in data!!) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i?.image,
+                )
+            )
+        }
 
+        return list
+    }
+
+    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+        binding.apply {
+            carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
+            carouselSliderBetween.setData(data)
+            carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
+            carouselSliderBetween.carouselListener = object : CarouselListener {
+                override fun onCreateViewHolder(
+                    layoutInflater: LayoutInflater,
+                    parent: ViewGroup
+                ): ViewBinding {
+//                    return ItemAdsBinding.inflate(
+                    return ItemSliderTopBinding.inflate(
+                        layoutInflater,
+                        parent,
+                        false
+                    )
+                }
+
+                override fun onBindViewHolder(
+                    binding: ViewBinding,
+                    item: CarouselItem,
+                    position: Int
+                ) {
+//                    val currentBinding = binding as ItemAdsBinding
+                    val currentBinding = binding as ItemSliderTopBinding
+                    currentBinding.apply {
+                        imageView13.setImage(item)
+                    }
+
+                }
+            }
+        }
+    }
 
 
     private fun setupCountriesSpinner() {
@@ -323,41 +369,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupCountriesSpinner()
     }
 
-    private fun setupSliderBetween() {
-        binding.apply {
-//            carouselSliderBetween.registerLifecycle(lifecycle)
-            carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderBetween.setData(Dummy.dummyCarouselList())
-            carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
-            carouselSliderBetween.carouselListener = object : CarouselListener {
-                override fun onCreateViewHolder(
-                    layoutInflater: LayoutInflater,
-                    parent: ViewGroup
-                ): ViewBinding {
-//                    return ItemAdsBinding.inflate(
-                    return ItemSliderTopBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                }
-
-                override fun onBindViewHolder(
-                    binding: ViewBinding,
-                    item: CarouselItem,
-                    position: Int
-                ) {
-//                    val currentBinding = binding as ItemAdsBinding
-                    val currentBinding = binding as ItemSliderTopBinding
-                    currentBinding.apply {
-                        imageView13.setImage(item)
-                    }
-
-                }
-            }
-        }
-    }
-
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
@@ -380,7 +391,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                
+
                 rvHomeFeaturedRealEstateAdapter.submitList(null)
                 rvHomeFeaturedRealEstateAdapter.submitList(data)
             }

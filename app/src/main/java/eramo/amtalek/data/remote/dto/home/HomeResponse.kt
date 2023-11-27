@@ -19,7 +19,7 @@ data class HomeResponse(
 ) {
     data class Data(
         @SerializedName("adds")
-        val adds: List<Any?>?,
+        val adds: List<Adds?>?,
         @SerializedName("appaerments")
         val appaerments: List<Appaerment?>?,
         @SerializedName("duplixes")
@@ -37,6 +37,20 @@ data class HomeResponse(
         @SerializedName("villas")
         val villas: List<Villa?>?
     ) {
+
+        data class Adds(
+            @SerializedName("id")
+            val id: Int?,
+            @SerializedName("image")
+            val image: String?,
+            @SerializedName("link")
+            val link: String?,
+            @SerializedName("title")
+            val title: String?,
+            @SerializedName("sub_title")
+            val sub_title: String?,
+        )
+
         data class Appaerment(
             @SerializedName("address")
             val address: String?,
