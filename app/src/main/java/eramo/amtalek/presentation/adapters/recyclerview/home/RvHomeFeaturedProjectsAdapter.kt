@@ -9,13 +9,14 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFeaturedProjectsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.main.home.ProjectHomeModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
 class RvHomeFeaturedProjectsAdapter @Inject constructor() :
-    ListAdapter<MyFavouritesModel, RvHomeFeaturedProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<ProjectHomeModel, RvHomeFeaturedProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -39,7 +40,7 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: MyFavouritesModel) {
+        fun bind(model: ProjectHomeModel) {
             var isFav = model.isFavourite == TRUE
             binding.apply {
                 ivFav.setOnClickListener {
@@ -48,14 +49,15 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
                     else ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price))
                 tvTitle.text = model.title
+                tvDescription.text = model.description
 
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
 
                 Glide.with(itemView)
                     .load(model.imageUrl)
+                    .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
 
                 Glide.with(itemView)
@@ -76,20 +78,20 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onFeaturedProjectClick(model: MyFavouritesModel)
+        fun onFeaturedProjectClick(model: ProjectHomeModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<MyFavouritesModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectHomeModel>() {
             override fun areItemsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: ProjectHomeModel,
+                newItem: ProjectHomeModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: ProjectHomeModel,
+                newItem: ProjectHomeModel
             ) = oldItem == newItem
         }
     }

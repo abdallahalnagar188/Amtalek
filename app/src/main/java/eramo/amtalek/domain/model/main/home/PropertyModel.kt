@@ -1,6 +1,7 @@
 package eramo.amtalek.domain.model.main.home
 
 data class PropertyModel(
+    val id :Int,
     val imageUrl: String,
     val type: String,
     val isFavourite: Int,

@@ -2,11 +2,11 @@ package eramo.amtalek.data.remote.dto.home
 
 
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.main.home.ProjectHomeModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.util.FALSE
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.AdvertisementType
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 data class HomeResponse(
     @SerializedName("data")
@@ -753,6 +753,13 @@ data class HomeResponse(
                 val propertiesCount: Int?
             )
 
+            fun toProjectModel(): ProjectHomeModel {
+                return ProjectHomeModel(
+                    id ?: -1, primaryImage ?: "", if (isFav == "1") TRUE else FALSE,
+                    title ?: "", description?:"","$region $city", createdAt ?: "", brokerDetails?.get(0)?.logo ?: ""
+
+                )
+            }
         }
 
         data class FeaturedPropertiesCountry(
@@ -1093,13 +1100,14 @@ data class HomeResponse(
 
             fun toPropertyModel(): PropertyModel {
                 return PropertyModel(
+                    id ?: -1,
                     primaryImage ?: "",
                     forWhat ?: "",
                     if (isFav == "1") TRUE else FALSE,
                     if (normalFeatured == AdvertisementType.FEATURED.key) TRUE else FALSE,
                     salePrice?.toDouble() ?: 0.0,
                     rentPrice?.toDouble() ?: 0.0,
-                    rentDuration?:"",
+                    rentDuration ?: "",
                     title ?: "",
                     landArea ?: 0,
                     bathRoomNo ?: 0,

@@ -22,6 +22,7 @@ import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.main.home.NewsModel
+import eramo.amtalek.domain.model.main.home.ProjectHomeModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
@@ -162,7 +163,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         initToolbar()
 
-        setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
 
         setupSliderBetween()
@@ -229,10 +229,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun parseHomeResponse(data: HomeResponse) {
-        setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
-
-       val topCarouselSliderList =  parseTopCarouselSliderList(data.data.sliders)
+       val topCarouselSliderList =  parseTopCarouselSliderList(data.data?.sliders)
         setupCarouselSliderTop(topCarouselSliderList)
+
+        setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
+        setupFeaturedProjectsRv(data.data.featuredProjectsCity!!.map { it!!.toProjectModel() })
 
     }
 
@@ -404,7 +405,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
+    private fun setupFeaturedProjectsRv(data: List<ProjectHomeModel>) {
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
@@ -585,7 +586,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    override fun onFeaturedProjectClick(model: MyFavouritesModel) {
+    override fun onFeaturedProjectClick(model: ProjectHomeModel) {
         findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
     }
 
