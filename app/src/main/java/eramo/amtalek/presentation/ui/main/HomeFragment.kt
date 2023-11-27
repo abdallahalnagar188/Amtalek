@@ -163,7 +163,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         initToolbar()
 
-        setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
 
         setupSliderBetween()
 
@@ -234,6 +233,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
         setupFeaturedProjectsRv(data.data.featuredProjectsCity!!.map { it!!.toProjectModel() })
+
+        setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
+
 
     }
 

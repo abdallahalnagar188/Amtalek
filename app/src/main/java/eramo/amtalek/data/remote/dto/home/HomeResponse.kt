@@ -3,6 +3,7 @@ package eramo.amtalek.data.remote.dto.home
 
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.main.home.ProjectHomeModel
+import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.util.FALSE
 import eramo.amtalek.util.TRUE
@@ -756,7 +757,7 @@ data class HomeResponse(
             fun toProjectModel(): ProjectHomeModel {
                 return ProjectHomeModel(
                     id ?: -1, primaryImage ?: "", if (isFav == "1") TRUE else FALSE,
-                    title ?: "", description?:"","$region $city", createdAt ?: "", brokerDetails?.get(0)?.logo ?: ""
+                    title ?: "", description ?: "", "$region $city", createdAt ?: "", brokerDetails?.get(0)?.logo ?: ""
 
                 )
             }
@@ -1143,7 +1144,11 @@ data class HomeResponse(
             val image: String?,
             @SerializedName("title")
             val title: String?
-        )
+        ) {
+            fun toPropertiesByCityModel(): PropertiesByCityModel {
+                return PropertiesByCityModel(id ?: -1, image ?: "", title ?: "", forSell ?: -1, forRent ?: -1)
+            }
+        }
 
         data class Slider(
             @SerializedName("description")

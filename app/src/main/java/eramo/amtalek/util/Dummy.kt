@@ -13,7 +13,6 @@ import eramo.amtalek.domain.model.extentions.NotificationsModel
 import eramo.amtalek.domain.model.main.ProjectModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
 import eramo.amtalek.domain.model.main.home.NewsModel
-import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.market.MarketPostType
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -251,28 +250,36 @@ object Dummy {
         list.add(
             LatestProjectsModel(
                 "https://imgnew.outlookindia.com/public/uploads/articles/2022/1/14/aranya11.png",
-                "Sheikh Zayed Compound", "Sheikh Zayed Giza", "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+                "Sheikh Zayed Compound",
+                "Sheikh Zayed Giza",
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
             )
         )
 
         list.add(
             LatestProjectsModel(
                 "https://housing-images.n7net.in/4f2250e8/cb8632c10a1fd97e6aa3e692731579b0/v0/medium/nyati_era-lohegaon-pune-nyati_group.jpeg",
-                "Sheikh Zayed Compound", "Sheikh Zayed Giza", "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+                "Sheikh Zayed Compound",
+                "Sheikh Zayed Giza",
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
             )
         )
 
         list.add(
             LatestProjectsModel(
                 "https://imgnew.outlookindia.com/public/uploads/articles/2022/1/14/aranya11.png",
-                "Sheikh Zayed Compound", "Sheikh Zayed Giza", "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+                "Sheikh Zayed Compound",
+                "Sheikh Zayed Giza",
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
             )
         )
 
         list.add(
             LatestProjectsModel(
                 "https://housing-images.n7net.in/4f2250e8/cb8632c10a1fd97e6aa3e692731579b0/v0/medium/nyati_era-lohegaon-pune-nyati_group.jpeg",
-                "Sheikh Zayed Compound", "Sheikh Zayed Giza", "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+                "Sheikh Zayed Compound",
+                "Sheikh Zayed Giza",
+                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
             )
         )
 
@@ -308,43 +315,6 @@ object Dummy {
                 3, 200
             )
         )
-
-        return list
-    }
-
-    fun dummyPropertiesByCityList(): List<PropertiesByCityModel> {
-        val list = mutableListOf<PropertiesByCityModel>()
-
-        list.add(
-            PropertiesByCityModel(
-                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg", "Cairo", 210, 150
-            )
-        )
-
-        list.add(
-            PropertiesByCityModel(
-                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg",
-                "Alexandria",
-                210,
-                150
-            )
-        )
-
-        list.add(
-            PropertiesByCityModel(
-                "https://imagevars.gulfnews.com/2020/12/12/egypt_17656d254e6_large.jpg", "Cairo", 210, 150
-            )
-        )
-
-        list.add(
-            PropertiesByCityModel(
-                "https://mlrhpz8jmuut.i.optimole.com/cb:Ie5o.50122/w:auto/h:auto/q:mauto/ig:avif/f:best/id:4b9b0c229e43b68b64e45f9e1b43b329/https://www.egypttoursplus.com/is-it-safe-to-travel-to-alexandria-egypt.jpg",
-                "Alexandria",
-                210,
-                150
-            )
-        )
-
 
         return list
     }
@@ -727,8 +697,7 @@ object Dummy {
                 "Abdallah",
                 "abdalla98",
                 "https://i.pinimg.com/564x/86/62/65/866265369891b45de4a7241df1c633b3.jpg",
-                "تناولت الحلقة: 1- القدرة تتعلق بالمقدورات (بالأشياء المقدورة) تعلقًا صَلوحيًّا قديمًا وتعلقًا تنجيزيًّا حادثًا 2- الإرادة لها تعلقان: صلوحي قديم وتنجيزي قديم 3- العلم له تعلق تنجيزي قديم فقط 4- الكلام والسمع والبصر لها ثلاثة تعلقات: صلوحي قديم وتنجيزي قديم وتنجيزي حادث 6- التنجيزي الحادث هو ما يعبر عنه الحنفية بالتكوين 7- الإمام الأشعري نقض بناء المعتزلة 8- نهضة الأمة بالرد على أهل الضلال بالعلم 9- لا مشيئة للعباد إلا ما شاء الله لهم."
-                        ,
+                "تناولت الحلقة: 1- القدرة تتعلق بالمقدورات (بالأشياء المقدورة) تعلقًا صَلوحيًّا قديمًا وتعلقًا تنجيزيًّا حادثًا 2- الإرادة لها تعلقان: صلوحي قديم وتنجيزي قديم 3- العلم له تعلق تنجيزي قديم فقط 4- الكلام والسمع والبصر لها ثلاثة تعلقات: صلوحي قديم وتنجيزي قديم وتنجيزي حادث 6- التنجيزي الحادث هو ما يعبر عنه الحنفية بالتكوين 7- الإمام الأشعري نقض بناء المعتزلة 8- نهضة الأمة بالرد على أهل الضلال بالعلم 9- لا مشيئة للعباد إلا ما شاء الله لهم.",
                 "Tuesday: May 21, 2023",
                 4.5f
             )
@@ -833,25 +802,26 @@ object Dummy {
 
         list.add(
             ChatMessageModel(
-                ChatMessageType.SENDER,"How much does the property cost"
+                ChatMessageType.SENDER, "How much does the property cost"
             )
         )
 
         list.add(
             ChatMessageModel(
-                ChatMessageType.RECEIVER,"What is your recommendation? What is your recommendation "
+                ChatMessageType.RECEIVER, "What is your recommendation? What is your recommendation "
             )
         )
 
         list.add(
             ChatMessageModel(
-                ChatMessageType.SENDER,"How much does the property cost How much does the property cost How much does the property cost"
+                ChatMessageType.SENDER,
+                "How much does the property cost How much does the property cost How much does the property cost"
             )
         )
 
         list.add(
             ChatMessageModel(
-                ChatMessageType.RECEIVER,"What is your recommendation?"
+                ChatMessageType.RECEIVER, "What is your recommendation?"
             )
         )
 

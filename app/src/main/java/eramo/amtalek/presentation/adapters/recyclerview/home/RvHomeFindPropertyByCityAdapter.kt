@@ -40,10 +40,12 @@ class RvHomeFindPropertyByCityAdapter @Inject constructor() :
         fun bind(model: PropertiesByCityModel) {
             binding.apply {
                 tvCityName.text = model.cityName
-                tvPropertiesForRent.text = itemView.context.getString(R.string.s_properties_for_rent, model.forRentCount.toString())
-                tvPropertiesForSell.text = itemView.context.getString(R.string.s_properties_for_sell, model.forSellCount.toString())
+                tvPropertiesForRent.text =
+                    itemView.context.getString(R.string.s_properties_for_rent, model.forRentCount.toString())
+                tvPropertiesForSell.text =
+                    itemView.context.getString(R.string.s_properties_for_sell, model.forSellCount.toString())
 
-                Glide.with(itemView).load(model.imageUrl).into(ivImage)
+                Glide.with(itemView).load(model.imageUrl).placeholder(R.drawable.ic_no_image).into(ivImage)
             }
         }
     }
