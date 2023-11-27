@@ -644,4 +644,10 @@
     <string name="please_verify_account">يرجى ادخال رمز التحقق</string>
     <string name="please_verify_account_an_email_sent">حسابك يحتاج للتفعيل\nتحقق من بريدك الإليكترونى</string>
 
+    <string name="s_daily_price">%s ج.م/اليوم</string>
+    <string name="s_monthly_price">%s ج.م/الشهر</string>
+    <string name="s_3_months_price">%s ج.م/3 شهور</string>
+    <string name="s_6_months_price">%s ج.م/6 شهور</string>
+    <string name="s_9_months_price">%s ج.م/9 شهور</string>
+    <string name="s_yearly_price">%s ج.م/السنة</string>
 </resources>

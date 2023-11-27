@@ -1098,6 +1098,7 @@ data class HomeResponse(
                     if (normalFeatured == AdvertisementType.FEATURED.key) TRUE else FALSE,
                     salePrice?.toDouble() ?: 0.0,
                     rentPrice?.toDouble() ?: 0.0,
+                    rentDuration?:"",
                     title ?: "",
                     landArea ?: 0,
                     bathRoomNo ?: 0,

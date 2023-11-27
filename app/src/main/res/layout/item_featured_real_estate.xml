@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_185sdp"
-    android:layout_height="@dimen/_258sdp"
+    android:layout_height="@dimen/_278sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
     app:cardCornerRadius="@dimen/_30sdp"
@@ -49,7 +49,7 @@
             android:textColor="@color/amtalek_blue"
             app:layout_constraintBottom_toBottomOf="@id/iv_image"
             app:layout_constraintEnd_toEndOf="@+id/iv_image"
-            tools:text="@string/for_sell_or_rent" />
+            tools:text="" />
 
         <TextView
             android:id="@+id/tv_featured"
@@ -82,6 +82,22 @@
             tools:text="4,000,000 EGP" />
 
         <TextView
+            android:id="@+id/tv_price_rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:layout_goneMarginTop="@dimen/_12sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            tools:text="4,000,000 EGP" />
+
+        <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,7 +109,7 @@
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_price_rent"
             tools:text="Residential apartment for sale in manshetercity" />
 
         <ImageView
@@ -101,6 +117,7 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_area"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,8 +140,8 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_bathroom"
+            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             app:layout_constraintStart_toEndOf="@id/tv_area"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -146,8 +163,8 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_bed"
+            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             app:layout_constraintStart_toEndOf="@id/tv_bathroom"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -169,6 +186,7 @@
             android:layout_height="@dimen/_16sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintBottom_toTopOf="@+id/iv_clock"
             android:src="@drawable/ic_location_green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_area" />

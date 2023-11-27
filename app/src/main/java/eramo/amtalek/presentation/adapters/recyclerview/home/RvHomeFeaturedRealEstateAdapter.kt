@@ -1,7 +1,12 @@
 package eramo.amtalek.presentation.adapters.recyclerview.home
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,8 +16,12 @@ import eramo.amtalek.databinding.ItemFeaturedRealEstateBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
+import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -25,7 +34,9 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it) }
+//        holder.itemView.findViewTreeLifecycleOwner()?.lifecycleScope ?: CoroutineScope(Dispatchers.IO).launch {
+            getItem(position).let { holder.bind(it) }
+//        }
     }
 
     inner class ProductViewHolder(private val binding: ItemFeaturedRealEstateBinding) :
@@ -61,6 +72,33 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                         ""
                     }
                 }
+
+
+                when (model.type) {
+                    PropertyType.FOR_SELL.key -> {
+                        tvPrice.visibility = View.VISIBLE
+                        tvPriceRent.visibility = View.GONE
+                    }
+
+                    PropertyType.FOR_RENT.key -> {
+                        tvPrice.visibility = View.GONE
+                        tvPriceRent.visibility = View.VISIBLE
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice)
+
+                    }
+
+                    PropertyType.FOR_BOTH.key -> {
+                        tvPrice.visibility = View.VISIBLE
+                        tvPriceRent.visibility = View.VISIBLE
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice)
+
+                    }
+
+                    else -> {
+
+                    }
+                }
+
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
@@ -81,6 +119,37 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
             }
+
+        }
+    }
+
+    private fun getRentPrice(context: Context, duration: String, price: Double): String {
+        return when (duration) {
+            RentDuration.DAILY.key -> {
+                context.getString(R.string.s_daily_price, formatPrice(price))
+            }
+
+            RentDuration.MONTHLY.key -> {
+                context.getString(R.string.s_monthly_price, formatPrice(price))
+            }
+
+            RentDuration.THREE_MONTHS.key -> {
+                context.getString(R.string.s_3_months_price, formatPrice(price))
+            }
+
+            RentDuration.SIX_MONTHS.key -> {
+                context.getString(R.string.s_6_months_price, formatPrice(price))
+            }
+
+            RentDuration.NINE_MONTHS.key -> {
+                context.getString(R.string.s_9_months_price, formatPrice(price))
+            }
+
+            RentDuration.YEARLY.key -> {
+                context.getString(R.string.s_yearly_price, formatPrice(price))
+            }
+
+            else -> ""
         }
     }
 

@@ -7,6 +7,7 @@ data class PropertyModel(
     val isFeatured: Int,
     val sellPrice: Double,
     val rentPrice: Double,
+    val rentDuration: String,
     val title: String,
     val area: Int,
     val bathroomsCount: Int,
