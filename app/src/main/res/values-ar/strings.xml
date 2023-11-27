@@ -429,6 +429,7 @@
 
     <string name="for_sell">للبيع</string>
     <string name="for_rent">للإيجار</string>
+    <string name="for_sell_or_rent">للبيع/للإيجار</string>
     <string name="featured">مميز</string>
 
     <string name="fake_Compound">كومبوند فى الشيخ زايد</string>

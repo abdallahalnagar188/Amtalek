@@ -53,8 +53,6 @@ import eramo.amtalek.R
     const val TRUE = 1
     const val FALSE = 0
 
-    const val FOR_SALE = "for_sale"
-    const val FOR_REND = "for_rent"
 
 //    const val ADVERTISEMENT = 1001
 //    const val TEXT = 1002

@@ -17,11 +17,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
+import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummySliderTopAdapter
@@ -33,13 +35,14 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestDuplexe
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
-import eramo.amtalek.presentation.adapters.spinner.CitiesToolbarSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
@@ -150,6 +153,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 findNavController().navigate(R.id.myEstateFragment, null, navOptionsAnimation())
             }
         }
+        Log.e("token", UserUtil.getUserToken())
     }
 
     private fun setupViews() {
@@ -159,7 +163,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         initToolbar()
         setupCarouselSliderTop()
 
-        setupFeaturedRealEstateRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
 
@@ -187,43 +190,47 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         this@HomeFragment.onBackPressed { pressBackAgainToExist() }
     }
 
-    private fun requestApis(){
+    private fun requestApis() {
         viewModel.getHome()
     }
 
-    private fun fetchData(){
+    private fun fetchData() {
         fetchHomeState()
     }
 
     // -------------------------------------- fetchData -------------------------------------- //
 
-    private fun fetchHomeState(){
-            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.homeState.collect { state ->
-                        when (state) {
+    private fun fetchHomeState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeState.collect { state ->
+                    when (state) {
 
-                            is UiState.Success -> {
-                                LoadingDialog.dismissDialog()
-                                Log.e("homeData",state.data?.data.toString())
-                            }
-
-                            is UiState.Error -> {
-                                LoadingDialog.dismissDialog()
-                                val errorMessage = state.message!!.asString(requireContext())
-                                showToast(errorMessage)
-                            }
-
-                            is UiState.Loading -> {
-                                LoadingDialog.showDialog()
-                            }
-
-                            else -> {}
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+                            parseHomeResponse(state.data!!)
                         }
 
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
                     }
+
                 }
             }
+        }
+    }
+
+    private fun parseHomeResponse(data: HomeResponse) {
+        setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
 
     }
 
@@ -326,37 +333,51 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupFeaturedRealEstateRv(data: List<MyFavouritesModel>) {
+    private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
-        rvHomeFeaturedRealEstateAdapter.submitList(data)
-        setupFeaturedRealEstateHeaderListener()
+//        rvHomeFeaturedRealEstateAdapter.submitList(data)
+        setupFeaturedRealEstateHeaderListener(data)
     }
 
-    private fun setupFeaturedRealEstateHeaderListener() {
+    private fun setupFeaturedRealEstateHeaderListener(data: List<PropertyModel>) {
 
         binding.inFeaturedRealEstate.apply {
 
+            // default
             tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
             tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            rvHomeFeaturedRealEstateAdapter.submitList(data)
 
+            // all
             tvAll.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+                
+                rvHomeFeaturedRealEstateAdapter.submitList(null)
+                rvHomeFeaturedRealEstateAdapter.submitList(data)
             }
 
+            // sell
             tvForSell.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+                rvHomeFeaturedRealEstateAdapter.submitList(null)
+                rvHomeFeaturedRealEstateAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
             }
 
+            // rent
             tvForRent.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+                rvHomeFeaturedRealEstateAdapter.submitList(null)
+                rvHomeFeaturedRealEstateAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
             }
         }
     }
@@ -531,7 +552,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
-    override fun onFeaturedRealEstateClick(model: MyFavouritesModel) {
+    override fun onFeaturedRealEstateClick(model: PropertyModel) {
         when (model.type) {
             getString(R.string.for_sell) -> {
                 findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())

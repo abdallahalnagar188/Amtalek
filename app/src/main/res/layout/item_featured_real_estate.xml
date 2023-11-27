@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_185sdp"
-    android:layout_height="@dimen/_256sdp"
+    android:layout_height="@dimen/_258sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
     app:cardCornerRadius="@dimen/_30sdp"
@@ -37,17 +37,19 @@
 
         <TextView
             android:id="@+id/tv_label"
-            android:layout_width="@dimen/_70sdp"
+            android:layout_width="@dimen/_76sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/featured_label_background"
             android:gravity="center"
+            android:textSize="@dimen/_9ssp"
+            android:fontFamily="@font/montserratmedium"
             android:paddingHorizontal="@dimen/_5sdp"
             android:paddingVertical="@dimen/_6sdp"
             android:textColor="@color/amtalek_blue"
             app:layout_constraintBottom_toBottomOf="@id/iv_image"
             app:layout_constraintEnd_toEndOf="@+id/iv_image"
-            tools:text="For Rent" />
+            tools:text="@string/for_sell_or_rent" />
 
         <TextView
             android:id="@+id/tv_featured"
@@ -98,7 +100,7 @@
             android:id="@+id/iv_area"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
-            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_area"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,13 +118,12 @@
             app:layout_constraintTop_toTopOf="@+id/iv_area"
             tools:text="8,111 sqft" />
 
-
         <ImageView
             android:id="@+id/iv_bathroom"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_bathroom"
             app:layout_constraintStart_toEndOf="@id/tv_area"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -145,7 +146,7 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_bed"
             app:layout_constraintStart_toEndOf="@id/tv_bathroom"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -167,7 +168,7 @@
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:src="@drawable/ic_location_green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_area" />
@@ -189,7 +190,7 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:src="@drawable/ic_clock"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -226,6 +227,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/by_broker"
+            android:textSize="@dimen/_10ssp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/tv_location"
             app:layout_constraintEnd_toEndOf="parent"

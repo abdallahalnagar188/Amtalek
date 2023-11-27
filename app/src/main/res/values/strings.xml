@@ -430,6 +430,7 @@
 
     <string name="for_sell">For Sell</string>
     <string name="for_rent">For Rent</string>
+    <string name="for_sell_or_rent">For Sell/Rent</string>
     <string name="featured">Featured</string>
 
     <string name="fake_Compound">Sheikh Zayed Compound</string>

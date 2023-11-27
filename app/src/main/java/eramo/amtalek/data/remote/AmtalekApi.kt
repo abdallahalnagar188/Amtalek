@@ -129,7 +129,7 @@ interface AmtalekApi {
 
     @GET("mobile/home")
     suspend fun getHome(
-        @Header("Authorization") userToken: String?
+//        @Header("Authorization") userToken: String?
     ): Response<HomeResponse>
 
 

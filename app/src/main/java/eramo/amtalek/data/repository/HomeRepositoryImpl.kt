@@ -1,5 +1,6 @@
 package eramo.amtalek.data.repository
 
+import android.util.Log
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.domain.model.ResultModel
@@ -20,7 +21,8 @@ class HomeRepositoryImpl (private val amtalekApi: AmtalekApi) : HomeRepository {
     override suspend fun getHome(): Flow<Resource<HomeResponse>> {
         return flow {
             val result = toResultFlow {
-                amtalekApi.getHome(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)
+//                amtalekApi.getHome(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)
+                amtalekApi.getHome()
             }
             result.collect {
                 when (it) {
