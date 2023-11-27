@@ -34,9 +34,7 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-//        holder.itemView.findViewTreeLifecycleOwner()?.lifecycleScope ?: CoroutineScope(Dispatchers.IO).launch {
             getItem(position).let { holder.bind(it) }
-//        }
     }
 
     inner class ProductViewHolder(private val binding: ItemFeaturedRealEstateBinding) :

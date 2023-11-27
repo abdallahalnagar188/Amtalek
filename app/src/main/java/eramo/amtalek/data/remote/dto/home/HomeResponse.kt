@@ -6,6 +6,7 @@ import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.util.FALSE
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.AdvertisementType
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 data class HomeResponse(
     @SerializedName("data")

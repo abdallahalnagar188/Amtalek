@@ -161,7 +161,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initToolbar()
-        setupCarouselSliderTop()
 
         setupFeaturedProjectsRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupFindPropertiesByCityRv(Dummy.dummyPropertiesByCityList())
@@ -232,42 +231,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun parseHomeResponse(data: HomeResponse) {
         setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
 
+       val topCarouselSliderList =  parseTopCarouselSliderList(data.data.sliders)
+        setupCarouselSliderTop(topCarouselSliderList)
+
     }
 
-    private fun setupCountriesSpinner() {
-//        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-//        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
-
-        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
-//
-//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
-    }
-
-    private fun initToolbar() {
-        binding.inToolbar.apply {
-            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-//            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
-            inNotification.root.setOnClickListener {
-                findNavController().navigate(R.id.notificationFragment)
-            }
-        }
-
-        setupCountriesSpinner()
-    }
-
-    private fun setupCarouselSliderTop() {
+    private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
         binding.apply {
-//        carouselSliderTop.registerLifecycle(lifecycle)
             carouselSliderTop.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderTop.setData(Dummy.dummyCarouselList())
+            carouselSliderTop.setData(data)
             carouselSliderTop.setIndicator(carouselSliderTopDots)
 
 
@@ -296,6 +268,56 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 }
             }
         }
+    }
+
+    private fun parseTopCarouselSliderList(data: List<HomeResponse.Data.Slider?>?):ArrayList<CarouselItem>{
+        val list = ArrayList<CarouselItem>()
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
+
+        for (i in data!!){
+            list.add(
+                CarouselItem(
+                    imageUrl = i?.image,
+
+                    )
+            )
+        }
+
+        return list
+    }
+
+
+
+
+
+    private fun setupCountriesSpinner() {
+//        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+//        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
+
+        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
+//
+//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        }
+    }
+
+    private fun initToolbar() {
+        binding.inToolbar.apply {
+            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
+//            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
+            inNotification.root.setOnClickListener {
+                findNavController().navigate(R.id.notificationFragment)
+            }
+        }
+
+        setupCountriesSpinner()
     }
 
     private fun setupSliderBetween() {
@@ -381,7 +403,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
         }
     }
-
 
     private fun setupFeaturedProjectsRv(data: List<MyFavouritesModel>) {
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
