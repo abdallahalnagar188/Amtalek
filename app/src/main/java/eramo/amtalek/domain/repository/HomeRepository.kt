@@ -9,4 +9,5 @@ interface HomeRepository {
 
     suspend fun getHome(): Flow<Resource<HomeResponse>>
 
+    suspend fun getHomeFilteredByCity(cityId:String): Flow<Resource<HomeResponse>>
 }

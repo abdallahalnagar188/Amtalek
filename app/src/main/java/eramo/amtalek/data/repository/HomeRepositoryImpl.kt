@@ -16,7 +16,24 @@ class HomeRepositoryImpl(private val amtalekApi: AmtalekApi) : HomeRepository {
         return flow {
             val result = toResultFlow {
                 amtalekApi.getHome(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)
-//                amtalekApi.getHome()
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
+    }
+
+    override suspend fun getHomeFilteredByCity(cityId:String): Flow<Resource<HomeResponse>> {
+        return flow {
+            val result = toResultFlow {
+                amtalekApi.getHomeFilteredByCity(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null, cityId)
             }
             result.collect {
                 when (it) {

@@ -132,6 +132,13 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?
     ): Response<HomeResponse>
 
+    @FormUrlEncoded
+    @POST("mobile/cities-filter")
+    suspend fun getHomeFilteredByCity(
+        @Header("Authorization") userToken: String?,
+        @Field("city_id")cityId: String
+    ): Response<HomeResponse>
+
 
     // ____________________________________________________________________________________________//
     // Drawer

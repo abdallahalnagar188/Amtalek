@@ -58,6 +58,9 @@ class HomeViewModel @Inject constructor(
     private val _homeState = MutableStateFlow<UiState<HomeResponse>>(UiState.Empty())
     val homeState: StateFlow<UiState<HomeResponse>> = _homeState
 
+    private val _homeFilteredByCityState = MutableStateFlow<UiState<HomeResponse>>(UiState.Empty())
+    val homeFilteredByCityState: StateFlow<UiState<HomeResponse>> = _homeFilteredByCityState
+
     private val _initScreenState = MutableStateFlow<UiState<Boolean>>(UiState.Empty())
     val initScreenState: StateFlow<UiState<Boolean>> = _initScreenState
 
@@ -97,6 +100,7 @@ class HomeViewModel @Inject constructor(
     val cartCountState: StateFlow<UiState<CartCountResponse>> = _cartCountState
 
     private var getHomeJob: Job? = null
+    private var getHomeFilteredByCityJob: Job? = null
     private var initScreenJob: Job? = null
     private var latestDealsJob: Job? = null
     private var allProductsJob: Job? = null
@@ -143,6 +147,30 @@ class HomeViewModel @Inject constructor(
 
                         is Resource.Loading -> {
                             _homeState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getHomeFilteredByCity(cityId:String) {
+        getHomeFilteredByCityJob?.cancel()
+        getHomeFilteredByCityJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+
+                homeRepository.getHomeFilteredByCity(cityId).collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _homeFilteredByCityState.value = UiState.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _homeFilteredByCityState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _homeFilteredByCityState.value = UiState.Loading()
                         }
                     }
                 }

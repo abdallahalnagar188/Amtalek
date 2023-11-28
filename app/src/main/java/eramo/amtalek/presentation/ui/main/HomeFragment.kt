@@ -64,8 +64,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvHomeNewestDuplexesAdapter.OnItemClickListener,
     RvHomeFeaturedProjectsAdapter.OnItemClickListener,
     DummyNewsAdapter.OnItemClickListener,
-        FilterCitiesDialogFragment.FilterCitiesDialogOnClickListener
-{
+    FilterCitiesDialogFragment.FilterCitiesDialogOnClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
@@ -194,6 +193,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun fetchData() {
         fetchHomeState()
+        fetchHomeFilteredByCityState()
     }
 
     // -------------------------------------- fetchData -------------------------------------- //
@@ -202,6 +202,34 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            parseHomeResponse(state.data!!)
+                        }
+
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchHomeFilteredByCityState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeFilteredByCityState.collect { state ->
                     when (state) {
 
                         is UiState.Success -> {
@@ -366,8 +394,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun initToolbar() {
         binding.inToolbar.apply {
+            tvSpinnerText.text = UserUtil.getCityName()
+
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-//            ivSearch.setOnClickListener { findNavController().navigate(R.id.searchPropertyFragment) }
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
             }
@@ -726,7 +755,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     override fun onFilterCitiesDialogItemClick(model: CityModel) {
-        showToast(model.name)
+        viewModel.getHomeFilteredByCity(model.id.toString())
+        binding.inToolbar.tvSpinnerText.text = model.name
     }
 
 }
