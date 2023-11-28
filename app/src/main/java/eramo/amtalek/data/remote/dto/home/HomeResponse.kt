@@ -2,6 +2,7 @@ package eramo.amtalek.data.remote.dto.home
 
 
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.ProjectHomeModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
@@ -1185,7 +1186,13 @@ data class HomeResponse(
             val summary: String?,
             @SerializedName("title")
             val title: String?
-        )
+        ) {
+            fun toNewsModel(): NewsModel {
+                return NewsModel(
+                    id ?: -1, image ?: "", title ?: "", summary ?: ""
+                )
+            }
+        }
 
         data class PropertyInCity(
             @SerializedName("for_rent")

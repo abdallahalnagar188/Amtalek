@@ -319,37 +319,6 @@ object Dummy {
         return list
     }
 
-    fun dummyNewsList(): List<NewsModel> {
-        val list = mutableListOf<NewsModel>()
-
-        list.add(
-            NewsModel(
-                "https://st.depositphotos.com/1010613/2974/i/450/depositphotos_29748299-stock-photo-young-man-reading-newspaper.jpg",
-                "Housing Market Predictions",
-                "Changes to the federal funds rate can indirectly influence mortgage rates. Yet, housing market experts are less concerned about one more interest rate hike this year than what the Fed has in store for rates in the coming years."
-            )
-        )
-
-        list.add(
-            NewsModel(
-                "https://st4.depositphotos.com/1000128/22519/i/450/depositphotos_225191638-stock-photo-render-illustration-macro-view-printing.jpg",
-                "When Will the Housing Market Recover",
-                "But Gumbinger says don’t hope they cool too quickly. Rapidly falling rates could create a surge of demand that wipes away any inventory gains, causing home prices to rebound.\n" +
-                        "\n"
-            )
-        )
-
-        list.add(
-            NewsModel(
-                "https://media-cldnry.s-nbcnews.com/image/upload/t_focal-758x379,f_auto,q_auto:best/rockcms/2022-10/221020-home-sales-al-1433-481d18.jpg",
-                "Housing Inventory Outlook",
-                "Housing stock remains at near historic lows—especially entry-level supply—consequently propping up demand and sustaining ultra-high home prices."
-            )
-        )
-
-        return list
-    }
-
     fun dummyProjectsList(context: Context): List<ProjectModel> {
         val list = mutableListOf<ProjectModel>()
 

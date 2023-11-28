@@ -162,8 +162,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initToolbar()
-
-        setupNewsRv(Dummy.dummyNewsList())
     }
 
     private fun listeners() {
@@ -235,6 +233,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupNewestPropertiesRv(data.data.appaerments!!.map { it!!.toPropertyModel() })
         setupNewestVillasRv(data.data.villas!!.map { it!!.toPropertyModel() })
         setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
+
+        setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
@@ -573,7 +573,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
-
     }
 
     private fun selectedTabPosition(position: Int) {
