@@ -223,7 +223,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupCarouselSliderTop(topCarouselSliderList)
 
         setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
-        setupFeaturedProjectsRv(data.data.featuredProjectsCity!!.map { it!!.toProjectModel() })
+        setupFeaturedProjectsRv(data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() })
 
         setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
 
@@ -244,7 +244,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             carouselSliderTop.registerLifecycle(viewLifecycleOwner.lifecycle)
             carouselSliderTop.setData(data)
             carouselSliderTop.setIndicator(carouselSliderTopDots)
-
 
             carouselSliderTop.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
@@ -341,20 +340,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
 
     private fun setupCountriesSpinner() {
-//        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-//        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
-
-        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
+////        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
+////        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
 //
-//                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
+//        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+////                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
+////
+////                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//
+//            }
+//        }
     }
 
     private fun initToolbar() {

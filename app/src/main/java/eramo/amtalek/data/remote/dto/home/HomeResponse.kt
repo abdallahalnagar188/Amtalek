@@ -25,8 +25,8 @@ data class HomeResponse(
         val appaerments: List<Appaerment?>?,
         @SerializedName("duplixes")
         val duplixes: List<Duplixe?>?,
-        @SerializedName("featured_projects_city")
-        val featuredProjectsCity: List<FeaturedProjectsCity?>?,
+        @SerializedName("featured_projects_country")
+        val featuredProjectsCountry: List<FeaturedProjectsCountry?>?,
         @SerializedName("featured_properties_country")
         val featuredPropertiesCountry: List<FeaturedPropertiesCountry?>?,
         @SerializedName("news")
@@ -762,7 +762,7 @@ data class HomeResponse(
             }
         }
 
-        data class FeaturedProjectsCity(
+        data class FeaturedProjectsCountry(
             @SerializedName("address")
             val address: String?,
             @SerializedName("broker_details")
