@@ -47,6 +47,7 @@ import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -188,15 +189,51 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun requestApis() {
-        viewModel.getHome()
+        if (UserUtil.isUserLogin()){
+            viewModel.getProfile()
+        }else{
+            viewModel.getHome()
+        }
     }
 
     private fun fetchData() {
+        fetchGetProfileState()
         fetchHomeState()
         fetchHomeFilteredByCityState()
     }
 
     // -------------------------------------- fetchData -------------------------------------- //
+
+    private fun fetchGetProfileState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.getProfileState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            viewModelShared.profileData.value = UiState.Success(state.data!!)
+                            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityName()
+
+                            viewModel.getHome()
+                        }
+
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
 
     private fun fetchHomeState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -374,35 +411,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-
-    private fun setupCountriesSpinner() {
-////        val citiesToolbarSpinnerAdapter = CitiesToolbarSpinnerAdapter(requireContext(), Dummy.dummyCitiesList())
-////        binding.inToolbar.toolbarSpinner.adapter = citiesToolbarSpinnerAdapter
-//
-//        binding.inToolbar.toolbarSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-////                val model = parent?.getItemAtPosition(position) as CountriesSpinnerModel
-////
-////                Toast.makeText(requireContext(), model.countryName, Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//
-//            }
-//        }
-    }
-
     private fun initToolbar() {
         binding.inToolbar.apply {
-            tvSpinnerText.text = UserUtil.getCityName()
-
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
             }
         }
-
-        setupCountriesSpinner()
     }
 
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
@@ -741,7 +756,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
         }
     }
-
 
     override fun onNewsClick(model: String) {
 //        findNavController().navigate(R.id.nyEstateRentFragment, null, navOptionsAnimation())

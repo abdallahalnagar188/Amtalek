@@ -3,11 +3,11 @@ package eramo.amtalek.presentation.viewmodel.navbottom
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.general.Member
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.products.orders.CartCountResponse
 import eramo.amtalek.domain.model.OffersModel
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.products.AdsModel
 import eramo.amtalek.domain.model.products.CategoryModel
 import eramo.amtalek.domain.model.products.ProductModel
@@ -84,8 +84,8 @@ class HomeViewModel @Inject constructor(
     private val _removeFavouriteState = MutableSharedFlow<UiState<ResultModel>>()
     val removeFavouriteState: SharedFlow<UiState<ResultModel>> = _removeFavouriteState
 
-    private val _getProfileState = MutableStateFlow<UiState<Member>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<Member>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
 
     private val _firebaseTokenState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val firebaseTokenState: StateFlow<UiState<ResultModel>> = _firebaseTokenState
@@ -130,6 +130,41 @@ class HomeViewModel @Inject constructor(
         cartCountJob?.cancel()
     }
 
+     fun getProfile() {
+        getProfileJob?.cancel()
+        getProfileJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                getProfileUseCase().collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            saveUserInfo(result.data!!)
+                            _getProfileState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _getProfileState.value =
+                                UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _getProfileState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun saveUserInfo(user: UserModel) {
+        UserUtil.saveUserInfo(
+            true,
+            UserUtil.getUserToken(), user.id.toString(),
+            user.firstName, user.lastName, user.phone,
+            user.email, user.countryId.toString(),
+            user.countryName, user.cityId.toString(), user.cityName, user.bio, user.profileImageUrl, user.coverImageUrl
+        )
+    }
+
     fun getHome() {
         getHomeJob?.cancel()
         getHomeJob = viewModelScope.launch {
@@ -154,7 +189,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getHomeFilteredByCity(cityId:String) {
+    fun getHomeFilteredByCity(cityId: String) {
         getHomeFilteredByCityJob?.cancel()
         getHomeFilteredByCityJob = viewModelScope.launch {
             withContext(coroutineContext) {
@@ -352,31 +387,6 @@ class HomeViewModel @Inject constructor(
                         is Resource.Loading -> {
                             _removeFavouriteState.emit(UiState.Loading())
                         }
-                    }
-                }
-            }
-        }
-    }
-
-    fun getProfile() {
-        getProfileJob?.cancel()
-        getProfileJob = viewModelScope.launch {
-            delay(ANIMATION_DELAY)
-            withContext(coroutineContext) {
-                getProfileUseCase().collect { result ->
-                    when (result) {
-                        is Resource.Success -> {
-//                            result.data?.let {
-//                                _getProfileState.value = UiState.Success(it)
-//                            } ?: run { _getProfileState.value = UiState.Empty() }
-                        }
-
-                        is Resource.Error -> {
-                            _getProfileState.value =
-                                UiState.Error(result.message!!)
-                        }
-
-                        else -> Unit
                     }
                 }
             }
