@@ -48,6 +48,7 @@ import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -196,18 +197,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
                             parseHomeResponse(state.data!!)
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -235,6 +235,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
 
         setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
+
+        dismissShimmerEffect()
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
@@ -604,6 +606,24 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     tvRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
                 }
             }
+        }
+    }
+
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
+
+            viewLayout.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            viewLayout.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
         }
     }
 

@@ -7,10 +7,10 @@
 
     <View
         android:id="@+id/tv_title"
-        android:layout_width="@dimen/_235sdp"
+        android:layout_width="@dimen/_220sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_11sdp"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_2sdp"
         android:background="@color/shimmer_gray"
         android:fontFamily="@font/montserratsemibold"
         android:textColor="@color/black"
@@ -28,16 +28,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
-    <View
-        android:id="@+id/header"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_18sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/shimmer_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
@@ -52,47 +42,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        tools:listitem="@layout/item_property_preview" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:listitem="@layout/item_find_your_property_by_city" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_one"
-        android:layout_width="@dimen/_284sdp"
-        android:layout_height="@dimen/_137sdp"
+        android:layout_width="@dimen/_133sdp"
+        android:layout_height="@dimen/_175sdp"
         android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_11sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="0dp"
+        app:cardCornerRadius="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_two"
-        android:layout_width="@dimen/_284sdp"
-        android:layout_height="@dimen/_137sdp"
-        android:layout_marginStart="@dimen/_9sdp"
-        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_width="@dimen/_133sdp"
+        android:layout_height="@dimen/_175sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="0dp"
+        app:cardCornerRadius="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/cv_one"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_three"
-        android:layout_width="@dimen/_284sdp"
-        android:layout_height="@dimen/_137sdp"
-        android:layout_marginStart="@dimen/_9sdp"
-        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_width="@dimen/_133sdp"
+        android:layout_height="@dimen/_175sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="0dp"
+        app:cardCornerRadius="@dimen/_20sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/cv_two"
-        app:layout_constraintTop_toBottomOf="@id/header" />
-
+        app:layout_constraintTop_toBottomOf="@id/tv_title"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

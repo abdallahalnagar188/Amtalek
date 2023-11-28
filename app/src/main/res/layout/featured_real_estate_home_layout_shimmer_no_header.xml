@@ -7,7 +7,7 @@
 
     <View
         android:id="@+id/tv_title"
-        android:layout_width="@dimen/_235sdp"
+        android:layout_width="@dimen/_220sdp"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_11sdp"
         android:layout_marginTop="@dimen/_6sdp"
@@ -28,54 +28,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
-    <View
-        android:id="@+id/header"
-        android:layout_width="@dimen/_130sdp"
-        android:layout_height="@dimen/_18sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/shimmer_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:clipToPadding="false"
-        android:nestedScrollingEnabled="false"
-        android:orientation="horizontal"
-        android:paddingEnd="@dimen/_14sdp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        tools:listitem="@layout/item_property_preview" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_one"
-        android:layout_width="@dimen/_284sdp"
-        android:layout_height="@dimen/_137sdp"
+        android:layout_width="@dimen/_185sdp"
+        android:layout_height="@dimen/_278sdp"
         android:layout_marginStart="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        app:layout_constraintTop_toBottomOf="@id/tv_see_more" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_two"
-        android:layout_width="@dimen/_284sdp"
-        android:layout_height="@dimen/_137sdp"
-        android:layout_marginStart="@dimen/_9sdp"
-        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_width="@dimen/_185sdp"
+        android:layout_height="@dimen/_278sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/cv_one"
@@ -83,12 +57,12 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_three"
-        android:layout_width="@dimen/_284sdp"
-        android:layout_height="@dimen/_137sdp"
-        android:layout_marginStart="@dimen/_9sdp"
-        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_width="@dimen/_185sdp"
+        android:layout_height="@dimen/_278sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardCornerRadius="@dimen/_30sdp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/cv_two"
