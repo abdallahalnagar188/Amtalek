@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -37,7 +36,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropert
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
@@ -48,7 +46,6 @@ import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -168,6 +165,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun listeners() {
         binding.apply {
 
+            inToolbar.spinnerLayout.setOnClickListener {
+                FilterCitiesDialogFragment().show(
+                    activity?.supportFragmentManager!!,
+                    "FilterCitiesDialogFragment"
+                )
+            }
 
             inToolbar.inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())

@@ -651,4 +651,6 @@
     <string name="s_6_months_price">%s ج.م/6 شهور</string>
     <string name="s_9_months_price">%s ج.م/9 شهور</string>
     <string name="s_yearly_price">%s ج.م/السنة</string>
+
+    <string name="choose_city">أختر مدينة</string>
 </resources>
