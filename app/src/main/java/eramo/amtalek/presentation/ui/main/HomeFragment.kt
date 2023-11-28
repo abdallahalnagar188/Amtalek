@@ -163,7 +163,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         initToolbar()
 
-        setupNewestVillasRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupNewestDuplexesRv(Dummy.dummyMyFavouritesList(requireContext()))
 
         setupNewsRv(Dummy.dummyNewsList())
@@ -236,6 +235,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         setupSliderBetween(betweenCarouselSliderList)
 
         setupNewestPropertiesRv(data.data.appaerments!!.map { it!!.toPropertyModel() })
+        setupNewestVillasRv(data.data.villas!!.map { it!!.toPropertyModel() })
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
@@ -477,37 +477,49 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupNewestVillasRv(data: List<MyFavouritesModel>) {
+
+    private fun setupNewestVillasRv(data: List<PropertyModel>) {
         rvHomeNewestVillasAdapter.setListener(this@HomeFragment)
         binding.inNewestVillasLayout.rv.adapter = rvHomeNewestVillasAdapter
-        rvHomeNewestVillasAdapter.submitList(data)
-        setupNewestVillasHeaderListener()
+        setupNewestVillasHeaderListener(data)
     }
 
-    private fun setupNewestVillasHeaderListener() {
+    private fun setupNewestVillasHeaderListener(data: List<PropertyModel>) {
 
         binding.inNewestVillasLayout.apply {
 
+            // default
             tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
             tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            rvHomeNewestVillasAdapter.submitList(data)
+
 
             tvAll.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+                rvHomeNewestVillasAdapter.submitList(null)
+                rvHomeNewestVillasAdapter.submitList(data)
             }
 
             tvForSell.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+                rvHomeNewestVillasAdapter.submitList(null)
+                rvHomeNewestVillasAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
             }
 
             tvForRent.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+                rvHomeNewestVillasAdapter.submitList(null)
+                rvHomeNewestVillasAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
             }
         }
     }
@@ -640,7 +652,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
 
-    override fun onNewestVillaClick(model: MyFavouritesModel) {
+    override fun onNewestVillaClick(model: PropertyModel) {
         when (model.type) {
             getString(R.string.for_sell) -> {
                 findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
