@@ -163,8 +163,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         initToolbar()
 
-
-        setupNewestPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupNewestVillasRv(Dummy.dummyMyFavouritesList(requireContext()))
         setupNewestDuplexesRv(Dummy.dummyMyFavouritesList(requireContext()))
 
@@ -234,9 +232,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
 
-
         val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
         setupSliderBetween(betweenCarouselSliderList)
+
+        setupNewestPropertiesRv(data.data.appaerments!!.map { it!!.toPropertyModel() })
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
@@ -372,7 +371,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
-//        rvHomeFeaturedRealEstateAdapter.submitList(data)
         setupFeaturedRealEstateHeaderListener(data)
     }
 
@@ -432,37 +430,49 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     }
 
-    private fun setupNewestPropertiesRv(data: List<MyFavouritesModel>) {
+    // -------------------------------------------------------------------------------------------------------------- //
+    private fun setupNewestPropertiesRv(data: List<PropertyModel>) {
         rvHomeNewestPropertiesAdapter.setListener(this@HomeFragment)
         binding.inNewestPropertiesLayout.rv.adapter = rvHomeNewestPropertiesAdapter
-        rvHomeNewestPropertiesAdapter.submitList(data)
-        setupNewestPropertiesHeaderListener()
+        setupNewestPropertiesHeaderListener(data)
     }
 
-    private fun setupNewestPropertiesHeaderListener() {
+    private fun setupNewestPropertiesHeaderListener(data: List<PropertyModel>) {
 
         binding.inNewestPropertiesLayout.apply {
 
+            // default
             tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
             tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
             tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+            rvHomeNewestPropertiesAdapter.submitList(data)
+
 
             tvAll.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+                rvHomeNewestPropertiesAdapter.submitList(null)
+                rvHomeNewestPropertiesAdapter.submitList(data)
             }
 
             tvForSell.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
+
+                rvHomeNewestPropertiesAdapter.submitList(null)
+                rvHomeNewestPropertiesAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
             }
 
             tvForRent.setOnClickListener {
                 tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
                 tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+                rvHomeNewestPropertiesAdapter.submitList(null)
+                rvHomeNewestPropertiesAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
             }
         }
     }
@@ -617,7 +627,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     }
 
-    override fun onNewestPropertyClick(model: MyFavouritesModel) {
+    override fun onNewestPropertyClick(model: PropertyModel) {
         when (model.type) {
             getString(R.string.for_sell) -> {
                 findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())

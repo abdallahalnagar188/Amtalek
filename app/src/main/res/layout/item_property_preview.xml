@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_125sdp"
+    android:layout_height="@dimen/_137sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
     app:cardCornerRadius="@dimen/_15sdp"
@@ -37,17 +37,18 @@
 
         <TextView
             android:id="@+id/tv_label"
-            android:layout_width="@dimen/_55sdp"
+            android:layout_width="@dimen/_60sdp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/property_label_background"
-            android:paddingHorizontal="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_3sdp"
             android:gravity="center"
+            android:textSize="@dimen/_9ssp"
             android:textColor="@color/amtalek_blue"
             android:paddingVertical="@dimen/_6sdp"
             app:layout_constraintEnd_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="@+id/iv_image"
-            tools:text="For Rent" />
+            tools:text="@string/for_sell_or_rent" />
 
         <TextView
             android:id="@+id/tv_featured"
@@ -71,13 +72,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/montserratsemibold"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintBottom_toTopOf="@id/tv_title"
             app:layout_constraintStart_toEndOf="@id/iv_image"
             app:layout_constraintTop_toTopOf="parent"
+            tools:text="4,000,000 EGP" />
+
+        <TextView
+            android:id="@+id/tv_price_rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_goneMarginTop="@dimen/_12sdp"
+            app:layout_constraintStart_toEndOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
             tools:text="4,000,000 EGP" />
 
         <TextView
@@ -85,7 +99,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:ellipsize="end"
             android:fontFamily="@font/montserratmedium"
             android:maxLines="1"
@@ -93,7 +107,7 @@
             app:layout_constraintBottom_toTopOf="@id/iv_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_price_rent"
             tools:text="Residential apartment for sale in manshetercity" />
 
         <ImageView
@@ -119,13 +133,12 @@
             app:layout_constraintTop_toTopOf="@+id/iv_area"
             tools:text="8,111 sqft" />
 
-
         <ImageView
             android:id="@+id/iv_bathroom"
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:src="@drawable/ic_bathroom"
             app:layout_constraintStart_toEndOf="@id/tv_area"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />

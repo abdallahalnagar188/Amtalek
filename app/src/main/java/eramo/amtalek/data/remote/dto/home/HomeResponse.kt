@@ -386,6 +386,26 @@ data class HomeResponse(
                     )
                 }
             }
+
+            fun toPropertyModel(): PropertyModel {
+                return PropertyModel(
+                    id ?: -1,
+                    primaryImage ?: "",
+                    forWhat ?: "",
+                    if (isFav == "1") TRUE else FALSE,
+                    if (normalFeatured == AdvertisementType.FEATURED.key) TRUE else FALSE,
+                    salePrice?.toDouble() ?: 0.0,
+                    rentPrice?.toDouble() ?: 0.0,
+                    rentDuration ?: "",
+                    title ?: "",
+                    landArea ?: 0,
+                    bathRoomNo ?: 0,
+                    bedRoomsNo ?: 0,
+                    "$region, $city",
+                    createdAt ?: "",
+                    brokerDetails?.get(0)?.logo ?: ""
+                )
+            }
         }
 
         data class Duplixe(

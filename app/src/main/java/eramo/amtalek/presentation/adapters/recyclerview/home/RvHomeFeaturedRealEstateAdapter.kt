@@ -1,12 +1,9 @@
 package eramo.amtalek.presentation.adapters.recyclerview.home
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +16,6 @@ import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -34,7 +28,7 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-            getItem(position).let { holder.bind(it) }
+        getItem(position).let { holder.bind(it) }
     }
 
     inner class ProductViewHolder(private val binding: ItemFeaturedRealEstateBinding) :
