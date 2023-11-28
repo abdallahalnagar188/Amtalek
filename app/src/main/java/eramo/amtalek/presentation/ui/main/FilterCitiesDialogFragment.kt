@@ -12,16 +12,17 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentFilterCitiesDialogBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFilterCities
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.FilterCitiesDialogViewModel
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_cities_dialog),RvHomeFilterCities.OnItemClickListener {
+class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_cities_dialog),
+    RvHomeFilterCities.OnItemClickListener {
+
     private var binding: FragmentFilterCitiesDialogBinding? = null
+    private lateinit var listener: FilterCitiesDialogOnClickListener
 
     @Inject
     lateinit var rvHomeFilterCities: RvHomeFilterCities
@@ -35,6 +36,7 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
         viewModel.getCities("1")
 
         fetchCities()
+
     }
 
     private fun fetchCities() {
@@ -50,6 +52,10 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
                         is UiState.Success -> {
                             dismissShimmerEffect()
                             setupCitiesRv(state.data ?: emptyList())
+
+                            binding?.tvTitle?.setOnClickListener {
+                                listener.onFilterCitiesDialogItemClick(state.data?.get(0)!!)
+                            }
                         }
 
                         is UiState.Error -> {
@@ -66,7 +72,7 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
         }
     }
 
-    private fun setupCitiesRv(data:List<CityModel>){
+    private fun setupCitiesRv(data: List<CityModel>) {
         rvHomeFilterCities.setListener(this@FilterCitiesDialogFragment)
         binding?.rvCities?.adapter = rvHomeFilterCities
 
@@ -91,13 +97,21 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
         }
     }
 
+    fun setListener(listener: FilterCitiesDialogOnClickListener) {
+        this.listener = listener
+    }
+
+    interface FilterCitiesDialogOnClickListener {
+        fun onFilterCitiesDialogItemClick(model: CityModel)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         binding = null
     }
 
     override fun onItemClick(model: CityModel) {
-
-
+        listener.onFilterCitiesDialogItemClick(model)
+        this@FilterCitiesDialogFragment.dismiss()
     }
 }

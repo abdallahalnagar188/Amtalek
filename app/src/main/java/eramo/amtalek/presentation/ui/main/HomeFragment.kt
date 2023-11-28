@@ -19,6 +19,7 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
+import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.ProjectHomeModel
@@ -62,7 +63,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvHomeNewestVillasAdapter.OnItemClickListener,
     RvHomeNewestDuplexesAdapter.OnItemClickListener,
     RvHomeFeaturedProjectsAdapter.OnItemClickListener,
-    DummyNewsAdapter.OnItemClickListener {
+    DummyNewsAdapter.OnItemClickListener,
+        FilterCitiesDialogFragment.FilterCitiesDialogOnClickListener
+{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
@@ -165,8 +168,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun listeners() {
         binding.apply {
 
+            val filterCitiesDialogFragment = FilterCitiesDialogFragment()
+            filterCitiesDialogFragment.setListener(this@HomeFragment)
             inToolbar.spinnerLayout.setOnClickListener {
-                FilterCitiesDialogFragment().show(
+                filterCitiesDialogFragment.show(
                     activity?.supportFragmentManager!!,
                     "FilterCitiesDialogFragment"
                 )
@@ -718,6 +723,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     override fun onNewsClick(model: NewsModel) {
         findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
+    }
+
+    override fun onFilterCitiesDialogItemClick(model: CityModel) {
+        showToast(model.name)
     }
 
 }
