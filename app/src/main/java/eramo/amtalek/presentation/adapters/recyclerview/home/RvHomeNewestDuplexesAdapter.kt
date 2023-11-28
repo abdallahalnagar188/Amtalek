@@ -100,6 +100,7 @@ class RvHomeNewestDuplexesAdapter @Inject constructor() :
 
                 Glide.with(itemView)
                     .load(model.imageUrl)
+                    .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
 
                 Glide.with(itemView)

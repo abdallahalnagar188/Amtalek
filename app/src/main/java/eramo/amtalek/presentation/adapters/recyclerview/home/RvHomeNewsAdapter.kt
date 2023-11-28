@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemHomeNewsBinding
 import eramo.amtalek.domain.model.main.home.NewsModel
 import javax.inject.Inject
@@ -41,7 +42,8 @@ class RvHomeNewsAdapter @Inject constructor() :
                 tvTitle.text = model.title
                 tvBody.text = model.body
 
-                Glide.with(itemView).load(model.imageUrl).into(ivImage)
+                Glide.with(itemView).load(model.imageUrl).placeholder(R.drawable.ic_no_image)
+                    .into(ivImage)
             }
         }
     }
