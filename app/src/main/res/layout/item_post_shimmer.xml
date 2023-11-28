@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_20sdp"
+    app:cardElevation="0dp"
+    app:rippleColor="@android:color/transparent"
+    app:strokeColor="@color/shimmer_gray"
+    app:strokeWidth="@dimen/_1sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_user_image"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle" />
+
+        <View
+            android:id="@+id/tv_user_name"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_6sdp"
+            android:alpha="0.6"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_user_image"
+            app:layout_constraintStart_toEndOf="@+id/iv_user_image"
+            app:layout_constraintTop_toTopOf="@+id/iv_user_image" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_clock"
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv_date_posted"
+            app:layout_constraintEnd_toStartOf="@id/tv_date_posted"
+            app:layout_constraintTop_toTopOf="@id/tv_date_posted"
+            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle" />
+
+        <View
+            android:id="@+id/tv_date_posted"
+            android:layout_width="@dimen/_55sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:alpha="0.6"
+            android:background="@color/shimmer_gray"
+            android:fontFamily="@font/montserratbold"
+            android:textSize="@dimen/_9ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="4 Days ago" />
+
+        <View
+            android:id="@+id/iv_image_post"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_220sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_user_image" />
+
+        <View
+            android:id="@+id/tv_price"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_image_post" />
+
+        <View
+            android:id="@+id/tv_title"
+            android:layout_width="@dimen/_245sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintStart_toStartOf="@id/tv_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+
+        <View
+            android:id="@+id/aminities_view"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+
+        <View
+            android:id="@+id/location_view"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_14sdp"
+            android:layout_marginEnd="@dimen/_14sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aminities_view" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btn_buy_now"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:backgroundTint="@color/shimmer_gray"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/location_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/aminities_view"
+            app:strokeColor="@color/amtalek_blue">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/view_footer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:background="#F1F1F1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/location_view" />
+
+        <ImageView
+            android:id="@+id/iv_comments"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_17sdp"
+            android:src="@drawable/ic_comments"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toStartOf="@id/view_footer"
+            app:layout_constraintTop_toTopOf="@id/view_footer" />
+
+        <View
+            android:id="@+id/tv_comments_count"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:background="@color/shimmer_gray"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/iv_comments"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+
+            />
+
+        <ImageView
+            android:id="@+id/iv_likes"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:src="@drawable/ic_like"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/tv_comments_count"
+            app:layout_constraintTop_toTopOf="@id/view_footer" />
+
+        <View
+            android:id="@+id/tv_likes_count"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:background="@color/shimmer_gray"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintStart_toEndOf="@id/iv_likes"
+            app:layout_constraintTop_toTopOf="@id/view_footer"
+
+            />
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_marginEnd="@dimen/_17sdp"
+            android:src="@drawable/ic_share_posts"
+            app:layout_constraintBottom_toBottomOf="@id/view_footer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/view_footer" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -26,6 +26,7 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -85,18 +86,18 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
                     when (state) {
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             assignUserData(state.data!!)
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -156,6 +157,24 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
         rvMyProfilePostsAdapter.setListener(this@MyProfileFragment)
         binding.rv.adapter = rvMyProfilePostsAdapter
         rvMyProfilePostsAdapter.submitList(Dummy.dummyMarketPostsList())
+    }
+
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
+
+            viewLayout.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            viewLayout.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
+        }
     }
 
     override fun onPhotosClickPhotosPost(model: MarketPostsModel) {
