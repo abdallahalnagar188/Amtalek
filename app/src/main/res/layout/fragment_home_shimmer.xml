@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    tools:context=".presentation.ui.main.HomeFragment">
+
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/layout_toolbar_main"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_86sdp">
+
+            <View
+                android:id="@+id/carousel_sliderTop"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_160sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:background="@color/shimmer_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/carousel_sliderTop_dots"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/carousel_sliderTop"
+                app:layout_constraintStart_toStartOf="@+id/carousel_sliderTop"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop" />
+
+
+            <include
+                android:id="@+id/in_featured_real_estate"
+                layout="@layout/featured_real_estate_home_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop_dots" />
+
+            <include
+                android:id="@+id/in_featured_projects"
+                layout="@layout/featured_real_estate_home_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_featured_real_estate" />
+
+            <include
+                android:id="@+id/in_properties_by_city"
+                layout="@layout/featured_real_estate_home_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_featured_projects" />
+
+            <View
+                android:id="@+id/carousel_sliderBetween"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_160sdp"
+                android:layout_marginVertical="@dimen/home_margin_top"
+                android:background="@color/shimmer_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_properties_by_city" />
+
+            <me.relex.circleindicator.CircleIndicator2
+                android:id="@+id/carousel_sliderBetween_dots"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween" />
+
+            <include
+                android:id="@+id/in_newest_properties_layout"
+                layout="@layout/newest_properties_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween_dots" />
+
+            <include
+                android:id="@+id/in_newest_villas_layout"
+                layout="@layout/newest_properties_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_newest_properties_layout" />
+
+            <include
+                android:id="@+id/in_newest_duplexes_layout"
+                layout="@layout/newest_properties_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_newest_villas_layout" />
+
+            <include
+                android:id="@+id/in_news_layout"
+                layout="@layout/news_layout_shimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/home_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/in_newest_duplexes_layout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
