@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.main.extension
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
@@ -171,6 +174,13 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             initPropertyFeaturesRv(data.propertyFeatures)
 
+            val uri = Uri.parse(data.videoUrl)
+            val videoId = uri.getQueryParameter("v")
+
+            videoId?.let {
+                setupVideo(it)
+            }
+
             tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
         }
 
@@ -210,9 +220,24 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
     }
 
-    private fun initPropertyFeaturesRv(data:List<String>) {
+    private fun initPropertyFeaturesRv(data: List<String>) {
         binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
         rvAmenitiesAdapter.submitList(data)
+    }
+
+    private fun setupVideo(videoId: String) {
+        binding.apply {
+            lifecycle.addObserver(FAboutUsYoutubeView)
+            FAboutUsYoutubeView.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    onVideoId(youTubePlayer, videoId)
+                    youTubePlayer.loadVideo(videoId, 0f)
+                    youTubePlayer.play()
+                }
+            })
+        }
     }
 
     private fun initCommentsRv() {
