@@ -252,6 +252,17 @@ data class PropertyDetailsResponse(
         )
     }
 
+    //----------------------------------------------------- Lists -----------------------------------------------------//
+    private fun sliderImagesList(): List<String> {
+        val list = mutableListOf<String>()
+
+        for (i in data?.get(0)?.sliders!!) {
+            list.add(i?.src ?: "")
+        }
+
+        return list
+    }
+
     private fun propertyFeaturesList(): List<String> {
         val list = mutableListOf<String>()
 
@@ -311,6 +322,7 @@ data class PropertyDetailsResponse(
 
     fun toPropertyDetailsModel(): PropertyDetailsModel {
         return PropertyDetailsModel(
+            sliderImagesList(),
             data?.get(0)?.salePrice?.toDouble() ?: 0.0,
             data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
             data?.get(0)?.title ?: "",

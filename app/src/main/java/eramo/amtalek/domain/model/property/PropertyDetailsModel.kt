@@ -4,6 +4,8 @@ import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 
 data class PropertyDetailsModel(
+    val sliderImages:List<String>,
+
     val sellPrice:Double,
     val rentPrice:Double,
     val title:String,

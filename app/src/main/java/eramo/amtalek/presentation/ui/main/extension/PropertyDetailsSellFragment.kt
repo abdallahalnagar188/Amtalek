@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.ui.main.extension
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -62,8 +61,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
         requestData()
         fetchData()
-
-        Log.e("propertyId", propertyId)
     }
 
     private fun setupToolbar() {
@@ -89,7 +86,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
                     when (state) {
                         is UiState.Success -> {
                             LoadingDialog.dismissDialog()
-
                             assignData(state.data!!)
                         }
 
@@ -112,16 +108,29 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
 
-    private fun setupImageSliderTop(data: List<CarouselItem>) {
+    private fun setupImageSliderTop(imagesUrl: List<String>) {
+        val list = mutableListOf<CarouselItem>()
+
+        for (i in imagesUrl) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i
+                )
+            )
+        }
+
         binding.apply {
             imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             imageSlider.setIndicator(imageSliderDots)
-            imageSlider.setData(data)
+            imageSlider.setData(list)
         }
     }
 
     private fun assignData(data: PropertyDetailsModel) {
         binding.apply {
+
+            setupImageSliderTop(data.sliderImages)
+
             tvPrice.text = getString(R.string.s_egp, formatPrice(data.sellPrice))
             tvTitle.text = data.title
             tvLocation.text = data.location
@@ -162,7 +171,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
     private fun assignFakeData() {
-        setupImageSliderTop(Dummy.dummyCarouselPropertiesImagesList())
 
         binding.apply {
             tvPrice.text = "4,000,000 EGP"
