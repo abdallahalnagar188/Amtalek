@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsRentBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -40,10 +40,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
     private fun setupViews() {
         setupToolbar()
-
         initCommentsRv()
-        initSimilarPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
-        assignFakeData()
     }
 
     private fun setupToolbar() {
@@ -74,7 +71,8 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             tvUserName.text = "Lana Realstate company"
             tvUserId.text = "Lana.Eramo12"
 
-            Glide.with(requireContext()).load("https://ih1.redbubble.net/image.1587788291.1660/st,small,507x507-pad,600x600,f8f8f8.jpg")
+            Glide.with(requireContext())
+                .load("https://ih1.redbubble.net/image.1587788291.1660/st,small,507x507-pad,600x600,f8f8f8.jpg")
                 .into(ivUserImage)
 
             propertyDetailsLayout.tvPropertyCodeValue.text = "1525898"
@@ -103,7 +101,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
     }
 
-    private fun initSimilarPropertiesRv(data: List<MyFavouritesModel>) {
+    private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
         rvSimilarPropertiesAdapter.submitList(data)
     }

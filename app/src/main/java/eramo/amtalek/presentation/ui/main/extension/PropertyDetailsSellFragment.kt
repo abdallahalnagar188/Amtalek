@@ -1,6 +1,5 @@
 package eramo.amtalek.presentation.ui.main.extension
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +16,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
@@ -26,7 +25,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapt
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellViewModel
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -64,8 +62,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
     private fun setupViews() {
         setupToolbar()
-
-        initSimilarPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
 
         requestData()
         fetchData()
@@ -175,47 +171,14 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             initPropertyFeaturesRv(data.propertyFeatures)
 
-            getYoutubeUrlId(data.videoUrl)?.let{
+            getYoutubeUrlId(data.videoUrl)?.let {
                 setupVideo(it)
             }
 
             tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
 
             initCommentsRv(data.comments)
-        }
-
-    }
-
-    private fun assignFakeData() {
-
-        binding.apply {
-            tvPrice.text = "4,000,000 EGP"
-            tvTitle.text = "Residential apartment for sale, super lux with elevator"
-            tvLocation.text = "Sheikh Zayed , Giza"
-            tvDate.text = "8/7/2023"
-
-            tvUserName.text = "Lana Realstate company"
-            tvUserId.text = "Lana.Eramo12"
-
-            Glide.with(requireContext())
-                .load("https://ih1.redbubble.net/image.1587788291.1660/st,small,507x507-pad,600x600,f8f8f8.jpg")
-                .into(ivUserImage)
-
-            propertyDetailsLayout.tvPropertyCodeValue.text = "1525898"
-            propertyDetailsLayout.tvTypeValue.text = "Town House"
-            propertyDetailsLayout.tvAreaValue.text = "188 sqft"
-            propertyDetailsLayout.tvBedroomsValue.text = "2"
-            propertyDetailsLayout.tvBathroomValue.text = "2"
-            propertyDetailsLayout.tvFurnitureValue.text = "Not Available"
-            propertyDetailsLayout.tvPaymentValue.text = "Cash Available"
-            propertyDetailsLayout.tvFinishingValue.text = "Finishing half"
-            propertyDetailsLayout.tvFloorsValue.text = "4.5.6.7"
-            propertyDetailsLayout.tvFloorValue.text = "Ceramic"
-
-            tvDescriptionValue.text =
-                "Descriptive Text is a text which says what a person or a thing is like. Its purpose is to describe and reveal a particular person, place, or thing."
-
-            tvRatings.text = getString(R.string.s_ratings, "12")
+            initSimilarPropertiesRv(data.similarProperties)
         }
 
     }
@@ -245,7 +208,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
         rvRatingAdapter.submitList(data)
     }
 
-    private fun initSimilarPropertiesRv(data: List<MyFavouritesModel>) {
+    private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
         rvSimilarPropertiesAdapter.submitList(data)
     }

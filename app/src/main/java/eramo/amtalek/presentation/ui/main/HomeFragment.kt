@@ -691,7 +691,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
-        showToast(model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(R.id.propertyDetailsSellFragment, PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(), navOptionsAnimation())
