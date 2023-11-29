@@ -53,6 +53,7 @@ import eramo.amtalek.R
     const val TRUE = 1
     const val FALSE = 0
 
+    const val NONE_IMAGE_URL="https://static.thenounproject.com/png/3349099-200.png"
 
 //    const val ADVERTISEMENT = 1001
 //    const val TEXT = 1002

@@ -14,6 +14,7 @@ import eramo.amtalek.data.remote.dto.products.*
 import eramo.amtalek.data.remote.dto.products.orders.*
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.data.remote.dto.products.search.SearchResponse
+import eramo.amtalek.data.remote.dto.property.PropertyDetailsResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -139,6 +140,15 @@ interface AmtalekApi {
         @Field("city_id")cityId: String
     ): Response<HomeResponse>
 
+
+    //____________________________________________________________________________________________//
+    // Properties
+
+    @GET("mobile/property-details/{propertyId}")
+    suspend fun getPropertyDetails(
+        @Header("Authorization") userToken: String?,
+        @Path("propertyId") propertyId:String = "38"
+    ): Response<PropertyDetailsResponse>
 
     // ____________________________________________________________________________________________//
     // Drawer

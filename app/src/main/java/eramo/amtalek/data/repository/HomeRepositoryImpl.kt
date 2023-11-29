@@ -16,6 +16,7 @@ class HomeRepositoryImpl(private val amtalekApi: AmtalekApi) : HomeRepository {
         return flow {
             val result = toResultFlow {
                 amtalekApi.getHome(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)
+//                amtalekApi.getHome(null)
             }
             result.collect {
                 when (it) {

@@ -442,6 +442,10 @@
     <string name="s_egp">%s EGP</string>
     <string name="s_meter_square">%s sqft</string>
     <string name="s_meter_square_me">%s m&#xB2;</string>
+    <string name="s_meter_square_me_n">%s\n m&#xB2;</string>
+
+    <string name="s_bathroom_count_n">%s\n bathroom</string>
+    <string name="s_bedroom_count_n">%s\n bedroom</string>
 
     <string name="my_favourite_properties">My Favourite</string>
     <string name="my_favourite">My Favourite</string>

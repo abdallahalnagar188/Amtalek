@@ -304,7 +304,11 @@
         android:id="@+id/propertyDetailsSellFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragment"
         android:label="fragment_property_details_sell"
-        tools:layout="@layout/fragment_property_details_sell" />
+        tools:layout="@layout/fragment_property_details_sell" >
+        <argument
+            android:name="propertyId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/propertyDetailsRentFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragment"

@@ -441,6 +441,10 @@
     <string name="s_egp">%s ج.م</string>
     <string name="s_meter_square">sqft %s</string>
     <string name="s_meter_square_me">%s متر&#xB2;</string>
+    <string name="s_meter_square_me_n">%s\n م&#xB2;</string>
+
+    <string name="s_bathroom_count_n">%s\n حمام</string>
+    <string name="s_bedroom_count_n">%s\n غرفة نوم</string>
 
     <string name="my_favourite_properties">عقاراتي المفضلة</string>
     <string name="my_favourite">عقاراتي المفضلة</string>
