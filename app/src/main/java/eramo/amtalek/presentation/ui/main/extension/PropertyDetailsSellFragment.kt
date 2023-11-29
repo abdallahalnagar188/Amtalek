@@ -19,6 +19,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
+import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
@@ -29,6 +30,7 @@ import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
+import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -63,7 +65,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     private fun setupViews() {
         setupToolbar()
 
-        initCommentsRv()
         initSimilarPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
 
         requestData()
@@ -174,14 +175,13 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             initPropertyFeaturesRv(data.propertyFeatures)
 
-            val uri = Uri.parse(data.videoUrl)
-            val videoId = uri.getQueryParameter("v")
-
-            videoId?.let {
+            getYoutubeUrlId(data.videoUrl)?.let{
                 setupVideo(it)
             }
 
             tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
+
+            initCommentsRv(data.comments)
         }
 
     }
@@ -240,9 +240,9 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
         }
     }
 
-    private fun initCommentsRv() {
+    private fun initCommentsRv(data: List<RatingCommentsModel>) {
         binding.rvRatingComments.adapter = rvRatingAdapter
-        rvRatingAdapter.submitList(Dummy.dummyRatingCommentsList())
+        rvRatingAdapter.submitList(data)
     }
 
     private fun initSimilarPropertiesRv(data: List<MyFavouritesModel>) {

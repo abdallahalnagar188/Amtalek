@@ -156,6 +156,11 @@ fun convertToArabicNumber(englishNumber: Int): String {
     return arabicFormat.format(englishNumber)
 }
 
+fun getYoutubeUrlId(url: String): String? {
+    return Uri.parse(url).getQueryParameter("v")
+
+}
+
 fun TextView.setTextViewDrawableColor(color: Int) {
     this.compoundDrawablesRelative.filterNotNull().forEach { drawable ->
         drawable.mutate()
