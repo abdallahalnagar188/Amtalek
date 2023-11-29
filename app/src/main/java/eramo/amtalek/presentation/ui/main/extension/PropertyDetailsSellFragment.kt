@@ -16,6 +16,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
+import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -43,6 +44,9 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
     @Inject
     lateinit var rvRatingAdapter: RvRatingAdapter
+
+    @Inject
+    lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
 
     @Inject
     lateinit var rvSimilarPropertiesAdapter: RvSimilarPropertiesAdapter
@@ -165,6 +169,8 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             tvDescriptionValue.text = data.description
 
+            initPropertyFeaturesRv(data.propertyFeatures)
+
             tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
         }
 
@@ -204,11 +210,14 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
     }
 
+    private fun initPropertyFeaturesRv(data:List<String>) {
+        binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
+        rvAmenitiesAdapter.submitList(data)
+    }
+
     private fun initCommentsRv() {
         binding.rvRatingComments.adapter = rvRatingAdapter
         rvRatingAdapter.submitList(Dummy.dummyRatingCommentsList())
-
-
     }
 
     private fun initSimilarPropertiesRv(data: List<MyFavouritesModel>) {
