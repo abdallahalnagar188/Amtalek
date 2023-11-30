@@ -3,6 +3,7 @@ package eramo.amtalek.data.remote.dto.property
 
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.util.FALSE
@@ -320,12 +321,26 @@ data class PropertyDetailsResponse(
         return list
     }
 
+    private fun chartList(): List<ChartModel> {
+        val list = mutableListOf<ChartModel>()
+
+        for (i in data?.get(0)?.chart!!) {
+            list.add(
+                ChartModel(
+                    i?.id ?: -1, i?.count ?: -1, i?.date ?: ""
+                )
+            )
+        }
+
+        return list
+    }
+
     fun toPropertyDetailsModel(): PropertyDetailsModel {
         return PropertyDetailsModel(
             sliderImagesList(),
             data?.get(0)?.salePrice?.toDouble() ?: 0.0,
             data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
-            data?.get(0)?.rentDuration?:"",
+            data?.get(0)?.rentDuration ?: "",
             data?.get(0)?.title ?: "",
             "${data?.get(0)?.region}, ${data?.get(0)?.city}",
             "----",
@@ -348,7 +363,8 @@ data class PropertyDetailsResponse(
             propertyFeaturesList(),
             data?.get(0)?.video ?: "",
             commentsList(),
-            similarPropertiesList()
+            similarPropertiesList(),
+            chartList()
 
         )
     }

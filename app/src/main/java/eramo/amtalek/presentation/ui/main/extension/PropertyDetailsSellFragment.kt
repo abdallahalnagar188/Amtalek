@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.main.extension
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,12 +12,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
@@ -26,6 +33,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
@@ -175,12 +183,48 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
                 setupVideo(it)
             }
 
+//            val cartList = data.chartList.toMutableList()
+//
+//            cartList.add(
+//                0,
+//                (ChartModel(
+//                    -1, 0, ""
+//                ))
+//            )
+            setupChartView(getChartList(data))
+//            val fakeList = mutableListOf<ChartModel>()
+//            fakeList.add(ChartModel(
+//                1,4,"2222-22-22"
+//            ))
+//            fakeList.add(ChartModel(
+//                2,6,"3333-33-33"
+//            ))
+//            fakeList.add(ChartModel(
+//                3,5,"44"
+//            ))
+//            setupChartView(fakeList)
+
             tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
 
             initCommentsRv(data.comments)
             initSimilarPropertiesRv(data.similarProperties)
         }
 
+    }
+
+    private fun getChartList(data: PropertyDetailsModel): List<ChartModel> {
+        val cartList = data.chartList.toMutableList()
+
+        if (cartList.size <= 1) {
+            cartList.add(
+                0,
+                (ChartModel(
+                    -1, 0, ""
+                ))
+            )
+        }
+
+        return cartList.takeLast(5)
     }
 
     private fun initPropertyFeaturesRv(data: List<String>) {
@@ -217,5 +261,65 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
         rvSimilarPropertiesAdapter.submitList(data)
+    }
+
+    private fun setupChartView(chartList: List<ChartModel>) {
+        binding.apply {
+            val linevalues = ArrayList<Entry>()
+
+//            linevalues.add(Entry(1f, 10F))
+//            linevalues.add(Entry(2f, 80F))
+//            linevalues.add(Entry(3f, 50F))
+//            linevalues.add(Entry(4f, 20F))
+
+            for (i in chartList) {
+                linevalues.add(
+                    Entry((chartList.indexOf(i) + 1).toFloat(), i.viewsCount.toFloat())
+                )
+            }
+
+            val linedataset = LineDataSet(linevalues, null)
+
+            // line
+            linedataset.color = ContextCompat.getColor(requireContext(), R.color.yellow)
+            linedataset.lineWidth = 2f
+
+            // circle point
+            linedataset.circleRadius = 4f
+            linedataset.setCircleColor(ContextCompat.getColor(requireContext(), R.color.yellow))
+            linedataset.circleHoleColor = ContextCompat.getColor(requireContext(), R.color.yellow)
+            linedataset.valueTextSize = 0F
+
+            // chart design
+            linedataset.setDrawFilled(false)
+            linedataset.fillColor = ContextCompat.getColor(requireContext(), R.color.black)
+            linedataset.mode = LineDataSet.Mode.CUBIC_BEZIER
+
+            //We connect our data to the UI Screen
+            val data = LineData(linedataset)
+            chart.data = data
+            chart.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            chart.animateXY(2000, 2000, Easing.EaseInCubic)
+            chart.extraBottomOffset = 35f
+
+            chart.xAxis.setDrawGridLines(false)
+
+            // Customize other axis properties if needed
+            chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+            chart.axisRight.isEnabled = false
+            chart.legend.isEnabled = false
+
+            // xAxis values
+            val xAxisFormatter = DayAxisValueFormatter(chart, chartList)
+            val xAxis = chart.xAxis
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            xAxis.granularity = 1f
+
+            chart.xAxis.labelRotationAngle = -60f
+            chart.xAxis.textSize = 9f
+            chart.description.isEnabled = false
+            chart.xAxis.valueFormatter = xAxisFormatter
+        }
     }
 }

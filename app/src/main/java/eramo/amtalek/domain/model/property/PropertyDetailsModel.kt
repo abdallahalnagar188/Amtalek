@@ -38,4 +38,6 @@ data class PropertyDetailsModel(
     val comments:List<RatingCommentsModel>,
 
     val similarProperties:List<PropertyModel>,
+
+    val chartList:List<ChartModel>,
 )
