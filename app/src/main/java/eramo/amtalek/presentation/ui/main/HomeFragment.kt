@@ -37,6 +37,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropert
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
@@ -48,7 +49,6 @@ import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -190,9 +190,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun requestApis() {
-        if (UserUtil.isUserLogin()){
+        if (UserUtil.isUserLogin()) {
             viewModel.getProfile()
-        }else{
+        } else {
             viewModel.getHome()
         }
     }
@@ -691,13 +691,22 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
+        showToast(model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(R.id.propertyDetailsSellFragment, PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(), navOptionsAnimation())
+                findNavController().navigate(
+                    R.id.propertyDetailsSellFragment,
+                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
 
-            getString(R.string.for_rent) -> {
-                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            PropertyType.FOR_RENT.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsRentFragment,
+                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
         }
     }

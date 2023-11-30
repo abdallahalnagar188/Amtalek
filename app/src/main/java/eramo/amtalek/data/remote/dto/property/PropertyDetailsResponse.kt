@@ -92,7 +92,7 @@ data class PropertyDetailsResponse(
         @SerializedName("region")
         val region: String?,
         @SerializedName("rent_duration")
-        val rentDuration: Any?,
+        val rentDuration: String?,
         @SerializedName("rent_price")
         val rentPrice: Int?,
         @SerializedName("room_ensuite")
@@ -325,6 +325,7 @@ data class PropertyDetailsResponse(
             sliderImagesList(),
             data?.get(0)?.salePrice?.toDouble() ?: 0.0,
             data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
+            data?.get(0)?.rentDuration?:"",
             data?.get(0)?.title ?: "",
             "${data?.get(0)?.region}, ${data?.get(0)?.city}",
             "----",

@@ -76,7 +76,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
     private fun requestData() {
-        viewModel.getPropertyDetails()
+        viewModel.getPropertyDetails(propertyId)
     }
 
     private fun fetchData() {

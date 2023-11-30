@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.flow
 
 class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepository {
 
-    override suspend fun getPropertyDetails(): Flow<Resource<PropertyDetailsModel>> {
+    override suspend fun getPropertyDetails(propertyId:String): Flow<Resource<PropertyDetailsModel>> {
         return flow {
             val result = toResultFlow {
-                amtalekApi.getPropertyDetails(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)
+                amtalekApi.getPropertyDetails(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,propertyId)
             }
             result.collect {
                 when (it) {

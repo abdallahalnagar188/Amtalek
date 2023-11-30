@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface PropertyRepository {
 
-    suspend fun getPropertyDetails(): Flow<Resource<PropertyDetailsModel>>
+    suspend fun getPropertyDetails(propertyId:String): Flow<Resource<PropertyDetailsModel>>
 
 }

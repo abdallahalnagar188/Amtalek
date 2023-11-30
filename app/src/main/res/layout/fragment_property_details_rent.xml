@@ -451,7 +451,7 @@
 
             <include
                 android:id="@+id/property_features_layout"
-                layout="@layout/property_features_layout"
+                layout="@layout/property_features_layout_dynamic"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_150sdp"
                 android:layout_marginTop="@dimen/_50sdp"

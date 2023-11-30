@@ -8,6 +8,7 @@ data class PropertyDetailsModel(
 
     val sellPrice:Double,
     val rentPrice:Double,
+    val rentDuration: String,
     val title:String,
     val location:String,
     val datePosted:String,

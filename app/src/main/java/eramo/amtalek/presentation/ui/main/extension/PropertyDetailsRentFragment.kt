@@ -3,19 +3,35 @@ package eramo.amtalek.presentation.ui.main.extension
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsRentBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.property.PropertyDetailsModel
+import eramo.amtalek.domain.model.social.RatingCommentsModel
+import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.Dummy
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
+import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsRentViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.enum.RentDuration
+import eramo.amtalek.util.formatNumber
+import eramo.amtalek.util.formatPrice
+import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -24,6 +40,14 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsRentBinding::inflate
+
+    private val viewModel: PropertyDetailsRentViewModel by viewModels()
+
+    private val args by navArgs<PropertyDetailsRentFragmentArgs>()
+    private val propertyId get() = args.propertyId
+
+    @Inject
+    lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
 
     @Inject
     lateinit var rvRatingAdapter: RvRatingAdapter
@@ -36,11 +60,13 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+
+        requestData()
+        fetchData()
     }
 
     private fun setupViews() {
         setupToolbar()
-        initCommentsRv()
     }
 
     private fun setupToolbar() {
@@ -51,58 +77,170 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
         }
     }
 
-    private fun setupImageSliderTop(data: List<CarouselItem>) {
+    private fun requestData() {
+        viewModel.getPropertyDetails(propertyId)
+    }
+
+    private fun fetchData() {
+        fetchPropertyDetailsState()
+    }
+
+    private fun fetchPropertyDetailsState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.propertyDetailsState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+                            assignData(state.data!!)
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun assignData(data: PropertyDetailsModel) {
+        binding.apply {
+
+            setupImageSliderTop(data.sliderImages)
+
+            tvPrice.text = getRentPrice(data.rentDuration, data.rentPrice)
+            tvTitle.text = data.title
+            tvLocation.text = data.location
+            tvDate.text = data.datePosted
+
+            // header layout
+            tvFinishing.text = data.finishingAvailability
+            tvLocation2.text = data.areaLocation
+            tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(data.area))
+            tvBedrooms.text = getString(R.string.s_bedroom_count_n, data.bedroomsCount.toString())
+            tvBathrooms.text = getString(R.string.s_bathroom_count_n, data.bathroomsCount.toString())
+
+
+            tvUserName.text = data.brokerName
+            tvUserId.text = data.brokerDescription
+
+            Glide.with(requireContext())
+                .load(data.brokerImageUrl)
+                .placeholder(R.drawable.ic_no_image)
+                .into(ivUserImage)
+
+            propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
+            propertyDetailsLayout.tvTypeValue.text = data.propertyType
+            propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
+            propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
+            propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
+            propertyDetailsLayout.tvFurnitureValue.text = data.furniture
+            propertyDetailsLayout.tvPaymentValue.text = data.payment
+            propertyDetailsLayout.tvFinishingValue.text = data.finishing
+            propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
+            propertyDetailsLayout.tvFloorValue.text = data.landType
+
+            tvDescriptionValue.text = data.description
+
+            initPropertyFeaturesRv(data.propertyFeatures)
+
+            getYoutubeUrlId(data.videoUrl)?.let {
+                setupVideo(it)
+            }
+
+            tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
+
+            initCommentsRv(data.comments)
+            initSimilarPropertiesRv(data.similarProperties)
+        }
+
+    }
+
+    private fun setupImageSliderTop(imagesUrl: List<String>) {
+        val list = mutableListOf<CarouselItem>()
+
+        for (i in imagesUrl) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i
+                )
+            )
+        }
+
         binding.apply {
             imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             imageSlider.setIndicator(imageSliderDots)
-            imageSlider.setData(data)
+            imageSlider.setData(list)
         }
     }
 
-    private fun assignFakeData() {
-        setupImageSliderTop(Dummy.dummyCarouselPropertiesImagesList())
-
+    private fun setupVideo(videoId: String) {
         binding.apply {
-            tvPrice.text = "4000 EGP / Month"
-            tvTitle.text = "Residential apartment for sale, super lux with elevator"
-            tvLocation.text = "Sheikh Zayed , Giza"
-            tvDate.text = "8/7/2023"
-
-            tvUserName.text = "Lana Realstate company"
-            tvUserId.text = "Lana.Eramo12"
-
-            Glide.with(requireContext())
-                .load("https://ih1.redbubble.net/image.1587788291.1660/st,small,507x507-pad,600x600,f8f8f8.jpg")
-                .into(ivUserImage)
-
-            propertyDetailsLayout.tvPropertyCodeValue.text = "1525898"
-            propertyDetailsLayout.tvTypeValue.text = "Town House"
-            propertyDetailsLayout.tvAreaValue.text = "188 sqft"
-            propertyDetailsLayout.tvBedroomsValue.text = "2"
-            propertyDetailsLayout.tvBathroomValue.text = "2"
-            propertyDetailsLayout.tvFurnitureValue.text = "Not Available"
-            propertyDetailsLayout.tvPaymentValue.text = "Cash Available"
-            propertyDetailsLayout.tvFinishingValue.text = "Finishing half"
-            propertyDetailsLayout.tvFloorsValue.text = "4.5.6.7"
-            propertyDetailsLayout.tvFloorValue.text = "Ceramic"
-
-            tvDescriptionValue.text =
-                "Descriptive Text is a text which says what a person or a thing is like. Its purpose is to describe and reveal a particular person, place, or thing."
-
-            tvRatings.text = getString(R.string.s_ratings, "12")
+            lifecycle.addObserver(FAboutUsYoutubeView)
+            FAboutUsYoutubeView.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    onVideoId(youTubePlayer, videoId)
+                    youTubePlayer.loadVideo(videoId, 0f)
+                    youTubePlayer.play()
+                }
+            })
         }
-
     }
 
-    private fun initCommentsRv() {
+    private fun initPropertyFeaturesRv(data: List<String>) {
+        binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
+        rvAmenitiesAdapter.submitList(data)
+    }
+
+    private fun initCommentsRv(data: List<RatingCommentsModel>) {
         binding.rvRatingComments.adapter = rvRatingAdapter
-        rvRatingAdapter.submitList(Dummy.dummyRatingCommentsList())
-
-
+        rvRatingAdapter.submitList(data)
     }
 
     private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
         rvSimilarPropertiesAdapter.submitList(data)
+    }
+
+    private fun getRentPrice(duration: String, price: Double): String {
+        return when (duration) {
+            RentDuration.DAILY.key -> {
+                requireContext().getString(R.string.s_daily_price, formatPrice(price))
+            }
+
+            RentDuration.MONTHLY.key -> {
+                requireContext().getString(R.string.s_monthly_price, formatPrice(price))
+            }
+
+            RentDuration.THREE_MONTHS.key -> {
+                requireContext().getString(R.string.s_3_months_price, formatPrice(price))
+            }
+
+            RentDuration.SIX_MONTHS.key -> {
+                requireContext().getString(R.string.s_6_months_price, formatPrice(price))
+            }
+
+            RentDuration.NINE_MONTHS.key -> {
+                requireContext().getString(R.string.s_9_months_price, formatPrice(price))
+            }
+
+            RentDuration.YEARLY.key -> {
+                requireContext().getString(R.string.s_yearly_price, formatPrice(price))
+            }
+
+            else -> ""
+        }
     }
 }

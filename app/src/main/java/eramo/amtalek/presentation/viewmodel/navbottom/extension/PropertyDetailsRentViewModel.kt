@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class PropertyDetailsSellViewModel @Inject constructor(
+class PropertyDetailsRentViewModel @Inject constructor(
     private val repository: PropertyRepository
 ) : ViewModel() {
 

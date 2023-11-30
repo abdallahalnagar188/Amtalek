@@ -147,7 +147,8 @@ interface AmtalekApi {
     @GET("mobile/property-details/{propertyId}")
     suspend fun getPropertyDetails(
         @Header("Authorization") userToken: String?,
-        @Path("propertyId") propertyId:String = "38"
+//        @Path("propertyId") propertyId:String = "38"
+        @Path("propertyId") propertyId:String
     ): Response<PropertyDetailsResponse>
 
     // ____________________________________________________________________________________________//
