@@ -15,7 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.databinding.FragmentPropertyDetailsRentBinding
+import eramo.amtalek.databinding.FragmentPropertyDetailsSellAndRentBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -24,7 +24,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
-import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsRentViewModel
+import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellAndRentViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -36,12 +36,12 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentBinding>() {
+class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetailsSellAndRentBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentPropertyDetailsRentBinding::inflate
+        get() = FragmentPropertyDetailsSellAndRentBinding::inflate
 
-    private val viewModel: PropertyDetailsRentViewModel by viewModels()
+    private val viewModel: PropertyDetailsSellAndRentViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsRentFragmentArgs>()
     private val propertyId get() = args.propertyId
@@ -54,7 +54,6 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
     @Inject
     lateinit var rvSimilarPropertiesAdapter: RvSimilarPropertiesAdapter
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -118,7 +117,12 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
             setupImageSliderTop(data.sliderImages)
 
-            tvPrice.text = getRentPrice(data.rentDuration, data.rentPrice)
+            tvPrice.text = getString(
+                R.string.s_sell_price_and_rent_price,
+                getString(R.string.s_egp, formatPrice(data.sellPrice)),
+                getRentPrice(data.rentDuration, data.rentPrice)
+            )
+//            tvPrice.text = getString(R.string.s_egp, formatPrice(data.sellPrice)) + "\n" + getRentPrice(data.rentDuration, data.rentPrice)
             tvTitle.text = data.title
             tvLocation.text = data.location
             tvDate.text = data.datePosted
@@ -205,7 +209,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
             binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
             rvAmenitiesAdapter.submitList(data)
-        } else {
+        }else{
             binding.propertyFeaturesLayout.root.visibility = View.GONE
         }
     }

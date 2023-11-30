@@ -353,4 +353,13 @@
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.BuyPackageStepTwoFragment"
         android:label="fragment_buy_package_step_two"
         tools:layout="@layout/fragment_buy_package_step_two" />
+    <fragment
+        android:id="@+id/propertyDetailsSellAndRentFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragment"
+        android:label="fragment_property_details_sell_and_rent"
+        tools:layout="@layout/fragment_property_details_sell_and_rent" >
+        <argument
+            android:name="propertyId"
+            app:argType="string" />
+    </fragment>
 </navigation>

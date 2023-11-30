@@ -184,8 +184,14 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
     private fun initPropertyFeaturesRv(data: List<String>) {
-        binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
-        rvAmenitiesAdapter.submitList(data)
+        if (data.isNotEmpty()) {
+            binding.propertyFeaturesLayout.root.visibility = View.VISIBLE
+
+            binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
+            rvAmenitiesAdapter.submitList(data)
+        } else {
+            binding.propertyFeaturesLayout.root.visibility = View.GONE
+        }
     }
 
     private fun setupVideo(videoId: String) {

@@ -660,4 +660,6 @@
     <string name="s_yearly_price">%s EGP/Year</string>
     <string name="choose_city">Choose city</string>
 
+    <string name="s_sell_price_and_rent_price" translatable="false">%s \n%s</string>
+
 </resources>

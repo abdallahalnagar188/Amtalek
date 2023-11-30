@@ -38,6 +38,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasA
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
+import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
@@ -691,7 +692,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
-        showToast(model.id.toString())
+        Log.e("propertyId", model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(
@@ -705,6 +706,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 findNavController().navigate(
                     R.id.propertyDetailsRentFragment,
                     PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellAndRentFragment,
+                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
                     navOptionsAnimation()
                 )
             }

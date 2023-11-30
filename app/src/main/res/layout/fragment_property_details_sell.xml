@@ -453,7 +453,7 @@
                 android:id="@+id/property_features_layout"
                 layout="@layout/property_features_layout_dynamic"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_50sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -510,10 +510,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:scaleX="0.66"
-                android:scaleY=".66"
-                android:transformPivotX="0dp"
-                android:transformPivotY="0dp"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_rate" />
 
@@ -522,6 +519,7 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/text_gray"
