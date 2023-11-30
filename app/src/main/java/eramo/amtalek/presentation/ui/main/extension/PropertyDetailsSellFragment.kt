@@ -191,8 +191,16 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 //                    -1, 0, ""
 //                ))
 //            )
-            setupChartView(getChartList(data))
-//            val fakeList = mutableListOf<ChartModel>()
+            if (data.chartList.isNotEmpty()){
+                binding.tvViewsChart.visibility = View.VISIBLE
+                binding.chart.visibility = View.VISIBLE
+                setupChartView(getChartList(data))
+            }else{
+                binding.tvViewsChart.visibility = View.GONE
+                binding.chart.visibility = View.GONE
+            }
+
+            //            val fakeList = mutableListOf<ChartModel>()
 //            fakeList.add(ChartModel(
 //                1,4,"2222-22-22"
 //            ))
@@ -210,21 +218,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
             initSimilarPropertiesRv(data.similarProperties)
         }
 
-    }
-
-    private fun getChartList(data: PropertyDetailsModel): List<ChartModel> {
-        val cartList = data.chartList.toMutableList()
-
-        if (cartList.size <= 1) {
-            cartList.add(
-                0,
-                (ChartModel(
-                    -1, 0, ""
-                ))
-            )
-        }
-
-        return cartList.takeLast(5)
     }
 
     private fun initPropertyFeaturesRv(data: List<String>) {
@@ -321,5 +314,20 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
             chart.description.isEnabled = false
             chart.xAxis.valueFormatter = xAxisFormatter
         }
+    }
+
+    private fun getChartList(data: PropertyDetailsModel): List<ChartModel> {
+        val cartList = data.chartList.toMutableList()
+
+        if (cartList.size <= 1) {
+            cartList.add(
+                0,
+                (ChartModel(
+                    -1, 0, ""
+                ))
+            )
+        }
+
+        return cartList.takeLast(5)
     }
 }
