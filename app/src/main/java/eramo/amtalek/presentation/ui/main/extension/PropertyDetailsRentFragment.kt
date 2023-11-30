@@ -324,6 +324,8 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             chart.xAxis.textSize = 9f
             chart.description.isEnabled = false
             chart.xAxis.valueFormatter = xAxisFormatter
+
+            chart.setTouchEnabled(false)
         }
     }
 

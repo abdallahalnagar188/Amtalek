@@ -313,6 +313,8 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
             chart.xAxis.textSize = 9f
             chart.description.isEnabled = false
             chart.xAxis.valueFormatter = xAxisFormatter
+
+            chart.setTouchEnabled(false)
         }
     }
 
