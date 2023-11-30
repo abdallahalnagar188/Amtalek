@@ -1,288 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_property_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/property_code"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/property_code"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_property_code_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_property_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1525898"
-        android:maxLines="1"
         android:ellipsize="end"
-        android:textAlignment="viewEnd"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:maxLines="1"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_property_code"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1525898" />
 
     <TextView
         android:id="@+id/tv_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_property_code"
-        android:text="@string/type"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/type"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_property_code" />
 
     <TextView
         android:id="@+id/tv_type_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_property_code_value"
-        tools:text="Town House"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_property_code_value"
+        tools:text="Town House" />
 
     <TextView
         android:id="@+id/tv_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_type"
-        android:text="@string/area_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/area_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_type" />
 
     <TextView
         android:id="@+id/tv_area_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_type_value"
-        tools:text="188 sqft"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_type_value"
+        tools:text="188 sqft" />
 
     <TextView
         android:id="@+id/tv_bedrooms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_area"
-        android:text="@string/bedrooms_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/bedrooms_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_area" />
 
     <TextView
         android:id="@+id/tv_bedrooms_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_area_value"
-        tools:text="2"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_area_value"
+        tools:text="2" />
 
     <TextView
         android:id="@+id/tv_bathrooms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_bedrooms"
-        android:text="@string/bathrooms_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/bathrooms_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bedrooms" />
 
     <TextView
         android:id="@+id/tv_bathroom_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_bedrooms_value"
-        tools:text="2"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_bedrooms_value"
+        tools:text="2" />
 
     <TextView
         android:id="@+id/tv_furniture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_bathrooms"
-        android:text="@string/furniture_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/furniture_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bathrooms" />
 
     <TextView
         android:id="@+id/tv_furniture_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_bathroom_value"
-        tools:text="Not Available"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_bathroom_value"
+        tools:text="Not Available" />
 
     <TextView
         android:id="@+id/tv_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_furniture"
-        android:text="@string/payment_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/payment_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_furniture" />
 
     <TextView
         android:id="@+id/tv_payment_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_furniture_value"
-        tools:text="Cash"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_furniture_value"
+        tools:text="Cash" />
 
     <TextView
         android:id="@+id/tv_finishing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_payment"
-        android:text="@string/finishing_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/finishing_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_payment" />
 
     <TextView
         android:id="@+id/tv_finishing_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_payment_value"
-        tools:text="Finishing half"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_payment_value"
+        tools:text="Finishing half" />
 
     <TextView
         android:id="@+id/tv_floors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_finishing"
-        android:text="@string/floors_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/floors_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_finishing" />
 
     <TextView
         android:id="@+id/tv_floors_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_finishing_value"
-        tools:text="4.5.6.7"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_finishing_value"
+        tools:text="4.5.6.7" />
 
     <TextView
         android:id="@+id/tv_floor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_floors"
-        android:text="@string/floor_with_dots"
-        android:textSize="@dimen/_14ssp"
         android:layout_marginTop="@dimen/_8sdp"
         android:fontFamily="@font/montserratsemibold"
+        android:text="@string/floor_with_dots"
         android:textColor="@color/text_gray"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_floors" />
 
     <TextView
         android:id="@+id/tv_floor_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="viewEnd"
         android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/tv_floors_value"
-        tools:text="ceramic"
-        android:textSize="@dimen/_14ssp"
         android:fontFamily="@font/montserratsemibold"
+        android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        />
+        android:textSize="@dimen/_13ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_floors_value"
+        tools:text="ceramic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
