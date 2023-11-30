@@ -739,39 +739,90 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     override fun onNewestPropertyClick(model: PropertyModel) {
+        Log.e("propertyId", model.id.toString())
         when (model.type) {
-            getString(R.string.for_sell) -> {
-                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            PropertyType.FOR_SELL.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellFragment,
+                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
 
-            getString(R.string.for_rent) -> {
-                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            PropertyType.FOR_RENT.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsRentFragment,
+                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellAndRentFragment,
+                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
         }
     }
 
 
     override fun onNewestVillaClick(model: PropertyModel) {
+        Log.e("propertyId", model.id.toString())
         when (model.type) {
-            getString(R.string.for_sell) -> {
-                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            PropertyType.FOR_SELL.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellFragment,
+                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
 
-            getString(R.string.for_rent) -> {
-                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            PropertyType.FOR_RENT.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsRentFragment,
+                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellAndRentFragment,
+                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
         }
     }
 
 
     override fun onNewestDuplexesClick(model: PropertyModel) {
+        Log.e("propertyId", model.id.toString())
         when (model.type) {
-            getString(R.string.for_sell) -> {
-                findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
+            PropertyType.FOR_SELL.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellFragment,
+                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
 
-            getString(R.string.for_rent) -> {
-                findNavController().navigate(R.id.propertyDetailsRentFragment, null, navOptionsAnimation())
+            PropertyType.FOR_RENT.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsRentFragment,
+                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellAndRentFragment,
+                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
             }
         }
     }

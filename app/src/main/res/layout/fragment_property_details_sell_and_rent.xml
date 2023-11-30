@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="locale"
     tools:context=".presentation.ui.main.extension.PropertyDetailsSellAndRentFragment">
 
@@ -18,8 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_110sdp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:paddingBottom="@dimen/_110sdp">
 
             <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                 android:id="@+id/image_slider"
@@ -97,9 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/_4sdp"
-                android:ellipsize="end"
                 android:fontFamily="@font/montserratmedium"
-                android:maxLines="1"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,8 +124,8 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/montserratmedium"
                 android:maxLines="1"
-                android:textColor="@color/black"
                 android:textAlignment="viewStart"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_location"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -346,7 +344,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toTopOf="@id/tv_user_id"
-                    app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_user_image"
                     app:layout_constraintTop_toTopOf="@id/iv_user_image"
                     tools:text="Lana Realstate company" />
@@ -363,7 +361,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
-                    app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/iv_user_image"
                     app:layout_constraintTop_toBottomOf="@id/tv_user_name"
                     tools:text="Lana.Eramo12" />
@@ -506,11 +504,11 @@
 
             <RatingBar
                 android:id="@+id/rate_bar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_14sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_rate" />
 
@@ -519,8 +517,8 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/montserratregular"
                 android:textColorHint="@color/text_gray"
                 app:hintEnabled="false"
@@ -631,9 +629,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"

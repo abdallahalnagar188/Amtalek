@@ -41,12 +41,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/featured_label_background"
-            android:gravity="center"
-            android:textSize="@dimen/_9ssp"
             android:fontFamily="@font/montserratmedium"
+            android:gravity="center"
             android:paddingHorizontal="@dimen/_5sdp"
             android:paddingVertical="@dimen/_6sdp"
             android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="@id/iv_image"
             app:layout_constraintEnd_toEndOf="@+id/iv_image"
             tools:text="" />
@@ -70,32 +70,38 @@
 
         <TextView
             android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_12sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/montserratsemibold"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@id/iv_fav"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image"
             tools:text="4,000,000 EGP" />
 
         <TextView
             android:id="@+id/tv_price_rent"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_2sdp"
-            app:layout_goneMarginTop="@dimen/_12sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/montserratsemibold"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:visibility="gone"
-            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_price"
-            tools:text="4,000,000 EGP" />
+            app:layout_goneMarginTop="@dimen/_12sdp"
+            tools:text="4,000,000 EGP"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -117,9 +123,9 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_15sdp"
-            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_area"
+            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -186,8 +192,8 @@
             android:layout_height="@dimen/_16sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintBottom_toTopOf="@+id/iv_clock"
             android:src="@drawable/ic_location_green"
+            app:layout_constraintBottom_toTopOf="@+id/iv_clock"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_area" />
 
@@ -245,8 +251,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/by_broker"
-            android:textSize="@dimen/_10ssp"
             android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_location"
