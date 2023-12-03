@@ -440,6 +440,7 @@
     <string name="fake_date">3 Days ago</string>
 
     <string name="s_egp">%s EGP</string>
+    <string name="s_currency">%s %s</string>
     <string name="s_meter_square">%s sqft</string>
     <string name="s_meter_square_me">%s m&#xB2;</string>
     <string name="s_meter_square_me_n">%s\n m&#xB2;</string>
@@ -652,12 +653,12 @@
     <string name="please_verify_account">Please Verify Code</string>
     <string name="please_verify_account_an_email_sent">Please Verify your account\nCheck your email</string>
 
-    <string name="s_daily_price">%s EGP/Day</string>
-    <string name="s_monthly_price">%s EGP/Month</string>
-    <string name="s_3_months_price">%s EGP/3 Months</string>
-    <string name="s_6_months_price">%s EGP/6 Months</string>
-    <string name="s_9_months_price">%s EGP/9 Months</string>
-    <string name="s_yearly_price">%s EGP/Year</string>
+    <string name="s_daily_price">%s %s/Day</string>
+    <string name="s_monthly_price">%s %s/Month</string>
+    <string name="s_3_months_price">%s %s/3 Months</string>
+    <string name="s_6_months_price">%s %s/6 Months</string>
+    <string name="s_9_months_price">%s %s/9 Months</string>
+    <string name="s_yearly_price">%s %s/Year</string>
     <string name="choose_city">Choose city</string>
 
     <string name="s_sell_price_and_rent_price" translatable="false">%s \n%s</string>

@@ -144,7 +144,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             setupImageSliderTop(data.sliderImages)
 
-            tvPrice.text = getString(R.string.s_egp, formatPrice(data.sellPrice))
+            tvPrice.text = getString(R.string.s_currency, formatPrice(data.sellPrice),data.currency)
             tvTitle.text = data.title
             tvLocation.text = data.location
             tvDate.text = data.datePosted

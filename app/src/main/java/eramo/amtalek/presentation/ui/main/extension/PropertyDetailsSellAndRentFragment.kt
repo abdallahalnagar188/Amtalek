@@ -128,8 +128,8 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
             tvPrice.text = getString(
                 R.string.s_sell_price_and_rent_price,
-                getString(R.string.s_egp, formatPrice(data.sellPrice)),
-                getRentPrice(data.rentDuration, data.rentPrice)
+                getString(R.string.s_currency, formatPrice(data.sellPrice),data.currency),
+                getRentPrice(data.rentDuration, data.rentPrice, data.currency)
             )
 //            tvPrice.text = getString(R.string.s_egp, formatPrice(data.sellPrice)) + "\n" + getRentPrice(data.rentDuration, data.rentPrice)
             tvTitle.text = data.title
@@ -242,30 +242,30 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         rvSimilarPropertiesAdapter.submitList(data)
     }
 
-    private fun getRentPrice(duration: String, price: Double): String {
+    private fun getRentPrice(duration: String, price: Double,currency:String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                requireContext().getString(R.string.s_daily_price, formatPrice(price))
+                requireContext().getString(R.string.s_daily_price, formatPrice(price),currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                requireContext().getString(R.string.s_monthly_price, formatPrice(price))
+                requireContext().getString(R.string.s_monthly_price, formatPrice(price),currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                requireContext().getString(R.string.s_3_months_price, formatPrice(price))
+                requireContext().getString(R.string.s_3_months_price, formatPrice(price),currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                requireContext().getString(R.string.s_6_months_price, formatPrice(price))
+                requireContext().getString(R.string.s_6_months_price, formatPrice(price),currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                requireContext().getString(R.string.s_9_months_price, formatPrice(price))
+                requireContext().getString(R.string.s_9_months_price, formatPrice(price),currency)
             }
 
             RentDuration.YEARLY.key -> {
-                requireContext().getString(R.string.s_yearly_price, formatPrice(price))
+                requireContext().getString(R.string.s_yearly_price, formatPrice(price),currency)
             }
 
             else -> ""

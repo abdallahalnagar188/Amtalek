@@ -145,11 +145,10 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:src="@drawable/ic_bathroom"
             app:layout_constraintStart_toEndOf="@id/tv_area"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
+            app:layout_constraintTop_toTopOf="@id/iv_area"
+            app:layout_constraintBottom_toBottomOf="@id/iv_area"/>
 
         <TextView
             android:id="@+id/tv_bathroom"
@@ -168,10 +167,10 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
             android:src="@drawable/ic_bed"
             app:layout_constraintStart_toEndOf="@id/tv_bathroom"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toTopOf="@id/iv_area"
+            app:layout_constraintBottom_toBottomOf="@id/iv_area"/>
 
         <TextView
             android:id="@+id/tv_bed"

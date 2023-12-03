@@ -54,7 +54,7 @@ class RvHomeNewestDuplexesAdapter @Inject constructor() :
                     else ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice))
+                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice),model.currency)
                 tvTitle.text = model.title
 
                 tvLabel.text = when (model.type) {
@@ -76,14 +76,14 @@ class RvHomeNewestDuplexesAdapter @Inject constructor() :
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
                         tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice)
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice)
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
 
                     }
 
@@ -126,30 +126,30 @@ class RvHomeNewestDuplexesAdapter @Inject constructor() :
         }
     }
 
-    private fun getRentPrice(context: Context, duration: String, price: Double): String {
+    private fun getRentPrice(context: Context, duration: String, price: Double,currency:String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                context.getString(R.string.s_daily_price, formatPrice(price))
+                context.getString(R.string.s_daily_price, formatPrice(price),currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                context.getString(R.string.s_monthly_price, formatPrice(price))
+                context.getString(R.string.s_monthly_price, formatPrice(price),currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                context.getString(R.string.s_3_months_price, formatPrice(price))
+                context.getString(R.string.s_3_months_price, formatPrice(price),currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                context.getString(R.string.s_6_months_price, formatPrice(price))
+                context.getString(R.string.s_6_months_price, formatPrice(price),currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                context.getString(R.string.s_9_months_price, formatPrice(price))
+                context.getString(R.string.s_9_months_price, formatPrice(price),currency)
             }
 
             RentDuration.YEARLY.key -> {
-                context.getString(R.string.s_yearly_price, formatPrice(price))
+                context.getString(R.string.s_yearly_price, formatPrice(price),currency)
             }
 
             else -> ""
