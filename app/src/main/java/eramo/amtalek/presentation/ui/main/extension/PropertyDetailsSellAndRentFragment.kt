@@ -40,6 +40,7 @@ import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -98,18 +99,18 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                 viewModel.propertyDetailsState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             assignData(state.data!!)
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -346,5 +347,29 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         }
 
         return cartList.takeLast(5)
+    }
+
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
+
+            viewLayout.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+
+            shareView.root.visibility = View.GONE
+            shimmerLayoutShareView.visibility = View.VISIBLE
+        }
+    }
+
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            viewLayout.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
+
+            shareView.root.visibility = View.VISIBLE
+            shimmerLayoutShareView.visibility = View.GONE
+        }
     }
 }

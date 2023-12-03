@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/tv_property_code"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/tv_property_code_value"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/tv_type"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_property_code" />
+
+
+    <View
+        android:id="@+id/tv_type_value"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_property_code_value" />
+
+    <View
+        android:id="@+id/tv_area"
+        android:layout_width="@dimen/_48sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:alpha="0.6"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_type" />
+
+
+    <View
+        android:id="@+id/tv_area_value"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_type_value" />
+
+    <View
+        android:id="@+id/tv_bedrooms"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_area" />
+
+    <View
+        android:id="@+id/tv_bedrooms_value"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_area_value" />
+
+    <View
+        android:id="@+id/tv_bathrooms"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bedrooms" />
+
+
+    <View
+        android:id="@+id/tv_bathroom_value"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bedrooms_value" />
+
+    <View
+        android:id="@+id/tv_furniture"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bathrooms" />
+
+    <View
+        android:id="@+id/tv_furniture_value"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_bathroom_value"
+        />
+
+    <View
+        android:id="@+id/tv_payment"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_furniture" />
+
+    <View
+        android:id="@+id/tv_payment_value"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_furniture_value"
+        />
+
+    <View
+        android:id="@+id/tv_finishing"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_payment" />
+
+    <View
+        android:id="@+id/tv_finishing_value"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_payment_value"
+         />
+
+    <View
+        android:id="@+id/tv_floors"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:alpha="0.6"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_finishing" />
+
+    <View
+        android:id="@+id/tv_floors_value"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_finishing_value"
+         />
+
+    <View
+        android:id="@+id/tv_floor"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_floors" />
+
+
+    <View
+        android:id="@+id/tv_floor_value"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/shimmer_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_floors_value"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

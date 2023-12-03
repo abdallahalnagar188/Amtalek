@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_114sdp"
+    app:cardCornerRadius="@dimen/_22ssp"
+    app:cardElevation="@dimen/_6sdp"
+    android:backgroundTint="@color/shimmer_gray"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+</com.google.android.material.card.MaterialCardView>
