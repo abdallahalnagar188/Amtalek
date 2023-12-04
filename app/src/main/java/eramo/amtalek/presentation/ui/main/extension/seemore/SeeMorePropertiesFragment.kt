@@ -35,7 +35,6 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
 
     @Inject
     lateinit var rvPropertiesAdapter: RvPropertiesAdapter
-    private val viewModelShared: SharedViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

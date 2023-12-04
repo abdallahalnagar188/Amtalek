@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.databinding.FragmentHotOffersSellBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
-import eramo.amtalek.domain.model.main.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment

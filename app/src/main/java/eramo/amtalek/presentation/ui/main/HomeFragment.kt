@@ -21,8 +21,8 @@ import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.NewsModel
-import eramo.amtalek.domain.model.main.home.ProjectHomeModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
@@ -40,6 +40,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
+import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMoreProjectsFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
@@ -312,7 +313,18 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 )
             }
 
-            setupFeaturedProjectsRv(data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() })
+            // featuredProjects
+            val featuredProjectsList = data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() }
+            setupFeaturedProjectsRv(featuredProjectsList)
+            inFeaturedProjects.tvSeeMore.setOnClickListener {
+                findNavController().navigate(
+                    R.id.seeMoreProjectsFragment, SeeMoreProjectsFragmentArgs(
+                        featuredProjectsList.toTypedArray(),
+                        getString(R.string.featured_projects_in_egypt)
+                    ).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
 
             setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
 
@@ -520,18 +532,16 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupFeaturedProjectsRv(data: List<ProjectHomeModel>) {
+    private fun setupFeaturedProjectsRv(data: List<ProjectModel>) {
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
-
     }
 
     private fun setupFindPropertiesByCityRv(data: List<PropertiesByCityModel>) {
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
-
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
@@ -770,7 +780,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    override fun onFeaturedProjectClick(model: ProjectHomeModel) {
+    override fun onFeaturedProjectClick(model: ProjectModel) {
         findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
     }
 

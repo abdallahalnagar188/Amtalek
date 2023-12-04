@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.adapters.recyclerview.offers
+package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,8 +13,8 @@ import eramo.amtalek.util.TRUE
 import javax.inject.Inject
 
 
-class RvHotOffersSellProjectsAdapter @Inject constructor() :
-    ListAdapter<ProjectModel, RvHotOffersSellProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvProjectsAdapter @Inject constructor() :
+    ListAdapter<ProjectModel, RvProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -49,13 +49,13 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
 
                 tvTitle.text = model.title
                 tvDescription.text = model.description
+
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
 
-//                tvBroker.text = model.brokerName
-
                 Glide.with(itemView)
                     .load(model.imageUrl)
+                    .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
 
                 Glide.with(itemView)
@@ -67,7 +67,6 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-
             }
         }
     }

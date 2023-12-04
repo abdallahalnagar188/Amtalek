@@ -10,9 +10,8 @@ import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
-import eramo.amtalek.domain.model.main.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
-import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.market.MarketPostType
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -324,26 +323,26 @@ object Dummy {
 
         list.add(
             ProjectModel(
+                1,
                 "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/19665/townhouse.jpg",
+                1,
                 context.getString(R.string.fake_Compound),
                 context.getString(R.string.fake_title),
                 context.getString(R.string.fake_location),
                 context.getString(R.string.fake_date),
-                1,
-                "By SOROUH",
                 "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
             )
         )
 
         list.add(
             ProjectModel(
+                2,
                 "https://img.sakneen.com/1632740971867-SAltZ.PNG",
+                0,
                 context.getString(R.string.fake_Compound),
                 context.getString(R.string.fake_title),
                 context.getString(R.string.fake_location),
                 context.getString(R.string.fake_date),
-                0,
-                "By Tallat",
                 "https://cairo.realestate/uploads/images/2023-02/logo6.jpg"
             )
         )

@@ -8,15 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFeaturedProjectsBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
-import eramo.amtalek.domain.model.main.home.ProjectHomeModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.util.TRUE
-import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
 class RvHomeFeaturedProjectsAdapter @Inject constructor() :
-    ListAdapter<ProjectHomeModel, RvHomeFeaturedProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<ProjectModel, RvHomeFeaturedProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -40,7 +38,7 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: ProjectHomeModel) {
+        fun bind(model: ProjectModel) {
             var isFav = model.isFavourite == TRUE
             binding.apply {
                 ivFav.setOnClickListener {
@@ -78,20 +76,20 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onFeaturedProjectClick(model: ProjectHomeModel)
+        fun onFeaturedProjectClick(model: ProjectModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectHomeModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectModel>() {
             override fun areItemsTheSame(
-                oldItem: ProjectHomeModel,
-                newItem: ProjectHomeModel
+                oldItem: ProjectModel,
+                newItem: ProjectModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: ProjectHomeModel,
-                newItem: ProjectHomeModel
+                oldItem: ProjectModel,
+                newItem: ProjectModel
             ) = oldItem == newItem
         }
     }
