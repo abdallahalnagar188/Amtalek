@@ -1,5 +1,9 @@
 package eramo.amtalek.domain.model.main.home
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class PropertyModel(
     val id :Int,
     val imageUrl: String,
@@ -17,4 +21,4 @@ data class PropertyModel(
     val location: String,
     val datePosted: String,
     val brokerLogoUrl: String
-)
+):Parcelable

@@ -362,4 +362,21 @@
             android:name="propertyId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/seeMorePropertiesFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFragment"
+        android:label="fragment_see_more_properties"
+        tools:layout="@layout/fragment_see_more_properties" >
+        <argument
+            android:name="propertiesList"
+            app:argType="eramo.amtalek.domain.model.main.home.PropertyModel[]" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeMoreProjectsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.extension.seemore.SeeMoreProjectsFragment"
+        android:label="fragment_see_more_projects"
+        tools:layout="@layout/fragment_see_more_projects" />
 </navigation>

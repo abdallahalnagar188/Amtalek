@@ -302,6 +302,9 @@ class MainActivity : AppCompatActivity(),
                 R.id.usersChatFragment,
                 R.id.userProfileFragment,
 
+                R.id.seeMorePropertiesFragment,
+                R.id.seeMoreProjectsFragment,
+
                 R.id.propertyDetailsSellFragment,
                 R.id.propertyDetailsRentFragment,
                 R.id.propertyDetailsSellAndRentFragment,

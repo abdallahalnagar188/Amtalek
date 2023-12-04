@@ -40,6 +40,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
+import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
@@ -294,24 +295,38 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun parseHomeResponse(data: HomeResponse) {
-        val topCarouselSliderList = parseTopCarouselSliderList(data.data?.sliders)
-        setupCarouselSliderTop(topCarouselSliderList)
+        binding.apply {
+            val topCarouselSliderList = parseTopCarouselSliderList(data.data?.sliders)
+            setupCarouselSliderTop(topCarouselSliderList)
 
-        setupFeaturedRealEstateRv(data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() })
-        setupFeaturedProjectsRv(data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() })
+            // featuredProperties
+            val featuredPropertiesList = data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() }
+            setupFeaturedRealEstateRv(featuredPropertiesList)
+            inFeaturedRealEstate.tvSeeMore.setOnClickListener {
+                findNavController().navigate(
+                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                        featuredPropertiesList.toTypedArray(),
+                        getString(R.string.featured_real_estate_in_egypt)
+                    ).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
 
-        setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
+            setupFeaturedProjectsRv(data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() })
 
-        val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
-        setupSliderBetween(betweenCarouselSliderList)
+            setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
 
-        setupNewestPropertiesRv(data.data.appaerments!!.map { it!!.toPropertyModel() })
-        setupNewestVillasRv(data.data.villas!!.map { it!!.toPropertyModel() })
-        setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
+            val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
+            setupSliderBetween(betweenCarouselSliderList)
 
-        setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
+            setupNewestPropertiesRv(data.data.appaerments!!.map { it!!.toPropertyModel() })
+            setupNewestVillasRv(data.data.villas!!.map { it!!.toPropertyModel() })
+            setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
 
-        dismissShimmerEffect()
+            setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
+
+            dismissShimmerEffect()
+        }
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
