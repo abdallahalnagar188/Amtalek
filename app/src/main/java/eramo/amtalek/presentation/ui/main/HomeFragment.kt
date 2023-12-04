@@ -319,7 +319,19 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
             setupSliderBetween(betweenCarouselSliderList)
 
-            setupNewestPropertiesRv(data.data.appaerments!!.map { it!!.toPropertyModel() })
+            // newestProperties
+            val newestProperties = data.data.appaerments!!.map { it!!.toPropertyModel() }
+            setupNewestPropertiesRv(newestProperties)
+            inNewestPropertiesLayout.tvSeeMore.setOnClickListener {
+                findNavController().navigate(
+                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                        newestProperties.toTypedArray(),
+                        getString(R.string.featured_real_estate_in_egypt)
+                    ).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
             setupNewestVillasRv(data.data.villas!!.map { it!!.toPropertyModel() })
             setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
 
