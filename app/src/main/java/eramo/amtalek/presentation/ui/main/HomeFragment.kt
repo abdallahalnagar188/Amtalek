@@ -345,7 +345,18 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 )
             }
 
-            setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
+            // newestDuplexes
+            val newestDuplexesList = data.data.duplixes!!.map { it!!.toPropertyModel() }
+            setupNewestDuplexesRv(newestDuplexesList)
+            inNewestDuplexesLayout.tvSeeMore.setOnClickListener {
+                findNavController().navigate(
+                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                        newestDuplexesList.toTypedArray(),
+                        getString(R.string.featured_real_estate_in_egypt)
+                    ).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
 
             setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
 
