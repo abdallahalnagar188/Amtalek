@@ -320,19 +320,31 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             setupSliderBetween(betweenCarouselSliderList)
 
             // newestProperties
-            val newestProperties = data.data.appaerments!!.map { it!!.toPropertyModel() }
-            setupNewestPropertiesRv(newestProperties)
+            val newestPropertiesList = data.data.appaerments!!.map { it!!.toPropertyModel() }
+            setupNewestPropertiesRv(newestPropertiesList)
             inNewestPropertiesLayout.tvSeeMore.setOnClickListener {
                 findNavController().navigate(
                     R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                        newestProperties.toTypedArray(),
+                        newestPropertiesList.toTypedArray(),
                         getString(R.string.featured_real_estate_in_egypt)
                     ).toBundle(),
                     navOptionsAnimation()
                 )
             }
 
-            setupNewestVillasRv(data.data.villas!!.map { it!!.toPropertyModel() })
+            // newestVillas
+            val newestVillasList = data.data.villas!!.map { it!!.toPropertyModel() }
+            setupNewestVillasRv(newestVillasList)
+            inNewestVillasLayout.tvSeeMore.setOnClickListener {
+                findNavController().navigate(
+                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                        newestVillasList.toTypedArray(),
+                        getString(R.string.featured_real_estate_in_egypt)
+                    ).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
             setupNewestDuplexesRv(data.data.duplixes!!.map { it!!.toPropertyModel() })
 
             setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
