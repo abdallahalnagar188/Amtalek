@@ -17,8 +17,6 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellAndRentBinding
@@ -207,18 +205,18 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
     }
 
     private fun setupVideo(videoId: String) {
-        binding.apply {
-            lifecycle.addObserver(FAboutUsYoutubeView)
-            FAboutUsYoutubeView.addYouTubePlayerListener(object :
-                AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    super.onReady(youTubePlayer)
-                    onVideoId(youTubePlayer, videoId)
-                    youTubePlayer.loadVideo(videoId, 0f)
-                    youTubePlayer.play()
-                }
-            })
-        }
+//        binding.apply {
+//            lifecycle.addObserver(FAboutUsYoutubeView)
+//            FAboutUsYoutubeView.addYouTubePlayerListener(object :
+//                AbstractYouTubePlayerListener() {
+//                override fun onReady(youTubePlayer: YouTubePlayer) {
+//                    super.onReady(youTubePlayer)
+//                    onVideoId(youTubePlayer, videoId)
+//                    youTubePlayer.loadVideo(videoId, 0f)
+//                    youTubePlayer.play()
+//                }
+//            })
+//        }
     }
 
     private fun initPropertyFeaturesRv(data: List<String>) {

@@ -9,8 +9,6 @@ import androidx.viewbinding.ViewBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertySummaryBinding
@@ -40,18 +38,18 @@ class PropertySummaryFragment : BindingFragment<FragmentPropertySummaryBinding>(
 
     private fun setupVideo() {
         val videoId = "zo40BGfu5Gg"
-        binding.apply {
-            lifecycle.addObserver(FAboutUsYoutubeView)
-            FAboutUsYoutubeView.addYouTubePlayerListener(object :
-                AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    super.onReady(youTubePlayer)
-                    onVideoId(youTubePlayer, videoId)
-                    youTubePlayer.loadVideo(videoId, 0f)
-                    youTubePlayer.pause()
-                }
-            })
-        }
+//        binding.apply {
+//            lifecycle.addObserver(FAboutUsYoutubeView)
+//            FAboutUsYoutubeView.addYouTubePlayerListener(object :
+//                AbstractYouTubePlayerListener() {
+//                override fun onReady(youTubePlayer: YouTubePlayer) {
+//                    super.onReady(youTubePlayer)
+//                    onVideoId(youTubePlayer, videoId)
+//                    youTubePlayer.loadVideo(videoId, 0f)
+//                    youTubePlayer.pause()
+//                }
+//            })
+//        }
     }
 
     private fun initLineChart() {

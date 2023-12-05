@@ -99,7 +99,7 @@ dependencies {
     api "com.theartofdev.edmodo:android-image-cropper:2.8.0"
 
     // Youtube
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+//    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
     // Image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
