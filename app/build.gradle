@@ -173,6 +173,8 @@ dependencies {
     // Chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // RollingText
+    implementation "com.github.YvesCheung.RollingText:RollingText:1.3.0"
 }
 
 // Allow references to generated code

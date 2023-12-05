@@ -19,6 +19,9 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.yy.mobile.rollingtextview.CharOrder
+import com.yy.mobile.rollingtextview.strategy.Direction
+import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
@@ -30,7 +33,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
@@ -39,7 +41,6 @@ import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -74,6 +75,17 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
         requestData()
         fetchData()
+
+
+    }
+
+    private fun setPriceValue(number: String) {
+        binding.tvPriceAnimation.apply {
+            animationDuration = 1500
+            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
+            addCharOrder(CharOrder.Number)
+            setText(number)
+        }
     }
 
     private fun setupToolbar() {
@@ -98,7 +110,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
                 viewModel.propertyDetailsState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
-                            dismissShimmerEffect()
                             assignData(state.data!!)
                         }
 
@@ -124,17 +135,28 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     private fun setupImageSliderTop(imagesUrl: List<String>) {
         val list = mutableListOf<CarouselItem>()
 
-        for (i in imagesUrl) {
+        if (imagesUrl.isNotEmpty()) {
+            for (i in imagesUrl) {
+                list.add(
+                    CarouselItem(
+                        imageUrl = i
+                    )
+                )
+            }
+        } else {
             list.add(
                 CarouselItem(
-                    imageUrl = i
+                    imageDrawable = R.drawable.ic_no_image
+
                 )
             )
         }
 
+
         binding.apply {
             imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             imageSlider.setIndicator(imageSliderDots)
+            imageSlider.imagePlaceholder = ContextCompat.getDrawable(requireContext(), R.drawable.ic_shimmer_background)
             imageSlider.setData(list)
         }
     }
@@ -144,7 +166,10 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             setupImageSliderTop(data.sliderImages)
 
-            tvPrice.text = getString(R.string.s_currency, formatPrice(data.sellPrice),data.currency)
+            tvPrice.text = getString(R.string.s_currency, formatPrice(data.sellPrice), data.currency)
+            setPriceValue(formatPrice(data.sellPrice))
+            tvCurrency.text = " " + data.currency + " "
+
             tvTitle.text = data.title
             tvLocation.text = data.location
             tvDate.text = data.datePosted
@@ -218,7 +243,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
             initCommentsRv(data.comments)
             initSimilarPropertiesRv(data.similarProperties)
         }
-
+        dismissShimmerEffect()
     }
 
     private fun initPropertyFeaturesRv(data: List<String>) {
