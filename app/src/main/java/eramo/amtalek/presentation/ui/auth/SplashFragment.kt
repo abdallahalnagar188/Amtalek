@@ -7,8 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.R
+import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import kotlinx.coroutines.delay
 

@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import eramo.amtalek.R
 import eramo.amtalek.databinding.DialogDatePickerBinding
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import java.util.*
+import java.util.Calendar
 
 class DatePickerDialog : DialogFragment(R.layout.dialog_date_picker) {
 

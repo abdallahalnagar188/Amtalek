@@ -1,7 +1,6 @@
 package eramo.amtalek.util.notification
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import eramo.amtalek.data.remote.dto.NotificationDto

@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui.drawer.subscription
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint

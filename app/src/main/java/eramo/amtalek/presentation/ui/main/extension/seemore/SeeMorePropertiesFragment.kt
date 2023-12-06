@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui.main.extension.seemore
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
@@ -16,7 +15,6 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
-import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation

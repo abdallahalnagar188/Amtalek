@@ -28,7 +28,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellAndRentViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
@@ -38,7 +37,6 @@ import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -126,7 +124,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
             tvPrice.text = getString(
                 R.string.s_sell_price_and_rent_price,
-                getString(R.string.s_currency, formatPrice(data.sellPrice),data.currency),
+                getString(R.string.s_currency, formatPrice(data.sellPrice), data.currency),
                 getRentPrice(data.rentDuration, data.rentPrice, data.currency)
             )
 //            tvPrice.text = getString(R.string.s_egp, formatPrice(data.sellPrice)) + "\n" + getRentPrice(data.rentDuration, data.rentPrice)
@@ -169,11 +167,11 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                 setupVideo(it)
             }
 
-            if (data.chartList.isNotEmpty()){
+            if (data.chartList.isNotEmpty()) {
                 binding.tvViewsChart.visibility = View.VISIBLE
                 binding.chart.visibility = View.VISIBLE
                 setupChartView(getChartList(data))
-            }else{
+            } else {
                 binding.tvViewsChart.visibility = View.GONE
                 binding.chart.visibility = View.GONE
             }
@@ -225,7 +223,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
             binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
             rvAmenitiesAdapter.submitList(data)
-        }else{
+        } else {
             binding.propertyFeaturesLayout.root.visibility = View.GONE
         }
     }
@@ -240,30 +238,30 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         rvSimilarPropertiesAdapter.submitList(data)
     }
 
-    private fun getRentPrice(duration: String, price: Double,currency:String): String {
+    private fun getRentPrice(duration: String, price: Double, currency: String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                requireContext().getString(R.string.s_daily_price, formatPrice(price),currency)
+                requireContext().getString(R.string.s_daily_price, formatPrice(price), currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                requireContext().getString(R.string.s_monthly_price, formatPrice(price),currency)
+                requireContext().getString(R.string.s_monthly_price, formatPrice(price), currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                requireContext().getString(R.string.s_3_months_price, formatPrice(price),currency)
+                requireContext().getString(R.string.s_3_months_price, formatPrice(price), currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                requireContext().getString(R.string.s_6_months_price, formatPrice(price),currency)
+                requireContext().getString(R.string.s_6_months_price, formatPrice(price), currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                requireContext().getString(R.string.s_9_months_price, formatPrice(price),currency)
+                requireContext().getString(R.string.s_9_months_price, formatPrice(price), currency)
             }
 
             RentDuration.YEARLY.key -> {
-                requireContext().getString(R.string.s_yearly_price, formatPrice(price),currency)
+                requireContext().getString(R.string.s_yearly_price, formatPrice(price), currency)
             }
 
             else -> ""

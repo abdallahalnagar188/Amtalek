@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.databinding.ItemLatestProjectsBinding
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import javax.inject.Inject
 
 

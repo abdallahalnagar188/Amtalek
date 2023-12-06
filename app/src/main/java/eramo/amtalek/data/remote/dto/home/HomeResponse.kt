@@ -2,8 +2,8 @@ package eramo.amtalek.data.remote.dto.home
 
 
 import com.google.gson.annotations.SerializedName
-import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.NewsModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.util.FALSE

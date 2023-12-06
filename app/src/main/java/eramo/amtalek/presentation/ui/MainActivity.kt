@@ -35,7 +35,6 @@ import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
 import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
-import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint

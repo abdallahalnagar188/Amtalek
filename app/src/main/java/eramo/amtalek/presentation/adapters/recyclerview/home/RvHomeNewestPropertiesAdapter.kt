@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.databinding.ItemFindYourPropertyByCityBinding
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
-import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
@@ -21,7 +18,6 @@ import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
-
 
 
 class RvHomeNewestPropertiesAdapter @Inject constructor() :

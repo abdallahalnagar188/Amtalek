@@ -4,8 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import eramo.amtalek.presentation.ui.main.myestate.MyEstateRentFragment
-import eramo.amtalek.presentation.ui.main.myestate.MyEstateSellFragment
 import eramo.amtalek.presentation.ui.main.offers.HotOffersRentFragment
 import eramo.amtalek.presentation.ui.main.offers.HotOffersSellFragment
 

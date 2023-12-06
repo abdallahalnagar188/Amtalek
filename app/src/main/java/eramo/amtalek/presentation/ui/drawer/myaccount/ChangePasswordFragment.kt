@@ -134,7 +134,7 @@ class ChangePasswordFragment : BindingFragment<FragmentChangePasswordBinding>() 
                             LoadingDialog.dismissDialog()
 
                             if (state.data?.status == API_SUCCESS_CODE) {
-                                showToast(state.data?.message)
+                                showToast(state.data?.message?: getString(R.string.success))
                                 viewModelShared.logout()
                             } else {
                                 showToast(getString(R.string.something_went_wrong))

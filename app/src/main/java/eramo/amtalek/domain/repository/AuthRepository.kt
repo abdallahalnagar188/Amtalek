@@ -1,6 +1,5 @@
 package eramo.amtalek.domain.repository
 
-import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.ContactUsInfoModel
@@ -9,10 +8,6 @@ import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
 
 interface AuthRepository {
 

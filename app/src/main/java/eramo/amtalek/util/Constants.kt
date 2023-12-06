@@ -2,8 +2,6 @@ package eramo.amtalek.util
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
-import android.text.Html
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ImageView

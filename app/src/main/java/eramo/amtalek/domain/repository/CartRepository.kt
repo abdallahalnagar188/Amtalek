@@ -1,9 +1,8 @@
 package eramo.amtalek.domain.repository
 
-import eramo.amtalek.data.remote.dto.products.orders.*
+import eramo.amtalek.data.remote.dto.products.orders.CartCountResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.products.ProductModel
-import eramo.amtalek.domain.model.products.orders.CartDataModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 

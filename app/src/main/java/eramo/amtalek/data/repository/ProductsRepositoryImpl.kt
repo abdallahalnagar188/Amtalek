@@ -13,13 +13,19 @@ import eramo.amtalek.data.remote.paging.PagingProducts
 import eramo.amtalek.domain.model.FilterCategoryModel
 import eramo.amtalek.domain.model.OffersModel
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.model.products.*
+import eramo.amtalek.domain.model.products.AdsModel
+import eramo.amtalek.domain.model.products.CategoryModel
+import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.model.request.SearchRequest
 import eramo.amtalek.domain.repository.ProductsRepository
-import eramo.amtalek.util.*
+import eramo.amtalek.util.TEXT_NO
+import eramo.amtalek.util.TEXT_YES
+import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.pagingConfig
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiText
+import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

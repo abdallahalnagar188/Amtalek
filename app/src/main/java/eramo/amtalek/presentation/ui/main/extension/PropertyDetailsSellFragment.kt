@@ -36,7 +36,6 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
-import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem

@@ -17,7 +17,6 @@ import eramo.amtalek.presentation.adapters.viewpager.HotOffersTypesPagerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject

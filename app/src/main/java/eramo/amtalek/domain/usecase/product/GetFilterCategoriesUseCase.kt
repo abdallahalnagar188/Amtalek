@@ -1,8 +1,6 @@
 package eramo.amtalek.domain.usecase.product
 
-import androidx.paging.PagingData
 import eramo.amtalek.domain.model.FilterCategoryModel
-import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.repository.ProductsRepository
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow

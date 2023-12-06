@@ -3,7 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id("kotlin-parcelize")
-    id 'dagger.hilt.android.plugin'
+//    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.gms.google-services'
 }
@@ -25,6 +26,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
     compileOptions {
@@ -43,6 +46,7 @@ android {
 }
 
 dependencies {
+    def room_version = "2.6.1"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -56,8 +60,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Kotlin Navigation Component
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.5'
 
     // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1-native-mt'
@@ -68,10 +72,12 @@ dependencies {
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
     // ViewModelScope
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
 
     // LifecycleScope
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+//    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.13.1'
@@ -88,9 +94,13 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     // Hilt
-    implementation 'com.google.dagger:hilt-android:2.41'
-    kapt 'com.google.dagger:hilt-android-compiler:2.41'
-    kapt "androidx.hilt:hilt-compiler:1.0.0"
+//    implementation 'com.google.dagger:hilt-android:2.41'
+//    kapt 'com.google.dagger:hilt-android-compiler:2.41'
+//    kapt "androidx.hilt:hilt-compiler:1.0.0"
+
+    implementation 'com.google.dagger:hilt-android:2.49'
+    kapt 'com.google.dagger:hilt-compiler:2.49'
+
 
     // Circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -100,6 +110,7 @@ dependencies {
 
     // Youtube
 //    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
 
     // Image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
@@ -108,8 +119,13 @@ dependencies {
     implementation "com.airbnb.android:lottie:3.4.0"
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.2"
-    kapt "androidx.room:room-compiler:2.4.2"
+//    implementation "androidx.room:room-runtime:2.4.2"
+//    kapt "androidx.room:room-compiler:2.4.2"
+
+    implementation "androidx.room:room-runtime:$room_version"
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
 
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:2.4.2"

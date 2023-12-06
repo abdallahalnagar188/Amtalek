@@ -17,7 +17,6 @@ import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
-import java.util.Currency
 import javax.inject.Inject
 
 

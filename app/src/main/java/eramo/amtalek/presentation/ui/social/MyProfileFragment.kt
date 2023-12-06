@@ -18,7 +18,6 @@ import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyProfilePostsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
 import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.Dummy
@@ -26,7 +25,6 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint

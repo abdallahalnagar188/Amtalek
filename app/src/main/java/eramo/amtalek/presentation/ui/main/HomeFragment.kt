@@ -21,8 +21,8 @@ import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
-import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.NewsModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter

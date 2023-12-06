@@ -22,7 +22,6 @@ import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
-import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import javax.inject.Inject

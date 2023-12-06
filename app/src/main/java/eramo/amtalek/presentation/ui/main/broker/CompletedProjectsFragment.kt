@@ -10,7 +10,6 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentCompletedProjectsBinding
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvCompletedProjectsAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.RvLatestProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil

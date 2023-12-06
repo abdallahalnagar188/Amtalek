@@ -5,10 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.domain.model.FilterCategoryModel
-import eramo.amtalek.domain.model.products.CategoryModel
 import eramo.amtalek.domain.repository.ProductsRepository
 import eramo.amtalek.domain.usecase.product.GetFilterCategoriesUseCase
-import eramo.amtalek.domain.usecase.product.HomeProductsManufacturerByUserIdUseCase
 import eramo.amtalek.util.ANIMATION_DELAY
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState

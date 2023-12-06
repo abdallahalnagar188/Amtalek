@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import java.util.*
+import java.util.Locale
 
 object LocalUtil {
     private lateinit var sharedPreferences: SharedPreferences

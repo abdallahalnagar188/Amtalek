@@ -1,6 +1,5 @@
 package eramo.amtalek.domain.usecase.drawer
 
-import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.repository.DrawerRepository
 import eramo.amtalek.util.state.Resource

@@ -6,7 +6,9 @@ import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.domain.model.FilterCategoryModel
 import eramo.amtalek.domain.model.OffersModel
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.model.products.*
+import eramo.amtalek.domain.model.products.AdsModel
+import eramo.amtalek.domain.model.products.CategoryModel
+import eramo.amtalek.domain.model.products.ProductModel
 import eramo.amtalek.domain.model.request.SearchRequest
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow

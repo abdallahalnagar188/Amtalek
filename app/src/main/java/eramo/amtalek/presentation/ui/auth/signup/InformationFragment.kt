@@ -36,7 +36,7 @@ class InformationFragment : BindingFragment<FragmentInformationBinding>() {
 
     private var imageUri: Uri? = null
     private val activityResultContract = object : ActivityResultContract<Any, Uri?>() {
-        override fun createIntent(context: Context, input: Any?): Intent {
+        override fun createIntent(context: Context, input: Any): Intent {
             return CropImage.activity()
                 .setAspectRatio(1, 1)
                 .getIntent(requireActivity())

@@ -10,8 +10,8 @@ import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
-import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
+import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.market.MarketPostType
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel

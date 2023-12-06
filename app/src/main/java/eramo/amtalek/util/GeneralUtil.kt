@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.paging.PagingConfig
-import com.google.android.gms.common.util.IOUtils
 import com.google.gson.Gson
 import eramo.amtalek.R
 import eramo.amtalek.domain.model.ResultModel
@@ -26,7 +25,6 @@ import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import okio.BufferedSource
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException

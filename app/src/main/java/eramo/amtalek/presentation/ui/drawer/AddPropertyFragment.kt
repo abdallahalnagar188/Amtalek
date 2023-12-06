@@ -50,7 +50,7 @@ class AddPropertyFragment : BindingFragment<FragmentAddPropertyBinding>(),
     lateinit var dummyCheckboxAdapter: DummyCheckboxAdapter
 
     private val imgsPickerResultContract = object : ActivityResultContract<Any, ArrayList<Uri>?>() {
-        override fun createIntent(context: Context, input: Any?): Intent {
+        override fun createIntent(context: Context, input: Any): Intent {
             val intent = Intent().apply {
                 type = "image/*"
                 putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)

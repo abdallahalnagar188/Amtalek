@@ -2,7 +2,6 @@ package eramo.amtalek.domain.repository
 
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
-import eramo.amtalek.data.remote.dto.general.Member
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
@@ -10,7 +9,6 @@ import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Part
 
 interface DrawerRepository {
 

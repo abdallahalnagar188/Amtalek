@@ -13,8 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.DialogCancelBinding
 import eramo.amtalek.presentation.viewmodel.dialog.CancelDialogViewModel
-import eramo.amtalek.util.state.UiState
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 
 @AndroidEntryPoint
 class CancelDialog : DialogFragment(R.layout.dialog_cancel) {
