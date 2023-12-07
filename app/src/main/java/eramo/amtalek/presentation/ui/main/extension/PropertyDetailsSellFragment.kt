@@ -17,6 +17,8 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.yy.mobile.rollingtextview.CharOrder
 import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
@@ -36,6 +38,7 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
+import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -201,10 +204,10 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
             tvDescriptionValue.text = data.description
 
             initPropertyFeaturesRv(data.propertyFeatures)
-//
-//            getYoutubeUrlId(data.videoUrl)?.let {
-//                setupVideo(it)
-//            }
+
+            getYoutubeUrlId(data.videoUrl)?.let {
+                setupVideo(it)
+            }
 
 //            val cartList = data.chartList.toMutableList()
 //
@@ -255,18 +258,17 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
     private fun setupVideo(videoId: String) {
-//        binding.apply {
-//            lifecycle.addObserver(FAboutUsYoutubeView)
-//            FAboutUsYoutubeView.addYouTubePlayerListener(object :
-//                AbstractYouTubePlayerListener() {
-//                override fun onReady(youTubePlayer: YouTubePlayer) {
-//                    super.onReady(youTubePlayer)
-//                    onVideoId(youTubePlayer, videoId)
-//                    youTubePlayer.loadVideo(videoId, 0f)
-//                    youTubePlayer.play()
-//                }
-//            })
-//        }
+        binding.apply {
+            lifecycle.addObserver(youtubePlayerView)
+            youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    onVideoId(youTubePlayer, videoId)
+                    youTubePlayer.loadVideo(videoId, 0f)
+                    youTubePlayer.play()
+                }
+            })
+        }
     }
 
     private fun initCommentsRv(data: List<RatingCommentsModel>) {

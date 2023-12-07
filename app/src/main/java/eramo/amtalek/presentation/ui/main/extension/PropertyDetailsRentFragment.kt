@@ -167,9 +167,9 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             initPropertyFeaturesRv(data.propertyFeatures)
 
             getYoutubeUrlId(data.videoUrl)?.let {
-//                setupVideo(it)
+                setupVideo(it)
             }
-            setupVideo("4aNBt8imTtM")
+//            setupVideo("4aNBt8imTtM")
 
             if (data.chartList.isNotEmpty()) {
                 binding.tvViewsChart.visibility = View.VISIBLE

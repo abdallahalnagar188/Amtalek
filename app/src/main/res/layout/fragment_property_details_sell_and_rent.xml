@@ -476,19 +476,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/property_features_layout" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/youtube_video_view"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    app:cardCornerRadius="@dimen/_4sdp"
-                    app:cardElevation="0dp"
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/youtube_player_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    app:autoPlay="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_video">
-
-
-                </androidx.cardview.widget.CardView>
+                    app:layout_constraintTop_toBottomOf="@id/tv_video" />
 
                 <TextView
                     android:id="@+id/tv_views_chart"
@@ -501,7 +496,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/youtube_video_view" />
+                    app:layout_constraintTop_toBottomOf="@id/youtube_player_view" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart"
