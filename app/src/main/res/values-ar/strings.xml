@@ -657,5 +657,12 @@
     <string name="s_9_months_price">%s %s/9 شهور</string>
     <string name="s_yearly_price">%s %s/السنة</string>
 
+    <string name="s_daily_notation">%s/اليوم</string>
+    <string name="s_monthly_notation">%s/الشهر</string>
+    <string name="s_3_months_notation">%s/3 شهور</string>
+    <string name="s_6_months_notation">%s/6 شهور</string>
+    <string name="s_9_months_notation">%s/9 شهور</string>
+    <string name="s_yearly_notation">%s/السنة</string>
+
     <string name="choose_city">أختر مدينة</string>
 </resources>

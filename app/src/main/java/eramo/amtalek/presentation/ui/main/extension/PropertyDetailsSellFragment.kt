@@ -81,7 +81,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
     private fun setPriceValue(number: String) {
         binding.tvPriceAnimation.apply {
-            animationDuration = 1500
+            animationDuration = 1000
             charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
             addCharOrder(CharOrder.Number)
             setText(number)

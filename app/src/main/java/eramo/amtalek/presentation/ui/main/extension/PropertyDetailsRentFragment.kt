@@ -20,6 +20,9 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.yy.mobile.rollingtextview.CharOrder
+import com.yy.mobile.rollingtextview.strategy.Direction
+import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsRentBinding
@@ -79,6 +82,15 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
         setupToolbar()
     }
 
+    private fun setPriceValue(number: String) {
+        binding.tvPriceAnimation.apply {
+            animationDuration = 1000
+            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
+            addCharOrder(CharOrder.Number)
+            setText(number)
+        }
+    }
+
     private fun setupToolbar() {
         StatusBarUtil.transparent()
         binding.apply {
@@ -130,7 +142,11 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             setupImageSliderTop(data.sliderImages)
 
 //            tvPrice.text = getString(R.string.s_currency, formatPrice(data.rentPrice),data.currency)
-            tvPrice.text = getRentPrice(requireContext(), data.rentDuration, data.rentPrice, data.currency)
+//            tvPrice.text = getRentPrice(requireContext(), data.rentDuration, data.rentPrice, data.currency)
+            setPriceValue(formatPrice(data.rentPrice))
+            tvCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.rentPrice, data.currency)+ " "
+
+
             tvTitle.text = data.title
             tvLocation.text = data.location
             tvDate.text = data.datePosted
@@ -254,27 +270,27 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
     private fun getRentPrice(context: Context, duration: String, price: Double, currency: String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                context.getString(R.string.s_daily_price, formatPrice(price), currency)
+                context.getString(R.string.s_daily_notation, currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                context.getString(R.string.s_monthly_price, formatPrice(price), currency)
+                context.getString(R.string.s_monthly_notation, currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                context.getString(R.string.s_3_months_price, formatPrice(price), currency)
+                context.getString(R.string.s_3_months_notation, currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                context.getString(R.string.s_6_months_price, formatPrice(price), currency)
+                context.getString(R.string.s_6_months_notation, currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                context.getString(R.string.s_9_months_price, formatPrice(price), currency)
+                context.getString(R.string.s_9_months_notation, currency)
             }
 
             RentDuration.YEARLY.key -> {
-                context.getString(R.string.s_yearly_price, formatPrice(price), currency)
+                context.getString(R.string.s_yearly_notation, currency)
             }
 
             else -> ""
