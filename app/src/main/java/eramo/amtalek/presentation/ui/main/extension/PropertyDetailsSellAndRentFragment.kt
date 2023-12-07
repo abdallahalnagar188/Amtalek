@@ -305,7 +305,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
             chart.data = data
             chart.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
             chart.animateXY(2000, 2000, Easing.EaseInCubic)
-            chart.extraBottomOffset = 35f
+            chart.extraBottomOffset = 20f
 
             chart.xAxis.setDrawGridLines(false)
 
