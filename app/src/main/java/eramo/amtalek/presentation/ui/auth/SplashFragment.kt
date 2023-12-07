@@ -1,17 +1,14 @@
 package eramo.amtalek.presentation.ui.auth
 
-import android.content.Intent
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.presentation.ui.MainActivity
-import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import kotlinx.coroutines.delay
@@ -25,7 +22,10 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 //        StatusBarUtil.transparent()
 
         lifecycleScope.launchWhenResumed {
-            if(!UserUtil.hasDeepLink()) delay(2500L)
+            if (!UserUtil.hasDeepLink()) {
+                logoAnimation()
+                delay(2500L)
+            }
 //            if(!UserUtil.hasDeepLink()) delay(200L)
 
             val shouldNavigateToMain = UserUtil.isRememberUser() || !UserUtil.isFirstTime()
@@ -41,6 +41,18 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             )
         }
     }
+
+    private fun logoAnimation() {
+        val view = activity?.findViewById<View>(R.id.white_view)
+        val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
+        animator.duration = 2000
+        animator.addUpdateListener { animation ->
+            view?.alpha = animation.animatedValue as Float
+        }
+
+        animator.start()
+    }
+
 
     override fun onDetach() {
         super.onDetach()
