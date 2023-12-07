@@ -43,6 +43,7 @@ import eramo.amtalek.util.state.UiState
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentBinding>() {
 
@@ -71,12 +72,6 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
         requestData()
         fetchData()
-
-//        val fragmentTransaction = childFragmentManager?.beginTransaction()
-//        fragmentTransaction?.add(R.id.fragment, YoutubeFragment())
-//        fragmentTransaction?.addToBackStack(null)
-//        fragmentTransaction?.commit()
-
 
     }
 
@@ -108,6 +103,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
                         is UiState.Success -> {
                             dismissShimmerEffect()
                             assignData(state.data!!)
+
                         }
 
                         is UiState.Error -> {
@@ -172,8 +168,8 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
             getYoutubeUrlId(data.videoUrl)?.let {
 //                setupVideo(it)
-                setupVideo("uCFANEq7h9s")
             }
+            setupVideo("4aNBt8imTtM")
 
             if (data.chartList.isNotEmpty()) {
                 binding.tvViewsChart.visibility = View.VISIBLE
@@ -212,9 +208,8 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
     private fun setupVideo(videoId: String) {
         binding.apply {
-            lifecycle.addObserver(youtubeView)
-            youtubeView.addYouTubePlayerListener(object :
-                AbstractYouTubePlayerListener() {
+            lifecycle.addObserver(youtubePlayerView)
+            youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
                     onVideoId(youTubePlayer, videoId)

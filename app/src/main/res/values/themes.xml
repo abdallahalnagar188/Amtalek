@@ -15,6 +15,7 @@
         <!-- Customize your theme here. -->
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
         <item name="android:dialogTheme">@style/DialogStyle</item>
+
     </style>
 
     <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">

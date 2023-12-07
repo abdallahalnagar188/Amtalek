@@ -368,4 +368,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+<!--        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView-->
+<!--            android:id="@+id/youtube_player_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_200sdp"-->
+<!--            app:autoPlay="false"-->
+<!--            android:visibility="invisible"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:videoId="Orw8CZpzIDU" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

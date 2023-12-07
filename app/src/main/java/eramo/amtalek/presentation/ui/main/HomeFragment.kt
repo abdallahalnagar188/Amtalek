@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -45,6 +46,7 @@ import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFra
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
@@ -113,6 +115,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var dummyNewsAdapter: DummyNewsAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -752,6 +755,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
+
         Log.e("propertyId", model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {

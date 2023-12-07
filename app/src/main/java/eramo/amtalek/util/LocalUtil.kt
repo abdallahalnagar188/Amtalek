@@ -21,8 +21,11 @@ object LocalUtil {
         configuration.locale = locale
         configuration.setLayoutDirection(locale)
         activity.resources.updateConfiguration(configuration, activity.resources.displayMetrics)
+        activity.createConfigurationContext(configuration)
+
         sharedPreferences.edit().putString(LANGUAGE, language).apply()
     }
+
 
     fun loadLocal(activity: Activity) =
         setLocal(activity, sharedPreferences.getString(LANGUAGE, "en")!!)

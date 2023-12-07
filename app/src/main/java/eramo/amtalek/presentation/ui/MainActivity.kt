@@ -30,6 +30,7 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.WebViewLocaleHelper
 import eramo.amtalek.util.deeplink.DeeplinkHandler
 import eramo.amtalek.util.deeplink.DeeplinkHandlerImpl
 import eramo.amtalek.util.deeplink.DeeplinkUtil
@@ -53,8 +54,12 @@ class MainActivity : AppCompatActivity(),
         WarningDialog.init(this)
         LocalUtil.init(this)
         LocalUtil.loadLocal(this)
+        WebViewLocaleHelper(this).implementWorkaround()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
 //        FirebaseApp.initializeApp(this)
 //        FirebaseMessageReceiver.sharedPref = getSharedPreferences("sharedPref", MODE_PRIVATE)
@@ -196,7 +201,7 @@ class MainActivity : AppCompatActivity(),
 
                 if (UserUtil.isUserLogin()) {
                     viewModelShared.logout()
-                }else{
+                } else {
                     navController.navigate(
                         NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
                         NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
@@ -390,9 +395,9 @@ class MainActivity : AppCompatActivity(),
                                 navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
                                     .load(
-                                        if (state.data?.profileImageUrl != ""){
+                                        if (state.data?.profileImageUrl != "") {
                                             state.data?.profileImageUrl
-                                        }else{
+                                        } else {
                                             R.drawable.avatar
                                         }
                                     )

@@ -476,26 +476,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/property_features_layout" />
 
-                <fragment
-                    android:id="@+id/fragment"
-                    android:name="eramo.amtalek.presentation.ui.main.extension.YoutubeFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:visibility="invisible"
-                    app:layout_constraintTop_toBottomOf="@id/tv_video"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
-
                 <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                    android:id="@+id/youtubeView"
+                    android:id="@+id/youtube_player_view"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_200sdp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_video"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:autoPlay="false"
                     app:layout_constraintEnd_toEndOf="parent"
-                   />
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_video" />
 
                 <TextView
                     android:id="@+id/tv_views_chart"
@@ -508,7 +496,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/fragment" />
+                    app:layout_constraintTop_toBottomOf="@id/youtube_player_view" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart"
@@ -703,6 +691,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_similar_properties"
                     tools:listitem="@layout/item_featured_real_estate" />
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.facebook.shimmer.ShimmerFrameLayout
@@ -710,10 +699,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
-                app:shimmer_duration="4000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_duration="4000">
+
                 <include layout="@layout/fragment_property_details_sell_shimmer" />
             </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -736,13 +726,14 @@
         android:id="@+id/shimmer_layout_share_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_90sdp"
-        android:visibility="visible"
-        app:shimmer_duration="4000"
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:layout_marginVertical="@dimen/_6sdp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:shimmer_duration="4000">
+
         <include layout="@layout/layout_contact_us_shimmer" />
     </com.facebook.shimmer.ShimmerFrameLayout>
 
