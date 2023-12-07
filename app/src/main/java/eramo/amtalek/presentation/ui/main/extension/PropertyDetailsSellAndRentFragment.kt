@@ -189,10 +189,19 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
     private fun setupImageSliderTop(imagesUrl: List<String>) {
         val list = mutableListOf<CarouselItem>()
 
-        for (i in imagesUrl) {
+        if (imagesUrl.isNotEmpty()) {
+            for (i in imagesUrl) {
+                list.add(
+                    CarouselItem(
+                        imageUrl = i
+                    )
+                )
+            }
+        } else {
             list.add(
                 CarouselItem(
-                    imageUrl = i
+                    imageDrawable = R.drawable.ic_no_image
+
                 )
             )
         }
@@ -200,6 +209,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         binding.apply {
             imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             imageSlider.setIndicator(imageSliderDots)
+            imageSlider.imagePlaceholder = ContextCompat.getDrawable(requireContext(), R.drawable.ic_shimmer_background)
             imageSlider.setData(list)
         }
     }
