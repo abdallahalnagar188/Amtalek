@@ -91,10 +91,75 @@
                     android:fontFamily="@font/montserratbold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
                     tools:text="4,000,000 EGP\n4,000,000 EGP" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tv_price_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
+                    >
+
+                    <com.yy.mobile.rollingtextview.RollingTextView
+                        android:id="@+id/tv_sell_price_animation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/montserratbold"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold"
+                        android:text="99999999"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="4,000,000" />
+
+                    <TextView
+                        android:id="@+id/tv_sell_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserratbold"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintStart_toEndOf="@id/tv_sell_price_animation"
+                        app:layout_constraintTop_toTopOf="@id/tv_sell_price_animation"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_sell_price_animation"
+                        tools:text=" EGP " />
+
+                    <com.yy.mobile.rollingtextview.RollingTextView
+                        android:id="@+id/tv_rent_price_animation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                        android:fontFamily="@font/montserratbold"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold"
+                        android:text="99999999"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sell_price_animation"
+                        tools:text="4,000,000" />
+
+                    <TextView
+                        android:id="@+id/tv_rent_currency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserratbold"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintStart_toEndOf="@id/tv_rent_price_animation"
+                        app:layout_constraintTop_toTopOf="@id/tv_rent_price_animation"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_rent_price_animation"
+                        tools:text=" EGP " />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@id/tv_title"
@@ -107,7 +172,7 @@
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_price"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price_layout"
                     tools:text="Residential apartment for sale, super lux with elevator" />
 
                 <ImageView

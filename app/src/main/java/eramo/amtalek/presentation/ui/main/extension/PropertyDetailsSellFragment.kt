@@ -34,6 +34,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellViewModel
+import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.formatNumber
@@ -81,7 +82,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
     private fun setPriceValue(number: String) {
         binding.tvPriceAnimation.apply {
-            animationDuration = 1000
+            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
             charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
             addCharOrder(CharOrder.Number)
             setText(number)
@@ -166,7 +167,6 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
             setupImageSliderTop(data.sliderImages)
 
-            tvPrice.text = getString(R.string.s_currency, formatPrice(data.sellPrice), data.currency)
             setPriceValue(formatPrice(data.sellPrice))
             tvCurrency.text = " " + data.currency + " "
 

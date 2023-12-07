@@ -42,6 +42,8 @@ import eramo.amtalek.R
     const val ANIMATION_DELAY = 450L
     const val TAG = "amtalek"
 
+    const val ROLLING_TEXT_ANIMATION_DURATION = 800L
+
     const val PAGING_START_INDEX = 1
     const val PAGING_PER_PAGE = 4
 

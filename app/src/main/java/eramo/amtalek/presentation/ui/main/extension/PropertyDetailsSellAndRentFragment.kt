@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.main.extension
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,9 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.yy.mobile.rollingtextview.CharOrder
+import com.yy.mobile.rollingtextview.strategy.Direction
+import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellAndRentBinding
@@ -31,6 +35,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellAndRentViewModel
+import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.enum.RentDuration
@@ -124,12 +129,14 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
             setupImageSliderTop(data.sliderImages)
 
-            tvPrice.text = getString(
-                R.string.s_sell_price_and_rent_price,
-                getString(R.string.s_currency, formatPrice(data.sellPrice), data.currency),
-                getRentPrice(data.rentDuration, data.rentPrice, data.currency)
-            )
-//            tvPrice.text = getString(R.string.s_egp, formatPrice(data.sellPrice)) + "\n" + getRentPrice(data.rentDuration, data.rentPrice)
+
+            setSellPriceValue(formatPrice(data.sellPrice))
+            tvSellCurrency.text = " " + data.currency + " "
+
+            setRentPriceValue(formatPrice(data.sellPrice))
+            tvRentCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
+
+
             tvTitle.text = data.title
             tvLocation.text = data.location
             tvDate.text = data.datePosted
@@ -249,30 +256,30 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         rvSimilarPropertiesAdapter.submitList(data)
     }
 
-    private fun getRentPrice(duration: String, price: Double, currency: String): String {
+    private fun getRentPrice(context: Context, duration: String, currency: String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                requireContext().getString(R.string.s_daily_price, formatPrice(price), currency)
+                context.getString(R.string.s_daily_notation, currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                requireContext().getString(R.string.s_monthly_price, formatPrice(price), currency)
+                context.getString(R.string.s_monthly_notation, currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                requireContext().getString(R.string.s_3_months_price, formatPrice(price), currency)
+                context.getString(R.string.s_3_months_notation, currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                requireContext().getString(R.string.s_6_months_price, formatPrice(price), currency)
+                context.getString(R.string.s_6_months_notation, currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                requireContext().getString(R.string.s_9_months_price, formatPrice(price), currency)
+                context.getString(R.string.s_9_months_notation, currency)
             }
 
             RentDuration.YEARLY.key -> {
-                requireContext().getString(R.string.s_yearly_price, formatPrice(price), currency)
+                context.getString(R.string.s_yearly_notation, currency)
             }
 
             else -> ""
@@ -354,6 +361,24 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         }
 
         return cartList.takeLast(5)
+    }
+
+    private fun setSellPriceValue(number: String) {
+        binding.tvSellPriceAnimation.apply {
+            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
+            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
+            addCharOrder(CharOrder.Number)
+            setText(number)
+        }
+    }
+
+    private fun setRentPriceValue(number: String) {
+        binding.tvRentPriceAnimation.apply {
+            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
+            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
+            addCharOrder(CharOrder.Number)
+            setText(number)
+        }
     }
 
     private fun showShimmerEffect() {
