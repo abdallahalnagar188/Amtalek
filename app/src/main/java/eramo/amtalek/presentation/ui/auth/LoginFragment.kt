@@ -29,6 +29,7 @@ import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
@@ -68,7 +69,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
         binding.apply {
             FLoginTvSignUp.setOnClickListener {
-                findNavController().navigate(R.id.signUpFragment)
+                findNavController().navigate(R.id.signUpFragment,null, navOptionsFromBottomAnimation())
             }
 
             FLoginTvForgotPassword.setOnClickListener {

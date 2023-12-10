@@ -33,9 +33,12 @@ import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.setTextViewDrawableColor
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -84,13 +87,18 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 validateAndSignUp()
             }
             FSignUpTvLogin.setOnClickListener {
-                findNavController().navigate(R.id.loginFragment, null, navOptionsAnimation())
+                findNavController().navigate(R.id.loginFragment, null, navOptionsFromBottomAnimation())
             }
         }
     }
 
     private fun requestData() {
-        viewModel.getCountries()
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            // for enter animation
+            delay(400)
+            viewModel.getCountries()
+        }
     }
 
     private fun fetchData() {
@@ -124,14 +132,15 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     }
 
     private fun applyLogoAnimation() {
-        val view = binding.FSignUpIvLogoWhiteView
-        val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
-        animator.duration = 1000
-        animator.addUpdateListener { animation ->
-            view?.alpha = animation.animatedValue as Float
-        }
+            val view = binding.FSignUpIvLogoWhiteView
+            val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
+            animator.duration = 1500
+            animator.addUpdateListener { animation ->
+                view?.alpha = animation.animatedValue as Float
+            }
 
-        animator.start()
+            animator.start()
+
     }
 
     // -------------------------------------- setupViews -------------------------------------- //

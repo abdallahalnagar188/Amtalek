@@ -86,6 +86,16 @@ fun navOptionsAnimation(): NavOptions {
             .build()
 }
 
+fun navOptionsFromBottomAnimation(): NavOptions {
+    return NavOptions.Builder()
+            .setEnterAnim(R.anim.from_bottom)
+            .setExitAnim(R.anim.to_top)
+            .setPopEnterAnim(R.anim.from_top)
+            .setPopExitAnim(R.anim.to_bottom)
+            .build()
+
+}
+
 fun pagingConfig() = PagingConfig(pageSize = PAGING_PER_PAGE, enablePlaceholders = false)
 
 fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow {
