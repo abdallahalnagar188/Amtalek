@@ -286,17 +286,17 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 viewModel.countriesState.collect { state ->
                     when (state) {
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                            showShimmerEffect()
                         }
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
 
                             setupCountriesSpinner(state.data ?: emptyList())
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
 
@@ -322,17 +322,17 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 viewModel.citiesState.collect { state ->
                     when (state) {
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+//                            showShimmerEffect()
                         }
 
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
 
                             setupCitiesSpinner(state.data ?: emptyList())
                         }
 
                         is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
+                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
@@ -557,6 +557,24 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 //                    else -> return@setOnTouchListener false
 //                }
 //            }
+        }
+    }
+
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
+
+            viewLayout.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+        }
+    }
+
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            viewLayout.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
         }
     }
 
