@@ -278,6 +278,17 @@
             app:layout_constraintTop_toBottomOf="@+id/FSignUp_cities_spinner" />
 
         <CheckBox
+            android:id="@+id/FSignUp_cb_agree_animator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:buttonTint="@color/amtalek_blue"
+            android:fontFamily="@font/montserratregular"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gender_selection_layout" />
+
+        <CheckBox
             android:id="@+id/FSignUp_cb_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

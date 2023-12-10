@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.auth.signup
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -45,6 +46,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private val viewModel by viewModels<SignUpViewModel>()
 
+    private lateinit var rippleAnimatorTermsCheckbox: ValueAnimator
+
     private var selectedCountryId = -1
     private var selectedCityId = -1
     private lateinit var selectedGender: String
@@ -62,6 +65,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+
+        setupAnimations()
     }
 
     private fun listeners() {
@@ -96,6 +101,25 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         fetchSendingVerificationCodeEmailState()
     }
 
+    private fun setupAnimations() {
+        applyCheckboxAnimation(binding.FSignUpCbAgreeAnimator)
+    }
+
+    private fun applyCheckboxAnimation(view: View) {
+        binding.FSignUpCbAgreeAnimator.setBackgroundResource(R.drawable.checkbox_ripple_effect_background)
+
+        rippleAnimatorTermsCheckbox = ValueAnimator.ofFloat(0f, 1f)
+        rippleAnimatorTermsCheckbox.addUpdateListener { animator ->
+            val value = animator.animatedValue as Float
+            view.scaleX = 1 + value
+            view.scaleY = 1 + value
+            view.alpha = 1 - value
+        }
+        rippleAnimatorTermsCheckbox.duration = 1000
+        rippleAnimatorTermsCheckbox.repeatMode = ValueAnimator.RESTART
+        rippleAnimatorTermsCheckbox.repeatCount = ValueAnimator.INFINITE
+        rippleAnimatorTermsCheckbox.start()
+    }
 
     // -------------------------------------- setupViews -------------------------------------- //
     private fun setupCountriesSpinner(data: List<CountryModel>) {
@@ -222,6 +246,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                     FSignUpBtnRegisterNow.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long)
                     FSignUpBtnRegisterNow.isEnabled = true
+                    rippleAnimatorTermsCheckbox.end()
                 } else {
                     FSignUpBtnRegisterNow.background =
                         ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)
