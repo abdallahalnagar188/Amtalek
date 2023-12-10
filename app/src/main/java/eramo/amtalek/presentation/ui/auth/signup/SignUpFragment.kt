@@ -102,11 +102,13 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     }
 
     private fun setupAnimations() {
-        applyCheckboxAnimation(binding.FSignUpCbAgreeAnimator)
+        applyLogoAnimation()
+        applyCheckboxAnimation()
     }
 
-    private fun applyCheckboxAnimation(view: View) {
-        binding.FSignUpCbAgreeAnimator.setBackgroundResource(R.drawable.checkbox_ripple_effect_background)
+    private fun applyCheckboxAnimation() {
+        val view = binding.FSignUpCbAgreeAnimator
+        view.setBackgroundResource(R.drawable.checkbox_ripple_effect_background)
 
         rippleAnimatorTermsCheckbox = ValueAnimator.ofFloat(0f, 1f)
         rippleAnimatorTermsCheckbox.addUpdateListener { animator ->
@@ -119,6 +121,17 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         rippleAnimatorTermsCheckbox.repeatMode = ValueAnimator.RESTART
         rippleAnimatorTermsCheckbox.repeatCount = ValueAnimator.INFINITE
         rippleAnimatorTermsCheckbox.start()
+    }
+
+    private fun applyLogoAnimation() {
+        val view = binding.FSignUpIvLogoWhiteView
+        val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
+        animator.duration = 1000
+        animator.addUpdateListener { animation ->
+            view?.alpha = animation.animatedValue as Float
+        }
+
+        animator.start()
     }
 
     // -------------------------------------- setupViews -------------------------------------- //

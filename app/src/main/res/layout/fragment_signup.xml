@@ -25,6 +25,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
 
+        <View
+            android:id="@+id/FSignUp_iv_logo_white_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@id/FSignUp_iv_logo"
+            app:layout_constraintBottom_toBottomOf="@id/FSignUp_iv_logo"
+            app:layout_constraintStart_toStartOf="@id/FSignUp_iv_logo"
+            app:layout_constraintEnd_toEndOf="@id/FSignUp_iv_logo"
+            android:background="@color/white"
+            />
+
         <TextView
             android:id="@+id/FSignUp_tv_create_your_account"
             android:layout_width="wrap_content"
