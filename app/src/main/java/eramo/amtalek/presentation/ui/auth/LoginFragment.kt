@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.auth
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -62,6 +63,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
+        setupAnimations()
     }
 
     private fun listeners() {
@@ -97,6 +99,10 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
     private fun fetchData() {
         fetchLoginState()
         fetchSendingVerificationCodeEmailState()
+    }
+
+    private fun setupAnimations(){
+        applyLogoAnimation()
     }
 
     private fun fetchLoginState() {
@@ -291,6 +297,18 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                 }
             }
         }
+    }
+
+
+    private fun applyLogoAnimation() {
+        val view = binding.FLoginIvLogoWhiteView
+        val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
+        animator.duration = 1000
+        animator.addUpdateListener { animation ->
+            view?.alpha = animation.animatedValue as Float
+        }
+
+        animator.start()
     }
 
     private fun pressBackAgainToExist() {

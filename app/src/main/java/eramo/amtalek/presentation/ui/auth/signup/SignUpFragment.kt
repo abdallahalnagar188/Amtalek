@@ -140,7 +140,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
 
             animator.start()
-
     }
 
     // -------------------------------------- setupViews -------------------------------------- //
