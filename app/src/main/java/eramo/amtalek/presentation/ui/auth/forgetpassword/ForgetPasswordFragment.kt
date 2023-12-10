@@ -24,6 +24,7 @@ import eramo.amtalek.presentation.viewmodel.auth.ForgotPassViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 
@@ -58,7 +59,7 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
             }
 
             FForgetTvSignUp.setOnClickListener {
-                findNavController().navigate(R.id.signUpFragment)
+                findNavController().navigate(R.id.signUpFragment,null, navOptionsFromBottomAnimation())
             }
 
         }
