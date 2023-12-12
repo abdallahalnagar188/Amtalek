@@ -668,5 +668,6 @@
     <string name="s_9_months_notation">%s/9 Months</string>
     <string name="s_yearly_notation">%s/Year</string>
     <string name="choose_city">Choose city</string>
+    <string name="coming_soon">Coming Soon!!</string>
 
 </resources>
