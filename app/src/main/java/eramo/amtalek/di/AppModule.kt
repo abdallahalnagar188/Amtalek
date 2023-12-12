@@ -17,6 +17,7 @@ import eramo.amtalek.data.remote.MyInterceptor
 import eramo.amtalek.data.repository.*
 import eramo.amtalek.domain.repository.*
 import eramo.amtalek.util.parser.GsonParser
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -40,7 +41,13 @@ object AppModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
+        val certificatePinner = CertificatePinner.Builder()
+            .add("amtalek.com", "sha256/KZz5PR4GnwfX9vpcizpjR+LgwK/eGu6dQJHR0lXlN+k=")
+            .build()
+
+
         return OkHttpClient.Builder()
+            .certificatePinner(certificatePinner)
             .addInterceptor(MyInterceptor())
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
