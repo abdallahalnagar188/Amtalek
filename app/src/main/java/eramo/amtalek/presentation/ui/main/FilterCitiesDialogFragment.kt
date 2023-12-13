@@ -56,7 +56,6 @@ class FilterCitiesDialogFragment : BottomSheetDialogFragment(),
                         }
 
                         is UiState.Success -> {
-                            delay(1000)
                             dismissShimmerEffect()
 
                             setupCitiesRv(state.data ?: emptyList())
