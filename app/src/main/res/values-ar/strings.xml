@@ -666,4 +666,6 @@
 
     <string name="choose_city">أختر مدينة</string>
     <string name="coming_soon">قريبا!!</string>
+
+    <string name="invalid_data_parsing">خطأ فى البيانات</string>
 </resources>

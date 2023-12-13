@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -46,7 +45,6 @@ import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFra
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
@@ -299,83 +297,89 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun parseHomeResponse(data: HomeResponse) {
-        binding.apply {
-            val topCarouselSliderList = parseTopCarouselSliderList(data.data?.sliders)
-            setupCarouselSliderTop(topCarouselSliderList)
+        try {
+            binding.apply {
+                val topCarouselSliderList = parseTopCarouselSliderList(data.data?.sliders)
+                setupCarouselSliderTop(topCarouselSliderList)
 
-            // featuredProperties
-            val featuredPropertiesList = data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() }
-            setupFeaturedRealEstateRv(featuredPropertiesList)
-            inFeaturedRealEstate.tvSeeMore.setOnClickListener {
-                findNavController().navigate(
-                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                        featuredPropertiesList.toTypedArray(),
-                        getString(R.string.featured_real_estate_in_egypt)
-                    ).toBundle(),
-                    navOptionsAnimation()
-                )
+                // featuredProperties
+                val featuredPropertiesList = data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() }
+                setupFeaturedRealEstateRv(featuredPropertiesList)
+                inFeaturedRealEstate.tvSeeMore.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                            featuredPropertiesList.toTypedArray(),
+                            getString(R.string.featured_real_estate_in_egypt)
+                        ).toBundle(),
+                        navOptionsAnimation()
+                    )
+                }
+
+                // featuredProjects
+                val featuredProjectsList = data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() }
+                setupFeaturedProjectsRv(featuredProjectsList)
+                inFeaturedProjects.tvSeeMore.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.seeMoreProjectsFragment, SeeMoreProjectsFragmentArgs(
+                            featuredProjectsList.toTypedArray(),
+                            getString(R.string.featured_projects_in_egypt)
+                        ).toBundle(),
+                        navOptionsAnimation()
+                    )
+                }
+
+                setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
+
+                val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
+                setupSliderBetween(betweenCarouselSliderList)
+
+                // newestProperties
+                val newestPropertiesList = data.data.appaerments!!.map { it!!.toPropertyModel() }
+                setupNewestPropertiesRv(newestPropertiesList)
+                inNewestPropertiesLayout.tvSeeMore.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                            newestPropertiesList.toTypedArray(),
+                            getString(R.string.featured_real_estate_in_egypt)
+                        ).toBundle(),
+                        navOptionsAnimation()
+                    )
+                }
+
+                // newestVillas
+                val newestVillasList = data.data.villas!!.map { it!!.toPropertyModel() }
+                setupNewestVillasRv(newestVillasList)
+                inNewestVillasLayout.tvSeeMore.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                            newestVillasList.toTypedArray(),
+                            getString(R.string.featured_real_estate_in_egypt)
+                        ).toBundle(),
+                        navOptionsAnimation()
+                    )
+                }
+
+                // newestDuplexes
+                val newestDuplexesList = data.data.duplixes!!.map { it!!.toPropertyModel() }
+                setupNewestDuplexesRv(newestDuplexesList)
+                inNewestDuplexesLayout.tvSeeMore.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
+                            newestDuplexesList.toTypedArray(),
+                            getString(R.string.featured_real_estate_in_egypt)
+                        ).toBundle(),
+                        navOptionsAnimation()
+                    )
+                }
+
+                setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
+
+                dismissShimmerEffect()
             }
 
-            // featuredProjects
-            val featuredProjectsList = data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() }
-            setupFeaturedProjectsRv(featuredProjectsList)
-            inFeaturedProjects.tvSeeMore.setOnClickListener {
-                findNavController().navigate(
-                    R.id.seeMoreProjectsFragment, SeeMoreProjectsFragmentArgs(
-                        featuredProjectsList.toTypedArray(),
-                        getString(R.string.featured_projects_in_egypt)
-                    ).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
-
-            val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
-            setupSliderBetween(betweenCarouselSliderList)
-
-            // newestProperties
-            val newestPropertiesList = data.data.appaerments!!.map { it!!.toPropertyModel() }
-            setupNewestPropertiesRv(newestPropertiesList)
-            inNewestPropertiesLayout.tvSeeMore.setOnClickListener {
-                findNavController().navigate(
-                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                        newestPropertiesList.toTypedArray(),
-                        getString(R.string.featured_real_estate_in_egypt)
-                    ).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            // newestVillas
-            val newestVillasList = data.data.villas!!.map { it!!.toPropertyModel() }
-            setupNewestVillasRv(newestVillasList)
-            inNewestVillasLayout.tvSeeMore.setOnClickListener {
-                findNavController().navigate(
-                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                        newestVillasList.toTypedArray(),
-                        getString(R.string.featured_real_estate_in_egypt)
-                    ).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            // newestDuplexes
-            val newestDuplexesList = data.data.duplixes!!.map { it!!.toPropertyModel() }
-            setupNewestDuplexesRv(newestDuplexesList)
-            inNewestDuplexesLayout.tvSeeMore.setOnClickListener {
-                findNavController().navigate(
-                    R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                        newestDuplexesList.toTypedArray(),
-                        getString(R.string.featured_real_estate_in_egypt)
-                    ).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
-
+        } catch (e: Exception) {
             dismissShimmerEffect()
+            showToast(getString(R.string.invalid_data_parsing))
         }
     }
 
