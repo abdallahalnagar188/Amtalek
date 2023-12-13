@@ -9,17 +9,10 @@
     app:cardElevation="@dimen/_6sdp"
     tools:context=".presentation.ui.main.FilterCitiesDialogFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:fitsSystemWindows="true"
-        android:layoutDirection="locale"
-        android:padding="@dimen/_8sdp"
-       >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,17 +20,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
+
+                <View
+                    android:id="@+id/view_top_handler"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_3sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@drawable/rectangle_rounded_corners"
+                    />
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/choose_city"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_top_handler"
                     android:fontFamily="@font/montserratbold"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12ssp"
+                    android:textSize="@dimen/_14ssp"
                     />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -46,8 +52,8 @@
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:nestedScrollingEnabled="true"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
@@ -71,6 +77,5 @@
 
 
 
-    </ScrollView>
 
 </androidx.cardview.widget.CardView>

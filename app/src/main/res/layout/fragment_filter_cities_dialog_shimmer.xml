@@ -7,30 +7,31 @@
 
     <View
         android:id="@+id/tvTitle"
-        android:layout_width="@dimen/_75sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="@dimen/_95sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/shimmer_gray"
         android:text="@string/choose_city"
+        android:layout_marginHorizontal="@dimen/_4sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/view_one"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_height="@dimen/_32sdp"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:background="@color/shimmer_gray"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:padding="@dimen/_2sdp"/>
 
     <View
         android:id="@+id/view_two"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_height="@dimen/_39sdp"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:background="@color/shimmer_gray"
         app:layout_constraintTop_toBottomOf="@id/view_one"
@@ -42,7 +43,7 @@
     <View
         android:id="@+id/view_three"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_height="@dimen/_39sdp"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:background="@color/shimmer_gray"
         app:layout_constraintTop_toBottomOf="@id/view_two"
@@ -54,7 +55,7 @@
     <View
         android:id="@+id/view_four"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_height="@dimen/_39sdp"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:background="@color/shimmer_gray"
         app:layout_constraintTop_toBottomOf="@id/view_three"
@@ -66,7 +67,7 @@
     <View
         android:id="@+id/view_five"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_28sdp"
+        android:layout_height="@dimen/_39sdp"
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:background="@color/shimmer_gray"
         app:layout_constraintTop_toBottomOf="@id/view_four"

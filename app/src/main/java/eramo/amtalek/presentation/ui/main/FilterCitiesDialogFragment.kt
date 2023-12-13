@@ -1,24 +1,27 @@
 package eramo.amtalek.presentation.ui.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.fragment.app.DialogFragment
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentFilterCitiesDialogBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFilterCities
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.FilterCitiesDialogViewModel
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_cities_dialog),
+//class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_cities_dialog),
+class FilterCitiesDialogFragment : BottomSheetDialogFragment(),
     RvHomeFilterCities.OnItemClickListener {
 
     private var binding: FragmentFilterCitiesDialogBinding? = null
@@ -29,14 +32,17 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
 
     private val viewModel by viewModels<FilterCitiesDialogViewModel>()
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentFilterCitiesDialogBinding.inflate(inflater, container, false)
+
+        return binding?.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFilterCitiesDialogBinding.bind(view)
 
         viewModel.getCities("1")
-
         fetchCities()
-
     }
 
     private fun fetchCities() {
@@ -50,7 +56,9 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
                         }
 
                         is UiState.Success -> {
+                            delay(1000)
                             dismissShimmerEffect()
+
                             setupCitiesRv(state.data ?: emptyList())
 
                             binding?.tvTitle?.setOnClickListener {
@@ -81,19 +89,21 @@ class FilterCitiesDialogFragment : DialogFragment(R.layout.fragment_filter_citie
 
     private fun showShimmerEffect() {
         binding?.apply {
-            shimmerLayout.startShimmer()
 
             viewLayout.visibility = View.GONE
+            tvTitle.visibility = View.GONE
             shimmerLayout.visibility = View.VISIBLE
+            shimmerLayout.startShimmer()
         }
     }
 
     private fun dismissShimmerEffect() {
         binding?.apply {
-            shimmerLayout.stopShimmer()
 
             viewLayout.visibility = View.VISIBLE
+            tvTitle.visibility = View.VISIBLE
             shimmerLayout.visibility = View.GONE
+            shimmerLayout.stopShimmer()
         }
     }
 
