@@ -27,7 +27,6 @@ import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.DummySliderTopAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
@@ -78,9 +77,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     private var backPressedTime: Long = 0
-
-    @Inject
-    lateinit var dummySliderTopAdapter: DummySliderTopAdapter
 
     @Inject
     lateinit var rvHomeFeaturedRealEstateAdapter: RvHomeFeaturedRealEstateAdapter
@@ -153,7 +149,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun requestApis() {
         if (UserUtil.isUserLogin()) {
+            Log.e("time", System.currentTimeMillis().toString())
             viewModel.getProfile()
+            viewModel.getHome()
         } else {
             viewModel.getHome()
         }
@@ -161,6 +159,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun fetchData() {
         fetchGetProfileState()
+        fetchUserCityState()
+
         fetchHomeState()
         fetchHomeFilteredByCityState()
     }
@@ -175,9 +175,35 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
                         is UiState.Success -> {
                             viewModelShared.profileData.value = UiState.Success(state.data!!)
-                            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityName()
+//                            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityName()
+                        }
 
-                            viewModel.getHome()
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchUserCityState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModelShared.profileData.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
                         }
 
                         is UiState.Error -> {
@@ -339,6 +365,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             dismissShimmerEffect()
             showToast(getString(R.string.invalid_data_parsing))
         }
+        Log.e("time", System.currentTimeMillis().toString())
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {

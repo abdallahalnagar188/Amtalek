@@ -46,6 +46,7 @@ class SharedViewModel @Inject constructor(
                         is Resource.Success -> {
                             UserUtil.clearUserInfo()
                             _logoutState.value = UiState.Success(result.data)
+                            profileData.value = UiState.Empty()
                         }
 
                         is Resource.Error -> {

@@ -668,4 +668,5 @@
     <string name="coming_soon">قريبا!!</string>
 
     <string name="invalid_data_parsing">خطأ فى البيانات</string>
+    <string name="select_a_city">أختر مدينة</string>
 </resources>
