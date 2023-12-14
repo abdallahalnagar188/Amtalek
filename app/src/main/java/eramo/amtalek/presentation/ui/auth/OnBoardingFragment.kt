@@ -40,7 +40,6 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiCancellation { viewModel.cancelRequest() }
 //        StatusBarUtil.transparent()
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupSlider()
 
         binding.apply {

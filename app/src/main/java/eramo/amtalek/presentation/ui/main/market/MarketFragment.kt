@@ -41,7 +41,6 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         initRv()

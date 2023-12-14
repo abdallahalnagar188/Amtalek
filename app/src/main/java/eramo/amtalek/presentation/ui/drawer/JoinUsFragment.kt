@@ -61,7 +61,6 @@ class JoinUsFragment : BindingFragment<FragmentJoinUsBinding>() {
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
     }
 

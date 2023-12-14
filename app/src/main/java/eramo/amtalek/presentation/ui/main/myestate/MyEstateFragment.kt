@@ -41,7 +41,6 @@ class MyEstateFragment : BindingFragment<FragmentMyEstateBinding>(),
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupTabLayoutPager()

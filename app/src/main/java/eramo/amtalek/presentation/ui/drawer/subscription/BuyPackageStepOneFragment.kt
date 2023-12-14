@@ -27,7 +27,6 @@ class BuyPackageStepOneFragment : BindingFragment<FragmentBuyPackageStepOneBindi
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupFakeData()

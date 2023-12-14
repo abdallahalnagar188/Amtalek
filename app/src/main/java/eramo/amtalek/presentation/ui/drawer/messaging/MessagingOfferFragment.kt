@@ -33,7 +33,6 @@ class MessagingOfferFragment : BindingFragment<FragmentMessagingOfferBinding>(),
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initChatRv(Dummy.dummyMessagingOffersList())
     }

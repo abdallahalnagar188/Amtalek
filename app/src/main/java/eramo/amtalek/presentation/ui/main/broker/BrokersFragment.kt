@@ -42,7 +42,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         initRv(Dummy.dummyBrokersList())

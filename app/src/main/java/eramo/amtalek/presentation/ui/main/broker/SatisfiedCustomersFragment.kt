@@ -35,7 +35,6 @@ class SatisfiedCustomersFragment : BindingFragment<FragmentSatisfiedCustomersBin
     }
 
     private fun setupToolbar() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         binding.apply {
             inToolbar.tvTitle.text = getString(R.string.s_satisfied_customers, "122")

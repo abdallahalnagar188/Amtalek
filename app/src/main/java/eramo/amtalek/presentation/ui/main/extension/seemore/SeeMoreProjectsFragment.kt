@@ -37,7 +37,6 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
 
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupRv(projectsList.toList())

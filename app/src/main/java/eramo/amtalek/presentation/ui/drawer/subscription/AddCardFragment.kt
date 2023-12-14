@@ -24,7 +24,6 @@ class AddCardFragment : BindingFragment<FragmentAddCardBinding>() {
     }
 
     private fun setupViews(){
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
     }
 

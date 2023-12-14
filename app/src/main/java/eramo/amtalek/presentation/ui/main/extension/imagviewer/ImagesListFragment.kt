@@ -36,7 +36,6 @@ class ImagesListFragment : BindingFragment<FragmentImagesListBinding>(), RvImage
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initRv(imagesList.toList())
     }

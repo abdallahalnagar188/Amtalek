@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSliderZoomBinding
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.presentation.adapters.ZoomSliderAdapter
@@ -31,6 +32,11 @@ class SliderZoomFragment : BindingFragment<FragmentSliderZoomBinding>() {
         binding.apply {
             ivClose.setOnClickListener { findNavController().popBackStack() }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
     private fun setupSlider() {

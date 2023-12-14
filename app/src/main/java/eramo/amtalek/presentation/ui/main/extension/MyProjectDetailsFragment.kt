@@ -35,6 +35,11 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         setupViews()
     }
 
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+    }
+
     private fun setupViews() {
         setupToolbar()
 

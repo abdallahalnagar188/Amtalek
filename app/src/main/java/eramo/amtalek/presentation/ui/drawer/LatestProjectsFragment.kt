@@ -32,7 +32,6 @@ class LatestProjectsFragment : BindingFragment<FragmentLatestProjectsBinding>(),
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         initRv(Dummy.dummyLatestProjectsList())

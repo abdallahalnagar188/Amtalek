@@ -30,7 +30,6 @@ class NotificationDetailsFragment : BindingFragment<FragmentNotificationDetailsB
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initViewsData()
     }

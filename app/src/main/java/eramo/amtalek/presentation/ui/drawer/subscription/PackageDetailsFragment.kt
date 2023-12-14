@@ -28,7 +28,6 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupFakeData()

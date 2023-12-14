@@ -18,7 +18,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 //        StatusBarUtil.transparent()
 
         lifecycleScope.launchWhenResumed {

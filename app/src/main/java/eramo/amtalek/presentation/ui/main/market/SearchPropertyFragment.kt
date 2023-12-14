@@ -44,7 +44,6 @@ class SearchPropertyFragment : BindingFragment<FragmentSearchPropertyBinding>() 
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
     private fun setupToolbar() {

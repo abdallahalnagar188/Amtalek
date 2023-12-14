@@ -67,7 +67,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         setupAnimations()
     }

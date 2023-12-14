@@ -46,7 +46,6 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         binding.FOtpTvOtpSent.text = registeredEmail
 

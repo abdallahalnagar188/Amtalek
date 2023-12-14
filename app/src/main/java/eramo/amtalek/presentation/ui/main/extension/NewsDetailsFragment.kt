@@ -6,6 +6,7 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentNewsDetailsBinding
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvNewsDetailsCommentsAdapter
@@ -29,6 +30,11 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
     private fun setupViews() {

@@ -25,7 +25,6 @@ class BuyPackageStepTwoFragment : BindingFragment<FragmentBuyPackageStepTwoBindi
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         listeners()

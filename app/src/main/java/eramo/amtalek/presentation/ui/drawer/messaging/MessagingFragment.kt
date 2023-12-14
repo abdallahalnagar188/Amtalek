@@ -26,7 +26,6 @@ class MessagingFragment : BindingFragment<FragmentMessagingBinding>() {
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupTabLayoutPager()

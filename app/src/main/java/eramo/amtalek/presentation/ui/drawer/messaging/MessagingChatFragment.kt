@@ -33,7 +33,6 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(), R
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initChatRv(Dummy.dummyMessagingChatList())
     }

@@ -59,7 +59,6 @@ class ChangePasswordForgetPasswordFragment : BindingFragment<FragmentChangePassw
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
     }
 

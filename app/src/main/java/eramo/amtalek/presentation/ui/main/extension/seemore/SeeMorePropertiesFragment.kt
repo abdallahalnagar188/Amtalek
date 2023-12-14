@@ -41,7 +41,6 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupRv(propertiesList.toList())

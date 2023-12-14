@@ -31,7 +31,6 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesAd
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         initRv(Dummy.dummyPackagesList())

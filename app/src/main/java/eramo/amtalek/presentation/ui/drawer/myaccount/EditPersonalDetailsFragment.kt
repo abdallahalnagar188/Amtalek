@@ -134,7 +134,6 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         binding.inToolbar.tvTitle.text = getString(R.string.edit_profile)
 
     }

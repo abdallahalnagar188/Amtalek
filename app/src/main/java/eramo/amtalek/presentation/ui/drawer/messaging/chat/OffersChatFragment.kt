@@ -33,7 +33,6 @@ class OffersChatFragment : BindingFragment<FragmentOffersChatBinding>() {
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         assignFakeData()

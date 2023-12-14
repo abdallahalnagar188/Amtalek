@@ -40,6 +40,11 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), 
         setupListeners()
     }
 
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+    }
+
     private fun setupViews() {
         setupToolbar()
         assignData()

@@ -33,7 +33,6 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         assignFakeData()

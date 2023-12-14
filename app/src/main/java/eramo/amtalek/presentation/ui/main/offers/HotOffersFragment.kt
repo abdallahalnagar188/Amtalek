@@ -44,7 +44,6 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
 
     private fun setupViews() {
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
         setupToolbar()
 
         setupTabLayoutPager()
