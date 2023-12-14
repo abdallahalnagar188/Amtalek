@@ -163,51 +163,52 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
     private fun assignData(data: PropertyDetailsModel) {
-        binding.apply {
+        try {
+            binding.apply {
 
-            setupImageSliderTop(data.sliderImages)
+                setupImageSliderTop(data.sliderImages)
 
-            setPriceValue(formatPrice(data.sellPrice))
-            tvCurrency.text = " " + data.currency + " "
+                setPriceValue(formatPrice(data.sellPrice))
+                tvCurrency.text = " " + data.currency + " "
 
-            tvTitle.text = data.title
-            tvLocation.text = data.location
-            tvDate.text = data.datePosted
+                tvTitle.text = data.title
+                tvLocation.text = data.location
+                tvDate.text = data.datePosted
 
-            // header layout
-            tvFinishing.text = data.finishingAvailability
-            tvLocation2.text = data.areaLocation
-            tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(data.area))
-            tvBedrooms.text = getString(R.string.s_bedroom_count_n, data.bedroomsCount.toString())
-            tvBathrooms.text = getString(R.string.s_bathroom_count_n, data.bathroomsCount.toString())
+                // header layout
+                tvFinishing.text = data.finishingAvailability
+                tvLocation2.text = data.areaLocation
+                tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(data.area))
+                tvBedrooms.text = getString(R.string.s_bedroom_count_n, data.bedroomsCount.toString())
+                tvBathrooms.text = getString(R.string.s_bathroom_count_n, data.bathroomsCount.toString())
 
 
-            tvUserName.text = data.brokerName
-            tvUserId.text = data.brokerDescription
+                tvUserName.text = data.brokerName
+                tvUserId.text = data.brokerDescription
 
-            Glide.with(requireContext())
-                .load(data.brokerImageUrl)
-                .placeholder(R.drawable.ic_no_image)
-                .into(ivUserImage)
+                Glide.with(requireContext())
+                    .load(data.brokerImageUrl)
+                    .placeholder(R.drawable.ic_no_image)
+                    .into(ivUserImage)
 
-            propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
-            propertyDetailsLayout.tvTypeValue.text = data.propertyType
-            propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
-            propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
-            propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
-            propertyDetailsLayout.tvFurnitureValue.text = data.furniture
-            propertyDetailsLayout.tvPaymentValue.text = data.payment
-            propertyDetailsLayout.tvFinishingValue.text = data.finishing
-            propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
-            propertyDetailsLayout.tvFloorValue.text = data.landType
+                propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
+                propertyDetailsLayout.tvTypeValue.text = data.propertyType
+                propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
+                propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
+                propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
+                propertyDetailsLayout.tvFurnitureValue.text = data.furniture
+                propertyDetailsLayout.tvPaymentValue.text = data.payment
+                propertyDetailsLayout.tvFinishingValue.text = data.finishing
+                propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
+                propertyDetailsLayout.tvFloorValue.text = data.landType
 
-            tvDescriptionValue.text = data.description
+                tvDescriptionValue.text = data.description
 
-            initPropertyFeaturesRv(data.propertyFeatures)
+                initPropertyFeaturesRv(data.propertyFeatures)
 
-            getYoutubeUrlId(data.videoUrl)?.let {
-                setupVideo(it)
-            }
+                getYoutubeUrlId(data.videoUrl)?.let {
+                    setupVideo(it)
+                }
 
 //            val cartList = data.chartList.toMutableList()
 //
@@ -217,16 +218,16 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 //                    -1, 0, ""
 //                ))
 //            )
-            if (data.chartList.isNotEmpty()) {
-                binding.tvViewsChart.visibility = View.VISIBLE
-                binding.chart.visibility = View.VISIBLE
-                setupChartView(getChartList(data))
-            } else {
-                binding.tvViewsChart.visibility = View.GONE
-                binding.chart.visibility = View.GONE
-            }
+                if (data.chartList.isNotEmpty()) {
+                    binding.tvViewsChart.visibility = View.VISIBLE
+                    binding.chart.visibility = View.VISIBLE
+                    setupChartView(getChartList(data))
+                } else {
+                    binding.tvViewsChart.visibility = View.GONE
+                    binding.chart.visibility = View.GONE
+                }
 
-            //            val fakeList = mutableListOf<ChartModel>()
+                //            val fakeList = mutableListOf<ChartModel>()
 //            fakeList.add(ChartModel(
 //                1,4,"2222-22-22"
 //            ))
@@ -238,10 +239,15 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 //            ))
 //            setupChartView(fakeList)
 
-            tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
+                tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
 
-            initCommentsRv(data.comments)
-            initSimilarPropertiesRv(data.similarProperties)
+                initCommentsRv(data.comments)
+                initSimilarPropertiesRv(data.similarProperties)
+            }
+
+        } catch (e: Exception) {
+            dismissShimmerEffect()
+            showToast(getString(R.string.invalid_data_parsing))
         }
         dismissShimmerEffect()
     }

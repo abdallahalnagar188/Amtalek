@@ -107,9 +107,6 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
             Log.e("networkResponse", "Success\n" + response.body().toString())
 
         } else {
-//            val errorBodyJson = JSONObject(response.errorBody()!!.charStream().readText())
-//            emit(ApiState.Error(UiText.DynamicString(errorBodyJson.toString())))
-
             val errorBody = response.errorBody()?.string()
             val errorObject = Gson().fromJson(errorBody, ResultModel::class.java)
             emit(ApiState.Error(UiText.DynamicString(errorObject.message)))
@@ -117,17 +114,14 @@ fun <T> toResultFlow(call: suspend () -> Response<T>): Flow<ApiState<T>> = flow 
         }
 
     } catch (e: HttpException) {
-//        Log.d(TAG, e.message.toString())
         Log.e("networkResponse", "HttpException\n ${e.message.toString()}")
         emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
 
     } catch (e: IOException) {
-//        Log.d(TAG, e.message.toString())
         Log.e("networkResponse", "IOException\n ${e.message.toString()}")
         emit(ApiState.Error(UiText.StringResource(R.string.check_your_internet_connection)))
 
     } catch (e: Exception) {
-//        Log.d(TAG, e.message.toString())
         Log.e("networkResponse", "Exception\n ${e.message.toString()}")
         emit(ApiState.Error(UiText.StringResource(R.string.something_went_wrong)))
     }
