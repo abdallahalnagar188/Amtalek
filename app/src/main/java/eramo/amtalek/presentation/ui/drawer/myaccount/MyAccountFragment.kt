@@ -34,7 +34,8 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiRequest { viewModel.getProfile() }
 //        super.registerApiCancellation { viewModel.cancelRequest() }
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.amtalek_blue)
+//        StatusBarUtil.blackWithBackground(requireActivity(), R.color.amtalek_blue)
+        StatusBarUtil.transparent()
 
         binding.apply {
             FMyAccountTvEdit.setOnClickListener(this@MyAccountFragment)
@@ -54,6 +55,11 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
             textView20.text = getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
     override fun onClick(v: View?) {

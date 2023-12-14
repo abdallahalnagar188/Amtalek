@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="@dimen/_220sdp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
         android:src="@color/amtalek_blue_dark"
@@ -20,9 +20,9 @@
 
     <ImageView
         android:id="@+id/iv_close"
-        android:layout_width="@dimen/_28sdp"
-        android:layout_height="@dimen/_28sdp"
-        android:layout_marginTop="@dimen/_26sdp"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_45sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:background="@drawable/shape_gray"
         android:contentDescription="@null"
