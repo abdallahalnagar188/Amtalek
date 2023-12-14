@@ -44,7 +44,6 @@ import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMoreProjectsFragm
 import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
@@ -52,6 +51,7 @@ import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -105,16 +105,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     @Inject
     lateinit var rvHomeNewsAdapter: RvHomeNewsAdapter
 
-    @Inject
-    lateinit var dummyFeaturedAdapter: DummyFeaturedAdapter
-
-    @Inject
-    lateinit var rvMyFavouritesAdapter: RvMyFavouritesAdapter
-
-    @Inject
-    lateinit var dummyNewsAdapter: DummyNewsAdapter
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        super.registerApiRequest { viewModel.getScreenApis() }
@@ -128,38 +118,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         requestApis()
         fetchData()
 
-
-        dummyFeaturedAdapter.setListener(this)
-        rvMyFavouritesAdapter.setListener(this)
-        dummyNewsAdapter.setListener(this)
-        binding.apply {
-            inSearch.inCurrency.tvText.hint = getString(R.string.currency)
-
-            dummyFeaturedAdapter.submitList(Dummy.list())
-            rvFeatures.adapter = dummyFeaturedAdapter
-
-//            rvMyFavouritesAdapter.submitList(Dummy.list())
-            rvProperties.adapter = rvMyFavouritesAdapter
-
-            dummyNewsAdapter.submitList(Dummy.list())
-            rvNews.adapter = dummyNewsAdapter
-
-            tvSale.setOnClickListener { selectedTabPosition(0) }
-            tvLatest.setOnClickListener { selectedTabPosition(1) }
-            tvRent.setOnClickListener { selectedTabPosition(2) }
-
-            tvSeeAllProperties.setOnClickListener {
-                findNavController().navigate(
-                    R.id.allPropertiesFragment,
-                    null,
-                    navOptionsAnimation()
-                )
-            }
-
-            tvSeeAllNews.setOnClickListener {
-                findNavController().navigate(R.id.myEstateFragment, null, navOptionsAnimation())
-            }
-        }
         Log.e("token", UserUtil.getUserToken())
     }
 
@@ -210,8 +168,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     // -------------------------------------- fetchData -------------------------------------- //
 
     private fun fetchGetProfileState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getProfileState.collect { state ->
                     when (state) {
 
@@ -241,7 +199,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun fetchHomeState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeState.collect { state ->
                     when (state) {
@@ -269,7 +227,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun fetchHomeFilteredByCityState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeFilteredByCityState.collect { state ->
                     when (state) {
@@ -695,38 +653,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
-    }
-
-    private fun selectedTabPosition(position: Int) {
-        binding.apply {
-            tvSale.setBackgroundResource(R.drawable.ic_gray_end)
-            tvLatest.setBackgroundResource(R.color.gray_low)
-            tvRent.setBackgroundResource(R.drawable.ic_gray_start)
-
-            tvSale
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
-            tvLatest
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
-            tvRent
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue_dark))
-
-            when (position) {
-                0 -> {
-                    tvSale.setBackgroundResource(R.drawable.ic_blue_end)
-                    tvSale.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-
-                1 -> {
-                    tvLatest.setBackgroundResource(R.color.amtalek_blue_dark)
-                    tvLatest.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-
-                2 -> {
-                    tvRent.setBackgroundResource(R.drawable.ic_blue_start)
-                    tvRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                }
-            }
-        }
     }
 
     private fun showShimmerEffect() {
