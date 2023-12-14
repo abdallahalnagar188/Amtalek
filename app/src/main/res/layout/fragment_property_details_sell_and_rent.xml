@@ -593,6 +593,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_14sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:isIndicator="false"
+                    android:progressTint="@color/gold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_rate" />
 
