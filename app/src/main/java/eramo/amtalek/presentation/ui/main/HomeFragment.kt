@@ -175,7 +175,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
                         is UiState.Success -> {
                             viewModelShared.profileData.value = UiState.Success(state.data!!)
-//                            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityName()
                         }
 
                         is UiState.Error -> {

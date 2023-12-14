@@ -95,6 +95,15 @@ fun navOptionsFromBottomAnimation(): NavOptions {
             .build()
 
 }
+fun navOptionsFromTopAnimation(): NavOptions {
+    return NavOptions.Builder()
+            .setEnterAnim(R.anim.from_top)
+            .setExitAnim(R.anim.to_bottom)
+            .setPopEnterAnim(R.anim.from_bottom)
+            .setPopExitAnim(R.anim.to_top)
+            .build()
+
+}
 
 fun pagingConfig() = PagingConfig(pageSize = PAGING_PER_PAGE, enablePlaceholders = false)
 

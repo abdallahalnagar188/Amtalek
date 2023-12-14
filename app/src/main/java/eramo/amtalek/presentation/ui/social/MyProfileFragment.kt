@@ -23,6 +23,8 @@ import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
+import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import javax.inject.Inject
@@ -61,7 +63,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
                 findNavController().navigate(
                     R.id.myAccountFragment,
                     null,
-                    navOptionsAnimation()
+                    navOptionsFromTopAnimation()
                 )
             }
         }
@@ -84,7 +86,6 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
                     when (state) {
 
                         is UiState.Success -> {
-                            dismissShimmerEffect()
                             assignUserData(state.data!!)
                         }
 
@@ -107,20 +108,27 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
     }
 
     private fun assignUserData(user: UserModel) {
-        binding.apply {
-            tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
-            tvLocation.text = user.cityName
-            tvBio.text = user.bio
+        try {
+            binding.apply {
+                tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
+                tvLocation.text = user.cityName
+                tvBio.text = user.bio
 
-            if (user.coverImageUrl != "") {
-                Glide.with(requireContext()).load(user.coverImageUrl).into(ivUserCover)
-            }
+                if (user.coverImageUrl != "") {
+                    Glide.with(requireContext()).load(user.coverImageUrl).into(ivUserCover)
+                }
 
-            if (user.profileImageUrl != "") {
-                Glide.with(requireContext()).load(user.profileImageUrl).into(ivUserProfile)
-            } else {
-                Glide.with(requireContext()).load(R.drawable.avatar).into(ivUserProfile)
+                if (user.profileImageUrl != "") {
+                    Glide.with(requireContext()).load(user.profileImageUrl).into(ivUserProfile)
+                } else {
+                    Glide.with(requireContext()).load(R.drawable.avatar).into(ivUserProfile)
+                }
             }
+            dismissShimmerEffect()
+
+        } catch (e: Exception) {
+            dismissShimmerEffect()
+            showToast(getString(R.string.invalid_data_parsing))
         }
     }
 

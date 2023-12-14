@@ -35,7 +35,6 @@ import eramo.amtalek.presentation.viewmodel.drawer.myaccount.EditPersonalDetails
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsBinding>() {
@@ -307,8 +306,6 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     when (state) {
 
                         is UiState.Success -> {
-                            delay(1000)
-                            dismissShimmerEffect()
                             userModel = state.data!!
                             assignDataToTheViews(userModel)
 
@@ -427,22 +424,28 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     }
 
     private fun assignDataToTheViews(user: UserModel) {
-        binding.apply {
-            etFirstName.setText(user.firstName)
-            etLastName.setText(user.lastName)
-            etMobileNumber.setText(user.phone)
-            etEmail.setText(user.email)
-            etBio.setText(user.bio)
+        try {
+            binding.apply {
+                etFirstName.setText(user.firstName)
+                etLastName.setText(user.lastName)
+                etMobileNumber.setText(user.phone)
+                etEmail.setText(user.email)
+                etBio.setText(user.bio)
 
-            if (user.coverImageUrl != "") {
-                Glide.with(requireContext()).load(user.coverImageUrl).into(ivCover)
-            }
+                if (user.coverImageUrl != "") {
+                    Glide.with(requireContext()).load(user.coverImageUrl).into(ivCover)
+                }
 
-            if (user.profileImageUrl != "") {
-                Glide.with(requireContext()).load(user.profileImageUrl).into(ivProfile)
-            } else {
-                Glide.with(requireContext()).load(R.drawable.avatar).into(ivProfile)
+                if (user.profileImageUrl != "") {
+                    Glide.with(requireContext()).load(user.profileImageUrl).into(ivProfile)
+                } else {
+                    Glide.with(requireContext()).load(R.drawable.avatar).into(ivProfile)
+                }
             }
+            dismissShimmerEffect()
+        } catch (e: Exception) {
+            dismissShimmerEffect()
+            showToast(getString(R.string.invalid_data_parsing))
         }
     }
 
