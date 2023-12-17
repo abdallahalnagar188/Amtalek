@@ -47,6 +47,7 @@ import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -119,6 +120,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
     private fun fetchPropertyDetailsState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                delayForEnterAnimation()
                 viewModel.propertyDetailsState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
@@ -389,6 +391,11 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
         }
 
         return cartList.takeLast(5)
+    }
+
+    private suspend fun delayForEnterAnimation() {
+        showShimmerEffect()
+        delay(450)
     }
 
     private fun showShimmerEffect() {
