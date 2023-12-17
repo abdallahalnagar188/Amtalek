@@ -17,6 +17,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.yy.mobile.rollingtextview.CharOrder
@@ -258,13 +261,20 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
     }
 
     private fun initPropertyFeaturesRv(data: List<String>) {
-        if (data.isNotEmpty()) {
-            binding.propertyFeaturesLayout.root.visibility = View.VISIBLE
+        binding.apply {
+            if (data.isNotEmpty()) {
+                propertyFeaturesLayout.root.visibility = View.VISIBLE
 
-            binding.propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
-            rvAmenitiesAdapter.submitList(data)
-        } else {
-            binding.propertyFeaturesLayout.root.visibility = View.GONE
+                val layoutManager = FlexboxLayoutManager(requireContext())
+                layoutManager.flexDirection = FlexDirection.ROW
+                layoutManager.flexWrap = FlexWrap.WRAP
+
+                propertyFeaturesLayout.rv.layoutManager = layoutManager
+                propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
+                rvAmenitiesAdapter.submitList(data)
+            } else {
+                binding.propertyFeaturesLayout.root.visibility = View.GONE
+            }
         }
     }
 
