@@ -314,6 +314,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.propertyDetailsSellAndRentFragment,
 
                 R.id.searchPropertyFragment,
+                R.id.searchPropertyResultFragment,
 
                 R.id.myProjectDetailsFragment,
                 R.id.packageDetailsFragment,

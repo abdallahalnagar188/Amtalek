@@ -676,4 +676,7 @@
     <string name="maximum_space">أكبر مساحة</string>
 
     <string name="search_title">بحث</string>
+    <string name="search_results">نتائج البحث</string>
+    <string name="arrange_by">رتب حسب</string>
+
 </resources>

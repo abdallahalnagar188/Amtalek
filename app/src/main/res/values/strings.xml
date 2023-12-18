@@ -679,5 +679,7 @@
     <string name="maximum_space">Maximum space</string>
 
     <string name="search_title">Search</string>
+    <string name="search_results">Search results</string>
+    <string name="arrange_by">Arrange by</string>
 
 </resources>
