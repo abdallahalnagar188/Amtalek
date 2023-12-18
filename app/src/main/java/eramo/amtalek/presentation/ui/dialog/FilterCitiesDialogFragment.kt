@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.home
+package eramo.amtalek.presentation.ui.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

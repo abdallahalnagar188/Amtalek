@@ -682,4 +682,12 @@
     <string name="search_results">Search results</string>
     <string name="arrange_by">Arrange by</string>
 
+    <string name="sort_by">Sort by</string>
+
+    <string name="sort_by_most_relevant">Most Relevant</string>
+    <string name="sort_by_newly_added">Newly add</string>
+    <string name="sort_by_near_me">Near me</string>
+    <string name="sort_by_low_price">Low price</string>
+    <string name="sort_by_high_price">Max price</string>
+
 </resources>

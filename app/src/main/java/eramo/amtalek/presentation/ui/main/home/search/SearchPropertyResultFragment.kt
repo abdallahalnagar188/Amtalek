@@ -16,6 +16,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPr
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.onBackPressed
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -33,7 +34,6 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
 
     @Inject
     lateinit var rvHotOffersRentProjectsAdapter: RvHotOffersRentProjectsAdapter
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,6 +63,11 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
     }
 
     private fun listeners() {
+        binding.apply {
+            sort.setOnClickListener {
+                findNavController().navigate(R.id.sortFragment,null , navOptionsFromTopAnimation())
+            }
+        }
         this@SearchPropertyResultFragment.onBackPressed {
             findNavController().popBackStack(R.id.homeFragment, false)
         }

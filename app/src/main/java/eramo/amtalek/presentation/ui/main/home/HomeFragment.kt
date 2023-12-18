@@ -38,6 +38,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropert
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.FilterCitiesDialogFragment
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs

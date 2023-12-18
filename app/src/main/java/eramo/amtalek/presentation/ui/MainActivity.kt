@@ -315,6 +315,7 @@ class MainActivity : AppCompatActivity(),
 
                 R.id.searchPropertyFragment,
                 R.id.searchPropertyResultFragment,
+                R.id.sortFragment,
 
                 R.id.myProjectDetailsFragment,
                 R.id.packageDetailsFragment,
