@@ -674,4 +674,6 @@
 
     <string name="minimum_space">أقل مساحة</string>
     <string name="maximum_space">أكبر مساحة</string>
+
+    <string name="search_title">بحث</string>
 </resources>

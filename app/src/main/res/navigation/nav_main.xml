@@ -83,13 +83,13 @@
 
     <fragment
         android:id="@+id/searchPropertyFragment"
-        android:name="eramo.amtalek.presentation.ui.main.market.SearchPropertyFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.search.SearchPropertyFragment"
         android:label="SearchPropertyFragment"
         tools:layout="@layout/fragment_search_property" />
 
     <fragment
         android:id="@+id/searchPropertyResultFragment"
-        android:name="eramo.amtalek.presentation.ui.main.market.SearchPropertyResultFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.search.SearchPropertyResultFragment"
         android:label="SearchPropertyResultFragment"
         tools:layout="@layout/fragment_search_property_result">
         <argument

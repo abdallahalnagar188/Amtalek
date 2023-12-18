@@ -678,4 +678,6 @@
     <string name="minimum_space">Minimum space</string>
     <string name="maximum_space">Maximum space</string>
 
+    <string name="search_title">Search</string>
+
 </resources>

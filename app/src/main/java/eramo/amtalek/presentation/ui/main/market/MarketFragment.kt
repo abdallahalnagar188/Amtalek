@@ -49,7 +49,8 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
             tvTitle.text =
-                getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
+//                getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
+                getString(R.string.market)
         }
     }
 

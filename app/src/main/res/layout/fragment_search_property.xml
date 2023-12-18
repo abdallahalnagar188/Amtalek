@@ -275,7 +275,7 @@
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:background="@drawable/button_background_long"
                 android:fontFamily="@font/montserratregular"
-                android:text="@string/register_now"
+                android:text="@string/search_title"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
