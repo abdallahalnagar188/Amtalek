@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.extension.seemore
+package eramo.amtalek.presentation.ui.main.home.seemore
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import eramo.amtalek.databinding.FragmentSeeMoreProjectsBinding
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 

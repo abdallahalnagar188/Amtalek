@@ -313,6 +313,8 @@ class MainActivity : AppCompatActivity(),
                 R.id.propertyDetailsRentFragment,
                 R.id.propertyDetailsSellAndRentFragment,
 
+                R.id.searchPropertyFragment,
+
                 R.id.myProjectDetailsFragment,
                 R.id.packageDetailsFragment,
                 R.id.rechargePackageFragment,

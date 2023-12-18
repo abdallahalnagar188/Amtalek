@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.extension
+package eramo.amtalek.presentation.ui.main.home.details
 
 import android.os.Bundle
 import android.view.LayoutInflater

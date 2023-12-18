@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSearchPropertyBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
@@ -20,7 +19,6 @@ import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.NotificationViewModel
-import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
 class SearchPropertyFragment : BindingFragment<FragmentSearchPropertyBinding>() {

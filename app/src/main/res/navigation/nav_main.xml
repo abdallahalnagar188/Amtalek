@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="eramo.amtalek.presentation.ui.main.HomeFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <deepLink
             android:id="@+id/deepLink5"
@@ -282,7 +282,7 @@
         tools:layout="@layout/fragment_satisfied_customers" />
     <fragment
         android:id="@+id/newsDetailsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.NewsDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" />
     <fragment
@@ -302,7 +302,7 @@
         tools:layout="@layout/fragment_user_profile" />
     <fragment
         android:id="@+id/propertyDetailsSellFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragment"
         android:label="fragment_property_details_sell"
         tools:layout="@layout/fragment_property_details_sell" >
         <argument
@@ -311,7 +311,7 @@
     </fragment>
     <fragment
         android:id="@+id/propertyDetailsRentFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragment"
         android:label="fragment_property_details_rent"
         tools:layout="@layout/fragment_property_details_rent" >
         <argument
@@ -320,7 +320,7 @@
     </fragment>
     <fragment
         android:id="@+id/myProjectDetailsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.MyProjectDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.MyProjectDetailsFragment"
         android:label="fragment_my_project_details"
         tools:layout="@layout/fragment_my_project_details" />
     <dialog
@@ -355,7 +355,7 @@
         tools:layout="@layout/fragment_buy_package_step_two" />
     <fragment
         android:id="@+id/propertyDetailsSellAndRentFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragment"
         android:label="fragment_property_details_sell_and_rent"
         tools:layout="@layout/fragment_property_details_sell_and_rent" >
         <argument
@@ -364,7 +364,7 @@
     </fragment>
     <fragment
         android:id="@+id/seeMorePropertiesFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesFragment"
         android:label="fragment_see_more_properties"
         tools:layout="@layout/fragment_see_more_properties" >
         <argument
@@ -376,7 +376,7 @@
     </fragment>
     <fragment
         android:id="@+id/seeMoreProjectsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.seemore.SeeMoreProjectsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragment"
         android:label="fragment_see_more_projects"
         tools:layout="@layout/fragment_see_more_projects" >
         <argument

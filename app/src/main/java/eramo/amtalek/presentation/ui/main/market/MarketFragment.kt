@@ -16,7 +16,6 @@ import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmen
 import eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import javax.inject.Inject

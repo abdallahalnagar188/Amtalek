@@ -1,8 +1,10 @@
-package eramo.amtalek.presentation.ui.main
+package eramo.amtalek.presentation.ui.main.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -36,17 +38,17 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropert
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
-import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMoreProjectsFragmentArgs
-import eramo.amtalek.presentation.ui.main.extension.seemore.SeeMorePropertiesFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
@@ -124,6 +126,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         initToolbar()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun listeners() {
         binding.apply {
 
@@ -141,6 +144,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
             inToolbar.inMessaging.root.setOnClickListener {
                 findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
+            }
+
+            inToolbar.FHomeEtSearch.setOnTouchListener { view, motionEvent ->
+
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_UP -> {
+                        view.performClick()
+                        findNavController().navigate(R.id.searchPropertyFragment, null, navOptionsFromTopAnimation())
+                    }
+                }
+                return@setOnTouchListener true
             }
         }
 
@@ -303,7 +317,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 setupFeaturedProjectsRv(featuredProjectsList)
                 inFeaturedProjects.tvSeeMore.setOnClickListener {
                     findNavController().navigate(
-                        R.id.seeMoreProjectsFragment, SeeMoreProjectsFragmentArgs(
+                        R.id.seeMoreProjectsFragment,
+                        SeeMoreProjectsFragmentArgs(
                             featuredProjectsList.toTypedArray(),
                             getString(R.string.featured_projects_in_egypt)
                         ).toBundle(),

@@ -12,7 +12,6 @@ import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPackagesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint

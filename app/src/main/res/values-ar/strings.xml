@@ -348,7 +348,6 @@
     <string name="main_word">الكلمة الرئيسية</string>
     <string name="max_area">أعلى منطقة</string>
     <string name="min_area">أقل منطقة</string>
-    <string name="max_price">أعلى سعر</string>
     <string name="min_price">أقل سعر</string>
     <string name="amenities_options">خيارات وسائل الراحة</string>
     <string name="founded_properties_4">العقارات التأسيسية (4)</string>
@@ -669,4 +668,10 @@
 
     <string name="invalid_data_parsing">خطأ فى البيانات</string>
     <string name="select_a_city">أختر مدينة</string>
+
+    <string name="max_price">أقصى سعر</string>
+    <string name="low_price">أقل سعر</string>
+
+    <string name="minimum_space">أقل مساحة</string>
+    <string name="maximum_space">أكبر مساحة</string>
 </resources>

@@ -32,7 +32,6 @@ import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.EditPersonalDetailsViewModel
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 

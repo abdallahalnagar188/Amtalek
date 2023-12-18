@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBuyPackageStepTwoBinding
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint

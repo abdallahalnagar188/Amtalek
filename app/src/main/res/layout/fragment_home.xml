@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale"
-    tools:context=".presentation.ui.main.HomeFragment">
+    tools:context=".presentation.ui.main.home.HomeFragment">
 
     <include
         android:id="@+id/in_toolbar"

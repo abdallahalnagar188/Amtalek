@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddCardBinding
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
 class AddCardFragment : BindingFragment<FragmentAddCardBinding>() {

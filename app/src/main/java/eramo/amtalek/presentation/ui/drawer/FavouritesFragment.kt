@@ -14,7 +14,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy.dummyMyFavouritesList
-import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint

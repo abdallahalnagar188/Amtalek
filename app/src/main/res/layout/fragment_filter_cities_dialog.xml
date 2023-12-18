@@ -7,7 +7,7 @@
     android:layoutDirection="locale"
     app:cardCornerRadius="@dimen/_10sdp"
     app:cardElevation="@dimen/_6sdp"
-    tools:context=".presentation.ui.main.FilterCitiesDialogFragment">
+    tools:context=".presentation.ui.main.home.FilterCitiesDialogFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

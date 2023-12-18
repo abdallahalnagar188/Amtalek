@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.extension
+package eramo.amtalek.presentation.ui.main.home.details.properties
 
 import android.content.Context
 import android.os.Bundle
@@ -28,7 +28,7 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.databinding.FragmentPropertyDetailsSellAndRentBinding
+import eramo.amtalek.databinding.FragmentPropertyDetailsRentBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
@@ -37,7 +37,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsSellAndRentViewModel
+import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsRentViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
@@ -51,13 +51,14 @@ import kotlinx.coroutines.delay
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetailsSellAndRentBinding>() {
+class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentPropertyDetailsSellAndRentBinding::inflate
+        get() = FragmentPropertyDetailsRentBinding::inflate
 
-    private val viewModel: PropertyDetailsSellAndRentViewModel by viewModels()
+    private val viewModel: PropertyDetailsRentViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsRentFragmentArgs>()
     private val propertyId get() = args.propertyId
@@ -71,6 +72,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
     @Inject
     lateinit var rvSimilarPropertiesAdapter: RvSimilarPropertiesAdapter
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -78,6 +80,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
         requestData()
         fetchData()
+
     }
 
     override fun onPause() {
@@ -87,6 +90,15 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
     private fun setupViews() {
         setupToolbar()
+    }
+
+    private fun setPriceValue(number: String) {
+        binding.tvPriceAnimation.apply {
+            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
+            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
+            addCharOrder(CharOrder.Number)
+            setText(number)
+        }
     }
 
     private fun setupToolbar() {
@@ -139,13 +151,8 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
                 setupImageSliderTop(data.sliderImages)
 
-
-                setSellPriceValue(formatPrice(data.sellPrice))
-                tvSellCurrency.text = " " + data.currency + " "
-
-                setRentPriceValue(formatPrice(data.sellPrice))
-                tvRentCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
-
+                setPriceValue(formatPrice(data.rentPrice))
+                tvCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
 
                 tvTitle.text = data.title
                 tvLocation.text = data.location
@@ -185,6 +192,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                 getYoutubeUrlId(data.videoUrl)?.let {
                     setupVideo(it)
                 }
+//            setupVideo("4aNBt8imTtM")
 
                 if (data.chartList.isNotEmpty()) {
                     binding.tvViewsChart.visibility = View.VISIBLE
@@ -200,8 +208,8 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                 initCommentsRv(data.comments)
                 initSimilarPropertiesRv(data.similarProperties)
             }
-
             dismissShimmerEffect()
+
         } catch (e: Exception) {
             dismissShimmerEffect()
             showToast(getString(R.string.invalid_data_parsing))
@@ -383,24 +391,6 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         }
 
         return cartList.takeLast(5)
-    }
-
-    private fun setSellPriceValue(number: String) {
-        binding.tvSellPriceAnimation.apply {
-            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
-            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
-            addCharOrder(CharOrder.Number)
-            setText(number)
-        }
-    }
-
-    private fun setRentPriceValue(number: String) {
-        binding.tvRentPriceAnimation.apply {
-            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
-            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
-            addCharOrder(CharOrder.Number)
-            setText(number)
-        }
     }
 
     private suspend fun delayForEnterAnimation() {

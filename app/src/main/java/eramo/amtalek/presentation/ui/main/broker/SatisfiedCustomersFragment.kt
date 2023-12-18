@@ -11,7 +11,6 @@ import eramo.amtalek.databinding.FragmentSatisfiedCustomersBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
 @AndroidEntryPoint

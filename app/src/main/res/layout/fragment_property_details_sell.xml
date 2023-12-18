@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale"
-    tools:context=".presentation.ui.main.extension.PropertyDetailsSellFragment">
+    tools:context=".presentation.ui.main.home.details.properties.PropertyDetailsSellFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

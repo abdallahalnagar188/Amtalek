@@ -28,7 +28,6 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.onBackPressed

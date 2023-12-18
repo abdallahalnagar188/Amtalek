@@ -31,7 +31,6 @@ import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.setTextViewDrawableColor

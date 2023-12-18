@@ -7,7 +7,7 @@
     android:background="@color/gray_background"
     android:fitsSystemWindows="true"
     android:layoutDirection="locale"
-    tools:context=".presentation.ui.main.extension.seemore.SeeMorePropertiesFragment">
+    tools:context=".presentation.ui.main.home.seemore.SeeMorePropertiesFragment">
 
     <include
         android:id="@+id/in_toolbar"

@@ -7,10 +7,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentNotificationDetailsBinding
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.openLinkInBrowser
 
 @AndroidEntryPoint

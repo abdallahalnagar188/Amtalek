@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main
+package eramo.amtalek.presentation.ui.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFilterCities
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.FilterCitiesDialogViewModel
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @AndroidEntryPoint

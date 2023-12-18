@@ -20,7 +20,6 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.OtpSignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState

@@ -24,7 +24,6 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.ChangePasswordViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState

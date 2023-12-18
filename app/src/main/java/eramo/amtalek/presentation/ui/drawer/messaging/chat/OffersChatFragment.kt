@@ -12,7 +12,6 @@ import eramo.amtalek.databinding.FragmentOffersChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvOffersChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 

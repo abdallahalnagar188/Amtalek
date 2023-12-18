@@ -1,4 +1,4 @@
-package eramo.amtalek.presentation.ui.main.extension.seemore
+package eramo.amtalek.presentation.ui.main.home.seemore
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +12,9 @@ import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellAndRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.extension.PropertyDetailsSellFragmentArgs
-import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject

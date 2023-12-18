@@ -12,7 +12,6 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentImagesListBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvImagesListAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 

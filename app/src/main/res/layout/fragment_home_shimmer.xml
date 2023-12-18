@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="locale"
     android:paddingBottom="@dimen/_86sdp"
-    tools:context=".presentation.ui.main.HomeFragment">
+    tools:context=".presentation.ui.main.home.HomeFragment">
 
             <View
                 android:id="@+id/carousel_sliderTop"

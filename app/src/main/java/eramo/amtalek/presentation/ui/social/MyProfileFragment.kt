@@ -23,7 +23,6 @@ import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
-import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState

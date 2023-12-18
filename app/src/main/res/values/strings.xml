@@ -354,7 +354,6 @@
     <string name="main_word">Main word</string>
     <string name="max_area">Max area</string>
     <string name="min_area">Min area</string>
-    <string name="max_price">Max price</string>
     <string name="min_price">Min price</string>
     <string name="amenities_options">Amenities options</string>
     <string name="founded_properties_4">Founded properties (4)</string>
@@ -672,5 +671,11 @@
 
     <string name="invalid_data_parsing">Invalid data</string>
     <string name="select_a_city">Select a city</string>
+
+    <string name="max_price">Max price</string>
+    <string name="low_price">Low price</string>
+
+    <string name="minimum_space">Minimum space</string>
+    <string name="maximum_space">Maximum space</string>
 
 </resources>

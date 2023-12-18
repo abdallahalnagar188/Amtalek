@@ -11,7 +11,6 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentMessagingBinding
 import eramo.amtalek.presentation.adapters.viewpager.MessagingTypesPagerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
 class MessagingFragment : BindingFragment<FragmentMessagingBinding>() {
