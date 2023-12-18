@@ -308,6 +308,7 @@ class MainActivity : AppCompatActivity(),
 
                 R.id.seeMorePropertiesFragment,
                 R.id.seeMoreProjectsFragment,
+                R.id.seeMorePropertiesByCityFragment,
 
                 R.id.propertyDetailsSellFragment,
                 R.id.propertyDetailsRentFragment,

@@ -27,8 +27,6 @@ import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModel
-import eramo.amtalek.presentation.adapters.recyclerview.DummyFeaturedAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.DummyNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
@@ -43,6 +41,7 @@ import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetail
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesByCityFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
@@ -61,7 +60,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(),
-    DummyFeaturedAdapter.OnItemClickListener,
     RvMyFavouritesAdapter.OnItemClickListener,
     RvHomeNewsAdapter.OnItemClickListener,
     RvHomeFeaturedRealEstateAdapter.OnItemClickListener,
@@ -70,7 +68,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvHomeNewestVillasAdapter.OnItemClickListener,
     RvHomeNewestDuplexesAdapter.OnItemClickListener,
     RvHomeFeaturedProjectsAdapter.OnItemClickListener,
-    DummyNewsAdapter.OnItemClickListener,
     FilterCitiesDialogFragment.FilterCitiesDialogOnClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -327,7 +324,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     )
                 }
 
-                setupFindPropertiesByCityRv(data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() })
+                val citiesList = data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() }
+                setupFindPropertiesByCityRv(citiesList)
+                inPropertiesByCity.tvSeeMore.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.seeMorePropertiesByCityFragment,
+                        SeeMorePropertiesByCityFragmentArgs(citiesList.toTypedArray()).toBundle(),
+                        navOptionsAnimation()
+                    )
+                }
 
                 val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
                 setupSliderBetween(betweenCarouselSliderList)
@@ -598,7 +603,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-
     private fun setupNewestVillasRv(data: List<PropertyModel>) {
         rvHomeNewestVillasAdapter.setListener(this@HomeFragment)
         binding.inNewestVillasLayout.rv.adapter = rvHomeNewestVillasAdapter
@@ -760,17 +764,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
     }
 
-    override fun onFeaturedClick(model: String) {
-        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
-    }
-
-//    override fun onPropertyClick(model: String) {
-//        findNavController().navigate(R.id.propertyDetailsFragment, null, navOptionsAnimation())
-//    }
-
-
     override fun onPropertyByCityClick(model: PropertiesByCityModel) {
-        findNavController().navigate(R.id.propertyDetailsSellFragment, null, navOptionsAnimation())
 
     }
 
@@ -803,7 +797,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-
     override fun onNewestVillaClick(model: PropertyModel) {
         Log.e("propertyId", model.id.toString())
         when (model.type) {
@@ -833,7 +826,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-
     override fun onNewestDuplexesClick(model: PropertyModel) {
         Log.e("propertyId", model.id.toString())
         when (model.type) {
@@ -861,10 +853,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 )
             }
         }
-    }
-
-    override fun onNewsClick(model: String) {
-//        findNavController().navigate(R.id.nyEstateRentFragment, null, navOptionsAnimation())
     }
 
     override fun onPropertyClick(model: MyFavouritesModel) {

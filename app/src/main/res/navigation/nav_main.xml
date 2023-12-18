@@ -391,4 +391,13 @@
         android:name="eramo.amtalek.presentation.ui.main.home.search.SortFragment"
         android:label="fragment_sort"
         tools:layout="@layout/fragment_sort" />
+    <fragment
+        android:id="@+id/seeMorePropertiesByCityFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesByCityFragment"
+        android:label="fragment_see_more_properties_by_city"
+        tools:layout="@layout/fragment_see_more_properties_by_city" >
+        <argument
+            android:name="citiesList"
+            app:argType="eramo.amtalek.domain.model.main.home.PropertiesByCityModel[]" />
+    </fragment>
 </navigation>
