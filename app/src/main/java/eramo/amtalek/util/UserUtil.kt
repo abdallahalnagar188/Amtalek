@@ -58,7 +58,7 @@ object UserUtil {
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
-        sharedPreferences.edit().putString(USER_TOKEN, "Bearer $userToken").apply()
+        sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
 
         sharedPreferences.edit().putString(USER_ID, userID).apply()
         sharedPreferences.edit().putString(FIRST_NAME, firstName).apply()
