@@ -2,10 +2,13 @@ package eramo.amtalek.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 
 object UserUtil {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var encryptedSharedPreferences: SharedPreferences
 
     private const val IS_FIRST_TIME = "isFirsTime"
     private const val REMEMBER = "remember"
@@ -33,6 +36,16 @@ object UserUtil {
 
     fun init(context: Context) {
         sharedPreferences = context.getSharedPreferences("user_util", Context.MODE_PRIVATE)
+
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+
+        encryptedSharedPreferences =   EncryptedSharedPreferences.create(
+            "encrypted_preferences",
+            masterKeyAlias,
+            context,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
     }
 
     fun saveUserInfo(
@@ -58,7 +71,8 @@ object UserUtil {
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
-        sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
+//        sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
+        encryptedSharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
 
         sharedPreferences.edit().putString(USER_ID, userID).apply()
         sharedPreferences.edit().putString(FIRST_NAME, firstName).apply()
@@ -105,7 +119,8 @@ object UserUtil {
     fun isUserLogin() = getUserToken().isNotEmpty()
     fun isRememberUser() = sharedPreferences.getBoolean(REMEMBER, false)
 
-    fun getUserToken() = sharedPreferences.getString(USER_TOKEN, "") ?: ""
+//    fun getUserToken() = sharedPreferences.getString(USER_TOKEN, "") ?: ""
+    fun getUserToken() = encryptedSharedPreferences.getString(USER_TOKEN, "") ?: ""
 
     fun getUserId() = sharedPreferences.getString(USER_ID, "") ?: ""
 
