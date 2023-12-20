@@ -94,7 +94,8 @@ object UserUtil {
     fun clearUserInfo() {
         sharedPreferences.edit().putBoolean(REMEMBER, false).apply()
 
-        sharedPreferences.edit().putString(USER_TOKEN, "").apply()
+//        sharedPreferences.edit().putString(USER_TOKEN, "").apply()
+        encryptedSharedPreferences.edit().putString(USER_TOKEN, "").apply()
 
         sharedPreferences.edit().putString(USER_ID, "").apply()
         sharedPreferences.edit().putString(FIRST_NAME, "").apply()
