@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.main.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -52,6 +55,7 @@ import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -117,6 +121,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         Log.e("token", UserUtil.getUserToken())
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.inToolbar.FHomeEtSearch.text.clear()
+//        binding.root.requestFocus()
+        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.inToolbar.FHomeEtSearch.windowToken, 0)
+
+//        lifecycleScope.launch {
+//            delay(1000)
+//        binding.inToolbar.FHomeEtSearch.clearFocus()
+//        }
+    }
+
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 //        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
@@ -143,25 +161,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             inToolbar.inMessaging.root.setOnClickListener {
                 findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
             }
-
-            inToolbar.FHomeEtSearch.setOnTouchListener { view, motionEvent ->
-
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_UP -> {
-                        view.performClick()
-                        findNavController().navigate(R.id.searchPropertyFragment, null, navOptionsFromTopAnimation())
-                    }
-                }
-                return@setOnTouchListener true
-            }
         }
 
+        setupSearchFunctionality()
         this@HomeFragment.onBackPressed { pressBackAgainToExist() }
     }
 
     private fun requestApis() {
         if (UserUtil.isUserLogin()) {
-            Log.e("time", System.currentTimeMillis().toString())
             viewModel.getProfile()
             viewModel.getHome()
         } else {
@@ -385,7 +392,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             dismissShimmerEffect()
             showToast(getString(R.string.invalid_data_parsing))
         }
-        Log.e("time", System.currentTimeMillis().toString())
     }
 
     private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
@@ -414,6 +420,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     val currentBinding = binding as ItemSliderTopBinding
                     currentBinding.apply {
                         imageView13.setImage(item)
+                        this.root.setOnClickListener {
+                            this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
+                        }
                     }
 
                 }
@@ -480,7 +489,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     val currentBinding = binding as ItemSliderTopBinding
                     currentBinding.apply {
                         imageView13.setImage(item)
+                        this.root.setOnClickListener {
+                            this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
+                        }
                     }
+
 
                 }
             }
@@ -699,6 +712,92 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupSearchFunctionality() {
+        binding.inToolbar.apply {
+
+            // Search action
+            FHomeEtSearch.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val query = FHomeEtSearch.text.toString().trim()
+
+                    if (query.isEmpty()) {
+                        showToast(getString(R.string.enter_a_query))
+                    } else {
+                        findNavController().navigate(
+                            R.id.searchPropertyResultFragment,
+                            null,
+                            navOptionsFromTopAnimation()
+                        )
+                    }
+
+                } else if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        delay(500)
+                        FHomeEtSearch.clearFocus()
+                    }
+                }
+                true
+            }
+
+            // onTextChange listener
+//            FHomeEtSearch.addTextChangedListener(object : TextWatcher {
+//                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//
+//                }
+//
+//                override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+//                    if (charSequence?.isNotEmpty() == true) {
+//                        tvSearch.visibility = View.VISIBLE
+//                    } else {
+//                        tvSearch.visibility = View.GONE
+//                    }
+//                }
+//
+//                override fun afterTextChanged(s: Editable?) {
+//
+//                }
+//            })
+
+            // onFocus listener
+            FHomeEtSearch.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    tvSearch.visibility = View.VISIBLE
+                } else {
+                    tvSearch.visibility = View.GONE
+                }
+            }
+
+            // tvSearch listener
+            tvSearch.setOnClickListener {
+                findNavController().navigate(
+                    R.id.searchPropertyResultFragment,
+                    null,
+                    navOptionsFromTopAnimation()
+                )
+            }
+        }
+
+        // remove focus onOutsideClick
+        binding.root.setOnTouchListener { _, _ ->
+            binding.inToolbar.FHomeEtSearch.clearFocus()
+            false
+        }
+
+        binding.scrollView.setOnTouchListener { _, _ ->
+            binding.inToolbar.FHomeEtSearch.clearFocus()
+            false
+        }
+    }
+
+    private fun isTouchInsideView(event: MotionEvent, view: View): Boolean {
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+        val x = event.rawX
+        val y = event.rawY
+        return x > location[0] && x < location[0] + view.width && y > location[1] && y < location[1] + view.height
     }
 
     private fun showShimmerEffect() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_tool"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -137,6 +138,7 @@
         android:inputType="text"
         android:minHeight="48dp"
         android:padding="@dimen/_8sdp"
+        android:drawableStart="@drawable/ic_magnifier"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         android:textCursorDrawable="@null"
@@ -146,12 +148,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_iv_menu" />
 
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_title"
+        android:padding="@dimen/_8ssp"
+        android:layout_marginEnd="@dimen/_11sdp"
+        android:fontFamily="@font/montserratregular"
+        android:visibility="invisible"
+        tools:visibility="visible"
+        android:textColor="@color/read_more_color"
+        app:layout_constraintBottom_toBottomOf="@+id/FHome_et_search"
+        app:layout_constraintEnd_toEndOf="@+id/FHome_et_search"
+        app:layout_constraintTop_toTopOf="@+id/FHome_et_search"
+        />
+
     <ImageView
         android:id="@+id/iv_search"
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:src="@drawable/ic_magnifier"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/FHome_et_search"
         app:layout_constraintEnd_toEndOf="@+id/FHome_et_search"
         app:layout_constraintTop_toTopOf="@+id/FHome_et_search" />

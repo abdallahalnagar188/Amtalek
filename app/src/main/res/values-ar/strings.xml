@@ -687,4 +687,6 @@
     <string name="sort_by_low_price">اﻷقل فى السعر</string>
     <string name="sort_by_high_price">الأعلى فى السعر</string>
 
+    <string name="what_do_you_search_for">ما الذى تبحث عنه؟</string>
+
 </resources>

@@ -690,4 +690,6 @@
     <string name="sort_by_low_price">Low price</string>
     <string name="sort_by_high_price">Max price</string>
 
+    <string name="what_do_you_search_for">What do you search for?</string>
+
 </resources>
