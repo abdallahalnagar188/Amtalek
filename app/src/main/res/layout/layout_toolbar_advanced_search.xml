@@ -10,64 +10,29 @@
     android:layoutDirection="locale"
     android:minHeight="?attr/actionBarSize"
     android:paddingHorizontal="@dimen/screen_margin_sides"
-    android:paddingBottom="@dimen/_8sdp"
-    android:paddingTop="@dimen/_22sdp">
+    android:paddingVertical="@dimen/_14sdp">
 
     <TextView
         android:id="@+id/tv_advanced_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserratsemibold"
-        tools:text="@string/advanced_search"
-        android:textColor="@color/black"
         android:layout_marginStart="@dimen/_4sdp"
+        android:fontFamily="@font/montserratsemibold"
+        android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/advanced_search" />
 
     <ImageView
         android:id="@+id/iv_close"
         android:layout_width="@dimen/_14sdp"
         android:layout_height="@dimen/_14sdp"
-        android:src="@drawable/ic_close_search"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="@dimen/_6sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <EditText
-        android:id="@+id/FHome_et_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
-        android:autofillHints=""
-        android:background="@drawable/search_edit_text_background"
-        android:drawablePadding="@dimen/_4sdp"
-        android:gravity="center_vertical"
-        android:hint="@string/how_can_we_help_you"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:padding="@dimen/_8sdp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:textCursorDrawable="@null"
-        android:textDirection="locale"
+        android:src="@drawable/ic_close_search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_advanced_search" />
-
-    <ImageView
-        android:id="@+id/iv_search"
-        android:layout_width="@dimen/_16sdp"
-        android:layout_height="@dimen/_16sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/ic_magnifier"
-        app:layout_constraintBottom_toBottomOf="@+id/FHome_et_search"
-        app:layout_constraintEnd_toEndOf="@+id/FHome_et_search"
-        app:layout_constraintTop_toTopOf="@+id/FHome_et_search" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

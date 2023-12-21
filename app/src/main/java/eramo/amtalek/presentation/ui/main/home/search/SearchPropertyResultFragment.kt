@@ -15,8 +15,8 @@ import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.SortDialogFragment
 import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.onBackPressed
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -42,7 +42,6 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
         listeners()
     }
 
-
     private fun setupViews() {
         setupToolbar()
 
@@ -64,8 +63,16 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
 
     private fun listeners() {
         binding.apply {
-            sort.setOnClickListener {
-                findNavController().navigate(R.id.sortFragment,null , navOptionsFromTopAnimation())
+            sortLayout.setOnClickListener {
+//                findNavController().navigate(R.id.sortFragment,null , navOptionsFromTopAnimation())
+
+                val sortDialogFragment = SortDialogFragment()
+//                sortDialogFragment.setListener(this@HomeFragment)
+                sortDialogFragment.show(
+                    activity?.supportFragmentManager!!,
+                    "sortDialogFragment"
+                )
+
             }
         }
         this@SearchPropertyResultFragment.onBackPressed {

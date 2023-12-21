@@ -3,9 +3,12 @@ package eramo.amtalek.presentation.adapters.recyclerview
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemSortOptionsBinding
 import eramo.amtalek.domain.model.main.home.SortOptionModel
 import javax.inject.Inject
@@ -38,13 +41,19 @@ class RvSortOptionsAdapter @Inject constructor() :
         }
 
         fun bind(model: SortOptionModel) {
+            val layoutParams = itemView.layoutParams as ViewGroup.MarginLayoutParams
+
             binding.apply {
                 tvOption.text = model.option
 
-                if (selectedPosition == bindingAdapterPosition){
+                if (selectedPosition == bindingAdapterPosition) {
                     ivMark.visibility = View.VISIBLE
-                }else{
+                    ivUnmark.visibility = View.INVISIBLE
+                    layoutParams.marginStart = 7
+                } else {
                     ivMark.visibility = View.INVISIBLE
+                    ivUnmark.visibility = View.VISIBLE
+                    layoutParams.marginStart = 0
                 }
             }
             itemView.setOnClickListener {
