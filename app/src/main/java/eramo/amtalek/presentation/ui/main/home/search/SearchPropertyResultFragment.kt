@@ -15,6 +15,7 @@ import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.FilterDialogFragment
 import eramo.amtalek.presentation.ui.dialog.SortDialogFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.onBackPressed
@@ -64,15 +65,21 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
     private fun listeners() {
         binding.apply {
             sortLayout.setOnClickListener {
-//                findNavController().navigate(R.id.sortFragment,null , navOptionsFromTopAnimation())
 
                 val sortDialogFragment = SortDialogFragment()
-//                sortDialogFragment.setListener(this@HomeFragment)
                 sortDialogFragment.show(
                     activity?.supportFragmentManager!!,
                     "sortDialogFragment"
                 )
+            }
 
+            btnFilter.setOnClickListener {
+                val filterDialogFragment = FilterDialogFragment()
+
+                filterDialogFragment.show(
+                    activity?.supportFragmentManager!!,
+                    "filterDialogFragment"
+                )
             }
         }
         this@SearchPropertyResultFragment.onBackPressed {

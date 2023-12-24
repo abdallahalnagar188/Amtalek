@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:cardCornerRadius="@dimen/_10sdp"
+    tools:context=".presentation.ui.dialog.FilterDialogFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp"
+            app:layout_constraintBottom_toTopOf="@id/btn_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_background"
+                android:paddingBottom="@dimen/_18sdp">
+
+                <TextView
+                    android:id="@+id/tv_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:fontFamily="@font/montserratbold"
+                    android:text="@string/filter"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:src="@drawable/ic_close_in_circle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Spinner
+                    android:id="@+id/spinner_country"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_22sdp"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
+
+                <Spinner
+                    android:id="@+id/spinner_city"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_country" />
+
+                <Spinner
+                    android:id="@+id/spinner_region"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_city" />
+
+                <Spinner
+                    android:id="@+id/spinner_type"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginStart="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toStartOf="@id/spinner_status"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_region" />
+
+                <Spinner
+                    android:id="@+id/spinner_status"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/screen_margin_sides"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/spinner_type"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_region" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_lowest_price"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:fontFamily="@font/montserratregular"
+                    android:textColorHint="@color/gray"
+                    app:helperText=" "
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toStartOf="@id/til_highest_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_status">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_lowest_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
+                        android:background="@drawable/edittext_background"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratregular"
+                        android:hint="@string/low_price"
+                        android:inputType="textPersonName"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_10ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_highest_price"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:layout_marginEnd="@dimen/screen_margin_sides"
+                    android:fontFamily="@font/montserratregular"
+                    android:textColorHint="@color/gray"
+                    app:helperText=" "
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/til_lowest_price"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_status">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_highest_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
+                        android:background="@drawable/edittext_background"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratregular"
+                        android:hint="@string/max_price"
+                        android:inputType="textPersonName"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_10ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_minimum_space"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/screen_margin_sides"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:fontFamily="@font/montserratregular"
+                    android:textColorHint="@color/gray"
+                    app:helperText=" "
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toStartOf="@id/til_maximum_space"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/til_lowest_price">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_minimum_space"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
+                        android:background="@drawable/edittext_background"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratregular"
+                        android:hint="@string/minimum_space"
+                        android:inputType="textPersonName"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_10ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_maximum_space"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/screen_margin_sides"
+                    android:fontFamily="@font/montserratregular"
+                    android:textColorHint="@color/gray"
+                    app:helperText=" "
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/til_minimum_space"
+                    app:layout_constraintTop_toBottomOf="@+id/til_highest_price">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_maximum_space"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
+                        android:background="@drawable/edittext_background"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/montserratregular"
+                        android:hint="@string/maximum_space"
+                        android:inputType="textPersonName"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_10ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Spinner
+                    android:id="@+id/spinner_finishing"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_minimum_space" />
+
+                <Spinner
+                    android:id="@+id/spinner_currency"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:allowClickWhenDisabled="true"
+                    android:background="@drawable/spinner_background"
+                    android:clickable="true"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    android:spinnerMode="dropdown"
+                    android:textAlignment="viewStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_finishing" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_14sdp"
+            android:background="@drawable/button_background_long"
+            android:fontFamily="@font/montserratregular"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@string/search_title"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
