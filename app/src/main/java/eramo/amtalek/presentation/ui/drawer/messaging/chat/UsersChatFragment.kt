@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentUsersChatBinding
+import eramo.amtalek.domain.model.social.messaging.ChatMessageModel
+import eramo.amtalek.domain.model.social.messaging.ChatMessageType
 import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
@@ -28,7 +30,12 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
-        setupListeners()
+        listeners()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        rvUsersChatAdapter.submitList(null)
     }
 
     private fun setupViews() {
@@ -38,10 +45,17 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
         initRvChat()
     }
 
-    private fun setupListeners() {
+    private fun listeners() {
         binding.apply {
             viewUserHeader.setOnClickListener {
                 findNavController().navigate(R.id.userProfileFragment, null, navOptionsAnimation())
+            }
+
+            btnSendMessage.setOnClickListener {
+                rvUsersChatAdapter.sendMessage(etWriteMessage.text.toString().trim())
+                etWriteMessage.text = null
+
+                rv.smoothScrollToPosition(rvUsersChatAdapter.currentList.size )
             }
         }
     }
@@ -58,7 +72,8 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
             tvUserName.text = "Erlan Sadewa"
             tvUserId.text = "erlan.sadewa"
             Glide.with(requireContext())
-                .load("https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg").into(ivUserImage)
+                .load("https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg")
+                .into(ivUserImage)
 
 
         }

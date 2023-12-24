@@ -138,7 +138,7 @@
             android:drawablePadding="@dimen/_8sdp"
             android:fontFamily="@font/montserratregular"
             android:inputType="textMultiLine"
-            android:textAlignment="viewStart"
+            android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/_12ssp" />

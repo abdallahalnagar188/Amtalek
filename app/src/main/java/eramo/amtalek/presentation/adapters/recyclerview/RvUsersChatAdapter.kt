@@ -14,7 +14,8 @@ import eramo.amtalek.domain.model.social.messaging.ChatMessageType
 import javax.inject.Inject
 
 
-class RvUsersChatAdapter @Inject constructor() : ListAdapter<ChatMessageModel, RecyclerView.ViewHolder>(PRODUCT_COMPARATOR) {
+class RvUsersChatAdapter @Inject constructor() :
+    ListAdapter<ChatMessageModel, RecyclerView.ViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
 
@@ -39,7 +40,9 @@ class RvUsersChatAdapter @Inject constructor() : ListAdapter<ChatMessageModel, R
             }
 
             else -> {
-                ReceiverViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_chat_receiver, parent, false))
+                ReceiverViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_chat_receiver, parent, false)
+                )
             }
         }
     }
@@ -93,6 +96,18 @@ class RvUsersChatAdapter @Inject constructor() : ListAdapter<ChatMessageModel, R
                 }
             }
         }
+    }
+
+    fun sendMessage(message: String) {
+        val list = currentList.toMutableList()
+
+        list.add(
+            ChatMessageModel(
+                ChatMessageType.RECEIVER, message
+            )
+        )
+
+        submitList(list)
     }
 
 
