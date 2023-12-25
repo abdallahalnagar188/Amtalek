@@ -28,7 +28,7 @@ object LocalUtil {
 
 
     fun loadLocal(activity: Activity) =
-        setLocal(activity, sharedPreferences.getString(LANGUAGE, "en")!!)
+        setLocal(activity, sharedPreferences.getString(LANGUAGE, "ar")!!)
 
     fun getLang() = sharedPreferences.getString(LANGUAGE, "en")
 
