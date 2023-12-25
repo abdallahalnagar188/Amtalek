@@ -93,4 +93,9 @@
         android:name="eramo.amtalek.presentation.ui.auth.ContactUsAuthFragment"
         android:label="fragment_contact_us_auth"
         tools:layout="@layout/fragment_contact_us_auth" />
+    <fragment
+        android:id="@+id/selectCityFragment"
+        android:name="eramo.amtalek.presentation.ui.auth.SelectCityFragment"
+        android:label="fragment_select_city"
+        tools:layout="@layout/fragment_select_city" />
 </navigation>

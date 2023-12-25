@@ -34,9 +34,13 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                 )
 
             } else findNavController().navigate(
-                R.id.onBoardingFragment, null,
+                R.id.selectCityFragment, null,
                 NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build()
             )
+//            findNavController().navigate(
+//                R.id.onBoardingFragment, null,
+//                NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build()
+//            )
         }
     }
 

@@ -21,7 +21,8 @@ data class CountriesResponse(
         fun toCountryModel(): CountryModel {
             return CountryModel(
                 id ?: -1,
-                title ?: ""
+                title ?: "",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/220px-Flag_of_Egypt.svg.png"
             )
         }
     }

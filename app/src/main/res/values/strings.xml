@@ -691,5 +691,6 @@
     <string name="sort_by_high_price">Max price</string>
 
     <string name="what_do_you_search_for">What do you search for?</string>
+    <string name="choose_country">Choose country</string>
 
 </resources>

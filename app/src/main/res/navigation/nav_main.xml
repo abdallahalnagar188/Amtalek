@@ -400,4 +400,5 @@
             android:name="citiesList"
             app:argType="eramo.amtalek.domain.model.main.home.PropertiesByCityModel[]" />
     </fragment>
+
 </navigation>
