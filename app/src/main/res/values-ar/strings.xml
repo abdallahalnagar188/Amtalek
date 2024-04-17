@@ -690,5 +690,7 @@
     <string name="what_do_you_search_for">ما الذى تبحث عنه؟</string>
     <string name="choose_country">أختر البلد</string>
     <string name="continue_with">أكمل إلى</string>
+    <string name="company">شركة</string>
+    <string name="individual">افراد</string>
 
 </resources>

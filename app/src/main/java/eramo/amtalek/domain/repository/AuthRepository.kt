@@ -5,6 +5,8 @@ import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.auth.RegionModel
+import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +24,8 @@ interface AuthRepository {
         confirmPassword: String,
         gender: String,
         countryId: String,
-        cityId: String
+        cityId: String,
+        regionId:String
     ): Flow<Resource<ResultModel>>
 
     suspend fun sendVerificationCodeEmail(
@@ -65,6 +68,7 @@ interface AuthRepository {
     suspend fun getCountries(): Flow<Resource<List<CountryModel>>>
 
     suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>>
+    suspend fun getRegions(cityId: String): Flow<Resource<List<RegionModel>>>
 
     suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>>
 

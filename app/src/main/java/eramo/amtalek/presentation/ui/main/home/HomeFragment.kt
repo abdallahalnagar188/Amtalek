@@ -221,7 +221,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
+//                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
                         }
 
                         is UiState.Error -> {

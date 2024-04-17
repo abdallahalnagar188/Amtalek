@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentMyProfileBinding
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyProfilePostsAdapter
@@ -111,19 +112,19 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
         }
     }
 
-    private fun assignUserData(user: UserModel) {
+    private fun assignUserData(user: GetProfileModel) {
         try {
             binding.apply {
                 tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
                 tvLocation.text = user.cityName
                 tvBio.text = user.bio
 
-                if (user.coverImageUrl != "") {
-                    Glide.with(requireContext()).load(user.coverImageUrl).into(ivUserCover)
+                if (user.cover != "") {
+                    Glide.with(requireContext()).load(user.cover).into(ivUserCover)
                 }
 
-                if (user.profileImageUrl != "") {
-                    Glide.with(requireContext()).load(user.profileImageUrl).into(ivUserProfile)
+                if (user.image != "") {
+                    Glide.with(requireContext()).load(user.image).into(ivUserProfile)
                 } else {
                     Glide.with(requireContext()).load(R.drawable.avatar).into(ivUserProfile)
                 }

@@ -399,11 +399,11 @@ class MainActivity : AppCompatActivity(),
                             binding.inDrawerHeader.apply {
                                 navHeaderTvUserName.text =
                                     getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
-                                navHeaderTvUserCity.text = state.data?.cityName
+//                                navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
                                     .load(
-                                        if (state.data?.profileImageUrl != "") {
-                                            state.data?.profileImageUrl
+                                        if (state.data?.image != "") {
+                                            state.data?.image
                                         } else {
                                             R.drawable.avatar
                                         }

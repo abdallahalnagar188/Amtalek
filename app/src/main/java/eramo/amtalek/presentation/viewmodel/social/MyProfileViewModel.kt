@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.viewmodel.social
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.util.UserUtil
@@ -20,8 +21,8 @@ class MyProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<GetProfileModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<GetProfileModel>> = _getProfileState
 
     private var getProfileJob: Job? = null
 
@@ -36,8 +37,8 @@ class MyProfileViewModel @Inject constructor(
                 getProfileUseCase().collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data!!)
-                            _getProfileState.value = UiState.Success(result.data)
+                            saveUserInfo(result.data?.toGetProfileModel()!!)
+                            _getProfileState.value = UiState.Success(result.data.toGetProfileModel())
                         }
 
                         is Resource.Error -> {
@@ -54,13 +55,13 @@ class MyProfileViewModel @Inject constructor(
         }
     }
 
-    private fun saveUserInfo(user: UserModel) {
+    private fun saveUserInfo(user: GetProfileModel) {
         UserUtil.saveUserInfo(
             true,
             UserUtil.getUserToken(), user.id.toString(),
             user.firstName, user.lastName, user.phone,
-            user.email, user.countryId.toString(),
-            user.countryName, user.cityId.toString(), user.cityName, user.bio, user.profileImageUrl, user.coverImageUrl
+            user.email, user.country.toString(),
+            user.countryName, user.cityName.toString(), user.cityName, user.bio, user.image,
         )
     }
 }

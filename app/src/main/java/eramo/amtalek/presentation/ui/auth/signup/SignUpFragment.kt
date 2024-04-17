@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -23,8 +24,11 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSignupBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.RegionModel
+import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
+import eramo.amtalek.presentation.adapters.spinner.RegionsSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
@@ -52,6 +56,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private var selectedCountryId = -1
     private var selectedCityId = -1
+    private var selectedRegionId = -1
     private lateinit var selectedGender: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,10 +107,12 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private fun fetchData() {
         fetchCountries()
         fetchCities()
-
+        fetchRegions()
         fetchRegisterState()
         fetchSendingVerificationCodeEmailState()
     }
+
+
 
     private fun setupAnimations() {
         applyLogoAnimation()
@@ -184,6 +191,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                     val model = parent?.getItemAtPosition(position) as CityModel
 
                     selectedCityId = model.id
+                    viewModel.getRegions(model.id.toString())
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -205,7 +214,36 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+    private fun setupRegionsSpinner(data: List<RegionModel>) {
+        binding.apply {
+            val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
+            FSignUpRegionsSpinner.adapter = regionsSpinnerAdapter
 
+            FSignUpRegionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as RegionModel
+                    selectedRegionId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            FSignUpRegionsSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+//                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
     private fun setupGenderSwitch() {
         binding.genderSelectionLayout.apply {
 
@@ -288,7 +326,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                         is UiState.Success -> {
                             dismissShimmerEffect()
-
                             setupCountriesSpinner(state.data ?: emptyList())
                         }
 
@@ -303,6 +340,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                              **/
                             setupCountriesSpinner(emptyList())
                             setupCitiesSpinner(emptyList())
+                            setupRegionsSpinner(emptyList())
                         }
 
                         else -> {}
@@ -341,7 +379,33 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+    private fun fetchRegions() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.regionsState.collect { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
 
+                        is UiState.Success -> {
+                            dismissShimmerEffect()
+                            setupRegionsSpinner(state.data ?: emptyList())
+                        }
+
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
     private fun fetchRegisterState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -427,7 +491,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             val lastname = FSignUpEtLastName.text.toString().trim()
             val mobileNumber = FSignUpEtMobileNumber.text.toString().trim()
             val email = FSignUpEtEmail.text.toString().trim()
-
             val password = FSignUpEtPassword.text.toString().trim()
             val rePassword = FSignUpEtRePassword.text.toString().trim()
 
@@ -496,6 +559,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             } else {
                 FSignUpTilRePassword.error = null
             }
+            Toast.makeText(requireContext(), selectedRegionId.toString(), Toast.LENGTH_SHORT).show()
 
             viewModel.register(
                 firstName,
@@ -506,7 +570,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 rePassword,
                 selectedGender,
                 selectedCountryId.toString(),
-                selectedCityId.toString()
+                selectedCityId.toString(),
+                selectedRegionId.toString(),
             )
         }
     }

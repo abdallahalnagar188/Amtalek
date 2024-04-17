@@ -2,6 +2,7 @@ package eramo.amtalek.di
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -19,6 +20,7 @@ import eramo.amtalek.domain.repository.*
 import eramo.amtalek.util.parser.GsonParser
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -37,18 +39,26 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()
             .create(AmtalekApi::class.java)
-
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor {
+            Log.e("api", it)
+        }
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return loggingInterceptor
+    }
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient {
         val certificatePinner = CertificatePinner.Builder()
             .add("amtalek.com", "sha256/KZz5PR4GnwfX9vpcizpjR+LgwK/eGu6dQJHR0lXlN+k=")
             .build()
-
-
         return OkHttpClient.Builder()
-            .certificatePinner(certificatePinner)
+//            .certificatePinner(certificatePinner)
             .addInterceptor(MyInterceptor())
+            .addInterceptor(loggingInterceptor)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(10, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS)

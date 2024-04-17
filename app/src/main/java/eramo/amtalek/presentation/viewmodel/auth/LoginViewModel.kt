@@ -114,13 +114,12 @@ class LoginViewModel @Inject constructor(
             userModel.lastName,
             userModel.phone,
             userModel.email,
-            userModel.countryId.toString(),
+            userModel.country.toString(),
             userModel.countryName,
-            userModel.cityId.toString(),
+            userModel.city.toString(),
             userModel.cityName,
             userModel.bio,
-            userModel.profileImageUrl,
-            userModel.coverImageUrl
+            userModel.userImage,
         )
     }
 }

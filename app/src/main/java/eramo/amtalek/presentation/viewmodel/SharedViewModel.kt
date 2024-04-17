@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.UserUtil
@@ -23,7 +24,8 @@ class SharedViewModel @Inject constructor(
 ) : ViewModel() {
 
     val openDrawer = MutableLiveData<Boolean>()
-    val profileData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
+    val profileData = MutableStateFlow<UiState<GetProfileModel>>(UiState.Empty())
+    val LoginData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
     val dateString = MutableLiveData<String?>(null)
 
     //____________________________________________________________________________________________//

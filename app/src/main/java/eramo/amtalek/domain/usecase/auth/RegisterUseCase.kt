@@ -20,15 +20,15 @@ class RegisterUseCase @Inject constructor(private val repository: AuthRepository
         confirmPassword: String,
         gender: String,
         countryId: String,
-        cityId: String
+        cityId: String,
+        regionId:String
     ): Flow<Resource<ResultModel>> {
         val isBlank = firstName.isBlank() || lastName.isBlank()
                 || phone.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank() || gender.isBlank() || countryId.isBlank() || cityId.isBlank()
 
         return if (isBlank) flow { }
         else repository.register(
-            firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
-
+            firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId, regionId
             )
     }
 

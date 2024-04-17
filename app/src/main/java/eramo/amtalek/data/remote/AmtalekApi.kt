@@ -15,6 +15,7 @@ import eramo.amtalek.data.remote.dto.products.orders.*
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.data.remote.dto.products.search.SearchResponse
 import eramo.amtalek.data.remote.dto.property.PropertyDetailsResponse
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -46,6 +47,7 @@ interface AmtalekApi {
         @Field("gender") gender: String?,
         @Field("country") countryId: String?,
         @Field("city") cityId: String?,
+        @Field("region") regionId: String?,
         @Field("created_from") createdFrom: String?,
         @Field("accept_condition") acceptCondition: String?,
         @Field("not_ropot") notRobot: String?
@@ -109,6 +111,8 @@ interface AmtalekApi {
 
     @GET("mobile/cities/{countryId}")
     suspend fun getCities(@Path("countryId") countryId: String): Response<CitiesResponse>
+    @GET("mobile/regions/{cityId}")
+    suspend fun getRegions(@Path("cityId") cityId: String): Response<RegionsResponse>
 
     @GET("mobile/contact-us")
     suspend fun contactUsInfo(): Response<ContactUsResponse>

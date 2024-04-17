@@ -4,9 +4,11 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.usecase.auth.CountriesAndCitiesUseCase
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
@@ -22,6 +24,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -34,8 +37,8 @@ class EditPersonalDetailsViewModel @Inject constructor(
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<GetProfileResponse>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<GetProfileResponse>> = _getProfileState
 
     private val _updateProfileState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val updateProfileState: StateFlow<UiState<ResultModel>> = _updateProfileState
@@ -65,7 +68,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
                 getProfileUseCase().collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data!!)
+                            saveUserInfo(result.data?.toGetProfileModel()!!)
                             _getProfileState.value = UiState.Success(result.data)
                         }
 
@@ -177,7 +180,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
 
     private fun convertToRequestBody(part: String): RequestBody? {
         return try {
-            RequestBody.create(MediaType.parse("multipart/form-data"), part)
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part)
         } catch (e: Exception) {
             null
         }
@@ -186,18 +189,18 @@ class EditPersonalDetailsViewModel @Inject constructor(
     private fun convertFileToMultipart(imageUri: Uri?, key: String): MultipartBody.Part? {
         return if (imageUri != null) {
             val file = File(imageUri.path!!)
-            val requestBody = RequestBody.create(MediaType.parse("*/*"), file)
+            val requestBody = RequestBody.create("*/*".toMediaTypeOrNull(), file)
             MultipartBody.Part.createFormData(key, file.name, requestBody)
         } else null
     }
 
-    private fun saveUserInfo(user: UserModel) {
+    private fun saveUserInfo(user: GetProfileModel) {
         UserUtil.saveUserInfo(
             true,
             UserUtil.getUserToken(), user.id.toString(),
-            user.firstName, user.lastName, user.phone,
-            user.email, user.countryId.toString(),
-            user.countryName, user.cityId.toString(), user.cityName, user.bio, user.profileImageUrl, user.coverImageUrl
+            user.firstName?:"", user.lastName?:"", user.phone?:"",
+            user.email?:"", user.country.toString()?:"",
+            user.countryName?:"", user.city.toString(), user.cityName?:"", user.bio?:"", user.image?:"",
         )
     }
 

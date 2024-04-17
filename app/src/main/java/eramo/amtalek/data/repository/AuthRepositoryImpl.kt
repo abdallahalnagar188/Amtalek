@@ -6,6 +6,8 @@ import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
+import eramo.amtalek.domain.model.auth.RegionModel
+import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.API_OPERATION_TYPE_FORGET_PASSWORD
@@ -49,13 +51,15 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
         confirmPassword: String,
         gender: String,
         countryId: String,
-        cityId: String
+        cityId: String,
+        regionId:String
     ): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
                 amtalekApi.register(
-                    firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
-                    FROM_ANDROID,
+                   firstName =  firstName, lastName = lastName, phone =  phone, email =  email, password =  password,
+                    confirmPassword = confirmPassword, gender = gender, countryId = countryId, cityId = cityId,
+                    regionId = regionId ,FROM_ANDROID,
                     SIGN_UP_GENDER_ACCEPT_CONDITION,
                     SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
                 )
@@ -266,7 +270,21 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
-
+    override suspend fun getRegions(regionsId: String): Flow<Resource<List<RegionModel>>> {
+        return flow {
+            val result = toResultFlow { amtalekApi.getRegions(regionsId) }
+            result.collect { apiState ->
+                when (apiState) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
+                    is ApiState.Success -> {
+                        val list = apiState.data?.data?.map { it!!.toRegionModel() }
+                        emit(Resource.Success(list))
+                    }
+                }
+            }
+        }
+    }
     override suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>> {
         return flow {
             val result = toResultFlow { amtalekApi.contactUsInfo() }

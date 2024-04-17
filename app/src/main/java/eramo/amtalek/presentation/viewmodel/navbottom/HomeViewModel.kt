@@ -7,6 +7,7 @@ import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.products.orders.CartCountResponse
 import eramo.amtalek.domain.model.OffersModel
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.products.AdsModel
 import eramo.amtalek.domain.model.products.CategoryModel
@@ -84,8 +85,8 @@ class HomeViewModel @Inject constructor(
     private val _removeFavouriteState = MutableSharedFlow<UiState<ResultModel>>()
     val removeFavouriteState: SharedFlow<UiState<ResultModel>> = _removeFavouriteState
 
-    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<GetProfileModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<GetProfileModel>> = _getProfileState
 
     private val _firebaseTokenState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val firebaseTokenState: StateFlow<UiState<ResultModel>> = _firebaseTokenState
@@ -137,8 +138,8 @@ class HomeViewModel @Inject constructor(
                 getProfileUseCase().collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data!!)
-                            _getProfileState.value = UiState.Success(result.data)
+                            saveUserInfo(result.data?.toGetProfileModel()!!)
+                            _getProfileState.value = UiState.Success(result.data.toGetProfileModel())
                         }
 
                         is Resource.Error -> {
@@ -155,13 +156,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun saveUserInfo(user: UserModel) {
+    private fun saveUserInfo(user: GetProfileModel) {
         UserUtil.saveUserInfo(
             true,
             UserUtil.getUserToken(), user.id.toString(),
             user.firstName, user.lastName, user.phone,
-            user.email, user.countryId.toString(),
-            user.countryName, user.cityId.toString(), user.cityName, user.bio, user.profileImageUrl, user.coverImageUrl
+            user.email, user.country.toString(),
+            user.countryName, user.city.toString(), user.cityName, user.bio, user.image,
         )
     }
 

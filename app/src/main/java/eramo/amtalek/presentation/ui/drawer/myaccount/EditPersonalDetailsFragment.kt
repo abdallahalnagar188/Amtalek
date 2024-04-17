@@ -26,6 +26,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentEditPersonalDetailsBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
@@ -44,7 +45,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     private val viewModel by viewModels<EditPersonalDetailsViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
-    private lateinit var userModel: UserModel
+    private lateinit var GetProfileModel: GetProfileModel
     private var selectedCountryId = -1
     private var selectedCityId = -1
 
@@ -151,7 +152,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             countriesSpinner.adapter = countriesSpinnerAdapter
 
             for (i in data) {
-                if (i.id == userModel.countryId) {
+                if (i.id == GetProfileModel.country) {
                     countriesSpinner.setSelection(data.indexOf(i))
                 }
             }
@@ -190,7 +191,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             citiesSpinner.adapter = citiesSpinnerAdapter
 
             for (i in data) {
-                if (i.id == userModel.cityId) {
+                if (i.id == GetProfileModel.city) {
                     citiesSpinner.setSelection(data.indexOf(i))
                 }
             }
@@ -304,8 +305,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     when (state) {
 
                         is UiState.Success -> {
-                            userModel = state.data!!
-                            assignDataToTheViews(userModel)
+                            GetProfileModel = state.data?.toGetProfileModel()!!
+                            assignDataToTheViews(GetProfileModel)
 
                             viewModel.getCountries()
                         }
@@ -421,7 +422,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         }
     }
 
-    private fun assignDataToTheViews(user: UserModel) {
+    private fun assignDataToTheViews(user: GetProfileModel) {
         try {
             binding.apply {
                 etFirstName.setText(user.firstName)
@@ -430,12 +431,12 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                 etEmail.setText(user.email)
                 etBio.setText(user.bio)
 
-                if (user.coverImageUrl != "") {
-                    Glide.with(requireContext()).load(user.coverImageUrl).into(ivCover)
+                if (user.cover != "") {
+                    Glide.with(requireContext()).load(user.cover).into(ivCover)
                 }
 
-                if (user.profileImageUrl != "") {
-                    Glide.with(requireContext()).load(user.profileImageUrl).into(ivProfile)
+                if (user.image != "") {
+                    Glide.with(requireContext()).load(user.image).into(ivProfile)
                 } else {
                     Glide.with(requireContext()).load(R.drawable.avatar).into(ivProfile)
                 }

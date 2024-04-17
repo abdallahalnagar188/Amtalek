@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.RegionModel
 import eramo.amtalek.domain.usecase.auth.CountriesAndCitiesUseCase
 import eramo.amtalek.domain.usecase.auth.RegisterUseCase
 import eramo.amtalek.util.state.Resource
@@ -28,6 +29,8 @@ class SignUpViewModel @Inject constructor(
 
     private val _citiesState = MutableStateFlow<UiState<List<CityModel>>>(UiState.Empty())
     val citiesState: StateFlow<UiState<List<CityModel>>> = _citiesState
+    private val _regionsState = MutableStateFlow<UiState<List<RegionModel>>>(UiState.Empty())
+    val regionsState: StateFlow<UiState<List<RegionModel>>> = _regionsState
 
     private val _registerState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val registerState: StateFlow<UiState<ResultModel>> = _registerState
@@ -58,7 +61,8 @@ class SignUpViewModel @Inject constructor(
         confirmPassword: String,
         gender: String,
         countryId: String,
-        cityId: String
+        cityId: String,
+        regionId:String
     ) {
         registerJob?.cancel()
         registerJob = viewModelScope.launch {
@@ -67,7 +71,7 @@ class SignUpViewModel @Inject constructor(
                 registeredEmail = email
 
                 registerUseCase.register(
-                    firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,
+                    firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,regionId
                 ).collect {
                     when (it) {
                         is Resource.Success -> {
@@ -157,5 +161,28 @@ class SignUpViewModel @Inject constructor(
             }
         }
     }
+    fun getRegions(cityId: String) {
+        getCitiesJob?.cancel()
+        getCitiesJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                countriesAndCitiesUseCase.getRegions(cityId).collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _regionsState.value = UiState.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _regionsState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _regionsState.value = UiState.Loading()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
 }

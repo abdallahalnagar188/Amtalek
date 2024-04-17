@@ -289,6 +289,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/FSignUp_countries_spinner" />
+            <Spinner
+                android:id="@+id/FSignUp_regions_spinner"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/views_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
+                android:background="@drawable/spinner_background"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/FSignUp_cities_spinner" />
 
             <include
                 android:id="@+id/gender_selection_layout"
@@ -298,7 +311,7 @@
                 android:layout_marginTop="@dimen/views_margin_top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FSignUp_cities_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/FSignUp_regions_spinner" />
 
             <CheckBox
                 android:id="@+id/FSignUp_cb_agree_animator"

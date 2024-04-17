@@ -3,7 +3,9 @@ package eramo.amtalek.data.repository
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
+import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
 import eramo.amtalek.domain.repository.DrawerRepository
@@ -20,7 +22,7 @@ import okhttp3.RequestBody
 class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepository {
 
 
-    override suspend fun getProfile(): Flow<Resource<UserModel>> {
+    override suspend fun getProfile(): Flow<Resource<GetProfileResponse>> {
         return flow {
             val result = toResultFlow { AmtalekApi.getProfile(UserUtil.getUserToken()) }
             result.collect { apiState ->
@@ -28,7 +30,7 @@ class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepositor
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> emit(Resource.Error(apiState.message!!))
                     is ApiState.Success -> {
-                        val model = apiState.data?.toUserModel()
+                        val model = apiState.data
                         emit(Resource.Success(model))
                     }
                 }

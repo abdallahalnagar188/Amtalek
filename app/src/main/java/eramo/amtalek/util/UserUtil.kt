@@ -67,7 +67,6 @@ object UserUtil {
 
         userBio: String,
         profileImageUrl: String,
-        coverImageUrl: String,
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
@@ -88,7 +87,6 @@ object UserUtil {
 
         sharedPreferences.edit().putString(USER_BIO, userBio).apply()
         sharedPreferences.edit().putString(PROFILE_IMAGE_URL, profileImageUrl).apply()
-        sharedPreferences.edit().putString(COVER_IMAGE_URL, coverImageUrl).apply()
     }
 
     fun clearUserInfo() {

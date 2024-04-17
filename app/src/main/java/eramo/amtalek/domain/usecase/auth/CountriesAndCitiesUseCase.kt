@@ -2,6 +2,7 @@ package eramo.amtalek.domain.usecase.auth
 
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.domain.model.auth.RegionModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
@@ -17,5 +18,8 @@ class CountriesAndCitiesUseCase @Inject constructor(private val repository: Auth
 
     suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>> {
         return repository.getCities(countryId)
+    }
+    suspend fun getRegions(cityId: String): Flow<Resource<List<RegionModel>>> {
+        return repository.getRegions(cityId)
     }
 }

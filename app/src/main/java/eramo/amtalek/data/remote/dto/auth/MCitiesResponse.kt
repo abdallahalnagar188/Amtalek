@@ -2,9 +2,8 @@ package eramo.amtalek.data.remote.dto.auth
 
 
 import com.google.gson.annotations.SerializedName
-import eramo.amtalek.domain.model.auth.CityModel
 
-data class CitiesResponse(
+data class MCitiesResponse(
     @SerializedName("data")
     val `data`: List<Data?>?,
     @SerializedName("message")
@@ -25,9 +24,5 @@ data class CitiesResponse(
         val saleProperties: Int?,
         @SerializedName("title")
         val title: String?
-    ) {
-        fun toCityModel(): CityModel {
-            return CityModel(id ?: -1, title ?: "", image = image?:"", properties = properties?:-1, rentProperties = rentProperties?:-1, saleProperties = saleProperties?:-1)
-        }
-    }
+    )
 }
