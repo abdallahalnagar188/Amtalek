@@ -23,6 +23,7 @@ import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.MultipartBody
 
 class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
 
@@ -52,17 +53,23 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
         gender: String,
         countryId: String,
         cityId: String,
-        regionId:String
+        regionId:String,
+        companyName: String?,
+        iam:String,
+        companyLogo: MultipartBody.Part?
     ): Flow<Resource<ResultModel>> {
         return flow {
+
             val result = toResultFlow {
                 amtalekApi.register(
                    firstName =  firstName, lastName = lastName, phone =  phone, email =  email, password =  password,
                     confirmPassword = confirmPassword, gender = gender, countryId = countryId, cityId = cityId,
-                    regionId = regionId ,FROM_ANDROID,
-                    SIGN_UP_GENDER_ACCEPT_CONDITION,
-                    SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
-                )
+                    regionId = regionId , createdFrom = FROM_ANDROID,
+                     acceptCondition =  SIGN_UP_GENDER_ACCEPT_CONDITION,
+                    notRobot = SIGN_UP_GENDER_ACCEPT_NOT_ROBOT,
+                    companyName =  companyName,
+                    iam =  iam ,
+                    companyLogo = companyLogo,)
             }
             result.collect {
                 when (it) {

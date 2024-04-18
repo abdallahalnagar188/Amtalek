@@ -1,5 +1,6 @@
 package eramo.amtalek.data.remote
 
+import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.*
@@ -35,22 +36,26 @@ interface AmtalekApi {
     @GET("SplashScreens")
     suspend fun onBoardingScreens(): Response<OnBoardingDto>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("mobile/sign-up")
     suspend fun register(
-        @Field("first_name") firstName: String,
-        @Field("last_name") lastName: String,
-        @Field("phone") phone: String?,
-        @Field("email") email: String?,
-        @Field("password") password: String?,
-        @Field("confirm_password") confirmPassword: String?,
-        @Field("gender") gender: String?,
-        @Field("country") countryId: String?,
-        @Field("city") cityId: String?,
-        @Field("region") regionId: String?,
-        @Field("created_from") createdFrom: String?,
-        @Field("accept_condition") acceptCondition: String?,
-        @Field("not_ropot") notRobot: String?
+        @Part("first_name") firstName: String,
+        @Part("last_name") lastName: String,
+        @Part("phone") phone: String?,
+        @Part("email") email: String?,
+        @Part("password") password: String?,
+        @Part("confirm_password") confirmPassword: String?,
+        @Part("gender") gender: String?,
+        @Part("country") countryId: String?,
+        @Part("city") cityId: String?,
+        @Part("region") regionId: String?,
+        @Part("created_from") createdFrom: String?,
+        @Part("accept_condition") acceptCondition: String?,
+        @Part("not_ropot") notRobot: String?,
+        @Part("company_name") companyName: String?,
+        @Part("iam") iam: String,
+        @Part companyLogo:MultipartBody.Part?
+
     ): Response<SuccessfulResponse>
 
     @FormUrlEncoded

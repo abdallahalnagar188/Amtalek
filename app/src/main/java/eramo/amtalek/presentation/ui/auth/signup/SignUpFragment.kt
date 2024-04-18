@@ -1,6 +1,8 @@
 package eramo.amtalek.presentation.ui.auth.signup
 
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -12,13 +14,17 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
+import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSignupBinding
@@ -35,6 +41,8 @@ import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
+import eramo.amtalek.util.SIGN_UP_TYPE_INDIVIDUAL
+import eramo.amtalek.util.SIGN_UP_TYPE_COMPANY
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.setTextViewDrawableColor
@@ -58,6 +66,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private var selectedCityId = -1
     private var selectedRegionId = -1
     private lateinit var selectedGender: String
+    private lateinit var selectType:String
+    private var imageUri: Uri? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,7 +87,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun listeners() {
         setupGenderSwitch()
-
+        setupTypeSwitch()
         // remove error on text changed
         passwordEditTextsListener()
         setupTermsAndConditionsCheckBox()
@@ -92,8 +102,33 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             FSignUpTvLogin.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment, null, navOptionsFromBottomAnimation())
             }
+            identityCard.setOnClickListener(){
+                ImagePicker.with(requireActivity())
+                    .compress(1024)
+                    .cropSquare()
+                    .createIntent { intent ->
+                        startForProfileImageResult.launch(intent)
+                    }
+            }
         }
     }
+    val startForProfileImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val resultCode = result.resultCode
+            val data = result.data
+            if (resultCode == Activity.RESULT_OK) {
+                //Image Uri will not be null for RESULT_OK
+                val fileUri = data?.data!!
+                imageUri = fileUri
+                binding.ivImagePicked.setImageURI(fileUri)
+                binding.ivImagePicked.isVisible = true
+            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "No Image chosen", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
     private fun requestData() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -180,7 +215,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
-
     private fun setupCitiesSpinner(data: List<CityModel>) {
         binding.apply {
             val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
@@ -246,7 +280,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     }
     private fun setupGenderSwitch() {
         binding.genderSelectionLayout.apply {
-
             // Default
             selectedGender = SIGN_UP_GENDER_MALE
 
@@ -288,6 +321,54 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
         }
     }
+    private fun setupTypeSwitch() {
+        binding.typeSelectionLayout.apply {
+            // Default
+            selectType = SIGN_UP_TYPE_INDIVIDUAL
+
+            // individual color
+            btnIndividual.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+            btnIndividual.setTextViewDrawableColor(R.color.amtalek_blue)
+
+            // company color
+            btnCompany.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
+            btnCompany.setTextViewDrawableColor(R.color.text_gray)
+
+            // individual onClickListener
+            btnIndividual.setOnClickListener {
+                selectedGender = SIGN_UP_TYPE_INDIVIDUAL
+                // individual color
+                btnIndividual.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+                btnIndividual.setTextViewDrawableColor(R.color.amtalek_blue)
+                binding.FSignUpTilCompanyName.isVisible = false
+                binding.identityCard.isVisible = false
+                binding.FSignUpEtCompanyName.isVisible = false
+
+                // company color
+                btnCompany.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
+                btnCompany.setTextViewDrawableColor(R.color.text_gray)
+
+            }
+
+            // company onClickListener
+            btnCompany.setOnClickListener {
+                selectedGender = SIGN_UP_TYPE_COMPANY
+                binding.FSignUpTilCompanyName.isVisible = true
+                binding.identityCard.isVisible = true
+                binding.FSignUpEtCompanyName.isVisible = true
+                // individual color
+                btnIndividual.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_gray))
+                btnIndividual.setTextViewDrawableColor(R.color.text_gray)
+
+                // company color
+                btnCompany.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
+                btnCompany.setTextViewDrawableColor(R.color.amtalek_blue)
+
+            }
+
+        }
+    }
+
 
     private fun setupTermsAndConditionsCheckBox() {
         binding.apply {

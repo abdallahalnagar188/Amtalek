@@ -10,6 +10,7 @@ import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
 
 interface AuthRepository {
 
@@ -25,7 +26,10 @@ interface AuthRepository {
         gender: String,
         countryId: String,
         cityId: String,
-        regionId:String
+        regionId:String,
+        companyName:String?,
+        iam:String,
+        companyLogo: MultipartBody.Part?
     ): Flow<Resource<ResultModel>>
 
     suspend fun sendVerificationCodeEmail(

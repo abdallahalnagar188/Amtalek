@@ -695,5 +695,8 @@
     <string name="continue_with">Continue with</string>
     <string name="company">Company</string>
     <string name="individual">Individual</string>
+    <string name="company_name_edit_text">Company name</string>
+    <string name="upload_a_company_logo">Upload a company logo</string>
+    <string name="i_am">I am</string>
 
 </resources>

@@ -312,6 +312,110 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/FSignUp_regions_spinner" />
+            <include
+                android:id="@+id/type_selection_layout"
+                layout="@layout/type_selection_layout"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/views_margin_top"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gender_selection_layout" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/FSignUp_til_company_name"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/views_margin_top"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:helperText=" "
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/type_selection_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/FSignUp_et_company_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/ic_add_property"
+                    android:drawableTint="@color/gray"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/montserratregular"
+                    android:hint="@string/company_name_edit_text"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:visibility="gone"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/identity_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/edittext_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/FSignUp_til_company_name">
+
+                <ImageView
+                    android:id="@+id/iv_pick_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:src="@drawable/ic_pick_image"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_upload_id"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_upload_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/upload_a_company_logo"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toTopOf="@id/tv_id_format"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_pick_image" />
+
+                <TextView
+                    android:id="@+id/tv_id_format"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/montserratmedium"
+                    android:text="@string/file_format_pdf_jpeg_png"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_upload_id" />
+
+                <ImageView
+                    android:id="@+id/iv_image_picked"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_50sdp"
+                    android:scaleType="centerInside"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/pic_onboarding_three" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <CheckBox
                 android:id="@+id/FSignUp_cb_agree_animator"
@@ -322,7 +426,7 @@
                 android:fontFamily="@font/montserratregular"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gender_selection_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/identity_card" />
 
             <CheckBox
                 android:id="@+id/FSignUp_cb_agree"
@@ -334,7 +438,7 @@
                 android:text="@string/agree_to"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gender_selection_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/identity_card" />
 
             <TextView
                 android:id="@+id/FSignUp_tv_terms"

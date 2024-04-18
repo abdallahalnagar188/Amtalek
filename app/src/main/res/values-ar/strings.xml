@@ -691,6 +691,9 @@
     <string name="choose_country">أختر البلد</string>
     <string name="continue_with">أكمل إلى</string>
     <string name="company">شركة</string>
-    <string name="individual">افراد</string>
+    <string name="individual">فرد</string>
+    <string name="company_name_edit_text">اسم الشركة</string>
+    <string name="upload_a_company_logo">تحميل لوجو الشركة</string>
+    <string name="i_am">انا اكون</string>
 
 </resources>

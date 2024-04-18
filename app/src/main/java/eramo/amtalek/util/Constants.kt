@@ -25,6 +25,10 @@ import eramo.amtalek.R
 
     const val SIGN_UP_GENDER_MALE = "Male"
     const val SIGN_UP_GENDER_FEMALE = "Female"
+
+    const val SIGN_UP_TYPE_INDIVIDUAL = "individual"
+    const val SIGN_UP_TYPE_COMPANY = "company"
+
     const val SIGN_UP_GENDER_ACCEPT_CONDITION = "yes"
     const val SIGN_UP_GENDER_ACCEPT_NOT_ROBOT = "yes"
 
