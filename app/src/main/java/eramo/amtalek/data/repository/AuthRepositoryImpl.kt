@@ -1,13 +1,13 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
+import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.RegionModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.API_OPERATION_TYPE_FORGET_PASSWORD
@@ -16,14 +16,15 @@ import eramo.amtalek.util.API_SUSPEND_CODE
 import eramo.amtalek.util.FROM_ANDROID
 import eramo.amtalek.util.NOT_ROBOT
 import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_CONDITION
-import eramo.amtalek.util.SIGN_UP_GENDER_ACCEPT_NOT_ROBOT
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
 
@@ -44,18 +45,19 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
     }
 
     override suspend fun register(
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        password: String,
-        confirmPassword: String,
-        gender: String,
-        countryId: String,
-        cityId: String,
-        regionId:String,
-        companyName: String?,
-        iam:String,
+        firstName: RequestBody?,
+        lastName: RequestBody?,
+        phone: RequestBody?,
+        email: RequestBody?,
+        password: RequestBody?,
+        confirmPassword: RequestBody?,
+        gender: RequestBody?,
+        countryId: RequestBody?,
+        cityId: RequestBody?,
+        regionId:RequestBody?,
+        birthday:RequestBody?,
+        companyName:RequestBody?,
+        iam:RequestBody?,
         companyLogo: MultipartBody.Part?
     ): Flow<Resource<ResultModel>> {
         return flow {
@@ -64,12 +66,14 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
                 amtalekApi.register(
                    firstName =  firstName, lastName = lastName, phone =  phone, email =  email, password =  password,
                     confirmPassword = confirmPassword, gender = gender, countryId = countryId, cityId = cityId,
-                    regionId = regionId , createdFrom = FROM_ANDROID,
-                     acceptCondition =  SIGN_UP_GENDER_ACCEPT_CONDITION,
-                    notRobot = SIGN_UP_GENDER_ACCEPT_NOT_ROBOT,
+                    regionId = regionId , createdFrom = convertToRequestBody(FROM_ANDROID),
+                     acceptCondition =  convertToRequestBody(SIGN_UP_GENDER_ACCEPT_CONDITION),
+                    notRobot = convertToRequestBody(NOT_ROBOT),
                     companyName =  companyName,
                     iam =  iam ,
-                    companyLogo = companyLogo,)
+                    companyLogo = companyLogo,
+                    birthday = birthday
+                    )
             }
             result.collect {
                 when (it) {
@@ -83,7 +87,14 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
+    fun convertToRequestBody(part: String?): RequestBody? {
+        return try {
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part!!)
+        } catch (e: Exception) {
+            null
+        }
 
+    }
     override suspend fun sendVerificationCodeEmail(email: String): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
@@ -169,7 +180,7 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
         email: String,
         password: String,
         firebaseToken: String
-    ): Flow<Resource<UserModel>> {
+    ): Flow<Resource<GeneralLoginResponse>> {
         return flow {
             val result = toResultFlow { amtalekApi.login(email, password, firebaseToken) }
             result.collect {
@@ -177,8 +188,8 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> emit(Resource.Error(it.message!!))
                     is ApiState.Success -> {
-                        val model = it.data?.data?.toUserModel()
-                        emit(Resource.Success(model))
+                        val data = it.data?.data
+                        emit(Resource.Success(data))
                     }
                 }
             }

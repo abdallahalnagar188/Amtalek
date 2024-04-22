@@ -16,6 +16,7 @@ object UserUtil {
     private const val USER_TOKEN = "user_token"
 
     private const val USER_ID = "user_id"
+    private const val USER_TYPE = "user_type"
     private const val FIRST_NAME = "user_name"
     private const val LAST_NAME = "last_name"
     private const val PHONE = "user_phone"
@@ -50,21 +51,17 @@ object UserUtil {
 
     fun saveUserInfo(
         isRemember: Boolean,
-
         userToken: String,
         userID: String,
-
+        userType:String,
         firstName: String,
         lastName: String,
         phone: String,
         email: String,
-
         countryId: String,
         countryName: String,
-
         cityId: String,
         cityName: String,
-
         userBio: String,
         profileImageUrl: String,
     ) {
@@ -78,7 +75,7 @@ object UserUtil {
         sharedPreferences.edit().putString(LAST_NAME, lastName).apply()
         sharedPreferences.edit().putString(PHONE, phone).apply()
         sharedPreferences.edit().putString(EMAIL, email).apply()
-
+        sharedPreferences.edit().putString(USER_TYPE,userType).apply()
         sharedPreferences.edit().putString(COUNTRY_ID, countryId).apply()
         sharedPreferences.edit().putString(COUNTRY_NAME, countryName).apply()
 
@@ -96,6 +93,7 @@ object UserUtil {
         encryptedSharedPreferences.edit().putString(USER_TOKEN, "").apply()
 
         sharedPreferences.edit().putString(USER_ID, "").apply()
+        sharedPreferences.edit().putString(USER_TYPE,"").apply()
         sharedPreferences.edit().putString(FIRST_NAME, "").apply()
         sharedPreferences.edit().putString(LAST_NAME, "").apply()
         sharedPreferences.edit().putString(PHONE, "").apply()
@@ -122,6 +120,7 @@ object UserUtil {
     fun getUserToken() = encryptedSharedPreferences.getString(USER_TOKEN, "") ?: ""
 
     fun getUserId() = sharedPreferences.getString(USER_ID, "") ?: ""
+    fun getUserType() = sharedPreferences.getString(USER_TYPE, "") ?: ""
 
     fun getUserFirstName() = sharedPreferences.getString(FIRST_NAME, "") ?: ""
     fun getUserLastName() = sharedPreferences.getString(LAST_NAME, "") ?: ""

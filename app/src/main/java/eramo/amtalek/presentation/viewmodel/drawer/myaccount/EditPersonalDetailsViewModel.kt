@@ -37,8 +37,8 @@ class EditPersonalDetailsViewModel @Inject constructor(
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<GetProfileResponse>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<GetProfileResponse>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
 
     private val _updateProfileState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val updateProfileState: StateFlow<UiState<ResultModel>> = _updateProfileState
@@ -61,15 +61,15 @@ class EditPersonalDetailsViewModel @Inject constructor(
         getCitiesJob?.cancel()
     }
 
-    private fun getProfile() {
+    private fun getProfile(type:String,id:String) {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                getProfileUseCase().collect { result ->
+                getProfileUseCase(type = type, id = id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data?.toGetProfileModel()!!)
-                            _getProfileState.value = UiState.Success(result.data)
+                            saveUserInfo(result.data?.toUserModel()!!)
+                            _getProfileState.value = UiState.Success(result.data.toUserModel())
                         }
 
                         is Resource.Error -> {
@@ -115,7 +115,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
                         is Resource.Success -> {
                             _updateProfileState.value = UiState.Success(result.data)
 
-                            getProfile()
+                            getProfile(UserUtil.getUserType(),UserUtil.getUserId())
                         }
 
                         is Resource.Error -> {
@@ -194,17 +194,18 @@ class EditPersonalDetailsViewModel @Inject constructor(
         } else null
     }
 
-    private fun saveUserInfo(user: GetProfileModel) {
+    private fun saveUserInfo(user: UserModel) {
         UserUtil.saveUserInfo(
-            true,
-            UserUtil.getUserToken(), user.id.toString(),
-            user.firstName?:"", user.lastName?:"", user.phone?:"",
-            user.email?:"", user.country.toString()?:"",
-            user.countryName?:"", user.city.toString(), user.cityName?:"", user.bio?:"", user.image?:"",
+            isRemember = true,
+           userToken =  UserUtil.getUserToken(), userID =  user.id.toString(),
+           firstName =  user.firstName?:"", lastName =  user.lastName?:"", phone =  user.phone?:"",
+           email =  user.email?:"", countryId =  user.country.toString()?:"",
+           countryName =  user.countryName?:"", cityId = user.city.toString(), cityName = user.cityName?:"", userBio =  user.bio?:"", profileImageUrl = user.userImage?:"",
+            userType = user.actorType?:""
         )
     }
 
     init {
-        getProfile()
+        getProfile(UserUtil.getUserType(),UserUtil.getUserId())
     }
 }

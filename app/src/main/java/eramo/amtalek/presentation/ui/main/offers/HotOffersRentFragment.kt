@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.databinding.FragmentHotOffersRentBinding
@@ -20,7 +21,7 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>() {
+class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),RvHotOffersRentPropertiesAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersRentBinding::inflate
@@ -35,8 +36,11 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        clickListeners()
         setupViews()
+    }
+
+    private fun clickListeners() {
     }
 
     private fun setupViews() {
@@ -86,5 +90,9 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>() {
                 }
             }
         }
+    }
+
+    override fun onPropertyClick(model: MyFavouritesModel) {
+        Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
     }
 }

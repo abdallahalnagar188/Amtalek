@@ -150,49 +150,49 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderClUserCell.setOnClickListener {
-                navController.navigate(R.id.myProfileFragment)
+//                navController.navigate(R.id.myProfileFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderMyFavourite.setOnClickListener {
-                navController.navigate(R.id.favouritesFragment)
+//                navController.navigate(R.id.favouritesFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderNotifications.setOnClickListener {
-                navController.navigate(R.id.notificationFragment)
+//                navController.navigate(R.id.notificationFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderNewProjects.setOnClickListener {
-                navController.navigate(R.id.latestProjectsFragment)
+//                navController.navigate(R.id.latestProjectsFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderMessaging.setOnClickListener {
-                navController.navigate(R.id.messagingFragment)
+//                navController.navigate(R.id.messagingFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderAddYourProperty.setOnClickListener {
-                navController.navigate(R.id.myAddPropertyFragmentFragment)
+//                navController.navigate(R.id.myAddPropertyFragmentFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderBuyPackages.setOnClickListener {
-                navController.navigate(R.id.packagesFragment)
+//                navController.navigate(R.id.packagesFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderJoinUs.setOnClickListener {
-                navController.navigate(R.id.joinUsFragment)
+//                navController.navigate(R.id.joinUsFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -397,13 +397,18 @@ class MainActivity : AppCompatActivity(),
                     when (state) {
                         is UiState.Success -> {
                             binding.inDrawerHeader.apply {
-                                navHeaderTvUserName.text =
-                                    getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
-//                                navHeaderTvUserCity.text = state.data?.cityName
+                                if (state.data?.actorType == "broker"){
+                                    navHeaderTvUserName.text = state.data.name
+                                }else if (state.data?.actorType == "user"){
+                                    navHeaderTvUserName.text =
+                                        getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
+                                }
+
+                                navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
                                     .load(
-                                        if (state.data?.image != "") {
-                                            state.data?.image
+                                        if (state.data?.userImage != "") {
+                                            state.data?.userImage
                                         } else {
                                             R.drawable.avatar
                                         }

@@ -78,6 +78,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     }
 
     override fun onBrokerClick(model: BrokerModel) {
-        findNavController().navigate(R.id.brokersDetailsFragment, null, navOptionsAnimation())
+//        findNavController().navigate(R.id.brokersDetailsFragment, null, navOptionsAnimation())
     }
 }

@@ -1,5 +1,6 @@
 package eramo.amtalek.domain.usecase.auth
 
+import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
 import eramo.amtalek.util.state.Resource
@@ -14,7 +15,7 @@ class LoginUseCase @Inject constructor(private val repository: AuthRepository) {
         email: String,
         password: String,
         firebaseToken: String
-    ): Flow<Resource<UserModel>> {
+    ): Flow<Resource<GeneralLoginResponse>> {
         val isBlank = email.isBlank() || password.isBlank() || firebaseToken.isBlank()
 
         return if (isBlank) flow { }

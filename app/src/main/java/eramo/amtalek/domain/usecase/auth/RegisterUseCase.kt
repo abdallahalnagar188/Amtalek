@@ -6,33 +6,32 @@ import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class RegisterUseCase @Inject constructor(private val repository: AuthRepository) {
-
     suspend fun register(
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        password: String,
-        confirmPassword: String,
-        gender: String,
-        countryId: String,
-        cityId: String,
-        regionId:String,
-        companyName: String?,
-        iam:String,
+        firstName: RequestBody?,
+        lastName: RequestBody?,
+        phone: RequestBody?,
+        email: RequestBody?,
+        password: RequestBody?,
+        birthday:RequestBody?,
+        confirmPassword: RequestBody?,
+        gender: RequestBody?,
+        countryId: RequestBody?,
+        cityId: RequestBody?,
+        regionId:RequestBody?,
+        companyName: RequestBody?,
+        iam:RequestBody?,
         companyLogo: MultipartBody.Part?
     ): Flow<Resource<ResultModel>> {
-        val isBlank = firstName.isBlank() || lastName.isBlank()
-                || phone.isBlank() || email.isBlank() || password.isBlank() || confirmPassword.isBlank() || gender.isBlank() || countryId.isBlank() || cityId.isBlank()
-
-        return if (isBlank) flow { }
-        else repository.register(
-            firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId, regionId,companyName, iam, companyLogo
+     return repository.register(
+            firstName = firstName, lastName = lastName, phone = phone, email =  email, password =  password, birthday =  birthday, confirmPassword = confirmPassword,
+        gender =  gender, countryId =  countryId, cityId = cityId, regionId = regionId, companyName = companyName,
+         iam = iam, companyLogo =  companyLogo
             )
     }
 

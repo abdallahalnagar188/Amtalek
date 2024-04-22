@@ -1,5 +1,6 @@
 package eramo.amtalek.domain.repository
 
+import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.ContactUsInfoModel
@@ -11,24 +12,26 @@ import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface AuthRepository {
 
     suspend fun onBoardingScreens(): Flow<Resource<List<OnBoardingModel>>>
 
     suspend fun register(
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        password: String,
-        confirmPassword: String,
-        gender: String,
-        countryId: String,
-        cityId: String,
-        regionId:String,
-        companyName:String?,
-        iam:String,
+        firstName: RequestBody?,
+        lastName: RequestBody?,
+        phone: RequestBody?,
+        email: RequestBody?,
+        password: RequestBody?,
+        confirmPassword: RequestBody?,
+        gender: RequestBody?,
+        countryId: RequestBody?,
+        cityId: RequestBody?,
+        regionId:RequestBody?,
+        birthday:RequestBody?,
+        companyName:RequestBody?,
+        iam:RequestBody?,
         companyLogo: MultipartBody.Part?
     ): Flow<Resource<ResultModel>>
 
@@ -57,7 +60,7 @@ interface AuthRepository {
         email: String,
         password: String,
         firebaseToken: String
-    ): Flow<Resource<UserModel>>
+    ): Flow<Resource<GeneralLoginResponse>>
 
     suspend fun logout(): Flow<Resource<ResultModel>>
 

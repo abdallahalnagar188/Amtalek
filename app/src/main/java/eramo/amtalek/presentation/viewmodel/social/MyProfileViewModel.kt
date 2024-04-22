@@ -21,8 +21,8 @@ class MyProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<GetProfileModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<GetProfileModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
 
     private var getProfileJob: Job? = null
 
@@ -30,15 +30,15 @@ class MyProfileViewModel @Inject constructor(
         getProfileJob?.cancel()
     }
 
-    fun getProfile() {
+    fun getProfile(type:String,id:String) {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                getProfileUseCase().collect { result ->
+                getProfileUseCase(type,id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data?.toGetProfileModel()!!)
-                            _getProfileState.value = UiState.Success(result.data.toGetProfileModel())
+                            saveUserInfo(result.data?.toUserModel()!!)
+                            _getProfileState.value = UiState.Success(result.data.toUserModel())
                         }
 
                         is Resource.Error -> {
@@ -55,13 +55,14 @@ class MyProfileViewModel @Inject constructor(
         }
     }
 
-    private fun saveUserInfo(user: GetProfileModel) {
+    private fun saveUserInfo(user: UserModel) {
         UserUtil.saveUserInfo(
-            true,
-            UserUtil.getUserToken(), user.id.toString(),
-            user.firstName, user.lastName, user.phone,
-            user.email, user.country.toString(),
-            user.countryName, user.cityName.toString(), user.cityName, user.bio, user.image,
+            isRemember = true,
+            userToken = UserUtil.getUserToken(), userID = user.id.toString(),
+            firstName = user.firstName, lastName = user.lastName, phone = user.phone,
+           email =  user.email, countryId =  user.country.toString(),
+            countryName = user.countryName, cityName = user.cityName.toString(), cityId = user.city.toString(), userBio =  user.bio, profileImageUrl = user.userImage,
+            userType = user.actorType?:""
         )
     }
 }

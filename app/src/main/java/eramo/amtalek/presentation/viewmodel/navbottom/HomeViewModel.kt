@@ -85,8 +85,8 @@ class HomeViewModel @Inject constructor(
     private val _removeFavouriteState = MutableSharedFlow<UiState<ResultModel>>()
     val removeFavouriteState: SharedFlow<UiState<ResultModel>> = _removeFavouriteState
 
-    private val _getProfileState = MutableStateFlow<UiState<GetProfileModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<GetProfileModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
 
     private val _firebaseTokenState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val firebaseTokenState: StateFlow<UiState<ResultModel>> = _firebaseTokenState
@@ -131,15 +131,15 @@ class HomeViewModel @Inject constructor(
         cartCountJob?.cancel()
     }
 
-     fun getProfile() {
+     fun getProfile(type:String,id:String) {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                getProfileUseCase().collect { result ->
+                getProfileUseCase(type, id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data?.toGetProfileModel()!!)
-                            _getProfileState.value = UiState.Success(result.data.toGetProfileModel())
+                            saveUserInfo(result.data?.toUserModel()!!)
+                            _getProfileState.value = UiState.Success(result.data.toUserModel())
                         }
 
                         is Resource.Error -> {
@@ -156,13 +156,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun saveUserInfo(user: GetProfileModel) {
+    private fun saveUserInfo(user: UserModel) {
         UserUtil.saveUserInfo(
-            true,
-            UserUtil.getUserToken(), user.id.toString(),
-            user.firstName, user.lastName, user.phone,
-            user.email, user.country.toString(),
-            user.countryName, user.city.toString(), user.cityName, user.bio, user.image,
+            isRemember = true,
+            userToken = UserUtil.getUserToken(), userID =  user.id.toString(),
+            firstName = user.firstName, lastName = user.lastName, phone =  user.phone,
+            email = user.email, countryId =  user.country.toString(),
+            cityName = user.countryName, cityId =  user.city.toString(), countryName =  user.cityName, userBio = user.bio, profileImageUrl =  user.userImage,
+            userType = user.actorType
         )
     }
 
@@ -222,7 +223,7 @@ class HomeViewModel @Inject constructor(
             allProducts()
             allFeatured()
             allProductsManufacturer()
-            getProfile()
+//            getProfile()
             updateFirebaseToken(FirebaseMessageReceiver.token ?: "")
             getHomeAds()
             getHomeOffers()

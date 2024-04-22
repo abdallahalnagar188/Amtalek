@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.viewmodel.auth
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,6 +17,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,18 +56,37 @@ class SignUpViewModel @Inject constructor(
         registerJob?.cancel()
         sendVerificationCodeEmailJob?.cancel()
     }
+    fun convertToRequestBody(part: String?): RequestBody? {
+        return try {
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part!!)
+        } catch (e: Exception) {
+            null
+        }
 
+    }
+
+    private fun convertFileToMultipart(img_keyName: String, imageUri: Uri?): MultipartBody.Part? {
+        return if (imageUri != null) {
+            val file = File(imageUri.path!!)
+            val requestBody = RequestBody.create("*/*".toMediaTypeOrNull(), file)
+            MultipartBody.Part.createFormData(img_keyName, file.name, requestBody)
+        } else null
+    }
     fun register(
-        firstName: String,
-        lastName: String,
-        phone: String,
-        email: String,
-        password: String,
-        confirmPassword: String,
-        gender: String,
-        countryId: String,
-        cityId: String,
-        regionId:String
+        firstName: String?,
+        lastName: String?,
+        phone: String?,
+        email: String?,
+        birthday:String?,
+        password: String?,
+        confirmPassword: String?,
+        gender: String?,
+        countryId: String?,
+        cityId: String?,
+        regionId:String?,
+        companyName: String?,
+        iam:String?,
+        companyLogo: Uri?
     ) {
         registerJob?.cancel()
         registerJob = viewModelScope.launch {
@@ -70,23 +94,29 @@ class SignUpViewModel @Inject constructor(
 
                 registeredEmail = email
 
-                registerUseCase.register(
-                    firstName, lastName, phone, email, password, confirmPassword, gender, countryId, cityId,regionId
-                ).collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _registerState.value = UiState.Success(it.data)
-                        }
+                    registerUseCase.register(
+                        firstName = convertToRequestBody(firstName), lastName = convertToRequestBody(lastName), phone =  convertToRequestBody(phone), email =  convertToRequestBody(email),
+                        password = convertToRequestBody(password), confirmPassword = convertToRequestBody(confirmPassword) ,
+                       gender =  convertToRequestBody(gender), countryId =  convertToRequestBody(countryId), cityId = convertToRequestBody(cityId),
+                        regionId = convertToRequestBody(regionId),
+                        companyLogo = convertFileToMultipart("company_logo",companyLogo), companyName = convertToRequestBody(companyName), iam = convertToRequestBody(iam),
+                        birthday = convertToRequestBody(birthday)
+                    ).collect {
+                        when (it) {
+                            is Resource.Success -> {
+                                _registerState.value = UiState.Success(it.data)
+                            }
 
-                        is Resource.Error -> {
-                            _registerState.value = UiState.Error(it.message!!)
-                        }
+                            is Resource.Error -> {
+                                _registerState.value = UiState.Error(it.message!!)
+                            }
 
-                        is Resource.Loading -> {
-                            _registerState.value = UiState.Loading()
+                            is Resource.Loading -> {
+                                _registerState.value = UiState.Loading()
+                            }
                         }
                     }
-                }
+
             }
         }
     }

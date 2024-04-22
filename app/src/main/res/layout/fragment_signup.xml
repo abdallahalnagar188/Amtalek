@@ -302,16 +302,53 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/FSignUp_cities_spinner" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/FSignUp_til_birthdate"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:helperText=" "
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/FSignUp_regions_spinner">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/FSignUp_et_birthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/ic_calc"
+                    android:drawableTint="@color/gray"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:fontFamily="@font/montserratregular"
+                    android:hint="@string/birthdate"
+                    android:inputType="none"
+                    android:enabled="false"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_10ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <View
+                android:id="@+id/birthDateView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/FSignUp_til_birthdate"
+                app:layout_constraintEnd_toEndOf="@+id/FSignUp_til_birthdate"
+                app:layout_constraintTop_toTopOf="@+id/FSignUp_til_birthdate"
+                app:layout_constraintBottom_toBottomOf="@+id/FSignUp_til_birthdate"/>
             <include
                 android:id="@+id/gender_selection_layout"
                 layout="@layout/gender_selection_layout"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
-                android:layout_marginTop="@dimen/views_margin_top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/FSignUp_regions_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/FSignUp_til_birthdate" />
             <include
                 android:id="@+id/type_selection_layout"
                 layout="@layout/type_selection_layout"
@@ -364,7 +401,9 @@
                 android:background="@drawable/edittext_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/FSignUp_til_company_name">
+                app:layout_constraintTop_toBottomOf="@id/FSignUp_til_company_name"
+                android:visibility="gone"
+                >
 
                 <ImageView
                     android:id="@+id/iv_pick_image"

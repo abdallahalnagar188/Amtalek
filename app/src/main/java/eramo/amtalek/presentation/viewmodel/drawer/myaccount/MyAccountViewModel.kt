@@ -26,11 +26,11 @@ class MyAccountViewModel @Inject constructor(
 
     fun cancelRequest() = getProfileJob?.cancel()
 
-    fun getProfile() {
+    fun getProfile(type:String,id:String) {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                getProfileUseCase().collect { result ->
+                getProfileUseCase(type, id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
 //                            result.data?.let {

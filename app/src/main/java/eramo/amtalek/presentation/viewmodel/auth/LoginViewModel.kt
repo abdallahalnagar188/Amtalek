@@ -54,8 +54,8 @@ class LoginViewModel @Inject constructor(
                         is Resource.Success -> {
                             result.data?.let { userModel ->
 
-                                saveUserInfo(userModel, isRemember)
-                                _loginState.value = UiState.Success(userModel)
+                                saveUserInfo(userModel.toUserModel(), isRemember)
+                                _loginState.value = UiState.Success(userModel.toUserModel())
 
                             } ?: run { _loginState.value = UiState.Empty() }
                         }
@@ -107,19 +107,20 @@ class LoginViewModel @Inject constructor(
 
     private fun saveUserInfo(userModel: UserModel, isRemember: Boolean) {
         UserUtil.saveUserInfo(
-            isRemember,
-            "Bearer ${userModel.token}",
-            userModel.id.toString(),
-            userModel.firstName,
-            userModel.lastName,
-            userModel.phone,
-            userModel.email,
-            userModel.country.toString(),
-            userModel.countryName,
-            userModel.city.toString(),
-            userModel.cityName,
-            userModel.bio,
-            userModel.userImage,
+            isRemember = isRemember,
+           userToken =  "Bearer ${userModel.token}",
+            userID = userModel.id.toString(),
+            firstName = userModel.firstName,
+            lastName = userModel.lastName,
+           phone =  userModel.phone,
+            email = userModel.email,
+            countryId = userModel.country.toString(),
+            countryName = userModel.countryName,
+            cityId = userModel.city.toString(),
+            cityName = userModel.cityName,
+            userBio = userModel.bio,
+           profileImageUrl =  userModel.userImage,
+            userType = userModel.actorType
         )
     }
 }

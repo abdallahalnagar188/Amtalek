@@ -23,6 +23,7 @@ import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmen
 import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.showToast
@@ -77,7 +78,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
     }
 
     private fun requestData() {
-        viewModel.getProfile()
+        viewModel.getProfile(UserUtil.getUserType(),UserUtil.getUserId())
     }
 
     private fun fetchData() {
@@ -112,19 +113,19 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
         }
     }
 
-    private fun assignUserData(user: GetProfileModel) {
+    private fun assignUserData(user: UserModel) {
         try {
             binding.apply {
                 tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
                 tvLocation.text = user.cityName
                 tvBio.text = user.bio
 
-                if (user.cover != "") {
-                    Glide.with(requireContext()).load(user.cover).into(ivUserCover)
-                }
+//                if (user.cover != "") {
+//                    Glide.with(requireContext()).load(user.cover).into(ivUserCover)
+//                }
 
-                if (user.image != "") {
-                    Glide.with(requireContext()).load(user.image).into(ivUserProfile)
+                if (user.userImage != "") {
+                    Glide.with(requireContext()).load(user.userImage).into(ivUserProfile)
                 } else {
                     Glide.with(requireContext()).load(R.drawable.avatar).into(ivUserProfile)
                 }

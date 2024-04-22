@@ -24,7 +24,7 @@ class SharedViewModel @Inject constructor(
 ) : ViewModel() {
 
     val openDrawer = MutableLiveData<Boolean>()
-    val profileData = MutableStateFlow<UiState<GetProfileModel>>(UiState.Empty())
+    val profileData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
     val LoginData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
     val dateString = MutableLiveData<String?>(null)
 

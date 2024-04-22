@@ -45,7 +45,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     private val viewModel by viewModels<EditPersonalDetailsViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
-    private lateinit var GetProfileModel: GetProfileModel
+    private lateinit var GetProfileModel: UserModel
     private var selectedCountryId = -1
     private var selectedCityId = -1
 
@@ -305,7 +305,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     when (state) {
 
                         is UiState.Success -> {
-                            GetProfileModel = state.data?.toGetProfileModel()!!
+                            GetProfileModel = state.data!!
                             assignDataToTheViews(GetProfileModel)
 
                             viewModel.getCountries()
@@ -422,7 +422,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         }
     }
 
-    private fun assignDataToTheViews(user: GetProfileModel) {
+    private fun assignDataToTheViews(user: UserModel) {
         try {
             binding.apply {
                 etFirstName.setText(user.firstName)
@@ -431,12 +431,12 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                 etEmail.setText(user.email)
                 etBio.setText(user.bio)
 
-                if (user.cover != "") {
-                    Glide.with(requireContext()).load(user.cover).into(ivCover)
-                }
+//                if (user.cover != "") {
+//                    Glide.with(requireContext()).load(user.cover).into(ivCover)
+//                }
 
-                if (user.image != "") {
-                    Glide.with(requireContext()).load(user.image).into(ivProfile)
+                if (user.userImage != "") {
+                    Glide.with(requireContext()).load(user.userImage).into(ivProfile)
                 } else {
                     Glide.with(requireContext()).load(R.drawable.avatar).into(ivProfile)
                 }

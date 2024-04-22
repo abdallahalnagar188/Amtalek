@@ -4,6 +4,8 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.*
+import eramo.amtalek.data.remote.dto.bases.BaseResponse
+import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
@@ -39,23 +41,23 @@ interface AmtalekApi {
     @Multipart
     @POST("mobile/sign-up")
     suspend fun register(
-        @Part("first_name") firstName: String,
-        @Part("last_name") lastName: String,
-        @Part("phone") phone: String?,
-        @Part("email") email: String?,
-        @Part("password") password: String?,
-        @Part("confirm_password") confirmPassword: String?,
-        @Part("gender") gender: String?,
-        @Part("country") countryId: String?,
-        @Part("city") cityId: String?,
-        @Part("region") regionId: String?,
-        @Part("created_from") createdFrom: String?,
-        @Part("accept_condition") acceptCondition: String?,
-        @Part("not_ropot") notRobot: String?,
-        @Part("company_name") companyName: String?,
-        @Part("iam") iam: String,
+        @Part("first_name") firstName: RequestBody?,
+        @Part("last_name") lastName: RequestBody?,
+        @Part("phone") phone: RequestBody?,
+        @Part("email") email: RequestBody?,
+        @Part("password") password: RequestBody?,
+        @Part("confirm_password") confirmPassword: RequestBody?,
+        @Part("birthday") birthday: RequestBody?,
+        @Part("gender") gender: RequestBody?,
+        @Part("country") countryId: RequestBody?,
+        @Part("city") cityId: RequestBody?,
+        @Part("region") regionId: RequestBody?,
+        @Part("created_from") createdFrom: RequestBody?,
+        @Part("accept_condition") acceptCondition: RequestBody?,
+        @Part("not_ropot") notRobot: RequestBody?,
+        @Part("iam") iam: RequestBody?,
+        @Part("company_name") companyName: RequestBody?,
         @Part companyLogo:MultipartBody.Part?
-
     ): Response<SuccessfulResponse>
 
     @FormUrlEncoded
@@ -88,7 +90,7 @@ interface AmtalekApi {
         @Field("email") email: String,
         @Field("password") password: String,
         @Field("firebase_token") firebaseToken: String
-    ): Response<LoginResponse>
+    ): Response<BaseResponse<GeneralLoginResponse>>
 
     @POST("mobile/logout")
     suspend fun logout(
@@ -163,10 +165,12 @@ interface AmtalekApi {
     // ____________________________________________________________________________________________//
     // Drawer
 
-    @GET("mobile/get-profile")
+    @GET("mobile/get-profile/{type}/{id}")
     suspend fun getProfile(
         @Header("Authorization") userToken: String,
-    ): Response<GetProfileResponse>
+        @Path("type")type:String,
+        @Path("id")id:String
+    ): Response<BaseResponse<GeneralLoginResponse>>
 
     @Multipart
     @POST("mobile/update-profile")
@@ -207,7 +211,7 @@ interface AmtalekApi {
         @Part("user_email") user_email: RequestBody?,
         @Part("user_phone") user_phone: RequestBody?,
         @Part m_image: MultipartBody.Part?
-    ): Response<EditProfileResponse>
+    ): Response<GeneralLoginResponse>
 
     @GET("getAppinfo")
     suspend fun getAppInfo(): Response<AppInfoResponse>

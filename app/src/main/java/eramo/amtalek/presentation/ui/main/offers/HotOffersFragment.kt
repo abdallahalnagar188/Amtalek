@@ -69,6 +69,6 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
 
     override fun onProductClick(model: String) {
-        findNavController().navigate(R.id.projectDetailsFragment, null, navOptionsAnimation())
+//        findNavController().navigate(R.id.projectDetailsFragment, null, navOptionsAnimation())
     }
 }

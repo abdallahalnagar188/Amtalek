@@ -1,6 +1,7 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
+import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
@@ -22,15 +23,15 @@ import okhttp3.RequestBody
 class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepository {
 
 
-    override suspend fun getProfile(): Flow<Resource<GetProfileResponse>> {
+    override suspend fun getProfile(type:String,id:String): Flow<Resource<GeneralLoginResponse>> {
         return flow {
-            val result = toResultFlow { AmtalekApi.getProfile(UserUtil.getUserToken()) }
+            val result = toResultFlow { AmtalekApi.getProfile(UserUtil.getUserToken(),type, id) }
             result.collect { apiState ->
                 when (apiState) {
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> emit(Resource.Error(apiState.message!!))
                     is ApiState.Success -> {
-                        val model = apiState.data
+                        val model = apiState.data?.data
                         emit(Resource.Success(model))
                     }
                 }
@@ -102,7 +103,7 @@ class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepositor
         user_email: RequestBody?,
         user_phone: RequestBody?,
         m_image: MultipartBody.Part?
-    ): Flow<Resource<EditProfileResponse>> {
+    ): Flow<Resource<GeneralLoginResponse>> {
         return flow {
             val result = toResultFlow {
                 AmtalekApi.editProfile(

@@ -1,5 +1,6 @@
 package eramo.amtalek.domain.repository
 
+import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
@@ -16,7 +17,7 @@ interface DrawerRepository {
 
     suspend fun updateFirebaseDeviceToken(deviceToken: String): Flow<Resource<ResultModel>>
 
-    suspend fun getProfile(): Flow<Resource<GetProfileResponse>>
+    suspend fun getProfile(type:String,id:String): Flow<Resource<GeneralLoginResponse>>
 
     suspend fun updateProfile(
         firstName: RequestBody?,
@@ -41,7 +42,7 @@ interface DrawerRepository {
         user_email: RequestBody?,
         user_phone: RequestBody?,
         m_image: MultipartBody.Part?
-    ): Flow<Resource<EditProfileResponse>>
+    ): Flow<Resource<GeneralLoginResponse>>
 
     suspend fun getAppInfo(): Flow<Resource<AppInfoResponse>>
 

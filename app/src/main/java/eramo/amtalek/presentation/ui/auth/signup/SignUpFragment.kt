@@ -2,11 +2,13 @@ package eramo.amtalek.presentation.ui.auth.signup
 
 import android.animation.ValueAnimator
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -41,8 +43,9 @@ import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
 import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
-import eramo.amtalek.util.SIGN_UP_TYPE_INDIVIDUAL
 import eramo.amtalek.util.SIGN_UP_TYPE_COMPANY
+import eramo.amtalek.util.SIGN_UP_TYPE_INDIVIDUAL
+
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.setTextViewDrawableColor
@@ -50,6 +53,7 @@ import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 
 @AndroidEntryPoint
@@ -68,6 +72,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private lateinit var selectedGender: String
     private lateinit var selectType:String
     private var imageUri: Uri? = null
+    val calender = Calendar.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -110,8 +115,30 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                         startForProfileImageResult.launch(intent)
                     }
             }
+            FSignUpTilBirthdate.setOnClickListener(){
+                setupBirthDate()
+            }
+           birthDateView.setOnClickListener(){
+               setupBirthDate()
+           }
         }
+
     }
+    private fun setupBirthDate() {
+        val dialog = DatePickerDialog(requireContext())
+        dialog.setOnDateSetListener {
+                datePicker,year,month,day->
+
+            binding.FSignUpEtBirthdate.text =Editable.Factory.getInstance().newEditable( "$year-${month+1}-$day")
+            calender.set(year,month,day)
+            calender.set(Calendar.HOUR_OF_DAY,0)
+            calender.set(Calendar.MINUTE,0)
+            calender.set(Calendar.SECOND,0)
+            calender.set(Calendar.MILLISECOND,0)
+        }
+        dialog.show()
+    }
+
     val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
@@ -336,7 +363,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
             // individual onClickListener
             btnIndividual.setOnClickListener {
-                selectedGender = SIGN_UP_TYPE_INDIVIDUAL
+                selectType = SIGN_UP_TYPE_INDIVIDUAL
                 // individual color
                 btnIndividual.setTextColor(ContextCompat.getColor(requireContext(), R.color.amtalek_blue))
                 btnIndividual.setTextViewDrawableColor(R.color.amtalek_blue)
@@ -352,7 +379,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
             // company onClickListener
             btnCompany.setOnClickListener {
-                selectedGender = SIGN_UP_TYPE_COMPANY
+                selectType = SIGN_UP_TYPE_COMPANY
                 binding.FSignUpTilCompanyName.isVisible = true
                 binding.identityCard.isVisible = true
                 binding.FSignUpEtCompanyName.isVisible = true
@@ -497,13 +524,18 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                             LoadingDialog.dismissDialog()
 
                             if (state.data?.status == API_SUCCESS_CODE) {
-                                viewModel.sendVerificationCodeEmail()
+                                if (selectType == SIGN_UP_TYPE_INDIVIDUAL){
+                                    viewModel.sendVerificationCodeEmail()
+                                }else{
+                                    findNavController().navigate(R.id.loginFragment,null, navOptionsAnimation())
+                                }
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
                             }
                         }
 
                         is UiState.Error -> {
+                            Log.e("Mego", state.message!!.toString(), )
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
@@ -640,19 +672,21 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             } else {
                 FSignUpTilRePassword.error = null
             }
-            Toast.makeText(requireContext(), selectedRegionId.toString(), Toast.LENGTH_SHORT).show()
-
             viewModel.register(
-                firstName,
-                lastname,
-                mobileNumber,
-                email,
-                password,
-                rePassword,
-                selectedGender,
-                selectedCountryId.toString(),
-                selectedCityId.toString(),
-                selectedRegionId.toString(),
+                firstName = firstName,
+                lastName = lastname,
+                phone =  mobileNumber,
+                email = email,
+                password = password,
+                confirmPassword = rePassword,
+               gender =  selectedGender,
+               countryId =  selectedCountryId.toString(),
+               cityId =  selectedCityId.toString(),
+               regionId =  selectedRegionId.toString(),
+                companyName = binding.FSignUpEtCompanyName.text.toString(),
+                companyLogo =imageUri,
+                iam = selectType,
+                birthday = binding.FSignUpEtBirthdate.text.toString()
             )
         }
     }

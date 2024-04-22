@@ -156,10 +156,10 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
 
             inToolbar.inNotification.root.setOnClickListener {
-                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+//                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
             }
             inToolbar.inMessaging.root.setOnClickListener {
-                findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
+//                findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
             }
         }
 
@@ -169,7 +169,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun requestApis() {
         if (UserUtil.isUserLogin()) {
-            viewModel.getProfile()
+            viewModel.getProfile(UserUtil.getUserType(),UserUtil.getUserId())
             viewModel.getHome()
         } else {
             viewModel.getHome()
@@ -180,8 +180,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         fetchGetProfileState()
         fetchUserCityState()
 
-        fetchHomeState()
-        fetchHomeFilteredByCityState()
+//        fetchHomeState()
+//        fetchHomeFilteredByCityState()
     }
 
     // -------------------------------------- fetchData -------------------------------------- //
@@ -221,7 +221,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-//                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
+                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
                         }
 
                         is UiState.Error -> {
@@ -726,11 +726,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     if (query.isEmpty()) {
                         showToast(getString(R.string.enter_a_query))
                     } else {
-                        findNavController().navigate(
-                            R.id.searchPropertyResultFragment,
-                            null,
-                            navOptionsFromTopAnimation()
-                        )
+//                        findNavController().navigate(
+//                            R.id.searchPropertyResultFragment,
+//                            null,
+//                            navOptionsFromTopAnimation()
+//                        )
                     }
 
                 } else if (actionId == EditorInfo.IME_ACTION_DONE) {
