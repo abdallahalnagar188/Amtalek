@@ -8,12 +8,13 @@ import eramo.amtalek.data.remote.dto.NotificationDto
 class FirebaseMessageReceiver : FirebaseMessagingService() {
 
     private lateinit var notificationHelper: NotificationHelper
-    private var orderId=""
     private var title = ""
     private var message = ""
     private var image: String? = null
-    private var link = ""
-    private var time = ""
+    override fun onNewToken(newToken: String) {
+        super.onNewToken(newToken)
+        token = newToken
+    }
 
     companion object {
         var sharedPref: SharedPreferences? = null
@@ -26,10 +27,7 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
             }
     }
 
-    override fun onNewToken(newToken: String) {
-        super.onNewToken(newToken)
-        token = newToken
-    }
+
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -39,9 +37,7 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
             title = remoteMessage.data["title"] ?: ""
             message = remoteMessage.data["body"] ?: ""
             image = remoteMessage.data["image"] ?: ""
-            link = remoteMessage.data["link"] ?: ""
-            time = remoteMessage.data["time"] ?: "00:00"
-            orderId = remoteMessage.data["order_id"] ?: ""
+
         }
 
         remoteMessage.notification?.let {
@@ -51,7 +47,7 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
         }
 
         val notificationDto = NotificationDto(
-            title = title, body = message, image = image, link = link, time = time, orderId = orderId
+            title = title, body = message, image = image
         )
         notificationHelper.push(notificationDto)
     }

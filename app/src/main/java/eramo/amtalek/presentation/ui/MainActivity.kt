@@ -2,11 +2,14 @@ package eramo.amtalek.presentation.ui
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -21,6 +24,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ActivityMainBinding
@@ -37,6 +44,7 @@ import eramo.amtalek.util.deeplink.DeeplinkUtil
 import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
@@ -59,9 +67,12 @@ class MainActivity : AppCompatActivity(),
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
-//        FirebaseApp.initializeApp(this)
+        FirebaseApp.initializeApp(this)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{
+            val token = it.result
+            UserUtil.saveFireBaseToken(token)
+            Log.e("alo",token, )
+        })
 //        FirebaseMessageReceiver.sharedPref = getSharedPreferences("sharedPref", MODE_PRIVATE)
 //        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
 //        FirebaseMessaging.getInstance().token.addOnSuccessListener { firebaseToken ->
@@ -80,7 +91,7 @@ class MainActivity : AppCompatActivity(),
             mainBn.menu.getItem(2).isEnabled = false
             mainBn.setupWithNavController(navController)
             mainFabHome.setOnClickListener {
-                navController.popBackStack(R.id.homeFragment, false)
+                navController.popBackStack(R.id.marketFragment, false)
             }
 
             viewModelShared.openDrawer.observe(this@MainActivity) { isOpen ->
@@ -102,15 +113,49 @@ class MainActivity : AppCompatActivity(),
 //            }
 
         }
-
+        fetchProfileDataState()
         setUserInfo()
         fetchLogoutState()
-
         setupDrawer()
         setupNavBottomVisibility()
+        if (Build.VERSION.SDK_INT >= 33) {
+            notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            hasNotificationPermissionGranted = true
+        }
 
     }
+    var hasNotificationPermissionGranted = false
+    private val notificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            hasNotificationPermissionGranted = isGranted
+            if (!isGranted) {
+                if (Build.VERSION.SDK_INT >= 33) {
+                    if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+                        showNotificationPermissionRationale()
+                    }
+                }
+            }
+        }
+    private fun showNotificationPermissionRationale() {
 
+        MaterialAlertDialogBuilder(this, com.google.android.material.R.style.MaterialAlertDialog_Material3)
+            .setTitle("Alert")
+            .setMessage("Notification permission is required, to show notification")
+            .setPositiveButton("Ok") { _, _ ->
+                if (Build.VERSION.SDK_INT >= 33) {
+                    notificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUserInfo()
+
+    }
     // Hide keyboard onTouch outside
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
@@ -355,8 +400,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun setUserInfo() {
-        fetchProfileDataState()
-
         if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
                 navHeaderTvUserName.text =
@@ -391,7 +434,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun fetchProfileDataState() {
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModelShared.profileData.collect { state ->
                     when (state) {
@@ -435,11 +478,11 @@ class MainActivity : AppCompatActivity(),
                 viewModelShared.logoutState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
                             navController.navigate(
                                 NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
                                 NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
                             )
+                            LoadingDialog.dismissDialog()
                         }
 
                         is UiState.Error -> {

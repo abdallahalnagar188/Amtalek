@@ -34,6 +34,8 @@ import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class LoginFragment : BindingFragment<FragmentLoginBinding>() {
@@ -104,13 +106,12 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
     }
 
     private fun fetchLoginState() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launch {
+           withContext(coroutineContext){
                 viewModel.loginState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
-                            LoadingDialog.dismissDialog()
-                            viewModelShared.LoginData.value = UiState.Success(state.data!!)
+                            viewModelShared.profileData.value = UiState.Success(state.data!!)
                             findNavController().navigate(
                                 R.id.nav_main, null,
                                 NavOptions.Builder()
@@ -118,6 +119,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                                     .setPopUpTo(R.id.nav_main, true)
                                     .build()
                             )
+                            LoadingDialog.dismissDialog()
+
                         }
 
                         is UiState.Error -> {

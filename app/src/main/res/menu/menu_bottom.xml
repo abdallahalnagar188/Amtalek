@@ -12,11 +12,11 @@
         android:title="@string/hot_offer" />
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/marketFragment"
         android:title="" />
 
     <item
-        android:id="@+id/marketFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_market"
         android:title="@string/market" />
 

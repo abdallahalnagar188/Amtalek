@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "161908714846",
-    "project_id": "events-64dc8",
-    "storage_bucket": "events-64dc8.appspot.com"
+    "project_number": "875923813181",
+    "project_id": "amtalek-test",
+    "storage_bucket": "amtalek-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:161908714846:android:cf03175bb79f950992b3cf",
+        "mobilesdk_app_id": "1:875923813181:android:b250b54e52b37d00ef0b54",
         "android_client_info": {
           "package_name": "eramo.amtalek"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "161908714846-6r5jpq1004uv1horl845b6kohp22goob.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBwQ-m-U3rlyIQ5AUIvK_08-dB1wlviJxc"
+          "current_key": "AIzaSyDle2Eyv8FrD-7t37iqchCB9lYZQRr26w4"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "161908714846-6r5jpq1004uv1horl845b6kohp22goob.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

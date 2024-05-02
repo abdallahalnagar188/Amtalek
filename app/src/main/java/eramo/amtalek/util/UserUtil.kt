@@ -27,6 +27,7 @@ object UserUtil {
 
     private const val CITY_ID = "city_id"
     private const val CITY_NAME = "city_name"
+    private const val FIREBASE_TOKEN= "fireBaseToken"
 
     private const val USER_BIO = "user_bio"
     private const val PROFILE_IMAGE_URL = "user_profile_image_url"
@@ -139,5 +140,6 @@ object UserUtil {
 
     fun setHasDeepLink(hasDeepLink: Boolean) = sharedPreferences.edit().putBoolean(HAS_DEEP_LINK, hasDeepLink).apply()
     fun hasDeepLink() = sharedPreferences.getBoolean(HAS_DEEP_LINK, false)
-
+    fun saveFireBaseToken(token:String)= sharedPreferences.edit().putString(FIREBASE_TOKEN,token).apply()
+    fun getFireBaseToken()= sharedPreferences.getString(FIREBASE_TOKEN,"")
 }

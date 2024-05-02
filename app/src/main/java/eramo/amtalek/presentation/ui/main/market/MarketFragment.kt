@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,9 +19,13 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
 import eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
+import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +38,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
 
     @Inject
     lateinit var rvMarketAdapter: RvMarketAdapter
+    private val viewModel by viewModels<HomeViewModel>()
 
     private val viewModelShared: SharedViewModel by activityViewModels()
 
@@ -37,6 +46,38 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+        fetchData()
+        if (UserUtil.isUserLogin()) {
+            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
+        }
+    }
+
+    private fun fetchData() {
+        fetchGetProfileState()
+    }
+
+    private fun fetchGetProfileState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.getProfileState.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            viewModelShared.profileData.value = UiState.Success(state.data!!)
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+
+                }
+        }
     }
 
     private fun setupViews() {
@@ -99,6 +140,10 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
             ImagesListFragmentArgs(model.photosList?.toTypedArray() ?: emptyArray()).toBundle(),
             navOptionsAnimation()
         )
+    }
+    override fun onResume() {
+        super.onResume()
+        fetchData()
     }
 
 }

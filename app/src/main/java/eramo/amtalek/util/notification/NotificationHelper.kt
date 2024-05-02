@@ -24,20 +24,9 @@ class NotificationHelper(private val context: Context) {
 
     fun push(notificationDto: NotificationDto) {
 
-        val pendingIntent: PendingIntent = if (notificationDto.orderId.isNullOrEmpty()) {
-            NavDeepLinkBuilder(context)
-                .setGraph(R.navigation.nav_app)
-//                .setArguments(NotificationInfoFragmentArgs(notificationDto).toBundle())
-                .setDestination(R.id.searchPropertyResultFragment)
-                .createPendingIntent()
-        } else {
-            NavDeepLinkBuilder(context)
-                .setGraph(R.navigation.nav_app)
-//                .setArguments(OrderDetailsFragmentArgs(orderId = notificationDto.orderId).toBundle())
-//                .setDestination(R.id.orderDetailsFragment)
-                .createPendingIntent()
-        }
 
+        val pendingIntent: PendingIntent = NavDeepLinkBuilder(context).setGraph(R.navigation.nav_app).setArguments(null)
+            .setDestination(R.id.homeFragment).createPendingIntent()
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createNotificationChannel(notificationManager)

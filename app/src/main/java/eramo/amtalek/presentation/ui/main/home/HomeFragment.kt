@@ -169,7 +169,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun requestApis() {
         if (UserUtil.isUserLogin()) {
-            viewModel.getProfile(UserUtil.getUserType(),UserUtil.getUserId())
+//            viewModel.getProfile(UserUtil.getUserType(),UserUtil.getUserId())
             viewModel.getHome()
         } else {
             viewModel.getHome()
@@ -179,7 +179,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun fetchData() {
         fetchGetProfileState()
         fetchUserCityState()
-
 //        fetchHomeState()
 //        fetchHomeFilteredByCityState()
     }

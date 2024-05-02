@@ -53,7 +53,6 @@ class LoginViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             result.data?.let { userModel ->
-
                                 saveUserInfo(userModel.toUserModel(), isRemember)
                                 _loginState.value = UiState.Success(userModel.toUserModel())
 
