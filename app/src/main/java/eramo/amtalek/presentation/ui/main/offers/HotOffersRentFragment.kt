@@ -21,7 +21,7 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),RvHotOffersRentPropertiesAdapter.OnItemClickListener {
+class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),RvHotOffersRentPropertiesAdapter.OnItemClickListener,RvHotOffersRentProjectsAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersRentBinding::inflate
@@ -46,18 +46,19 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
     private fun setupViews() {
         initPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
         initProjectsRv(Dummy.dummyProjectsList(requireContext()))
-
         setupCarouselSlider()
     }
 
     private fun initPropertiesRv(data: List<MyFavouritesModel>) {
         binding.rvProperties.adapter = rvHotOffersRentPropertiesAdapter
+        rvHotOffersRentPropertiesAdapter.setListener(this)
         rvHotOffersRentPropertiesAdapter.submitList(data)
     }
 
     private fun initProjectsRv(data: List<ProjectModel>) {
         binding.rvProjects.adapter = rvHotOffersRentProjectsAdapter
         rvHotOffersRentProjectsAdapter.submitList(data)
+        rvHotOffersRentProjectsAdapter.setListener(this)
     }
 
     private fun setupCarouselSlider() {
@@ -93,6 +94,10 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
     }
 
     override fun onPropertyClick(model: MyFavouritesModel) {
+        Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPropertyClick(model: ProjectModel) {
         Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
     }
 }

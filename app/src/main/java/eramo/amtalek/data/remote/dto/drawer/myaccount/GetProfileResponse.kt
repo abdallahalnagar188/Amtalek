@@ -4,7 +4,6 @@ package eramo.amtalek.data.remote.dto.drawer.myaccount
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.auth.GetProfileModel
-import eramo.amtalek.domain.model.auth.UserModel
 import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetProfileResponse(

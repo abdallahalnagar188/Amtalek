@@ -86,11 +86,9 @@ class RvHotOffersSellPropertiesAdapter @Inject constructor() :
             }
         }
     }
-
     fun setListener(listener: OnItemClickListener) {
         this.listener = listener
     }
-
     interface OnItemClickListener {
         fun onPropertyClick(model: MyFavouritesModel)
     }

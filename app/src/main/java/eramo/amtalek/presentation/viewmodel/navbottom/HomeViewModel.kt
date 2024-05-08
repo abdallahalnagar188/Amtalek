@@ -145,6 +145,7 @@ class HomeViewModel @Inject constructor(
                         is Resource.Error -> {
                             _getProfileState.value =
                                 UiState.Error(result.message!!)
+                            UserUtil.clearUserInfo()
                         }
 
                         is Resource.Loading -> {
@@ -162,7 +163,7 @@ class HomeViewModel @Inject constructor(
             userToken = UserUtil.getUserToken(), userID =  user.id.toString(),
             firstName = user.firstName, lastName = user.lastName, phone =  user.phone,
             email = user.email, countryId =  user.country.toString(),
-            cityName = user.countryName, cityId =  user.city.toString(), countryName =  user.cityName, userBio = user.bio, profileImageUrl =  user.userImage,
+            cityName = user.cityName, cityId =  user.city.toString(), countryName =  user.countryName, userBio = user.bio, profileImageUrl =  user.userImage,
             userType = user.actorType
         )
     }

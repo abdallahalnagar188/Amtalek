@@ -30,7 +30,7 @@
     <color name="gray_layer">#99D9D9D9</color>
     <color name="blue">#40AABB</color>
     <color name="blue_button">#0C76AC</color>
-
+    <color name="amtalek_red">#E74335</color>
 
     <color name="gold">#FFC700</color>
     <color name="text_gray">#6C6C6C</color>
@@ -39,5 +39,6 @@
     <color name="green">#34A851</color>
 
     <color name="read_more_color">#6630c6</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

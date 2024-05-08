@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.databinding.FragmentHotOffersSellBinding
@@ -20,7 +21,7 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>() {
+class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),RvHotOffersSellPropertiesAdapter.OnItemClickListener,RvHotOffersSellProjectsAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersSellBinding::inflate
@@ -40,8 +41,13 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>() {
     private fun setupViews() {
         initPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
         initProjectsRv(Dummy.dummyProjectsList(requireContext()))
-
+        initViews()
         setupCarouselSlider()
+    }
+
+    private fun initViews() {
+        rvHotOffersSellProjectsAdapter.setListener(this@HotOffersSellFragment)
+        rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersSellFragment)
     }
 
     private fun initPropertiesRv(data: List<MyFavouritesModel>) {
@@ -84,6 +90,14 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>() {
                 }
             }
         }
+    }
+
+    override fun onPropertyClick(model: ProjectModel) {
+        Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPropertyClick(model: MyFavouritesModel) {
+        Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
     }
 
 }

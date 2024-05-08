@@ -28,6 +28,7 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.onBackPressed
@@ -111,7 +112,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                 viewModel.loginState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
-                            viewModelShared.profileData.value = UiState.Success(state.data!!)
+                            viewModelShared.LoginData.value = UiState.Success(state.data!!)
                             findNavController().navigate(
                                 R.id.nav_main, null,
                                 NavOptions.Builder()

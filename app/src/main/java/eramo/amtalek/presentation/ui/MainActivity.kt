@@ -45,6 +45,7 @@ import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
@@ -63,23 +64,14 @@ class MainActivity : AppCompatActivity(),
         LocalUtil.init(this)
         LocalUtil.loadLocal(this)
         WebViewLocaleHelper(this).implementWorkaround()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         FirebaseApp.initializeApp(this)
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{
             val token = it.result
             UserUtil.saveFireBaseToken(token)
             Log.e("alo",token, )
         })
-//        FirebaseMessageReceiver.sharedPref = getSharedPreferences("sharedPref", MODE_PRIVATE)
-//        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
-//        FirebaseMessaging.getInstance().token.addOnSuccessListener { firebaseToken ->
-//            FirebaseMessageReceiver.token = firebaseToken
-//            Log.d(TAG, "onCreate: $firebaseToken")
-//        }
-
         //setup navStart
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_navHost) as NavHostFragment
@@ -114,7 +106,6 @@ class MainActivity : AppCompatActivity(),
 
         }
         fetchProfileDataState()
-        setUserInfo()
         fetchLogoutState()
         setupDrawer()
         setupNavBottomVisibility()
@@ -244,7 +235,6 @@ class MainActivity : AppCompatActivity(),
 
             navHeaderSignOut.setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-
                 if (UserUtil.isUserLogin()) {
                     viewModelShared.logout()
                 } else {
@@ -352,26 +342,21 @@ class MainActivity : AppCompatActivity(),
                 R.id.offersChatFragment,
                 R.id.usersChatFragment,
                 R.id.userProfileFragment,
-
                 R.id.seeMorePropertiesFragment,
                 R.id.seeMoreProjectsFragment,
                 R.id.seeMorePropertiesByCityFragment,
-
                 R.id.propertyDetailsSellFragment,
                 R.id.propertyDetailsRentFragment,
                 R.id.propertyDetailsSellAndRentFragment,
-
                 R.id.searchPropertyFragment,
                 R.id.searchPropertyResultFragment,
                 R.id.sortFragment,
-
                 R.id.myProjectDetailsFragment,
                 R.id.packageDetailsFragment,
                 R.id.rechargePackageFragment,
                 R.id.addCardFragment,
                 R.id.buyPackageStepOneFragment,
                 R.id.buyPackageStepTwoFragment,
-
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,
                 R.id.cancelDialog -> {
@@ -402,9 +387,9 @@ class MainActivity : AppCompatActivity(),
     private fun setUserInfo() {
         if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
-                navHeaderTvUserName.text =
-                    getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
-                navHeaderTvUserCity.text = UserUtil.getCityName()
+//                navHeaderTvUserName.text =
+//                    getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
+//                navHeaderTvUserCity.text = UserUtil.getCityName()
 
                 navHeaderTvSignOut.text = getString(R.string.sign_out)
 
@@ -419,7 +404,7 @@ class MainActivity : AppCompatActivity(),
                     )
                     .into(navHeaderIvProfile)
             }
-        } else {
+        } else if (!UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
                 navHeaderTvUserName.text = getString(R.string.guest_mode)
                 navHeaderTvUserCity.text = ""
@@ -439,6 +424,7 @@ class MainActivity : AppCompatActivity(),
                 viewModelShared.profileData.collect { state ->
                     when (state) {
                         is UiState.Success -> {
+                            setUserInfo()
                             binding.inDrawerHeader.apply {
                                 if (state.data?.actorType == "broker"){
                                     navHeaderTvUserName.text = state.data.name
@@ -446,7 +432,7 @@ class MainActivity : AppCompatActivity(),
                                     navHeaderTvUserName.text =
                                         getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
                                 }
-
+                                Log.e("cityy",  state.data?.cityName!!, )
                                 navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
                                     .load(
@@ -473,15 +459,16 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun fetchLogoutState() {
-        lifecycleScope.launchWhenStarted {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleScope.launch {
                 viewModelShared.logoutState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
+                            setUserInfo()
                             navController.navigate(
                                 NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
                                 NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
                             )
+
                             LoadingDialog.dismissDialog()
                         }
 
@@ -502,7 +489,7 @@ class MainActivity : AppCompatActivity(),
                         }
 
                         else -> Unit
-                    }
+
                 }
             }
         }

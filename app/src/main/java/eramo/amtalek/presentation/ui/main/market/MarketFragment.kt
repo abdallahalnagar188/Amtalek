@@ -67,6 +67,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
 
                         is UiState.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
+                                UserUtil.clearUserInfo()
                             showToast(errorMessage)
                         }
 
@@ -82,7 +83,6 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
 
     private fun setupViews() {
         setupToolbar()
-
         initRv()
     }
 
@@ -143,7 +143,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
     }
     override fun onResume() {
         super.onResume()
-        fetchData()
+
     }
 
 }
