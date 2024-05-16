@@ -84,7 +84,7 @@
             tools:text="4,000,000 EGP" />
 
         <TextView
-            android:id="@+id/tv_price_rent"
+            android:id="@+id/tv_duration_rent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
@@ -114,7 +114,7 @@
             app:layout_constraintBottom_toTopOf="@id/iv_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_price_rent"
+            app:layout_constraintTop_toBottomOf="@id/tv_duration_rent"
             tools:text="Residential apartment for sale in manshetercity" />
 
         <ImageView

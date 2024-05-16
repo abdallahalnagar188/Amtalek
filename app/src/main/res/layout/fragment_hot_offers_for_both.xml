@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.main.offers.HotOffersRentFragment">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/_15sdp"
         android:layout_height="wrap_content"
-        android:id="@+id/root">
+        android:id="@+id/root"
+        >
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_properties_for_rent"
+            android:id="@+id/rv_properties_for_both"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -26,7 +27,7 @@
             tools:listitem="@layout/item_property_preview" />
 
         <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel_slider_for_rent"
+            android:id="@+id/carousel_slider_for_both"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
             android:layout_marginVertical="@dimen/_15sdp"
@@ -37,7 +38,7 @@
             app:layout_constraintCircleRadius="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_properties_for_rent"
+            app:layout_constraintTop_toBottomOf="@id/rv_properties_for_both"
             app:nextButtonId="@id/btn_next_carousel"
             app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
             app:previousButtonId="@id/btn_previous_carousel"
@@ -56,12 +57,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/_15sdp"
-
             >
             <include layout="@layout/fragment_hotoffer_shimmer" />
         </com.facebook.shimmer.ShimmerFrameLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_projects"
+            android:id="@+id/rv_projects_forBoth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
@@ -74,11 +74,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carousel_slider_for_rent"
-            tools:listitem="@layout/item_property_preview"
-            android:visibility="gone"
-            />
-
+            app:layout_constraintTop_toBottomOf="@+id/carousel_slider_for_both"
+            tools:listitem="@layout/item_property_preview" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

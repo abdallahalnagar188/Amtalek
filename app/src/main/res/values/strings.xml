@@ -699,5 +699,12 @@
     <string name="upload_a_company_logo">Upload a company logo</string>
     <string name="i_am">I am</string>
     <string name="birthdate">Birthdate</string>
+    <string name="forBoth">For Both</string>
+    <string name="daily">Daily</string>
+    <string name="monthly">Monthly</string>
+    <string name="_3_months">3 Months</string>
+    <string name="_6_months">6 Months</string>
+    <string name="_9_months">9 Months</string>
+    <string name="yearly">Yearly</string>
 
 </resources>

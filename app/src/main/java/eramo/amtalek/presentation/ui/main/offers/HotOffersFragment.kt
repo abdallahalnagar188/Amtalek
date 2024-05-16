@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,6 +21,8 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,7 +34,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     private val viewModelShared: SharedViewModel by activityViewModels()
     private val viewModel: ShopViewModel by viewModels()
-
+    private val hotOffersViewModel: HotOffersViewModel by viewModels()
     @Inject
     lateinit var dummyProjectAdapter: DummyProjectAdapter
 
@@ -38,7 +43,8 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        hotOffersViewModel.getHotOffers()
+        setUpObservers()
         setupViews()
     }
 
@@ -46,6 +52,31 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         setupToolbar()
 
         setupTabLayoutPager()
+    }
+    private fun setUpObservers() {
+        fetchGetHotOffers()
+    }
+    private fun fetchGetHotOffers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                hotOffersViewModel.hotOffers.collect(){
+                    when(it){
+                        is UiState.Success->{
+
+                            dismissShimmerEffect()
+                        }
+                        is UiState.Error->{
+
+                            dismissShimmerEffect()
+                        }
+                        is UiState.Loading->{
+                            showShimmerEffect()
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
     private fun setupToolbar() {
@@ -61,8 +92,9 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
             viewPager.adapter = hotOffersTypesPagerAdapter
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
-                    0 -> tab.text = getString(R.string.for_sell)
-                    1 -> tab.text = getString(R.string.for_rent)
+                    0 -> tab.text =  getString(R.string.forBoth)
+                    1 -> tab.text =  getString(R.string.for_sell)
+                    2 -> tab.text =  getString(R.string.for_rent)
                 }
             }.attach()
         }
@@ -70,5 +102,21 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     override fun onProductClick(model: String) {
         findNavController().navigate(R.id.projectDetailsFragment, null, navOptionsAnimation())
+    }
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
+
+            viewPager.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+        }
+    }
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            viewPager.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
+        }
     }
 }

@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.databinding.FragmentMyEstateRentBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyEstateRentAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -39,17 +39,17 @@ class MyEstateRentFragment : BindingFragment<FragmentMyEstateRentBinding>(), RvM
         initRv(Dummy.dummyMyFavouritesList(requireContext()))
     }
 
-    private fun initRv(data: List<MyFavouritesModel>) {
+    private fun initRv(data: List<PropertyModel>) {
         rvMyEstateRentAdapter.setListener(this@MyEstateRentFragment)
         binding.rvProperties.adapter = rvMyEstateRentAdapter
         rvMyEstateRentAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: MyFavouritesModel) {
+    override fun onPropertyClick(model: PropertyModel) {
         showToast("Click")
     }
 
-    override fun onEditPropertyClick(model: MyFavouritesModel) {
+    override fun onEditPropertyClick(model: PropertyModel) {
         showToast("Edit")
     }
 

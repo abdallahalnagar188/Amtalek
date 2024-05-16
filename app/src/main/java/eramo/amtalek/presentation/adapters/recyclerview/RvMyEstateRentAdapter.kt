@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemMyEstateRentBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 class RvMyEstateRentAdapter @Inject constructor() :
-    ListAdapter<MyFavouritesModel, RvMyEstateRentAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<PropertyModel, RvMyEstateRentAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -42,11 +42,11 @@ class RvMyEstateRentAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: MyFavouritesModel) {
+        fun bind(model: PropertyModel) {
             binding.apply {
 
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price))
+                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
 //                tvLabel.text = model.type
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
@@ -59,7 +59,7 @@ class RvMyEstateRentAdapter @Inject constructor() :
                     .load(model.imageUrl)
                     .into(ivImage)
 
-                if (model.isFeatured == TRUE) {
+                if (model.isFeatured == "") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
@@ -79,21 +79,21 @@ class RvMyEstateRentAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: MyFavouritesModel)
-        fun onEditPropertyClick(model: MyFavouritesModel)
+        fun onPropertyClick(model: PropertyModel)
+        fun onEditPropertyClick(model: PropertyModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<MyFavouritesModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {
             override fun areItemsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
         }
     }

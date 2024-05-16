@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 class RvHotOffersRentPropertiesAdapter @Inject constructor() :
-    ListAdapter<MyFavouritesModel, RvHotOffersRentPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<PropertyModel, RvHotOffersRentPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -42,8 +42,8 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: MyFavouritesModel) {
-            var isFav = model.isFavourite == TRUE
+        fun bind(model: PropertyModel) {
+            var isFav = model.isFavourite == ""
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -51,9 +51,32 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
                     else ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.price))
+                when (model.rentDuration) {
+                    "daily" -> {
+                        tvDurationRent.text =  "${model.rentPrice}  + ${itemView.context.getString(R.string.daily)}"
+                    }
+                    "monthly" -> {
+                        tvDurationRent.text =  "${model.rentPrice}  + ${itemView.context.getString(R.string.monthly)}"
+                    }
+                    "3_months" -> {
+                        tvDurationRent.text =  "${model.rentPrice}  + ${itemView.context.getString(R.string._3_months)}"
+                    }
+                    "6_months" -> {
+                        tvDurationRent.text = "${model.rentPrice}  + ${itemView.context.getString(R.string._6_months)}"
+                    }
+                    "9_months" -> {
+                        tvDurationRent.text = "${model.rentPrice}  + ${itemView.context.getString(R.string._9_months)}"
+                    }
+                    "yearly" -> {
+                        tvDurationRent.text = "${model.rentPrice}  + ${itemView.context.getString(R.string.yearly)}"
+                    }
+                }
+                    tvLabel.text = itemView.context.getString(R.string.for_rent)
+
+
+
+                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.rentPrice.toDouble()))
                 tvTitle.text = model.title
-                tvLabel.text = model.type
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
@@ -68,13 +91,13 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == TRUE){
+                if (model.isFavourite == ""){
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 }else{
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                if (model.isFeatured == TRUE){
+                if (model.isFeatured == ""){
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
@@ -92,20 +115,20 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: MyFavouritesModel)
+        fun onPropertyClick(model: PropertyModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<MyFavouritesModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {
             override fun areItemsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: MyFavouritesModel,
-                newItem: MyFavouritesModel
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
         }
     }

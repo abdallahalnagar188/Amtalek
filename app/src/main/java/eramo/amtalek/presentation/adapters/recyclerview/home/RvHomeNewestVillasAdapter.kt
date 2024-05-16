@@ -70,20 +70,20 @@ class RvHomeNewestVillasAdapter @Inject constructor() :
                 when (model.type) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE
-                        tvPriceRent.visibility = View.GONE
+                        tvDurationRent.visibility = View.GONE
                     }
 
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
-                        tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
-                        tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
 
                     }
 

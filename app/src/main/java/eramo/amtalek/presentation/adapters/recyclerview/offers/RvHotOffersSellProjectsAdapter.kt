@@ -32,7 +32,7 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onPropertyClick(it)
+                        listener.onProjectClick(it)
                     }
                 }
             }
@@ -77,7 +77,7 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: ProjectModel)
+        fun onProjectClick(model: ProjectModel)
     }
 
     //check difference

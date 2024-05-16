@@ -696,5 +696,12 @@
     <string name="upload_a_company_logo">تحميل لوجو الشركة</string>
     <string name="i_am">انا اكون</string>
     <string name="birthdate">تاريخ الميلاد</string>
+    <string name="forBoth">الكل</string>
+    <string name="daily">يوميا</string>
+    <string name="monthly">شهريا</string>
+    <string name="_3_months">كل ٣ شهور</string>
+    <string name="_6_months">كل ٦ شهور</string>
+    <string name="_9_months">كل ٩ شهور</string>
+    <string name="yearly">سنويا</string>
 
 </resources>

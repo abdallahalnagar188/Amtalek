@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="locale">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_17sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:clipToPadding="false"
+        android:nestedScrollingEnabled="false"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/_14sdp"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_property_preview" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_one"
+        android:layout_width="@dimen/_284sdp"
+        android:layout_height="@dimen/_137sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/shimmer_gray"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_two"
+        android:layout_width="@dimen/_284sdp"
+        android:layout_height="@dimen/_137sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/shimmer_gray"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_one"
+        />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_three"
+        android:layout_width="@dimen/_284sdp"
+        android:layout_height="@dimen/_137sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/shimmer_gray"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_two" />
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_four"
+        android:layout_width="@dimen/_284sdp"
+        android:layout_height="@dimen/_137sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:backgroundTint="@color/shimmer_gray"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_three" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

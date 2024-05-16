@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.main.offers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.databinding.FragmentHotOffersRentBinding
+import eramo.amtalek.databinding.FragmentHotOffersForBothBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.ProjectModel
-import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentProjectsAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothProjectsAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.state.UiState
@@ -27,41 +28,39 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),RvHotOffersRentPropertiesAdapter.OnItemClickListener,RvHotOffersRentProjectsAdapter.OnItemClickListener {
+class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding>(),RvHotOffersForBothPropertiesAdapter.OnItemClickListener,RvHotOffersForBothProjectsAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentHotOffersRentBinding::inflate
+        get() = FragmentHotOffersForBothBinding::inflate
 
     private val hotOffersViewModel by viewModels<HotOffersViewModel>()
 
     @Inject
-    lateinit var rvHotOffersRentPropertiesAdapter: RvHotOffersRentPropertiesAdapter
+    lateinit var rvHotOffersForBothPropertiesAdapter: RvHotOffersForBothPropertiesAdapter
 
     @Inject
-    lateinit var rvHotOffersRentProjectsAdapter: RvHotOffersRentProjectsAdapter
+    lateinit var rvHotOffersForBothProjectsAdapter: RvHotOffersForBothProjectsAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
-        setupObservers()
         fetchGetHotOffers()
-        setupCarouselSlider()
-    }
-
-    private fun setupObservers() {
-        hotOffersViewModel.forRentListState.observe(viewLifecycleOwner){
-            rvHotOffersRentPropertiesAdapter.submitList(it)
-        }
+        setUpObservers()
     }
 
     override fun onResume() {
         super.onResume()
         hotOffersViewModel.getHotOffers()
-
     }
+
     override fun onPause() {
         super.onPause()
+    }
+    private fun setUpObservers() {
+        hotOffersViewModel.forBothListState.observe(viewLifecycleOwner) {
+            rvHotOffersForBothPropertiesAdapter.submitList(it)
+        }
     }
     private fun fetchGetHotOffers() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -87,17 +86,19 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
     }
 
     private fun setupViews() {
-        binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter
-        binding.rvProjects.adapter = rvHotOffersRentProjectsAdapter
-        rvHotOffersRentProjectsAdapter.setListener(this)
-        rvHotOffersRentPropertiesAdapter.setListener(this)
+        binding.rvPropertiesForBoth.adapter = rvHotOffersForBothPropertiesAdapter
+        binding.rvProjectsForBoth.adapter = rvHotOffersForBothProjectsAdapter
+        rvHotOffersForBothProjectsAdapter.setListener(this)
+        rvHotOffersForBothPropertiesAdapter.setListener(this)
+        setupCarouselSlider()
+
     }
     private fun setupCarouselSlider() {
         binding.apply {
-            carouselSliderForRent.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderForRent.setData(Dummy.dummyCarouselList())
+            carouselSliderForBoth.registerLifecycle(viewLifecycleOwner.lifecycle)
+            carouselSliderForBoth.setData(Dummy.dummyCarouselList())
 
-            carouselSliderForRent.carouselListener = object : CarouselListener {
+            carouselSliderForBoth.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
@@ -126,7 +127,6 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
     private fun showShimmerEffect() {
         binding.apply {
             shimmerLayout.startShimmer()
-
             root.visibility = View.GONE
             shimmerLayout.visibility = View.VISIBLE
         }
@@ -134,11 +134,11 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
     private fun dismissShimmerEffect() {
         binding.apply {
             shimmerLayout.stopShimmer()
-
             root.visibility = View.VISIBLE
             shimmerLayout.visibility = View.GONE
         }
     }
+
 
     override fun onPropertyClick(model: PropertyModel) {
         Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()

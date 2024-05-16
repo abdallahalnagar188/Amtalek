@@ -7,7 +7,7 @@ import eramo.amtalek.domain.model.drawer.MessagingChatModel
 import eramo.amtalek.domain.model.drawer.MessagingOffersModel
 import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
@@ -125,78 +125,78 @@ object Dummy {
     }
 
 
-    fun dummyMyFavouritesList(context: Context): List<MyFavouritesModel> {
-        val list = mutableListOf<MyFavouritesModel>()
+    fun dummyMyFavouritesList(context: Context): List<PropertyModel> {
+        val list = mutableListOf<PropertyModel>()
 
-        list.add(
-            MyFavouritesModel(
-                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_sell), 0, 0, 500000.0,
-                context.getString(R.string.fake_title), 120, 2, 4,
-                context.getString(R.string.fake_location),
-                context.getString(R.string.fake_date),
-                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//        list.add(
+//            PropertyModel(
+//                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+//                context.getString(R.string.for_sell), 0, 0, 500000.0,
+//                context.getString(R.string.fake_title), 120, 2, 4,
+//                context.getString(R.string.fake_location),
+//                context.getString(R.string.fake_date),
+//                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//
+//            )
+//        )
 
-            )
-        )
+//        list.add(
+//            PropertyModel(
+//                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+//                context.getString(R.string.for_rent), 1, 1, 2500000.0,
+//                context.getString(R.string.fake_title), 1050, 2, 4,
+//                context.getString(R.string.fake_location),
+//                context.getString(R.string.fake_date),
+//                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//
+//            )
+//        )
+//        list.add(
+//            PropertyModel(
+//                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+//                context.getString(R.string.for_sell), 0, 0, 500000.0,
+//                context.getString(R.string.fake_title), 120, 2, 4,
+//                context.getString(R.string.fake_location),
+//                context.getString(R.string.fake_date),
+//                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//
+//            )
+//        )
 
-        list.add(
-            MyFavouritesModel(
-                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_rent), 1, 1, 2500000.0,
-                context.getString(R.string.fake_title), 1050, 2, 4,
-                context.getString(R.string.fake_location),
-                context.getString(R.string.fake_date),
-                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
-
-            )
-        )
-        list.add(
-            MyFavouritesModel(
-                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_sell), 0, 0, 500000.0,
-                context.getString(R.string.fake_title), 120, 2, 4,
-                context.getString(R.string.fake_location),
-                context.getString(R.string.fake_date),
-                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
-
-            )
-        )
-
-        list.add(
-            MyFavouritesModel(
-                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_sell), 1, 1, 2500000.0,
-                context.getString(R.string.fake_title), 1050, 2, 4,
-                context.getString(R.string.fake_location),
-                context.getString(R.string.fake_date),
-                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
-
-            )
-        )
-        list.add(
-            MyFavouritesModel(
-                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_sell), 0, 0, 500000.0,
-                context.getString(R.string.fake_title), 120, 2, 4,
-                context.getString(R.string.fake_location),
-                context.getString(R.string.fake_date),
-                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
-
-            )
-        )
-
-        list.add(
-            MyFavouritesModel(
-                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
-                context.getString(R.string.for_sell), 1, 1, 2500000.0,
-                context.getString(R.string.fake_title), 1050, 2, 4,
-                context.getString(R.string.fake_location),
-                context.getString(R.string.fake_date),
-                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
-
-            )
-        )
+//        list.add(
+//            PropertyModel(
+//                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+//                context.getString(R.string.for_sell), 1, 1, 2500000.0,
+//                context.getString(R.string.fake_title), 1050, 2, 4,
+//                context.getString(R.string.fake_location),
+//                context.getString(R.string.fake_date),
+//                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//
+//            )
+//        )
+//        list.add(
+//            PropertyModel(
+//                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+//                context.getString(R.string.for_sell), 0, 0, 500000.0,
+//                context.getString(R.string.fake_title), 120, 2, 4,
+//                context.getString(R.string.fake_location),
+//                context.getString(R.string.fake_date),
+//                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//
+//            )
+//        )
+//
+//        list.add(
+//            PropertyModel(
+//                "https://sbnri.com/blog/wp-content/uploads/2021/07/NRI-Property-In-India.jpg",
+//                context.getString(R.string.for_sell), 1, 1, 2500000.0,
+//                context.getString(R.string.fake_title), 1050, 2, 4,
+//                context.getString(R.string.fake_location),
+//                context.getString(R.string.fake_date),
+//                "https://dreamhomeseg.com/uploads/developers/1667022205.jpg"
+//
+//            )
+//        )
 
 
         return list

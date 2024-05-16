@@ -5,16 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.databinding.FragmentHotOffersSellBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -25,7 +31,7 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),Rv
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersSellBinding::inflate
-
+    private val hotOffersViewModel by viewModels<HotOffersViewModel>()
     @Inject
     lateinit var rvHotOffersSellPropertiesAdapter: RvHotOffersSellPropertiesAdapter
 
@@ -34,38 +40,61 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),Rv
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews()
-    }
-
-    private fun setupViews() {
-        initPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
-        initProjectsRv(Dummy.dummyProjectsList(requireContext()))
-        initViews()
+        setupObservers()
+        fetchGetHotOffers()
         setupCarouselSlider()
     }
 
-    private fun initViews() {
+    private fun setupObservers() {
+        hotOffersViewModel.forSellListState.observe(viewLifecycleOwner){
+            rvHotOffersSellPropertiesAdapter.submitList(it)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hotOffersViewModel.getHotOffers()
+
+    }
+    override fun onPause() {
+        super.onPause()
+    }
+    private fun setupViews() {
+        binding.rvProperties.adapter = rvHotOffersSellPropertiesAdapter
+        binding.rvProjects.adapter = rvHotOffersSellProjectsAdapter
         rvHotOffersSellProjectsAdapter.setListener(this@HotOffersSellFragment)
         rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersSellFragment)
     }
+    private fun fetchGetHotOffers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                hotOffersViewModel.hotOffers.collect(){
+                    when(it){
+                        is UiState.Success->{
 
-    private fun initPropertiesRv(data: List<MyFavouritesModel>) {
-        binding.rvProperties.adapter = rvHotOffersSellPropertiesAdapter
-        rvHotOffersSellPropertiesAdapter.submitList(data)
-    }
+                            dismissShimmerEffect()
+                        }
+                        is UiState.Error->{
 
-    private fun initProjectsRv(data: List<ProjectModel>) {
-        binding.rvProjects.adapter = rvHotOffersSellProjectsAdapter
-        rvHotOffersSellProjectsAdapter.submitList(data)
+                            dismissShimmerEffect()
+                        }
+                        is UiState.Loading->{
+                            showShimmerEffect()
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
     private fun setupCarouselSlider() {
         binding.apply {
-            carouselSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSlider.setData(Dummy.dummyCarouselList())
+            carouselSliderForSell.registerLifecycle(viewLifecycleOwner.lifecycle)
+            carouselSliderForSell.setData(Dummy.dummyCarouselList())
 
-            carouselSlider.carouselListener = object : CarouselListener {
+            carouselSliderForSell.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
@@ -91,12 +120,28 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),Rv
             }
         }
     }
+    private fun showShimmerEffect() {
+        binding.apply {
+            shimmerLayout.startShimmer()
 
-    override fun onPropertyClick(model: ProjectModel) {
+            root.visibility = View.GONE
+            shimmerLayout.visibility = View.VISIBLE
+        }
+    }
+    private fun dismissShimmerEffect() {
+        binding.apply {
+            shimmerLayout.stopShimmer()
+
+            root.visibility = View.VISIBLE
+            shimmerLayout.visibility = View.GONE
+        }
+    }
+
+    override fun onProjectClick(model: ProjectModel) {
         Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onPropertyClick(model: MyFavouritesModel) {
+    override fun onPropertyClick(model: PropertyModel) {
         Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
     }
 

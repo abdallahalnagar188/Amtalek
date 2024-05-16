@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/_15sdp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/root">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_properties"
@@ -18,17 +18,17 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
+            android:nestedScrollingEnabled="true"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/carousel_slider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/carousel_slider_for_sell"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_property_preview" />
 
         <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/carousel_slider"
+            android:id="@+id/carousel_slider_for_sell"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
             android:layout_marginVertical="@dimen/_15sdp"
@@ -48,8 +48,19 @@
             app:showCaption="false"
             app:showIndicator="false"
             app:showNavigationButtons="true"
-            app:showTopShadow="false" />
-
+            app:showTopShadow="false"
+            />
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_duration="4000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_15sdp"
+            >
+            <include layout="@layout/fragment_hotoffer_shimmer" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_projects"
             android:layout_width="match_parent"
@@ -64,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/carousel_slider"
+            app:layout_constraintTop_toBottomOf="@+id/carousel_slider_for_sell"
             tools:listitem="@layout/item_property_preview" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

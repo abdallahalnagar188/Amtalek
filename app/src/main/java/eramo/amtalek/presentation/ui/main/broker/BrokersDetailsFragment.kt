@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
@@ -115,13 +115,13 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), 
         }
     }
 
-    private fun initRv(data: List<MyFavouritesModel>) {
+    private fun initRv(data: List<PropertyModel>) {
         rvBrokerDetailsPropertiesAdapter.setListener(this@BrokersDetailsFragment)
         binding.rv.adapter = rvBrokerDetailsPropertiesAdapter
         rvBrokerDetailsPropertiesAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: MyFavouritesModel) {
+    override fun onPropertyClick(model: PropertyModel) {
 
     }
 }

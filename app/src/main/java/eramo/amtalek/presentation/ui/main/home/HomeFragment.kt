@@ -25,7 +25,6 @@ import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.auth.CityModel
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
@@ -953,7 +952,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    override fun onPropertyClick(model: MyFavouritesModel) {
+    override fun onPropertyClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
     }
 
     override fun onNewsClick(model: NewsModel) {

@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentFavouritesBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.MyFavouritesModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -44,13 +44,13 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(), RvMyFav
         }
     }
 
-    private fun initFavouritesRv(data: List<MyFavouritesModel>) {
+    private fun initFavouritesRv(data: List<PropertyModel>) {
         rvMyFavouritesAdapter.setListener(this@FavouritesFragment)
         binding.rvProperties.adapter = rvMyFavouritesAdapter
         rvMyFavouritesAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: MyFavouritesModel) {
+    override fun onPropertyClick(model: PropertyModel) {
 
     }
 

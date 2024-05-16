@@ -127,5 +127,10 @@ object AppModule {
     fun provideContext(@ApplicationContext context: Context): Context {
         return context
     }
+    @Provides
+    @Singleton
+    fun provideHotOffersRepository(amtalekApi: AmtalekApi): HotOffersRepository {
+        return HotOffersRepositoryImpl(amtalekApi =amtalekApi )
+    }
 
 }
