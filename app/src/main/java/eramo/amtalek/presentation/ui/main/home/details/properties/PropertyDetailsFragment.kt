@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.webkit.WebChromeClient
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -28,8 +29,9 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.databinding.FragmentPropertyDetailsRentBinding
+import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -37,7 +39,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsRentViewModel
+import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
@@ -53,14 +55,14 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentBinding>() {
+class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentPropertyDetailsRentBinding::inflate
+        get() = FragmentPropertyDetailsBinding::inflate
 
-    private val viewModel: PropertyDetailsRentViewModel by viewModels()
+    private val viewModel: PropertyDetailsViewModel by viewModels()
 
-    private val args by navArgs<PropertyDetailsRentFragmentArgs>()
+    private val args by navArgs<PropertyDetailsFragmentArgs>()
     private val propertyId get() = args.propertyId
 
     @Inject
@@ -75,12 +77,9 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews()
-
         requestData()
         fetchData()
-
     }
 
     override fun onPause() {
@@ -157,9 +156,8 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
                 tvTitle.text = data.title
                 tvLocation.text = data.location
                 tvDate.text = data.datePosted
-
                 // header layout
-                tvFinishing.text = data.finishingAvailability
+                tvFinishing.text = data.finishing
                 tvLocation2.text = data.areaLocation
                 tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(data.area))
                 tvBedrooms.text = getString(R.string.s_bedroom_count_n, data.bedroomsCount.toString())
@@ -173,21 +171,20 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
                     .load(data.brokerImageUrl)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivUserImage)
+                mapSetup(data.mapUrl)
 
                 propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = data.propertyType
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
                 propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
                 propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
-                propertyDetailsLayout.tvFurnitureValue.text = data.furniture
-                propertyDetailsLayout.tvPaymentValue.text = data.payment
                 propertyDetailsLayout.tvFinishingValue.text = data.finishing
                 propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
                 propertyDetailsLayout.tvFloorValue.text = data.landType
 
                 tvDescriptionValue.text = data.description
 
-                initPropertyFeaturesRv(data.propertyFeatures)
+                initPropertyFeaturesRv(data.propertyAmenities)
 
                 getYoutubeUrlId(data.videoUrl)?.let {
                     setupVideo(it)
@@ -243,6 +240,15 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             imageSlider.setData(list)
         }
     }
+    private fun mapSetup(data: String?) {
+        val video = data
+        video?.let {
+            binding.webView.settings.javaScriptEnabled =true
+            binding.webView.webChromeClient = WebChromeClient()
+            binding.webView.loadData(video,"text/html","utf-8")
+
+        }
+    }
 
     private fun setupVideo(videoId: String) {
         binding.apply {
@@ -258,7 +264,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
         }
     }
 
-    private fun initPropertyFeaturesRv(data: List<String>) {
+    private fun initPropertyFeaturesRv(data: List<AmenityModel>) {
         binding.apply {
             if (data.isNotEmpty()) {
                 propertyFeaturesLayout.root.visibility = View.VISIBLE
@@ -372,7 +378,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             chart.xAxis.labelRotationAngle = -60f
             chart.xAxis.textSize = 9f
             chart.description.isEnabled = false
-            chart.xAxis.valueFormatter = xAxisFormatter
+//            chart.xAxis.valueFormatter = xAxisFormatter
 
             chart.setTouchEnabled(false)
         }
@@ -385,7 +391,7 @@ class PropertyDetailsRentFragment : BindingFragment<FragmentPropertyDetailsRentB
             cartList.add(
                 0,
                 (ChartModel(
-                    -1, 0, ""
+                    -1
                 ))
             )
         }

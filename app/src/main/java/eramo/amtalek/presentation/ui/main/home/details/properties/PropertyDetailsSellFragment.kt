@@ -206,15 +206,14 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
                 propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
                 propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
-                propertyDetailsLayout.tvFurnitureValue.text = data.furniture
-                propertyDetailsLayout.tvPaymentValue.text = data.payment
+
                 propertyDetailsLayout.tvFinishingValue.text = data.finishing
                 propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
                 propertyDetailsLayout.tvFloorValue.text = data.landType
 
                 tvDescriptionValue.text = data.description
 
-                initPropertyFeaturesRv(data.propertyFeatures)
+//                initPropertyFeaturesRv(data.propertyFeatures)
 
                 getYoutubeUrlId(data.videoUrl)?.let {
                     setupVideo(it)
@@ -273,7 +272,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
                 propertyFeaturesLayout.rv.layoutManager = layoutManager
                 propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
-                rvAmenitiesAdapter.submitList(data)
+//                rvAmenitiesAdapter.submitList(data)
             } else {
                 binding.propertyFeaturesLayout.root.visibility = View.GONE
             }
@@ -373,7 +372,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
             cartList.add(
                 0,
                 (ChartModel(
-                    -1, 0, ""
+                    -1,
                 ))
             )
         }

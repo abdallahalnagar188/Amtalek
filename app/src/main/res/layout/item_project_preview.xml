@@ -130,17 +130,30 @@
             app:layout_constraintStart_toEndOf="@id/iv_clock"
             app:layout_constraintTop_toTopOf="@id/iv_clock"
             tools:text="4 Days ago" />
-
-        <ImageView
-            android:id="@+id/iv_broker"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/iv_broker_card_view"
             android:layout_width="@dimen/_26sdp"
             android:layout_height="@dimen/_26sdp"
-            android:layout_marginEnd="@dimen/_22sdp"
-            android:layout_marginBottom="@dimen/_18sdp"
-            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@drawable/gold_sqare" />
+            android:layout_marginEnd="@dimen/_22sdp"
+            android:layout_marginBottom="@dimen/_18sdp"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_broker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    tools:src="@drawable/gold_sqare" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/tv_broker"
@@ -150,9 +163,9 @@
             android:textColor="@color/black"
             android:layout_marginEnd="@dimen/_2sdp"
             android:textSize="@dimen/_9ssp"
-            app:layout_constraintBottom_toTopOf="@id/iv_broker"
-            app:layout_constraintEnd_toEndOf="@id/iv_broker"
-            app:layout_constraintStart_toStartOf="@id/iv_broker" />
+            app:layout_constraintBottom_toTopOf="@id/iv_broker_card_view"
+            app:layout_constraintEnd_toEndOf="@id/iv_broker_card_view"
+            app:layout_constraintStart_toStartOf="@id/iv_broker_card_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

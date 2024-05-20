@@ -58,6 +58,7 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
+                tvLabel.text = itemView.context.getString(R.string.forBoth)
 
                 Glide.with(itemView)
                     .load(model.imageUrl)

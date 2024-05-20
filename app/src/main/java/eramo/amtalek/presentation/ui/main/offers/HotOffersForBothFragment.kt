@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentHotOffersForBothBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
@@ -19,7 +21,9 @@ import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
@@ -60,6 +64,9 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
     private fun setUpObservers() {
         hotOffersViewModel.forBothListState.observe(viewLifecycleOwner) {
             rvHotOffersForBothPropertiesAdapter.submitList(it)
+        }
+        hotOffersViewModel.projectsListState.observe(viewLifecycleOwner){
+            rvHotOffersForBothProjectsAdapter.submitList(it)
         }
     }
     private fun fetchGetHotOffers() {
@@ -141,10 +148,14 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
 
 
     override fun onPropertyClick(model: PropertyModel) {
-        Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())
     }
 
-    override fun onPropertyClick(model: ProjectModel) {
-        Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
+    override fun onProjectClick(model: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel) {
+        findNavController().navigate(
+            R.id.myProjectDetailsFragment,
+            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+        )
     }
 }

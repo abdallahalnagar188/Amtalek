@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
+import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.repository.HotOffersRepository
 import eramo.amtalek.util.state.Resource
@@ -34,6 +35,10 @@ class HotOffersViewModel @Inject constructor(
 
     private var _forBothListState = MutableLiveData<MutableList<PropertyModel>>()
     var forBothListState: LiveData<MutableList<PropertyModel>> = _forBothListState
+
+    private var _projectsListState = MutableLiveData<MutableList<ProjectModel>>()
+    var projectsListState: LiveData<MutableList<ProjectModel>> = _projectsListState
+
     //////////////////////////////////////////
     private var getHotOffersJob: Job? = null
     //////////////////////////////////////////
@@ -44,26 +49,33 @@ class HotOffersViewModel @Inject constructor(
                 repository.getHotOffers().collect(){
                     when (it){
                         is Resource.Success -> {
-                            val forSellList:ArrayList<PropertyModel> = ArrayList()
-                            val forRentList:ArrayList<PropertyModel> = ArrayList()
-                            val forBothList:ArrayList<PropertyModel> = ArrayList()
+                            val forSellPropertyList:ArrayList<PropertyModel> = ArrayList()
+                            val forRentPropertyList:ArrayList<PropertyModel> = ArrayList()
+                            val forBothPropertyList:ArrayList<PropertyModel> = ArrayList()
+                            val projectsList:ArrayList<ProjectModel> = ArrayList()
                             for (property in it.data?.data?.properties!!){
                                 when (property?.forWhat) {
                                     "for_sale" -> {
-                                        forSellList.add(property.toPropertyModel())
+                                        forSellPropertyList.add(property.toPropertyModel())
                                     }
                                     "for_rent" -> {
-                                        forRentList.add(property.toPropertyModel())
+                                        forRentPropertyList.add(property.toPropertyModel())
                                     }
                                     "for_both" -> {
-                                        forBothList.add(property.toPropertyModel())
+                                        forBothPropertyList.add(property.toPropertyModel())
                                     }
                                 }
                             }
-                            _forSellListState.postValue(forSellList)
-                            _forRentListState.postValue(forRentList)
-                            _forBothListState.postValue(forBothList)
+                            for (project in it.data.data?.projects!!){
+                                if (project != null) {
+                                    projectsList.add(project.toProjectModel())
+                                }
+                            }
 
+                            _forSellListState.postValue(forSellPropertyList)
+                            _forRentListState.postValue(forRentPropertyList)
+                            _forBothListState.postValue(forBothPropertyList)
+                            _projectsListState.postValue(projectsList)
                             _hotOffers.value = UiState.Success(it.data)
                         }
                         is Resource.Error -> {

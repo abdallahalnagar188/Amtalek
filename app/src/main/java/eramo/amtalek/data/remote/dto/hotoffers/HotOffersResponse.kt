@@ -3,6 +3,7 @@ package eramo.amtalek.data.remote.dto.hotoffers
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import kotlinx.parcelize.Parcelize
 
@@ -51,7 +52,23 @@ data class Project(
     var totalUnits: String?,
     @SerializedName("twitter")
     var twitter: String?
-) : Parcelable
+) : Parcelable{
+    fun toProjectModel(): ProjectModel {
+        return ProjectModel(
+            id = id?:0,
+            imageUrl = image?:"",
+            title = title?:"",
+            location = city?:"",
+            datePosted = createdAt?:"",
+            isFeatured = ""?:"",
+            description = description?:"",
+            brokerId = agentData?.id?:0,
+            brokerLogoUrl = agentData?.companyLogo?:"",
+            isFavourite = "",
+            listingNumber = listingNumber?:"",
+        )
+    }
+}
 @Parcelize
 data class Property(
     @SerializedName("address")
@@ -97,10 +114,13 @@ data class Property(
     @SerializedName("sale_price")
     var salePrice: Int?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("listing_number")
+    var listingNumber: String?,
 ) : Parcelable{
     fun toPropertyModel():PropertyModel{
         return PropertyModel(
+            id = id?:0,
             imageUrl = primaryImage?:"",
             title = title?:"",
             type = forWhat?:"",
@@ -116,6 +136,7 @@ data class Property(
             datePosted = createdAt?:"",
             isFeatured = ""?:"",
             rentDuration = rentDuration?:"",
+            listingNumber = listingNumber?:"",
         )
     }
 }

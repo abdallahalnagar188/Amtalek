@@ -39,7 +39,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasA
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.FilterCitiesDialogFragment
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
@@ -840,11 +839,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
 
             PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsRentFragment,
-                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
+//                findNavController().navigate(
+//                    R.id.propertyDetailsRentFragment,
+//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+//                    navOptionsAnimation()
+//                )
             }
 
             PropertyType.FOR_BOTH.key -> {
@@ -877,11 +876,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
 
             PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsRentFragment,
-                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
+//                findNavController().navigate(
+//                    R.id.propertyDetailsRentFragment,
+//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+//                    navOptionsAnimation()
+//                )
             }
 
             PropertyType.FOR_BOTH.key -> {
@@ -906,11 +905,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
 
             PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsRentFragment,
-                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
+//                findNavController().navigate(
+//                    R.id.propertyDetailsRentFragment,
+//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+//                    navOptionsAnimation()
+//                )
             }
 
             PropertyType.FOR_BOTH.key -> {
@@ -935,11 +934,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
 
             PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsRentFragment,
-                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
+//                findNavController().navigate(
+//                    R.id.propertyDetailsRentFragment,
+//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+//                    navOptionsAnimation()
+//                )
             }
 
             PropertyType.FOR_BOTH.key -> {

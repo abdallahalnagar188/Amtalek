@@ -1,6 +1,5 @@
 package eramo.amtalek.data.remote
 
-import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.*
@@ -9,8 +8,6 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
-import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
-import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
@@ -18,8 +15,9 @@ import eramo.amtalek.data.remote.dto.products.*
 import eramo.amtalek.data.remote.dto.products.orders.*
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.data.remote.dto.products.search.SearchResponse
-import eramo.amtalek.data.remote.dto.property.PropertyDetailsResponse
-import eramo.amtalek.domain.model.auth.GetProfileModel
+import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
+import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.MyPropertyDetailsResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -164,12 +162,11 @@ interface AmtalekApi {
     //____________________________________________________________________________________________//
     // Properties
 
-    @GET("mobile/property-details/{propertyId}")
+    @GET("mobile/property/{propertyId}")
     suspend fun getPropertyDetails(
         @Header("Authorization") userToken: String?,
-//        @Path("propertyId") propertyId:String = "38"
         @Path("propertyId") propertyId:String
-    ): Response<PropertyDetailsResponse>
+    ): Response<MyPropertyDetailsResponse>
 
     // ____________________________________________________________________________________________//
     // Drawer
@@ -238,6 +235,23 @@ interface AmtalekApi {
         @Field("subject") subject: String,
         @Field("details") details: String
     ): Response<ResultDto>
+    //-----------------------------------------------------------------------------------------------//
+    // Projects
+    @GET("mobile/project-details/{listing_number}")
+    suspend fun getProjectDetails(
+        @Path("listing_number") listingNumber: String
+    ):Response<ProjectDetailsResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/submit-to-broker")
+    suspend fun sendToBroker(
+        @Field ("vendor_id") vendorId: String?,
+        @Field ("name") name: String?,
+        @Field ("email") email: String?,
+        @Field ("phone") phone: String?,
+        @Field ("message") message: String?
+    ):Response<SendToBrokerResponse>
+
 
     //____________________________________________________________________________________________//
     // Products

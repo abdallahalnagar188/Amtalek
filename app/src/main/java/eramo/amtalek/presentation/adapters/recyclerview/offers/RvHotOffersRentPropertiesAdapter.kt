@@ -53,22 +53,22 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
 
                 when (model.rentDuration) {
                     "daily" -> {
-                        tvDurationRent.text =  "${model.rentPrice}  + ${itemView.context.getString(R.string.daily)}"
+                        tvDurationRent.text =  itemView.context.getString(R.string.daily)
                     }
                     "monthly" -> {
-                        tvDurationRent.text =  "${model.rentPrice}  + ${itemView.context.getString(R.string.monthly)}"
+                        tvDurationRent.text =  itemView.context.getString(R.string.monthly)
                     }
                     "3_months" -> {
-                        tvDurationRent.text =  "${model.rentPrice}  + ${itemView.context.getString(R.string._3_months)}"
+                        tvDurationRent.text =  itemView.context.getString(R.string._3_months)
                     }
                     "6_months" -> {
-                        tvDurationRent.text = "${model.rentPrice}  + ${itemView.context.getString(R.string._6_months)}"
+                        tvDurationRent.text = itemView.context.getString(R.string._6_months)
                     }
                     "9_months" -> {
-                        tvDurationRent.text = "${model.rentPrice}  + ${itemView.context.getString(R.string._9_months)}"
+                        tvDurationRent.text = itemView.context.getString(R.string._9_months)
                     }
                     "yearly" -> {
-                        tvDurationRent.text = "${model.rentPrice}  + ${itemView.context.getString(R.string.yearly)}"
+                        tvDurationRent.text = itemView.context.getString(R.string.yearly)
                     }
                 }
                     tvLabel.text = itemView.context.getString(R.string.for_rent)

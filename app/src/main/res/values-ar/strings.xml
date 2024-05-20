@@ -428,8 +428,7 @@
     <string name="edit_profile">تعديل البيانات</string>
 
     <string name="for_sell">للبيع</string>
-    <string name="for_rent">للإيجار</string>
-    <string name="for_sell_or_rent">للبيع/للإيجار</string>
+=    <string name="for_sell_or_rent">للبيع/للإيجار</string>
     <string name="featured">مميز</string>
 
     <string name="fake_Compound">كومبوند فى الشيخ زايد</string>
@@ -703,5 +702,13 @@
     <string name="_6_months">كل ٦ شهور</string>
     <string name="_9_months">كل ٩ شهور</string>
     <string name="yearly">سنويا</string>
+    <string name="for_rent">للايجار</string>
+    <string name="agency_s_info">معلومات عن الوكيل: </string>
+    <string name="unit_location">موقع الوحدة</string>
+    <string name="message_sent_successfully">تم الارسال بنجاح</string>
+    <string name="please_enter_a_name">من فضلك ادخل اسمك</string>
+    <string name="please_enter_a_mail">من فضلك ادخل بريد الكتروني صحيح</string>
+    <string name="please_enter_a_phone_number">من فضلك ادخل رقم الهاتف</string>
+    <string name="please_enter_a_message">من فضلك ادخل رسالة</string>
 
 </resources>

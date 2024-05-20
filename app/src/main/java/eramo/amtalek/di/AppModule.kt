@@ -132,5 +132,15 @@ object AppModule {
     fun provideHotOffersRepository(amtalekApi: AmtalekApi): HotOffersRepository {
         return HotOffersRepositoryImpl(amtalekApi =amtalekApi )
     }
+    @Provides
+    @Singleton
+    fun provideProjectsRepository(amtalekApi: AmtalekApi): ProjectRepository {
+        return ProjectRepositoryImpl(amtalekApi =amtalekApi )
+    }
+    @Provides
+    @Singleton
+    fun provideSendToBrokerRepository(amtalekApi: AmtalekApi): SendToBrokerRepository {
+        return SendToBrokerRepositoryImpl(amtalekApi =amtalekApi )
+    }
 
 }

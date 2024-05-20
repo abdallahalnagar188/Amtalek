@@ -107,7 +107,7 @@ class LoginViewModel @Inject constructor(
     private fun saveUserInfo(userModel: UserModel, isRemember: Boolean) {
         UserUtil.saveUserInfo(
             isRemember = isRemember,
-           userToken =  "Bearer ${userModel.token}",
+             userToken =  "Bearer ${userModel.token}",
             userID = userModel.id.toString(),
             firstName = userModel.firstName,
             lastName = userModel.lastName,

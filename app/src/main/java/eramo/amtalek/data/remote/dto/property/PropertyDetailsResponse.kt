@@ -2,7 +2,9 @@ package eramo.amtalek.data.remote.dto.property
 
 
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.data.remote.dto.home.Amenity
 import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -256,21 +258,17 @@ data class PropertyDetailsResponse(
     //----------------------------------------------------- Lists -----------------------------------------------------//
     private fun sliderImagesList(): List<String> {
         val list = mutableListOf<String>()
-
         for (i in data?.get(0)?.sliders!!) {
             list.add(i?.src ?: "")
         }
-
         return list
     }
 
-    private fun propertyFeaturesList(): List<String> {
-        val list = mutableListOf<String>()
-
+    private fun propertyFeaturesList(): List<AmenityModel> {
+        val list = mutableListOf<AmenityModel>()
         for (i in data?.get(0)?.aminities!!) {
-            list.add(i?.title ?: "")
+            list.add(AmenityModel(name = i?.title?:"", id = i?.id?:-1))
         }
-
         return list
     }
 
@@ -325,13 +323,13 @@ data class PropertyDetailsResponse(
     private fun chartList(): List<ChartModel> {
         val list = mutableListOf<ChartModel>()
 
-        for (i in data?.get(0)?.chart!!) {
-            list.add(
-                ChartModel(
-                    i?.id ?: -1, i?.count ?: -1, i?.date ?: ""
-                )
-            )
-        }
+//        for (i in data?.get(0)?.chart!!) {
+//            list.add(
+//                ChartModel(
+//                    i?.id ?: -1, i?.count ?: -1, i?.date ?: ""
+//                )
+//            )
+//        }
 
         return list
     }
@@ -366,7 +364,8 @@ data class PropertyDetailsResponse(
             data?.get(0)?.video ?: "",
             commentsList(),
             similarPropertiesList(),
-            chartList()
+            chartList(),
+            mapUrl =""
 
         )
     }

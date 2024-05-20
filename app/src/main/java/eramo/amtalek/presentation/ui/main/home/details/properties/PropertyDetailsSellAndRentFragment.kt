@@ -59,8 +59,8 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
     private val viewModel: PropertyDetailsSellAndRentViewModel by viewModels()
 
-    private val args by navArgs<PropertyDetailsRentFragmentArgs>()
-    private val propertyId get() = args.propertyId
+//    private val args by navArgs<PropertyDetailsRentFragmentArgs>()
+//    private val propertyId get() = args.propertyId
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
@@ -98,7 +98,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
     }
 
     private fun requestData() {
-        viewModel.getPropertyDetails(propertyId)
+//        viewModel.getPropertyDetails(propertyId)
     }
 
     private fun fetchData() {
@@ -172,15 +172,14 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
                 propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
                 propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
-                propertyDetailsLayout.tvFurnitureValue.text = data.furniture
-                propertyDetailsLayout.tvPaymentValue.text = data.payment
+
                 propertyDetailsLayout.tvFinishingValue.text = data.finishing
                 propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
                 propertyDetailsLayout.tvFloorValue.text = data.landType
 
                 tvDescriptionValue.text = data.description
 
-                initPropertyFeaturesRv(data.propertyFeatures)
+//                initPropertyFeaturesRv(data.am)
 
                 getYoutubeUrlId(data.videoUrl)?.let {
                     setupVideo(it)
@@ -261,7 +260,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
 
                 propertyFeaturesLayout.rv.layoutManager = layoutManager
                 propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
-                rvAmenitiesAdapter.submitList(data)
+//                rvAmenitiesAdapter.submitList(data)
             } else {
                 propertyFeaturesLayout.root.visibility = View.GONE
             }
@@ -377,7 +376,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
             cartList.add(
                 0,
                 (ChartModel(
-                    -1, 0, ""
+                    -1,
                 ))
             )
         }

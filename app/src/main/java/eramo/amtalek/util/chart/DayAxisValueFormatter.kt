@@ -8,7 +8,7 @@ class DayAxisValueFormatter(cart: BarLineChartBase<*>, data: List<ChartModel>) :
 
     val data = data
     override fun getFormattedValue(value: Float): String {
-        return data[value.toInt() - 1].day
+        return data[value.toInt() - 1].toString()
     }
 
 }

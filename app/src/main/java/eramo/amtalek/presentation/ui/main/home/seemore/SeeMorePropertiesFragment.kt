@@ -12,7 +12,6 @@ import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
 import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.util.enum.PropertyType
@@ -70,11 +69,11 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
             }
 
             PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsRentFragment,
-                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
+//                findNavController().navigate(
+//                    R.id.propertyDetailsRentFragment,
+//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+//                    navOptionsAnimation()
+//                )
             }
 
             PropertyType.FOR_BOTH.key -> {

@@ -135,57 +135,8 @@
         app:layout_constraintTop_toBottomOf="@id/tv_bedrooms_value"
         tools:text="2" />
 
-    <TextView
-        android:id="@+id/tv_furniture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/montserratsemibold"
-        android:text="@string/furniture_with_dots"
-        android:textColor="@color/text_gray"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_bathrooms" />
 
-    <TextView
-        android:id="@+id/tv_furniture_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/montserratsemibold"
-        android:textAlignment="viewEnd"
-        android:textColor="@color/amtalek_blue_dark"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintTop_toBottomOf="@id/tv_bathroom_value"
-        tools:text="Not Available" />
 
-    <TextView
-        android:id="@+id/tv_payment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/montserratsemibold"
-        android:text="@string/payment_with_dots"
-        android:textColor="@color/text_gray"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_furniture" />
-
-    <TextView
-        android:id="@+id/tv_payment_value"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:fontFamily="@font/montserratsemibold"
-        android:textAlignment="viewEnd"
-        android:textColor="@color/amtalek_blue_dark"
-        android:textSize="@dimen/_13ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintTop_toBottomOf="@id/tv_furniture_value"
-        tools:text="Cash" />
 
     <TextView
         android:id="@+id/tv_finishing"
@@ -197,7 +148,7 @@
         android:textColor="@color/text_gray"
         android:textSize="@dimen/_13ssp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_payment" />
+        app:layout_constraintTop_toBottomOf="@id/tv_bathrooms" />
 
     <TextView
         android:id="@+id/tv_finishing_value"
@@ -210,7 +161,7 @@
         android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_type"
-        app:layout_constraintTop_toBottomOf="@id/tv_payment_value"
+        app:layout_constraintTop_toBottomOf="@id/tv_bathroom_value"
         tools:text="Finishing half" />
 
     <TextView

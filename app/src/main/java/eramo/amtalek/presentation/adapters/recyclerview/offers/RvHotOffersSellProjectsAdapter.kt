@@ -8,13 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemProjectPreviewBinding
-import eramo.amtalek.domain.model.main.home.ProjectModel
-import eramo.amtalek.util.TRUE
 import javax.inject.Inject
 
 
 class RvHotOffersSellProjectsAdapter @Inject constructor() :
-    ListAdapter<ProjectModel, RvHotOffersSellProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel, RvHotOffersSellProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -38,8 +36,8 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: ProjectModel) {
-            var isFav = model.isFavourite == TRUE
+        fun bind(model: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel) {
+            var isFav = model.isFavourite == ""
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -62,7 +60,7 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == TRUE) {
+                if (model.isFavourite == "") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
@@ -77,21 +75,21 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onProjectClick(model: ProjectModel)
+        fun onProjectClick(model: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel>() {
             override fun areItemsTheSame(
-                oldItem: ProjectModel,
-                newItem: ProjectModel
-            ) = oldItem == newItem
+                oldItem: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel,
+                newItem: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
+            ): Boolean = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: ProjectModel,
-                newItem: ProjectModel
-            ) = oldItem == newItem
+                oldItem: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel,
+                newItem: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
+            ): Boolean = oldItem == newItem
         }
     }
 }

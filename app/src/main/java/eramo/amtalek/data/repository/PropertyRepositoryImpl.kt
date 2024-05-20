@@ -15,7 +15,9 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
     override suspend fun getPropertyDetails(propertyId:String): Flow<Resource<PropertyDetailsModel>> {
         return flow {
             val result = toResultFlow {
-                amtalekApi.getPropertyDetails(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,propertyId)
+                amtalekApi.getPropertyDetails(
+                    if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
+                    propertyId = propertyId)
             }
             result.collect {
                 when (it) {

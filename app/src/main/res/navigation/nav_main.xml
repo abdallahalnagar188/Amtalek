@@ -157,11 +157,6 @@
         android:name="eramo.amtalek.presentation.ui.drawer.AddPropertyFragment"
         android:label="AddPropertyFragment"
         tools:layout="@layout/fragment_add_property" />
-    <fragment
-        android:id="@+id/propertyDetailsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.extension.property.PropertyDetailsFragment"
-        android:label="PropertyDetailsFragment"
-        tools:layout="@layout/fragment_property_details" />
     <dialog
         android:id="@+id/commentDialog"
         android:name="eramo.amtalek.presentation.ui.dialog.CommentDialog"
@@ -310,19 +305,23 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/propertyDetailsRentFragment"
-        android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsRentFragment"
-        android:label="fragment_property_details_rent"
-        tools:layout="@layout/fragment_property_details_rent" >
+        android:id="@+id/propertyDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragment"
+        android:label="fragment_property_details"
+        tools:layout="@layout/fragment_property_details" >
         <argument
             android:name="propertyId"
             app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/myProjectDetailsFragment"
-        android:name="eramo.amtalek.presentation.ui.main.home.details.MyProjectDetailsFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragment"
         android:label="fragment_my_project_details"
-        tools:layout="@layout/fragment_my_project_details" />
+        tools:layout="@layout/fragment_my_project_details" >
+        <argument
+            android:name="projectId"
+            app:argType="string" />
+    </fragment>
     <dialog
         android:id="@+id/commentsBottomDialogFragment"
         android:name="eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment"

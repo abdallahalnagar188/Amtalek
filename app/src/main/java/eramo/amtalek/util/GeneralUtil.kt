@@ -169,7 +169,6 @@ fun convertToArabicNumber(englishNumber: Int): String {
 
 fun getYoutubeUrlId(url: String): String? {
     return Uri.parse(url).getQueryParameter("v")
-
 }
 
 fun TextView.setTextViewDrawableColor(color: Int) {

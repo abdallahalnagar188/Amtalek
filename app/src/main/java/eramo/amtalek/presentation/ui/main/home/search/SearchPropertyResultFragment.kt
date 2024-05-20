@@ -47,7 +47,7 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
         setupToolbar()
 
         initPropertiesRv(Dummy.dummyMyFavouritesList(requireContext()))
-        initProjectsRv(Dummy.dummyProjectsList(requireContext()))
+//        initProjectsRv(Dummy.dummyProjectsList(requireContext()))
 
         setupCarouselSlider()
     }
@@ -92,7 +92,7 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
         rvHotOffersRentPropertiesAdapter.submitList(data)
     }
 
-    private fun initProjectsRv(data: List<ProjectModel>) {
+    private fun initProjectsRv(data: List<eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel>) {
         binding.rvProjects.adapter = rvHotOffersRentProjectsAdapter
         rvHotOffersRentProjectsAdapter.submitList(data)
     }
