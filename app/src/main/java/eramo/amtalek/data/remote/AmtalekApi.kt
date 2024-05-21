@@ -17,7 +17,8 @@ import eramo.amtalek.data.remote.dto.products.search.PriceResponse
 import eramo.amtalek.data.remote.dto.products.search.SearchResponse
 import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
-import eramo.amtalek.data.remote.dto.property.newResponse.MyPropertyDetailsResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.MyPropertyDetailsResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -167,6 +168,19 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?,
         @Path("propertyId") propertyId:String
     ): Response<MyPropertyDetailsResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/send-property-comment")
+    suspend fun sendPropertyComment(
+        @Header("Authorization") userToken: String?,
+        @Field("property_id") propertyId:String,
+        @Field("message") message:String,
+        @Field("starts") stars:Int,
+        @Field("not_ropot") not_ropot:String = "yes",
+        @Field("name") name:String,
+        @Field("phone") phone:String,
+        @Field("email") email:String,
+    ):Response<SendPropertyCommentResponse>
 
     // ____________________________________________________________________________________________//
     // Drawer

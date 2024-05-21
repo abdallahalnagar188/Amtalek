@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#F9F9F9"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -27,10 +27,12 @@
         android:clipToPadding="false"
         android:layout_marginTop="@dimen/_8sdp"
         android:nestedScrollingEnabled="false"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_property_features"
-        tools:listitem="@layout/item_adminites_rv" />
+        tools:listitem="@layout/item_aminities" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

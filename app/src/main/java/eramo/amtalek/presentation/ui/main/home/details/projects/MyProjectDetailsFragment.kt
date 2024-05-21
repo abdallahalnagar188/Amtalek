@@ -69,7 +69,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     }
 
     private fun clicks() {
-        binding.btnSend.setOnClickListener(){
+        binding.btnSend.setOnClickListener()    {
             if (validForm()){
                 binding.apply {
                     val name = etName.text.toString()
@@ -212,7 +212,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
                     super.onReady(youTubePlayer)
                     onVideoId(youTubePlayer, videoId)
                     youTubePlayer.loadVideo(videoId, 0f)
-                    youTubePlayer.play()
+                    youTubePlayer.pause()
                 }
             })
         }

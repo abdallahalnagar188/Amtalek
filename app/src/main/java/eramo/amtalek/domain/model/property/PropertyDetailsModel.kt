@@ -25,6 +25,7 @@ data class PropertyDetailsModel(
     val propertyCode:String,
     val propertyType:String,
     val furniture:String,
+    val forWhat:String,
     val payment:String,
     val floors:List<Int>,
     val landType:String,
@@ -35,5 +36,5 @@ data class PropertyDetailsModel(
     val similarProperties:List<PropertyModel>,
     val chartList:List<ChartModel>,
     val mapUrl:String   ,
-
+    val id:Int,
     )

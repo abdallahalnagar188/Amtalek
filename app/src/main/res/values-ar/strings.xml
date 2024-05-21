@@ -553,6 +553,11 @@
     <string name="s_extra_lead">عملاء إضافين: %s ج.م</string>
     <string name="select_this_plan">أختر هذه الباقة</string>
     <string name="egp_month">جنيه/شهر</string>
+    <string name="egp_yearly">جنيه/سنة</string>
+    <string name="egp_3_month">جنيه/٣شهر</string>
+    <string name="egp_6_month">جنيه/٣شهر</string>
+    <string name="egp_daily">جنيه/يوميا</string>
+    <string name="egp_9_month">جنيه/٣شهر</string>
 
     <string name="posts">المنشورات</string>
 
@@ -698,9 +703,9 @@
     <string name="forBoth">الكل</string>
     <string name="daily">يوميا</string>
     <string name="monthly">شهريا</string>
-    <string name="_3_months">كل ٣ شهور</string>
-    <string name="_6_months">كل ٦ شهور</string>
-    <string name="_9_months">كل ٩ شهور</string>
+    <string name="_3_months">/ ٣ شهور</string>
+    <string name="_6_months">/ ٦ شهور</string>
+    <string name="_9_months">/ ٩ شهور</string>
     <string name="yearly">سنويا</string>
     <string name="for_rent">للايجار</string>
     <string name="agency_s_info">معلومات عن الوكيل: </string>
@@ -710,5 +715,9 @@
     <string name="please_enter_a_mail">من فضلك ادخل بريد الكتروني صحيح</string>
     <string name="please_enter_a_phone_number">من فضلك ادخل رقم الهاتف</string>
     <string name="please_enter_a_message">من فضلك ادخل رسالة</string>
+    <string name="agency">وكيل</string>
+    <string name="or">او</string>
+    <string name="per"></string>
+    <string name="comment_added_successfully">تم ارسال تعليقك</string>
 
 </resources>

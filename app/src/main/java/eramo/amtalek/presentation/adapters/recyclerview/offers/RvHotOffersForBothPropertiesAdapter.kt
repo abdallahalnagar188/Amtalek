@@ -49,7 +49,27 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
                     if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
                     else ivFav.setImageResource(R.drawable.ic_heart)
                 }
-
+                when (model.rentDuration) {
+                    "daily" -> {
+                        tvDurationRent.text =   "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
+                    }
+                    "monthly" -> {
+                        tvDurationRent.text = "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.monthly)}"
+                    }
+                    "3_months" -> {
+                        tvDurationRent.text =   "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_3_month)}"
+                    }
+                    "6_months" -> {
+                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_6_month)}"
+                    }
+                    "9_months" -> {
+                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_9_month)}"
+                    }
+                    "yearly" -> {
+                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
+                    }
+                }
+                tvLabel.text = itemView.context.getString(R.string.for_rent)
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
                 tvLabel.text = model.type

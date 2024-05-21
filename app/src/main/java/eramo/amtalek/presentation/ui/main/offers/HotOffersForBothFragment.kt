@@ -22,6 +22,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBot
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.UiState
@@ -149,7 +150,7 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
 
     override fun onPropertyClick(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())
     }
 
     override fun onProjectClick(model: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel) {

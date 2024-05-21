@@ -555,6 +555,11 @@
     <string name="s_extra_lead">+Extra Lead: %s EGP</string>
     <string name="select_this_plan">Select this plan</string>
     <string name="egp_month">EGP/Month</string>
+    <string name="egp_daily">EGP/Daily</string>
+    <string name="egp_yearly">EGP/Year</string>
+    <string name="egp_3_month">EGP/3 Months</string>
+    <string name="egp_6_month">EGP/6 Months</string>
+    <string name="egp_9_month">EGP/9 Months</string>
 
     <string name="posts">Posts</string>
     <string name="contact_us_throw">Contact Us</string>
@@ -713,6 +718,10 @@
     <string name="please_enter_a_mail">please enter a valid email</string>
     <string name="please_enter_a_phone_number">please enter a phone number</string>
     <string name="please_enter_a_message">Please enter a message</string>
+    <string name="agency">Agency</string>
+    <string name="or">Or</string>
+    <string name="per">/</string>
+    <string name="comment_added_successfully">Your comment has been sent</string>
 
 
 </resources>

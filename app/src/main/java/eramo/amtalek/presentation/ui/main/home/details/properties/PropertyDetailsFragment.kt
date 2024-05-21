@@ -2,10 +2,15 @@ package eramo.amtalek.presentation.ui.main.home.details.properties
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -63,7 +68,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private val viewModel: PropertyDetailsViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
-    private val propertyId get() = args.propertyId
+    private val propertyListingNumber get() = args.propertyId
+    lateinit var propertyId:String
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
@@ -80,6 +86,30 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         setupViews()
         requestData()
         fetchData()
+        clickListners()
+    }
+
+    private fun clickListners() {
+        binding.btnSend.setOnClickListener(){
+            if (validForm()){
+                binding.apply {
+                    val name = etName.text.toString()
+                    val email = etMail.text.toString()
+                    val phone = etPhone.text.toString()
+                    val message = etYourRate.text.toString()
+                    val stars = rateBar.rating.toInt()
+                    viewModel.sendCommentOnProperty(
+                        propertyId = propertyId,
+                        name = name,
+                        email = email,
+                        phone = phone,
+                        message = message,
+                        stars = stars
+                    )
+                }
+
+            }
+        }
     }
 
     override fun onPause() {
@@ -99,6 +129,15 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             setText(number)
         }
     }
+    private fun setRentPriceValue(number: String) {
+        binding.tvPriceAnimationRent.apply {
+            animationDuration = ROLLING_TEXT_ANIMATION_DURATION
+            charStrategy = Strategy.SameDirectionAnimation(Direction.SCROLL_DOWN)
+            addCharOrder(CharOrder.Number)
+            setText(number)
+        }
+    }
+
 
     private fun setupToolbar() {
         StatusBarUtil.transparent()
@@ -109,11 +148,41 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     private fun requestData() {
-        viewModel.getPropertyDetails(propertyId)
+        viewModel.getPropertyDetails(propertyListingNumber)
     }
 
     private fun fetchData() {
         fetchPropertyDetailsState()
+        fetchSendCommentOnPropertyState()
+    }
+
+    private fun fetchSendCommentOnPropertyState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                delayForEnterAnimation()
+                viewModel.sendCommentOnPropertyState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            dismissShimmerEffect()
+                            showToast(getString(R.string.comment_added_successfully))
+                        }
+
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
     }
 
     private fun fetchPropertyDetailsState() {
@@ -143,15 +212,34 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
     }
-
     private fun assignData(data: PropertyDetailsModel) {
         try {
             binding.apply {
-
+                propertyId = data.id.toString()
                 setupImageSliderTop(data.sliderImages)
+                 checkRentDuration(data.rentDuration)
+                if (data.forWhat == "for_rent"){
+                    setRentPriceValue(formatPrice(data.rentPrice))
+                    tvCurrencyRent.text = " "+ data.currency
+                    tvOr.isVisible =false
+                    tvPrice.isVisible = false
+                    tvPriceAnimation.isVisible = false
+                }else if (data.forWhat =="for_sale"){
+                    setPriceValue(formatPrice(data.sellPrice))
+                    tvCurrency.text = " "+ data.currency
+                    tvOr.isVisible =false
+                    tvPriceRent.isVisible = false
+                    tvPriceAnimationRent.isVisible = false
+                }else if (data.forWhat=="for_both"){
+                    setPriceValue(formatPrice(data.sellPrice))
+                    setRentPriceValue(formatPrice(data.rentPrice))
+                    tvCurrency.text = " "+ data.currency
+                    tvCurrencyRent.text = " "+ data.currency
+                    tvOr.isVisible =true
+                }
 
-                setPriceValue(formatPrice(data.rentPrice))
-                tvCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
+
+//                tvCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
 
                 tvTitle.text = data.title
                 tvLocation.text = data.location
@@ -191,14 +279,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
 //            setupVideo("4aNBt8imTtM")
 
-                if (data.chartList.isNotEmpty()) {
-                    binding.tvViewsChart.visibility = View.VISIBLE
-                    binding.chart.visibility = View.VISIBLE
-                    setupChartView(getChartList(data))
-                } else {
+//                if (data.chartList.isNotEmpty()) {
+//                    binding.tvViewsChart.visibility = View.VISIBLE
+//                    binding.chart.visibility = View.VISIBLE
+//                    setupChartView(getChartList(data))
+//                } else {
                     binding.tvViewsChart.visibility = View.GONE
                     binding.chart.visibility = View.GONE
-                }
+//                }
 
                 tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
 
@@ -210,6 +298,38 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         } catch (e: Exception) {
             dismissShimmerEffect()
             showToast(getString(R.string.invalid_data_parsing))
+        }
+    }
+
+    private fun checkRentDuration(rentDuration: String) {
+        binding.apply {
+            var result:String = ""
+            when (rentDuration) {
+                "daily" -> {
+                    result ="${getString(R.string.per)} ${getString(R.string.daily)}"
+                    tvRentDuration.text = result
+                }
+                "monthly" -> {
+                    result ="${getString(R.string.per)} ${getString(R.string.monthly)}"
+                    tvRentDuration.text = result
+                }
+                "3_months" -> {
+                    result ="${getString(R.string.per)} ${getString(R.string._3_months)}"
+                    tvRentDuration.text = result
+                }
+                "6_months" -> {
+                    result = " ${getString(R.string.per)} ${getString(R.string._6_months)}"
+                    tvRentDuration.text = result
+                }
+                "9_months" -> {
+                    result = " ${getString(R.string.per)} ${getString(R.string._9_months)}"
+                    tvRentDuration.text = result
+                }
+                "yearly" -> {
+                    result = " ${getString(R.string.per)} ${getString(R.string.yearly)}"
+                    tvRentDuration.text = result
+                }
+            }
         }
     }
 
@@ -258,7 +378,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     super.onReady(youTubePlayer)
                     onVideoId(youTubePlayer, videoId)
                     youTubePlayer.loadVideo(videoId, 0f)
-                    youTubePlayer.play()
+                    youTubePlayer.pause()
+//                    youTubePlayer.play()
                 }
             })
         }
@@ -269,11 +390,11 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             if (data.isNotEmpty()) {
                 propertyFeaturesLayout.root.visibility = View.VISIBLE
 
-                val layoutManager = FlexboxLayoutManager(requireContext())
-                layoutManager.flexDirection = FlexDirection.ROW
-                layoutManager.flexWrap = FlexWrap.WRAP
+//                val layoutManager = FlexboxLayoutManager(requireContext())
+//                layoutManager.flexDirection = FlexDirection.ROW
+//                layoutManager.flexWrap = FlexWrap.WRAP
 
-                propertyFeaturesLayout.rv.layoutManager = layoutManager
+//                propertyFeaturesLayout.rv.layoutManager = layoutManager
                 propertyFeaturesLayout.rv.adapter = rvAmenitiesAdapter
                 rvAmenitiesAdapter.submitList(data)
             } else {
@@ -325,7 +446,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun setupChartView(chartList: List<ChartModel>) {
         binding.apply {
             val linevalues = ArrayList<Entry>()
-
 //            linevalues.add(Entry(1f, 10F))
 //            linevalues.add(Entry(2f, 80F))
 //            linevalues.add(Entry(3f, 50F))
@@ -363,6 +483,10 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
             chart.xAxis.setDrawGridLines(false)
 
+
+
+            val yAxis = chart.axisLeft
+
             // Customize other axis properties if needed
             chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
             chart.axisRight.isEnabled = false
@@ -378,30 +502,51 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             chart.xAxis.labelRotationAngle = -60f
             chart.xAxis.textSize = 9f
             chart.description.isEnabled = false
-//            chart.xAxis.valueFormatter = xAxisFormatter
+            chart.xAxis.valueFormatter = xAxisFormatter
 
             chart.setTouchEnabled(false)
         }
     }
 
     private fun getChartList(data: PropertyDetailsModel): List<ChartModel> {
-        val cartList = data.chartList.toMutableList()
-
-        if (cartList.size <= 1) {
-            cartList.add(
-                0,
-                (ChartModel(
-                    -1
-                ))
-            )
+        val chartList = data.chartList.toMutableList()
+        val list = mutableListOf<ChartModel>()
+        for (item in chartList){
+            list.add(ChartModel(item.viewsCount))
         }
 
-        return cartList.takeLast(5)
+        return list
     }
 
     private suspend fun delayForEnterAnimation() {
         showShimmerEffect()
         delay(450)
+    }
+    private fun isValidEmail(email: String): Boolean {
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun validForm():Boolean{
+        var isValid = true
+        binding.apply {
+            if (etName.text.toString().isEmpty()){
+                isValid = false
+                etName.error = getString(R.string.please_enter_a_name)
+            }
+            if (!isValidEmail(etMail.text.toString())){
+                isValid = false
+                etMail.error = getString(R.string.please_enter_a_mail)
+            }
+            if (etPhone.text.toString().isEmpty()){
+                etPhone.error = getString(R.string.please_enter_a_phone_number)
+                isValid = false
+            }
+            if (etYourRate.text.toString().isEmpty()){
+                etYourRate.error = getString(R.string.please_enter_a_message)
+                isValid = false
+            }
+        }
+        return isValid
     }
 
     private fun showShimmerEffect() {

@@ -125,6 +125,71 @@
                     tools:text=" EGP " />
 
                 <TextView
+                    android:id="@id/tv_price_rent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/montserratbold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price"
+                    tools:text="4,000,000 EGP" />
+
+                <com.yy.mobile.rollingtextview.RollingTextView
+                    android:id="@+id/tv_price_animation_rent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/montserratbold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price"
+                    tools:text="4,000,000" />
+
+                <TextView
+                    android:id="@+id/tv_currency_rent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratbold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toEndOf="@id/tv_price_animation_rent"
+                    app:layout_constraintTop_toTopOf="@id/tv_price_animation_rent"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_price_animation_rent"
+                    tools:text=" EGP " />
+                <TextView
+                    android:id="@+id/tv_rent_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintStart_toEndOf="@id/tv_currency_rent"
+                    app:layout_constraintTop_toTopOf="@id/tv_currency_rent"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_currency_rent"
+                    tools:text=" Per month" />
+                    <TextView
+                        android:id="@+id/tv_or"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserratsemibold"
+                        android:textColor="@color/amtalek_blue_dark"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_price"
+                        app:layout_constraintBottom_toTopOf="@id/tv_price_rent"
+                        android:text="@string/or"
+                        android:layout_marginEnd="@dimen/_20sdp"/>
+
+
+                <TextView
                     android:id="@id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -135,7 +200,7 @@
                     android:textSize="@dimen/_12ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_price_animation"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price_animation_rent"
                     tools:text="Residential apartment for sale, super lux with elevator" />
 
                 <ImageView
@@ -565,7 +630,6 @@
                     android:id="@+id/chart"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_300sdp"
-                    android:layout_marginHorizontal="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_30sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -625,7 +689,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_title"
+                    android:id="@+id/til_phone"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/edit_text_height"
@@ -639,18 +703,44 @@
                     app:layout_constraintTop_toBottomOf="@id/til_name">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_title"
+                        android:id="@+id/et_phone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/edittext_background"
                         android:fontFamily="@font/montserratregular"
-                        android:hint="@string/title_rate"
-                        android:inputType="textEmailSubject"
+                        android:hint="@string/phone"
+                        android:inputType="phone"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null"
                         android:textSize="@dimen/_12ssp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_mail"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                    android:layout_marginTop="@dimen/edit_text_margin_top"
+                    android:fontFamily="@font/montserratregular"
+                    android:textColorHint="@color/text_gray"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_phone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/edittext_background"
+                        android:fontFamily="@font/montserratregular"
+                        android:hint="@string/emaill"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:textCursorDrawable="@null"
+                        android:textSize="@dimen/_12ssp" />
+                </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_your_rate"
                     style="@style/TextInputLayoutStyle"
@@ -663,7 +753,7 @@
                     app:hintEnabled="false"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/til_title">
+                    app:layout_constraintTop_toBottomOf="@+id/til_mail">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_your_rate"

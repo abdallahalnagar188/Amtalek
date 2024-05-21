@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
+            app:spanCount="2"
             tools:listitem="@layout/item_aminities"
             android:layout_marginTop="@dimen/_7sdp"
             app:layout_constraintTop_toBottomOf="@+id/tv_property_features"

@@ -334,39 +334,39 @@ data class PropertyDetailsResponse(
         return list
     }
 
-    fun toPropertyDetailsModel(): PropertyDetailsModel {
-        return PropertyDetailsModel(
-            sliderImagesList(),
-            data?.get(0)?.salePrice?.toDouble() ?: 0.0,
-            data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
-            data?.get(0)?.currency?:"",
-            data?.get(0)?.rentDuration ?: "",
-            data?.get(0)?.title ?: "",
-            "${data?.get(0)?.region}, ${data?.get(0)?.city}",
-            "----",
-            data?.get(0)?.finishing ?: "",
-            "----",
-            data?.get(0)?.region ?: "",
-            data?.get(0)?.landArea ?: -1,
-            data?.get(0)?.bathRoomNo ?: -1,
-            data?.get(0)?.bedRoomsNo ?: -1,
-            data?.get(0)?.brokerDetails?.get(0)?.logo ?: "",
-            data?.get(0)?.brokerDetails?.get(0)?.name ?: "",
-            data?.get(0)?.brokerDetails?.get(0)?.description ?: "",
-            data?.get(0)?.listingNumber ?: "",
-            data?.get(0)?.propertyType ?: "",
-            "----",
-            "----",
-            listOf(data?.get(0)?.floorNum ?: -1),
-            data?.get(0)?.receptionFloorType ?: "",
-            data?.get(0)?.description ?: "",
-            propertyFeaturesList(),
-            data?.get(0)?.video ?: "",
-            commentsList(),
-            similarPropertiesList(),
-            chartList(),
-            mapUrl =""
-
-        )
-    }
+//    fun toPropertyDetailsModel(): PropertyDetailsModel {
+//        return PropertyDetailsModel(
+//            sliderImagesList(),
+//            data?.get(0)?.salePrice?.toDouble() ?: 0.0,
+//            data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
+//            data?.get(0)?.currency?:"",
+//            data?.get(0)?.rentDuration ?: "",
+//            data?.get(0)?.title ?: "",
+//            "${data?.get(0)?.region}, ${data?.get(0)?.city}",
+//            "----",
+//            data?.get(0)?.finishing ?: "",
+//            "----",
+//            data?.get(0)?.region ?: "",
+//            data?.get(0)?.landArea ?: -1,
+//            data?.get(0)?.bathRoomNo ?: -1,
+//            data?.get(0)?.bedRoomsNo ?: -1,
+//            data?.get(0)?.brokerDetails?.get(0)?.logo ?: "",
+//            data?.get(0)?.brokerDetails?.get(0)?.name ?: "",
+//            data?.get(0)?.brokerDetails?.get(0)?.description ?: "",
+//            data?.get(0)?.listingNumber ?: "",
+//            data?.get(0)?.propertyType ?: "",
+//            "----",
+//            "----",
+//            listOf(data?.get(0)?.floorNum ?: -1),
+//            data?.get(0)?.receptionFloorType ?: "",
+//            data?.get(0)?.description ?: "",
+//            propertyFeaturesList(),
+//            data?.get(0)?.video ?: "",
+//            commentsList(),
+//            similarPropertiesList(),
+//            chartList(),
+//            mapUrl ="",
+//            "",
+//        )
+//    }
 }

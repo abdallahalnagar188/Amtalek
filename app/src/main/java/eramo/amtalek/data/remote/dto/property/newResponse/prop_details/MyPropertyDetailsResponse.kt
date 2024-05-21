@@ -1,4 +1,4 @@
-package eramo.amtalek.data.remote.dto.property.newResponse
+package eramo.amtalek.data.remote.dto.property.newResponse.prop_details
 
 
 import android.os.Parcelable
@@ -25,36 +25,38 @@ data class MyPropertyDetailsResponse(
 ) : Parcelable{
     fun toPropertyDetailsModel(): PropertyDetailsModel{
         return PropertyDetailsModel(
-            sliderImagesList(),
-            data?.get(0)?.salePrice?.toDouble() ?: 0.0,
-            data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
-            data?.get(0)?.currency?:"",
-            data?.get(0)?.rentDuration ?: "",
-            data?.get(0)?.title ?: "",
-            "${data?.get(0)?.region}, ${data?.get(0)?.city}",
-            data?.get(0)?.createdAt ?: "",
-            data?.get(0)?.finishing ?: "",
-            "----",
-            data?.get(0)?.region ?: "",
-            data?.get(0)?.landArea ?: -1,
-            data?.get(0)?.bathRoomNo ?: -1,
-            data?.get(0)?.bedRoomsNo ?: -1,
-            data?.get(0)?.brokerDetails?.get(0)?.logo ?: "",
-            data?.get(0)?.brokerDetails?.get(0)?.name ?: "",
-            data?.get(0)?.brokerDetails?.get(0)?.description ?: "",
-            data?.get(0)?.listingNumber ?: "",
-            data?.get(0)?.propertyType ?: "",
-            "----",
-            "----",
-            listOf(data?.get(0)?.floorNum ?: -1),
-            data?.get(0)?.receptionFloorType ?: "",
-            data?.get(0)?.description ?: "",
-            propertyFeaturesList(),
-            data?.get(0)?.video ?: "",
-            commentsList(),
-            similarPropertiesList(),
-            chartList(),
+            sliderImages = sliderImagesList(),
+            sellPrice = data?.get(0)?.salePrice?.toDouble() ?: 0.0,
+            rentPrice = data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
+            currency = data?.get(0)?.currency?:"",
+            rentDuration = data?.get(0)?.rentDuration ?: "",
+           title =  data?.get(0)?.title ?: "",
+            location = "${data?.get(0)?.region}, ${data?.get(0)?.city}",
+            datePosted = data?.get(0)?.createdAt ?: "",
+            finishing = data?.get(0)?.finishing ?: "",
+           finishingAvailability =  "----",
+            areaLocation = data?.get(0)?.region ?: "",
+            area = data?.get(0)?.landArea ?: -1,
+            bathroomsCount = data?.get(0)?.bathRoomNo ?: -1,
+            bedroomsCount = data?.get(0)?.bedRoomsNo ?: -1,
+            brokerImageUrl = data?.get(0)?.brokerDetails?.get(0)?.logo ?: "",
+            brokerName = data?.get(0)?.brokerDetails?.get(0)?.name ?: "",
+            brokerDescription = data?.get(0)?.brokerDetails?.get(0)?.description ?: "",
+            propertyCode = data?.get(0)?.listingNumber ?: "",
+            propertyType = data?.get(0)?.propertyType ?: "",
+            furniture = "----",
+            forWhat = data?.get(0)?.forWhat?:"",
+            floors = listOf(data?.get(0)?.floorNum ?: -1),
+           landType =  data?.get(0)?.receptionFloorType ?: "",
+            description = data?.get(0)?.description ?: "",
+            propertyAmenities = propertyFeaturesList(),
+            videoUrl = data?.get(0)?.video ?: "",
+            comments = commentsList(),
+            similarProperties = similarPropertiesList(),
+            chartList = chartList(),
             mapUrl = data?.get(0)?.location ?: "",
+            payment = "---",
+            id = data?.get(0)?.id ?: -1,
         )
     }
     private fun sliderImagesList(): List<String> {
@@ -95,22 +97,22 @@ data class MyPropertyDetailsResponse(
         for (i in data?.get(0)?.similarProperties!!) {
             list.add(
                 PropertyModel(
-                    i?.id ?: -1,
-                    i?.primaryImage ?: "",
-                    i?.forWhat ?: "",
-                    if (i?.isFav == "1") TRUE else FALSE,
-                    if (i?.normalFeatured == AdvertisementType.FEATURED.key) TRUE else FALSE,
-                    i?.salePrice?.toDouble() ?: 0.0,
-                    i?.rentPrice?.toDouble() ?: 0.0,
-                    i?.rentDuration ?: "",
-                    i?.title ?: "",
-                    i?.currency?:"",
-                    i?.landArea ?: 0,
-                    i?.bathRoomNo ?: 0,
-                    i?.bedRoomsNo ?: 0,
-                    "${i?.region}, ${i?.city}",
-                    i?.createdAt ?: "",
-                    NONE_IMAGE_URL
+                    id = i?.id ?: -1,
+                    imageUrl = i?.primaryImage ?: "",
+                     type =  i?.forWhat ?: "",
+                    isFavourite = if (i?.isFav == "1") TRUE else FALSE,
+                    isFeatured = if (i?.normalFeatured == AdvertisementType.FEATURED.key) TRUE else FALSE,
+                    sellPrice = i?.salePrice?.toDouble() ?: 0.0,
+                    rentPrice = i?.rentPrice?.toDouble() ?: 0.0,
+                    currency = i?.rentDuration ?: "",
+                    rentDuration = i?.title ?: "",
+                    title = i?.currency?:"",
+                    area = i?.landArea ?: 0,
+                    bathroomsCount = i?.bathRoomNo ?: 0,
+                    bedsCount = i?.bedRoomsNo ?: 0,
+                    location = "${i?.region}, ${i?.city}",
+                    datePosted = i?.createdAt ?: "",
+                    brokerLogoUrl = i.brokerDetails?.get(0)?.logo ?: NONE_IMAGE_URL,
                 )
             )
         }
@@ -143,6 +145,8 @@ data class Data(
     var apartmentNum: Int?,
     @SerializedName("autocad")
     var autocad: List<Autocad>?,
+    @SerializedName("summary")
+    var summary : List<summaryItem>?,
     @SerializedName("bath_room_no")
     var bathRoomNo: Int?,
     @SerializedName("bed_rooms_no")
@@ -223,8 +227,6 @@ data class Data(
     var similarProperties: List<SimilarProperty>?,
     @SerializedName("sliders")
     var sliders: List<Slider>?,
-    @SerializedName("summary")
-    var summary: List<String>?,
     @SerializedName("title")
     var title: String?,
     @SerializedName("total_property_area")
@@ -413,6 +415,22 @@ data class Autocad(
     @SerializedName("type")
     var type: String?
 ) : Parcelable
+@Parcelize
+data class summaryItem(
+    @SerializedName("created_at")
+    var createdAt: String?,
+    @SerializedName("id")
+    var id: Int?,
+    @SerializedName("key")
+    var key: String?,
+    @SerializedName("property_id")
+    var propertyId: Int?,
+    @SerializedName("updated_at")
+    var updatedAt: String?,
+    @SerializedName("value")
+    var value: String?
+) : Parcelable
+
 @Parcelize
 data class Aminity(
     @SerializedName("id")

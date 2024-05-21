@@ -59,7 +59,7 @@ class RvHotOffersSellPropertiesAdapter @Inject constructor() :
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
-                tvLabel.text = itemView.context.getString(R.string.for_rent)
+                tvLabel.text = itemView.context.getString(R.string.for_sell)
 
                 Glide.with(itemView)
                     .load(model.imageUrl)
