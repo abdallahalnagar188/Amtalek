@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
-import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.util.FALSE
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.AdvertisementType
@@ -388,8 +388,8 @@ data class HomeResponse(
                 }
             }
 
-            fun toPropertyModel(): PropertyModel {
-                return PropertyModel(
+            fun toPropertyModel(): PropertyModelx {
+                return PropertyModelx(
                     id ?: -1,
                     primaryImage ?: "",
                     forWhat ?: "",
@@ -742,8 +742,8 @@ data class HomeResponse(
                 }
             }
 
-            fun toPropertyModel(): PropertyModel {
-                return PropertyModel(
+            fun toPropertyModel(): PropertyModelx {
+                return PropertyModelx(
                     id ?: -1,
                     primaryImage ?: "",
                     forWhat ?: "",
@@ -1156,8 +1156,8 @@ data class HomeResponse(
                 }
             }
 
-            fun toPropertyModel(): PropertyModel {
-                return PropertyModel(
+            fun toPropertyModel(): PropertyModelx {
+                return PropertyModelx(
                     id ?: -1,
                     primaryImage ?: "",
                     forWhat ?: "",
@@ -1296,8 +1296,8 @@ data class HomeResponse(
                 val propertiesCount: Int?
             )
 
-            fun toPropertyModel(): PropertyModel {
-                return PropertyModel(
+            fun toPropertyModel(): PropertyModelx {
+                return PropertyModelx(
                     id ?: -1,
                     primaryImage ?: "",
                     forWhat ?: "",

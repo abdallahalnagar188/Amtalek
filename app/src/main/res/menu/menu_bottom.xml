@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/myEstateFragment"
-        android:icon="@drawable/ic_my_estate"
-        android:title="@string/my_estate" />
+        android:id="@+id/myProfileFragment"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile" />
 
     <item
         android:id="@+id/hotOffersFragment"
@@ -12,17 +12,17 @@
         android:title="@string/hot_offer" />
 
     <item
-        android:id="@+id/marketFragment"
+        android:id="@+id/homeFragment"
         android:title="" />
 
     <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_market_new"
-        android:title="@string/market" />
+        android:id="@+id/marketFragment"
+        android:icon="@drawable/ic_social_network"
+        android:title="@string/social_network" />
 
     <item
         android:id="@+id/brokersFragment"
-        android:icon="@drawable/ic_brokers"
+        android:icon="@drawable/ic_agency"
         android:title="@string/brokers" />
 
 </menu>

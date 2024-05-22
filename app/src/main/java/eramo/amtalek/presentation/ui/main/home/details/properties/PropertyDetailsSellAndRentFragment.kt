@@ -10,7 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.animation.Easing
@@ -29,7 +28,6 @@ import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellAndRentBinding
-import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -272,7 +270,7 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
         rvRatingAdapter.submitList(data)
     }
 
-    private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
+    private fun initSimilarPropertiesRv(data: List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
         rvSimilarPropertiesAdapter.submitList(data)
     }

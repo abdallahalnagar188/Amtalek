@@ -1,6 +1,5 @@
 package eramo.amtalek.domain.model.property
 
-import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 
@@ -33,7 +32,7 @@ data class PropertyDetailsModel(
     val propertyAmenities:List<AmenityModel>,
     val videoUrl:String,
     val comments:List<RatingCommentsModel>,
-    val similarProperties:List<PropertyModel>,
+    val similarProperties:List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>,
     val chartList:List<ChartModel>,
     val mapUrl:String   ,
     val id:Int,

@@ -422,7 +422,7 @@
 
     <string name="brokers">المطورون</string>
     <string name="market">السوق</string>
-    <string name="hot_offer">العروض</string>
+    <string name="hot_offer">العروض المميزة</string>
     <string name="my_estate">عقاراتى</string>
 
     <string name="edit_profile">تعديل البيانات</string>
@@ -469,7 +469,7 @@
 
     <string name="no_image_chosen">لم يتم أختيار صورة</string>
 
-    <string name="profile">الملف الشخصي</string>
+    <string name="profile">الصفحة الشخصية</string>
 
     <string name="s_residential_projects">%s مشروعات سكنية</string>
     <string name="s_property">%s شقة</string>
@@ -719,5 +719,6 @@
     <string name="or">او</string>
     <string name="per"></string>
     <string name="comment_added_successfully">تم ارسال تعليقك</string>
+    <string name="social_network">التواصل الاجتماعي</string>
 
 </resources>

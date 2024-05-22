@@ -83,7 +83,8 @@ class MainActivity : AppCompatActivity(),
             mainBn.menu.getItem(2).isEnabled = false
             mainBn.setupWithNavController(navController)
             mainFabHome.setOnClickListener {
-                navController.popBackStack(R.id.marketFragment, false)
+                navController.popBackStack(R.id.homeFragment, false)
+                mainFabHome.setColorFilter(resources.getColor(R.color.red))
             }
 
             viewModelShared.openDrawer.observe(this@MainActivity) { isOpen ->
@@ -303,9 +304,7 @@ class MainActivity : AppCompatActivity(),
     private fun setupNavBottomVisibility() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
             when (destination.id) {
-
                 R.id.sliderZoomFragment,
                 R.id.suspendDialog,
                 R.id.datePickerDialog,
@@ -365,7 +364,6 @@ class MainActivity : AppCompatActivity(),
                         mainFabHome.visibility = View.GONE
                     }
                 }
-
                 R.id.homeFragment -> {
                     binding.apply {
                         binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -379,6 +377,11 @@ class MainActivity : AppCompatActivity(),
                         mainBottomAppBar.visibility = View.VISIBLE
                         mainFabHome.visibility = View.VISIBLE
                     }
+                }
+            }
+            when(destination.id){
+                R.id.brokersFragment,R.id.marketFragment,R.id.hotOffersFragment,R.id.myEstateFragment ->{
+                    binding.mainFabHome.setColorFilter(resources.getColor(R.color.amtalek_blue))
                 }
             }
         }

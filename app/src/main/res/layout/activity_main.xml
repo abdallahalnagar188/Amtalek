@@ -60,7 +60,6 @@
                 app:elevation="@dimen/_5sdp"
                 app:fabCustomSize = "@dimen/_45sdp"
                 app:maxImageSize = "@dimen/_30sdp"
-
                 app:tint="@null" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

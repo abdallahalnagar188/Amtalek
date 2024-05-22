@@ -2,11 +2,9 @@ package eramo.amtalek.data.remote.dto.property
 
 
 import com.google.gson.annotations.SerializedName
-import eramo.amtalek.data.remote.dto.home.Amenity
-import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
-import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.util.FALSE
 import eramo.amtalek.util.NONE_IMAGE_URL
@@ -291,12 +289,12 @@ data class PropertyDetailsResponse(
         return list
     }
 
-    private fun similarPropertiesList(): List<PropertyModel> {
-        val list = mutableListOf<PropertyModel>()
+    private fun similarPropertiesList(): List<PropertyModelx> {
+        val list = mutableListOf<PropertyModelx>()
 
         for (i in data?.get(0)?.similarProperties!!) {
             list.add(
-                PropertyModel(
+                PropertyModelx(
                     i?.id ?: -1,
                     i?.primaryImage ?: "",
                     i?.forWhat ?: "",

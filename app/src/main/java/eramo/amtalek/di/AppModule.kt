@@ -142,5 +142,10 @@ object AppModule {
     fun provideSendToBrokerRepository(amtalekApi: AmtalekApi): SendToBrokerRepository {
         return SendToBrokerRepositoryImpl(amtalekApi =amtalekApi )
     }
+    @Provides
+    @Singleton
+    fun provideMyHomeRepository(amtalekApi: AmtalekApi): MyHomeRepository {
+        return MyHomeRepositoryImpl(amtalekApi =amtalekApi )
+    }
 
 }

@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFeaturedRealEstateBinding
-import eramo.amtalek.domain.model.main.home.PropertyModel
-import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -20,7 +18,7 @@ import javax.inject.Inject
 
 
 class RvSimilarPropertiesAdapter @Inject constructor() :
-    ListAdapter<PropertyModel, RvSimilarPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel, RvSimilarPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -38,14 +36,14 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onFeaturedRealEstateClick(it)
+                        listener.onFeaturedRealEstateClick(it)
                     }
                 }
             }
         }
 
-        fun bind(model: PropertyModel) {
-            var isFav = model.isFavourite == TRUE
+        fun bind(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
+            var isFav = model.isFavourite == ""
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -53,7 +51,7 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                     else ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice))
+                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
 
                 tvLabel.text = when (model.type) {
@@ -75,14 +73,14 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
                         tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice)
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble())
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice)
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble())
 
                     }
 
@@ -106,7 +104,7 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == TRUE) {
+                if (model.isFavourite == "") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
@@ -151,20 +149,20 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onFeaturedRealEstateClick(model: PropertyModel)
+        fun onFeaturedRealEstateClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>() {
             override fun areItemsTheSame(
-                oldItem: PropertyModel,
-                newItem: PropertyModel
+                oldItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel,
+                newItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PropertyModel,
-                newItem: PropertyModel
+                oldItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel,
+                newItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
             ) = oldItem == newItem
         }
     }

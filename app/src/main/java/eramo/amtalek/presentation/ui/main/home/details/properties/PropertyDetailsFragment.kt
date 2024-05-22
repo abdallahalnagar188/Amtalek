@@ -3,12 +3,10 @@ package eramo.amtalek.presentation.ui.main.home.details.properties
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -24,9 +22,6 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.yy.mobile.rollingtextview.CharOrder
@@ -35,7 +30,6 @@ import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
-import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
@@ -52,6 +46,7 @@ import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
@@ -60,7 +55,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>() {
+class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(),RvSimilarPropertiesAdapter.OnItemClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsBinding::inflate
@@ -119,6 +114,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private fun setupViews() {
         setupToolbar()
+
     }
 
     private fun setPriceValue(number: String) {
@@ -408,8 +404,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         rvRatingAdapter.submitList(data)
     }
 
-    private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
+    private fun initSimilarPropertiesRv(data: List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
+        rvSimilarPropertiesAdapter.setListener(this)
         rvSimilarPropertiesAdapter.submitList(data)
     }
 
@@ -571,5 +568,11 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             shareView.root.visibility = View.VISIBLE
             shimmerLayoutShareView.visibility = View.GONE
         }
+    }
+
+    override fun onFeaturedRealEstateClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+        )
     }
 }

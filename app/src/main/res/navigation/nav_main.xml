@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/marketFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -13,7 +13,11 @@
             android:id="@+id/deepLink5"
             app:uri="https://Events.shop/Api/home" />
     </fragment>
-
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="eramo.amtalek.presentation.ui.main.market.MarketFragment"
+        android:label="fragment_market"
+        tools:layout="@layout/fragment_market" />
     <fragment
         android:id="@+id/myEstateFragment"
         android:name="eramo.amtalek.presentation.ui.main.myestate.MyEstateFragment"
@@ -227,11 +231,7 @@
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingOfferFragment"
         android:label="fragment_messaging_offer"
         tools:layout="@layout/fragment_messaging_offer" />
-    <fragment
-        android:id="@+id/marketFragment"
-        android:name="eramo.amtalek.presentation.ui.main.market.MarketFragment"
-        android:label="fragment_market"
-        tools:layout="@layout/fragment_market" />
+
     <fragment
         android:id="@+id/imagesListFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragment"

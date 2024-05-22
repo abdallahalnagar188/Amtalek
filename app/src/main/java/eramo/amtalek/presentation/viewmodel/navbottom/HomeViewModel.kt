@@ -225,7 +225,7 @@ class HomeViewModel @Inject constructor(
             allFeatured()
             allProductsManufacturer()
 //            getProfile()
-            updateFirebaseToken(FirebaseMessageReceiver.token ?: "")
+//            updateFirebaseToken(FirebaseMessageReceiver.token ?: "") waiting tell its done from backend
             getHomeAds()
             getHomeOffers()
             joinAll(

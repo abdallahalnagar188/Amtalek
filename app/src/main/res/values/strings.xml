@@ -421,7 +421,7 @@
     <string name="join_us">Join Us</string>
     <string name="sign_out">Sign Out</string>
 
-    <string name="brokers">Brokers</string>
+    <string name="brokers">Agencies</string>
     <string name="market">Market</string>
     <string name="hot_offer">Hot Offer</string>
     <string name="my_estate">My Estate</string>
@@ -722,6 +722,7 @@
     <string name="or">Or</string>
     <string name="per">/</string>
     <string name="comment_added_successfully">Your comment has been sent</string>
+    <string name="social_network">Social Network</string>
 
 
 </resources>

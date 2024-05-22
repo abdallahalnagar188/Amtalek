@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 
 class RvHomeNewestVillasAdapter @Inject constructor() :
-    ListAdapter<PropertyModel, RvHomeNewestVillasAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<PropertyModelx, RvHomeNewestVillasAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -45,7 +45,7 @@ class RvHomeNewestVillasAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: PropertyModel) {
+        fun bind(model: PropertyModelx) {
             var isFav = model.isFavourite == TRUE
             binding.apply {
                 ivFav.setOnClickListener {
@@ -161,20 +161,20 @@ class RvHomeNewestVillasAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNewestVillaClick(model: PropertyModel)
+        fun onNewestVillaClick(model: PropertyModelx)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModelx>() {
             override fun areItemsTheSame(
-                oldItem: PropertyModel,
-                newItem: PropertyModel
+                oldItem: PropertyModelx,
+                newItem: PropertyModelx
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PropertyModel,
-                newItem: PropertyModel
+                oldItem: PropertyModelx,
+                newItem: PropertyModelx
             ) = oldItem == newItem
         }
     }

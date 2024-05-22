@@ -19,6 +19,10 @@ import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.MyPropertyDetailsResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
+import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPropertiesResponse
+import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
+import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
+import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -137,8 +141,57 @@ interface AmtalekApi {
 
 
     //____________________________________________________________________________________________//
-    // Home
+    // New Home
+    @GET("/mobile/mobile-home-featured-props")
+    suspend fun getHomeFeaturedProperty(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+        ):Response<HomeFeaturedPropertiesResponse>
 
+    @GET("/mobile/mobile/mobile-home-projects")
+    suspend fun getHomeProjects(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+        ):Response<HomeProjectsResponse>
+
+
+    @GET("/mobile/mobile-home-filter-by-city")
+    suspend fun getFilterByCity(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+        ):Response<HomeCitiesResponse>
+
+
+    @GET("/mobile/mobile-home-sliders")
+    suspend fun getHomeSlider(
+        @Header("Authorization") userToken: String?,
+        ):Response<HomeSlidersResponse>
+
+
+
+    @GET("/mobile/mobile-home-prop-most-views")
+    suspend fun getHomeMostViewedProperties(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+        ):Response<HomeResponse>
+
+
+
+    @GET("/mobile/mobile-home-news")
+    suspend fun getHomeNews(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+        ):Response<HomeResponse>
+
+
+
+
+    @GET("/mobile/mobile-home-extra-sections")
+    suspend fun getHomeNewestSections(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+        ):Response<HomeResponse>
+//////////////////////////////////////////////////////////////////
     @GET("mobile/home")
     suspend fun getHome(
         @Header("Authorization") userToken: String?
@@ -151,7 +204,8 @@ interface AmtalekApi {
         @Field("city_id")cityId: String
     ): Response<HomeResponse>
 
-
+    //____________________________________________________________________________________________//
+    //hot offers
     @GET("mobile/hot-offers")
     suspend fun getHotOffers(
         @Header("Authorization") userToken: String?,

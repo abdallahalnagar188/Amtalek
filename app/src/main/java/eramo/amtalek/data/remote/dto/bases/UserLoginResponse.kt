@@ -43,9 +43,9 @@ data class GeneralLoginResponse(
             cityName =data?.cityName?:"",
             countryName = data?.countryName?:"",
             hasCity = data?.hasCity,
-            hasCountry =data?.hasCity,
+            hasCountry =data?.hasCountry,
             hasRegion =data?.hasRegion,
-            address = data?.hasRegion?:"",
+            address = data?.address?:"",
             hrId = data?.hrId?:"",
             hrAcceptance =data?.hrAcceptance?:-1 ,
             branchId =data?.branchId?:"" ,
@@ -119,7 +119,7 @@ data class Data(
     @SerializedName("has_package")
     val hasPackage: String?,
     @SerializedName("has_region")
-    val hasRegion: String?,
+    val hasRegion: HasRegion?,
     @SerializedName("id")
     val id: Int?,
     @SerializedName("last_name")
@@ -208,6 +208,27 @@ data class HasCity(
     @SerializedName("updated_at")
     val updatedAt: String?
 )
+data class HasRegion(
+    @SerializedName("country_id")
+    val countryId: Int?,
+    @SerializedName("city_id")
+    val cityId: Int?,
+    @SerializedName("created_at")
+    val createdAt: String?,
+    @SerializedName("deleted_at")
+    val deletedAt: String?,
+    @SerializedName("id")
+    val id: Int?,
+    @SerializedName("image")
+    val image: String?,
+    @SerializedName("status")
+    val status: String?,
+    @SerializedName("title")
+    val title: Title?,
+    @SerializedName("updated_at")
+    val updatedAt: String?
+)
+
 data class HasCountry(
     @SerializedName("created_at")
     val createdAt: String?,

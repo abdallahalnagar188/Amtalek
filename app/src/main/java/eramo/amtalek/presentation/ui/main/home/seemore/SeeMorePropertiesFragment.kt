@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
-import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
@@ -52,13 +52,13 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     }
 
 
-    private fun setupRv(data: List<PropertyModel>) {
+    private fun setupRv(data: List<PropertyModelx>) {
         rvPropertiesAdapter.setListener(this@SeeMorePropertiesFragment)
         binding.rvProperties.adapter = rvPropertiesAdapter
         rvPropertiesAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: PropertyModel) {
+    override fun onPropertyClick(model: PropertyModelx) {
         when (model.type) {
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(

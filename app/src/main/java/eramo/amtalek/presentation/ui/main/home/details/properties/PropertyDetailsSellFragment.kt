@@ -28,7 +28,6 @@ import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsSellBinding
-import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -298,7 +297,7 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
         rvRatingAdapter.submitList(data)
     }
 
-    private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
+    private fun initSimilarPropertiesRv(data: List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
         rvSimilarPropertiesAdapter.submitList(data)
     }

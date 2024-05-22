@@ -3,15 +3,11 @@ package eramo.amtalek.data.remote.dto.property.newResponse.prop_details
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import eramo.amtalek.domain.model.main.home.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
-import eramo.amtalek.util.FALSE
 import eramo.amtalek.util.NONE_IMAGE_URL
-import eramo.amtalek.util.TRUE
-import eramo.amtalek.util.enum.AdvertisementType
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -91,20 +87,20 @@ data class MyPropertyDetailsResponse(
 
         return list
     }
-    private fun similarPropertiesList(): List<PropertyModel> {
-        val list = mutableListOf<PropertyModel>()
+    private fun similarPropertiesList(): List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel> {
+        val list = mutableListOf<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>()
 
         for (i in data?.get(0)?.similarProperties!!) {
             list.add(
-                PropertyModel(
+                eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel(
                     id = i?.id ?: -1,
                     imageUrl = i?.primaryImage ?: "",
                      type =  i?.forWhat ?: "",
-                    isFavourite = if (i?.isFav == "1") TRUE else FALSE,
-                    isFeatured = if (i?.normalFeatured == AdvertisementType.FEATURED.key) TRUE else FALSE,
-                    sellPrice = i?.salePrice?.toDouble() ?: 0.0,
-                    rentPrice = i?.rentPrice?.toDouble() ?: 0.0,
-                    currency = i?.rentDuration ?: "",
+                    isFavourite = i?.isFav?:"" ,
+                    isFeatured = i?.normalFeatured?:"",
+                    sellPrice = i?.salePrice?: 0,
+                    rentPrice = i?.rentPrice?:0,
+                    listingNumber = i?.listingNumber ?: "",
                     rentDuration = i?.title ?: "",
                     title = i?.currency?:"",
                     area = i?.landArea ?: 0,
@@ -112,6 +108,7 @@ data class MyPropertyDetailsResponse(
                     bedsCount = i?.bedRoomsNo ?: 0,
                     location = "${i?.region}, ${i?.city}",
                     datePosted = i?.createdAt ?: "",
+                    brokerId = i.brokerDetails?.get(0)?.id.toString() ?: "",
                     brokerLogoUrl = i.brokerDetails?.get(0)?.logo ?: NONE_IMAGE_URL,
                 )
             )

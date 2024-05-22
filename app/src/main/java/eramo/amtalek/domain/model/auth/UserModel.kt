@@ -2,6 +2,8 @@ package eramo.amtalek.domain.model.auth
 
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.data.remote.dto.bases.HasCity
+import eramo.amtalek.data.remote.dto.bases.HasCountry
+import eramo.amtalek.data.remote.dto.bases.HasRegion
 
 
 data class UserModel(
@@ -26,9 +28,9 @@ data class UserModel(
     val firstName: String,
     val gender: String?,
     val hasCity: HasCity?,
-    val hasCountry: HasCity?,
+    val hasCountry: HasCountry?,
     val hasPackage: String?,
-    val hasRegion: String?,
+    val hasRegion: HasRegion?,
     val id: Int,
     val lastName: String,
     val phone: String,

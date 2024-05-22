@@ -28,7 +28,7 @@ import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.main.home.NewsModel
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
-import eramo.amtalek.domain.model.main.home.PropertyModel
+import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
@@ -115,7 +115,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         requestApis()
         fetchData()
-
+        if (UserUtil.isUserLogin()) {
+            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
+        }
         Log.e("token", UserUtil.getUserToken())
     }
 
@@ -166,17 +168,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun requestApis() {
-        if (UserUtil.isUserLogin()) {
-//            viewModel.getProfile(UserUtil.getUserType(),UserUtil.getUserId())
-            viewModel.getHome()
-        } else {
-            viewModel.getHome()
-        }
+
     }
 
     private fun fetchData() {
         fetchGetProfileState()
         fetchUserCityState()
+        fetchGetProfileState()
+
 //        fetchHomeState()
 //        fetchHomeFilteredByCityState()
     }
@@ -506,13 +505,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
+    private fun setupFeaturedRealEstateRv(data: List<PropertyModelx>) {
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         setupFeaturedRealEstateHeaderListener(data)
     }
 
-    private fun setupFeaturedRealEstateHeaderListener(data: List<PropertyModel>) {
+    private fun setupFeaturedRealEstateHeaderListener(data: List<PropertyModelx>) {
 
         binding.inFeaturedRealEstate.apply {
 
@@ -567,13 +566,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     // -------------------------------------------------------------------------------------------------------------- //
-    private fun setupNewestPropertiesRv(data: List<PropertyModel>) {
+    private fun setupNewestPropertiesRv(data: List<PropertyModelx>) {
         rvHomeNewestPropertiesAdapter.setListener(this@HomeFragment)
         binding.inNewestPropertiesLayout.rv.adapter = rvHomeNewestPropertiesAdapter
         setupNewestPropertiesHeaderListener(data)
     }
 
-    private fun setupNewestPropertiesHeaderListener(data: List<PropertyModel>) {
+    private fun setupNewestPropertiesHeaderListener(data: List<PropertyModelx>) {
 
         binding.inNewestPropertiesLayout.apply {
 
@@ -613,13 +612,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupNewestVillasRv(data: List<PropertyModel>) {
+    private fun setupNewestVillasRv(data: List<PropertyModelx>) {
         rvHomeNewestVillasAdapter.setListener(this@HomeFragment)
         binding.inNewestVillasLayout.rv.adapter = rvHomeNewestVillasAdapter
         setupNewestVillasHeaderListener(data)
     }
 
-    private fun setupNewestVillasHeaderListener(data: List<PropertyModel>) {
+    private fun setupNewestVillasHeaderListener(data: List<PropertyModelx>) {
 
         binding.inNewestVillasLayout.apply {
 
@@ -659,14 +658,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupNewestDuplexesRv(data: List<PropertyModel>) {
+    private fun setupNewestDuplexesRv(data: List<PropertyModelx>) {
         rvHomeNewestDuplexesAdapter.setListener(this@HomeFragment)
         binding.inNewestDuplexesLayout.rv.adapter = rvHomeNewestDuplexesAdapter
         rvHomeNewestDuplexesAdapter.submitList(data)
         setupNewestDuplexesHeaderListener(data)
     }
 
-    private fun setupNewestDuplexesHeaderListener(data: List<PropertyModel>) {
+    private fun setupNewestDuplexesHeaderListener(data: List<PropertyModelx>) {
 
         binding.inNewestDuplexesLayout.apply {
 
@@ -826,7 +825,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
-    override fun onFeaturedRealEstateClick(model: PropertyModel) {
+    override fun onFeaturedRealEstateClick(model: PropertyModelx) {
 
         Log.e("propertyId", model.id.toString())
         when (model.type) {
@@ -864,7 +863,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     }
 
-    override fun onNewestPropertyClick(model: PropertyModel) {
+    override fun onNewestPropertyClick(model: PropertyModelx) {
         Log.e("propertyId", model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {
@@ -893,7 +892,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    override fun onNewestVillaClick(model: PropertyModel) {
+    override fun onNewestVillaClick(model: PropertyModelx) {
         Log.e("propertyId", model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {
@@ -922,7 +921,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    override fun onNewestDuplexesClick(model: PropertyModel) {
+    override fun onNewestDuplexesClick(model: PropertyModelx) {
         Log.e("propertyId", model.id.toString())
         when (model.type) {
             PropertyType.FOR_SELL.key -> {

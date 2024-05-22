@@ -53,7 +53,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
     }
 
     private fun fetchData() {
-        fetchGetProfileState()
+            fetchGetProfileState()
     }
 
     private fun fetchGetProfileState() {
@@ -91,7 +91,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
             tvTitle.text =
 //                getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
-                getString(R.string.market)
+                getString(R.string.social_network)
         }
     }
 
