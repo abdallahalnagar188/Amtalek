@@ -4,12 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.databinding.ItemFeaturedRealEstateBinding
+import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.util.TRUE
@@ -20,26 +21,26 @@ import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
-class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
-    ListAdapter<PropertyModel, RvHomeFeaturedRealEstateAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
-    private lateinit var listener: OnItemClickListener
+class RvHomeFirstExtraSectionAdapter @Inject constructor() :
+    ListAdapter<PropertyModel, RvHomeFirstExtraSectionAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    private lateinit var listener: OnItemClickListenerFirstSection
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemFeaturedRealEstateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemFeaturedRealEstateBinding) :
+    inner class ProductViewHolder(private val binding: ItemPropertyPreviewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onFeaturedRealEstateClick(it)
+                        listener.onItemClicked1(it)
                     }
                 }
             }
@@ -66,24 +67,23 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                     }
                 }
 
-
                 when (model.type) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE
-                        tvPriceRent.visibility = View.GONE
+                        tvDurationRent.visibility = View.GONE
                     }
 
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
-                        tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
-                        tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
 
                     }
 
@@ -107,13 +107,22 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == "1") {
+                if (model.isFavourite == "1"){
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
-                } else {
+                }else{
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-            }
 
+                if (model.isFeatured == "1"){
+                    tvFeatured.visibility = View.VISIBLE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
+                    root.strokeColor = ContextCompat.getColor(itemView.context,R.color.gold)
+                }else{
+                    tvFeatured.visibility = View.GONE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
+                    root.strokeColor = ContextCompat.getColor(itemView.context,R.color.gray_low)
+                }
+            }
         }
     }
 
@@ -147,12 +156,12 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: OnItemClickListenerFirstSection) {
         this.listener = listener
     }
 
-    interface OnItemClickListener {
-        fun onFeaturedRealEstateClick(model: PropertyModel)
+    interface OnItemClickListenerFirstSection {
+        fun onItemClicked1(model: PropertyModel)
     }
 
     //check difference

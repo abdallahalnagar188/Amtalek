@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemProjectPreviewBinding
-import eramo.amtalek.domain.model.main.home.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.util.TRUE
 import javax.inject.Inject
 
 
 class RvProjectsAdapter @Inject constructor() :
-    ListAdapter<ProjectModel, RvProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<ProjectModelx, RvProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -38,7 +38,7 @@ class RvProjectsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: ProjectModel) {
+        fun bind(model: ProjectModelx) {
             var isFav = model.isFavourite == TRUE
             binding.apply {
                 ivFav.setOnClickListener {
@@ -76,20 +76,20 @@ class RvProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: ProjectModel)
+        fun onPropertyClick(model: ProjectModelx)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectModelx>() {
             override fun areItemsTheSame(
-                oldItem: ProjectModel,
-                newItem: ProjectModel
+                oldItem: ProjectModelx,
+                newItem: ProjectModelx
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: ProjectModel,
-                newItem: ProjectModel
+                oldItem: ProjectModelx,
+                newItem: ProjectModelx
             ) = oldItem == newItem
         }
     }

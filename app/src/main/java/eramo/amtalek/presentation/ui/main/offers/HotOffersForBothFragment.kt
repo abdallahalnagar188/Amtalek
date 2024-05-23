@@ -1,11 +1,9 @@
 package eramo.amtalek.presentation.ui.main.offers
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,7 +15,6 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentHotOffersForBothBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment

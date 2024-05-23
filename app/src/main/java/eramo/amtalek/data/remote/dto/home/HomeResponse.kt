@@ -3,7 +3,7 @@ package eramo.amtalek.data.remote.dto.home
 
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.main.home.NewsModelx
-import eramo.amtalek.domain.model.main.home.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.util.FALSE
@@ -811,8 +811,8 @@ data class HomeResponse(
                 val propertiesCount: Int?
             )
 
-            fun toProjectModel(): ProjectModel {
-                return ProjectModel(
+            fun toProjectModel(): ProjectModelx {
+                return ProjectModelx(
                     id ?: -1, primaryImage ?: "", if (isFav == "1") TRUE else FALSE,
                     title ?: "", description ?: "", "$region $city", createdAt ?: "", brokerDetails?.get(0)?.logo ?: ""
 

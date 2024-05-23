@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.hotoffers.Project
 import eramo.amtalek.databinding.ItemProjectPreviewBinding
-import eramo.amtalek.domain.model.main.home.ProjectModel
-import eramo.amtalek.util.TRUE
 import javax.inject.Inject
 
 class RvHotOffersRentProjectsAdapter @Inject constructor() :

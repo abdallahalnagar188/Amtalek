@@ -10,10 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserratsemibold"
-        android:text="@string/featured_real_estate_in_egypt"
+        android:text="@string/the_newest_villas_in_egypt"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/_11sdp"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
@@ -43,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_see_more"
-        tools:listitem="@layout/item_featured_real_estate" />
+        tools:listitem="@layout/item_property_preview" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

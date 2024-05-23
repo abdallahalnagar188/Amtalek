@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSeeMoreProjectsBinding
-import eramo.amtalek.domain.model.main.home.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.presentation.adapters.recyclerview.RvProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.navOptionsAnimation
@@ -21,9 +21,9 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMoreProjectsBinding::inflate
 
-    private val args by navArgs<SeeMoreProjectsFragmentArgs>()
-    private val projectsList get() = args.projectsList
-    private val title get() = args.title
+//    private val args by navArgs<SeeMoreProjectsFragmentArgs>()
+//    private val projectsList get() = args.projectsList
+//    private val title get() = args.title
 
     @Inject
     lateinit var rvProjectsAdapter: RvProjectsAdapter
@@ -38,23 +38,23 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
     private fun setupViews() {
         setupToolbar()
 
-        setupRv(projectsList.toList())
+//        setupRv(projectsList.toList())
     }
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            tvTitle.text = title
+//            tvTitle.text = title
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
 
-    private fun setupRv(data: List<ProjectModel>) {
+    private fun setupRv(data: List<ProjectModelx>) {
         rvProjectsAdapter.setListener(this@SeeMoreProjectsFragment)
         binding.rvProperties.adapter = rvProjectsAdapter
         rvProjectsAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: ProjectModel) {
+    override fun onPropertyClick(model: ProjectModelx) {
         findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
     }
 }

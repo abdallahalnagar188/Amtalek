@@ -101,8 +101,8 @@ data class MyPropertyDetailsResponse(
                     sellPrice = i?.salePrice?: 0,
                     rentPrice = i?.rentPrice?:0,
                     listingNumber = i?.listingNumber ?: "",
-                    rentDuration = i?.title ?: "",
-                    title = i?.currency?:"",
+                    rentDuration = i?.rentDuration ?: "",
+                    title = i?.title?:"",
                     area = i?.landArea ?: 0,
                     bathroomsCount = i?.bathRoomNo ?: 0,
                     bedsCount = i?.bedRoomsNo ?: 0,
@@ -110,6 +110,8 @@ data class MyPropertyDetailsResponse(
                     datePosted = i?.createdAt ?: "",
                     brokerId = i.brokerDetails?.get(0)?.id.toString() ?: "",
                     brokerLogoUrl = i.brokerDetails?.get(0)?.logo ?: NONE_IMAGE_URL,
+                    currency = i.currency?:""
+
                 )
             )
         }

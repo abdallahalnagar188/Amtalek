@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui.main.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,7 +10,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,30 +23,29 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
-import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.home.HomeExtraSectionsModel
+import eramo.amtalek.domain.model.home.cities.CitiesModel
+import eramo.amtalek.domain.model.home.news.NewsModel
+import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.model.main.home.NewsModelx
-import eramo.amtalek.domain.model.main.home.ProjectModel
-import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
-import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFifthExtraSectionAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFindPropertyByCityAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestDuplexesAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestPropertiesAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewestVillasAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeThirdExtraSectionAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFirstExtraSectionAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFourthExtraSectionAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSecondExtraSectionAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.FilterCitiesDialogFragment
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesByCityFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.UserUtil
-import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.onBackPressed
@@ -62,20 +60,21 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(),
-    RvMyFavouritesAdapter.OnItemClickListener,
-    RvHomeNewsAdapter.OnItemClickListener,
-    RvHomeFeaturedRealEstateAdapter.OnItemClickListener,
-    RvHomeFindPropertyByCityAdapter.OnItemClickListener,
-    RvHomeNewestPropertiesAdapter.OnItemClickListener,
-    RvHomeNewestVillasAdapter.OnItemClickListener,
-    RvHomeNewestDuplexesAdapter.OnItemClickListener,
-    RvHomeFeaturedProjectsAdapter.OnItemClickListener,
-    FilterCitiesDialogFragment.FilterCitiesDialogOnClickListener {
+RvHomeFeaturedRealEstateAdapter.OnItemClickListener ,
+RvHomeFeaturedProjectsAdapter.OnItemClickListener,
+RvHomeFindPropertyByCityAdapter.OnItemClickListener,
+RvHomeFirstExtraSectionAdapter.OnItemClickListenerFirstSection,
+RvHomeSecondExtraSectionAdapter.OnItemClickListenerSecondSection,
+RvHomeThirdExtraSectionAdapter.OnItemClickListenerThirdSection,
+RvHomeFourthExtraSectionAdapter.OnItemClickListenerFourthSection,
+RvHomeFifthExtraSectionAdapter.OnItemClickListenerFifthSection,
+RvHomeNewsAdapter.OnItemClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
 
-    private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by viewModels<HomeMyViewModel>()
+
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     private var backPressedTime: Long = 0
@@ -91,13 +90,19 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     // ---------------------------------------------------------------------------
     @Inject
-    lateinit var rvHomeNewestPropertiesAdapter: RvHomeNewestPropertiesAdapter
+    lateinit var rvHomeFirstExtraSectionAdapter: RvHomeFirstExtraSectionAdapter
 
     @Inject
-    lateinit var rvHomeNewestVillasAdapter: RvHomeNewestVillasAdapter
+    lateinit var rvHomeSecondExtraSectionAdapter: RvHomeSecondExtraSectionAdapter
 
     @Inject
-    lateinit var rvHomeNewestDuplexesAdapter: RvHomeNewestDuplexesAdapter
+    lateinit var rvHomeThirdExtraSectionAdapter: RvHomeThirdExtraSectionAdapter
+
+    @Inject
+    lateinit var rvHomeFourthExtraSectionAdapter: RvHomeFourthExtraSectionAdapter
+
+    @Inject
+    lateinit var rvHomeFifthExtraSectionAdapter: RvHomeFifthExtraSectionAdapter
     // ---------------------------------------------------------------------------
 
     @Inject
@@ -105,9 +110,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        super.registerApiRequest { viewModel.getScreenApis() }
-//        super.registerApiCancellation { viewModel.cancelRequest() }
-//        viewModel.getCartCount()
+
 
 
         setupViews()
@@ -118,7 +121,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         if (UserUtil.isUserLogin()) {
             viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
         }
-        Log.e("token", UserUtil.getUserToken())
     }
 
     override fun onResume() {
@@ -137,7 +139,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-//        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
 
         initToolbar()
     }
@@ -147,7 +148,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.apply {
 
             val filterCitiesDialogFragment = FilterCitiesDialogFragment()
-            filterCitiesDialogFragment.setListener(this@HomeFragment)
+//            filterCitiesDialogFragment.setListener(this@HomeFragment)
             inToolbar.spinnerLayout.setOnClickListener {
                 filterCitiesDialogFragment.show(
                     activity?.supportFragmentManager!!,
@@ -168,20 +169,280 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun requestApis() {
-
+        viewModel.getHomeApis("1")
     }
 
     private fun fetchData() {
         fetchGetProfileState()
         fetchUserCityState()
-        fetchGetProfileState()
-
-//        fetchHomeState()
-//        fetchHomeFilteredByCityState()
+        fetchGetHomeApis()
+        fetchGetHomeFeaturedProperties()
+        fetchGetHomeProjects()
+        fetchGetHomeFilterByCity()
+        fetchGetHomeSlider()
+        fetchGetHomeMostViewedProperties()
+        fetchGetHomeExtraSections()
+        fetchGetNews()
     }
 
     // -------------------------------------- fetchData -------------------------------------- //
+    private fun fetchGetHomeApis(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.initScreenState.collect(){state->
+                    when (state){
+                        is UiState.Success->{
 
+                            dismissShimmerEffect()
+                        }
+                        is UiState.Loading->{
+                            showShimmerEffect()
+                        }
+                        is UiState.Error->{
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetHomeFeaturedProperties() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeFeaturedPropertiesState.collect(){state->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data?.get(0)?.propertiesList
+                            binding.inFeaturedRealEstate.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                                setupFeaturedRealEstateRv(data)
+                            }else{
+                                //do something
+                            }
+//                            dismissShimmerEffect()
+                        }
+
+                        is UiState.Error -> {
+
+
+//                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetHomeProjects(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeProjectsState.collect(){state->
+                    when (state) {
+                        is UiState.Success -> {
+                            val data = state.data?.get(0)?.projects
+                            binding.inFeaturedProjects.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                                setupFeaturedProjectsRv(data)
+                            }else{
+                                // do nothing
+                            }
+
+
+//                            dismissShimmerEffect()
+                        }
+
+                        is UiState.Error -> {
+
+
+//                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun fetchGetHomeFilterByCity(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeFilterByCityState.collect(){state->
+                    when (state) {
+                        is UiState.Success -> {
+                            val data = state.data?.get(0)?.cities
+                            binding.inPropertiesByCity.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                                setupFindPropertiesByCityRv(data)
+
+                            }else{
+                                // do nothing
+                            }
+
+
+//                            dismissShimmerEffect()
+                        }
+
+                        is UiState.Error -> {
+
+
+//                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun fetchGetHomeSlider(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeSliderState.collect(){state->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data
+                            if (!data.isNullOrEmpty()){
+                                setupSliderBetween(parseBetweenCarouselSliderList(data))
+                            }else{
+                                // do nothing
+                            }
+                        }
+
+                        is UiState.Error -> {
+
+
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+    }
+    }
+
+    private fun fetchGetHomeMostViewedProperties(){
+        viewLifecycleOwner.lifecycleScope.launch{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeMostViewedPropertiesState.collect(){state->
+                    when (state) {
+                        is UiState.Success -> {
+
+
+//                            dismissShimmerEffect()
+                        }
+                        is UiState.Error -> {
+
+
+//                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun fetchGetHomeExtraSections(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeExtraSectionsState.collect(){state->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data
+                            setupExtraViews(data)
+                        }
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+
+    private fun fetchGetNews() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeNewsState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data?.get(0)?.news
+                            binding.inNewsLayout.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                                setupNewsRv(data)
+                            }else{
+                                // do nothing
+                            }
+
+//                            dismissShimmerEffect()
+                        }
+
+                        is UiState.Error -> {
+
+
+//                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+
+        }
+    }
     private fun fetchGetProfileState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -237,212 +498,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
         }
     }
-
-    private fun fetchHomeState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeState.collect { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            parseHomeResponse(state.data!!)
-                        }
-
-                        is UiState.Error -> {
-                            dismissShimmerEffect()
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                            showShimmerEffect()
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
-    }
-
-    private fun fetchHomeFilteredByCityState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeFilteredByCityState.collect { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            parseHomeResponse(state.data!!)
-                        }
-
-                        is UiState.Error -> {
-                            dismissShimmerEffect()
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                            showShimmerEffect()
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
-    }
-
-    private fun parseHomeResponse(data: HomeResponse) {
-        try {
-            binding.apply {
-                val topCarouselSliderList = parseTopCarouselSliderList(data.data?.sliders)
-                setupCarouselSliderTop(topCarouselSliderList)
-
-                // featuredProperties
-                val featuredPropertiesList = data.data?.featuredPropertiesCountry!!.map { it!!.toPropertyModel() }
-                setupFeaturedRealEstateRv(featuredPropertiesList)
-                inFeaturedRealEstate.tvSeeMore.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                            featuredPropertiesList.toTypedArray(),
-                            getString(R.string.featured_real_estate_in_egypt)
-                        ).toBundle(),
-                        navOptionsAnimation()
-                    )
-                }
-
-                // featuredProjects
-                val featuredProjectsList = data.data.featuredProjectsCountry!!.map { it!!.toProjectModel() }
-                setupFeaturedProjectsRv(featuredProjectsList)
-                inFeaturedProjects.tvSeeMore.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.seeMoreProjectsFragment,
-                        SeeMoreProjectsFragmentArgs(
-                            featuredProjectsList.toTypedArray(),
-                            getString(R.string.featured_projects_in_egypt)
-                        ).toBundle(),
-                        navOptionsAnimation()
-                    )
-                }
-
-                val citiesList = data.data.propertyInCity!!.map { it!!.toPropertiesByCityModel() }
-                setupFindPropertiesByCityRv(citiesList)
-                inPropertiesByCity.tvSeeMore.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.seeMorePropertiesByCityFragment,
-                        SeeMorePropertiesByCityFragmentArgs(citiesList.toTypedArray()).toBundle(),
-                        navOptionsAnimation()
-                    )
-                }
-
-                val betweenCarouselSliderList = parseBetweenCarouselSliderList(data.data.adds)
-                setupSliderBetween(betweenCarouselSliderList)
-
-                // newestProperties
-                val newestPropertiesList = data.data.appaerments!!.map { it!!.toPropertyModel() }
-                setupNewestPropertiesRv(newestPropertiesList)
-                inNewestPropertiesLayout.tvSeeMore.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                            newestPropertiesList.toTypedArray(),
-                            getString(R.string.featured_real_estate_in_egypt)
-                        ).toBundle(),
-                        navOptionsAnimation()
-                    )
-                }
-
-                // newestVillas
-                val newestVillasList = data.data.villas!!.map { it!!.toPropertyModel() }
-                setupNewestVillasRv(newestVillasList)
-                inNewestVillasLayout.tvSeeMore.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                            newestVillasList.toTypedArray(),
-                            getString(R.string.featured_real_estate_in_egypt)
-                        ).toBundle(),
-                        navOptionsAnimation()
-                    )
-                }
-
-                // newestDuplexes
-                val newestDuplexesList = data.data.duplixes!!.map { it!!.toPropertyModel() }
-                setupNewestDuplexesRv(newestDuplexesList)
-                inNewestDuplexesLayout.tvSeeMore.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.seeMorePropertiesFragment, SeeMorePropertiesFragmentArgs(
-                            newestDuplexesList.toTypedArray(),
-                            getString(R.string.featured_real_estate_in_egypt)
-                        ).toBundle(),
-                        navOptionsAnimation()
-                    )
-                }
-
-                setupNewsRv(data.data.news!!.map { it!!.toNewsModel() })
-
-                dismissShimmerEffect()
-            }
-
-        } catch (e: Exception) {
-            dismissShimmerEffect()
-            showToast(getString(R.string.invalid_data_parsing))
-        }
-    }
-
-    private fun setupCarouselSliderTop(data: ArrayList<CarouselItem>) {
-        binding.apply {
-            carouselSliderTop.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderTop.setData(data)
-            carouselSliderTop.setIndicator(carouselSliderTopDots)
-
-            carouselSliderTop.carouselListener = object : CarouselListener {
-                override fun onCreateViewHolder(
-                    layoutInflater: LayoutInflater,
-                    parent: ViewGroup
-                ): ViewBinding {
-                    return ItemSliderTopBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                }
-
-                override fun onBindViewHolder(
-                    binding: ViewBinding,
-                    item: CarouselItem,
-                    position: Int
-                ) {
-                    val currentBinding = binding as ItemSliderTopBinding
-                    currentBinding.apply {
-                        imageView13.setImage(item)
-                        this.root.setOnClickListener {
-                            this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
-                        }
-                    }
-
-                }
-            }
-        }
-    }
-
-    private fun parseTopCarouselSliderList(data: List<HomeResponse.Data.Slider?>?): ArrayList<CarouselItem> {
-        val list = ArrayList<CarouselItem>()
-        val headers = mutableMapOf<String, String>()
-        headers["header_key"] = "header_value"
-
-        for (i in data!!) {
-            list.add(
-                CarouselItem(
-                    imageUrl = i?.image,
-                )
-            )
-        }
-
-        return list
-    }
-
-    private fun parseBetweenCarouselSliderList(data: List<HomeResponse.Data.Adds?>?): ArrayList<CarouselItem> {
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
         val list = ArrayList<CarouselItem>()
         val headers = mutableMapOf<String, String>()
         headers["header_key"] = "header_value"
@@ -505,53 +561,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupFeaturedRealEstateRv(data: List<PropertyModelx>) {
+    private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
-        setupFeaturedRealEstateHeaderListener(data)
+        rvHomeFeaturedRealEstateAdapter.submitList(data)
+
+
     }
 
-    private fun setupFeaturedRealEstateHeaderListener(data: List<PropertyModelx>) {
-
-        binding.inFeaturedRealEstate.apply {
-
-            // default
-            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            rvHomeFeaturedRealEstateAdapter.submitList(data)
-
-            // all
-            tvAll.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeFeaturedRealEstateAdapter.submitList(null)
-                rvHomeFeaturedRealEstateAdapter.submitList(data)
-            }
-
-            // sell
-            tvForSell.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeFeaturedRealEstateAdapter.submitList(null)
-                rvHomeFeaturedRealEstateAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
-            }
-
-            // rent
-            tvForRent.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-
-                rvHomeFeaturedRealEstateAdapter.submitList(null)
-                rvHomeFeaturedRealEstateAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
-            }
-        }
-    }
 
     private fun setupFeaturedProjectsRv(data: List<ProjectModel>) {
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
@@ -559,152 +576,83 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFeaturedProjectsAdapter.submitList(data)
     }
 
-    private fun setupFindPropertiesByCityRv(data: List<PropertiesByCityModel>) {
+    private fun setupFindPropertiesByCityRv(data: List<CitiesModel>) {
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
     }
+    private fun setupExtraViews(data: List<HomeExtraSectionsModel>?) {
+        ////// first
+        binding.inFirstExtraSectionLayout.tvTitle.text = data?.get(0)?.title
+        if (data?.get(0)?.sections?.isNotEmpty() == true){
+            setupHomeFirstExtraSectionRv(data[0].sections!!)
+        }else{
+            // do nothing
+        }
+        ///// second
+        binding.inSecondExtraSectionLayout.tvTitle.text = data?.get(1)?.title
+        if (data?.get(1)?.sections?.isNotEmpty() == true){
+            setupHomeSecondExtraSectionRv(data[1].sections!!)
+        }else{
+            // do nothing
+        }
+        ///// third
+        binding.inThirdExtraSectionLayout.tvTitle.text = data?.get(2)?.title
+        if (data?.get(2)?.sections?.isNotEmpty()== true){
+            setupHomeThirdExtraSectionRv(data[2].sections!!)
+        }else{
+            // do nothing
+        }
+        ///// fourth
+        binding.inFourthExtraSectionLayout.tvTitle.text = data?.get(3)?.title
+        if (data?.get(3)?.sections?.isNotEmpty()== true){
+            setupHomeFourthExtraSectionRv(data[3].sections!!)
+        }else{
+            // do nothing
+        }
+        ///// fifth
+        binding.inFifthExtraSectionLayout.tvTitle.text = data?.get(4)?.title
+        if (data?.get(4)?.sections?.isNotEmpty()== true){
+            setupHomeFifthExtraSectionRv(data[4].sections!!)
+        }else{
+            // do nothing
+        }
+    }
+
 
     // -------------------------------------------------------------------------------------------------------------- //
-    private fun setupNewestPropertiesRv(data: List<PropertyModelx>) {
-        rvHomeNewestPropertiesAdapter.setListener(this@HomeFragment)
-        binding.inNewestPropertiesLayout.rv.adapter = rvHomeNewestPropertiesAdapter
-        setupNewestPropertiesHeaderListener(data)
+    private fun setupHomeFirstExtraSectionRv(data: List<PropertyModel>) {
+        rvHomeFirstExtraSectionAdapter.setListener(this)
+        binding.inFirstExtraSectionLayout.rv.adapter = rvHomeFirstExtraSectionAdapter
+        rvHomeFirstExtraSectionAdapter.submitList(data)
     }
 
-    private fun setupNewestPropertiesHeaderListener(data: List<PropertyModelx>) {
 
-        binding.inNewestPropertiesLayout.apply {
-
-            // default
-            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            rvHomeNewestPropertiesAdapter.submitList(data)
-
-
-            tvAll.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeNewestPropertiesAdapter.submitList(null)
-                rvHomeNewestPropertiesAdapter.submitList(data)
-            }
-
-            tvForSell.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeNewestPropertiesAdapter.submitList(null)
-                rvHomeNewestPropertiesAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
-            }
-
-            tvForRent.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-
-                rvHomeNewestPropertiesAdapter.submitList(null)
-                rvHomeNewestPropertiesAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
-            }
-        }
+    private fun setupHomeSecondExtraSectionRv(data: List<PropertyModel>) {
+        rvHomeSecondExtraSectionAdapter.setListener(this)
+        binding.inSecondExtraSectionLayout.rv.adapter = rvHomeSecondExtraSectionAdapter
+        rvHomeSecondExtraSectionAdapter.submitList(data)
     }
 
-    private fun setupNewestVillasRv(data: List<PropertyModelx>) {
-        rvHomeNewestVillasAdapter.setListener(this@HomeFragment)
-        binding.inNewestVillasLayout.rv.adapter = rvHomeNewestVillasAdapter
-        setupNewestVillasHeaderListener(data)
+
+    private fun setupHomeThirdExtraSectionRv(data: List<PropertyModel>) {
+        rvHomeThirdExtraSectionAdapter.setListener(this)
+        binding.inThirdExtraSectionLayout.rv.adapter = rvHomeThirdExtraSectionAdapter
+        rvHomeThirdExtraSectionAdapter.submitList(data)
+    }
+    private fun setupHomeFourthExtraSectionRv(data: List<PropertyModel>) {
+        rvHomeFourthExtraSectionAdapter.setListener(this)
+        binding.inFourthExtraSectionLayout.rv.adapter = rvHomeFourthExtraSectionAdapter
+        rvHomeFourthExtraSectionAdapter.submitList(data)
+    }
+    private fun setupHomeFifthExtraSectionRv(data: List<PropertyModel>) {
+        rvHomeFifthExtraSectionAdapter.setListener(this)
+        binding.inFifthExtraSectionLayout.rv.adapter = rvHomeFifthExtraSectionAdapter
+        rvHomeFifthExtraSectionAdapter.submitList(data)
     }
 
-    private fun setupNewestVillasHeaderListener(data: List<PropertyModelx>) {
 
-        binding.inNewestVillasLayout.apply {
-
-            // default
-            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            rvHomeNewestVillasAdapter.submitList(data)
-
-
-            tvAll.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeNewestVillasAdapter.submitList(null)
-                rvHomeNewestVillasAdapter.submitList(data)
-            }
-
-            tvForSell.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeNewestVillasAdapter.submitList(null)
-                rvHomeNewestVillasAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
-            }
-
-            tvForRent.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-
-                rvHomeNewestVillasAdapter.submitList(null)
-                rvHomeNewestVillasAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
-            }
-        }
-    }
-
-    private fun setupNewestDuplexesRv(data: List<PropertyModelx>) {
-        rvHomeNewestDuplexesAdapter.setListener(this@HomeFragment)
-        binding.inNewestDuplexesLayout.rv.adapter = rvHomeNewestDuplexesAdapter
-        rvHomeNewestDuplexesAdapter.submitList(data)
-        setupNewestDuplexesHeaderListener(data)
-    }
-
-    private fun setupNewestDuplexesHeaderListener(data: List<PropertyModelx>) {
-
-        binding.inNewestDuplexesLayout.apply {
-
-            // default
-            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            rvHomeNewestDuplexesAdapter.submitList(data)
-
-            tvAll.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeNewestDuplexesAdapter.submitList(null)
-                rvHomeNewestDuplexesAdapter.submitList(data)
-            }
-
-            tvForSell.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-                rvHomeNewestDuplexesAdapter.submitList(null)
-                rvHomeNewestDuplexesAdapter.submitList(data.filter { it.type == PropertyType.FOR_SELL.key })
-            }
-
-            tvForRent.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-
-                rvHomeNewestDuplexesAdapter.submitList(null)
-                rvHomeNewestDuplexesAdapter.submitList(data.filter { it.type == PropertyType.FOR_RENT.key })
-            }
-        }
-    }
-
-    private fun setupNewsRv(data: List<NewsModelx>) {
+    private fun setupNewsRv(data: List<NewsModel>) {
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
@@ -823,143 +771,43 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         backPressedTime = System.currentTimeMillis()
     }
 
-    // ------------------------------------------------------------------------------------------------------------------------------------ //
-
-    override fun onFeaturedRealEstateClick(model: PropertyModelx) {
-
-        Log.e("propertyId", model.id.toString())
-        when (model.type) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellFragment,
-                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            PropertyType.FOR_RENT.key -> {
-//                findNavController().navigate(
-//                    R.id.propertyDetailsRentFragment,
-//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-//                    navOptionsAnimation()
-//                )
-            }
-
-            PropertyType.FOR_BOTH.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellAndRentFragment,
-                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-        }
-    }
+    override fun onFeaturedRealEstateClick(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
 
     override fun onFeaturedProjectClick(model: ProjectModel) {
-        findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
+        findNavController().navigate(
+            R.id.myProjectDetailsFragment,
+            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+        )    }
+
+    override fun onPropertyByCityClick(model: CitiesModel) {
+        Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onPropertyByCityClick(model: PropertiesByCityModel) {
 
+    override fun onItemClicked1(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+        )    }
+
+    override fun onItemClicked2(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+    override fun onItemClicked3(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+    override fun onItemClicked4(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+    override fun onItemClicked5(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+
+    override fun onNewsClick(model: NewsModel) {
+        Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
     }
+    // ------------------------------------------------------------------------------------------------------------------------------------ //
 
-    override fun onNewestPropertyClick(model: PropertyModelx) {
-        Log.e("propertyId", model.id.toString())
-        when (model.type) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellFragment,
-                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            PropertyType.FOR_RENT.key -> {
-//                findNavController().navigate(
-//                    R.id.propertyDetailsRentFragment,
-//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-//                    navOptionsAnimation()
-//                )
-            }
-
-            PropertyType.FOR_BOTH.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellAndRentFragment,
-                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-        }
-    }
-
-    override fun onNewestVillaClick(model: PropertyModelx) {
-        Log.e("propertyId", model.id.toString())
-        when (model.type) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellFragment,
-                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            PropertyType.FOR_RENT.key -> {
-//                findNavController().navigate(
-//                    R.id.propertyDetailsRentFragment,
-//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-//                    navOptionsAnimation()
-//                )
-            }
-
-            PropertyType.FOR_BOTH.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellAndRentFragment,
-                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-        }
-    }
-
-    override fun onNewestDuplexesClick(model: PropertyModelx) {
-        Log.e("propertyId", model.id.toString())
-        when (model.type) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellFragment,
-                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-
-            PropertyType.FOR_RENT.key -> {
-//                findNavController().navigate(
-//                    R.id.propertyDetailsRentFragment,
-//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-//                    navOptionsAnimation()
-//                )
-            }
-
-            PropertyType.FOR_BOTH.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsSellAndRentFragment,
-                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
-                )
-            }
-        }
-    }
-
-    override fun onPropertyClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
-    }
-
-    override fun onNewsClick(model: NewsModelx) {
-        findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
-    }
-
-    override fun onFilterCitiesDialogItemClick(model: CityModel) {
-        viewModel.getHomeFilteredByCity(model.id.toString())
-        binding.inToolbar.tvSpinnerText.text = model.name
-    }
 
 }

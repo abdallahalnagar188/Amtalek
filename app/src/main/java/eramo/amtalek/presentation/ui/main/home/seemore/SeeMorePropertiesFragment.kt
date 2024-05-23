@@ -25,9 +25,9 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
 
-    private val args by navArgs<SeeMorePropertiesFragmentArgs>()
-    private val propertiesList get() = args.propertiesList
-    private val title get() = args.title
+//    private val args by navArgs<SeeMorePropertiesFragmentArgs>()
+//    private val propertiesList get() = args.propertiesList
+//    private val title get() = args.title
 
     @Inject
     lateinit var rvPropertiesAdapter: RvPropertiesAdapter
@@ -41,12 +41,12 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     private fun setupViews() {
         setupToolbar()
 
-        setupRv(propertiesList.toList())
+//        setupRv(propertiesList.toList())
     }
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            tvTitle.text = title
+//            tvTitle.text = title
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }

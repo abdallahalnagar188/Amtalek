@@ -367,9 +367,6 @@
         android:label="fragment_see_more_properties"
         tools:layout="@layout/fragment_see_more_properties" >
         <argument
-            android:name="propertiesList"
-            app:argType="eramo.amtalek.domain.model.main.home.PropertyModel[]" />
-        <argument
             android:name="title"
             app:argType="string" />
     </fragment>
@@ -378,9 +375,6 @@
         android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragment"
         android:label="fragment_see_more_projects"
         tools:layout="@layout/fragment_see_more_projects" >
-        <argument
-            android:name="projectsList"
-            app:argType="eramo.amtalek.domain.model.main.home.ProjectModel[]" />
         <argument
             android:name="title"
             app:argType="string" />

@@ -145,34 +145,34 @@ interface AmtalekApi {
 
     //____________________________________________________________________________________________//
     // New Home
-    @GET("/mobile/mobile-home-featured-props")
+    @GET("mobile/mobile-home-featured-props")
     suspend fun getHomeFeaturedProperty(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
         ):Response<HomeFeaturedPropertiesResponse>
 
-    @GET("/mobile/mobile/mobile-home-projects")
+    @GET("mobile/mobile-home-projects")
     suspend fun getHomeProjects(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
         ):Response<HomeProjectsResponse>
 
 
-    @GET("/mobile/mobile-home-filter-by-city")
+    @GET("mobile/mobile-home-filter-by-city")
     suspend fun getFilterByCity(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
         ):Response<HomeCitiesResponse>
 
 
-    @GET("/mobile/mobile-home-sliders")
+    @GET("mobile/mobile-home-sliders")
     suspend fun getHomeSlider(
         @Header("Authorization") userToken: String?,
         ):Response<HomeSlidersResponse>
 
 
 
-    @GET("/mobile/mobile-home-prop-most-views")
+    @GET("mobile/mobile-home-prop-most-views")
     suspend fun getHomeMostViewedProperties(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
@@ -180,7 +180,7 @@ interface AmtalekApi {
 
 
 
-    @GET("/mobile/mobile-home-news")
+    @GET("mobile/mobile-home-news")
     suspend fun getHomeNews(
         @Header("Authorization") userToken: String?,
         ):Response<HomeNewsResponse>
@@ -188,7 +188,7 @@ interface AmtalekApi {
 
 
 
-    @GET("/mobile/mobile-home-extra-sections")
+    @GET("mobile/mobile-home-extra-sections")
     suspend fun getHomeNewestSections(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
@@ -20,9 +21,9 @@ import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
-class RvHomeNewestPropertiesAdapter @Inject constructor() :
-    ListAdapter<PropertyModelx, RvHomeNewestPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
-    private lateinit var listener: OnItemClickListener
+class RvHomeFourthExtraSectionAdapter @Inject constructor() :
+    ListAdapter<PropertyModel, RvHomeFourthExtraSectionAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    private lateinit var listener: OnItemClickListenerFourthSection
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -39,14 +40,14 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onNewestPropertyClick(it)
+                        listener.onItemClicked4(it)
                     }
                 }
             }
         }
 
-        fun bind(model: PropertyModelx) {
-            var isFav = model.isFavourite == TRUE
+        fun bind(model: PropertyModel) {
+            var isFav = model.isFavourite == "1"
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -54,17 +55,18 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
                     else ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice),model.currency)
+                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
                 tvTitle.text = model.title
 
                 tvLabel.text = when (model.type) {
                     PropertyType.FOR_SELL.key -> itemView.context.getString(R.string.for_sell)
                     PropertyType.FOR_RENT.key -> itemView.context.getString(R.string.for_rent)
-                    PropertyType.FOR_BOTH.key -> itemView.context.getString(R.string.for_sell_or_rent)
+                    PropertyType.FOR_BOTH.key -> itemView.context.getString(R.string.forBoth)
                     else -> {
                         ""
                     }
                 }
+
 
                 when (model.type) {
                     PropertyType.FOR_SELL.key -> {
@@ -75,14 +77,14 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
                         tvDurationRent.visibility = View.VISIBLE
-                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvDurationRent.visibility = View.VISIBLE
-                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice,model.currency)
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
 
                     }
 
@@ -106,20 +108,20 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == TRUE){
+                if (model.isFavourite == "1"){
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 }else{
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                if (model.isFeatured == TRUE){
+                if (model.isFeatured == "1"){
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
-                    root.strokeColor = ContextCompat.getColor(itemView.context,R.color.gold)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
                 }else{
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
-                    root.strokeColor = ContextCompat.getColor(itemView.context,R.color.gray_low)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
                 }
             }
         }
@@ -155,25 +157,25 @@ class RvHomeNewestPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: OnItemClickListenerFourthSection) {
         this.listener = listener
     }
 
-    interface OnItemClickListener {
-        fun onNewestPropertyClick(model: PropertyModelx)
+    interface OnItemClickListenerFourthSection {
+        fun onItemClicked4(model: PropertyModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModelx>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {
             override fun areItemsTheSame(
-                oldItem: PropertyModelx,
-                newItem: PropertyModelx
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PropertyModelx,
-                newItem: PropertyModelx
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
         }
     }

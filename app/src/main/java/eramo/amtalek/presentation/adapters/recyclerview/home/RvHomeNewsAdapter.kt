@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemHomeNewsBinding
+import eramo.amtalek.domain.model.home.news.NewsModel
 import eramo.amtalek.domain.model.main.home.NewsModelx
 import javax.inject.Inject
 
 
 class RvHomeNewsAdapter @Inject constructor() :
-    ListAdapter<NewsModelx, RvHomeNewsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<NewsModel, RvHomeNewsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -37,12 +38,12 @@ class RvHomeNewsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: NewsModelx) {
+        fun bind(model: NewsModel) {
             binding.apply {
                 tvTitle.text = model.title
-                tvBody.text = model.body
+                tvBody.text = model.summary
 
-                Glide.with(itemView).load(model.imageUrl).placeholder(R.drawable.ic_no_image)
+                Glide.with(itemView).load(model.image).placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
             }
         }
@@ -53,20 +54,20 @@ class RvHomeNewsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNewsClick(model: NewsModelx)
+        fun onNewsClick(model: NewsModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<NewsModelx>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<NewsModel>() {
             override fun areItemsTheSame(
-                oldItem: NewsModelx,
-                newItem: NewsModelx
+                oldItem: NewsModel,
+                newItem: NewsModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: NewsModelx,
-                newItem: NewsModelx
+                oldItem: NewsModel,
+                newItem: NewsModel
             ) = oldItem == newItem
         }
     }

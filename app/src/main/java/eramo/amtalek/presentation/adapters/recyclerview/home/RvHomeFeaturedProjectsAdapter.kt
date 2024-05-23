@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFeaturedProjectsBinding
-import eramo.amtalek.domain.model.main.home.ProjectModel
+import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.util.TRUE
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
         }
 
         fun bind(model: ProjectModel) {
-            var isFav = model.isFavourite == TRUE
+            var isFav = model.isFavourite == "1"
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -62,7 +63,7 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == TRUE) {
+                if (model.isFavourite == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)

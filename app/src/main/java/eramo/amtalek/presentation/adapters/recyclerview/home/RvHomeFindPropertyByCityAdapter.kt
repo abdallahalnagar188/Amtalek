@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFindYourPropertyByCityBinding
+import eramo.amtalek.domain.model.home.cities.CitiesModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import javax.inject.Inject
 
 
 class RvHomeFindPropertyByCityAdapter @Inject constructor() :
-    ListAdapter<PropertiesByCityModel, RvHomeFindPropertyByCityAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<CitiesModel, RvHomeFindPropertyByCityAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -37,15 +38,15 @@ class RvHomeFindPropertyByCityAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: PropertiesByCityModel) {
+        fun bind(model: CitiesModel) {
             binding.apply {
-                tvCityName.text = model.cityName
+                tvCityName.text = model.title
                 tvPropertiesForRent.text =
-                    itemView.context.getString(R.string.s_properties_for_rent, model.forRentCount.toString())
+                    itemView.context.getString(R.string.s_properties_for_rent, model.rentProperties.toString())
                 tvPropertiesForSell.text =
-                    itemView.context.getString(R.string.s_properties_for_sell, model.forSellCount.toString())
+                    itemView.context.getString(R.string.s_properties_for_sell, model.salesProperties.toString())
 
-                Glide.with(itemView).load(model.imageUrl).placeholder(R.drawable.ic_no_image).into(ivImage)
+                Glide.with(itemView).load(model.image).placeholder(R.drawable.ic_no_image).into(ivImage)
             }
         }
     }
@@ -55,20 +56,20 @@ class RvHomeFindPropertyByCityAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyByCityClick(model: PropertiesByCityModel)
+        fun onPropertyByCityClick(model: CitiesModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertiesByCityModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<CitiesModel>() {
             override fun areItemsTheSame(
-                oldItem: PropertiesByCityModel,
-                newItem: PropertiesByCityModel
+                oldItem: CitiesModel,
+                newItem: CitiesModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PropertiesByCityModel,
-                newItem: PropertiesByCityModel
+                oldItem: CitiesModel,
+                newItem: CitiesModel
             ) = oldItem == newItem
         }
     }

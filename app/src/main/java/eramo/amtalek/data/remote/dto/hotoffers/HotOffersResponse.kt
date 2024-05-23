@@ -137,6 +137,7 @@ data class Property(
             isFeatured = ""?:"",
             rentDuration = rentDuration?:"",
             listingNumber = listingNumber?:"",
+            currency = currency?:""
         )
     }
 }

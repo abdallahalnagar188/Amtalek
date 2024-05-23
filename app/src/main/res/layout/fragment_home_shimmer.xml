@@ -5,27 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale"
-    android:paddingBottom="@dimen/_86sdp"
+    android:paddingBottom="@dimen/_10sdp"
     tools:context=".presentation.ui.main.home.HomeFragment">
 
-            <View
-                android:id="@+id/carousel_sliderTop"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_160sdp"
-                android:layout_marginVertical="@dimen/_8sdp"
-                android:background="@color/shimmer_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/carousel_sliderTop_dots"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_18sdp"
-                android:background="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/carousel_sliderTop"
-                app:layout_constraintStart_toStartOf="@+id/carousel_sliderTop"
-                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop" />
 
 
             <include
@@ -36,7 +19,7 @@
                 android:layout_marginTop="@dimen/home_margin_top"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop_dots" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <include
                 android:id="@+id/in_featured_projects"

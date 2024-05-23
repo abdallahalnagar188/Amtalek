@@ -130,6 +130,31 @@ class HomeViewModel @Inject constructor(
         homeOffersJob?.cancel()
         cartCountJob?.cancel()
     }
+    fun getScreenApis() {
+        latestDealsJob?.cancel()
+        latestDealsJob = viewModelScope.launch {
+            _initScreenState.value = UiState.Loading()
+            latestDeals()
+            allProducts()
+            allFeatured()
+            allProductsManufacturer()
+//            getProfile()
+//            updateFirebaseToken(FirebaseMessageReceiver.token ?: "") waiting tell its done from backend
+            getHomeAds()
+            getHomeOffers()
+            joinAll(
+                latestDealsJob!!,
+                allProductsJob!!,
+                allFeaturedJob!!,
+                allProductsManufacturerJob!!,
+                getProfileJob!!,
+                firebaseTokenJob!!,
+                homeAdsJob!!,
+                homeOffersJob!!
+            )
+            _initScreenState.value = UiState.Success(null)
+        }
+    }
 
      fun getProfile(type:String,id:String) {
         getProfileJob?.cancel()
@@ -216,31 +241,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getScreenApis() {
-        latestDealsJob?.cancel()
-        latestDealsJob = viewModelScope.launch {
-            _initScreenState.value = UiState.Loading()
-            latestDeals()
-            allProducts()
-            allFeatured()
-            allProductsManufacturer()
-//            getProfile()
-//            updateFirebaseToken(FirebaseMessageReceiver.token ?: "") waiting tell its done from backend
-            getHomeAds()
-            getHomeOffers()
-            joinAll(
-                latestDealsJob!!,
-                allProductsJob!!,
-                allFeaturedJob!!,
-                allProductsManufacturerJob!!,
-                getProfileJob!!,
-                firebaseTokenJob!!,
-                homeAdsJob!!,
-                homeOffersJob!!
-            )
-            _initScreenState.value = UiState.Success(null)
-        }
-    }
 
     fun latestDeals() {
         latestDealsJob?.cancel()

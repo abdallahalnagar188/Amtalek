@@ -85,6 +85,7 @@ data class MyData(
             isFeatured = ""?:"",
             rentDuration = rentDuration?:"",
             listingNumber = listingNumber?:"",
+            currency = currency?:""
         )
     }
 

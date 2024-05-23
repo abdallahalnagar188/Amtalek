@@ -11,7 +11,6 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSearchPropertyResultBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment

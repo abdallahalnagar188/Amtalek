@@ -11,7 +11,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.dummy.AlbumModel
 import eramo.amtalek.domain.model.extentions.NotificationsModel
 import eramo.amtalek.domain.model.main.brokers.BrokerModel
-import eramo.amtalek.domain.model.main.home.ProjectModel
+import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.domain.model.main.market.MarketPostType
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -318,11 +318,11 @@ object Dummy {
         return list
     }
 
-    fun dummyProjectsList(context: Context): List<ProjectModel> {
-        val list = mutableListOf<ProjectModel>()
+    fun dummyProjectsList(context: Context): List<ProjectModelx> {
+        val list = mutableListOf<ProjectModelx>()
 
         list.add(
-            ProjectModel(
+            ProjectModelx(
                 1,
                 "https://s3.eu-central-1.amazonaws.com/prod.images.cooingestate.com/admin/property_image/image/19665/townhouse.jpg",
                 1,
@@ -335,7 +335,7 @@ object Dummy {
         )
 
         list.add(
-            ProjectModel(
+            ProjectModelx(
                 2,
                 "https://img.sakneen.com/1632740971867-SAltZ.PNG",
                 0,

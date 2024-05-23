@@ -42,42 +42,6 @@
                 android:layout_height="match_parent"
                 >
 
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                    android:id="@+id/carousel_sliderTop"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp"
-                    android:layout_marginVertical="@dimen/_8sdp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:translationZ="8dp"
-                    app:autoPlay="false"
-                    app:autoPlayDelay="2000"
-                    app:carouselType="BLOCK"
-                    app:layout_constraintCircleRadius="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:nextButtonId="@id/btn_next_carousel"
-                    app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
-                    app:previousButtonId="@id/btn_previous_carousel"
-                    app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
-                    app:showBottomShadow="false"
-                    app:showCaption="false"
-                    app:showIndicator="false"
-                    app:showNavigationButtons="true"
-                    app:showTopShadow="false" />
-
-                <me.relex.circleindicator.CircleIndicator2
-                    android:id="@+id/carousel_sliderTop_dots"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_18sdp"
-                    app:ci_animator="@animator/scale_with_alpha"
-                    app:ci_drawable="@drawable/ic_dot_selected"
-                    app:ci_drawable_unselected="@drawable/ic_dot_unselected"
-                    app:layout_constraintEnd_toEndOf="@+id/carousel_sliderTop"
-                    app:layout_constraintStart_toStartOf="@+id/carousel_sliderTop"
-                    app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop" />
-
 
                 <include
                     android:id="@+id/in_featured_real_estate"
@@ -87,7 +51,8 @@
                     android:layout_marginTop="@dimen/home_margin_top"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/carousel_sliderTop_dots" />
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
 
                 <include
                     android:id="@+id/in_featured_projects"
@@ -143,8 +108,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween" />
 
                 <include
-                    android:id="@+id/in_newest_properties_layout"
-                    layout="@layout/newest_properties_layout"
+                    android:id="@+id/in_first_extra_section_layout"
+                    layout="@layout/home_first_extra_section_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/home_margin_top"
@@ -153,25 +118,42 @@
                     app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween_dots" />
 
                 <include
-                    android:id="@+id/in_newest_villas_layout"
-                    layout="@layout/newest_villas_layout"
+                    android:id="@+id/in_second_extra_section_layout"
+                    layout="@layout/home_second_extra_section_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/home_margin_top"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_newest_properties_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/in_first_extra_section_layout" />
 
                 <include
-                    android:id="@+id/in_newest_duplexes_layout"
-                    layout="@layout/newest_duplexes_layout"
+                    android:id="@+id/in_third_extra_section_layout"
+                    layout="@layout/home_third_extra_section_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/home_margin_top"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_newest_villas_layout" />
-
+                    app:layout_constraintTop_toBottomOf="@+id/in_second_extra_section_layout" />
+                <include
+                    android:id="@+id/in_fourth_extra_section_layout"
+                    layout="@layout/home_fourth_extra_section_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/home_margin_top"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/in_third_extra_section_layout" />
+                <include
+                    android:id="@+id/in_fifth_extra_section_layout"
+                    layout="@layout/home_fifth_extra_section_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/home_margin_top"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/in_fourth_extra_section_layout" />
                 <include
                     android:id="@+id/in_news_layout"
                     layout="@layout/news_layout"
@@ -180,7 +162,7 @@
                     android:layout_marginTop="@dimen/home_margin_top"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_newest_duplexes_layout" />
+                    app:layout_constraintTop_toBottomOf="@+id/in_fifth_extra_section_layout" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
