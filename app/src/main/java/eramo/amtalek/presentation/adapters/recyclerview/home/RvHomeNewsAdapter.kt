@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemHomeNewsBinding
-import eramo.amtalek.domain.model.main.home.NewsModel
+import eramo.amtalek.domain.model.main.home.NewsModelx
 import javax.inject.Inject
 
 
 class RvHomeNewsAdapter @Inject constructor() :
-    ListAdapter<NewsModel, RvHomeNewsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<NewsModelx, RvHomeNewsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -37,7 +37,7 @@ class RvHomeNewsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: NewsModel) {
+        fun bind(model: NewsModelx) {
             binding.apply {
                 tvTitle.text = model.title
                 tvBody.text = model.body
@@ -53,20 +53,20 @@ class RvHomeNewsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNewsClick(model: NewsModel)
+        fun onNewsClick(model: NewsModelx)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<NewsModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<NewsModelx>() {
             override fun areItemsTheSame(
-                oldItem: NewsModel,
-                newItem: NewsModel
+                oldItem: NewsModelx,
+                newItem: NewsModelx
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: NewsModel,
-                newItem: NewsModel
+                oldItem: NewsModelx,
+                newItem: NewsModelx
             ) = oldItem == newItem
         }
     }

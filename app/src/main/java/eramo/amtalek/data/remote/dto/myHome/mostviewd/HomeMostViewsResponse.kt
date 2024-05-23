@@ -4,6 +4,7 @@ package eramo.amtalek.data.remote.dto.myHome.mostviewd
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.home.property.HomePropertySectionModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -95,7 +96,15 @@ data class Data(
     var `data`: List<MyData>?,
     @SerializedName("title")
     var title: String?
-) : Parcelable
+) : Parcelable{
+    fun toHomePropertySectionModel(): HomePropertySectionModel {
+        return HomePropertySectionModel(
+            title = title?:"",
+            propertiesList = data?.map { it.toPropertyModel() }?: emptyList()
+        )
+    }
+
+}
 
 @Parcelize
 data class BrokerDetails(

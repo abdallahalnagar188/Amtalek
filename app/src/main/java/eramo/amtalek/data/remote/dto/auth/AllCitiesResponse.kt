@@ -1,7 +1,7 @@
 package eramo.amtalek.data.remote.dto.auth
 
 import com.google.gson.annotations.SerializedName
-import eramo.amtalek.domain.model.auth.CitiesModel
+import eramo.amtalek.domain.model.auth.CitiesModelx
 import eramo.amtalek.util.LocalUtil
 
 data class AllCitiesResponse(
@@ -17,8 +17,8 @@ data class AllCities(
     @SerializedName("created") var created: String? = null,
     @SerializedName("updated") var updated: String? = null
 ){
-    fun toCitiesModel(): CitiesModel {
-        return CitiesModel(
+    fun toCitiesModel(): CitiesModelx {
+        return CitiesModelx(
             mainId = mainId ?: "",
             name = if (LocalUtil.isEnglish()) name ?: "" else nameAr ?: "",
             fromId = fromId ?: "",

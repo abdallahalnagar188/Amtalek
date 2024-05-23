@@ -3,6 +3,8 @@ package eramo.amtalek.data.remote.dto.myHome.project
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
+import eramo.amtalek.domain.model.home.project.HomeProjectsSectionModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -51,7 +53,24 @@ data class MyData(
     var totalUnits: String?,
     @SerializedName("twitter")
     var twitter: String?
-) : Parcelable
+) : Parcelable{
+    fun toProjectModel():ProjectModel{
+        return ProjectModel(
+            id = id?:-1,
+            brokerId = agentData?.id?:-1,
+            brokerLogoUrl = agentData?.companyLogo?:"",
+            datePosted = createdAt?:"",
+            description = description?:"",
+            imageUrl = image?:"",
+            isFavourite = "--",
+            listingNumber = listingNumber?:"",
+            title = title?:"",
+            isFeatured = "------",
+            location = "$region, $city",
+
+        )
+    }
+}
 
 @Parcelize
 data class Data(
@@ -59,7 +78,14 @@ data class Data(
     var `data`: List<MyData>?,
     @SerializedName("title")
     var title: String?
-) : Parcelable
+) : Parcelable{
+    fun toHomeProjectsSectionModel(): HomeProjectsSectionModel {
+        return HomeProjectsSectionModel(
+            title = title?:"",
+            projects = data?.map { it.toProjectModel() }?: emptyList()
+        )
+    }
+}
 
 @Parcelize
 data class AgentData(

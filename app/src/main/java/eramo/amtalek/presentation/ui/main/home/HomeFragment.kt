@@ -25,7 +25,7 @@ import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.auth.CityModel
-import eramo.amtalek.domain.model.main.home.NewsModel
+import eramo.amtalek.domain.model.main.home.NewsModelx
 import eramo.amtalek.domain.model.main.home.ProjectModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
@@ -704,7 +704,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun setupNewsRv(data: List<NewsModel>) {
+    private fun setupNewsRv(data: List<NewsModelx>) {
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
@@ -953,7 +953,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     override fun onPropertyClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
     }
 
-    override fun onNewsClick(model: NewsModel) {
+    override fun onNewsClick(model: NewsModelx) {
         findNavController().navigate(R.id.newsDetailsFragment, null, navOptionsAnimation())
     }
 

@@ -11,6 +11,7 @@ import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
+import eramo.amtalek.data.remote.dto.myHome.extra_sections.HomeExtraSectionsResponse
 import eramo.amtalek.data.remote.dto.products.*
 import eramo.amtalek.data.remote.dto.products.orders.*
 import eramo.amtalek.data.remote.dto.products.search.PriceResponse
@@ -21,6 +22,8 @@ import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.MyPropert
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
+import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
+import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.domain.model.request.OrderRequest
@@ -173,15 +176,14 @@ interface AmtalekApi {
     suspend fun getHomeMostViewedProperties(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeResponse>
+        ):Response<HomeMostViewsResponse>
 
 
 
     @GET("/mobile/mobile-home-news")
     suspend fun getHomeNews(
         @Header("Authorization") userToken: String?,
-        @Query("country_id") countryId: String,
-        ):Response<HomeResponse>
+        ):Response<HomeNewsResponse>
 
 
 
@@ -190,7 +192,7 @@ interface AmtalekApi {
     suspend fun getHomeNewestSections(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeResponse>
+        ):Response<HomeExtraSectionsResponse>
 //////////////////////////////////////////////////////////////////
     @GET("mobile/home")
     suspend fun getHome(
