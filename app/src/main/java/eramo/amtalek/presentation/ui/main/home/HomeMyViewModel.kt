@@ -43,6 +43,9 @@ class HomeMyViewModel @Inject constructor(
     private val _homeMostViewedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
     val homeMostViewedPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeMostViewedPropertiesState
 
+    private val _homeNormalPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
+    val homeNormalPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeNormalPropertiesState
+
 
     private val _homeNewsState = MutableStateFlow<UiState<List<HomeNewsSectionsModel>>>(UiState.Empty())
     val homeNewsState:StateFlow<UiState<List<HomeNewsSectionsModel>>> = _homeNewsState
@@ -65,6 +68,7 @@ class HomeMyViewModel @Inject constructor(
     private var getHomeFilterByCityJob:Job?=null
     private var getHomeSliderJob:Job?=null
     private var getHomeMostViewedPropertiesJob:Job?=null
+    private var getHomeNormalPropertiesJob:Job?=null
     private var getHomeNewsJob:Job?=null
     private var getHomeExtraSectionsJob:Job?=null
     private var getProfileJob: Job? = null
@@ -74,6 +78,7 @@ class HomeMyViewModel @Inject constructor(
         getHomeFeaturedPropertiesJob?.cancel()
         getHomeProjectsJob?.cancel()
         getHomeFilterByCityJob?.cancel()
+        getHomeNormalPropertiesJob?.cancel()
         getHomeSliderJob?.cancel()
         getHomeMostViewedPropertiesJob?.cancel()
         getHomeNewsJob?.cancel()
@@ -183,6 +188,32 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
+
+    fun getHomeNormalProperties(countryId:String){
+        getHomeNormalPropertiesJob?.cancel()
+        getHomeNormalPropertiesJob = viewModelScope.launch {
+            withContext(coroutineContext){
+                homeRepository.getHomeNormalProperties(countryId).collect(){result->
+                    when(result){
+                        is Resource.Success ->{
+                            val list = mutableListOf<HomePropertySectionModel>()
+                            for (item in result.data?.data!!){
+                                list.add(item.toHomePropertySectionModel())
+                            }
+                            _homeNormalPropertiesState.emit(UiState.Success(list))
+                        }
+                        is Resource.Error ->{
+                            _homeNormalPropertiesState.emit(UiState.Error(result.message!!))
+                        }
+                        is Resource.Loading->{
+                            _homeNormalPropertiesState.emit(UiState.Loading())
+                        }
+                    }
+
+                }
+            }
+        }
+    }
     fun getMostViewedProperties(countryId:String){
         getHomeMostViewedPropertiesJob?.cancel()
         getHomeMostViewedPropertiesJob = viewModelScope.launch {
@@ -272,6 +303,7 @@ class HomeMyViewModel @Inject constructor(
                 getHomeSlider()
                 getHomeNews()
                 getHomeExtraSections(countryId)
+                getHomeNormalProperties(countryId)
                 joinAll(
                     getHomeFeaturedPropertiesJob!!,
                     getHomeProjectsJob!!,
@@ -280,6 +312,7 @@ class HomeMyViewModel @Inject constructor(
                     getHomeMostViewedPropertiesJob!!,
                     getHomeNewsJob!!,
                     getHomeExtraSectionsJob!!,
+                    getHomeNormalPropertiesJob!!
                 )
                 _initScreenState.value = UiState.Success(null)
             }

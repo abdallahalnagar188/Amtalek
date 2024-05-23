@@ -6,6 +6,7 @@ import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPrope
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
 import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
+import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.domain.repository.MyHomeRepository
@@ -100,6 +101,24 @@ class MyHomeRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getHomeNormalProperties(countryId: String): Flow<Resource<HomeNormalPropertiesResponse>> {
+        return flow {
+            val result  = toResultFlow { amtalekApi.getHomeNormalProperties(userToken = if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null, countryId = countryId)}
+            result.collect(){
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data
+                        emit(Resource.Success(model))
+                    }
+                }
+
+            }
+        }
+    }
+
     override suspend fun getHomeNews():Flow<Resource<HomeNewsResponse>> {
         return flow {
             val result  = toResultFlow { amtalekApi.getHomeNews(userToken = if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)}

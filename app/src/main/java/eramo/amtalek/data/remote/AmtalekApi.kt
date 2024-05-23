@@ -24,6 +24,7 @@ import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPrope
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
 import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
+import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.domain.model.request.OrderRequest
@@ -178,6 +179,11 @@ interface AmtalekApi {
         @Query("country_id") countryId: String,
         ):Response<HomeMostViewsResponse>
 
+    @GET("mobile/mobile-home-normal-props")
+    suspend fun getHomeNormalProperties(
+        @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String,
+    ):Response<HomeNormalPropertiesResponse>
 
 
     @GET("mobile/mobile-home-news")

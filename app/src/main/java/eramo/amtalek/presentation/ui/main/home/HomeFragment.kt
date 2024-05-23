@@ -110,12 +110,8 @@ RvHomeNewsAdapter.OnItemClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-
         setupViews()
         listeners()
-
         requestApis()
         fetchData()
         if (UserUtil.isUserLogin()) {
@@ -181,6 +177,7 @@ RvHomeNewsAdapter.OnItemClickListener{
         fetchGetHomeFilterByCity()
         fetchGetHomeSlider()
         fetchGetHomeMostViewedProperties()
+        fetchHomeNormalProperties()
         fetchGetHomeExtraSections()
         fetchGetNews()
     }
@@ -351,21 +348,22 @@ RvHomeNewsAdapter.OnItemClickListener{
             }
     }
     }
-
     private fun fetchGetHomeMostViewedProperties(){
         viewLifecycleOwner.lifecycleScope.launch{
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.homeMostViewedPropertiesState.collect(){state->
                     when (state) {
                         is UiState.Success -> {
-
-
+                            val data = state.data?.get(0)?.propertiesList
+                            binding.inFeaturedProjects.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                            }else{
+                                // do nothing
+                            }
 //                            dismissShimmerEffect()
                         }
                         is UiState.Error -> {
-
-
-//                            dismissShimmerEffect()
+//                          dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
@@ -379,6 +377,43 @@ RvHomeNewsAdapter.OnItemClickListener{
                 }
             }
         }
+    }
+    private fun fetchHomeNormalProperties(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeNormalPropertiesState.collect(){state->
+                    when (state) {
+                        is UiState.Success -> {
+                            val data = state.data?.get(0)?.propertiesList
+                            binding.inFeaturedProjects.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                            }else{
+                                // do nothing
+                            }
+
+
+//                            dismissShimmerEffect()
+                        }
+
+                        is UiState.Error -> {
+
+
+//                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+//                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+
     }
     private fun fetchGetHomeExtraSections(){
         viewLifecycleOwner.lifecycleScope.launch {
@@ -405,7 +440,6 @@ RvHomeNewsAdapter.OnItemClickListener{
             }
         }
     }
-
     private fun fetchGetNews() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -470,7 +504,6 @@ RvHomeNewsAdapter.OnItemClickListener{
             }
         }
     }
-
     private fun fetchUserCityState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -498,6 +531,7 @@ RvHomeNewsAdapter.OnItemClickListener{
             }
         }
     }
+    //------------------------------------------------------------------------------------------//
     private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
         val list = ArrayList<CarouselItem>()
         val headers = mutableMapOf<String, String>()
