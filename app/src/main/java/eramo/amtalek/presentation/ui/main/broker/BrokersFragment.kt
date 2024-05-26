@@ -70,7 +70,7 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            tvTitle.text = getString(R.string.brokers)
+//            tvTitle.text = getString(R.string.brokers)
             toolbarIvMenu.setOnClickListener {
                 viewModelShared.openDrawer.value = true
             }

@@ -60,7 +60,7 @@ class RvHotOffersSellProjectsAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == "") {
+                if (model.isFavourite == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)

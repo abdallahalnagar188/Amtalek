@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -38,10 +39,13 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFindPropertyB
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeThirdExtraSectionAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFirstExtraSectionAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFourthExtraSectionAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSecondExtraSectionAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNormalPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.FilterCitiesDialogFragment
+import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -63,6 +67,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 RvHomeFeaturedRealEstateAdapter.OnItemClickListener ,
 RvHomeFeaturedProjectsAdapter.OnItemClickListener,
 RvHomeFindPropertyByCityAdapter.OnItemClickListener,
+    RvHomeNormalPropertiesAdapter.OnItemClickListenerNormalProperties,
+    RvHomeMostViewedPropertiesAdapter.OnItemClickListenerMostViewedProperties,
 RvHomeFirstExtraSectionAdapter.OnItemClickListenerFirstSection,
 RvHomeSecondExtraSectionAdapter.OnItemClickListenerSecondSection,
 RvHomeThirdExtraSectionAdapter.OnItemClickListenerThirdSection,
@@ -78,6 +84,7 @@ RvHomeNewsAdapter.OnItemClickListener{
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     private var backPressedTime: Long = 0
+    // ---------------------------------------------------------------------------
 
     @Inject
     lateinit var rvHomeFeaturedRealEstateAdapter: RvHomeFeaturedRealEstateAdapter
@@ -87,6 +94,12 @@ RvHomeNewsAdapter.OnItemClickListener{
 
     @Inject
     lateinit var rvHomeFindPropertyByCityAdapter: RvHomeFindPropertyByCityAdapter
+
+    @Inject
+    lateinit var rvHomeNormalPropertiesAdapter: RvHomeNormalPropertiesAdapter
+
+    @Inject
+    lateinit var rvHomeMostViewedPropertiesAdapter: RvHomeMostViewedPropertiesAdapter
 
     // ---------------------------------------------------------------------------
     @Inject
@@ -135,7 +148,6 @@ RvHomeNewsAdapter.OnItemClickListener{
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-
         initToolbar()
     }
 
@@ -218,21 +230,16 @@ RvHomeNewsAdapter.OnItemClickListener{
                             if (!data.isNullOrEmpty()){
                                 setupFeaturedRealEstateRv(data)
                             }else{
-                                //do something
+                                binding.inFeaturedRealEstate.root.visibility = View.GONE
                             }
-//                            dismissShimmerEffect()
                         }
 
                         is UiState.Error -> {
-
-
-//                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-//                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -252,23 +259,16 @@ RvHomeNewsAdapter.OnItemClickListener{
                             if (!data.isNullOrEmpty()){
                                 setupFeaturedProjectsRv(data)
                             }else{
-                                // do nothing
+                                binding.inFeaturedProjects.root.visibility = View.GONE
                             }
-
-
-//                            dismissShimmerEffect()
                         }
 
                         is UiState.Error -> {
-
-
-//                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-//                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -288,25 +288,17 @@ RvHomeNewsAdapter.OnItemClickListener{
                             binding.inPropertiesByCity.tvTitle.text = state.data?.get(0)?.title
                             if (!data.isNullOrEmpty()){
                                 setupFindPropertiesByCityRv(data)
-
                             }else{
-                                // do nothing
+                                binding.inPropertiesByCity.root.visibility = View.GONE
                             }
-
-
-//                            dismissShimmerEffect()
                         }
 
                         is UiState.Error -> {
-
-
-//                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-//                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -327,13 +319,11 @@ RvHomeNewsAdapter.OnItemClickListener{
                             if (!data.isNullOrEmpty()){
                                 setupSliderBetween(parseBetweenCarouselSliderList(data))
                             }else{
-                                // do nothing
+                                binding.carouselSliderBetween.visibility = View.GONE
                             }
                         }
 
                         is UiState.Error -> {
-
-
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
@@ -347,36 +337,6 @@ RvHomeNewsAdapter.OnItemClickListener{
                 }
             }
     }
-    }
-    private fun fetchGetHomeMostViewedProperties(){
-        viewLifecycleOwner.lifecycleScope.launch{
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeMostViewedPropertiesState.collect(){state->
-                    when (state) {
-                        is UiState.Success -> {
-                            val data = state.data?.get(0)?.propertiesList
-                            binding.inFeaturedProjects.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
-                            }else{
-                                // do nothing
-                            }
-//                            dismissShimmerEffect()
-                        }
-                        is UiState.Error -> {
-//                          dismissShimmerEffect()
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-                        is UiState.Loading -> {
-//                            showShimmerEffect()
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
     }
     private fun fetchHomeNormalProperties(){
         viewLifecycleOwner.lifecycleScope.launch {
@@ -385,26 +345,46 @@ RvHomeNewsAdapter.OnItemClickListener{
                     when (state) {
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.propertiesList
-                            binding.inFeaturedProjects.tvTitle.text = state.data?.get(0)?.title
+                            binding.inNormalPropertiesLayout.tvTitle.text = state.data?.get(0)?.title
                             if (!data.isNullOrEmpty()){
+                                setupNormalPropertiesRv(data)
                             }else{
-                                // do nothing
+                                binding.inNormalPropertiesLayout.root.visibility = View.GONE
                             }
-
-
-//                            dismissShimmerEffect()
                         }
 
                         is UiState.Error -> {
-
-
-//                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
-
                         is UiState.Loading -> {
-//                            showShimmerEffect()
+                        }
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun fetchGetHomeMostViewedProperties(){
+        viewLifecycleOwner.lifecycleScope.launch{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.homeMostViewedPropertiesState.collect(){state->
+                    when (state) {
+                        is UiState.Success -> {
+                            val data = state.data?.get(0)?.propertiesList
+                            binding.inMostViewedPropertiesLayout.tvTitle.text = state.data?.get(0)?.title
+                            if (!data.isNullOrEmpty()){
+                                setupMostViewedPropertiesRv(data)
+                            }else{
+                                binding.inMostViewedPropertiesLayout.root.visibility = View.GONE
+                            }
+                        }
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+                        is UiState.Loading -> {
                         }
 
                         else -> {}
@@ -413,14 +393,15 @@ RvHomeNewsAdapter.OnItemClickListener{
                 }
             }
         }
-
     }
+
+
+
     private fun fetchGetHomeExtraSections(){
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.homeExtraSectionsState.collect(){state->
                     when (state) {
-
                         is UiState.Success -> {
                             val data = state.data
                             setupExtraViews(data)
@@ -452,22 +433,19 @@ RvHomeNewsAdapter.OnItemClickListener{
                             if (!data.isNullOrEmpty()){
                                 setupNewsRv(data)
                             }else{
-                                // do nothing
+                                binding.inNewsLayout.root.visibility = View.GONE
                             }
 
-//                            dismissShimmerEffect()
                         }
 
                         is UiState.Error -> {
 
 
-//                            dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
                         is UiState.Loading -> {
-//                            showShimmerEffect()
                         }
 
                         else -> {}
@@ -599,7 +577,7 @@ RvHomeNewsAdapter.OnItemClickListener{
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
-
+        binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
 
@@ -608,57 +586,79 @@ RvHomeNewsAdapter.OnItemClickListener{
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
+        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
     }
 
     private fun setupFindPropertiesByCityRv(data: List<CitiesModel>) {
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
+        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
+    }
+    private fun setupNormalPropertiesRv(data: List<PropertyModel>) {
+        rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment)
+        binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
+        rvHomeNormalPropertiesAdapter.submitList(data)
+        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
+    }
+    private fun setupMostViewedPropertiesRv(data: List<PropertyModel>) {
+        rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment)
+        binding.inMostViewedPropertiesLayout.rv.adapter = rvHomeMostViewedPropertiesAdapter
+        rvHomeMostViewedPropertiesAdapter.submitList(data)
+        binding.inMostViewedPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
     private fun setupExtraViews(data: List<HomeExtraSectionsModel>?) {
         ////// first
         binding.inFirstExtraSectionLayout.tvTitle.text = data?.get(0)?.title
         if (data?.get(0)?.sections?.isNotEmpty() == true){
             setupHomeFirstExtraSectionRv(data[0].sections!!)
+
         }else{
-            // do nothing
+            binding.inFirstExtraSectionLayout.root.visibility = View.GONE
         }
         ///// second
         binding.inSecondExtraSectionLayout.tvTitle.text = data?.get(1)?.title
         if (data?.get(1)?.sections?.isNotEmpty() == true){
             setupHomeSecondExtraSectionRv(data[1].sections!!)
+
         }else{
-            // do nothing
+            binding.inSecondExtraSectionLayout.root.visibility = View.GONE
         }
         ///// third
         binding.inThirdExtraSectionLayout.tvTitle.text = data?.get(2)?.title
         if (data?.get(2)?.sections?.isNotEmpty()== true){
             setupHomeThirdExtraSectionRv(data[2].sections!!)
+
         }else{
-            // do nothing
+            binding.inThirdExtraSectionLayout.root.visibility = View.GONE
         }
         ///// fourth
         binding.inFourthExtraSectionLayout.tvTitle.text = data?.get(3)?.title
         if (data?.get(3)?.sections?.isNotEmpty()== true){
             setupHomeFourthExtraSectionRv(data[3].sections!!)
+
         }else{
-            // do nothing
+            binding.inFourthExtraSectionLayout.root.visibility = View.GONE
         }
         ///// fifth
         binding.inFifthExtraSectionLayout.tvTitle.text = data?.get(4)?.title
         if (data?.get(4)?.sections?.isNotEmpty()== true){
             setupHomeFifthExtraSectionRv(data[4].sections!!)
+
         }else{
-            // do nothing
+            binding.inFifthExtraSectionLayout.root.visibility = View.GONE
         }
     }
-
-
     // -------------------------------------------------------------------------------------------------------------- //
     private fun setupHomeFirstExtraSectionRv(data: List<PropertyModel>) {
         rvHomeFirstExtraSectionAdapter.setListener(this)
         binding.inFirstExtraSectionLayout.rv.adapter = rvHomeFirstExtraSectionAdapter
         rvHomeFirstExtraSectionAdapter.submitList(data)
+        binding.inFirstExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
 
 
@@ -666,6 +666,8 @@ RvHomeNewsAdapter.OnItemClickListener{
         rvHomeSecondExtraSectionAdapter.setListener(this)
         binding.inSecondExtraSectionLayout.rv.adapter = rvHomeSecondExtraSectionAdapter
         rvHomeSecondExtraSectionAdapter.submitList(data)
+        binding.inSecondExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
 
 
@@ -673,16 +675,22 @@ RvHomeNewsAdapter.OnItemClickListener{
         rvHomeThirdExtraSectionAdapter.setListener(this)
         binding.inThirdExtraSectionLayout.rv.adapter = rvHomeThirdExtraSectionAdapter
         rvHomeThirdExtraSectionAdapter.submitList(data)
+        binding.inThirdExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
     private fun setupHomeFourthExtraSectionRv(data: List<PropertyModel>) {
         rvHomeFourthExtraSectionAdapter.setListener(this)
         binding.inFourthExtraSectionLayout.rv.adapter = rvHomeFourthExtraSectionAdapter
         rvHomeFourthExtraSectionAdapter.submitList(data)
+        binding.inFourthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
     private fun setupHomeFifthExtraSectionRv(data: List<PropertyModel>) {
         rvHomeFifthExtraSectionAdapter.setListener(this)
         binding.inFifthExtraSectionLayout.rv.adapter = rvHomeFifthExtraSectionAdapter
         rvHomeFifthExtraSectionAdapter.submitList(data)
+        binding.inFifthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
 
 
@@ -690,6 +698,8 @@ RvHomeNewsAdapter.OnItemClickListener{
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
+        binding.inNewsLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -704,11 +714,11 @@ RvHomeNewsAdapter.OnItemClickListener{
                     if (query.isEmpty()) {
                         showToast(getString(R.string.enter_a_query))
                     } else {
-//                        findNavController().navigate(
-//                            R.id.searchPropertyResultFragment,
-//                            null,
-//                            navOptionsFromTopAnimation()
-//                        )
+                        findNavController().navigate(
+                            R.id.searchPropertyResultFragment,
+                            null,
+                            navOptionsFromTopAnimation()
+                        )
                     }
 
                 } else if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -839,8 +849,18 @@ RvHomeNewsAdapter.OnItemClickListener{
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
 
     override fun onNewsClick(model: NewsModel) {
-        Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.newsDetailsFragment,
+            NewsDetailsFragmentArgs(model).toBundle(), navOptionsAnimation()
+            )
     }
+
+    override fun onMostViewedPropertiesClicked(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+
+    override fun onNormalPropertyClicked(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
 

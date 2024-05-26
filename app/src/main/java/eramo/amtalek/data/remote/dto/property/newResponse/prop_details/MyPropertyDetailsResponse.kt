@@ -97,7 +97,7 @@ data class MyPropertyDetailsResponse(
                     imageUrl = i?.primaryImage ?: "",
                      type =  i?.forWhat ?: "",
                     isFavourite = i?.isFav?:"" ,
-                    isFeatured = i?.normalFeatured?:"",
+                    isFeatured = i?.priority?:"",
                     sellPrice = i?.salePrice?: 0,
                     rentPrice = i?.rentPrice?:0,
                     listingNumber = i?.listingNumber ?: "",
@@ -286,8 +286,6 @@ data class SimilarProperty(
     var landArea: Int?,
     @SerializedName("listing_number")
     var listingNumber: String?,
-    @SerializedName("normal_featured")
-    var normalFeatured: String?,
     @SerializedName("primary_image")
     var primaryImage: String?,
     @SerializedName("priority")

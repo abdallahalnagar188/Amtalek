@@ -21,9 +21,9 @@ import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
-class RvHomeFourthExtraSectionAdapter @Inject constructor() :
-    ListAdapter<PropertyModel, RvHomeFourthExtraSectionAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
-    private lateinit var listener: OnItemClickListenerFourthSection
+class RvHomeNormalPropertiesAdapter @Inject constructor() :
+    ListAdapter<PropertyModel, RvHomeNormalPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    private lateinit var listener: OnItemClickListenerNormalProperties
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -40,7 +40,7 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onItemClicked4(it)
+                        listener.onNormalPropertyClicked(it)
                     }
                 }
             }
@@ -66,7 +66,6 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                         ""
                     }
                 }
-
 
                 when (model.type) {
                     PropertyType.FOR_SELL.key -> {
@@ -117,11 +116,11 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                 if (model.isFeatured == "featured"){
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
-                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
+                    root.strokeColor = ContextCompat.getColor(itemView.context,R.color.gold)
                 }else{
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
-                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+                    root.strokeColor = ContextCompat.getColor(itemView.context,R.color.gray_low)
                 }
             }
         }
@@ -157,12 +156,12 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListenerFourthSection) {
+    fun setListener(listener: OnItemClickListenerNormalProperties) {
         this.listener = listener
     }
 
-    interface OnItemClickListenerFourthSection {
-        fun onItemClicked4(model: PropertyModel)
+    interface OnItemClickListenerNormalProperties {
+        fun onNormalPropertyClicked(model: PropertyModel)
     }
 
     //check difference

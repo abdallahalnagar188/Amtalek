@@ -1,8 +1,11 @@
 package eramo.amtalek.domain.model.home.news
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.data.remote.dto.myHome.news.NewsCategory
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class NewsModel (
     var addedBy: String,
     var createdAt: String,
@@ -14,4 +17,4 @@ data class NewsModel (
     var summary: String,
     var title: String,
     var views: Int?
-)
+) : Parcelable

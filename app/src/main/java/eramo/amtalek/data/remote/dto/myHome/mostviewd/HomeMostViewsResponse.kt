@@ -49,8 +49,8 @@ data class MyData(
     var landArea: Int?,
     @SerializedName("listing_number")
     var listingNumber: String?,
-    @SerializedName("normal_featured")
-    var normalFeatured: String?,
+    @SerializedName("priority")
+    var priority: String?,
     @SerializedName("primary_image")
     var primaryImage: String?,
     @SerializedName("property_type")
@@ -82,7 +82,7 @@ data class MyData(
             brokerLogoUrl = brokerDetails?.companyLogo?:"",
             location = city?:"",
             datePosted = createdAt?:"",
-            isFeatured = ""?:"",
+            isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
             listingNumber = listingNumber?:"",
             currency = currency?:""

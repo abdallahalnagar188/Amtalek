@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -55,9 +56,13 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
     private fun setupObservers() {
         hotOffersViewModel.forRentListState.observe(viewLifecycleOwner){
             rvHotOffersRentPropertiesAdapter.submitList(it)
+            binding.rvPropertiesForRent.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
+
         }
         hotOffersViewModel.projectsListState.observe(viewLifecycleOwner){
             rvHotOffersRentProjectsAdapter.submitList(it)
+            binding.rvProjects.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
+
         }
     }
 

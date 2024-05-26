@@ -73,7 +73,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/in_featured_projects" />
-
+                <include
+                    android:id="@+id/in_normal_properties_layout"
+                    layout="@layout/home_normal_property_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/home_margin_top"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/in_properties_by_city" />
+                <include
+                    android:id="@+id/in_most_viewed_properties_layout"
+                    layout="@layout/home_most_viewed_property_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/home_margin_top"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/in_normal_properties_layout" />
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                     android:id="@+id/carousel_sliderBetween"
                     android:layout_width="match_parent"
@@ -85,7 +102,7 @@
                     app:carouselType="BLOCK"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_properties_by_city"
+                    app:layout_constraintTop_toBottomOf="@+id/in_most_viewed_properties_layout"
                     app:nextButtonId="@id/btn_next_carousel"
                     app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
                     app:previousButtonId="@id/btn_previous_carousel"

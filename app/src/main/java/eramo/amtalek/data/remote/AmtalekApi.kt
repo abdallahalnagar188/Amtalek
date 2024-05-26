@@ -8,6 +8,7 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
+import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
@@ -200,6 +201,16 @@ interface AmtalekApi {
         @Query("country_id") countryId: String,
         ):Response<HomeExtraSectionsResponse>
 //////////////////////////////////////////////////////////////////
+    // new fav request for property
+    @FormUrlEncoded
+    @POST("mobile/contact-us-message")
+    suspend fun addOrRemoveFavProperty(
+        @Header("Authorization") userToken: String?,
+        @Field("property_id") propertyId: Int,
+    ): Response<AddOrRemoveFavResponse>
+
+
+////////////////////////////////////////////////////////////////////
     @GET("mobile/home")
     suspend fun getHome(
         @Header("Authorization") userToken: String?

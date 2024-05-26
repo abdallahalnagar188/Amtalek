@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -53,9 +54,12 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),Rv
     private fun setupObservers() {
         hotOffersViewModel.forSellListState.observe(viewLifecycleOwner){
             rvHotOffersSellPropertiesAdapter.submitList(it)
+            binding.rvProperties.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
         }
         hotOffersViewModel.projectsListState.observe(viewLifecycleOwner){
             rvHotOffersSellProjectsAdapter.submitList(it)
+            binding.rvProjects.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
+
         }
     }
 

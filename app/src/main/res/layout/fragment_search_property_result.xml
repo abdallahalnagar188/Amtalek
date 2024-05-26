@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/in_toolbar"
-        layout="@layout/layout_toolbar_advanced_search"
+        layout="@layout/layout_toolbar_with_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"

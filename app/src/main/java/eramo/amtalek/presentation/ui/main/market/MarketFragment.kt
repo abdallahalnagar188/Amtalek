@@ -89,9 +89,9 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
     private fun setupToolbar() {
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-            tvTitle.text =
+//            tvTitle.text =
 //                getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
-                getString(R.string.social_network)
+//                getString(R.string.social_network)
         }
     }
 

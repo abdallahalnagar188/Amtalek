@@ -10,33 +10,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-            android:id="@+id/image_slider"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/image_cardView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            app:showNavigationButtons="false"
-            app:autoPlay="false"
-            app:autoPlayDelay="2000"
-            app:showTopShadow="false"
-            app:carouselType="BLOCK"
-            app:imageScaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <me.relex.circleindicator.CircleIndicator2
-            android:id="@+id/image_slider_dots"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_18sdp"
-            app:ci_animator="@animator/scale_with_alpha"
-            app:ci_drawable="@drawable/ic_dot_selected"
-            app:ci_drawable_unselected="@drawable/ic_dot_unselected"
-            app:layout_constraintEnd_toEndOf="@+id/image_slider"
-            app:layout_constraintStart_toStartOf="@+id/image_slider"
-            app:layout_constraintTop_toBottomOf="@+id/image_slider" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:strokeWidth="0dp"
+            app:cardElevation="2dp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_news_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <ImageView
             android:id="@+id/iv_back"
@@ -71,7 +67,7 @@
             android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_slider_dots" />
+            app:layout_constraintTop_toBottomOf="@id/image_cardView" />
 
         <TextView
             android:id="@+id/tv_body"
@@ -80,7 +76,7 @@
             android:layout_marginHorizontal="@dimen/screen_margin_sides"
             android:layout_marginTop="@dimen/_4sdp"
             android:fontFamily="@font/montserratmedium"
-            android:text="Lörem ipsum drop shipping Inger Hansson Henrik Sjögren.
+            tools:text="Lörem ipsum drop shipping Inger Hansson Henrik Sjögren.
 Marcus Sjöberg Linda Lundgren.
 Prehånas bede Karl Lind attribution kås.
 Sofia Björklund metaosmos Alf Martinsson Viola Jakobsson Agneta Jonsson.

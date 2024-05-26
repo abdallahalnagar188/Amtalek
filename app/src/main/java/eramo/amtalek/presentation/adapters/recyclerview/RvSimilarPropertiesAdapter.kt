@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -103,7 +104,15 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                 Glide.with(itemView)
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
-
+                if (model.isFeatured == "featured"){
+                    tvFeatured.visibility = View.VISIBLE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
+                }else{
+                    tvFeatured.visibility = View.GONE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+                }
                 if (model.isFavourite == "") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
@@ -117,27 +126,27 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
     private fun getRentPrice(context: Context, duration: String, price: Double): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                context.getString(R.string.s_daily_price, formatPrice(price))
+               " ${formatPrice(price)} ${context.getString(R.string.egp_daily)}"
             }
 
             RentDuration.MONTHLY.key -> {
-                context.getString(R.string.s_monthly_price, formatPrice(price))
+                " ${formatPrice(price)} ${context.getString(R.string.egp_month)}"
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                context.getString(R.string.s_3_months_price, formatPrice(price))
+                " ${formatPrice(price)} ${context.getString(R.string.egp_3_month)}"
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                context.getString(R.string.s_6_months_price, formatPrice(price))
+                " ${formatPrice(price)} ${context.getString(R.string.egp_6_month)}"
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                context.getString(R.string.s_9_months_price, formatPrice(price))
+                " ${formatPrice(price)} ${context.getString(R.string.egp_9_month)}"
             }
 
             RentDuration.YEARLY.key -> {
-                context.getString(R.string.s_yearly_price, formatPrice(price))
+                " ${formatPrice(price)} ${context.getString(R.string.yearly)}"
             }
 
             else -> ""

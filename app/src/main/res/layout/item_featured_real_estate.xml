@@ -266,8 +266,10 @@
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_location"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_location"
-            app:layout_constraintTop_toTopOf="@+id/tv_location" />
+            app:layout_constraintTop_toTopOf="@+id/tv_location"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

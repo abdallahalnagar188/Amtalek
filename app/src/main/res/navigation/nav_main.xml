@@ -279,7 +279,12 @@
         android:id="@+id/newsDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragment"
         android:label="fragment_news_details"
-        tools:layout="@layout/fragment_news_details" />
+        tools:layout="@layout/fragment_news_details" >
+        <argument
+            android:name="news"
+            app:argType="eramo.amtalek.domain.model.home.news.NewsModel"
+            />
+    </fragment>
     <fragment
         android:id="@+id/offersChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.OffersChatFragment"

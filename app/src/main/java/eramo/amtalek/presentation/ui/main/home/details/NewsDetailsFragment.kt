@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentNewsDetailsBinding
@@ -22,7 +24,8 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentNewsDetailsBinding::inflate
-
+    val args: NewsDetailsFragmentArgs by navArgs()
+    val news get() = args.news
     @Inject
     lateinit var rvNewsDetailsCommentsAdapter: RvNewsDetailsCommentsAdapter
 
@@ -39,8 +42,11 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
 
     private fun setupViews() {
         setupToolbar()
-
-        setupImageSliderTop(Dummy.dummyCarouselImagesList())
+        val image = news.image
+        Glide.with(requireContext()).load(image).into(binding.ivNewsImage)
+        binding.tvTitle.text = news.title
+        binding.tvBody.text = news.description
+//        setupImageSliderTop()
         initRvComments(Dummy.dummyRatingCommentsList())
     }
 
@@ -54,9 +60,9 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
 
     private fun setupImageSliderTop(data: List<CarouselItem>) {
         binding.apply {
-            imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
-            imageSlider.setIndicator(imageSliderDots)
-            imageSlider.setData(data)
+//            imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
+//            imageSlider.setIndicator(imageSliderDots)
+//            imageSlider.setData(data)
         }
     }
 

@@ -147,5 +147,9 @@ object AppModule {
     fun provideMyHomeRepository(amtalekApi: AmtalekApi): MyHomeRepository {
         return MyHomeRepositoryImpl(amtalekApi =amtalekApi )
     }
-
+    @Provides
+    @Singleton
+    fun provideAddOrRemovePropertyRepository(amtalekApi: AmtalekApi): AddOrRemoveFavRepository {
+        return AddOrRemoveFavRepositoryImpl(amtalekApi)
+    }
 }

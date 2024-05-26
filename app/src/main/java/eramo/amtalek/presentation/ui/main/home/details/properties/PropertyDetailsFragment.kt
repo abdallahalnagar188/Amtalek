@@ -214,24 +214,28 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 propertyId = data.id.toString()
                 setupImageSliderTop(data.sliderImages)
                  checkRentDuration(data.rentDuration)
-                if (data.forWhat == "for_rent"){
-                    setRentPriceValue(formatPrice(data.rentPrice))
-                    tvCurrencyRent.text = " "+ data.currency
-                    tvOr.isVisible =false
-                    tvPrice.isVisible = false
-                    tvPriceAnimation.isVisible = false
-                }else if (data.forWhat =="for_sale"){
-                    setPriceValue(formatPrice(data.sellPrice))
-                    tvCurrency.text = " "+ data.currency
-                    tvOr.isVisible =false
-                    tvPriceRent.isVisible = false
-                    tvPriceAnimationRent.isVisible = false
-                }else if (data.forWhat=="for_both"){
-                    setPriceValue(formatPrice(data.sellPrice))
-                    setRentPriceValue(formatPrice(data.rentPrice))
-                    tvCurrency.text = " "+ data.currency
-                    tvCurrencyRent.text = " "+ data.currency
-                    tvOr.isVisible =true
+                when (data.forWhat) {
+                    "for_rent" -> {
+                        setRentPriceValue(formatPrice(data.rentPrice))
+                        tvCurrencyRent.text = " "+ data.currency
+                        tvOr.isVisible =false
+                        tvPrice.isVisible = false
+                        tvPriceAnimation.isVisible = false
+                    }
+                    "for_sale" -> {
+                        setPriceValue(formatPrice(data.sellPrice))
+                        tvCurrency.text = " "+ data.currency
+                        tvOr.isVisible =false
+                        tvPriceRent.isVisible = false
+                        tvPriceAnimationRent.isVisible = false
+                    }
+                    "for_both" -> {
+                        setPriceValue(formatPrice(data.sellPrice))
+                        setRentPriceValue(formatPrice(data.rentPrice))
+                        tvCurrency.text = " "+ data.currency
+                        tvCurrencyRent.text = " "+ data.currency
+                        tvOr.isVisible =true
+                    }
                 }
 
 

@@ -54,8 +54,8 @@ class SearchPropertyResultFragment : BindingFragment<FragmentSearchPropertyResul
     private fun setupToolbar() {
         binding.inToolbar.apply {
 
-            tvAdvancedSearch.text = getString(R.string.search_results)
-            ivClose.setOnClickListener {
+            tvTitle.text = getString(R.string.search_results)
+            ivBack.setOnClickListener {
                 findNavController().popBackStack(R.id.homeFragment, false)
             }
         }

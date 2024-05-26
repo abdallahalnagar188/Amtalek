@@ -49,32 +49,14 @@ class HotOffersViewModel @Inject constructor(
                 repository.getHotOffers().collect(){
                     when (it){
                         is Resource.Success -> {
-                            val forSellPropertyList:ArrayList<PropertyModel> = ArrayList()
-                            val forRentPropertyList:ArrayList<PropertyModel> = ArrayList()
-                            val forBothPropertyList:ArrayList<PropertyModel> = ArrayList()
                             val projectsList:ArrayList<ProjectModel> = ArrayList()
-                            for (property in it.data?.data?.properties!!){
-                                when (property?.forWhat) {
-                                    "for_sale" -> {
-                                        forSellPropertyList.add(property.toPropertyModel())
-                                    }
-                                    "for_rent" -> {
-                                        forRentPropertyList.add(property.toPropertyModel())
-                                    }
-                                    "for_both" -> {
-                                        forBothPropertyList.add(property.toPropertyModel())
-                                    }
-                                }
-                            }
-                            for (project in it.data.data?.projects!!){
+                            val data = it.data
+                            filterProperties(data)
+                            for (project in it.data?.data?.projects!!){
                                 if (project != null) {
                                     projectsList.add(project.toProjectModel())
                                 }
                             }
-
-                            _forSellListState.postValue(forSellPropertyList)
-                            _forRentListState.postValue(forRentPropertyList)
-                            _forBothListState.postValue(forBothPropertyList)
                             _projectsListState.postValue(projectsList)
                             _hotOffers.value = UiState.Success(it.data)
                         }
@@ -89,4 +71,28 @@ class HotOffersViewModel @Inject constructor(
             }
         }
     }
+
+    private fun filterProperties(data: HotOffersResponse?) {
+        val forSellPropertyList:ArrayList<PropertyModel> = ArrayList()
+        val forRentPropertyList:ArrayList<PropertyModel> = ArrayList()
+        val forBothPropertyList:ArrayList<PropertyModel> = ArrayList()
+        for (property in data?.data?.properties!!){
+            when (property?.forWhat) {
+                "for_sale" -> {
+                    forSellPropertyList.add(property.toPropertyModel())
+                }
+                "for_rent" -> {
+                    forRentPropertyList.add(property.toPropertyModel())
+                }
+                "for_both" -> {
+                    forBothPropertyList.add(property.toPropertyModel())
+                }
+            }
+        }
+        _forSellListState.value =forSellPropertyList
+        _forRentListState.value =forRentPropertyList
+        _forBothListState.value = forBothPropertyList
+
+    }
+
 }

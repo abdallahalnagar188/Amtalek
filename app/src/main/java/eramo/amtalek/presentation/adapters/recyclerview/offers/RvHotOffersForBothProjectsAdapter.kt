@@ -36,7 +36,7 @@ class RvHotOffersForBothProjectsAdapter @Inject constructor() :
         }
 
         fun bind(model: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel) {
-            var isFav = model.isFavourite == ""
+            var isFav = model.isFavourite == "0"
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -59,7 +59,7 @@ class RvHotOffersForBothProjectsAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == "") {
+                if (model.isFavourite == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)

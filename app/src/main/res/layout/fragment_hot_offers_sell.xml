@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/root">
+        android:id="@+id/root"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_properties"
@@ -69,7 +70,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_84sdp"
             android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
+            android:nestedScrollingEnabled="true"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
@@ -79,4 +80,4 @@
             tools:listitem="@layout/item_property_preview" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

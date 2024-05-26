@@ -70,7 +70,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                             dismissShimmerEffect()
                         }
                         is UiState.Loading->{
-                            showShimmerEffect()
+//                            showShimmerEffect()
                         }
                         else -> {}
                     }
@@ -82,7 +82,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     private fun setupToolbar() {
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-            tvTitle.text = getString(R.string.hot_offer_title)
+//            tvTitle.text = getString(R.string.hot_offer_title)
         }
     }
 

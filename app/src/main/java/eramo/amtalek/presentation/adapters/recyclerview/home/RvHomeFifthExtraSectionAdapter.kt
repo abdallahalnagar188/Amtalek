@@ -114,7 +114,7 @@ class RvHomeFifthExtraSectionAdapter @Inject constructor() :
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                if (model.isFeatured == "1"){
+                if (model.isFeatured == "featured"){
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
