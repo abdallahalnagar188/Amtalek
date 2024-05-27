@@ -13,6 +13,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class RvHomeMostViewedPropertiesAdapter @Inject constructor() :
     ListAdapter<PropertyModel, RvHomeMostViewedPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListenerMostViewedProperties
+    private lateinit var favListener: FavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -47,12 +49,21 @@ class RvHomeMostViewedPropertiesAdapter @Inject constructor() :
         }
 
         fun bind(model: PropertyModel) {
-            var isFav = model.isFavourite == "1"
+            var isFav = "0"
             binding.apply {
                 ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
+                    favListener.onFavClick(model)
+                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                        isFav = "1"
+                    }
+                    else {ivFav.setImageResource(R.drawable.ic_heart)
+                        isFav ="0"
+                    }
+                }
+                if (isFav == "1") {
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
                 tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
@@ -156,8 +167,9 @@ class RvHomeMostViewedPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListenerMostViewedProperties) {
+    fun setListener(listener: OnItemClickListenerMostViewedProperties,favListener: FavClickListener) {
         this.listener = listener
+        this.favListener = favListener
     }
 
     interface OnItemClickListenerMostViewedProperties {

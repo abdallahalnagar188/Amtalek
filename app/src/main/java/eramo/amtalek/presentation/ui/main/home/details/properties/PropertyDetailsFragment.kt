@@ -7,6 +7,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -30,6 +31,7 @@ import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
@@ -55,7 +57,8 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(),RvSimilarPropertiesAdapter.OnItemClickListener{
+class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(),RvSimilarPropertiesAdapter.OnItemClickListener,
+    RvSimilarPropertiesAdapter.OnFavClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsBinding::inflate
@@ -211,6 +214,21 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun assignData(data: PropertyDetailsModel) {
         try {
             binding.apply {
+                var isFav = "0"
+                ivFavourite.setOnClickListener {
+                    viewModel.addOrRemoveFav(data.id)
+                    if (isFav =="0") {ivFavourite.setImageResource(R.drawable.ic_heart_fill)
+                        isFav = "1"
+                    }
+                    else {ivFavourite.setImageResource(R.drawable.ic_heart)
+                        isFav ="0"
+                    }
+                }
+                if (isFav == "1") {
+                    ivFavourite.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFavourite.setImageResource(R.drawable.ic_heart)
+                }
                 propertyId = data.id.toString()
                 setupImageSliderTop(data.sliderImages)
                  checkRentDuration(data.rentDuration)
@@ -408,9 +426,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         rvRatingAdapter.submitList(data)
     }
 
-    private fun initSimilarPropertiesRv(data: List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>) {
+    private fun initSimilarPropertiesRv(data: List<PropertyModel>) {
         binding.rvSimilarProperties.adapter = rvSimilarPropertiesAdapter
-        rvSimilarPropertiesAdapter.setListener(this)
+        rvSimilarPropertiesAdapter.setListener(this,this)
         rvSimilarPropertiesAdapter.submitList(data)
     }
 
@@ -578,5 +596,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         findNavController().navigate(R.id.propertyDetailsFragment,
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
         )
+    }
+
+    override fun onFavClick(model: PropertyModel) {
+        viewModel.addOrRemoveFav(model.id)
     }
 }

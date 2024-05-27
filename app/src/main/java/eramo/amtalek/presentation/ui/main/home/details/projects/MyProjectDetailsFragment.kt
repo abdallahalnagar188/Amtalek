@@ -238,6 +238,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvUserId.text = data?.brokerDetails?.get(0)?.description
             Glide.with(requireContext()).load(data?.brokerDetails?.get(0)?.logo)
                 .into(ivUserImage)
+
         }
     }
     private fun handleAutocadImages(autocad: List<Autocad?>?): List<CarouselItem> {

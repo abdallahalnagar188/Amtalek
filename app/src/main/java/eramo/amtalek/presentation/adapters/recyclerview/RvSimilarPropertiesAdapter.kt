@@ -21,6 +21,7 @@ import javax.inject.Inject
 class RvSimilarPropertiesAdapter @Inject constructor() :
     ListAdapter<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel, RvSimilarPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
+    private lateinit var favListener: OnFavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemFeaturedRealEstateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,7 +33,6 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
 
     inner class ProductViewHolder(private val binding: ItemFeaturedRealEstateBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
@@ -44,14 +44,22 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
         }
 
         fun bind(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
-            var isFav = model.isFavourite == ""
+            var isFav = "0"
             binding.apply {
                 ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
+                    favListener.onFavClick(model)
+                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                        isFav = "1"
+                    }
+                    else {ivFav.setImageResource(R.drawable.ic_heart)
+                        isFav ="0"
+                    }
                 }
-
+                if (isFav == "1") {
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_heart)
+                }
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
 
@@ -153,12 +161,16 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: OnItemClickListener,favListener: OnFavClickListener) {
         this.listener = listener
-    }
+        this.favListener = favListener
 
+    }
     interface OnItemClickListener {
         fun onFeaturedRealEstateClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel)
+    }
+    interface OnFavClickListener{
+        fun onFavClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel)
     }
 
     //check difference

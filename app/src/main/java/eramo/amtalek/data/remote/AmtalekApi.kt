@@ -203,7 +203,7 @@ interface AmtalekApi {
 //////////////////////////////////////////////////////////////////
     // new fav request for property
     @FormUrlEncoded
-    @POST("mobile/contact-us-message")
+    @POST("mobile/favorite-property")
     suspend fun addOrRemoveFavProperty(
         @Header("Authorization") userToken: String?,
         @Field("property_id") propertyId: Int,

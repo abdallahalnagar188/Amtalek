@@ -74,11 +74,11 @@
 
                 <ImageView
                     android:id="@+id/iv_favourite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_45sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
-                    android:src="@drawable/ic_favourite_with_frame"
+                    android:src="@drawable/ic_heart_fill"
                     app:layout_constraintEnd_toStartOf="@id/iv_share"
                     app:layout_constraintTop_toTopOf="parent" />
 

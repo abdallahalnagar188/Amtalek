@@ -53,6 +53,7 @@ data class MyPropertyDetailsResponse(
             mapUrl = data?.get(0)?.location ?: "",
             payment = "---",
             id = data?.get(0)?.id ?: -1,
+            isFavourite = data?.get(0)?.isFav ?: "",
         )
     }
     private fun sliderImagesList(): List<String> {
@@ -239,7 +240,9 @@ data class Data(
     @SerializedName("video_type")
     var videoType: String?,
     @SerializedName("views")
-    var views: Int?
+    var views: Int?,
+    @SerializedName("is_fav")
+    var isFav: String?,
 ) : Parcelable
 @Parcelize
 data class Slider(

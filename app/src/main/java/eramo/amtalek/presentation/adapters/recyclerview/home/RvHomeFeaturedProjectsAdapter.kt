@@ -40,14 +40,7 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
         }
 
         fun bind(model: ProjectModel) {
-            var isFav = model.isFavourite == "1"
             binding.apply {
-                ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
-                }
-
                 tvTitle.text = model.title
                 tvDescription.text = model.description
 

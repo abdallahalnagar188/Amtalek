@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.main.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.home.HomeExtraSectionsModel
 import eramo.amtalek.domain.model.home.cities.HomeCitiesSectionsModel
@@ -10,6 +11,7 @@ import eramo.amtalek.domain.model.home.news.HomeNewsSectionsModel
 import eramo.amtalek.domain.model.home.project.HomeProjectsSectionModel
 import eramo.amtalek.domain.model.home.property.HomePropertySectionModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
+import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.MyHomeRepository
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.util.UserUtil
@@ -25,9 +27,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeMyViewModel @Inject constructor(
-    val homeRepository:MyHomeRepository,
-    private val getProfileUseCase: GetProfileUseCase
-    ): ViewModel(){
+    private val homeRepository:MyHomeRepository,
+    private val getProfileUseCase: GetProfileUseCase,
+    private val addOrRemoveFavRepository: AddOrRemoveFavRepository
+
+): ViewModel(){
     private val _homeFeaturedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
     val homeFeaturedPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeFeaturedPropertiesState
 
@@ -60,6 +64,8 @@ class HomeMyViewModel @Inject constructor(
     private val _initScreenState = MutableStateFlow<UiState<Boolean>>(UiState.Empty())
     val initScreenState: StateFlow<UiState<Boolean>> = _initScreenState
 
+    private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
+    val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
 
     //---------------------------------------------------------------------------------//
     private var initScreenJob: Job? = null
@@ -86,7 +92,7 @@ class HomeMyViewModel @Inject constructor(
         getProfileJob?.cancel()
     }
     //---------------------------------------------------------------------------------//
-    fun getHomeFeaturedProperties(countryId:String){
+    private fun getHomeFeaturedProperties(countryId:String){
         getHomeFeaturedPropertiesJob?.cancel()
         getHomeFeaturedPropertiesJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -112,7 +118,7 @@ class HomeMyViewModel @Inject constructor(
         }
 
     }
-    fun getHomeProjects(countryId:String){
+    private fun getHomeProjects(countryId:String){
         getHomeProjectsJob?.cancel()
         getHomeProjectsJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -136,7 +142,7 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-    fun getHomeFilterByCity(countryId:String){
+    private fun getHomeFilterByCity(countryId:String){
         getHomeFilterByCityJob?.cancel()
         getHomeFilterByCityJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -161,7 +167,7 @@ class HomeMyViewModel @Inject constructor(
         }
 
     }
-    fun getHomeSlider(){
+    private fun getHomeSlider(){
         getHomeSliderJob?.cancel()
         getHomeSliderJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -189,7 +195,7 @@ class HomeMyViewModel @Inject constructor(
         }
     }
 
-    fun getHomeNormalProperties(countryId:String){
+    private fun getHomeNormalProperties(countryId:String){
         getHomeNormalPropertiesJob?.cancel()
         getHomeNormalPropertiesJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -214,7 +220,7 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-    fun getMostViewedProperties(countryId:String){
+    private fun getMostViewedProperties(countryId:String){
         getHomeMostViewedPropertiesJob?.cancel()
         getHomeMostViewedPropertiesJob = viewModelScope.launch {
             withContext(coroutineContext) {
@@ -240,7 +246,7 @@ class HomeMyViewModel @Inject constructor(
 
         }
     }
-    fun getHomeNews(){
+    private fun getHomeNews(){
         getHomeNewsJob?.cancel()
         getHomeNewsJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -265,7 +271,7 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-    fun getHomeExtraSections(countryId:String){
+    private fun getHomeExtraSections(countryId:String){
         getHomeExtraSectionsJob?.cancel()
         getHomeExtraSectionsJob = viewModelScope.launch {
             withContext(coroutineContext){
@@ -356,5 +362,26 @@ class HomeMyViewModel @Inject constructor(
         )
     }
 
+    fun addOrRemoveFav(propertyId: Int) {
+        viewModelScope.launch {
+            withContext(coroutineContext){
+                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect(){result->
+                    when(result){
+                        is Resource.Success->{
+                            _favState.value = UiState.Success(result.data)
+                        }
+                        is Resource.Error->{
+                            _favState.value = UiState.Error(result.message!!)
+                        }
+                        is Resource.Loading->{
+                            _favState.value = UiState.Loading()
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
 
 }

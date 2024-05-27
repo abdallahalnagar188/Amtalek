@@ -45,6 +45,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNormalPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.FilterCitiesDialogFragment
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
@@ -74,7 +75,8 @@ RvHomeSecondExtraSectionAdapter.OnItemClickListenerSecondSection,
 RvHomeThirdExtraSectionAdapter.OnItemClickListenerThirdSection,
 RvHomeFourthExtraSectionAdapter.OnItemClickListenerFourthSection,
 RvHomeFifthExtraSectionAdapter.OnItemClickListenerFifthSection,
-RvHomeNewsAdapter.OnItemClickListener{
+RvHomeNewsAdapter.OnItemClickListener ,
+FavClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
@@ -574,7 +576,7 @@ RvHomeNewsAdapter.OnItemClickListener{
     }
 
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
-        rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment)
+        rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment,this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
         binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -597,14 +599,14 @@ RvHomeNewsAdapter.OnItemClickListener{
 
     }
     private fun setupNormalPropertiesRv(data: List<PropertyModel>) {
-        rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment)
+        rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment,this@HomeFragment)
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
         binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupMostViewedPropertiesRv(data: List<PropertyModel>) {
-        rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment)
+        rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment,this@HomeFragment)
         binding.inMostViewedPropertiesLayout.rv.adapter = rvHomeMostViewedPropertiesAdapter
         rvHomeMostViewedPropertiesAdapter.submitList(data)
         binding.inMostViewedPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -654,7 +656,7 @@ RvHomeNewsAdapter.OnItemClickListener{
     }
     // -------------------------------------------------------------------------------------------------------------- //
     private fun setupHomeFirstExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeFirstExtraSectionAdapter.setListener(this)
+        rvHomeFirstExtraSectionAdapter.setListener(this,this)
         binding.inFirstExtraSectionLayout.rv.adapter = rvHomeFirstExtraSectionAdapter
         rvHomeFirstExtraSectionAdapter.submitList(data)
         binding.inFirstExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -663,7 +665,7 @@ RvHomeNewsAdapter.OnItemClickListener{
 
 
     private fun setupHomeSecondExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeSecondExtraSectionAdapter.setListener(this)
+        rvHomeSecondExtraSectionAdapter.setListener(this,this)
         binding.inSecondExtraSectionLayout.rv.adapter = rvHomeSecondExtraSectionAdapter
         rvHomeSecondExtraSectionAdapter.submitList(data)
         binding.inSecondExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -672,21 +674,21 @@ RvHomeNewsAdapter.OnItemClickListener{
 
 
     private fun setupHomeThirdExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeThirdExtraSectionAdapter.setListener(this)
+        rvHomeThirdExtraSectionAdapter.setListener(this,this)
         binding.inThirdExtraSectionLayout.rv.adapter = rvHomeThirdExtraSectionAdapter
         rvHomeThirdExtraSectionAdapter.submitList(data)
         binding.inThirdExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupHomeFourthExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeFourthExtraSectionAdapter.setListener(this)
+        rvHomeFourthExtraSectionAdapter.setListener(this,this)
         binding.inFourthExtraSectionLayout.rv.adapter = rvHomeFourthExtraSectionAdapter
         rvHomeFourthExtraSectionAdapter.submitList(data)
         binding.inFourthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupHomeFifthExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeFifthExtraSectionAdapter.setListener(this)
+        rvHomeFifthExtraSectionAdapter.setListener(this,this)
         binding.inFifthExtraSectionLayout.rv.adapter = rvHomeFifthExtraSectionAdapter
         rvHomeFifthExtraSectionAdapter.submitList(data)
         binding.inFifthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -861,6 +863,10 @@ RvHomeNewsAdapter.OnItemClickListener{
     override fun onNormalPropertyClicked(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+
+    override fun onFavClick(model: PropertyModel) {
+        viewModel.addOrRemoveFav(model.id)
+    }
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 
 

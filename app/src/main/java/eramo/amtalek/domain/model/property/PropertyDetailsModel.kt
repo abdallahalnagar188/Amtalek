@@ -36,4 +36,5 @@ data class PropertyDetailsModel(
     val chartList:List<ChartModel>,
     val mapUrl:String   ,
     val id:Int,
+    val isFavourite:String
     )

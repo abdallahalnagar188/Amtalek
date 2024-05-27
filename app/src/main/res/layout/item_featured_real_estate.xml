@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/iv_fav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_margin="@dimen/_12sdp"
             android:src="@drawable/ic_heart_fill"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,9 +96,10 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:layout_constraintEnd_toStartOf="@id/iv_fav"
+
             app:layout_goneMarginTop="@dimen/_12sdp"
             tools:text="4,000,000 EGP"
             tools:visibility="visible" />
