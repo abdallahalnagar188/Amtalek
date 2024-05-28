@@ -3,6 +3,7 @@ package eramo.amtalek.data.remote.dto.property.newResponse.prop_details
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
@@ -88,12 +89,11 @@ data class MyPropertyDetailsResponse(
 
         return list
     }
-    private fun similarPropertiesList(): List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel> {
-        val list = mutableListOf<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>()
-
+    private fun similarPropertiesList(): List<PropertyModel> {
+        val list = mutableListOf<PropertyModel>()
         for (i in data?.get(0)?.similarProperties!!) {
             list.add(
-                eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel(
+        PropertyModel(
                     id = i?.id ?: -1,
                     imageUrl = i?.primaryImage ?: "",
                      type =  i?.forWhat ?: "",
@@ -109,8 +109,8 @@ data class MyPropertyDetailsResponse(
                     bedsCount = i?.bedRoomsNo ?: 0,
                     location = "${i?.region}, ${i?.city}",
                     datePosted = i?.createdAt ?: "",
-                    brokerId = i.brokerDetails?.get(0)?.id.toString() ?: "",
-                    brokerLogoUrl = i.brokerDetails?.get(0)?.logo ?: NONE_IMAGE_URL,
+                    brokerId = i.brokerDetails?.id.toString() ?: "",
+                    brokerLogoUrl = i.brokerDetails?.company_logo ?: NONE_IMAGE_URL,
                     currency = i.currency?:""
 
                 )
@@ -262,7 +262,7 @@ data class SimilarProperty(
     @SerializedName("bed_rooms_no")
     var bedRoomsNo: Int?,
     @SerializedName("broker_details")
-    var brokerDetails: List<BrokerDetailX>?,
+    var brokerDetails: BrokerDetailX?,
     @SerializedName("category")
     var category: String?,
     @SerializedName("city")
@@ -362,26 +362,14 @@ data class Comment(
 ) : Parcelable
 @Parcelize
 data class BrokerDetailX(
+    @SerializedName("company_name")
+    var company_name: String?,
+    @SerializedName("company_logo")
+    var company_logo: String?,
     @SerializedName("broker_type")
-    var brokerType: String?,
-    @SerializedName("description")
-    var description: String?,
-    @SerializedName("email")
-    var email: String?,
+    var broker_type: String?,
     @SerializedName("id")
     var id: Int?,
-    @SerializedName("logo")
-    var logo: String?,
-    @SerializedName("name")
-    var name: String?,
-    @SerializedName("phone")
-    var phone: String?,
-    @SerializedName("projects")
-    var projects: List<Project>?,
-    @SerializedName("projects_count")
-    var projectsCount: Int?,
-    @SerializedName("properties_count")
-    var propertiesCount: Int?
 ) : Parcelable
 @Parcelize
 data class BrokerDetail(

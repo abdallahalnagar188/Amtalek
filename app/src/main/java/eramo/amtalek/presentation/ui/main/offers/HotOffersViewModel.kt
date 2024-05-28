@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.HotOffersRepository
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -21,7 +23,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HotOffersViewModel @Inject constructor(
-    val repository: HotOffersRepository
+    private val repository: HotOffersRepository,
+    private val addOrRemoveFavRepository: AddOrRemoveFavRepository
+
 ):ViewModel(){
     //////////////////////////////////////////
     private var _hotOffers = MutableStateFlow<UiState<HotOffersResponse>>(UiState.Empty())
@@ -38,6 +42,10 @@ class HotOffersViewModel @Inject constructor(
 
     private var _projectsListState = MutableLiveData<MutableList<ProjectModel>>()
     var projectsListState: LiveData<MutableList<ProjectModel>> = _projectsListState
+
+
+    private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
+    val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
 
     //////////////////////////////////////////
     private var getHotOffersJob: Job? = null
@@ -92,6 +100,27 @@ class HotOffersViewModel @Inject constructor(
         _forSellListState.value =forSellPropertyList
         _forRentListState.value =forRentPropertyList
         _forBothListState.value = forBothPropertyList
+
+    }
+    fun addOrRemoveFav(propertyId: Int) {
+        viewModelScope.launch {
+            withContext(coroutineContext){
+                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect(){result->
+                    when(result){
+                        is Resource.Success->{
+                            _favState.value = UiState.Success(result.data)
+                        }
+                        is Resource.Error->{
+                            _favState.value = UiState.Error(result.message!!)
+                        }
+                        is Resource.Loading->{
+                            _favState.value = UiState.Loading()
+                        }
+                    }
+                }
+
+            }
+        }
 
     }
 

@@ -19,6 +19,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.util.Dummy
@@ -31,7 +32,7 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding>(),RvHotOffersForBothPropertiesAdapter.OnItemClickListener,RvHotOffersForBothProjectsAdapter.OnItemClickListener {
+class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding>(),RvHotOffersForBothPropertiesAdapter.OnItemClickListener,RvHotOffersForBothProjectsAdapter.OnItemClickListener,FavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersForBothBinding::inflate
@@ -99,7 +100,7 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
         binding.rvPropertiesForBoth.adapter = rvHotOffersForBothPropertiesAdapter
         binding.rvProjectsForBoth.adapter = rvHotOffersForBothProjectsAdapter
         rvHotOffersForBothProjectsAdapter.setListener(this)
-        rvHotOffersForBothPropertiesAdapter.setListener(this)
+        rvHotOffersForBothPropertiesAdapter.setListener(this,this)
         setupCarouselSlider()
 
     }
@@ -160,5 +161,10 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
             R.id.myProjectDetailsFragment,
             MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
         )
+    }
+
+    override fun onFavClick(model: PropertyModel) {
+        hotOffersViewModel.addOrRemoveFav(model.id)
+
     }
 }

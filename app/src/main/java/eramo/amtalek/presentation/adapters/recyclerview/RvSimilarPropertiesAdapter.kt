@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFeaturedRealEstateBinding
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -19,7 +21,7 @@ import javax.inject.Inject
 
 
 class RvSimilarPropertiesAdapter @Inject constructor() :
-    ListAdapter<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel, RvSimilarPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<PropertyModel, RvSimilarPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
     private lateinit var favListener: OnFavClickListener
 
@@ -43,8 +45,9 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
-            var isFav = "0"
+        fun bind(model: PropertyModel) {
+            var isFav = model.isFavourite
+            Log.e("Megozz", isFav, )
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
@@ -66,7 +69,7 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                 tvLabel.text = when (model.type) {
                     PropertyType.FOR_SELL.key -> itemView.context.getString(R.string.for_sell)
                     PropertyType.FOR_RENT.key -> itemView.context.getString(R.string.for_rent)
-                    PropertyType.FOR_BOTH.key -> itemView.context.getString(R.string.for_sell_or_rent)
+                    PropertyType.FOR_BOTH.key -> itemView.context.getString(R.string.forBoth)
                     else -> {
                         ""
                     }
@@ -121,11 +124,7 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
                 }
-                if (model.isFavourite == "") {
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-                } else {
-                    ivFav.setImageResource(R.drawable.ic_heart)
-                }
+
             }
 
         }
@@ -167,23 +166,23 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
 
     }
     interface OnItemClickListener {
-        fun onFeaturedRealEstateClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel)
+        fun onFeaturedRealEstateClick(model: PropertyModel)
     }
     interface OnFavClickListener{
-        fun onFavClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel)
+        fun onFavClick(model: PropertyModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {
             override fun areItemsTheSame(
-                oldItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel,
-                newItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel,
-                newItem: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+                oldItem: PropertyModel,
+                newItem: PropertyModel
             ) = oldItem == newItem
         }
     }

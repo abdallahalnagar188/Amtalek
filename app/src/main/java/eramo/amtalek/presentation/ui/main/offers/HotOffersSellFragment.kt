@@ -17,9 +17,11 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentHotOffersSellBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.util.Dummy
@@ -32,7 +34,8 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),RvHotOffersSellPropertiesAdapter.OnItemClickListener,RvHotOffersSellProjectsAdapter.OnItemClickListener {
+class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),RvHotOffersSellPropertiesAdapter.OnItemClickListener,RvHotOffersSellProjectsAdapter.OnItemClickListener,
+FavClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersSellBinding::inflate
@@ -75,7 +78,7 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),Rv
         binding.rvProperties.adapter = rvHotOffersSellPropertiesAdapter
         binding.rvProjects.adapter = rvHotOffersSellProjectsAdapter
         rvHotOffersSellProjectsAdapter.setListener(this@HotOffersSellFragment)
-        rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersSellFragment)
+        rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersSellFragment,this)
     }
     private fun fetchGetHotOffers() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -158,6 +161,10 @@ class HotOffersSellFragment : BindingFragment<FragmentHotOffersSellBinding>(),Rv
     override fun onPropertyClick(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())
+    }
+
+    override fun onFavClick(model: PropertyModel) {
+        hotOffersViewModel.addOrRemoveFav(model.id)
     }
 
 }

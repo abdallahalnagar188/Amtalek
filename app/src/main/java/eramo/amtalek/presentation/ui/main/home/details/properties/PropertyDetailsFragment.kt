@@ -214,7 +214,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun assignData(data: PropertyDetailsModel) {
         try {
             binding.apply {
-                var isFav = "0"
+                var isFav = data.isFavourite
                 ivFavourite.setOnClickListener {
                     viewModel.addOrRemoveFav(data.id)
                     if (isFav =="0") {ivFavourite.setImageResource(R.drawable.ic_heart_fill)

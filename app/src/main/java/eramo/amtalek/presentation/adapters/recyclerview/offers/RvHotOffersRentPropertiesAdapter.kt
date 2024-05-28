@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class RvHotOffersRentPropertiesAdapter @Inject constructor() :
     ListAdapter<PropertyModel, RvHotOffersRentPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
+    private lateinit var favListener:FavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -43,12 +45,21 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
         }
 
         fun bind(model: PropertyModel) {
-            var isFav = model.isFavourite == ""
+            var isFav = model.isFavourite
             binding.apply {
                 ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
+                    favListener.onFavClick(model)
+                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                        isFav = "1"
+                    }
+                    else {ivFav.setImageResource(R.drawable.ic_heart)
+                        isFav ="0"
+                    }
+                }
+                if (isFav == "1") {
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
                 when (model.rentDuration) {
@@ -91,12 +102,6 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == "1"){
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-                }else{
-                    ivFav.setImageResource(R.drawable.ic_heart)
-                }
-
                 if (model.isFeatured == "featured"){
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
@@ -110,8 +115,9 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: OnItemClickListener,favClickListener: FavClickListener) {
         this.listener = listener
+        this.favListener = favClickListener
     }
 
     interface OnItemClickListener {

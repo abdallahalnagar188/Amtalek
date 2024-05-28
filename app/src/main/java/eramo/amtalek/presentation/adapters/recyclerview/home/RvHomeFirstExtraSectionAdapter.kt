@@ -51,7 +51,7 @@ class RvHomeFirstExtraSectionAdapter @Inject constructor() :
         }
 
         fun bind(model: PropertyModel) {
-            var isFav = "0"
+            var isFav = model.isFavourite
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)

@@ -19,6 +19,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.util.Dummy
@@ -31,7 +32,7 @@ import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),RvHotOffersRentPropertiesAdapter.OnItemClickListener,RvHotOffersRentProjectsAdapter.OnItemClickListener {
+class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),RvHotOffersRentPropertiesAdapter.OnItemClickListener,RvHotOffersRentProjectsAdapter.OnItemClickListener,FavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersRentBinding::inflate
@@ -101,7 +102,7 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
         binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter
         binding.rvProjects.adapter = rvHotOffersRentProjectsAdapter
         rvHotOffersRentProjectsAdapter.setListener(this)
-        rvHotOffersRentPropertiesAdapter.setListener(this)
+        rvHotOffersRentPropertiesAdapter.setListener(this,this)
     }
     private fun setupCarouselSlider() {
         binding.apply {
@@ -157,5 +158,10 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
 
     override fun onProjectClick(model: eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel) {
         findNavController().navigate(R.id.myProjectDetailsFragment,MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())
+    }
+
+    override fun onFavClick(model: PropertyModel) {
+        hotOffersViewModel.addOrRemoveFav(model.id)
+
     }
 }
