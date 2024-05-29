@@ -194,7 +194,6 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-
     private fun getHomeNormalProperties(countryId:String){
         getHomeNormalPropertiesJob?.cancel()
         getHomeNormalPropertiesJob = viewModelScope.launch {
@@ -358,7 +357,7 @@ class HomeMyViewModel @Inject constructor(
             firstName = user.firstName, lastName = user.lastName, phone =  user.phone,
             email = user.email, countryId =  user.country.toString(),
             cityName = user.cityName, cityId =  user.city.toString(), countryName =  user.countryName, userBio = user.bio, profileImageUrl =  user.userImage,
-            userType = user.actorType
+            userType = user.actorType, hasPackage = user.hasPackage
         )
     }
 

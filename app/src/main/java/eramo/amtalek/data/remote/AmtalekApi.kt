@@ -28,6 +28,7 @@ import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
+import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -230,7 +231,11 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?,
     ): Response<HotOffersResponse>
 
-
+    //packages
+    @GET("packages/{type}")
+    suspend fun getPackages(
+        @Path ("type") type:String,
+    ): Response<PackagesResponse>
 
 
     //____________________________________________________________________________________________//

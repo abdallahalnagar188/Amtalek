@@ -119,7 +119,8 @@ class LoginViewModel @Inject constructor(
             cityName = userModel.cityName,
             userBio = userModel.bio,
            profileImageUrl =  userModel.userImage,
-            userType = userModel.actorType
+            userType = userModel.actorType,
+            hasPackage = userModel.hasPackage
         )
     }
 }

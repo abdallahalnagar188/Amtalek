@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderClUserCell.setOnClickListener {
-//                navController.navigate(R.id.myProfileFragment)
+                navController.navigate(R.id.myProfileFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -204,17 +204,17 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
-            navHeaderNewProjects.setOnClickListener {
-//                navController.navigate(R.id.latestProjectsFragment)
+//            navHeaderNewProjects.setOnClickListener {
+////                navController.navigate(R.id.latestProjectsFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            navHeaderMessaging.setOnClickListener {
-//                navController.navigate(R.id.messagingFragment)
-
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
+//            navHeaderMessaging.setOnClickListener {
+////                navController.navigate(R.id.messagingFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
             navHeaderAddYourProperty.setOnClickListener {
 //                navController.navigate(R.id.myAddPropertyFragmentFragment)
@@ -222,15 +222,18 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
-            navHeaderBuyPackages.setOnClickListener {
-//                navController.navigate(R.id.packagesFragment)
+//            navHeaderBuyPackages.setOnClickListener {
+////                navController.navigate(R.id.packagesFragment)
+//
+//                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+//            }
 
-                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
-            }
-
-            navHeaderJoinUs.setOnClickListener {
-//                navController.navigate(R.id.joinUsFragment)
-
+            navHeaderProfileTab.setOnClickListener {
+                if(UserUtil.getHasPackage()=="true"){
+                    navController.navigate(R.id.myProfileFragment)
+                }else{
+                    navController.navigate(R.id.packagesFragment)
+                }
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 

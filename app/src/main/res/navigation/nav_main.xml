@@ -257,7 +257,7 @@
         tools:layout="@layout/fragment_my_add_property_fragment" />
     <fragment
         android:id="@+id/packagesFragment"
-        android:name="eramo.amtalek.presentation.ui.drawer.subscription.PackagesFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.subscription.packages.PackagesFragment"
         android:label="fragment_packages"
         tools:layout="@layout/fragment_packages" />
     <fragment

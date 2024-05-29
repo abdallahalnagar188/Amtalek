@@ -550,6 +550,19 @@
     <string name="s_featured_listings">مميز : %S</string>
     <string name="s_social_media_promotion">ترقية : %S</string>
     <string name="s_leads_management">عملاء : %S</string>
+    <string name="messages_s">الرسائل :%s</string>
+    <string name="e_money_s">النقود الألكترونية :%s</string>
+    <string name="projects_s">المشاريع :%s</string>
+    <string name="s_crm_agents">موظفون الشركة :%s</string>
+    <string name="s_supervisors">مشرفون :%s</string>
+    <string name="s_hr_module">نظام ادارة الموارد البشرية :%s</string>
+    <string name="s_accounting_module">نظام ادارة الحسابات :%s</string>
+
+
+
+
+
+
     <string name="s_extra_lead">عملاء إضافين: %s ج.م</string>
     <string name="select_this_plan">أختر هذه الباقة</string>
     <string name="egp_month">جنيه/شهر</string>
@@ -720,5 +733,8 @@
     <string name="per"></string>
     <string name="comment_added_successfully">تم ارسال تعليقك</string>
     <string name="social_network">التواصل الاجتماعي</string>
+    <string name="user_packages">باقات المستخدمين</string>
+    <string name="agencies_packages">باقات الشركات العقارية</string>
+
 
 </resources>

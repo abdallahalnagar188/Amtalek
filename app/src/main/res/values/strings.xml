@@ -552,6 +552,17 @@
     <string name="s_featured_listings">FEATURED LISTINGS : %s</string>
     <string name="s_social_media_promotion">SOCIAL MEDIA PROMOTION : %s</string>
     <string name="s_leads_management">LEADS MANAGEMENT : %s</string>
+    <string name="messages_s">MESSAGES: %s</string>
+    <string name="e_money_s">E-MONEY: %s</string>
+    <string name="projects_s">PROJECTS: %s</string>
+    <string name="s_crm_agents">CRM AGENTS: %s</string>
+    <string name="s_supervisors">SUPERVISORS: %s</string>
+    <string name="s_hr_module">HR MODULE: %s</string>
+    <string name="s_accounting_module">ACCOUNTING MODULE: %s</string>
+
+
+
+
     <string name="s_extra_lead">+Extra Lead: %s EGP</string>
     <string name="select_this_plan">Select this plan</string>
     <string name="egp_month">EGP/Month</string>
@@ -723,6 +734,8 @@
     <string name="per">/</string>
     <string name="comment_added_successfully">Your comment has been sent</string>
     <string name="social_network">Social Network</string>
+    <string name="user_packages">User Packages</string>
+    <string name="agencies_packages">Agencies Packages</string>
 
 
 </resources>

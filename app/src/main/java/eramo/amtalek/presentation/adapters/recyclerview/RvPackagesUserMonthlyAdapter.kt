@@ -7,24 +7,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eramo.amtalek.R
-import eramo.amtalek.databinding.ItemPackagesBinding
+import eramo.amtalek.databinding.ItemPackagesUserBinding
 import eramo.amtalek.domain.model.drawer.PackageModel
 import javax.inject.Inject
 
 
-class RvPackagesAdapter @Inject constructor() :
-    ListAdapter<PackageModel, RvPackagesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvPackagesUserMonthlyAdapter @Inject constructor() :
+    ListAdapter<PackageModel, RvPackagesUserMonthlyAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemPackagesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemPackagesUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemPackagesBinding) :
+    inner class ProductViewHolder(private val binding: ItemPackagesUserBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -39,19 +39,25 @@ class RvPackagesAdapter @Inject constructor() :
 
         fun bind(model: PackageModel) {
             binding.apply {
-                tvTitle.text = model.title
-                tvDescription.text = model.description
-                tvPrice.text = model.price.toString()
+                tvTitle.text = model.packageType
+                tvDescription.text = model.subTitle
+                tvPrice.text = model.priceMonthly
+                tvDuration.text = itemView.context.getString(R.string.egp_month)
 
-                tvNormalListing.text = itemView.context.getString(R.string.s_normal_listing, model.normal.toString())
-                tvFeaturedListing.text = itemView.context.getString(R.string.s_featured_listings, model.featured.toString())
-                tvSocialMediaPromotion.text = itemView.context.getString(R.string.s_social_media_promotion, model.promotion.toString())
-                tvLeadsManagement.text = itemView.context.getString(R.string.s_leads_management, model.leads.toString())
+                tvNormalListing.text = itemView.context.getString(R.string.s_normal_listing, model.normalListings)
+                tvFeaturedListing.text = itemView.context.getString(R.string.s_featured_listings, model.featuredListings)
+                tvMoney.text = itemView.context.getString(R.string.e_money_s, model.emoney)
+                tvMessages.text = itemView.context.getString(R.string.messages_s, model.messages)
 
-                tvExtraLeads.text = itemView.context.getString(R.string.s_extra_lead, model.extraLeadsPrice.toString())
 
-                cover.setBackgroundColor(Color.parseColor(model.coverColor))
-                cvPrice.setCardBackgroundColor(Color.parseColor(model.priceColor))
+                if (model.packageType=="normal"){
+                    cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_blue))
+                    cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_blue))
+                }else if ( model.packageType=="featured"){
+                    cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
+                    cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
+                }
+
 
                 btnSelect.setOnClickListener {
                     listener.onSelectClick(model)

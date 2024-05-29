@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CustomCardViewStyleRoundTop"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_420sdp"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
     app:cardCornerRadius="@dimen/_6sdp"
     app:cardElevation="@dimen/_3sdp"
@@ -17,7 +17,7 @@
         <View
             android:id="@+id/cover"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_120sdp"
+            android:layout_height="@dimen/_110sdp"
             android:background="@color/packages_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:fontFamily="@font/montserratmedium"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/_22ssp"
+            android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +44,7 @@
             android:fontFamily="@font/montserratmedium"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
@@ -52,8 +52,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_price"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_120sdp"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
             android:layout_marginTop="@dimen/_10sdp"
             tools:backgroundTint="@color/packages_blue"
             app:cardCornerRadius="@dimen/_60sdp"
@@ -75,7 +75,7 @@
                     android:layout_marginBottom="@dimen/_14sdp"
                     android:fontFamily="@font/montserratbold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_30ssp"
+                    android:textSize="@dimen/_23ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,12 +83,13 @@
                     tools:text="1500" />
 
                 <TextView
+                    android:id="@+id/tv_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_8ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +104,7 @@
             android:id="@+id/line_one_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="#F5F5F5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@id/line_one_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark"
             app:layout_constraintTop_toTopOf="@id/line_one_view"
@@ -157,7 +158,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@id/line_two_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark2"
             app:layout_constraintTop_toTopOf="@id/line_two_view"
@@ -183,16 +184,16 @@
             app:layout_constraintTop_toTopOf="@id/line_three_view" />
 
         <TextView
-            android:id="@+id/tv_social_media_promotion"
+            android:id="@+id/tv_messages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="@id/line_three_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark3"
             app:layout_constraintTop_toTopOf="@id/line_three_view"
-            tools:text="@string/s_social_media_promotion" />
+            tools:text="@string/messages_s" />
 
 
         <View
@@ -215,46 +216,210 @@
             app:layout_constraintTop_toTopOf="@id/line_four_view" />
 
         <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/line_four_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark4"
+            app:layout_constraintTop_toTopOf="@id/line_four_view"
+            tools:text="@string/e_money_s" />
+
+
+        <View
+            android:id="@+id/line_five_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:background="#F5F5F5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_four_view" />
+        <ImageView
+            android:id="@+id/iv_right_mark5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_right_mark"
+            app:layout_constraintBottom_toBottomOf="@id/line_five_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_five_view" />
+        <TextView
             android:id="@+id/tv_leads_management"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintBottom_toBottomOf="@id/line_four_view"
-            app:layout_constraintStart_toEndOf="@id/iv_right_mark4"
-            app:layout_constraintTop_toTopOf="@id/line_four_view"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/line_five_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark5"
+            app:layout_constraintTop_toTopOf="@id/line_five_view"
             tools:text="@string/s_leads_management" />
 
-        <TextView
-            android:id="@+id/tv_extra_leads"
+        <View
+            android:id="@+id/line_six_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_five_view" />
+        <ImageView
+            android:id="@+id/iv_right_mark6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#1AA260"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_right_mark"
+            app:layout_constraintBottom_toBottomOf="@id/line_six_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_six_view" />
+        <TextView
+            android:id="@+id/tv_projects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@id/line_four_view"
-            app:layout_constraintEnd_toEndOf="@id/line_four_view"
-            app:layout_constraintHorizontal_bias="0.7"
-            app:layout_constraintStart_toEndOf="@id/tv_leads_management"
-            app:layout_constraintTop_toTopOf="@id/line_four_view"
-            tools:text="@string/s_extra_lead" />
+            app:layout_constraintBottom_toBottomOf="@id/line_six_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark6"
+            app:layout_constraintTop_toTopOf="@id/line_six_view"
+            tools:text="@string/projects_s" />
 
+        <View
+            android:id="@+id/line_seven_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:background="#F5F5F5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_six_view" />
+        <ImageView
+            android:id="@+id/iv_right_mark7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_right_mark"
+            app:layout_constraintBottom_toBottomOf="@id/line_seven_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_seven_view" />
+
+        <TextView
+            android:id="@+id/tv_crm_agents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/line_seven_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark7"
+            app:layout_constraintTop_toTopOf="@id/line_seven_view"
+            tools:text="@string/s_crm_agents" />
+
+        <View
+            android:id="@+id/line_eight_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_seven_view" />
+        <ImageView
+            android:id="@+id/iv_right_mark8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_right_mark"
+            app:layout_constraintBottom_toBottomOf="@id/line_eight_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_eight_view" />
+        <TextView
+            android:id="@+id/tv_supervisors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/line_eight_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark8"
+            app:layout_constraintTop_toTopOf="@id/line_eight_view"
+            tools:text="@string/s_supervisors" />
+
+        <View
+            android:id="@+id/line_nine_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:background="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_seven_view" />
+        <ImageView
+            android:id="@+id/iv_right_mark9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_right_mark"
+            app:layout_constraintBottom_toBottomOf="@id/line_nine_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_nine_view" />
+        <TextView
+            android:id="@+id/tv_hr_module"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/line_nine_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark9"
+            app:layout_constraintTop_toTopOf="@id/line_nine_view"
+            tools:text="@string/s_hr_module" />
+
+        <View
+            android:id="@+id/line_ten_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:background="#F5F5F5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_nine_view" />
+        <ImageView
+            android:id="@+id/iv_right_mark10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_right_mark"
+            app:layout_constraintBottom_toBottomOf="@id/line_ten_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/line_ten_view" />
+        <TextView
+            android:id="@+id/tv_accounting_module"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="@id/line_ten_view"
+            app:layout_constraintStart_toEndOf="@id/iv_right_mark10"
+            app:layout_constraintTop_toTopOf="@id/line_ten_view"
+            tools:text="@string/s_accounting_module" />
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_select"
             android:layout_width="0dp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginHorizontal="@dimen/_14sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="@dimen/_40sdp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line_four_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_ten_view"
             app:strokeColor="@color/amtalek_blue"
-            app:strokeWidth="@dimen/_1sdp">
+            app:strokeWidth="@dimen/_1sdp"
+            >
 
             <TextView
                 android:id="@+id/tv_add_property"

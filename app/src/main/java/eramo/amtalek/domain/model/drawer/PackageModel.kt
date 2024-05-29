@@ -1,14 +1,23 @@
 package eramo.amtalek.domain.model.drawer
 
+import com.google.gson.annotations.SerializedName
+
 data class PackageModel(
-    val title: String,
-    val description: String,
-    val price: Int,
-    val normal: Int,
-    val featured: Int,
-    val promotion: Int,
-    val leads:Int,
-    val extraLeadsPrice:Int,
-    val coverColor:String,
-    val priceColor:String,
-)
+    val accountingModule: String,
+    val crmAgents: String,
+    val emoney: String,
+    val featuredListings: String,
+    val featuredPackageText: String,
+    val hrModule: String,
+    val id: Int,
+    val leadsManagement: String,
+    val messages: String,
+    val name: String,
+    val normalListings: String,
+    val packageType: String,
+    val priceMonthly: String,
+    val priceYearly: String,
+    val projects: String,
+    val subTitle: String,
+    val supervisors: String
+    )

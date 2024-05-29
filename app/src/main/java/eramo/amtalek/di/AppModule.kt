@@ -152,4 +152,9 @@ object AppModule {
     fun provideAddOrRemovePropertyRepository(amtalekApi: AmtalekApi): AddOrRemoveFavRepository {
         return AddOrRemoveFavRepositoryImpl(amtalekApi)
     }
+    @Provides
+    @Singleton
+    fun providePackagesRepository(amtalekApi: AmtalekApi): PackagesRepository {
+        return PackagesRepositoryImpl(amtalekApi)
+    }
 }

@@ -584,56 +584,56 @@ object Dummy {
         return list
     }
 
-    fun dummyPackagesList(): MutableList<PackageModel> {
-        val list = mutableListOf<PackageModel>()
-
-        list.add(
-            PackageModel(
-                "Free",
-                "is free and will always free",
-                0,
-                5,
-                1,
-                1,
-                10,
-                25,
-                "#1E617A",
-                "#1E617A"
-            )
-        )
-
-        list.add(
-            PackageModel(
-                "Basic",
-                "FOR SMALL BUSSINESS",
-                500,
-                15,
-                5,
-                2,
-                30,
-                25,
-                "#1E617A",
-                "#1E617A"
-            )
-        )
-
-        list.add(
-            PackageModel(
-                "Pro",
-                "FOR MEDIUM BUSSINESS",
-                1500,
-                150,
-                10,
-                3,
-                150,
-                25,
-                "#E74335",
-                "#EAB010"
-            )
-        )
-
-        return list
-    }
+//    fun dummyPackagesList(): MutableList<PackageModel> {
+//        val list = mutableListOf<PackageModel>()
+//
+//        list.add(
+//            PackageModel(
+//                "Free",
+//                "is free and will always free",
+//                0,
+//                5,
+//                1,
+//                1,
+//                10,
+//                25,
+//                "#1E617A",
+//                "#1E617A"
+//            )
+//        )
+//
+//        list.add(
+//            PackageModel(
+//                "Basic",
+//                "FOR SMALL BUSSINESS",
+//                500,
+//                15,
+//                5,
+//                2,
+//                30,
+//                25,
+//                "#1E617A",
+//                "#1E617A"
+//            )
+//        )
+//
+//        list.add(
+//            PackageModel(
+//                "Pro",
+//                "FOR MEDIUM BUSSINESS",
+//                1500,
+//                150,
+//                10,
+//                3,
+//                150,
+//                25,
+//                "#E74335",
+//                "#EAB010"
+//            )
+//        )
+//
+//        return list
+//    }
 
     fun dummyRatingCommentsList(): MutableList<RatingCommentsModel> {
         val list = mutableListOf<RatingCommentsModel>()

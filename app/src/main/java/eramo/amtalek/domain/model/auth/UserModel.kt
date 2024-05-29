@@ -29,7 +29,7 @@ data class UserModel(
     val gender: String?,
     val hasCity: HasCity?,
     val hasCountry: HasCountry?,
-    val hasPackage: String?,
+    val hasPackage: String,
     val hasRegion: HasRegion?,
     val id: Int,
     val lastName: String,

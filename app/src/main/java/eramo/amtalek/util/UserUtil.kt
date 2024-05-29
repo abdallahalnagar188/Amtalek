@@ -21,6 +21,7 @@ object UserUtil {
     private const val LAST_NAME = "last_name"
     private const val PHONE = "user_phone"
     private const val EMAIL = "user_email"
+    private const val HAS_PACKAGE = "has_package"
 
     private const val COUNTRY_ID = "country_id"
     private const val COUNTRY_NAME = "country_name"
@@ -65,6 +66,7 @@ object UserUtil {
         cityName: String,
         userBio: String,
         profileImageUrl: String,
+        hasPackage:String
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
@@ -85,6 +87,7 @@ object UserUtil {
 
         sharedPreferences.edit().putString(USER_BIO, userBio).apply()
         sharedPreferences.edit().putString(PROFILE_IMAGE_URL, profileImageUrl).apply()
+        sharedPreferences.edit().putString(HAS_PACKAGE,hasPackage).apply()
     }
 
     fun clearUserInfo() {
@@ -109,6 +112,7 @@ object UserUtil {
         sharedPreferences.edit().putString(USER_BIO, "").apply()
         sharedPreferences.edit().putString(PROFILE_IMAGE_URL, "").apply()
         sharedPreferences.edit().putString(COVER_IMAGE_URL, "").apply()
+        sharedPreferences.edit().putString(HAS_PACKAGE,"").apply()
     }
 
     fun saveFirstTime() = sharedPreferences.edit().putBoolean(IS_FIRST_TIME, false).apply()
@@ -137,6 +141,9 @@ object UserUtil {
     fun getUserBio() = sharedPreferences.getString(USER_BIO, "") ?: ""
     fun getUserProfileImageUrl() = sharedPreferences.getString(PROFILE_IMAGE_URL, "") ?: ""
     fun getUserCoverImageUrl() = sharedPreferences.getString(COVER_IMAGE_URL, "") ?: ""
+
+
+    fun getHasPackage() = sharedPreferences.getString(HAS_PACKAGE, "") ?: ""
 
     fun setHasDeepLink(hasDeepLink: Boolean) = sharedPreferences.edit().putBoolean(HAS_DEEP_LINK, hasDeepLink).apply()
     fun hasDeepLink() = sharedPreferences.getBoolean(HAS_DEEP_LINK, false)

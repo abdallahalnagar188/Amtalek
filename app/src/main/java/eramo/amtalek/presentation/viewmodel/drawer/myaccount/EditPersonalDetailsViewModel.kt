@@ -201,7 +201,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
            firstName =  user.firstName?:"", lastName =  user.lastName?:"", phone =  user.phone?:"",
            email =  user.email?:"", countryId =  user.country.toString()?:"",
            countryName =  user.countryName?:"", cityId = user.city.toString(), cityName = user.cityName?:"", userBio =  user.bio?:"", profileImageUrl = user.userImage?:"",
-            userType = user.actorType?:""
+            userType = user.actorType?:"", hasPackage = user.hasPackage
         )
     }
 
