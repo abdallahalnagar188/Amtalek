@@ -129,9 +129,9 @@ FavClickListener{
         listeners()
         requestApis()
         fetchData()
-        if (UserUtil.isUserLogin()) {
-            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
-        }
+//        if (UserUtil.isUserLogin()) {
+//            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
+//        }
     }
 
     override fun onResume() {

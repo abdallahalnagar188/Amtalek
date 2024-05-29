@@ -8,6 +8,7 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
@@ -262,14 +263,19 @@ interface AmtalekApi {
 
     // ____________________________________________________________________________________________//
     // Drawer
-
+//
+//    @GET("mobile/get-profile/{type}/{id}")
+//    suspend fun getProfile(
+//        @Header("Authorization") userToken: String,
+//        @Path("type")type:String,
+//        @Path("id")id:String
+//    ): Response<BaseResponse<GeneralLoginResponse>>
     @GET("mobile/get-profile/{type}/{id}")
     suspend fun getProfile(
         @Header("Authorization") userToken: String,
         @Path("type")type:String,
         @Path("id")id:String
-    ): Response<BaseResponse<GeneralLoginResponse>>
-
+    ): Response<GetProfileResponse>
     @Multipart
     @POST("mobile/update-profile")
     suspend fun updateProfile(

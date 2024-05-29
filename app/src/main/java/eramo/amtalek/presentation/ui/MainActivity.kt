@@ -81,6 +81,14 @@ class MainActivity : AppCompatActivity(),
         binding.apply {
             mainBn.background = null
             mainBn.menu.getItem(2).isEnabled = false
+            mainBn.menu.getItem(0).setOnMenuItemClickListener(){
+                if(UserUtil.isUserLogin()){
+                    navController.navigate(R.id.myProfileFragment)
+                }else{
+                    navController.navigate(R.id.loginDialog)
+                }
+                true
+            }
             mainBn.setupWithNavController(navController)
             mainFabHome.setOnClickListener {
                 navController.popBackStack(R.id.homeFragment, false)
@@ -187,7 +195,11 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderClUserCell.setOnClickListener {
-                navController.navigate(R.id.myProfileFragment)
+                if(UserUtil.isUserLogin()){
+                    navController.navigate(R.id.myProfileFragment)
+                }else{
+                    navController.navigate(R.id.loginDialog)
+                }
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -215,6 +227,10 @@ class MainActivity : AppCompatActivity(),
 //
 //                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
 //            }
+            navHeaderPricing.setOnClickListener(){
+                navController.navigate(R.id.packagesFragment)
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
 
             navHeaderAddYourProperty.setOnClickListener {
 //                navController.navigate(R.id.myAddPropertyFragmentFragment)
@@ -229,10 +245,10 @@ class MainActivity : AppCompatActivity(),
 //            }
 
             navHeaderProfileTab.setOnClickListener {
-                if(UserUtil.getHasPackage()=="true"){
+                if(UserUtil.isUserLogin()){
                     navController.navigate(R.id.myProfileFragment)
                 }else{
-                    navController.navigate(R.id.packagesFragment)
+                    navController.navigate(R.id.loginDialog)
                 }
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -393,9 +409,9 @@ class MainActivity : AppCompatActivity(),
     private fun setUserInfo() {
         if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
-//                navHeaderTvUserName.text =
-//                    getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
-//                navHeaderTvUserCity.text = UserUtil.getCityName()
+                navHeaderTvUserName.text =
+                    getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
+                navHeaderTvUserCity.text = UserUtil.getCityName()
 
                 navHeaderTvSignOut.text = getString(R.string.sign_out)
 
@@ -427,7 +443,7 @@ class MainActivity : AppCompatActivity(),
     private fun fetchProfileDataState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModelShared.profileData.collect { state ->
+                viewModelShared.LoginData.collect { state ->
                     when (state) {
                         is UiState.Success -> {
                             setUserInfo()

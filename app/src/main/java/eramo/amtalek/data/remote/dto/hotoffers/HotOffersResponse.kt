@@ -117,6 +117,8 @@ data class Property(
     var title: String?,
     @SerializedName("listing_number")
     var listingNumber: String?,
+    @SerializedName("acceptance")
+    var acceptance: String?,
 ) : Parcelable{
     fun toPropertyModel():PropertyModel{
         return PropertyModel(
@@ -137,7 +139,8 @@ data class Property(
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
             listingNumber = listingNumber?:"",
-            currency = currency?:""
+            currency = currency?:"",
+            acceptance = acceptance?:""
         )
     }
 }

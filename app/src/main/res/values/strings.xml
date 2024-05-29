@@ -736,6 +736,7 @@
     <string name="social_network">Social Network</string>
     <string name="user_packages">User Packages</string>
     <string name="agencies_packages">Agencies Packages</string>
+    <string name="pricing">Pricing</string>
 
 
 </resources>

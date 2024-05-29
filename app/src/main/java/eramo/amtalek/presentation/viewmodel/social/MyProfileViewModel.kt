@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
+import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
@@ -21,8 +22,8 @@ class MyProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<ProfileModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<ProfileModel>> = _getProfileState
 
     private var getProfileJob: Job? = null
 
@@ -37,8 +38,8 @@ class MyProfileViewModel @Inject constructor(
                 getProfileUseCase(type,id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data?.toUserModel()!!)
-                            _getProfileState.value = UiState.Success(result.data.toUserModel())
+                            saveUserInfo(result.data?.data?.data?.toProfile()!!)
+                            _getProfileState.value = UiState.Success(result.data?.data?.data?.toProfile())
                         }
 
                         is Resource.Error -> {
@@ -55,13 +56,13 @@ class MyProfileViewModel @Inject constructor(
         }
     }
 
-    private fun saveUserInfo(user: UserModel) {
+    private fun saveUserInfo(user: ProfileModel) {
         UserUtil.saveUserInfo(
             isRemember = true,
             userToken = UserUtil.getUserToken(), userID = user.id.toString(),
             firstName = user.firstName, lastName = user.lastName, phone = user.phone,
-           email =  user.email, countryId =  user.country.toString(),
-            countryName = user.countryName, cityName = user.cityName.toString(), cityId = user.city.toString(), userBio =  user.bio, profileImageUrl = user.userImage,
+           email =  user.email, countryId =  user.countryId.toString(),
+            countryName = user.countryName, cityName = user.cityName.toString(), cityId = user.cityId.toString(), userBio =  user.bio, profileImageUrl = user.image,
             userType = user.actorType?:"", hasPackage = user.hasPackage
         )
     }

@@ -38,7 +38,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
 
     @Inject
     lateinit var rvMarketAdapter: RvMarketAdapter
-    private val viewModel by viewModels<HomeViewModel>()
+//    private val viewModel by viewModels<HomeViewModel>()
 
     private val viewModelShared: SharedViewModel by activityViewModels()
 
@@ -47,39 +47,12 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
 
         setupViews()
         fetchData()
-        if (UserUtil.isUserLogin()) {
-            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
-        }
+
     }
 
     private fun fetchData() {
-            fetchGetProfileState()
     }
 
-    private fun fetchGetProfileState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getProfileState.collect { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            viewModelShared.profileData.value = UiState.Success(state.data!!)
-                        }
-
-                        is UiState.Error -> {
-                            val errorMessage = state.message!!.asString(requireContext())
-                                UserUtil.clearUserInfo()
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                        }
-
-                        else -> {}
-                    }
-
-                }
-        }
-    }
 
     private fun setupViews() {
         setupToolbar()

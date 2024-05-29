@@ -735,6 +735,7 @@
     <string name="social_network">التواصل الاجتماعي</string>
     <string name="user_packages">باقات المستخدمين</string>
     <string name="agencies_packages">باقات الشركات العقارية</string>
+    <string name="pricing">الاسعار</string>
 
 
 </resources>

@@ -163,8 +163,8 @@ class HomeViewModel @Inject constructor(
                 getProfileUseCase(type, id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data?.toUserModel()!!)
-                            _getProfileState.value = UiState.Success(result.data.toUserModel())
+//                            saveUserInfo(result.data?.toUserModel()!!)
+//                            _getProfileState.value = UiState.Success(result.data.toUserModel())
                         }
 
                         is Resource.Error -> {

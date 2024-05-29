@@ -64,7 +64,9 @@ data class MyData(
     @SerializedName("sale_price")
     var salePrice: Int?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("acceptance")
+    var acceptance: String?,
 ) : Parcelable{
     fun toPropertyModel():PropertyModel{
         return PropertyModel(
@@ -85,7 +87,8 @@ data class MyData(
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
             listingNumber = listingNumber?:"",
-            currency = currency?:""
+            currency = currency?:"",
+            acceptance = acceptance?:""
 
         )
     }

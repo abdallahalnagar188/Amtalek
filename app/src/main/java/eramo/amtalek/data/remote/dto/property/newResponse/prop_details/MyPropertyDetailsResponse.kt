@@ -111,8 +111,8 @@ data class MyPropertyDetailsResponse(
                     datePosted = i?.createdAt ?: "",
                     brokerId = i.brokerDetails?.id.toString() ?: "",
                     brokerLogoUrl = i.brokerDetails?.company_logo ?: NONE_IMAGE_URL,
-                    currency = i.currency?:""
-
+                    currency = i.currency?:"",
+                    acceptance = i.acceptance?:""
                 )
             )
         }
@@ -306,7 +306,9 @@ data class SimilarProperty(
     @SerializedName("title")
     var title: String?,
     @SerializedName("total_property_area")
-    var totalPropertyArea: Int?
+    var totalPropertyArea: Int?,
+    @SerializedName("acceptance")
+    var acceptance: String?,
 ) : Parcelable
 @Parcelize
 data class Project(

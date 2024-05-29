@@ -19,4 +19,5 @@ data class PropertyModel(
     val rentDuration:String,
     val listingNumber:String,
     val currency:String,
+    val acceptance:String
 )

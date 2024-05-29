@@ -4,12 +4,11 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
-import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
+import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.domain.usecase.auth.CountriesAndCitiesUseCase
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.domain.usecase.drawer.UpdateProfileUseCase
@@ -23,7 +22,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -37,8 +35,8 @@ class EditPersonalDetailsViewModel @Inject constructor(
     private val updateProfileUseCase: UpdateProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<UserModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<ProfileModel>>(UiState.Empty())
+    val getProfileState: StateFlow<UiState<ProfileModel>> = _getProfileState
 
     private val _updateProfileState = MutableStateFlow<UiState<ResultModel>>(UiState.Empty())
     val updateProfileState: StateFlow<UiState<ResultModel>> = _updateProfileState
@@ -68,8 +66,8 @@ class EditPersonalDetailsViewModel @Inject constructor(
                 getProfileUseCase(type = type, id = id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            saveUserInfo(result.data?.toUserModel()!!)
-                            _getProfileState.value = UiState.Success(result.data.toUserModel())
+                            saveUserInfo(result.data?.data?.data?.toProfile()!!)
+                            _getProfileState.value = UiState.Success(result.data.data?.data?.toProfile()!!)
                         }
 
                         is Resource.Error -> {
@@ -194,13 +192,13 @@ class EditPersonalDetailsViewModel @Inject constructor(
         } else null
     }
 
-    private fun saveUserInfo(user: UserModel) {
+    private fun saveUserInfo(user: ProfileModel) {
         UserUtil.saveUserInfo(
             isRemember = true,
            userToken =  UserUtil.getUserToken(), userID =  user.id.toString(),
            firstName =  user.firstName?:"", lastName =  user.lastName?:"", phone =  user.phone?:"",
-           email =  user.email?:"", countryId =  user.country.toString()?:"",
-           countryName =  user.countryName?:"", cityId = user.city.toString(), cityName = user.cityName?:"", userBio =  user.bio?:"", profileImageUrl = user.userImage?:"",
+           email =  user.email?:"", countryId =  user.countryId.toString()?:"",
+           countryName =  user.countryName?:"", cityId = user.cityId.toString(), cityName = user.cityName?:"", userBio =  user.bio?:"", profileImageUrl = user.image?:"",
             userType = user.actorType?:"", hasPackage = user.hasPackage
         )
     }

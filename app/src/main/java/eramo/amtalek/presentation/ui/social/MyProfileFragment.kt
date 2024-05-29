@@ -17,6 +17,7 @@ import eramo.amtalek.databinding.FragmentMyProfileBinding
 import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
+import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyProfilePostsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
@@ -58,8 +59,6 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
 
     private fun setupViews() {
         StatusBarUtil.transparent()
-
-        initRv()
     }
 
     private fun listeners() {
@@ -74,7 +73,6 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
             }
         }
 
-        setupHeaderListener()
     }
 
     private fun requestData() {
@@ -113,7 +111,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
         }
     }
 
-    private fun assignUserData(user: UserModel) {
+    private fun assignUserData(user: ProfileModel) {
         try {
             binding.apply {
                 tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
@@ -124,8 +122,8 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
 //                    Glide.with(requireContext()).load(user.cover).into(ivUserCover)
 //                }
 
-                if (user.userImage != "") {
-                    Glide.with(requireContext()).load(user.userImage).into(ivUserProfile)
+                if (user.image != "") {
+                    Glide.with(requireContext()).load(user.image).into(ivUserProfile)
                 } else {
                     Glide.with(requireContext()).load(R.drawable.avatar).into(ivUserProfile)
                 }
@@ -138,38 +136,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
         }
     }
 
-    private fun setupHeaderListener() {
-        binding.apply {
 
-            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            tvProperties.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            tvPosts.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-            tvAll.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvProperties.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvPosts.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            }
-
-            tvProperties.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvProperties.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvPosts.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            }
-
-            tvPosts.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvProperties.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvPosts.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            }
-        }
-    }
-
-    private fun initRv() {
-        rvMyProfilePostsAdapter.setListener(this@MyProfileFragment)
-        binding.rv.adapter = rvMyProfilePostsAdapter
-        rvMyProfilePostsAdapter.submitList(Dummy.dummyMarketPostsList())
-    }
 
     private fun showShimmerEffect() {
         binding.apply {

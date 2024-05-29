@@ -28,6 +28,7 @@ import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
+import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -45,7 +46,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     private val viewModel by viewModels<EditPersonalDetailsViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
-    private lateinit var GetProfileModel: UserModel
+    private lateinit var GetProfileModel: ProfileModel
     private var selectedCountryId = -1
     private var selectedCityId = -1
 
@@ -152,7 +153,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             countriesSpinner.adapter = countriesSpinnerAdapter
 
             for (i in data) {
-                if (i.id == GetProfileModel.country) {
+                if (i.id == GetProfileModel.countryId) {
                     countriesSpinner.setSelection(data.indexOf(i))
                 }
             }
@@ -191,7 +192,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             citiesSpinner.adapter = citiesSpinnerAdapter
 
             for (i in data) {
-                if (i.id == GetProfileModel.city) {
+                if (i.id == GetProfileModel.cityId) {
                     citiesSpinner.setSelection(data.indexOf(i))
                 }
             }
@@ -422,7 +423,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         }
     }
 
-    private fun assignDataToTheViews(user: UserModel) {
+    private fun assignDataToTheViews(user: ProfileModel) {
         try {
             binding.apply {
                 etFirstName.setText(user.firstName)
@@ -435,8 +436,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
 //                    Glide.with(requireContext()).load(user.cover).into(ivCover)
 //                }
 
-                if (user.userImage != "") {
-                    Glide.with(requireContext()).load(user.userImage).into(ivProfile)
+                if (user.image != "") {
+                    Glide.with(requireContext()).load(user.image).into(ivProfile)
                 } else {
                     Glide.with(requireContext()).load(R.drawable.avatar).into(ivProfile)
                 }

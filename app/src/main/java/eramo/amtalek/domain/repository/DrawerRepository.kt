@@ -2,11 +2,8 @@ package eramo.amtalek.domain.repository
 
 import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
-import eramo.amtalek.data.remote.dto.drawer.myaccount.EditProfileResponse
-import eramo.amtalek.data.remote.dto.drawer.myaccount.GetProfileResponse
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
 import eramo.amtalek.domain.model.ResultModel
-import eramo.amtalek.domain.model.auth.GetProfileModel
-import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +14,7 @@ interface DrawerRepository {
 
     suspend fun updateFirebaseDeviceToken(deviceToken: String): Flow<Resource<ResultModel>>
 
-    suspend fun getProfile(type:String,id:String): Flow<Resource<GeneralLoginResponse>>
+    suspend fun getProfile(type:String,id:String): Flow<Resource<GetProfileResponse>>
 
     suspend fun updateProfile(
         firstName: RequestBody?,

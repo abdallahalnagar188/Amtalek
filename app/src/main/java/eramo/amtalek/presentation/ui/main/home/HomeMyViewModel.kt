@@ -325,31 +325,31 @@ class HomeMyViewModel @Inject constructor(
     }
 
     //---------------------------------------------------------------------------------//
-    fun getProfile(type:String,id:String) {
-        getProfileJob?.cancel()
-        getProfileJob = viewModelScope.launch {
-            withContext(coroutineContext) {
-                getProfileUseCase(type, id).collect { result ->
-                    when (result) {
-                        is Resource.Success -> {
-                            saveUserInfo(result.data?.toUserModel()!!)
-                            _getProfileState.value = UiState.Success(result.data.toUserModel())
-                        }
-
-                        is Resource.Error -> {
-                            _getProfileState.value =
-                                UiState.Error(result.message!!)
-                            UserUtil.clearUserInfo()
-                        }
-
-                        is Resource.Loading -> {
-                            _getProfileState.value = UiState.Loading()
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    fun getProfile(type:String,id:String) {
+//        getProfileJob?.cancel()
+//        getProfileJob = viewModelScope.launch {
+//            withContext(coroutineContext) {
+//                getProfileUseCase(type, id).collect { result ->
+//                    when (result) {
+//                        is Resource.Success -> {
+////                            saveUserInfo(result.data?.toUserModel()!!)
+//                            _getProfileState.value = UiState.Success(result.data.toUserModel())
+//                        }
+//
+//                        is Resource.Error -> {
+//                            _getProfileState.value =
+//                                UiState.Error(result.message!!)
+//                            UserUtil.clearUserInfo()
+//                        }
+//
+//                        is Resource.Loading -> {
+//                            _getProfileState.value = UiState.Loading()
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     private fun saveUserInfo(user: UserModel) {
         UserUtil.saveUserInfo(
             isRemember = true,

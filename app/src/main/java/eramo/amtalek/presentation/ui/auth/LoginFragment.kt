@@ -113,6 +113,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                     when (state) {
                         is UiState.Success -> {
                             viewModelShared.LoginData.value = UiState.Success(state.data!!)
+
                             findNavController().navigate(
                                 R.id.nav_main, null,
                                 NavOptions.Builder()
