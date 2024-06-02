@@ -183,7 +183,6 @@ FavClickListener{
     }
 
     private fun fetchData() {
-        fetchGetProfileState()
         fetchUserCityState()
         fetchGetHomeApis()
         fetchGetHomeFeaturedProperties()
@@ -194,7 +193,10 @@ FavClickListener{
         fetchHomeNormalProperties()
         fetchGetHomeExtraSections()
         fetchGetNews()
+        fetchAddRemoveToFavState()
     }
+
+
 
     // -------------------------------------- fetchData -------------------------------------- //
     private fun fetchGetHomeApis(){
@@ -203,7 +205,6 @@ FavClickListener{
                 viewModel.initScreenState.collect(){state->
                     when (state){
                         is UiState.Success->{
-
                             dismissShimmerEffect()
                         }
                         is UiState.Loading->{
@@ -219,6 +220,32 @@ FavClickListener{
                 }
             }
         }
+    }
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.favState.collect(){state->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            viewModel.getHomeApis("1")
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
     }
     private fun fetchGetHomeFeaturedProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -319,9 +346,13 @@ FavClickListener{
                         is UiState.Success -> {
                             val data = state.data
                             if (!data.isNullOrEmpty()){
+                                binding.carouselSliderBetween.visibility = View.VISIBLE
+                                binding.carouselSliderBetweenDots.visibility = View.VISIBLE
                                 setupSliderBetween(parseBetweenCarouselSliderList(data))
                             }else{
                                 binding.carouselSliderBetween.visibility = View.GONE
+                                binding.carouselSliderBetweenDots.visibility = View.GONE
+
                             }
                         }
 
@@ -455,33 +486,6 @@ FavClickListener{
                 }
             }
 
-        }
-    }
-    private fun fetchGetProfileState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getProfileState.collect { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            viewModelShared.profileData.value = UiState.Success(state.data!!)
-                        }
-
-                        is UiState.Error -> {
-                            dismissShimmerEffect()
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                            showShimmerEffect()
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
         }
     }
     private fun fetchUserCityState() {
@@ -866,6 +870,7 @@ FavClickListener{
 
     override fun onFavClick(model: PropertyModel) {
         viewModel.addOrRemoveFav(model.id)
+
     }
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 

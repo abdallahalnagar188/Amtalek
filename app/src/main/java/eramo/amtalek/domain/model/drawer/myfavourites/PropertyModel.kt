@@ -1,5 +1,7 @@
 package eramo.amtalek.domain.model.drawer.myfavourites
 
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.OfferData
+
 data class PropertyModel(
     val id:Int,
     val imageUrl: String,
@@ -19,5 +21,8 @@ data class PropertyModel(
     val rentDuration:String,
     val listingNumber:String,
     val currency:String,
-    val acceptance:String
-)
+    val acceptance:String,
+    val sold:Boolean,
+    val offerData: OfferData?,
+
+    )

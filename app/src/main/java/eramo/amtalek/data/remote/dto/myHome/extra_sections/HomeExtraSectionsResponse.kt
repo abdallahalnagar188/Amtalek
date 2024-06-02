@@ -67,6 +67,8 @@ data class MyData(
     var title: String?,
     @SerializedName("acceptance")
     var acceptance: String?,
+    @SerializedName("sold")
+    var sold: Boolean?,
 ) : Parcelable{
     fun toPropertyModel(): PropertyModel {
         return PropertyModel(
@@ -88,7 +90,10 @@ data class MyData(
             rentDuration = rentDuration?:"",
             listingNumber = listingNumber?:"",
             currency = currency?:"",
-            acceptance = acceptance?:""
+            acceptance = acceptance?:"",
+            sold = sold?:false,
+            offerData = null
+
         )
     }
 

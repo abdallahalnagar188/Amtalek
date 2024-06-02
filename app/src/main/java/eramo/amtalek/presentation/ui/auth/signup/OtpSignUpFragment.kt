@@ -37,7 +37,7 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        LoadingDialog.dismissDialog()
         setupViews()
         listeners()
         fetchData()
@@ -83,7 +83,6 @@ class OtpSignUpFragment : BindingFragment<FragmentOtpBinding>() {
     // -------------------------------------- setupViews -------------------------------------- //
     private fun setupEditTextsListener() {
         binding.apply {
-
             FOtpEtOne.requestFocus()
             FOtpBtnConfirm.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.button_background_long_faded)

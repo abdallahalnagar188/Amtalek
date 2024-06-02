@@ -123,17 +123,95 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_location"
                 tools:text="Lörem ipsum drop shipping Yvonne Isaksson. Avvisningsfrekvens Inger Danielsson sede Åsa Magnusson medelvalens." />
 
-            <View
-                android:id="@+id/view_divider"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:background="#D9D9D9"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/user_toggle_group"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_40sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_bio" />
+                app:layout_constraintTop_toBottomOf="@id/tv_bio"
+                app:singleSelection="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_5sdp"
+                >
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/fav_btn"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/favorite"
+                    android:textColor="@color/amtalek_blue_dark"
+                    android:textSize="@dimen/_6ssp"
+                    app:cornerRadius="@dimen/_4sdp"
+                    app:rippleColor="@color/transparent"
+                    app:strokeColor="@color/amtalek_blue_dark"
+                    />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/submited_offer_btn"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/submitted_offers"
+                    android:textColor="@color/amtalek_blue_dark"
+                    android:textSize="@dimen/_6ssp"
+                    app:rippleColor="@color/transparent"
+                    app:strokeColor="@color/amtalek_blue_dark"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/my_prop_btn"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/my_properties"
+                    android:textColor="@color/amtalek_blue_dark"
+                    android:textSize="@dimen/_6ssp"
+                    app:cornerRadius="@dimen/_4sdp"
+                    app:rippleColor="@color/transparent"
+                    app:strokeColor="@color/amtalek_blue_dark" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fav_Rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_property_preview"
+
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/submitted_offer_Rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:visibility="gone"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/my_properties_Rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:visibility="gone"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,14 +13,24 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.Favorite
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.MyProp
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.OffersItem
 import eramo.amtalek.databinding.FragmentMyProfileBinding
 import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyProfilePostsAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.profile.RvSubmittedOffersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.main.offers.HotOffersViewModel
 import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
@@ -32,24 +42,91 @@ import eramo.amtalek.util.state.UiState
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfilePostsAdapter.OnItemClickListener {
+class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMostViewedPropertiesAdapter.OnItemClickListenerMostViewedProperties,
+    FavClickListener, RvSubmittedOffersAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyProfileBinding::inflate
 
     private val viewModel by viewModels<MyProfileViewModel>()
+    private val hotOffersViewModel by viewModels<HotOffersViewModel>()
+
+
 
     @Inject
-    lateinit var rvMyProfilePostsAdapter: RvMyProfilePostsAdapter
+    lateinit var rvFavPropertiesAdapter: RvHomeMostViewedPropertiesAdapter /// because its the same usage at home fragment so no need to create a new one
+
+
+    @Inject
+    lateinit var rvSubmittedOffersAdapter: RvSubmittedOffersAdapter
+
+    @Inject
+    lateinit var rvMyPropertiesAdapter: RvHomeMostViewedPropertiesAdapter /// because its the same usage at home fragment so no need to create a new one
+
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
         listeners()
-
         requestData()
         fetchData()
+        setupToggle()
+    }
+
+    private fun setupToggle() {
+        binding.userToggleGroup.addOnButtonCheckedListener{ _, checkedId, isChecked ->
+            if (isChecked){
+                when(checkedId){
+                    R.id.fav_btn -> {
+                        binding.apply {
+                            favBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            favBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            submitedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            submitedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            myPropBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            myPropBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submittedOfferRv.visibility = View.GONE
+                            favRv.visibility = View.VISIBLE
+                            myPropertiesRv.visibility = View.GONE
+
+                        }
+                    }
+                    R.id.submited_offer_btn -> {
+                        binding.apply {
+                            submitedOfferBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submitedOfferBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            favBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            favBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            myPropBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            myPropBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submittedOfferRv.visibility = View.VISIBLE
+                            favRv.visibility = View.GONE
+                            myPropertiesRv.visibility = View.GONE
+
+                        }
+                    }
+                    R.id.my_prop_btn -> {
+                        binding.apply {
+                            myPropBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            myPropBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            favBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            favBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submitedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            submitedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submittedOfferRv.visibility = View.GONE
+                            favRv.visibility = View.GONE
+                            myPropertiesRv.visibility = View.VISIBLE
+
+                        }
+                    }
+
+                }
+            }
+        }
+        binding.favBtn.isChecked =true
     }
 
     override fun onPause() {
@@ -91,6 +168,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
 
                         is UiState.Success -> {
                             assignUserData(state.data!!)
+                            assignViewsData(state.data)
                         }
 
                         is UiState.Error -> {
@@ -109,6 +187,42 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
                 }
             }
         }
+    }
+
+    private fun assignViewsData(data: ProfileModel) {
+        initRvMyFavList(data.favList)
+        initRvSubmittedOffersList(data.offers)
+        initRvMyPropertiesList(data.myProperties)
+    }
+
+    private fun initRvMyPropertiesList(myProperties: List<MyProp>) {
+        val data = ArrayList<PropertyModel>()
+        for(item in myProperties){
+            data.add(item.toPropertyModel())
+        }
+        binding.myPropertiesRv.adapter = rvMyPropertiesAdapter
+        rvMyPropertiesAdapter.submitList(data)
+        rvMyPropertiesAdapter.setListener(this, this)
+    }
+
+    private fun initRvSubmittedOffersList(offers: List<OffersItem>) {
+        val data = ArrayList<PropertyModel>()
+        for(item in offers){
+            data.add(item.toProperty())
+        }
+        binding.submittedOfferRv.adapter = rvSubmittedOffersAdapter
+        rvSubmittedOffersAdapter.submitList(data)
+        rvSubmittedOffersAdapter.setListener(this, this)
+    }
+
+    private fun initRvMyFavList(favList: List<Favorite>) {
+        val proptiesList = ArrayList<PropertyModel>()
+        for(item in favList){
+            proptiesList.add(item.toProperty())
+        }
+        binding.favRv.adapter = rvFavPropertiesAdapter
+        rvFavPropertiesAdapter.submitList(proptiesList)
+        rvFavPropertiesAdapter.setListener(this, this)
     }
 
     private fun assignUserData(user: ProfileModel) {
@@ -156,12 +270,18 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvMyProfi
         }
     }
 
-    override fun onPhotosClickPhotosPost(model: MarketPostsModel) {
-        findNavController().navigate(
-            R.id.imagesListFragment,
-            ImagesListFragmentArgs(model.photosList?.toTypedArray() ?: emptyArray()).toBundle(),
-            navOptionsAnimation()
-        )
 
+
+    override fun onMostViewedPropertiesClicked(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())
+    }
+
+    override fun onFeaturedRealEstateClick(model: PropertyModel) {
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+
+    override fun onFavClick(model: PropertyModel) {
+        hotOffersViewModel.addOrRemoveFav(model.id)
     }
 }

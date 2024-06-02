@@ -29,7 +29,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUserYearlyAdapter.OnItemClickListener {
-
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPackagesBinding::inflate
    private val viewModel by viewModels<PackagesViewModel>()
@@ -119,7 +118,7 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUs
                 viewModel.getUserPackageState.collect(){state->
                     when (state){
                         is UiState.Success->{
-                            LoadingDialog.showDialog()
+                            LoadingDialog.dismissDialog()
 
                             val data = state.data
                             initUserYearlyRv(data)
@@ -148,10 +147,19 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUs
         if (UserUtil.getUserType()=="user"){
             viewModel.getUserPackages()
             binding.placeHolder.visibility = View.GONE
+            binding.agencyToggleGroup.visibility = View.GONE
+            binding.agencyTv.visibility = View.GONE
+            binding.agenciesMonthlyRv.visibility = View.GONE
+            binding.agenciesYearlyRv.visibility = View.GONE
+
         }
         if (UserUtil.getUserType()=="broker"){
             viewModel.getAgencyPackages()
             binding.placeHolder.visibility = View.GONE
+            binding.userToggleGroup.visibility = View.GONE
+            binding.userTv.visibility = View.GONE
+            binding.usersMonthlyRv.visibility = View.GONE
+            binding.usersYearlyRv.visibility = View.GONE
         }
     }
 

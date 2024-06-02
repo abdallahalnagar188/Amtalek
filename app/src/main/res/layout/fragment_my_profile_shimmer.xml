@@ -112,35 +112,15 @@
 
     <View
         android:id="@+id/header"
-        android:layout_width="@dimen/_140sdp"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_22sdp"
-        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:background="@color/shimmer_gray"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_bio" />
 
-    <include
-        android:id="@+id/post_one"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        layout="@layout/item_post_shimmer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        />
 
-    <include
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        layout="@layout/item_post_shimmer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/post_one"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

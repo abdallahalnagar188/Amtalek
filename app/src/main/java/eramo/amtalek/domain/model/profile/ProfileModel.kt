@@ -22,5 +22,5 @@ data class ProfileModel (
     val myProperties:List<MyProp>,
     val offers:List<OffersItem>,
     val hasPackage:String,
-    val bio:String
+    val bio:String,
     )

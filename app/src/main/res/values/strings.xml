@@ -737,6 +737,11 @@
     <string name="user_packages">User Packages</string>
     <string name="agencies_packages">Agencies Packages</string>
     <string name="pricing">Pricing</string>
+    <string name="submitted_offers">Submitted Offers</string>
+    <string name="favorite">Favorites</string>
+    <string name="my_properties">My Properties</string>
+    <string name="my_offer">My offer : </string>
+    <string name="status_">Status : </string>
 
 
 </resources>

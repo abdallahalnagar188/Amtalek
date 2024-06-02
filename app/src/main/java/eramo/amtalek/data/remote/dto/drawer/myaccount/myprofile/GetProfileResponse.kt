@@ -3,6 +3,7 @@ package eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import kotlinx.parcelize.Parcelize
 @Parcelize
@@ -101,8 +102,7 @@ data class DataX(
             countryId = country?:-1,
             cityId = city?:-1,
             bio = bio?:"",
-            hasPackage = hasPackage?:""
-
+            hasPackage = hasPackage?:"",
         )
     }
 }
@@ -182,8 +182,37 @@ data class Favorite(
     @SerializedName("sold")
     var sold: Boolean?,
     @SerializedName("title")
-    var title: String?
-) : Parcelable
+    var title: String?,
+    @SerializedName("acceptance")
+    var acceptance: String?
+) : Parcelable{
+    fun toProperty(): PropertyModel{
+        return PropertyModel(
+            id = id?:0,
+            imageUrl = primaryImage?:"",
+            title = title?:"",
+            type = forWhat?:"",
+            isFavourite = isFav?:"",
+            rentPrice = rentPrice?:0,
+            sellPrice = salePrice?:0,
+            bedsCount = bedRoomsNo?:0,
+            bathroomsCount = bathRoomNo?:0,
+            area = landArea?:0,
+            brokerId = (brokerDetails?.id?:0).toString(),
+            brokerLogoUrl = brokerDetails?.companyLogo?:"",
+            location = city?:"",
+            datePosted = createdAt?:"",
+            isFeatured = priority?:"",
+            rentDuration = rentDuration?:"",
+            listingNumber = listingNumber?:"",
+            currency = currency?:"",
+            acceptance = acceptance?:"",
+            sold = sold?:false,
+            offerData = null
+
+        )
+    }
+}
 
 @Parcelize
 data class MyProp(
@@ -228,21 +257,52 @@ data class MyProp(
     @SerializedName("rent_duration")
     var rentDuration: String?,
     @SerializedName("rent_price")
-    var rentPrice: String?,
+    var rentPrice: Int?,
     @SerializedName("sale_price")
     var salePrice: Int?,
     @SerializedName("sold")
     var sold: Boolean?,
     @SerializedName("title")
-    var title: String?
-) : Parcelable
+    var title: String?,
+    @SerializedName("acceptance")
+    var acceptance: String?
+) : Parcelable{
+    fun toPropertyModel(): PropertyModel {
+        return PropertyModel(
+            id = id?:0,
+            imageUrl = primaryImage?:"",
+            title = title?:"",
+            type = forWhat?:"",
+            isFavourite = isFav?:"",
+            rentPrice = rentPrice?:0,
+            sellPrice = salePrice?:0,
+            bedsCount = bedRoomsNo?:0,
+            bathroomsCount = bathRoomNo?:0,
+            area = landArea?:0,
+            brokerId = (brokerDetails?.id?:0).toString(),
+            brokerLogoUrl = brokerDetails?.companyLogo?:"",
+            location = city?:"",
+            datePosted = createdAt?:"",
+            isFeatured = priority?:"",
+            rentDuration = rentDuration?:"",
+            listingNumber = listingNumber?:"",
+            currency = currency?:"",
+            acceptance = acceptance?:"",
+            sold = sold?:false,
+            offerData = null
+        )
+    }
+}
 
 @Parcelize
 data class OfferData(
     @SerializedName("offer")
     var offer: String?,
     @SerializedName("status")
-    var status: String?
+    var status: String?,
+    @SerializedName("offer_status")
+    var offerStatus: String?,
+
 ) : Parcelable
 
 @Parcelize
@@ -251,7 +311,34 @@ data class OffersItem(
     var offerData: OfferData?,
     @SerializedName("property_data")
     var propertyData: List<PropertyData?>?
-) : Parcelable
+) : Parcelable{
+    fun toProperty(): PropertyModel{
+        return PropertyModel(
+            id = propertyData?.get(0)?.id?:0,
+            imageUrl = propertyData?.get(0)?.primaryImage?:"",
+            title = propertyData?.get(0)?.title?:"",
+            type = propertyData?.get(0)?.forWhat?:"",
+            isFavourite = propertyData?.get(0)?.isFav?:"",
+            rentPrice = propertyData?.get(0)?.rentPrice?:0,
+            sellPrice = propertyData?.get(0)?.salePrice?:0,
+            bedsCount = propertyData?.get(0)?.bedRoomsNo?:0,
+            bathroomsCount = propertyData?.get(0)?.bathRoomNo?:0,
+            area = propertyData?.get(0)?.landArea?:0,
+            brokerId = (propertyData?.get(0)?.brokerDetails?.id?:0).toString(),
+            brokerLogoUrl = propertyData?.get(0)?.brokerDetails?.companyLogo?:"",
+            location = propertyData?.get(0)?.city?:"",
+            datePosted = propertyData?.get(0)?.createdAt?:"",
+            isFeatured = propertyData?.get(0)?.priority?:"",
+            rentDuration = propertyData?.get(0)?.rentDuration?:"",
+            listingNumber = propertyData?.get(0)?.listingNumber?:"",
+            currency = propertyData?.get(0)?.currency?:"",
+            acceptance = propertyData?.get(0)?.acceptance?:"",
+            sold = propertyData?.get(0)?.sold?:false,
+            offerData = offerData
+        )
+    }
+
+}
 
 @Parcelize
 data class PropertyData(
@@ -305,7 +392,9 @@ data class PropertyData(
     var sold: Boolean?,
     @SerializedName("title")
     var title: String?
-) : Parcelable
+) : Parcelable{
+
+}
 
 @Parcelize
 data class BrokerDetails(

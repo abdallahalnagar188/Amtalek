@@ -112,7 +112,10 @@ data class MyPropertyDetailsResponse(
                     brokerId = i.brokerDetails?.id.toString() ?: "",
                     brokerLogoUrl = i.brokerDetails?.company_logo ?: NONE_IMAGE_URL,
                     currency = i.currency?:"",
-                    acceptance = i.acceptance?:""
+                    acceptance = i.acceptance?:"",
+                    sold = i.sold?:false,
+                    offerData = null
+
                 )
             )
         }
@@ -243,6 +246,9 @@ data class Data(
     var views: Int?,
     @SerializedName("is_fav")
     var isFav: String?,
+    @SerializedName("sold")
+    var sold: String?,
+
 ) : Parcelable
 @Parcelize
 data class Slider(
@@ -309,6 +315,11 @@ data class SimilarProperty(
     var totalPropertyArea: Int?,
     @SerializedName("acceptance")
     var acceptance: String?,
+    @SerializedName("sold")
+    var sold: Boolean?,
+    @SerializedName("offer_status")
+    var offerStatus: Boolean?,
+
 ) : Parcelable
 @Parcelize
 data class Project(

@@ -133,6 +133,8 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                                 getString(R.string.please_verify_account) -> {
                                     showToast(getString(R.string.please_verify_account_an_email_sent))
                                     viewModel.sendVerificationCodeEmail(binding.FLoginEtMail.text.toString().trim())
+                                    findNavController().navigate(R.id.otpSignUpFragment,OtpSignUpFragmentArgs(binding.FLoginEtMail.text.toString().trim()).toBundle(), navOptionsAnimation())
+
                                 }
 
                                 getString(R.string.suspended_account_string)->{
