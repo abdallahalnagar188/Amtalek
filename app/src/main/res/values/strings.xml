@@ -730,7 +730,7 @@
     <string name="please_enter_a_phone_number">please enter a phone number</string>
     <string name="please_enter_a_message">Please enter a message</string>
     <string name="agency">Agency</string>
-    <string name="or">Or</string>
+    <string name="or">OR</string>
     <string name="per">/</string>
     <string name="comment_added_successfully">Your comment has been sent</string>
     <string name="social_network">Social Network</string>
@@ -742,6 +742,8 @@
     <string name="my_properties">My Properties</string>
     <string name="my_offer">My offer : </string>
     <string name="status_">Status : </string>
+    <string name="sold">SOLD</string>
+    <string name="roi">ROI</string>
 
 
 </resources>

@@ -37,6 +37,8 @@
     <color name="comments_likes_number_gray">#828282</color>
     <color name="text_faded_gray">#AAAAAA</color>
     <color name="green">#34A851</color>
+    <color name="dark_green">#40A578</color>
+
 
     <color name="read_more_color">#6630c6</color>
     <color name="transparent">#00FFFFFF</color>

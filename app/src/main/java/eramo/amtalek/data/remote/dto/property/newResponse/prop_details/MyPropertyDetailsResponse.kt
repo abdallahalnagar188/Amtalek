@@ -55,6 +55,9 @@ data class MyPropertyDetailsResponse(
             payment = "---",
             id = data?.get(0)?.id ?: -1,
             isFavourite = data?.get(0)?.isFav ?: "",
+            sold = data?.get(0)?.sold ?: false,
+            roi = data?.get(0)?.roi ?: "",
+            calcRoi = data?.get(0)?.calcRoi ?: "",
         )
     }
     private fun sliderImagesList(): List<String> {
@@ -247,7 +250,11 @@ data class Data(
     @SerializedName("is_fav")
     var isFav: String?,
     @SerializedName("sold")
-    var sold: String?,
+    var sold: Boolean?,
+    @SerializedName("calc_roi")
+    var calcRoi: String?,
+    @SerializedName("roi")
+    var roi: String?,
 
 ) : Parcelable
 @Parcelize

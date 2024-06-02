@@ -741,6 +741,8 @@
     <string name="my_properties">عقاراتي</string>
     <string name="my_offer">عرضي : </string>
     <string name="status_">الحالة : </string>
+    <string name="sold">تم البيع</string>
+    <string name="roi">العائد علي الاستثمار</string>
 
 
 </resources>

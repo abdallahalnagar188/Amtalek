@@ -310,6 +310,18 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
                 initCommentsRv(data.comments)
                 initSimilarPropertiesRv(data.similarProperties)
+
+                if (data.sold){
+                    soldCardView.visibility = View.VISIBLE
+                }else{
+                    soldCardView.visibility = View.GONE
+                }
+                if (data.calcRoi == "yes"){
+                    roiLayout.tvRoiValue.text = data.roi
+                }else if (data.calcRoi == "no"){
+                    roiLayout.root.visibility = View.GONE
+                }
+
             }
             dismissShimmerEffect()
 
