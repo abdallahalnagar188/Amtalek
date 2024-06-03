@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.drawer.subscription.packages
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
 import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.domain.repository.PackagesRepository
 import eramo.amtalek.util.state.Resource
@@ -16,7 +17,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 @HiltViewModel
 class PackagesViewModel @Inject constructor(
-    val packagesRepository: PackagesRepository
+    private val packagesRepository: PackagesRepository
 ): ViewModel() {
     private val _getUserPackagesState = MutableStateFlow<UiState<List<PackageModel?>>>(UiState.Empty())
     val getUserPackageState:StateFlow<UiState<List<PackageModel?>>> = _getUserPackagesState
@@ -24,6 +25,9 @@ class PackagesViewModel @Inject constructor(
 
     private val _getAgencyPackagesState = MutableStateFlow<UiState<List<PackageModel?>>>(UiState.Empty())
     val getAgencyPackageState:StateFlow<UiState<List<PackageModel?>>> = _getAgencyPackagesState
+
+    private val _subscribeToPackagesState = MutableStateFlow<UiState<SubscribeToPackageResponse>>(UiState.Empty())
+    val subscribeToPackagesState:StateFlow<UiState<SubscribeToPackageResponse>> = _subscribeToPackagesState
 
     private val _initScreenState = MutableStateFlow<UiState<Boolean>>(UiState.Empty())
     val initScreenState: StateFlow<UiState<Boolean>> = _initScreenState
@@ -93,5 +97,27 @@ class PackagesViewModel @Inject constructor(
             }
         }
     }
+    fun subscribeToPackage(actorType:String,duration:String,packageId:String){
+        viewModelScope.launch {
+            withContext(coroutineContext){
+                packagesRepository.subscribeToPackage(actorType = actorType, duration = duration, packageId = packageId).collect(){
+                    when (it){
+                        is Resource.Success->{
+                            val data= it.data
+                            _subscribeToPackagesState.emit(UiState.Success(data))
+                        }
+                        is Resource.Error->{
+                            val error= it.message
+                            _subscribeToPackagesState.emit(UiState.Error(error!!))
 
+                        }
+                        is Resource.Loading->{
+                            _subscribeToPackagesState.emit(UiState.Loading())
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 }

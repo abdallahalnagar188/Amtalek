@@ -30,6 +30,7 @@ import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
+import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -235,8 +236,18 @@ interface AmtalekApi {
     //packages
     @GET("packages/{type}")
     suspend fun getPackages(
+
         @Path ("type") type:String,
     ): Response<PackagesResponse>
+
+    @FormUrlEncoded
+    @POST("subscribe-package")
+    suspend fun subscribeToPackage(
+        @Header("Authorization") userToken: String?,
+        @Field("package_id") packageId:String,
+        @Field("duration") duration:String,
+        @Field("actor_type") actorType:String,
+    ):Response<SubscribeToPackageResponse>
 
 
     //____________________________________________________________________________________________//

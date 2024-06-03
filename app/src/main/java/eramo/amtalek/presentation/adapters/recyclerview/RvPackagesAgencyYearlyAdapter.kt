@@ -1,6 +1,5 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 class RvPackagesAgencyYearlyAdapter @Inject constructor() :
     ListAdapter<PackageModel, RvPackagesAgencyYearlyAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
-    private lateinit var listener: OnItemClickListener
+    private lateinit var listener: AgencyYearlyClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPackagesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,10 +27,10 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
+            binding.btnSelect.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onSelectClick(it)
+//                        listener.onPlanClick(it)
                     }
                 }
             }
@@ -66,19 +65,19 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
 
 
                 btnSelect.setOnClickListener {
-                    listener.onSelectClick(model)
+                    listener.onAgencyYearlyPlanClick(model)
                 }
             }
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: AgencyYearlyClickListener) {
         this.listener = listener
     }
-
-    interface OnItemClickListener {
-        fun onSelectClick(model: PackageModel)
+    interface AgencyYearlyClickListener {
+        fun onAgencyYearlyPlanClick(model: PackageModel)
     }
+
 
     //check difference
     companion object {

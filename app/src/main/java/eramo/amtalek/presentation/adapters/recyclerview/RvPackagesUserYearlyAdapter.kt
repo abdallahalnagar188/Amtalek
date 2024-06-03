@@ -1,6 +1,5 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 class RvPackagesUserYearlyAdapter @Inject constructor() :
     ListAdapter<PackageModel, RvPackagesUserYearlyAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
-    private lateinit var listener: OnItemClickListener
+    private lateinit var listener: UserYearlyClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPackagesUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,7 +27,7 @@ class RvPackagesUserYearlyAdapter @Inject constructor() :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
+            binding.btnSelect.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
 //                        listener.onSelectClick(it)
@@ -61,20 +60,19 @@ class RvPackagesUserYearlyAdapter @Inject constructor() :
 
 
                 btnSelect.setOnClickListener {
-                    listener.onSelectClick(model)
+                    listener.onUserYearlyClick(model)
                 }
             }
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: UserYearlyClickListener) {
         this.listener = listener
     }
 
-    interface OnItemClickListener {
-        fun onSelectClick(model: PackageModel)
+    interface UserYearlyClickListener {
+        fun onUserYearlyClick(model: PackageModel)
     }
-
     //check difference
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PackageModel>() {

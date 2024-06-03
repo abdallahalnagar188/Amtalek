@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.ui.drawer.subscription.packages
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -21,23 +20,24 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvPackagesUserMonthlyAda
 import eramo.amtalek.presentation.adapters.recyclerview.RvPackagesUserYearlyAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUserYearlyAdapter.OnItemClickListener {
+class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUserMonthlyAdapter.UserMonthlyClickListener,RvPackagesUserYearlyAdapter.UserYearlyClickListener,
+RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyAdapter.AgencyMonthlyClickListener{
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPackagesBinding::inflate
    private val viewModel by viewModels<PackagesViewModel>()
 
     @Inject
     lateinit var rvUserPackagesMonthlyAdapter: RvPackagesUserMonthlyAdapter
+
     @Inject
     lateinit var rvUserPackagesYearlyAdapter: RvPackagesUserYearlyAdapter
-
+    ////////////////////////////----------------------------------------////////////////////////////
     @Inject
     lateinit var rvAgencyPackagesMonthlyAdapter: RvPackagesAgencyMonthlyAdapter
 
@@ -55,6 +55,32 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUs
         fetchUserPackages()
         fetchAgencyPackages()
         fetchUserAndAgencyPackages()
+        fetchSubscribeToPackage()
+    }
+
+    private fun fetchSubscribeToPackage() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.subscribeToPackagesState.collect(){state->
+                    when (state){
+                        is UiState.Success->{
+                            LoadingDialog.dismissDialog()
+                            Toast.makeText(requireContext(), state.data?.message, Toast.LENGTH_SHORT).show()
+                        }
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Error->{
+                            LoadingDialog.dismissDialog()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
     }
 
     private fun fetchUserAndAgencyPackages() {
@@ -239,23 +265,41 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUs
     private fun initAgencyMonthlyRv(data: List<PackageModel?>?) {
         binding.agenciesMonthlyRv.adapter = rvAgencyPackagesMonthlyAdapter
         rvAgencyPackagesMonthlyAdapter.submitList(data)
+        rvAgencyPackagesMonthlyAdapter.setListener(this)
     }
     private fun initAgencyYearlyRv(data: List<PackageModel?>?) {
         binding.agenciesYearlyRv.adapter = rvAgencyPackagesYearlyAdapter
         rvAgencyPackagesYearlyAdapter.submitList(data)
+        rvAgencyPackagesYearlyAdapter.setListener(this)
+
     }
     private fun initUserMonthlyRv(data: List<PackageModel?>?) {
         binding.usersMonthlyRv.adapter = rvUserPackagesMonthlyAdapter
         rvUserPackagesMonthlyAdapter.submitList(data)
+        rvUserPackagesMonthlyAdapter.setListener(this)
+
     }
     private fun initUserYearlyRv(data: List<PackageModel?>?) {
         binding.usersYearlyRv.adapter = rvUserPackagesYearlyAdapter
         rvUserPackagesYearlyAdapter.submitList(data)
+        rvUserPackagesYearlyAdapter.setListener(this)
+
     }
 
+    override fun onAgencyMonthlyClick(model: PackageModel) {
+        viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
+    }
 
-    override fun onSelectClick(model: PackageModel) {
+    override fun onAgencyYearlyPlanClick(model: PackageModel) {
+        viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
+    }
 
+    override fun onUserMonthlyClick(model: PackageModel) {
+        viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "user")
+    }
+
+    override fun onUserYearlyClick(model: PackageModel) {
+        viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "user")
     }
 }
 

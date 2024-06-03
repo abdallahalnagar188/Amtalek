@@ -1,6 +1,5 @@
 package eramo.amtalek.domain.model.drawer
 
-import com.google.gson.annotations.SerializedName
 
 data class PackageModel(
     val accountingModule: String,
