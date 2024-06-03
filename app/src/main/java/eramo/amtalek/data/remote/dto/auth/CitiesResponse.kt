@@ -23,11 +23,13 @@ data class CitiesResponse(
         val rentProperties: Int?,
         @SerializedName("sale_properties")
         val saleProperties: Int?,
-        @SerializedName("title")
-        val title: String?
+        @SerializedName("title_en")
+        val titleEn: String?,
+        @SerializedName("title_ar")
+        val titleAr: String?,
     ) {
         fun toCityModel(): CityModel {
-            return CityModel(id ?: -1, title ?: "", image = image?:"", properties = properties?:-1, rentProperties = rentProperties?:-1, saleProperties = saleProperties?:-1)
+            return CityModel(id ?: -1, titleEn = titleEn ?: "", titleAr = titleAr?:"", image = image?:"", properties = properties?:-1, rentProperties = rentProperties?:-1, saleProperties = saleProperties?:-1)
         }
     }
 }

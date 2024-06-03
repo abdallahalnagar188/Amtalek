@@ -10,12 +10,15 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemChooseCityRvBinding
 import eramo.amtalek.databinding.ItemChooseCountryRvBinding
+import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
+import eramo.amtalek.util.LocalUtil
+import eramo.amtalek.util.UserUtil
 import javax.inject.Inject
 
 
 class RvSelectCityAdapter @Inject constructor() :
-    ListAdapter<CountryModel, RvSelectCityAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<CityModel, RvSelectCityAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
     var selectedPosition: Int = RecyclerView.NO_POSITION
 
@@ -39,10 +42,14 @@ class RvSelectCityAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: CountryModel) {
+        fun bind(model: CityModel) {
             binding.apply {
-                tvTitle.text = model.name
-                Glide.with(itemView).load(model.imageUrl).into(ivFlag)
+                if (LocalUtil.isEnglish()){
+                    tvTitle.text = model.titleEn
+                }else{
+                    tvTitle.text = model.titleAr
+                }
+                Glide.with(itemView).load(model.image).into(ivFlag)
 
                 if (selectedPosition == bindingAdapterPosition) {
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.black)
@@ -65,20 +72,20 @@ class RvSelectCityAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onCityClick(model: CountryModel)
+        fun onCityClick(model: CityModel)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<CountryModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<CityModel>() {
             override fun areItemsTheSame(
-                oldItem: CountryModel,
-                newItem: CountryModel
+                oldItem: CityModel,
+                newItem: CityModel
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: CountryModel,
-                newItem: CountryModel
+                oldItem: CityModel,
+                newItem: CityModel
             ) = oldItem == newItem
         }
     }

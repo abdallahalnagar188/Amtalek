@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import eramo.amtalek.databinding.CitySpinnerItemBinding
 import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.util.LocalUtil
 
 
 class CitiesSpinnerAdapter(context: Context, list: List<CityModel>) :
@@ -39,8 +40,11 @@ class CitiesSpinnerAdapter(context: Context, list: List<CityModel>) :
 //            } else {
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
-
-            tvCityName.text = getItem(position)?.name
+            if (LocalUtil.isEnglish()){
+                tvCityName.text = getItem(position)?.titleEn
+            }else{
+                tvCityName.text = getItem(position)?.titleAr
+            }
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }
 

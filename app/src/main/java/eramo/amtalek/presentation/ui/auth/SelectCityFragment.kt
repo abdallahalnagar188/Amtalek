@@ -11,10 +11,12 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSelectCityBinding
+import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvSelectCityAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSelectCountryAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.util.LocalUtil
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,7 +43,7 @@ class SelectCityFragment : BindingFragment<FragmentSelectCityBinding>(), RvSelec
 
     private fun setupViews() {
         initCountriesRv(generateCountries())
-        initCitiesRv(generateCities())
+//        initCitiesRv(generateCities())
     }
 
     private fun listeners() {
@@ -61,7 +63,7 @@ class SelectCityFragment : BindingFragment<FragmentSelectCityBinding>(), RvSelec
         rvSelectCountryAdapter.submitList(data)
     }
 
-    private fun initCitiesRv(data: List<CountryModel>) {
+    private fun initCitiesRv(data: List<CityModel>) {
         rvSelectCityAdapter.setListener(this@SelectCityFragment)
         binding.rvCities.adapter = rvSelectCityAdapter
         rvSelectCityAdapter.submitList(data)
@@ -134,7 +136,11 @@ class SelectCityFragment : BindingFragment<FragmentSelectCityBinding>(), RvSelec
         Glide.with(requireContext()).load(model.imageUrl).into(binding.btnIvCountryFlag)
     }
 
-    override fun onCityClick(model: CountryModel) {
-        binding.btnTvCityName.text = model.name
+    override fun onCityClick(model: CityModel) {
+        if (LocalUtil.isEnglish()){
+            binding.btnTvCityName.text = model.titleEn
+        }else{
+            binding.btnTvCityName.text = model.titleAr
+        }
     }
 }

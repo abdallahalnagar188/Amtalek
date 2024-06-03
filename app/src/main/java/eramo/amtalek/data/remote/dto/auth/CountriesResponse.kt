@@ -16,13 +16,16 @@ data class CountriesResponse(
         @SerializedName("id")
         val id: Int?,
         @SerializedName("title")
-        val title: String?
+        val title: String?,
+        @SerializedName("image")
+        val image: String?,
+
     ) {
         fun toCountryModel(): CountryModel {
             return CountryModel(
-                id ?: -1,
-                title ?: "",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/220px-Flag_of_Egypt.svg.png"
+                id = id ?: -1,
+                name = title ?: "",
+                imageUrl = image?:"",
             )
         }
     }

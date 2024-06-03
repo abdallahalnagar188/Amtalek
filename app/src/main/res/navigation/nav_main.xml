@@ -398,5 +398,10 @@
             android:name="citiesList"
             app:argType="eramo.amtalek.domain.model.main.home.PropertiesByCityModel[]" />
     </fragment>
+    <dialog
+        android:id="@+id/filterCitiesDialogFragment"
+        android:name="eramo.amtalek.presentation.ui.dialog.filtercitydialogfragment.FilterCitiesDialogFragment"
+        android:label="fragment_filter_cities_dialog"
+        tools:layout="@layout/fragment_filter_cities_dialog" />
 
 </navigation>

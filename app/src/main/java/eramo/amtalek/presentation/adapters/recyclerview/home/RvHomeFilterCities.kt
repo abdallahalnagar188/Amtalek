@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.HomeFilterCitiesItemBinding
 import eramo.amtalek.domain.model.auth.CityModel
+import eramo.amtalek.util.LocalUtil
 import javax.inject.Inject
 
 
@@ -41,8 +42,11 @@ class RvHomeFilterCities @Inject constructor() :
 
         fun bind(model: CityModel) {
             binding.apply {
-                tv.text = model.name
-
+                if (LocalUtil.isEnglish()){
+                    tv.text = model.titleEn
+                }else{
+                    tv.text = model.titleAr
+                }
                 Glide.with(itemView.context).load(R.drawable.ic_city).into(iv)
             }
         }

@@ -21,7 +21,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
@@ -30,8 +29,6 @@ import eramo.amtalek.domain.model.home.HomeExtraSectionsModel
 import eramo.amtalek.domain.model.home.cities.CitiesModel
 import eramo.amtalek.domain.model.home.news.NewsModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
-import eramo.amtalek.domain.model.main.home.NewsModelx
-import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFifthExtraSectionAdapter
@@ -44,12 +41,13 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSecondExtraSe
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNormalPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.FilterCitiesDialogFragment
+import eramo.amtalek.presentation.ui.dialog.filtercitydialogfragment.FilterCitiesDialogFragment
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
@@ -157,13 +155,8 @@ FavClickListener{
     private fun listeners() {
         binding.apply {
 
-            val filterCitiesDialogFragment = FilterCitiesDialogFragment()
-//            filterCitiesDialogFragment.setListener(this@HomeFragment)
             inToolbar.spinnerLayout.setOnClickListener {
-                filterCitiesDialogFragment.show(
-                    activity?.supportFragmentManager!!,
-                    "FilterCitiesDialogFragment"
-                )
+              findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
             }
 
             inToolbar.inNotification.root.setOnClickListener {
@@ -179,7 +172,7 @@ FavClickListener{
     }
 
     private fun requestApis() {
-        viewModel.getHomeApis("1")
+        viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId())
     }
 
     private fun fetchData() {
@@ -576,6 +569,16 @@ FavClickListener{
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
             }
+        }
+        if (LocalUtil.isEnglish()){
+            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
+
+        }else{
+            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
+        }
+        if (UserUtil.getCityFiltrationTitleAr().isEmpty()&&UserUtil.getCityFiltrationTitleEn().isEmpty()){
+            binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.select_city)
+
         }
     }
 

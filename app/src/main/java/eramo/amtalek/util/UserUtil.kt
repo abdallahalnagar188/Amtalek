@@ -34,6 +34,12 @@ object UserUtil {
     private const val PROFILE_IMAGE_URL = "user_profile_image_url"
     private const val COVER_IMAGE_URL = "user_cover_image_url"
 
+
+    private const val CITY_FILTRATION_ID = "city_filtration"
+    private const val CITY_FILTRATION_TITLE_EN = "city_filtration_en"
+    private const val CITY_FILTRATION_TITLE_AR = "city_filtration_ar"
+    private const val COUNTRY_FILTRATION_ID = "country_filtration_id"
+
     private const val HAS_DEEP_LINK = "HAS_DEEP_LINK"
 
 
@@ -149,4 +155,38 @@ object UserUtil {
     fun hasDeepLink() = sharedPreferences.getBoolean(HAS_DEEP_LINK, false)
     fun saveFireBaseToken(token:String)= sharedPreferences.edit().putString(FIREBASE_TOKEN,token).apply()
     fun getFireBaseToken()= sharedPreferences.getString(FIREBASE_TOKEN,"")
+
+
+
+
+    fun saveUserCityFiltrationId(cityId: String) {
+        sharedPreferences.edit().putString(CITY_FILTRATION_ID, cityId).apply()
+    }
+
+    fun saveUserCityFiltrationTitleEn(cityTitleEn: String) {
+        sharedPreferences.edit().putString(CITY_FILTRATION_TITLE_EN, cityTitleEn).apply()
+    }
+
+    fun saveUserCityFiltrationTitleAr(cityTitleAr: String) {
+        sharedPreferences.edit().putString(CITY_FILTRATION_TITLE_AR, cityTitleAr).apply()}
+
+    fun saveUserCountryFiltrationTitleId(countryId: String) {
+        sharedPreferences.edit().putString(COUNTRY_FILTRATION_ID, countryId).apply()}
+
+
+    fun getCityFiltrationId():String{
+        return sharedPreferences.getString(CITY_FILTRATION_ID, "0")!!
+    }
+
+    fun getCityFiltrationTitleEn():String{
+        return sharedPreferences.getString(CITY_FILTRATION_TITLE_EN, "")!!
+    }
+
+    fun getCityFiltrationTitleAr():String{
+        return sharedPreferences.getString(CITY_FILTRATION_TITLE_AR, "")!!
+    }
+
+    fun getUserCountryFiltrationTitleId():String{
+        return sharedPreferences.getString(COUNTRY_FILTRATION_ID, "")!!
+    }
 }
