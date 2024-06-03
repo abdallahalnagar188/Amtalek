@@ -743,6 +743,7 @@
     <string name="status_">الحالة : </string>
     <string name="sold">تم البيع</string>
     <string name="roi">العائد علي الاستثمار</string>
+    <string name="visit_your_dashboard">أذهب للوحة التحكم</string>
 
 
 </resources>

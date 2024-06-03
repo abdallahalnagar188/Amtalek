@@ -20,6 +20,8 @@ import eramo.amtalek.presentation.adapters.viewpager.HotOffersTypesPagerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
+import eramo.amtalek.util.LocalUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
@@ -43,14 +45,39 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hotOffersViewModel.getHotOffers()
+        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
         setUpObservers()
         setupViews()
+        listeners()
+    }
+
+    private fun listeners() {
+        binding.inToolbar.spinnerLayout.setOnClickListener {
+            findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
+        }
+
+    }
+    private fun initToolbar() {
+        binding.inToolbar.apply {
+            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
+            inNotification.root.setOnClickListener {
+                findNavController().navigate(R.id.notificationFragment)
+            }
+        }
+        if (LocalUtil.isEnglish()){
+            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
+
+        }else{
+            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
+        }
+        if (UserUtil.getCityFiltrationTitleAr().isEmpty()&&UserUtil.getCityFiltrationTitleEn().isEmpty()){
+            binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.select_city)
+
+        }
     }
 
     private fun setupViews() {
-        setupToolbar()
-
+        initToolbar()
         setupTabLayoutPager()
     }
     private fun setUpObservers() {
@@ -79,12 +106,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         }
     }
 
-    private fun setupToolbar() {
-        binding.inToolbar.apply {
-            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-//            tvTitle.text = getString(R.string.hot_offer_title)
-        }
-    }
+
 
     private fun setupTabLayoutPager() {
         val hotOffersTypesPagerAdapter = HotOffersTypesPagerAdapter(childFragmentManager, lifecycle)

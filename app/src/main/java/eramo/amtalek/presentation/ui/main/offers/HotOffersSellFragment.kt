@@ -25,6 +25,7 @@ import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
@@ -68,7 +69,7 @@ FavClickListener{
 
     override fun onResume() {
         super.onResume()
-        hotOffersViewModel.getHotOffers()
+        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
 
     }
     override fun onPause() {

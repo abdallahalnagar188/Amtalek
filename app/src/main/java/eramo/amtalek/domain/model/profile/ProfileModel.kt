@@ -23,4 +23,5 @@ data class ProfileModel (
     val offers:List<OffersItem>,
     val hasPackage:String,
     val bio:String,
+
     )

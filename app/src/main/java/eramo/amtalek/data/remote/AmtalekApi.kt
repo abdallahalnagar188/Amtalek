@@ -231,6 +231,7 @@ interface AmtalekApi {
     @GET("mobile/hot-offers")
     suspend fun getHotOffers(
         @Header("Authorization") userToken: String?,
+        @Query("country_id") countryId: String?,
     ): Response<HotOffersResponse>
 
     //packages

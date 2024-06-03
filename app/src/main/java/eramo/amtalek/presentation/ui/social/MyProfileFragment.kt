@@ -1,6 +1,9 @@
 package eramo.amtalek.presentation.ui.social
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -68,12 +71,29 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        checkActorType()
         setupViews()
         listeners()
-        requestData()
         fetchData()
         setupToggle()
+        Log.e("dash", UserUtil.getDashboardLink()!! )
+
+    }
+
+    private fun checkActorType() {
+        if (UserUtil.getUserType()=="user"){
+            binding.btnDashboard.visibility = View.GONE
+            requestData()
+        }else if (UserUtil.getUserType()=="broker"){
+            binding.tvUserName.text = UserUtil.getBrokerName()
+            binding.tvLocation.text = UserUtil.getUserEmail()
+            binding.btnDashboard.visibility = View.VISIBLE
+            binding.ivEdit.visibility = View.GONE
+            binding.userToggleGroup.visibility = View.GONE
+            binding.favRv.visibility = View.GONE
+            binding.submittedOfferRv.visibility = View.GONE
+            binding.myPropertiesRv.visibility = View.GONE
+        }
     }
 
     private fun setupToggle() {
@@ -149,7 +169,11 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                 )
             }
         }
-
+    binding.btnDashboard.setOnClickListener {
+        val url = UserUtil.getDashboardLink()
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent,)
+    }
     }
 
     private fun requestData() {

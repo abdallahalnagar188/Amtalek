@@ -409,9 +409,16 @@ class MainActivity : AppCompatActivity(),
     private fun setUserInfo() {
         if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
-                navHeaderTvUserName.text =
-                    getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
-                navHeaderTvUserCity.text = UserUtil.getCityName()
+                if (UserUtil.getUserType() == "user"){
+                    navHeaderTvUserName.text =
+                        getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
+                    navHeaderTvUserCity.text = UserUtil.getCityName()
+                }else if (UserUtil.getUserType()=="broker"){
+                    navHeaderTvUserName.text = UserUtil.getBrokerName()
+                    navHeaderTvUserCity.text = UserUtil.getUserPhone()
+                }
+
+
 
                 navHeaderTvSignOut.text = getString(R.string.sign_out)
 

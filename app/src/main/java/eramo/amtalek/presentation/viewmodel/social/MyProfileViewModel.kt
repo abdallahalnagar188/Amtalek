@@ -63,7 +63,7 @@ class MyProfileViewModel @Inject constructor(
             firstName = user.firstName, lastName = user.lastName, phone = user.phone,
            email =  user.email, countryId =  user.countryId.toString(),
             countryName = user.countryName, cityName = user.cityName.toString(), cityId = user.cityId.toString(), userBio =  user.bio, profileImageUrl = user.image,
-            userType = user.actorType?:"", hasPackage = user.hasPackage
+            userType = user.actorType?:"", hasPackage = user.hasPackage,brokerName = "",dashboardLink = user.dashboardLink?:""
         )
     }
 }

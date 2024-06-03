@@ -23,12 +23,18 @@ object UserUtil {
     private const val EMAIL = "user_email"
     private const val HAS_PACKAGE = "has_package"
 
+    private const val BROKER_NAME = "broker_name"
+    private const val BROKER_DASHBOARD_LINK = "broker_dashboard_link"
+
+
     private const val COUNTRY_ID = "country_id"
     private const val COUNTRY_NAME = "country_name"
 
     private const val CITY_ID = "city_id"
     private const val CITY_NAME = "city_name"
     private const val FIREBASE_TOKEN= "fireBaseToken"
+
+
 
     private const val USER_BIO = "user_bio"
     private const val PROFILE_IMAGE_URL = "user_profile_image_url"
@@ -72,7 +78,9 @@ object UserUtil {
         cityName: String,
         userBio: String,
         profileImageUrl: String,
-        hasPackage:String
+        hasPackage:String,
+        brokerName:String,
+        dashboardLink:String
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
@@ -94,6 +102,8 @@ object UserUtil {
         sharedPreferences.edit().putString(USER_BIO, userBio).apply()
         sharedPreferences.edit().putString(PROFILE_IMAGE_URL, profileImageUrl).apply()
         sharedPreferences.edit().putString(HAS_PACKAGE,hasPackage).apply()
+        sharedPreferences.edit().putString(BROKER_NAME,brokerName).apply()
+        sharedPreferences.edit().putString(BROKER_DASHBOARD_LINK,dashboardLink).apply()
     }
 
     fun clearUserInfo() {
@@ -119,6 +129,14 @@ object UserUtil {
         sharedPreferences.edit().putString(PROFILE_IMAGE_URL, "").apply()
         sharedPreferences.edit().putString(COVER_IMAGE_URL, "").apply()
         sharedPreferences.edit().putString(HAS_PACKAGE,"").apply()
+        sharedPreferences.edit().putString(FIREBASE_TOKEN,"").apply()
+        sharedPreferences.edit().putString(CITY_FILTRATION_ID, "").apply()
+        sharedPreferences.edit().putString(CITY_FILTRATION_TITLE_EN, "").apply()
+        sharedPreferences.edit().putString(CITY_FILTRATION_TITLE_AR, "").apply()
+        sharedPreferences.edit().putString(COUNTRY_FILTRATION_ID, "").apply()
+        sharedPreferences.edit().putString(BROKER_NAME,"").apply()
+        sharedPreferences.edit().putString(BROKER_DASHBOARD_LINK,"").apply()
+
     }
 
     fun saveFirstTime() = sharedPreferences.edit().putBoolean(IS_FIRST_TIME, false).apply()
@@ -156,8 +174,10 @@ object UserUtil {
     fun saveFireBaseToken(token:String)= sharedPreferences.edit().putString(FIREBASE_TOKEN,token).apply()
     fun getFireBaseToken()= sharedPreferences.getString(FIREBASE_TOKEN,"")
 
+    fun getBrokerName()= sharedPreferences.getString(BROKER_NAME,"")
 
-
+    fun saveDashboardLink(link:String)= sharedPreferences.edit().putString(BROKER_DASHBOARD_LINK,link).apply()
+    fun getDashboardLink()= sharedPreferences.getString(BROKER_DASHBOARD_LINK,"")
 
     fun saveUserCityFiltrationId(cityId: String) {
         sharedPreferences.edit().putString(CITY_FILTRATION_ID, cityId).apply()

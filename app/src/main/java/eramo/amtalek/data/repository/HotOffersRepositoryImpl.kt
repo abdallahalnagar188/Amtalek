@@ -14,9 +14,12 @@ import javax.inject.Inject
 class HotOffersRepositoryImpl @Inject constructor(
     private val amtalekApi: AmtalekApi
 ):HotOffersRepository {
-    override suspend fun getHotOffers(): Flow<Resource<HotOffersResponse>> {
+    override suspend fun getHotOffers(countryId:String?): Flow<Resource<HotOffersResponse>> {
         return flow {
-            val result  = toResultFlow { amtalekApi.getHotOffers(if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null)}
+            val result  = toResultFlow { amtalekApi.getHotOffers(userToken = if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null
+                ,countryId = countryId)
+
+            }
             result.collect(){
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())

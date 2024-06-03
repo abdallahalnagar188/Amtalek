@@ -120,7 +120,9 @@ class LoginViewModel @Inject constructor(
             userBio = userModel.bio,
            profileImageUrl =  userModel.userImage,
             userType = userModel.actorType,
-            hasPackage = userModel.hasPackage
+            hasPackage = userModel.hasPackage,
+            brokerName = userModel.name?:"",
+            dashboardLink = userModel.dashboardLink?:""
         )
     }
 }

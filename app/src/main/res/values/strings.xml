@@ -744,6 +744,7 @@
     <string name="status_">Status : </string>
     <string name="sold">SOLD</string>
     <string name="roi">ROI</string>
+    <string name="visit_your_dashboard">Visit your dashboard</string>
 
 
 </resources>

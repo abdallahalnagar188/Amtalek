@@ -103,6 +103,7 @@ data class DataX(
             cityId = city?:-1,
             bio = bio?:"",
             hasPackage = hasPackage?:"",
+
         )
     }
 }

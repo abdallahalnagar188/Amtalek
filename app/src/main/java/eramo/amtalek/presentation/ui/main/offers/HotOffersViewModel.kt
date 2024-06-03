@@ -12,6 +12,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.HotOffersRepository
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -50,11 +51,11 @@ class HotOffersViewModel @Inject constructor(
     //////////////////////////////////////////
     private var getHotOffersJob: Job? = null
     //////////////////////////////////////////
-    fun getHotOffers(){
+    fun getHotOffers(countryId:String){
         getHotOffersJob?.cancel()
         getHotOffersJob = viewModelScope.launch {
             withContext(coroutineContext){
-                repository.getHotOffers().collect(){
+                repository.getHotOffers(countryId).collect(){
                     when (it){
                         is Resource.Success -> {
                             val projectsList:ArrayList<ProjectModel> = ArrayList()
