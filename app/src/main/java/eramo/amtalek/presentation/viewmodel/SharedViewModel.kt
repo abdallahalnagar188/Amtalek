@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,6 +28,11 @@ class SharedViewModel @Inject constructor(
     val profileData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
     val LoginData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
     val dateString = MutableLiveData<String?>(null)
+
+
+    val profileImageUri = MutableLiveData<Uri?>(null)
+    val profileNameState = MutableLiveData<String?>(null)
+    val profileCityState  = MutableLiveData<String?>(null)
 
     //____________________________________________________________________________________________//
 

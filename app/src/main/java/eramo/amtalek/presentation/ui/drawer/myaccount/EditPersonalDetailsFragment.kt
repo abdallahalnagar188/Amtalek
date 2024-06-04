@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.databinding.ActivityMainBinding
 import eramo.amtalek.databinding.FragmentEditPersonalDetailsBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
@@ -46,6 +47,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     private val viewModel by viewModels<EditPersonalDetailsViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
 
+
     private lateinit var GetProfileModel: ProfileModel
     private var selectedCountryId = -1
     private var selectedCityId = -1
@@ -63,6 +65,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     val fileUri = data?.data!!
                     profileImageUri = fileUri
                     binding.ivProfile.setImageURI(fileUri)
+                    viewModel.updateProfilePics("main", fileUri)
                 }
 
                 ImagePicker.RESULT_ERROR -> {
@@ -85,6 +88,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                     val fileUri = data?.data!!
                     coverImageUri = fileUri
                     binding.ivCover.setImageURI(fileUri)
+                    viewModel.updateProfilePics("cover", fileUri)
+
                 }
 
                 ImagePicker.RESULT_ERROR -> {
@@ -144,6 +149,7 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
         fetchCities()
         fetchGetProfileState()
         fetchUpdateProfileState()
+        fetchUpdateProfilePics()
     }
 
     // -------------------------------------- setupViews -------------------------------------- //
@@ -229,7 +235,6 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
             val lastname = etLastName.text.toString().trim()
             val mobileNumber = etMobileNumber.text.toString().trim()
             val email = etEmail.text.toString().trim()
-            val bio = etBio.text.toString().trim()
 
             if (TextUtils.isEmpty(firstName)) {
                 tilFirstName.error = getString(R.string.first_name_is_required)
@@ -282,18 +287,14 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                 return
             }
 
-            viewModel.updateProfile(
+            viewModel.editProfile(
                 firstName,
                 lastname,
                 mobileNumber,
                 email,
                 selectedCountryId.toString(),
                 selectedCityId.toString(),
-                bio,
-                profileImageUri,
-                coverImageUri
             )
-
             profileImageUri = null
             coverImageUri = null
         }
@@ -310,6 +311,8 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
                             assignDataToTheViews(GetProfileModel)
 
                             viewModel.getCountries()
+                            viewModelShared.profileCityState.value = state.data.cityName
+                            viewModelShared.profileNameState.value = state.data.firstName + " " + state.data.lastName
                         }
 
                         is UiState.Error -> {
@@ -333,11 +336,40 @@ class EditPersonalDetailsFragment : BindingFragment<FragmentEditPersonalDetailsB
     private fun fetchUpdateProfileState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.updateProfileState.collect { state ->
+                viewModel.editProfileState.collect { state ->
                     when (state) {
 
                         is UiState.Success -> {
                             dismissShimmerEffect()
+                            showToast(state.data?.message!!)
+                        }
+
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun fetchUpdateProfilePics() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.updateProfilePics.collect { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            dismissShimmerEffect()
+                            viewModelShared.profileImageUri.value = profileImageUri
                             showToast(state.data?.message!!)
                         }
 

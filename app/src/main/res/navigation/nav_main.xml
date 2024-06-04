@@ -403,5 +403,10 @@
         android:name="eramo.amtalek.presentation.ui.dialog.filtercitydialogfragment.FilterCitiesDialogFragment"
         android:label="fragment_filter_cities_dialog"
         tools:layout="@layout/fragment_filter_cities_dialog" />
+    <fragment
+        android:id="@+id/loadingFragment"
+        android:name="eramo.amtalek.data.remote.dto.loading.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" />
 
 </navigation>

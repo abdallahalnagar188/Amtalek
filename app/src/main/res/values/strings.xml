@@ -561,8 +561,6 @@
     <string name="s_accounting_module">ACCOUNTING MODULE: %s</string>
 
 
-
-
     <string name="s_extra_lead">+Extra Lead: %s EGP</string>
     <string name="select_this_plan">Select this plan</string>
     <string name="egp_month">EGP/Month</string>

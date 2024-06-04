@@ -87,7 +87,7 @@ class FilterCitiesDialogFragment : BottomSheetDialogFragment(), RvSelectCountryA
             UserUtil.saveUserCityFiltrationTitleEn(cityNameEn)
             UserUtil.saveUserCityFiltrationTitleAr(cityNameAr)
             dismiss()
-            findNavController().navigate(R.id.homeFragment,null, navOptionsAnimation())
+            findNavController().navigate(R.id.loadingFragment)
         }
     }
     private fun fetchCities() {

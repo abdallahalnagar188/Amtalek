@@ -9,6 +9,7 @@ import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.AllRequestsResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
+import eramo.amtalek.data.remote.dto.editprofile.EditProfileResponse
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
@@ -288,6 +289,16 @@ interface AmtalekApi {
         @Path("type")type:String,
         @Path("id")id:String
     ): Response<GetProfileResponse>
+
+
+    @Multipart
+    @POST("mobile/update-image")
+    suspend fun updateProfilePics(
+        @Header("Authorization") userToken:String?,
+        @Part("image_key") imageKey: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ): Response<EditProfileResponse>
+
     @Multipart
     @POST("mobile/update-profile")
     suspend fun updateProfile(
@@ -314,20 +325,42 @@ interface AmtalekApi {
 //    @POST("getProfile")
 //    suspend fun getProfile(@Field("user_id") user_id: String): Response<Member>
 
-    @Multipart
-    @POST("edit_profile")
+//    @Multipart
+//    @POST("edit_profile")
+//    suspend fun editProfilePics(
+//        @Part("user_id") user_id: RequestBody?,
+//        @Part("user_pass") user_pass: RequestBody?,
+//        @Part("user_name") user_name: RequestBody?,
+//        @Part("address") address: RequestBody?,
+//        @Part("country_id") countryId: RequestBody?,
+//        @Part("city_id") cityId: RequestBody?,
+//        @Part("region_id") regionId: RequestBody?,
+//        @Part("user_email") user_email: RequestBody?,
+//        @Part("user_phone") user_phone: RequestBody?,
+//        @Part m_image: MultipartBody.Part?
+//    ): Response<GeneralLoginResponse>
+
+
+
+
+    @FormUrlEncoded
+    @POST("mobile/update-profile/user")
     suspend fun editProfile(
-        @Part("user_id") user_id: RequestBody?,
-        @Part("user_pass") user_pass: RequestBody?,
-        @Part("user_name") user_name: RequestBody?,
-        @Part("address") address: RequestBody?,
-        @Part("country_id") countryId: RequestBody?,
-        @Part("city_id") cityId: RequestBody?,
-        @Part("region_id") regionId: RequestBody?,
-        @Part("user_email") user_email: RequestBody?,
-        @Part("user_phone") user_phone: RequestBody?,
-        @Part m_image: MultipartBody.Part?
-    ): Response<GeneralLoginResponse>
+        @Header("Authorization") userToken:String?,
+        @Field("first_name") firstName: String?,
+        @Field("last_name") lastName: String?,
+        @Field("phone") phone: String?,
+        @Field("email") email: String?,
+        @Field("country") countryId: String?,
+        @Field("city") cityId: String?,
+        @Field("not_ropot") not_ropot: String="yes",
+    ): Response<EditProfileResponse>
+
+
+
+
+
+
 
     @GET("getAppinfo")
     suspend fun getAppInfo(): Response<AppInfoResponse>

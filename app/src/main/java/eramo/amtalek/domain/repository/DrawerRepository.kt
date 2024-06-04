@@ -1,8 +1,8 @@
 package eramo.amtalek.domain.repository
 
-import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
+import eramo.amtalek.data.remote.dto.editprofile.EditProfileResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
 import eramo.amtalek.util.state.Resource
@@ -28,18 +28,19 @@ interface DrawerRepository {
         coverImage: MultipartBody.Part?
     ): Flow<Resource<ResultModel>>
 
+    suspend fun updateProfilePics(
+        image_key: RequestBody?,
+        image: MultipartBody.Part?
+    ): Flow<Resource<EditProfileResponse>>
+
     suspend fun editProfile(
-        user_id: RequestBody?,
-        user_pass: RequestBody?,
-        user_name: RequestBody?,
-        address: RequestBody?,
-        countryId: RequestBody?,
-        cityId: RequestBody?,
-        regionId: RequestBody?,
-        user_email: RequestBody?,
-        user_phone: RequestBody?,
-        m_image: MultipartBody.Part?
-    ): Flow<Resource<GeneralLoginResponse>>
+        firstName: String?,
+        lastName: String?,
+        phone: String?,
+        email: String?,
+        countryId: String?,
+        cityId: String?,
+    ): Flow<Resource<EditProfileResponse>>
 
     suspend fun getAppInfo(): Flow<Resource<AppInfoResponse>>
 

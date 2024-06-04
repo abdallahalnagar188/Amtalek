@@ -409,18 +409,38 @@ class MainActivity : AppCompatActivity(),
     private fun setUserInfo() {
         if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
-                if (UserUtil.getUserType() == "user"){
-                    navHeaderTvUserName.text =
-                        getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
-                    navHeaderTvUserCity.text = UserUtil.getCityName()
-                }else if (UserUtil.getUserType()=="broker"){
-                    navHeaderTvUserName.text = UserUtil.getBrokerName()
-                    navHeaderTvUserCity.text = UserUtil.getUserPhone()
+                viewModelShared.profileNameState.observe(this@MainActivity){
+                    if (it.isNullOrEmpty()){
+                        if (UserUtil.getUserType() == "user"){
+                            navHeaderTvUserName.text =
+                                getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
+                            navHeaderTvUserCity.text = UserUtil.getCityName()
+                        }else if (UserUtil.getUserType()=="broker"){
+                            navHeaderTvUserName.text = UserUtil.getBrokerName()
+                            navHeaderTvUserCity.text = UserUtil.getUserPhone()
+                        }
+
+                    }else{
+                        navHeaderTvUserName.text = it
+                    }
                 }
-
-
-
+                viewModelShared.profileCityState.observe(this@MainActivity){
+                    if (it.isNullOrEmpty()){
+                        if (UserUtil.getUserType() == "user"){
+                            navHeaderTvUserCity.text = UserUtil.getCityName()
+                        }else if (UserUtil.getUserType()=="broker"){
+                            navHeaderTvUserCity.text = UserUtil.getUserPhone()
+                        }
+                    }else{
+                        navHeaderTvUserCity.text = it
+                    }
+                }
                 navHeaderTvSignOut.text = getString(R.string.sign_out)
+                viewModelShared.profileImageUri.observe(this@MainActivity){
+                    Glide.with(this@MainActivity)
+                        .load(it)
+                        .into(navHeaderIvProfile)
+                }
 
                 Glide.with(this@MainActivity)
                     .load(

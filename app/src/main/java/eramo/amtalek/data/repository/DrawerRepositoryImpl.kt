@@ -1,9 +1,9 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
+import eramo.amtalek.data.remote.dto.editprofile.EditProfileResponse
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.drawer.PolicyInfoModel
 import eramo.amtalek.domain.repository.DrawerRepository
@@ -67,6 +67,30 @@ class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepositor
         }
     }
 
+    override suspend fun updateProfilePics(image_key: RequestBody?, image: MultipartBody.Part?
+    ): Flow<Resource<EditProfileResponse>> {
+       return flow {
+           val result = toResultFlow {
+               AmtalekApi.updateProfilePics(
+                   UserUtil.getUserToken(),
+                   image_key,
+                   image
+               )
+           }
+           result.collect { apiState ->
+               when (apiState) {
+                   is ApiState.Loading -> emit(Resource.Loading())
+                   is ApiState.Error -> emit(Resource.Error(apiState.message!!))
+                   is ApiState.Success -> {
+                       val model = apiState.data
+                       emit(Resource.Success(model))
+                   }
+               }
+           }
+
+       }
+    }
+
     override suspend fun updateFirebaseDeviceToken(deviceToken: String): Flow<Resource<ResultModel>> {
         return flow {
             val result = toResultFlow {
@@ -90,30 +114,23 @@ class DrawerRepositoryImpl(private val AmtalekApi: AmtalekApi) : DrawerRepositor
     }
 
     override suspend fun editProfile(
-        user_id: RequestBody?,
-        user_pass: RequestBody?,
-        user_name: RequestBody?,
-        address: RequestBody?,
-        countryId: RequestBody?,
-        cityId: RequestBody?,
-        regionId: RequestBody?,
-        user_email: RequestBody?,
-        user_phone: RequestBody?,
-        m_image: MultipartBody.Part?
-    ): Flow<Resource<GeneralLoginResponse>> {
+        firstName: String?,
+        lastName: String?,
+        phone: String?,
+        email: String?,
+        countryId: String?,
+        cityId: String?,
+    ): Flow<Resource<EditProfileResponse>> {
         return flow {
             val result = toResultFlow {
                 AmtalekApi.editProfile(
-                    user_id,
-                    user_pass,
-                    user_name,
-                    address,
-                    countryId,
-                    cityId,
-                    regionId,
-                    user_email,
-                    user_phone,
-                    m_image
+                    userToken = if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
+                    firstName = firstName,
+                    lastName = lastName,
+                    phone = phone,
+                    email = email,
+                    countryId = countryId,
+                    cityId = cityId
                 )
             }
             result.collect {
