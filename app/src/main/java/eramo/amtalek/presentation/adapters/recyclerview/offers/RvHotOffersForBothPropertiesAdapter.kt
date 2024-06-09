@@ -12,6 +12,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
@@ -107,6 +108,12 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+                }
+                if (UserUtil.getUserType()=="broker"){
+                    ivFav.visibility = View.GONE
+                }
+                else {
+                    ivFav.visibility = View.VISIBLE
                 }
             }
         }

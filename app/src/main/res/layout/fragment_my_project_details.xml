@@ -419,7 +419,17 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/offer_layout_root"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_myMap"
+                >
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:id="@+id/tv_register_with_us"
                 android:layout_width="wrap_content"

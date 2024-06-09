@@ -15,6 +15,7 @@ import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.util.TRUE
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -124,6 +125,12 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
+                }
+                if (UserUtil.getUserType()=="broker"){
+                    ivFav.visibility = View.GONE
+                }
+                else {
+                    ivFav.visibility = View.VISIBLE
                 }
             }
 

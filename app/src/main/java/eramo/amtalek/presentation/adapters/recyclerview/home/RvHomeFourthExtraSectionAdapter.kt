@@ -15,6 +15,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.util.TRUE
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -133,6 +134,12 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+                }
+                if (UserUtil.getUserType()=="broker"){
+                    ivFav.visibility = View.GONE
+                }
+                else {
+                    ivFav.visibility = View.VISIBLE
                 }
             }
         }

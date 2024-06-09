@@ -743,6 +743,8 @@
     <string name="sold">SOLD</string>
     <string name="roi">ROI</string>
     <string name="visit_your_dashboard">Visit your dashboard</string>
+    <string name="make_your_offer">Make your offer</string>
+    <string name="offer_with_dots">Offer:</string>
 
 
 </resources>

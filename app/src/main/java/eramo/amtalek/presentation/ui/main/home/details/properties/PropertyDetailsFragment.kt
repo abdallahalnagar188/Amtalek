@@ -43,6 +43,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -85,7 +86,63 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         requestData()
         fetchData()
         clickListners()
+        setupToggle()
     }
+
+    private fun setupToggle() {
+        binding.toggleGroup.addOnButtonCheckedListener{ _, checkedId, isChecked ->
+            if (isChecked){
+                when(checkedId){
+                    R.id.offer_btn -> {
+                        binding.apply {
+                            offerBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            offerBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            messageBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            messageBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            rateBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            rateBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            messageLayoutRoot.visibility = View.GONE
+                            offerLayoutRoot.visibility = View.VISIBLE
+                            rateUsLayoutRoot.visibility = View.GONE
+
+
+                        }
+                    }
+                    R.id.message_btn -> {
+                        binding.apply {
+                            messageBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            messageBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            offerBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            offerBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            rateBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            rateBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            messageLayoutRoot.visibility = View.VISIBLE
+                            rateUsLayoutRoot.visibility = View.GONE
+                            offerLayoutRoot.visibility = View.GONE
+
+                        }
+                    }
+                    R.id.rate_btn-> {
+                        binding.apply {
+                            rateBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            rateBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            offerBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            offerBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            messageBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            messageBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            messageLayoutRoot.visibility = View.GONE
+                            offerLayoutRoot.visibility = View.GONE
+                            rateUsLayoutRoot.visibility = View.VISIBLE
+
+                        }
+                    }
+
+                }
+            }
+        }
+        binding.offerBtn.isChecked =true
+    }
+
 
     private fun clickListners() {
         binding.btnSend.setOnClickListener(){
@@ -143,6 +200,11 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         binding.apply {
             ivShare.setOnClickListener { showToast("share") }
             ivBack.setOnClickListener { findNavController().popBackStack() }
+        }
+        if (UserUtil.getUserType()=="broker"){
+            binding.ivFavourite.visibility = View.GONE
+        }else{
+            binding.ivFavourite.visibility = View.VISIBLE
         }
     }
 
@@ -302,8 +364,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //                    binding.chart.visibility = View.VISIBLE
 //                    setupChartView(getChartList(data))
 //                } else {
-                    binding.tvViewsChart.visibility = View.GONE
-                    binding.chart.visibility = View.GONE
+//                    binding.tvViewsChart.visibility = View.GONE
+//                    binding.chart.visibility = View.GONE
 //                }
 
                 tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
@@ -474,70 +536,70 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
-    private fun setupChartView(chartList: List<ChartModel>) {
-        binding.apply {
-            val linevalues = ArrayList<Entry>()
-//            linevalues.add(Entry(1f, 10F))
-//            linevalues.add(Entry(2f, 80F))
-//            linevalues.add(Entry(3f, 50F))
-//            linevalues.add(Entry(4f, 20F))
-
-            for (i in chartList) {
-                linevalues.add(
-                    Entry((chartList.indexOf(i) + 1).toFloat(), i.viewsCount.toFloat())
-                )
-            }
-
-            val linedataset = LineDataSet(linevalues, null)
-
-            // line
-            linedataset.color = ContextCompat.getColor(requireContext(), R.color.yellow)
-            linedataset.lineWidth = 2f
-
-            // circle point
-            linedataset.circleRadius = 4f
-            linedataset.setCircleColor(ContextCompat.getColor(requireContext(), R.color.yellow))
-            linedataset.circleHoleColor = ContextCompat.getColor(requireContext(), R.color.yellow)
-            linedataset.valueTextSize = 0F
-
-            // chart design
-            linedataset.setDrawFilled(false)
-            linedataset.fillColor = ContextCompat.getColor(requireContext(), R.color.black)
-            linedataset.mode = LineDataSet.Mode.CUBIC_BEZIER
-
-            //We connect our data to the UI Screen
-            val data = LineData(linedataset)
-            chart.data = data
-            chart.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-            chart.animateXY(2000, 2000, Easing.EaseInCubic)
-            chart.extraBottomOffset = 20f
-
-            chart.xAxis.setDrawGridLines(false)
-
-
-
-            val yAxis = chart.axisLeft
-
-            // Customize other axis properties if needed
-            chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-            chart.axisRight.isEnabled = false
-            chart.legend.isEnabled = false
-
-            // xAxis values
-            val xAxisFormatter = DayAxisValueFormatter(chart, chartList)
-            val xAxis = chart.xAxis
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.setDrawGridLines(false)
-            xAxis.granularity = 1f
-
-            chart.xAxis.labelRotationAngle = -60f
-            chart.xAxis.textSize = 9f
-            chart.description.isEnabled = false
-            chart.xAxis.valueFormatter = xAxisFormatter
-
-            chart.setTouchEnabled(false)
-        }
-    }
+//    private fun setupChartView(chartList: List<ChartModel>) {
+//        binding.apply {
+//            val linevalues = ArrayList<Entry>()
+////            linevalues.add(Entry(1f, 10F))
+////            linevalues.add(Entry(2f, 80F))
+////            linevalues.add(Entry(3f, 50F))
+////            linevalues.add(Entry(4f, 20F))
+//
+//            for (i in chartList) {
+//                linevalues.add(
+//                    Entry((chartList.indexOf(i) + 1).toFloat(), i.viewsCount.toFloat())
+//                )
+//            }
+//
+//            val linedataset = LineDataSet(linevalues, null)
+//
+//            // line
+//            linedataset.color = ContextCompat.getColor(requireContext(), R.color.yellow)
+//            linedataset.lineWidth = 2f
+//
+//            // circle point
+//            linedataset.circleRadius = 4f
+//            linedataset.setCircleColor(ContextCompat.getColor(requireContext(), R.color.yellow))
+//            linedataset.circleHoleColor = ContextCompat.getColor(requireContext(), R.color.yellow)
+//            linedataset.valueTextSize = 0F
+//
+//            // chart design
+//            linedataset.setDrawFilled(false)
+//            linedataset.fillColor = ContextCompat.getColor(requireContext(), R.color.black)
+//            linedataset.mode = LineDataSet.Mode.CUBIC_BEZIER
+//
+//            //We connect our data to the UI Screen
+//            val data = LineData(linedataset)
+//            chart.data = data
+//            chart.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+//            chart.animateXY(2000, 2000, Easing.EaseInCubic)
+//            chart.extraBottomOffset = 20f
+//
+//            chart.xAxis.setDrawGridLines(false)
+//
+//
+//
+//            val yAxis = chart.axisLeft
+//
+//            // Customize other axis properties if needed
+//            chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+//            chart.axisRight.isEnabled = false
+//            chart.legend.isEnabled = false
+//
+//            // xAxis values
+//            val xAxisFormatter = DayAxisValueFormatter(chart, chartList)
+//            val xAxis = chart.xAxis
+//            xAxis.position = XAxis.XAxisPosition.BOTTOM
+//            xAxis.setDrawGridLines(false)
+//            xAxis.granularity = 1f
+//
+//            chart.xAxis.labelRotationAngle = -60f
+//            chart.xAxis.textSize = 9f
+//            chart.description.isEnabled = false
+//            chart.xAxis.valueFormatter = xAxisFormatter
+//
+//            chart.setTouchEnabled(false)
+//        }
+//    }
 
     private fun getChartList(data: PropertyDetailsModel): List<ChartModel> {
         val chartList = data.chartList.toMutableList()
