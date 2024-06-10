@@ -1,7 +1,9 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
+import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.repository.PropertyRepository
 import eramo.amtalek.util.UserUtil
@@ -51,6 +53,68 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
                     name = name,
                     phone = phone,
                     email = email
+                )
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> { emit(Resource.Success(it.data)) }
+                }
+            }
+        }
+    }
+
+    override suspend fun sendMessageToPropertyOwner(
+        propertyId: String,
+        message: String,
+        vendorId:String,
+        name: String,
+        phone: String,
+        email: String
+    ): Flow<Resource<SubmitToBrokerResponse>> {
+        return flow {
+            val result = toResultFlow {
+                amtalekApi.sendMessageToPropertyOwner(
+                    if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
+                    propertyId = propertyId,
+                    message = message,
+                    vendorId = vendorId,
+                    name = name,
+                    phone = phone,
+                    email = email
+                )
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> { emit(Resource.Success(it.data)) }
+                }
+            }
+        }
+    }
+
+    override suspend fun sendPropertyOffer(
+        propertyId: String,
+        vendorId: String,
+        name: String,
+        phone: String,
+        email: String,
+        offer: String,
+        offerType: String
+    ): Flow<Resource<SendOfferResponse>> {
+        return flow {
+            val result = toResultFlow {
+                amtalekApi.sendPropertyOffer(
+                    if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
+                    propertyId = propertyId,
+                    vendorId = vendorId,
+                    name = name,
+                    phone = phone,
+                    email = email,
+                    offer = offer,
+                    offerType = offerType
                 )
             }
             result.collect {

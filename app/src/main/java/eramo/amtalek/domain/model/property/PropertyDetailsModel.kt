@@ -21,6 +21,7 @@ data class PropertyDetailsModel(
     val brokerImageUrl:String,
     val brokerName:String,
     val brokerDescription:String,
+    val brokerId:Int,
     val propertyCode:String,
     val propertyType:String,
     val furniture:String,

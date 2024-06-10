@@ -697,464 +697,501 @@
                         app:strokeColor="@color/amtalek_blue_dark" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
-
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/offer_layout_root"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/forms_root"
                     app:layout_constraintTop_toBottomOf="@id/toggle_group"
-                    android:visibility="gone"
                     >
-                    <TextView
-                        android:id="@+id/tv_register_with_us"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/offer_layout_root"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:fontFamily="@font/montserratbold"
-                        android:text="@string/make_your_offer"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15ssp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_offer_name"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_register_with_us">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_offer_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/name"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_offer_phone"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_offer_name">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_offer_phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/phone"
-                            android:inputType="phone"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_offer_mail"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_offer_phone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_offer_mail"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/emaill"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_offer_value"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/_11sdp"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/til_offer_mail">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_offer_value"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:gravity="start"
-                            android:hint="@string/offer_with_dots"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/btn_offer_send"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/home_margin_top"
-                        android:layout_marginBottom="@dimen/_16sdp"
-                        android:background="@drawable/button_background_long"
-                        android:fontFamily="@font/montserratregular"
-                        android:text="@string/send"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_offer_value" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/message_layout_root"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toggle_group"
-                    android:visibility="gone"
-
-                    >
-                    <TextView
-                        android:id="@+id/tv_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:fontFamily="@font/montserratbold"
-                        android:text="@string/message"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15ssp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_message_name"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_message">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_message_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/name"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_message_phone"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_message_name">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_message_phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/phone"
-                            android:inputType="phone"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_message_mail"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_message_phone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_message_mail"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/emaill"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_message_value"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_140sdp"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/_11sdp"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/til_message_mail"
+                        app:layout_constraintTop_toTopOf="parent"
                         >
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_message_value"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:gravity="start"
-                            android:hint="@string/offer_with_dots"
-                            android:inputType="textMultiLine"
+                        <TextView
+                            android:id="@+id/tv_register_with_us"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:fontFamily="@font/montserratbold"
+                            android:text="@string/make_your_offer"
                             android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:textSize="@dimen/_15ssp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
-                    <Button
-                        android:id="@+id/btn_message_send"
-                        android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_offer_name"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_register_with_us">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_offer_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/name"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_offer_phone"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_offer_name">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_offer_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/phone"
+                                android:inputType="phone"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_offer_mail"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_offer_phone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_offer_mail"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/emaill"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_offer_value"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_11sdp"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/til_offer_mail">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_offer_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:gravity="start"
+                                android:hint="@string/offer_with_dots"
+                                android:inputType="number"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/offer_spinner"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_11sdp"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/til_offer_value"
+                            >
+
+                            <AutoCompleteTextView
+                                android:id="@+id/autoComplete_offer_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:gravity="center_vertical"
+                                android:hint="@string/offer_type_with_dots"
+                                android:paddingStart="@dimen/_11sdp"
+                                android:inputType="none"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp"
+                                />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btn_offer_send"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/home_margin_top"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:background="@drawable/button_background_long"
+                            android:fontFamily="@font/montserratregular"
+                            android:text="@string/send"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/offer_spinner" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/message_layout_root"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/home_margin_top"
-                        android:layout_marginBottom="@dimen/_16sdp"
-                        android:background="@drawable/button_background_long"
-                        android:fontFamily="@font/montserratregular"
-                        android:text="@string/send"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_message_value" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:visibility="gone"
+
+                        >
+                        <TextView
+                            android:id="@+id/tv_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:fontFamily="@font/montserratbold"
+                            android:text="@string/message"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_message_name"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_message">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_message_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/name"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_message_phone"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_message_name">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_message_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/phone"
+                                android:inputType="phone"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_message_mail"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_message_phone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_message_mail"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/emaill"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_message_value"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_140sdp"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_11sdp"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/til_message_mail"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_message_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:gravity="start"
+                                android:hint="@string/message_with_dots"
+                                android:inputType="textMultiLine"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btn_message_send"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/home_margin_top"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:background="@drawable/button_background_long"
+                            android:fontFamily="@font/montserratregular"
+                            android:text="@string/send"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_message_value" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/rate_us_layout_root"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:visibility="gone"
+                        >
+                        <TextView
+                            android:id="@+id/tv_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/screen_margin_sides"
+                            android:fontFamily="@font/montserratbold"
+                            android:text="@string/rate"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15ssp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RatingBar
+                            android:id="@+id/rate_bar"
+                            style="@style/Widget.AppCompat.RatingBar.Indicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:isIndicator="false"
+                            android:progressTint="@color/gold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_rate" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_name"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rate_bar">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/name"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_phone"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_name">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/phone"
+                                android:inputType="phone"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_mail"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/text_gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_phone">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_mail"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:hint="@string/emaill"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_your_rate"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/_11sdp"
+                            android:fontFamily="@font/montserratregular"
+                            android:textColorHint="@color/gray"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/til_mail">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/et_your_rate"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/edittext_background"
+                                android:fontFamily="@font/montserratregular"
+                                android:gravity="start"
+                                android:hint="@string/your_rate"
+                                android:inputType="textPersonName"
+                                android:textColor="@color/black"
+                                android:textCursorDrawable="@null"
+                                android:textSize="@dimen/_12ssp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Button
+                            android:id="@+id/btn_send_rate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                            android:layout_marginTop="@dimen/home_margin_top"
+                            android:layout_marginBottom="@dimen/_16sdp"
+                            android:background="@drawable/button_background_long"
+                            android:fontFamily="@font/montserratregular"
+                            android:text="@string/rate_send"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_13ssp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/til_your_rate" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/rate_us_layout_root"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintTop_toBottomOf="@id/toggle_group"
-                    >
-                    <TextView
-                        android:id="@+id/tv_rate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
-                        android:fontFamily="@font/montserratbold"
-                        android:text="@string/rate"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15ssp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <RatingBar
-                        android:id="@+id/rate_bar"
-                        style="@style/Widget.AppCompat.RatingBar.Indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_14sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:isIndicator="false"
-                        android:progressTint="@color/gold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_rate" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_name"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rate_bar">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/name"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_phone"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_name">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/phone"
-                            android:inputType="phone"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_mail"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/edit_text_margin_top"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/text_gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_phone">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_mail"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:hint="@string/emaill"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_your_rate"
-                        style="@style/TextInputLayoutStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/_11sdp"
-                        android:fontFamily="@font/montserratregular"
-                        android:textColorHint="@color/gray"
-                        app:hintEnabled="false"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/til_mail">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_your_rate"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/edittext_background"
-                            android:fontFamily="@font/montserratregular"
-                            android:gravity="start"
-                            android:hint="@string/your_rate"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/black"
-                            android:textCursorDrawable="@null"
-                            android:textSize="@dimen/_12ssp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/btn_send"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                        android:layout_marginTop="@dimen/home_margin_top"
-                        android:layout_marginBottom="@dimen/_16sdp"
-                        android:background="@drawable/button_background_long"
-                        android:fontFamily="@font/montserratregular"
-                        android:text="@string/rate_send"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_13ssp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/til_your_rate" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/tv_ratings"
@@ -1166,7 +1203,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15ssp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rate_us_layout_root"
+                    app:layout_constraintTop_toBottomOf="@id/forms_root"
                     tools:text="Rating (100)" />
 
                 <androidx.recyclerview.widget.RecyclerView

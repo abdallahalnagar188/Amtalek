@@ -32,6 +32,8 @@ import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -273,6 +275,34 @@ interface AmtalekApi {
         @Field("phone") phone:String,
         @Field("email") email:String,
     ):Response<SendPropertyCommentResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/submit-to-broker")
+    suspend fun sendMessageToPropertyOwner(
+        @Header("Authorization") userToken: String?,
+        @Field("property_id") propertyId:String,
+        @Field("message") message:String,
+        @Field("vendor_id") vendorId:String,
+        @Field("not_ropot") not_ropot:String = "yes",
+        @Field("name") name:String,
+        @Field("phone") phone:String,
+        @Field("email") email:String,
+    ):Response<SubmitToBrokerResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/send-offer")
+    suspend fun sendPropertyOffer(
+        @Header("Authorization") userToken: String?,
+        @Field("property_id") propertyId:String,
+        @Field("vendor_id") vendorId:String,
+        @Field("not_ropot") not_ropot:String = "yes",
+        @Field("name") name:String,
+        @Field("phone") phone:String,
+        @Field("email") email:String,
+        @Field("offer") offer:String,
+        @Field("offer_type") offerType:String,
+    ):Response<SendOfferResponse>
+
 
     // ____________________________________________________________________________________________//
     // Drawer

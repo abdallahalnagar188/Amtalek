@@ -7,6 +7,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -18,11 +19,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.yy.mobile.rollingtextview.CharOrder
@@ -44,7 +40,6 @@ import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsV
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
-import eramo.amtalek.util.chart.DayAxisValueFormatter
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -69,6 +64,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private val args by navArgs<PropertyDetailsFragmentArgs>()
     private val propertyListingNumber get() = args.propertyId
     lateinit var propertyId:String
+    private lateinit var vendorId:String
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
@@ -87,6 +83,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         fetchData()
         clickListners()
         setupToggle()
+        loadOfferTypes()
     }
 
     private fun setupToggle() {
@@ -145,8 +142,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 
     private fun clickListners() {
-        binding.btnSend.setOnClickListener(){
-            if (validForm()){
+        binding.btnSendRate.setOnClickListener(){
+            if (validRateForm()){
                 binding.apply {
                     val name = etName.text.toString()
                     val email = etMail.text.toString()
@@ -162,6 +159,57 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         stars = stars
                     )
                 }
+
+            }
+        }
+        binding.btnOfferSend.setOnClickListener(){
+            if (validOfferForm()){
+                binding.apply {
+                    val name = etOfferName.text.toString()
+                    val email = etOfferMail.text.toString()
+                    val phone = etOfferPhone.text.toString()
+                    val offer = etOfferValue.text.toString()
+                    var offerType = ""
+                    if (autoCompleteOfferType.text.toString()== getString(R.string.rent)){
+                        offerType = "for_rent"
+                    }else if (autoCompleteOfferType.text.toString() == getString(R.string.buy)){
+                        offerType = "for_sale"
+
+                    }else{
+                        Toast.makeText(requireContext(), getString(R.string.choose_a_valid_offer_type), Toast.LENGTH_SHORT).show()
+                    }
+                    val vendorId = vendorId
+                    val propertyId = propertyId
+
+                    viewModel.sendPropertyOffer(
+                        name = name,
+                        email = email,
+                        phone = phone,
+                        offer = offer,
+                        offerType = offerType,
+                        vendorId = vendorId,
+                        propertyId = propertyId,
+                    )
+
+                }
+            }
+        }
+        binding.btnMessageSend.setOnClickListener(){
+            if (validMessageForm()){
+                val name = binding.etMessageName.text.toString()
+                val email = binding.etMessageMail.text.toString()
+                val phone = binding.etMessagePhone.text.toString()
+                val message = binding.etMessageValue.text.toString()
+                val vendorId = vendorId
+                val propertyId = propertyId
+                viewModel.sendMessageToPropertyOwner(
+                    name = name,
+                    email = email,
+                    phone = phone,
+                    message = message,
+                    vendorId = vendorId,
+                    propertyId = propertyId
+                )
 
             }
         }
@@ -215,8 +263,65 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun fetchData() {
         fetchPropertyDetailsState()
         fetchSendCommentOnPropertyState()
+        fetchSendPropertyOfferState()
+        fetchSubmitMessageToPropertyOwnerState()
     }
+    private fun fetchSendPropertyOfferState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                delayForEnterAnimation()
+                viewModel.sendPropertyOfferState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            dismissShimmerEffect()
+                            showToast(state.data?.message!!)
+                        }
 
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun fetchSubmitMessageToPropertyOwnerState() {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                delayForEnterAnimation()
+                viewModel.sendMessageToPropertyOwnerState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            dismissShimmerEffect()
+                            showToast(state.data?.message!!)
+                        }
+
+                        is UiState.Error -> {
+                            dismissShimmerEffect()
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                            showShimmerEffect()
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
     private fun fetchSendCommentOnPropertyState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -254,6 +359,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     when (state) {
                         is UiState.Success -> {
                             assignData(state.data!!)
+
                         }
 
                         is UiState.Error -> {
@@ -292,6 +398,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     ivFavourite.setImageResource(R.drawable.ic_heart)
                 }
                 propertyId = data.id.toString()
+                vendorId = data.brokerId.toString()
                 setupImageSliderTop(data.sliderImages)
                  checkRentDuration(data.rentDuration)
                 when (data.forWhat) {
@@ -618,8 +725,57 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
-    private fun validForm():Boolean{
+    private fun validOfferForm():Boolean{
+        var isValid = true
+        binding.apply {
+            if (etOfferName.text.toString().isEmpty()){
+                isValid = false
+                etOfferName.error = getString(R.string.please_enter_a_name)
+            }
+            if (!isValidEmail(etOfferMail.text.toString())){
+                isValid = false
+                etOfferMail.error = getString(R.string.please_enter_a_mail)
+            }
+            if (etOfferPhone.text.toString().isEmpty()){
+                etOfferPhone.error = getString(R.string.please_enter_a_phone_number)
+                isValid = false
+            }
+            if (etOfferValue.text.toString().isEmpty()){
+                etOfferValue.error = getString(R.string.please_enter_a_phone_number)
+                isValid = false
+            }
+            if (autoCompleteOfferType.text.isNullOrEmpty()) {
+                isValid = false
+                offerSpinner.error = getString(R.string.please_provide_your_offer_type)
+            } else {
+                offerSpinner.error = null
+            }
+        }
+        return isValid
+    }
+    private fun validMessageForm():Boolean{
+        var isValid = true
+        binding.apply {
+            if (etMessageName.text.toString().isEmpty()){
+                isValid = false
+                etMessageName.error = getString(R.string.please_enter_a_name)
+            }
+            if (!isValidEmail(etMessageMail.text.toString())){
+                isValid = false
+                etMessageMail.error = getString(R.string.please_enter_a_mail)
+            }
+            if (etMessagePhone.text.toString().isEmpty()){
+                etMessagePhone.error = getString(R.string.please_enter_a_phone_number)
+                isValid = false
+            }
+            if (etMessageValue.text.toString().isEmpty()){
+                etMessageValue.error = getString(R.string.please_enter_a_message)
+                isValid = false
+            }
+        }
+        return isValid
+    }
+    private fun validRateForm():Boolean{
         var isValid = true
         binding.apply {
             if (etName.text.toString().isEmpty()){
@@ -640,6 +796,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
         return isValid
+    }
+
+
+    private fun loadOfferTypes() {
+        val offerTypes = resources.getStringArray(R.array.offer_type)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
+        binding.autoCompleteOfferType.setAdapter(arrayAdapter)
     }
 
     private fun showShimmerEffect() {

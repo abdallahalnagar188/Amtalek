@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.PropertyRepository
@@ -27,8 +29,15 @@ class PropertyDetailsViewModel @Inject constructor(
     val propertyDetailsState: StateFlow<UiState<PropertyDetailsModel>> = _propertyDetailsState
 
 
+    private val _sendPropertyOfferState = MutableStateFlow<UiState<SendOfferResponse>>(UiState.Empty())
+    val sendPropertyOfferState: StateFlow<UiState<SendOfferResponse>> = _sendPropertyOfferState
+
+    private val _sendMessageToPropertyOwnerState = MutableStateFlow<UiState<SubmitToBrokerResponse>>(UiState.Empty())
+    val sendMessageToPropertyOwnerState: StateFlow<UiState<SubmitToBrokerResponse>> = _sendMessageToPropertyOwnerState
+
     private val _sendCommentOnPropertyState = MutableStateFlow<UiState<SendPropertyCommentResponse>>(UiState.Empty())
     val sendCommentOnPropertyState: StateFlow<UiState<SendPropertyCommentResponse>> = _sendCommentOnPropertyState
+
 
     private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
     val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
@@ -38,6 +47,8 @@ class PropertyDetailsViewModel @Inject constructor(
 
     private var getPropertyDetailsJob: Job? = null
     private var sendCommentOnPropertyJob: Job? = null
+    private var sendPropertyOfferJob: Job? = null
+    private var sendMessageToPropertyOwnerJob: Job? = null
 
     fun cancelRequest() {
         getPropertyDetailsJob?.cancel()
@@ -125,4 +136,86 @@ class PropertyDetailsViewModel @Inject constructor(
             }
         }
     }
+
+    fun sendMessageToPropertyOwner(
+        propertyId: String,
+        message: String,
+        vendorId:String,
+        name:String,
+        phone:String,
+        email:String,
+    ){
+        sendMessageToPropertyOwnerJob?.cancel()
+        sendMessageToPropertyOwnerJob = viewModelScope.launch {
+            withContext(coroutineContext){
+                propertyRepository.sendMessageToPropertyOwner(
+                    propertyId = propertyId,
+                    message = message,
+                    vendorId = vendorId,
+                    name = name,
+                    phone = phone,
+                    email = email
+                ).collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _sendMessageToPropertyOwnerState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _sendMessageToPropertyOwnerState.value =
+                                UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _sendMessageToPropertyOwnerState.value = UiState.Loading()
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    fun sendPropertyOffer(
+        propertyId: String,
+        vendorId:String,
+        name:String,
+        phone:String,
+        email:String,
+        offer:String,
+        offerType:String
+    ){
+        sendPropertyOfferJob?.cancel()
+        sendPropertyOfferJob = viewModelScope.launch {
+            withContext(coroutineContext){
+                propertyRepository.sendPropertyOffer(
+                    propertyId = propertyId,
+                    vendorId = vendorId,
+                    name = name,
+                    phone = phone,
+                    email = email,
+                    offer = offer,
+                    offerType = offerType
+                ).collect { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            _sendPropertyOfferState.value = UiState.Success(result.data)
+                        }
+
+                        is Resource.Error -> {
+                            _sendPropertyOfferState.value =
+                                UiState.Error(result.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _sendPropertyOfferState.value = UiState.Loading()
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+
 }

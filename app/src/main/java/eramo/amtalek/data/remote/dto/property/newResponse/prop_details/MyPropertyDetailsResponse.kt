@@ -58,6 +58,7 @@ data class MyPropertyDetailsResponse(
             sold = data?.get(0)?.sold ?: false,
             roi = data?.get(0)?.roi ?: "",
             calcRoi = data?.get(0)?.calcRoi ?: "",
+            brokerId = data?.get(0)?.brokerDetails?.get(0)?.id ?: -1,
         )
     }
     private fun sliderImagesList(): List<String> {
