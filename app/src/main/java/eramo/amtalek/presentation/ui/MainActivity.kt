@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderAddYourProperty.setOnClickListener {
-//                navController.navigate(R.id.myAddPropertyFragmentFragment)
+                navController.navigate(R.id.addPropertyFirstFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -377,7 +377,11 @@ class MainActivity : AppCompatActivity(),
                 R.id.buyPackageStepTwoFragment,
                 R.id.imagesListFragment,
                 R.id.imageViewFragment,
-                R.id.cancelDialog -> {
+                R.id.cancelDialog,
+                R.id.addPropertyFirstFragment,
+                    R.id.addPropertySecondFragment,
+
+                -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE
                         mainFabHome.visibility = View.GONE

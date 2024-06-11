@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.ui.main.home.details.properties
 
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -803,6 +804,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         val offerTypes = resources.getStringArray(R.array.offer_type)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
         binding.autoCompleteOfferType.setAdapter(arrayAdapter)
+        binding.autoCompleteOfferType.inputType = InputType.TYPE_NULL
+
     }
 
     private fun showShimmerEffect() {

@@ -752,11 +752,49 @@
     <string name="rent">ايجار</string>
     <string name="buy">شراء</string>
     <string name="choose_a_valid_offer_type">اختر نوع عرض صحيح</string>
+    <string name="enter_property_name_in_english">ادخل اسم العقار بالانجليزية</string>
+    <string name="enter_property_name_in_arabic">ادخل اسم العقار بالعربية</string>
+    <string name="enter_property_address_in_english">ادخل عنوان العقار بالانجليزية</string>
+    <string name="enter_property_address_in_arabic">ادخل عنوان العقار بالانجليزية</string>
+    <string name="ex_https_www_youtube_com"> https://www.youtube.com/ مثال :</string>
+    <string name="property_name"> اسم العقار</string>
+    <string name="property_address_without_dots">عنوان العقار</string>
+    <string name="video">فيديو</string>
+    <string name="add_property_1_5">اضف عقارك (1\5)</string>
+    <string name="add_property_2_5">اضف عقارك (2\5)</string>
+    <string name="please_enter_a_address">من فضلك ادخل عنوان</string>
+    <string name="please_enter_a_property_location">من فضلك ادخل موقع العقار</string>
+    <string name="please_enter_a_video_link">من فضلك ادخل لينك الفيديو</string>
+    <string name="note_please_go_to_google_maps_and_get_the_embed_link">ملاحظة: يرجى الانتقال إلى Google Maps والحصول على رابط التضمين</string>
+    <string name="building_number">رقم العقار</string>
+    <string name="floor_number">رقم الدور</string>
+    <string name="unit_number">رقم الوحدة</string>
+    <string name="living_room">عدد غرف المعيشة</string>
+    <string name="total_area">المساحة الكلية</string>
+    <string name="reception_pieces">عدد غرف الاستقبال</string>
+    <string name="bath_rooms_number">عدد غرف الحمام</string>
+    <string name="bed_rooms_number">عدد غرف النوم</string>
+    <string name="kitchens_number">عدد غرف المطابخ</string>
+    <string name="rent_sale_both">للبيع / للإيجار / الإثنين معا</string>
+    <string name="please_enter_a_floor_number">من فضلك ادخل رقم الدور</string>
+    <string name="please_enter_a_unit_number">من فضلك ادخل رقم الوحدة</string>
+    <string name="please_enter_a_building_number">"من فضلك ادخل رقم المبني"</string>
+    <string name="please_enter_the_total_area"> من فضلك ادخل المساحة الكلية</string>
+    <string name="please_enter_the_number_of_reception_pieces">من فضلك ادخل عدد غرف الاستقبال</string>
+    <string name="please_enter_a_bathrooms_number">من فضلك ادخل عدد غرف الحمام</string>
+    <string name="please_enter_a_bedrooms_number">من فضلك ادخل عدد غرف النوم</string>
+    <string name="please_enter_the_kitchens_number">من فضلك ادخل عدد المطابخ</string>
+    <string name="please_select_a_property_type">من فضلك ادخل نوع العقار</string>
 
 
     <string-array name="offer_type">
         <item>"شراء"</item>
         <item>"ايجار"</item>
+    </string-array>
+    <string-array name="property_type">
+        <item>"بيع"</item>
+        <item>"ايجار"</item>
+        <item>"بيع و ايجار"</item>
     </string-array>
 
 </resources>

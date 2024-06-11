@@ -408,5 +408,15 @@
         android:name="eramo.amtalek.data.remote.dto.loading.LoadingFragment"
         android:label="fragment_loading"
         tools:layout="@layout/fragment_loading" />
+    <fragment
+        android:id="@+id/addPropertyFirstFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.addproperty.AddPropertyFirstFragment"
+        android:label="fragment_add_property_first"
+        tools:layout="@layout/fragment_add_property_first" />
+    <fragment
+        android:id="@+id/addPropertySecondFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.addproperty.AddPropertySecondFragment"
+        android:label="fragment_add_property_second"
+        tools:layout="@layout/fragment_add_property_second" />
 
 </navigation>

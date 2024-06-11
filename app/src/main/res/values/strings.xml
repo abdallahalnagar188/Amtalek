@@ -40,7 +40,7 @@
     <string name="subject">Subject</string>
     <string name="message">Message</string>
     <string name="i_am_not_a_robot">I am not a robot</string>
-    <string name="send">send</string>
+    <string name="send">Send</string>
     <string name="favourites">Favourites</string>
     <string name="filter">Filter</string>
     <string name="price_dirham">Price (DIRHAM)</string>
@@ -751,11 +751,49 @@
     <string name="rent">Rent</string>
     <string name="buy">Buy</string>
     <string name="choose_a_valid_offer_type">Choose a valid offer type</string>
+    <string name="enter_property_name_in_english">Enter Property Name In English</string>
+    <string name="enter_property_name_in_arabic">Enter Property Name In Arabic</string>
+    <string name="enter_property_address_in_english">Enter Property Address In English</string>
+    <string name="enter_property_address_in_arabic">Enter Property Address In Arabic</string>
+    <string name="ex_https_www_youtube_com">EX: https://www.youtube.com/</string>
+    <string name="property_name">Property Name</string>
+    <string name="property_address_without_dots">Property Address</string>
+    <string name="video">Video</string>
+    <string name="add_property_1_5">Add property (1/5)</string>
+    <string name="add_property_2_5">Add property (2/5)</string>
+    <string name="please_enter_a_address">Please enter a address</string>
+    <string name="please_enter_a_property_location">Please enter a property Location</string>
+    <string name="please_enter_a_video_link">Please enter a video link</string>
+    <string name="note_please_go_to_google_maps_and_get_the_embed_link">Note: Please go to Google Maps and get the embed link</string>
+    <string name="building_number">Building Number</string>
+    <string name="floor_number">Floor number</string>
+    <string name="unit_number">Unit number</string>
+    <string name="living_room">Living room number</string>
+    <string name="total_area">Total Area</string>
+    <string name="reception_pieces">Reception Pieces</string>
+    <string name="bath_rooms_number">BathRooms Number</string>
+    <string name="bed_rooms_number">Bedrooms number</string>
+    <string name="kitchens_number">Kitchens number</string>
+    <string name="rent_sale_both">Rent / Sale / Both</string>
+    <string name="please_enter_a_floor_number">Please enter a floor number</string>
+    <string name="please_enter_a_unit_number">Please enter a unit number</string>
+    <string name="please_enter_a_building_number">"Please enter a building number "</string>
+    <string name="please_enter_the_total_area">Please enter the total area</string>
+    <string name="please_enter_the_number_of_reception_pieces">Please enter the number of reception pieces</string>
+    <string name="please_enter_a_bathrooms_number">Please enter a bathrooms number</string>
+    <string name="please_enter_a_bedrooms_number">Please enter a bedrooms number</string>
+    <string name="please_enter_the_kitchens_number">Please enter the kitchens number</string>
+    <string name="please_select_a_property_type">Please select a property type</string>
+
 
     <string-array name="offer_type">
         <item>"Buy"</item>
         <item>"Rent"</item>
     </string-array>
-
+    <string-array name="property_type">
+        <item>"Sell"</item>
+        <item>"Rent"</item>
+        <item>"Rent&amp;Buy"</item>
+    </string-array>
 
 </resources>
