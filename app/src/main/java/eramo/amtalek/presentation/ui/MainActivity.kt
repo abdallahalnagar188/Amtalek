@@ -379,8 +379,8 @@ class MainActivity : AppCompatActivity(),
                 R.id.imageViewFragment,
                 R.id.cancelDialog,
                 R.id.addPropertyFirstFragment,
-                    R.id.addPropertySecondFragment,
-
+                R.id.addPropertySecondFragment,
+                R.id.addPropertyThirdFragment,
                 -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE

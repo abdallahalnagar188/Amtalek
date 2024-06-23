@@ -1,17 +1,16 @@
-package eramo.amtalek.presentation.ui.drawer.addproperty
+package eramo.amtalek.presentation.ui.drawer.addproperty.second
 
 import android.os.Bundle
 import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddPropertySecondBinding
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.util.navOptionsAnimation
 
 
 class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBinding>() {
@@ -64,8 +63,11 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
             }
             if (autoCompleteOfferType.text.isNullOrEmpty()){
                 autoCompleteOfferType.error = getString(R.string.please_select_a_property_type)
+                isValid = false
             }
         }
+
+
         return isValid
     }
     private fun setupToolBar() {
@@ -83,7 +85,7 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
     private fun clickListeners() {
         binding.btnNext.setOnClickListener(){
             if (formValidation()){
-
+                findNavController().navigate(R.id.addPropertyThirdFragment,null, navOptionsAnimation())
             }else{
                 return@setOnClickListener
             }

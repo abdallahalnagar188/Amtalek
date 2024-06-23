@@ -762,6 +762,7 @@
     <string name="video">فيديو</string>
     <string name="add_property_1_5">اضف عقارك (1\5)</string>
     <string name="add_property_2_5">اضف عقارك (2\5)</string>
+    <string name="add_property_3_5">اضف عقارك (3\5)</string>
     <string name="please_enter_a_address">من فضلك ادخل عنوان</string>
     <string name="please_enter_a_property_location">من فضلك ادخل موقع العقار</string>
     <string name="please_enter_a_video_link">من فضلك ادخل لينك الفيديو</string>
@@ -785,10 +786,33 @@
     <string name="please_enter_a_bedrooms_number">من فضلك ادخل عدد غرف النوم</string>
     <string name="please_enter_the_kitchens_number">من فضلك ادخل عدد المطابخ</string>
     <string name="please_select_a_property_type">من فضلك ادخل نوع العقار</string>
+    <string name="purpose">الغرض</string>
+    <string name="priority">الأولوية</string>
+    <string name="finishing">التشطيب</string>
+    <string name="floor_finishing_type">نوع طابق الاستقبال</string>
+    <string name="typee">النوع</string>
+    <string name="sub_region">المنطقة الفرعية</string>
+    <string name="please_select_purpose">من فضلك اختر الغرض</string>
+    <string name="please_select_category_type">من فضلك اختر الفئة</string>
+    <string name="please_select_priority_type">من فضلك اختر أولوية العقار</string>
+    <string name="please_select_finishing">من فضلك اختر نوع التشطيب</string>
+    <string name="please_select_floor_finishing_type">من فضلك اختر نوع طابق الاستقبال</string>
+    <string name="please_select_type">من فضلك اختر نوع العقار</string>
+    <string name="please_select_country">من فضلك اختر الدولة</string>
+    <string name="please_select_city">من فضلك اختر المدينة</string>
+    <string name="please_select_region">من فضلك اختر المنطقة</string>
+    <string name="please_select_sub_region">من فضلك اختر المنطقة الفرعية</string>
 
 
     <string-array name="offer_type">
         <item>"شراء"</item>
+        <item>"ايجار"</item>
+    </string-array>
+    <string-array name="buy_array">
+        <item>"شراء"</item>
+
+    </string-array>
+    <string-array name="rent_array">
         <item>"ايجار"</item>
     </string-array>
     <string-array name="property_type">

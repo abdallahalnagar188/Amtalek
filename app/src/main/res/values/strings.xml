@@ -761,6 +761,7 @@
     <string name="video">Video</string>
     <string name="add_property_1_5">Add property (1/5)</string>
     <string name="add_property_2_5">Add property (2/5)</string>
+    <string name="add_property_3_5">Add property (3/5)</string>
     <string name="please_enter_a_address">Please enter a address</string>
     <string name="please_enter_a_property_location">Please enter a property Location</string>
     <string name="please_enter_a_video_link">Please enter a video link</string>
@@ -784,12 +785,36 @@
     <string name="please_enter_a_bedrooms_number">Please enter a bedrooms number</string>
     <string name="please_enter_the_kitchens_number">Please enter the kitchens number</string>
     <string name="please_select_a_property_type">Please select a property type</string>
+    <string name="purpose">Purpose</string>
+    <string name="priority">Priority</string>
+    <string name="finishing">Finishing</string>
+    <string name="floor_finishing_type">Floor Finishing Type</string>
+    <string name="typee">Type</string>
+    <string name="sub_region">Sub Region</string>
+    <string name="please_select_purpose">Please select a purpose</string>
+    <string name="please_select_category_type">Please select a category type</string>
+    <string name="please_select_priority_type">Please select a priority type</string>
+    <string name="please_select_finishing">Please select a finishing level</string>
+    <string name="please_select_floor_finishing_type">Please select a floor finishing type</string>
+    <string name="please_select_type">Please select a type</string>
+    <string name="please_select_country">Please select a country</string>
+    <string name="please_select_city">Please select a city</string>
+    <string name="please_select_region">Please select a region</string>
+    <string name="please_select_sub_region">Please select a sub region</string>
 
 
     <string-array name="offer_type">
         <item>"Buy"</item>
         <item>"Rent"</item>
     </string-array>
+    <string-array name="buy_array">
+        <item>"Buy"</item>
+
+    </string-array>
+    <string-array name="rent_array">
+        <item>"Rent"</item>
+    </string-array>
+
     <string-array name="property_type">
         <item>"Sell"</item>
         <item>"Rent"</item>

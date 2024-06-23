@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale"
-    tools:context=".presentation.ui.drawer.addproperty.second.AddPropertySecondFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <include
         android:id="@+id/in_toolbar"
@@ -21,398 +21,29 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/in_toolbar">
-
+        app:layout_constraintStart_toStartOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <TextView
-                android:id="@+id/building_number_tv"
+                android:id="@+id/property_purpose_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/purpose"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/montserratsemibold"
-                android:text="@string/building_number"
-                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_building_number"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/building_number_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_building_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/building_number"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/floor_number_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/floor_number"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_building_number" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_floor_number"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/floor_number_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_floor_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/floor_number"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/unit_number_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/unit_number"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_floor_number" />
-
+                />
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_unit_number"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/unit_number_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_unit_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/unit_number"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/living_room_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/living_room"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_unit_number" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_living_room"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/living_room_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_living_room"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/living_room"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/total_area_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/total_area"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_living_room" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_total_area"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/total_area_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_total_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/total_area"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/reception_pieces_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/reception_pieces"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_total_area" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_reception_pieces"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reception_pieces_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_reception_pieces"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/reception_pieces"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/bathrooms_number_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/bath_rooms_number"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_reception_pieces" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_bathrooms_number"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bathrooms_number_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_bathrooms_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/bathrooms_number"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/bedrooms_number_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/bed_rooms_number"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_bathrooms_number" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_bedrooms_number"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bedrooms_number_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_bedrooms_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/bed_rooms_number"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/kitchens_number_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/kitchens_number"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_bedrooms_number" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_kitchens_number"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/montserratregular"
-                android:textColorHint="@color/text_gray"
-                app:hintEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/kitchens_number_tv">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_kitchens_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:hint="@string/kitchens_number"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <TextView
-                android:id="@+id/rent_sale_both_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/montserratsemibold"
-                android:text="@string/rent_sale_both"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_kitchens_number" />
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/offer_spinner"
+                android:id="@+id/purpose_spinner"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
@@ -422,17 +53,424 @@
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rent_sale_both_tv"
+                app:layout_constraintTop_toBottomOf="@+id/property_purpose_tv"
                 >
 
                 <AutoCompleteTextView
-                    android:id="@+id/autoComplete_offer_type"
+                    android:id="@+id/autoComplete_purpose"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_background"
                     android:fontFamily="@font/montserratregular"
                     android:gravity="center_vertical"
-                    android:hint="@string/rent_sale_both"
+                    android:hint="@string/purpose"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/property_category_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category"
+                app:layout_constraintTop_toBottomOf="@id/purpose_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/category_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_category_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_category_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/category"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_priority_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/priority"
+                app:layout_constraintTop_toBottomOf="@id/category_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/priority_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_priority_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_priority_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/priority"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_country_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/country"
+                app:layout_constraintTop_toBottomOf="@id/priority_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/country_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_country_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/country"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/property_city_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/city"
+                app:layout_constraintTop_toBottomOf="@id/country_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_city_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/city"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_region_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/region"
+                app:layout_constraintTop_toBottomOf="@id/city_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/region_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_region_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/region"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_sub_region_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sub_region"
+                app:layout_constraintTop_toBottomOf="@id/region_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sub_region_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_sub_region_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_sub_region"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/sub_region"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/typee"
+                app:layout_constraintTop_toBottomOf="@id/sub_region_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/type_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_type_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/typee"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_finishing_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/finishing"
+                app:layout_constraintTop_toBottomOf="@id/type_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/finishing_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_finishing_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_finishing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/finishing"
+                    android:paddingStart="@dimen/_11sdp"
+                    android:inputType="none"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/property_floor_finishing_type_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/floor_finishing_type"
+                app:layout_constraintTop_toBottomOf="@id/finishing_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/floor_finishing_type_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/property_floor_finishing_type_tv"
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_floor_finishing_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="center_vertical"
+                    android:hint="@string/floor_finishing_type"
                     android:paddingStart="@dimen/_11sdp"
                     android:inputType="none"
                     android:layout_weight="1"
@@ -457,7 +495,7 @@
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/offer_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/floor_finishing_type_spinner" />
             <Button
                 android:id="@+id/btn_cancel"
                 android:layout_width="0dp"
@@ -474,7 +512,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_next" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

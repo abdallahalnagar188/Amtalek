@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -84,7 +85,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         fetchData()
         clickListners()
         setupToggle()
-        loadOfferTypes()
+
     }
 
     private fun setupToggle() {
@@ -360,7 +361,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     when (state) {
                         is UiState.Success -> {
                             assignData(state.data!!)
-
+                            loadOfferTypes(state.data.forWhat!!)
                         }
 
                         is UiState.Error -> {
@@ -745,11 +746,12 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 etOfferValue.error = getString(R.string.please_enter_a_phone_number)
                 isValid = false
             }
-            if (autoCompleteOfferType.text.isNullOrEmpty()) {
+            if (autoCompleteOfferType.text.toString().isEmpty()) {
+                autoCompleteOfferType.error = getString(R.string.please_provide_your_offer_type)
                 isValid = false
-                offerSpinner.error = getString(R.string.please_provide_your_offer_type)
-            } else {
-                offerSpinner.error = null
+            }
+            binding.autoCompleteOfferType.setOnItemClickListener { parent, view, position, id ->
+                autoCompleteOfferType.error = null
             }
         }
         return isValid
@@ -800,11 +802,27 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
 
-    private fun loadOfferTypes() {
-        val offerTypes = resources.getStringArray(R.array.offer_type)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
-        binding.autoCompleteOfferType.setAdapter(arrayAdapter)
+    private fun loadOfferTypes(propertyType: String) {
+        Log.e("Type", propertyType, )
+        when (propertyType) {
+            "for_both" -> {
+                val offerTypes = resources.getStringArray(R.array.offer_type)
+                val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
+                binding.autoCompleteOfferType.setAdapter(arrayAdapter)
+            }
+            "for_sale" -> {
+                val offerTypes = resources.getStringArray(R.array.buy_array)
+                val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
+                binding.autoCompleteOfferType.setAdapter(arrayAdapter)
+            }
+            "for_rent" -> {
+                val offerTypes = resources.getStringArray(R.array.rent_array)
+                val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
+                binding.autoCompleteOfferType.setAdapter(arrayAdapter)
+            }
+        }
         binding.autoCompleteOfferType.inputType = InputType.TYPE_NULL
+
 
     }
 
