@@ -28,7 +28,7 @@ data class MyPropertyDetailsResponse(
             currency = data?.get(0)?.currency?:"",
             rentDuration = data?.get(0)?.rentDuration ?: "",
            title =  data?.get(0)?.title ?: "",
-            location = "${data?.get(0)?.region}, ${data?.get(0)?.city}",
+            location = "${data?.get(0)?.city}, ${data?.get(0)?.region}, ${data?.get(0)?.subRegion}",
             datePosted = data?.get(0)?.createdAt ?: "",
             finishing = data?.get(0)?.finishing ?: "",
            finishingAvailability =  "----",
@@ -111,15 +111,16 @@ data class MyPropertyDetailsResponse(
                     area = i?.landArea ?: 0,
                     bathroomsCount = i?.bathRoomNo ?: 0,
                     bedsCount = i?.bedRoomsNo ?: 0,
-                    location = "${i?.region}, ${i?.city}",
+                    location = "${i?.city}, ${i?.region}, ${i?.subRegion}" ,
                     datePosted = i?.createdAt ?: "",
                     brokerId = i.brokerDetails?.id.toString() ?: "",
                     brokerLogoUrl = i.brokerDetails?.company_logo ?: NONE_IMAGE_URL,
                     currency = i.currency?:"",
                     acceptance = i.acceptance?:"",
                     sold = i.sold?:false,
-                    offerData = null
-
+                    offerData = null,
+                    region = i.region?:"",
+                    subRegion = i.subRegion?:""
                 )
             )
         }
@@ -256,6 +257,10 @@ data class Data(
     var calcRoi: String?,
     @SerializedName("roi")
     var roi: String?,
+    @SerializedName("offer_status")
+    var offerStatus: Boolean?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 
 ) : Parcelable
 @Parcelize
@@ -327,6 +332,8 @@ data class SimilarProperty(
     var sold: Boolean?,
     @SerializedName("offer_status")
     var offerStatus: Boolean?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 
 ) : Parcelable
 @Parcelize

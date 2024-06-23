@@ -44,6 +44,50 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                 tvDuration.text = itemView.context.getString(R.string.egp_yearly)
 
 
+
+                if(model.leadsManagement == "0"){
+                    ivRightMark5.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+                }
+                if (model.normalListings == "0"){
+                    ivRightMark.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+                if (model.featuredListings=="0"){
+                    ivRightMark2.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+                if (model.projects=="0"){
+                    ivRightMark6.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+                if (model.crmAgents=="0"){
+                    ivRightMark7.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+                if (model.hrModule=="no"){
+                    ivRightMark9.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+                if (model.accountingModule=="no"){
+                    ivRightMark10.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+
+                }
+                if (model.supervisors=="0"){
+                    ivRightMark8.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+
+                if (model.messages=="0"){
+                    ivRightMark3.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+                }
+                if (model.emoney=="0.0"){
+                    ivRightMark4.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+                }
+
+
+
+
                 tvNormalListing.text = itemView.context.getString(R.string.s_normal_listing, model.normalListings)
                 tvFeaturedListing.text = itemView.context.getString(R.string.s_featured_listings, model.featuredListings)
                 tvMoney.text = itemView.context.getString(R.string.e_money_s, model.emoney)
@@ -53,6 +97,7 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                 tvCrmAgents.text = itemView.context.getString(R.string.s_crm_agents, model.crmAgents)
                 tvHrModule.text = itemView.context.getString(R.string.s_hr_module, model.hrModule)
                 tvAccountingModule.text = itemView.context.getString(R.string.s_accounting_module, model.accountingModule)
+                tvSupervisors.text = itemView.context.getString(R.string.s_supervisors, model.supervisors)
 
 
                 if (model.packageType=="normal"){
@@ -61,9 +106,11 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                 }else if ( model.packageType=="featured"){
                     cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
+                }else if ( model.packageType=="free"){
+                    cover.setBackgroundColor(itemView.context.getColor(R.color.green))
+                    cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.green))
+                    tvPrice.text = model.priceYearly
                 }
-
-
                 btnSelect.setOnClickListener {
                     listener.onAgencyYearlyPlanClick(model)
                 }

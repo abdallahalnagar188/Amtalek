@@ -11,5 +11,5 @@ data class ProjectModel (
     val datePosted: String,
     val brokerLogoUrl: String,
     val brokerId:Int,
-    val listingNumber:String
+    val listingNumber:String,
 )

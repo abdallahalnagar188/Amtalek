@@ -21,6 +21,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvPackagesUserYearlyAdap
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -287,19 +288,36 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     }
 
     override fun onAgencyMonthlyClick(model: PackageModel) {
-        viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
+        if (UserUtil.isUserLogin()){
+            viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
+        }else{
+            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+        }
+
     }
 
     override fun onAgencyYearlyPlanClick(model: PackageModel) {
-        viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
+        if (UserUtil.isUserLogin()){
+            viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
+        }else{
+            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+        }
     }
 
     override fun onUserMonthlyClick(model: PackageModel) {
-        viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "user")
+        if (UserUtil.isUserLogin()){
+            viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "user")
+        }else{
+            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+        }
     }
 
     override fun onUserYearlyClick(model: PackageModel) {
-        viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "user")
+        if (UserUtil.isUserLogin()){
+            viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "user")
+        }else{
+            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+        }
     }
 }
 

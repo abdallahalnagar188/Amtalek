@@ -47,6 +47,8 @@ data class MyData(
     var priceFrom: String?,
     @SerializedName("region")
     var region: String?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
     @SerializedName("title")
     var title: String?,
     @SerializedName("total_units")
@@ -66,7 +68,7 @@ data class MyData(
             listingNumber = listingNumber?:"",
             title = title?:"",
             isFeatured = "------",
-            location = "$region, $city",
+            location = "$city, $region, $subRegion",
 
         )
     }

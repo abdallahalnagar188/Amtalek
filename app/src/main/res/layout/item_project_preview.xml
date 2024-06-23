@@ -99,7 +99,7 @@
 
         <TextView
             android:id="@+id/tv_location"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/montserratsemibold"
@@ -107,7 +107,12 @@
             app:layout_constraintBottom_toBottomOf="@id/iv_location"
             app:layout_constraintStart_toEndOf="@id/iv_location"
             app:layout_constraintTop_toTopOf="@id/iv_location"
-            tools:text="Sheikh Zayed Giza" />
+            tools:text="Sheikh Zayed Giza"
+            app:layout_constraintEnd_toStartOf="@id/tv_broker"
+            android:textAlignment="viewStart"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginEnd="@dimen/_5sdp"/>
 
         <ImageView
             android:id="@+id/iv_clock"
@@ -118,7 +123,9 @@
             android:src="@drawable/ic_clock"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_location" />
+            app:layout_constraintTop_toBottomOf="@id/iv_location"
+
+            />
 
         <TextView
             android:id="@+id/tv_date_posted"

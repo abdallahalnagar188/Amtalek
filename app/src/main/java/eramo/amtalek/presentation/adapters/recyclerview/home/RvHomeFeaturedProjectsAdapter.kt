@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.adapters.recyclerview.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -45,6 +46,7 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
                 tvDescription.text = model.description
 
                 tvLocation.text = model.location
+                Log.e("TAGgg", model.location, )
                 tvDatePosted.text = model.datePosted
 
                 Glide.with(itemView)

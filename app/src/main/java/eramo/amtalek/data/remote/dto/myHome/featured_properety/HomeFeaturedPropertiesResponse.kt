@@ -57,6 +57,8 @@ data class MyData(
     var propertyType: String?,
     @SerializedName("region")
     var region: String?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
     @SerializedName("rent_duration")
     var rentDuration: String?,
     @SerializedName("rent_price")
@@ -84,7 +86,7 @@ data class MyData(
             area = landArea?:0,
             brokerId = (brokerDetails?.id?:0).toString(),
             brokerLogoUrl = brokerDetails?.companyLogo?:"",
-            location = city?:"",
+            location = "$city, $region, $subRegion",
             datePosted = createdAt?:"",
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
@@ -92,7 +94,10 @@ data class MyData(
             currency = currency?:"",
             acceptance = acceptance?:"",
             sold = sold?:false,
-            offerData = null
+            offerData = null,
+            region = region?:"",
+            subRegion = subRegion?:""
+
         )
     }
 }

@@ -50,12 +50,19 @@ class RvPackagesUserYearlyAdapter @Inject constructor() :
                 tvMessages.text = itemView.context.getString(R.string.messages_s, model.messages)
 
 
+
+
+
+
                 if (model.packageType=="normal"){
                     cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_blue))
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_blue))
                 }else if ( model.packageType=="featured"){
                     cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
+                }else if ( model.packageType=="free"){
+                    cover.setBackgroundColor(itemView.context.getColor(R.color.green))
+                    cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.green))
                 }
 
 

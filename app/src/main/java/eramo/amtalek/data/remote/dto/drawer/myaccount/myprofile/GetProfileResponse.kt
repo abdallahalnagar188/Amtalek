@@ -185,7 +185,9 @@ data class Favorite(
     @SerializedName("title")
     var title: String?,
     @SerializedName("acceptance")
-    var acceptance: String?
+    var acceptance: String?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 ) : Parcelable{
     fun toProperty(): PropertyModel{
         return PropertyModel(
@@ -201,7 +203,7 @@ data class Favorite(
             area = landArea?:0,
             brokerId = (brokerDetails?.id?:0).toString(),
             brokerLogoUrl = brokerDetails?.companyLogo?:"",
-            location = city?:"",
+            location = "$city, $region, $subRegion",
             datePosted = createdAt?:"",
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
@@ -209,7 +211,9 @@ data class Favorite(
             currency = currency?:"",
             acceptance = acceptance?:"",
             sold = sold?:false,
-            offerData = null
+            offerData = null,
+            region = region?:"",
+            subRegion = subRegion?:""
 
         )
     }
@@ -266,7 +270,9 @@ data class MyProp(
     @SerializedName("title")
     var title: String?,
     @SerializedName("acceptance")
-    var acceptance: String?
+    var acceptance: String?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 ) : Parcelable{
     fun toPropertyModel(): PropertyModel {
         return PropertyModel(
@@ -290,7 +296,9 @@ data class MyProp(
             currency = currency?:"",
             acceptance = acceptance?:"",
             sold = sold?:false,
-            offerData = null
+            offerData = null,
+            region = region?:"",
+            subRegion = subRegion?:""
         )
     }
 }
@@ -335,7 +343,9 @@ data class OffersItem(
             currency = propertyData?.get(0)?.currency?:"",
             acceptance = propertyData?.get(0)?.acceptance?:"",
             sold = propertyData?.get(0)?.sold?:false,
-            offerData = offerData
+            offerData = offerData,
+            region = propertyData?.get(0)?.region?:"",
+            subRegion = propertyData?.get(0)?.subRegion?:""
         )
     }
 
@@ -392,7 +402,9 @@ data class PropertyData(
     @SerializedName("sold")
     var sold: Boolean?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 ) : Parcelable{
 
 }

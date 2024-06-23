@@ -233,6 +233,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvTitle.text = data?.name
             tvLocation.text = data?.quickSummary?.address
             tvDate.text = data?.deliveryDate
+            Log.e("Nega", data?.deliveryDate?: "null", )
             tvDescriptionValue.text = data?.description
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description

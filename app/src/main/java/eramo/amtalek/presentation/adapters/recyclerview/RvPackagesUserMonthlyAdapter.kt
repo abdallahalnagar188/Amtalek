@@ -49,13 +49,35 @@ class RvPackagesUserMonthlyAdapter @Inject constructor() :
                 tvMessages.text = itemView.context.getString(R.string.messages_s, model.messages)
 
 
+
+                if (model.normalListings == "0"){
+                    ivRightMark.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+                if (model.featuredListings=="0"){
+                    ivRightMark2.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+
+                }
+
+                if (model.messages=="0"){
+                    ivRightMark3.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+                }
+                if (model.emoney=="0.0"){
+                    ivRightMark4.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
+                }
+
+
                 if (model.packageType=="normal"){
                     cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_blue))
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_blue))
                 }else if ( model.packageType=="featured"){
                     cover.setBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.amtalek_red))
+                }else if ( model.packageType=="free"){
+                    cover.setBackgroundColor(itemView.context.getColor(R.color.green))
+                    cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.green))
                 }
+
 
 
                 btnSelect.setOnClickListener {

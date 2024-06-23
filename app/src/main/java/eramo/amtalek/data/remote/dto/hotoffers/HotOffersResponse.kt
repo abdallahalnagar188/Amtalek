@@ -51,14 +51,17 @@ data class Project(
     @SerializedName("total_units")
     var totalUnits: String?,
     @SerializedName("twitter")
-    var twitter: String?
+    var twitter: String?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
+
 ) : Parcelable{
     fun toProjectModel(): ProjectModel {
         return ProjectModel(
             id = id?:0,
             imageUrl = image?:"",
             title = title?:"",
-            location = city?:"",
+            location = "$city, $region, $subRegion",
             datePosted = createdAt?:"",
             isFeatured = ""?:"",
             description = description?:"",
@@ -121,6 +124,8 @@ data class Property(
     var acceptance: String?,
     @SerializedName("sold")
     var sold: Boolean?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 ) : Parcelable{
     fun toPropertyModel():PropertyModel{
         return PropertyModel(
@@ -136,7 +141,7 @@ data class Property(
             area = landArea?:0,
             brokerId = (brokerDetails?.id?:0).toString(),
             brokerLogoUrl = brokerDetails?.companyLogo?:"",
-            location = city?:"",
+            location = "$city, $region, $subRegion",
             datePosted = createdAt?:"",
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
@@ -144,7 +149,9 @@ data class Property(
             currency = currency?:"",
             acceptance = acceptance?:"",
             sold = sold?:false,
-            offerData = null
+            offerData = null,
+            region = region?:"",
+            subRegion = subRegion?:""
 
         )
     }

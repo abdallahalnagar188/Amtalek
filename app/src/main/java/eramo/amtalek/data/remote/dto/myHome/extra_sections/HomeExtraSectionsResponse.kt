@@ -69,6 +69,8 @@ data class MyData(
     var acceptance: String?,
     @SerializedName("sold")
     var sold: Boolean?,
+    @SerializedName("sub_region")
+    var subRegion: String?,
 ) : Parcelable{
     fun toPropertyModel(): PropertyModel {
         return PropertyModel(
@@ -84,7 +86,7 @@ data class MyData(
             area = landArea?:0,
             brokerId = (brokerDetails?.id?:0).toString(),
             brokerLogoUrl = brokerDetails?.companyLogo?:"",
-            location = city?:"",
+            location = "$city, $region, $subRegion",
             datePosted = createdAt?:"",
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",
@@ -92,8 +94,9 @@ data class MyData(
             currency = currency?:"",
             acceptance = acceptance?:"",
             sold = sold?:false,
-            offerData = null
-
+            offerData = null,
+            region = region?:"",
+            subRegion = subRegion?:""
         )
     }
 
