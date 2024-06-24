@@ -22,4 +22,7 @@ class CountriesAndCitiesUseCase @Inject constructor(private val repository: Auth
     suspend fun getRegions(cityId: String): Flow<Resource<List<RegionModel>>> {
         return repository.getRegions(cityId)
     }
+    suspend fun getSubRegions(cityId: String): Flow<Resource<List<RegionModel>>> {
+        return repository.getSubRegions(cityId)
+    }
 }

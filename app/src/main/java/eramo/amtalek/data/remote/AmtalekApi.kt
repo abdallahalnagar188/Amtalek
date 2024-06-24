@@ -32,6 +32,11 @@ import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.poperty_types.PropertyTypesResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.property_categories.PropertyCategoriesResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.property_finishing.PropertyFinishingResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.property_floor_finishing.PropertyFloorFinishingResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.property_purpose.PropertyPurposeResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.domain.model.request.OrderRequest
@@ -133,8 +138,12 @@ interface AmtalekApi {
 
     @GET("mobile/cities/{countryId}")
     suspend fun getCities(@Path("countryId") countryId: String): Response<CitiesResponse>
+
     @GET("mobile/regions/{cityId}")
     suspend fun getRegions(@Path("cityId") cityId: String): Response<RegionsResponse>
+
+    @GET("mobile/sub-regions/{regionId}")
+    suspend fun getSubRegions(@Path("regionId") regionId: String): Response<RegionsResponse>
 
     @GET("mobile/contact-us")
     suspend fun contactUsInfo(): Response<ContactUsResponse>
@@ -252,6 +261,27 @@ interface AmtalekApi {
         @Field("duration") duration:String,
         @Field("actor_type") actorType:String,
     ):Response<SubscribeToPackageResponse>
+
+
+    //____________________________________________________________________________________________//
+    // Add Property cer-tria
+
+    @GET("mobile/property-types")
+    suspend fun getPropertyTypes():Response<PropertyTypesResponse>
+
+    @GET("mobile/property-finishing")
+    suspend fun getPropertyFinishing():Response<PropertyFinishingResponse>
+
+    @GET("mobile/property-puropse")
+    suspend fun getPropertyPurpose():Response<PropertyPurposeResponse>
+
+    @GET("mobile/categories")
+    suspend fun getPropertyCategories():Response<PropertyCategoriesResponse>
+
+
+    @GET("mobile/reception-floor-types")
+    suspend fun getPropertyFloorFinishing():Response<PropertyFloorFinishingResponse>
+
 
 
     //____________________________________________________________________________________________//

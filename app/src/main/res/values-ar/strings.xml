@@ -820,5 +820,8 @@
         <item>"ايجار"</item>
         <item>"بيع و ايجار"</item>
     </string-array>
-
+    <string-array name="priority_type">
+        <item>"عقار عادي"</item>
+        <item>"عقار مميز"</item>
+    </string-array>
 </resources>

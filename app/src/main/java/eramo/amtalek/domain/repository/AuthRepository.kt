@@ -76,6 +76,7 @@ interface AuthRepository {
 
     suspend fun getCities(countryId: String): Flow<Resource<List<CityModel>>>
     suspend fun getRegions(cityId: String): Flow<Resource<List<RegionModel>>>
+    suspend fun getSubRegions(regionId: String): Flow<Resource<List<RegionModel>>>
 
     suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>>
 

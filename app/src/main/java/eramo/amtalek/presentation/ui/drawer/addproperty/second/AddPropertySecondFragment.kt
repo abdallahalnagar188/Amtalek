@@ -5,6 +5,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import eramo.amtalek.R
@@ -62,7 +63,7 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
                 isValid = false
             }
             if (autoCompleteOfferType.text.isNullOrEmpty()){
-                autoCompleteOfferType.error = getString(R.string.please_select_a_property_type)
+                offerSpinner.error = getString(R.string.please_provide_your_offer_type)
                 isValid = false
             }
         }

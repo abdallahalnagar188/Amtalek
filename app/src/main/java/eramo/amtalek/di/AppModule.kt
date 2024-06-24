@@ -16,7 +16,17 @@ import eramo.amtalek.data.local.EventsDB
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.MyInterceptor
 import eramo.amtalek.data.repository.*
+import eramo.amtalek.data.repository.certaria.PropertyCategoriesRepositoryImpl
+import eramo.amtalek.data.repository.certaria.PropertyFinishingRepositoryImpl
+import eramo.amtalek.data.repository.certaria.PropertyFloorFinishingRepositoryImpl
+import eramo.amtalek.data.repository.certaria.PropertyPurposeRepositoryImpl
+import eramo.amtalek.data.repository.certaria.PropertyTypesRepositoryImpl
 import eramo.amtalek.domain.repository.*
+import eramo.amtalek.domain.repository.certaria.PropertyCategoriesRepository
+import eramo.amtalek.domain.repository.certaria.PropertyFinishingRepository
+import eramo.amtalek.domain.repository.certaria.PropertyFloorFinishingRepository
+import eramo.amtalek.domain.repository.certaria.PropertyPurposeRepository
+import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.util.parser.GsonParser
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -156,5 +166,32 @@ object AppModule {
     @Singleton
     fun providePackagesRepository(amtalekApi: AmtalekApi): PackagesRepository {
         return PackagesRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun providePropertyCategoriesRepository(amtalekApi: AmtalekApi): PropertyCategoriesRepository {
+        return PropertyCategoriesRepositoryImpl(amtalekApi)
+    }
+
+    @Provides
+    @Singleton
+    fun providePropertyFinishing(amtalekApi: AmtalekApi):PropertyFinishingRepository{
+        return PropertyFinishingRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun providePropertyFloorFinishing(amtalekApi: AmtalekApi):PropertyFloorFinishingRepository{
+        return PropertyFloorFinishingRepositoryImpl(amtalekApi)
+    }
+
+    @Provides
+    @Singleton
+    fun providePropertyPurposeRepository(amtalekApi: AmtalekApi): PropertyPurposeRepository {
+        return PropertyPurposeRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun providePropertyTypes(amtalekApi: AmtalekApi):PropertyTypesRepository{
+        return PropertyTypesRepositoryImpl(amtalekApi)
     }
 }

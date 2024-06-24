@@ -303,6 +303,21 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
+    override suspend fun getSubRegions(regionsId: String): Flow<Resource<List<RegionModel>>> {
+        return flow {
+            val result = toResultFlow { amtalekApi.getSubRegions(regionsId) }
+            result.collect { apiState ->
+                when (apiState) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(apiState.message!!))
+                    is ApiState.Success -> {
+                        val list = apiState.data?.data?.map { it!!.toRegionModel() }
+                        emit(Resource.Success(list))
+                    }
+                }
+            }
+        }
+    }
     override suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>> {
         return flow {
             val result = toResultFlow { amtalekApi.contactUsInfo() }

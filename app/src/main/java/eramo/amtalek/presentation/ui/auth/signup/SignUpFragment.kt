@@ -305,6 +305,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
+
     private fun setupGenderSwitch() {
         binding.genderSelectionLayout.apply {
             // Default

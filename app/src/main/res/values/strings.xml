@@ -821,4 +821,9 @@
         <item>"Rent&amp;Buy"</item>
     </string-array>
 
+    <string-array name="priority_type">
+        <item>"Normal"</item>
+        <item>"Featured"</item>
+    </string-array>
+
 </resources>
