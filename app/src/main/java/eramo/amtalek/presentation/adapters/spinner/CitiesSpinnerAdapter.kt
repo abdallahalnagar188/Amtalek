@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import eramo.amtalek.databinding.CitySpinnerItemBinding
+import eramo.amtalek.databinding.ItemDropdownBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.util.LocalUtil
 
@@ -22,15 +23,15 @@ class CitiesSpinnerAdapter(context: Context, list: List<CityModel>) :
     }
 
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val binding: CitySpinnerItemBinding
+        val binding: ItemDropdownBinding
         var row = convertView
 
         if (row == null) {
             val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            binding = CitySpinnerItemBinding.inflate(inflater, parent, false)
+            binding = ItemDropdownBinding.inflate(inflater, parent, false)
             row = binding.root
         } else {
-            binding = CitySpinnerItemBinding.bind(row)
+            binding = ItemDropdownBinding.bind(row)
         }
 
         binding.apply {
@@ -41,9 +42,9 @@ class CitiesSpinnerAdapter(context: Context, list: List<CityModel>) :
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
             if (LocalUtil.isEnglish()){
-                tvCityName.text = getItem(position)?.titleEn
+                name.text = getItem(position)?.titleEn
             }else{
-                tvCityName.text = getItem(position)?.titleAr
+                name.text = getItem(position)?.titleAr
             }
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }

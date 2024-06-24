@@ -40,6 +40,10 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddPropertyThirdBinding::inflate
     private val viewModel by viewModels<AddPropertyThirdFragmentViewModel>()
+    private var selectedCountryId = -1
+    private var selectedCityId = -1
+    private var selectedRegionId = -1
+    private var selectedSubRegionId = -1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
@@ -213,7 +217,8 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupCountrySpinners(types!!,binding.autoCompleteCountry)
+//                            val typesArray:ArrayList<CountryModel> = ArrayList()
+                            setupCountriesSpinner(types!!)
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -237,7 +242,10 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupCitySpinners(types!!,binding.autoCompleteType)
+//                            setupCitySpinners(types!!,binding.autoCompleteType)
+                            if (types != null) {
+                                setupCitiesSpinner(types)
+                            }
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -261,7 +269,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupRegionSpinners(types!!,binding.autoCompleteType)
+                            if (types != null) {
+                                setupRegionsSpinner(types)
+                            }
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -285,7 +295,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupSubRegionSpinners(types!!,binding.autoCompleteType)
+                            if (types != null) {
+                                setupSubRegionsSpinner(types)
+                            }
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -299,48 +311,137 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
         }
 
     }
+    private fun setupCountriesSpinner(data: List<CountryModel>) {
+        binding.apply {
+            val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
+            countrySpinner.adapter = countriesSpinnerAdapter
+
+            countrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CountryModel
+                    selectedCountryId = model.id
+                    viewModel.getCities(model.id.toString())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            countrySpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
+    private fun setupCitiesSpinner(data: List<CityModel>) {
+        binding.apply {
+            val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
+            citySpinner.adapter = citiesSpinnerAdapter
+
+            citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CityModel
+
+                    selectedCityId = model.id
+                    viewModel.getRegions(model.id.toString())
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            citySpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
+    private fun setupRegionsSpinner(data: List<RegionModel>) {
+        binding.apply {
+            val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
+            regionSpinner.adapter = regionsSpinnerAdapter
+
+            regionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as RegionModel
+                    selectedRegionId = model.id
+                    viewModel.getSubRegions(model.id.toString())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            regionSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
+    private fun setupSubRegionsSpinner(data: List<RegionModel>) {
+        binding.apply {
+            val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
+            subRegionSpinner.adapter = regionsSpinnerAdapter
+
+            subRegionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as RegionModel
+                    selectedSubRegionId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            subRegionSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
+
 
     private fun setupSpinners(types: List<CriteriaModel>, port: AutoCompleteTextView) {
         val typesArray:ArrayList<String> = ArrayList()
         for (item in types){
             typesArray.add(item.title)
-        }
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, typesArray)
-        port.setAdapter(arrayAdapter)
-    }
-    private fun setupCountrySpinners(types: List<CountryModel>, port: AutoCompleteTextView) {
-        val typesArray:ArrayList<String> = ArrayList()
-        for (item in types){
-            typesArray.add(item.name)
-        }
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, typesArray)
-        port.setAdapter(arrayAdapter)
-    }
-    private fun setupCitySpinners(types: List<CityModel>, port: AutoCompleteTextView) {
-        val typesArray:ArrayList<String> = ArrayList()
-
-        for (item in types){
-            if (LocalUtil.isEnglish()){
-                typesArray.add(item.titleEn)
-            }else{
-                typesArray.add(item.titleAr)
-            }
-        }
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, typesArray)
-        port.setAdapter(arrayAdapter)
-    }
-    private fun setupRegionSpinners(types: List<RegionModel>, port: AutoCompleteTextView) {
-        val typesArray:ArrayList<String> = ArrayList()
-        for (item in types){
-            typesArray.add(item.name)
-        }
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, typesArray)
-        port.setAdapter(arrayAdapter)
-    }
-    private fun setupSubRegionSpinners(types: List<RegionModel>, port: AutoCompleteTextView) {
-        val typesArray:ArrayList<String> = ArrayList()
-        for (item in types){
-            typesArray.add(item.name)
         }
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, typesArray)
         port.setAdapter(arrayAdapter)
@@ -361,12 +462,6 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
 
     private fun setUpViews() {
-
-
-        binding.autoCompleteSubRegion.inputType = InputType.TYPE_NULL
-        binding.autoCompleteRegion.inputType = InputType.TYPE_NULL
-        binding.autoCompleteCity.inputType = InputType.TYPE_NULL
-        binding.autoCompleteCountry.inputType = InputType.TYPE_NULL
         binding.autoCompletePurpose.inputType = InputType.TYPE_NULL
         binding.autoCompletePriorityType.inputType = InputType.TYPE_NULL
         binding.autoCompleteFinishing.inputType = InputType.TYPE_NULL
@@ -410,20 +505,20 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                 typeSpinner.error = getString(R.string.please_select_type)
                 isValid = false
             }
-            if (autoCompleteCountry.text.toString().isEmpty()){
-                countrySpinner.error = getString(R.string.please_select_country)
+            if (selectedCountryId==-1){
+                Toast.makeText(requireContext(), getString(R.string.please_select_country), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
-            if (autoCompleteCity.text.toString().isEmpty()){
-                citySpinner.error = getString(R.string.please_select_city)
+            if (selectedCityId==-1){
+                Toast.makeText(requireContext(), getString(R.string.please_select_city), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
-            if (autoCompleteRegion.text.toString().isEmpty()){
-                regionSpinner.error = getString(R.string.please_select_region)
+            if (selectedRegionId==-1){
+                Toast.makeText(requireContext(),  getString(R.string.please_select_region), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
-            if (autoCompleteSubRegion.text.toString().isEmpty()){
-                subRegionSpinner.error = getString(R.string.please_select_sub_region)
+            if (selectedSubRegionId==-1){
+                Toast.makeText(requireContext(),  getString(R.string.please_select_sub_region), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
             autoCompletePurpose.setOnItemClickListener { parent, view, position, id ->
@@ -449,24 +544,19 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                 typeSpinner.error = null
 
             }
-            autoCompleteCountry.setOnItemClickListener { parent, view, position, id ->
-                val countriesModel = parent.getItemAtPosition(position)
-                Toast.makeText(requireContext(), countriesModel.toString(), Toast.LENGTH_SHORT).show()
-                viewModel.getCities(countriesModel.toString())
-                countrySpinner.error = null
-            }
-            autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
-                citySpinner.error = null
 
-            }
-            autoCompleteRegion.setOnItemClickListener { parent, view, position, id ->
-                regionSpinner.error = null
-
-            }
-            autoCompleteSubRegion.setOnItemClickListener { parent, view, position, id ->
-                subRegionSpinner.error = null
-
-            }
+//            autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
+//                citySpinner.error = null
+//
+//            }
+//            autoCompleteRegion.setOnItemClickListener { parent, view, position, id ->
+//                regionSpinner.error = null
+//
+//            }
+//            autoCompleteSubRegion.setOnItemClickListener { parent, view, position, id ->
+//                subRegionSpinner.error = null
+//
+//            }
         }
         return isValid
     }

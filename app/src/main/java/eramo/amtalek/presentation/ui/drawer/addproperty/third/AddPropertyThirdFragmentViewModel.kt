@@ -201,7 +201,7 @@ class AddPropertyThirdFragmentViewModel @Inject constructor(
             }
         }
     }
-    private fun getCountries() {
+     fun getCountries() {
         getCountriesJob?.cancel()
         getCountriesJob = viewModelScope.launch {
             withContext(coroutineContext) {

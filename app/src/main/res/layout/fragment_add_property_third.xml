@@ -156,6 +156,7 @@
                     android:gravity="center_vertical"
                     android:hint="@string/priority"
                     android:paddingStart="@dimen/_11sdp"
+
                     android:inputType="none"
                     android:layout_weight="1"
                     android:textColor="@color/black"
@@ -178,37 +179,24 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/country_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_country_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/property_country_tv"
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_country"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/country"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
+                />
 
             <TextView
                 android:id="@+id/property_city_tv"
@@ -224,37 +212,23 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+
+            <Spinner
                 android:id="@+id/city_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_city_tv"
-                >
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/city"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
+                app:layout_constraintTop_toBottomOf="@id/property_city_tv" />
             <TextView
                 android:id="@+id/property_region_tv"
                 android:layout_width="wrap_content"
@@ -269,36 +243,22 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/region_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_region_tv"
-                >
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_region"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/region"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@id/property_region_tv" />
 
             <TextView
                 android:id="@+id/property_sub_region_tv"
@@ -314,36 +274,22 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/sub_region_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_sub_region_tv"
-                >
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_sub_region"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/sub_region"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@id/property_sub_region_tv" />
 
             <TextView
                 android:id="@+id/property_type_tv"
