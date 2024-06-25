@@ -524,7 +524,7 @@
     <string name="property_finishing">التشطيب:</string>
     <string name="property_currency">العملة:</string>
 
-    <string name="edit_text_hint_description">وصف الإعلان:</string>
+    <string name="edit_text_hint_description">وصف العقار:</string>
     <string name="property_details">تفاصيل العقار</string>
     <string name="property_features">وسائل الراحة</string>
     <string name="project_features">وسائل الراحة</string>
@@ -763,6 +763,8 @@
     <string name="add_property_1_5">اضف عقارك (1\5)</string>
     <string name="add_property_2_5">اضف عقارك (2\5)</string>
     <string name="add_property_3_5">اضف عقارك (3\5)</string>
+    <string name="add_property_4_5">اضف عقارك (4\5)</string>
+    <string name="add_property_5_5">اضف عقارك (5\5)</string>
     <string name="please_enter_a_address">من فضلك ادخل عنوان</string>
     <string name="please_enter_a_property_location">من فضلك ادخل موقع العقار</string>
     <string name="please_enter_a_video_link">من فضلك ادخل لينك الفيديو</string>
@@ -802,6 +804,14 @@
     <string name="please_select_city">من فضلك اختر المدينة</string>
     <string name="please_select_region">من فضلك اختر المنطقة</string>
     <string name="please_select_sub_region">من فضلك اختر المنطقة الفرعية</string>
+    <string name="property_photos">صور العقار</string>
+    <string name="primary_image">الصورة الأساسية</string>
+    <string name="slider_photos">صور المنزلق</string>
+    <string name="property_description_in_english">وصف العقار باللغة الإنجليزية</string>
+    <string name="property_description_in_arabic">وصف العقار باللغة العربية</string>
+    <string name="please_complete_all_fields">من فضلك املئ كل الحقول</string>
+    <string name="no_selection">بدون اختيار</string>
+    <string name="please_enter_a_description">من فضلك ادخل الوصف</string>
 
 
     <string-array name="offer_type">
@@ -821,6 +831,7 @@
         <item>"بيع و ايجار"</item>
     </string-array>
     <string-array name="priority_type">
+        <item>"بدون اختيار"</item>
         <item>"عقار عادي"</item>
         <item>"عقار مميز"</item>
     </string-array>

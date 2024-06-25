@@ -762,6 +762,8 @@
     <string name="add_property_1_5">Add property (1/5)</string>
     <string name="add_property_2_5">Add property (2/5)</string>
     <string name="add_property_3_5">Add property (3/5)</string>
+    <string name="add_property_4_5">Add property (4/5)</string>
+    <string name="add_property_5_5">Add property (5/5)</string>
     <string name="please_enter_a_address">Please enter a address</string>
     <string name="please_enter_a_property_location">Please enter a property Location</string>
     <string name="please_enter_a_video_link">Please enter a video link</string>
@@ -801,6 +803,14 @@
     <string name="please_select_city">Please select a city</string>
     <string name="please_select_region">Please select a region</string>
     <string name="please_select_sub_region">Please select a sub region</string>
+    <string name="property_photos">Property Photos</string>
+    <string name="primary_image">Primary Image</string>
+    <string name="slider_photos">Slider Photos</string>
+    <string name="property_description_in_english">Property Description in English</string>
+    <string name="property_description_in_arabic">Property Description in Arabic</string>
+    <string name="please_complete_all_fields">Please complete all fields</string>
+    <string name="no_selection">No Selection</string>
+    <string name="please_enter_a_description">Please enter a description</string>
 
 
     <string-array name="offer_type">
@@ -822,6 +832,7 @@
     </string-array>
 
     <string-array name="priority_type">
+        <item>"No Selection "</item>
         <item>"Normal"</item>
         <item>"Featured"</item>
     </string-array>

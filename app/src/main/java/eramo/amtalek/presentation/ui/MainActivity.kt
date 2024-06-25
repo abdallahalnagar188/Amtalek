@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderAddYourProperty.setOnClickListener {
-                navController.navigate(R.id.addPropertyThirdFragment)
+                navController.navigate(R.id.addPropertyFourthFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -381,6 +381,8 @@ class MainActivity : AppCompatActivity(),
                 R.id.addPropertyFirstFragment,
                 R.id.addPropertySecondFragment,
                 R.id.addPropertyThirdFragment,
+                R.id.addPropertyFourthFragment,
+                R.id.addPropertyFifthFragment,
                 -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE

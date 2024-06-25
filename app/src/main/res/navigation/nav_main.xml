@@ -422,5 +422,14 @@
         android:id="@+id/addPropertyThirdFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.third.AddPropertyThirdFragment"
         android:label="AddPropertyThirdFragment" />
+    <fragment
+        android:id="@+id/addPropertyFourthFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.addproperty.fourth.AddPropertyFourthFragment"
+        android:label="AddPropertyFourthFragment" />
+    <fragment
+        android:id="@+id/addPropertyFifthFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.addproperty.fifth.AddPropertyFifthFragment"
+        android:label="fragment_add_property_fifth"
+        tools:layout="@layout/fragment_add_property_fifth" />
 
 </navigation>

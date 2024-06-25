@@ -28,10 +28,12 @@ import eramo.amtalek.domain.model.home.cities.CitiesModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
+import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.RegionsSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.LocalUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 
@@ -44,6 +46,12 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     private var selectedCityId = -1
     private var selectedRegionId = -1
     private var selectedSubRegionId = -1
+    private var selectedPurposeId = -1
+    private var selectedCategoryId = -1
+    private var selectedFinishingId = -1
+    private var selectedFloorFinishingId = -1
+    private var selectedTypeId = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpViews()
@@ -57,6 +65,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
         val offerTypes = resources.getStringArray(R.array.priority_type)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, offerTypes)
         binding.autoCompletePriorityType.setAdapter(arrayAdapter)
+        binding.autoCompletePriorityType.setSelection(0)
     }
 
     private fun fetchApis() {
@@ -97,8 +106,8 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                 viewModel.propertyCategoriesState.collect(){
                     when(it){
                         is UiState.Success->{
-                            val types = it.data
-                            setupSpinners(types!!,binding.autoCompleteCategoryType)
+                            var types = it.data
+                            setupCategoriesSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Loading->{
@@ -124,7 +133,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupSpinners(types!!,binding.autoCompleteFinishing)
+                            setupFinishingSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -147,7 +156,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupSpinners(types!!,binding.autoCompleteFloorFinishingType)
+                            setupFloorFinishingSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -170,7 +179,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupSpinners(types!!,binding.autoCompletePurpose)
+                            setupPurposeSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -193,7 +202,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         }
                         is UiState.Success->{
                             val types = it.data
-                            setupSpinners(types!!,binding.autoCompleteType)
+                            if (types != null) {
+                                setupTypesSpinner(types.toMutableList())
+                            }
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -218,7 +229,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         is UiState.Success->{
                             val types = it.data
 //                            val typesArray:ArrayList<CountryModel> = ArrayList()
-                            setupCountriesSpinner(types!!)
+                            setupCountriesSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -244,7 +255,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                             val types = it.data
 //                            setupCitySpinners(types!!,binding.autoCompleteType)
                             if (types != null) {
-                                setupCitiesSpinner(types)
+                                setupCitiesSpinner(types.toMutableList())
                             }
                             LoadingDialog.dismissDialog()
                         }
@@ -270,7 +281,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         is UiState.Success->{
                             val types = it.data
                             if (types != null) {
-                                setupRegionsSpinner(types)
+                                setupRegionsSpinner(types.toMutableList())
                             }
                             LoadingDialog.dismissDialog()
                         }
@@ -296,7 +307,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
                         is UiState.Success->{
                             val types = it.data
                             if (types != null) {
-                                setupSubRegionsSpinner(types)
+                                setupSubRegionsSpinner(types.toMutableList())
                             }
                             LoadingDialog.dismissDialog()
                         }
@@ -311,8 +322,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
         }
 
     }
-    private fun setupCountriesSpinner(data: List<CountryModel>) {
+    private fun setupCountriesSpinner(data: MutableList<CountryModel>) {
         binding.apply {
+            data.add(0, CountryModel(-1, imageUrl = "", name = getString(R.string.no_selection) ))
             val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
             countrySpinner.adapter = countriesSpinnerAdapter
 
@@ -342,8 +354,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
             }
         }
     }
-    private fun setupCitiesSpinner(data: List<CityModel>) {
+    private fun setupCitiesSpinner(data: MutableList<CityModel>) {
         binding.apply {
+            data.add(0, CityModel(id=-1, titleEn = getString(R.string.no_selection), titleAr = getString(R.string.no_selection), image = "", properties = -1, rentProperties = -1, saleProperties = -1 ))
             val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
             citySpinner.adapter = citiesSpinnerAdapter
 
@@ -375,8 +388,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
             }
         }
     }
-    private fun setupRegionsSpinner(data: List<RegionModel>) {
+    private fun setupRegionsSpinner(data: MutableList<RegionModel>) {
         binding.apply {
+            data.add(0, RegionModel(id=-1, name = getString(R.string.no_selection)))
             val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
             regionSpinner.adapter = regionsSpinnerAdapter
 
@@ -406,8 +420,9 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
             }
         }
     }
-    private fun setupSubRegionsSpinner(data: List<RegionModel>) {
+    private fun setupSubRegionsSpinner(data: MutableList<RegionModel>) {
         binding.apply {
+            data.add(0, RegionModel(id=-1, name = getString(R.string.no_selection)))
             val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
             subRegionSpinner.adapter = regionsSpinnerAdapter
 
@@ -436,17 +451,195 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
             }
         }
     }
+    private fun setupSpinners(data:List<CriteriaModel>) {
+        binding.apply {
+            val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
+            subRegionSpinner.adapter = criteriaSpinnerAdapter
 
+            subRegionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as RegionModel
+                    selectedSubRegionId = model.id
+                }
 
-    private fun setupSpinners(types: List<CriteriaModel>, port: AutoCompleteTextView) {
-        val typesArray:ArrayList<String> = ArrayList()
-        for (item in types){
-            typesArray.add(item.title)
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            subRegionSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
         }
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, typesArray)
-        port.setAdapter(arrayAdapter)
-    }
 
+    }
+    private fun setupCategoriesSpinner(data:MutableList<CriteriaModel>) {
+        binding.apply {
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
+            categorySpinner.adapter = criteriaSpinnerAdapter
+            categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CriteriaModel
+                    selectedCategoryId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+            // refresh onClick if getting list fail
+            categorySpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+
+    }
+    private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
+        binding.apply {
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
+            finishingSpinner.adapter = criteriaSpinnerAdapter
+
+            finishingSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CriteriaModel
+                    selectedFinishingId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            finishingSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+
+    }
+    private fun setupFloorFinishingSpinner(data:MutableList<CriteriaModel>) {
+        binding.apply {
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+
+            val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
+            floorFinishingTypeSpinner.adapter = criteriaSpinnerAdapter
+
+            floorFinishingTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CriteriaModel
+                    selectedFloorFinishingId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            floorFinishingTypeSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
+    private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
+        binding.apply {
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+
+            val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
+            purposeSpinner.adapter = criteriaSpinnerAdapter
+
+            purposeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CriteriaModel
+                    selectedPurposeId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            purposeSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
+    private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
+        binding.apply {
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+
+            val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
+            typeSpinner.adapter = criteriaSpinnerAdapter
+
+            typeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    val model = parent?.getItemAtPosition(position) as CriteriaModel
+                    selectedTypeId = model.id
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+            }
+
+            // refresh onClick if getting list fail
+            typeSpinner.setOnTouchListener { view, motionEvent ->
+                when (motionEvent?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        view.performClick()
+                        if (data.isEmpty()) {
+                            viewModel.getCountries()
+                        }
+                    }
+                }
+                return@setOnTouchListener true
+            }
+        }
+    }
     private fun requestApis() {
         viewModel.getInitApis()
     }
@@ -454,7 +647,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     private fun clickListeners() {
         binding.btnNext.setOnClickListener {
             if (formValidation()){
-                
+                findNavController().navigate(R.id.addPropertyFourthFragment,null, navOptionsAnimation())
             }else{
                 return@setOnClickListener
             }
@@ -462,13 +655,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
 
     private fun setUpViews() {
-        binding.autoCompletePurpose.inputType = InputType.TYPE_NULL
         binding.autoCompletePriorityType.inputType = InputType.TYPE_NULL
-        binding.autoCompleteFinishing.inputType = InputType.TYPE_NULL
-        binding.autoCompleteFloorFinishingType.inputType = InputType.TYPE_NULL
-        binding.autoCompleteType.inputType = InputType.TYPE_NULL
-        binding.autoCompleteCategoryType.inputType = InputType.TYPE_NULL
-
         setupToolBar()
     }
     private fun setupToolBar() {
@@ -481,82 +668,39 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     private fun formValidation():Boolean{
         var isValid = true
         binding.apply {
-            if (autoCompletePurpose.text.toString().isEmpty()){
-                purposeSpinner.error = getString(R.string.please_select_purpose)
+            if (selectedPurposeId==-1){
                isValid = false
             }
-            if (autoCompleteCategoryType.text.toString().isEmpty()){
-                categorySpinner.error = getString(R.string.please_select_category_type)
+            if (selectedCategoryId==-1){
                 isValid = false
             }
-            if (autoCompletePriorityType.text.toString().isEmpty()){
-                prioritySpinner.error = getString(R.string.please_select_priority_type)
+            if (autoCompletePriorityType.text.toString()==getString(R.string.no_selection)){
                 isValid = false
             }
-            if (autoCompleteFinishing.text.toString().isEmpty()){
-                finishingSpinner.error = getString(R.string.please_select_finishing)
+            if (selectedFinishingId==-1){
                 isValid = false
             }
-            if (autoCompleteFloorFinishingType.text.toString().isEmpty()){
-                floorFinishingTypeSpinner.error = getString(R.string.please_select_floor_finishing_type)
+            if (selectedFloorFinishingId==-1){
                 isValid = false
             }
-            if (autoCompleteType.text.toString().isEmpty()){
-                typeSpinner.error = getString(R.string.please_select_type)
+            if (selectedTypeId==-1){
                 isValid = false
             }
             if (selectedCountryId==-1){
-                Toast.makeText(requireContext(), getString(R.string.please_select_country), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
             if (selectedCityId==-1){
-                Toast.makeText(requireContext(), getString(R.string.please_select_city), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
             if (selectedRegionId==-1){
-                Toast.makeText(requireContext(),  getString(R.string.please_select_region), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
             if (selectedSubRegionId==-1){
-                Toast.makeText(requireContext(),  getString(R.string.please_select_sub_region), Toast.LENGTH_SHORT).show()
                 isValid = false
             }
-            autoCompletePurpose.setOnItemClickListener { parent, view, position, id ->
-                purposeSpinner.error = null
-            }
-            autoCompleteCategoryType.setOnItemClickListener { parent, view, position, id ->
-                categorySpinner.error = null
-
-            }
-            autoCompletePriorityType.setOnItemClickListener { parent, view, position, id ->
-                prioritySpinner.error = null
-
-            }
-            autoCompleteFinishing.setOnItemClickListener { parent, view, position, id ->
-                finishingSpinner.error = null
-
-            }
-            autoCompleteFloorFinishingType.setOnItemClickListener { parent, view, position, id ->
-                floorFinishingTypeSpinner.error = null
-
-            }
-            autoCompleteType.setOnItemClickListener { parent, view, position, id ->
-                typeSpinner.error = null
-
-            }
-
-//            autoCompleteCity.setOnItemClickListener { parent, view, position, id ->
-//                citySpinner.error = null
-//
-//            }
-//            autoCompleteRegion.setOnItemClickListener { parent, view, position, id ->
-//                regionSpinner.error = null
-//
-//            }
-//            autoCompleteSubRegion.setOnItemClickListener { parent, view, position, id ->
-//                subRegionSpinner.error = null
-//
-//            }
+        }
+        if (!isValid){
+            Toast.makeText(requireContext(), getString(R.string.please_complete_all_fields), Toast.LENGTH_SHORT).show()
         }
         return isValid
     }

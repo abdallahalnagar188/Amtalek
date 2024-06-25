@@ -42,36 +42,24 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/purpose_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_purpose_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/property_purpose_tv"
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_purpose"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/purpose"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                />
             <TextView
                 android:id="@+id/property_category_tv"
                 android:layout_width="wrap_content"
@@ -87,36 +75,25 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/category_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_category_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/property_category_tv"
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_category_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/category"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                />
+
 
             <TextView
                 android:id="@+id/property_priority_tv"
@@ -152,14 +129,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edit_text_height"
                     android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
+                    android:fontFamily="@font/montserratsemibold"
                     android:gravity="center_vertical"
-                    android:hint="@string/priority"
-                    android:paddingStart="@dimen/_11sdp"
-
+                    android:text="@string/no_selection"
+                    android:paddingStart="@dimen/_12sdp"
                     android:inputType="none"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/_12ssp"
                     />
@@ -305,37 +281,24 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/type_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_type_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/property_type_tv"
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/typee"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
-
+                />
             <TextView
                 android:id="@+id/property_finishing_tv"
                 android:layout_width="wrap_content"
@@ -350,36 +313,24 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/finishing_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_finishing_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/property_finishing_tv"
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_finishing"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/finishing"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                />
 
             <TextView
                 android:id="@+id/property_floor_finishing_type_tv"
@@ -395,36 +346,24 @@
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/floor_finishing_type_spinner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginBottom="@dimen/_24sdp"
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_11sdp"
-                android:fontFamily="@font/montserratregular"
-                app:hintEnabled="false"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/property_floor_finishing_type_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@id/property_floor_finishing_type_tv"
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_floor_finishing_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
-                    android:gravity="center_vertical"
-                    android:hint="@string/floor_finishing_type"
-                    android:paddingStart="@dimen/_11sdp"
-                    android:inputType="none"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                />
 
             <Button
                 android:id="@+id/btn_next"

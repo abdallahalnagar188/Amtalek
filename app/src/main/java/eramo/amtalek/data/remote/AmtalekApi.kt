@@ -32,6 +32,7 @@ import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.amenities.AmenitiesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.poperty_types.PropertyTypesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_categories.PropertyCategoriesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_finishing.PropertyFinishingResponse
@@ -281,6 +282,11 @@ interface AmtalekApi {
 
     @GET("mobile/reception-floor-types")
     suspend fun getPropertyFloorFinishing():Response<PropertyFloorFinishingResponse>
+
+    @GET("mobile/aminities")
+    suspend fun getPropertyAmenities():Response<AmenitiesResponse>
+
+
 
 
 

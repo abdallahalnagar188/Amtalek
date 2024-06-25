@@ -1,7 +1,7 @@
 package eramo.amtalek.domain.model.project
 
-data class AmenityModel(
+data class AmenityModelSelection(
     val id: Int,
     val name: String,
-    var isSelected: Boolean = false
+    val isSelected: Boolean = false
 )

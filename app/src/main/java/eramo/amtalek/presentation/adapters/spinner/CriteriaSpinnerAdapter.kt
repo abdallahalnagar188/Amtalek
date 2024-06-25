@@ -5,15 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import eramo.amtalek.databinding.CitySpinnerItemBinding
 import eramo.amtalek.databinding.ItemDropdownBinding
-import eramo.amtalek.databinding.RegionSpinnerItemBinding
-import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.RegionModel
-import eramo.amtalek.domain.model.auth.RegionsModel
+import eramo.amtalek.domain.model.property.CriteriaModel
 
-class RegionsSpinnerAdapter(context: Context, list: List<RegionModel>) :
-    ArrayAdapter<RegionModel>(context, 0, list) {
+class CriteriaSpinnerAdapter(context: Context, list: List<CriteriaModel>) :
+    ArrayAdapter<CriteriaModel>(context, 0, list) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -43,7 +40,7 @@ class RegionsSpinnerAdapter(context: Context, list: List<RegionModel>) :
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
 
-            name.text = getItem(position)?.name
+            name.text = getItem(position)?.title
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }
 

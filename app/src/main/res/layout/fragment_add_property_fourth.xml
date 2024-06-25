@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/layout_toolbar_with_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/primary_image_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/primary_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/primary_image_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/edittext_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/primary_image_tv">
+
+                <ImageView
+                    android:id="@+id/iv_pick_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_35sdp"
+                    android:src="@drawable/ic_pick_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                <TextView
+                    android:id="@+id/tv_id_format"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/montserratmedium"
+                    android:text="@string/file_format_pdf_jpeg_png"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_pick_image" />
+
+                <ImageView
+                    android:id="@+id/iv_image_picked"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_50sdp"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/pic_onboarding_three" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/slider_photos_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slider_photos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/primary_image_layout"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/slider_images_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:background="@drawable/edittext_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/slider_photos_tv">
+
+                <ImageView
+                    android:id="@+id/iv_pick_slider_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_35sdp"
+                    android:src="@drawable/ic_pick_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+                <TextView
+                    android:id="@+id/tv_id_format_slider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/montserratmedium"
+                    android:text="@string/file_format_pdf_jpeg_png"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_pick_slider_images" />
+
+                <ImageView
+                    android:id="@+id/iv_slider_image_picked"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_50sdp"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/pic_onboarding_three" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/slider_count_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="hamboksha added"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/slider_images_layout"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/amtalek_red"
+                android:textSize="@dimen/_10ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                />
+
+            <TextView
+                android:id="@+id/desc_en_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_description_in_english"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/slider_count_tv"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_description_en"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_en_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_description_en"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="start"
+                    android:hint="@string/edit_text_hint_description"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/desc_ar_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/property_description_in_arabic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_description_en"
+                android:layout_marginStart="@dimen/screen_margin_sides"
+                android:fontFamily="@font/montserratsemibold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18ssp"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_description_ar"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_140sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_11sdp"
+                android:fontFamily="@font/montserratregular"
+                android:textColorHint="@color/gray"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/desc_ar_tv">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_description_ar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_background"
+                    android:fontFamily="@font/montserratregular"
+                    android:gravity="start"
+                    android:hint="@string/edit_text_hint_description"
+                    android:inputType="textMultiLine"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_12ssp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/home_margin_top"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/button_background_long"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/til_description_ar" />
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/button_background_long_faded"
+                android:fontFamily="@font/montserratregular"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_next"
+        />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

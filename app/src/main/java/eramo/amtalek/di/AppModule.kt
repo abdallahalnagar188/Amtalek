@@ -16,12 +16,14 @@ import eramo.amtalek.data.local.EventsDB
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.MyInterceptor
 import eramo.amtalek.data.repository.*
+import eramo.amtalek.data.repository.certaria.PropertyAmenitiesRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyCategoriesRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyFinishingRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyFloorFinishingRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyPurposeRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyTypesRepositoryImpl
 import eramo.amtalek.domain.repository.*
+import eramo.amtalek.domain.repository.certaria.PropertyAmenitiesRepository
 import eramo.amtalek.domain.repository.certaria.PropertyCategoriesRepository
 import eramo.amtalek.domain.repository.certaria.PropertyFinishingRepository
 import eramo.amtalek.domain.repository.certaria.PropertyFloorFinishingRepository
@@ -191,7 +193,12 @@ object AppModule {
     }
     @Provides
     @Singleton
-    fun providePropertyTypes(amtalekApi: AmtalekApi):PropertyTypesRepository{
+    fun providePropertyTypesRepository(amtalekApi: AmtalekApi):PropertyTypesRepository{
         return PropertyTypesRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun providePropertyAmenitiesRepository(amtalekApi: AmtalekApi):PropertyAmenitiesRepository{
+        return PropertyAmenitiesRepositoryImpl(amtalekApi)
     }
 }
