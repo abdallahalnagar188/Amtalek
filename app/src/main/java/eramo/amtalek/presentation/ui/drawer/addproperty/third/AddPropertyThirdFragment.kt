@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.ui.drawer.addproperty.third
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -16,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -26,14 +28,18 @@ import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.RegionModel
 import eramo.amtalek.domain.model.home.cities.CitiesModel
 import eramo.amtalek.domain.model.property.CriteriaModel
+import eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyThirdModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.RegionsSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
+import eramo.amtalek.presentation.ui.drawer.addproperty.fourth.AddPropertyFourthFragmentArgs
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
+import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 
@@ -41,6 +47,10 @@ import kotlinx.coroutines.launch
 class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding>(){
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddPropertyThirdBinding::inflate
+
+    val args by navArgs<AddPropertyThirdFragmentArgs>()
+    private val secondModel get() = args.secondModel
+
     private val viewModel by viewModels<AddPropertyThirdFragmentViewModel>()
     private var selectedCountryId = -1
     private var selectedCityId = -1
@@ -59,6 +69,8 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
         requestApis()
         fetchApis()
         setUpPrioritySpinner()
+        Log.e("ARGGG2", secondModel.toString(), )
+
     }
 
     private fun setUpPrioritySpinner() {
@@ -647,7 +659,20 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     private fun clickListeners() {
         binding.btnNext.setOnClickListener {
             if (formValidation()){
-                findNavController().navigate(R.id.addPropertyFourthFragment,null, navOptionsAnimation())
+                val thirdModel = AddPropertyThirdModel(
+                    addPropertySecondModel = secondModel,
+                    purposeId = selectedPurposeId,
+                    categoryId = selectedCategoryId,
+                    priorityId = binding.autoCompletePriorityType.text.toString(),
+                    finishingId = selectedFinishingId,
+                    floorFinishingId = selectedFloorFinishingId,
+                    propertyType = selectedTypeId,
+                    countryId = selectedCountryId,
+                    cityId = selectedCityId,
+                    regionId = selectedRegionId,
+                    subRegionId = selectedSubRegionId
+                )
+                findNavController().navigate(R.id.addPropertyFourthFragment,AddPropertyFourthFragmentArgs(thirdModel).toBundle(), navOptionsFromTopAnimation())
             }else{
                 return@setOnClickListener
             }

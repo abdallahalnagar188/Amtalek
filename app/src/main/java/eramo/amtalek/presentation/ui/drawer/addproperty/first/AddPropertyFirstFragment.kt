@@ -7,8 +7,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddPropertyFirstBinding
+import eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFirstModel
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.drawer.addproperty.second.AddPropertySecondFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
 
 class AddPropertyFirstFragment :BindingFragment<FragmentAddPropertyFirstBinding>() {
 
@@ -24,14 +27,18 @@ class AddPropertyFirstFragment :BindingFragment<FragmentAddPropertyFirstBinding>
     private fun clickListeners() {
         binding.btnNext.setOnClickListener(){
             if (formValidation()){
-                findNavController().navigate(R.id.addPropertySecondFragment, null, navOptionsAnimation())
+                binding.apply {
+                    val addPropertyFirstModel = AddPropertyFirstModel(propertyNameInEnglish = etPropertyNameEnglish.text.toString(), propertyNameInArabic = etPropertyNameArabic.text.toString(), propertyAddressInEnglish = etPropertyAddressEnglish.text.toString(),
+                        propertyAddressInArabic = etPropertyAddressArabic.text.toString(), propertyLocation = etPropertyLocation.text.toString(), propertyVideoUrl =etPropertyVideoLink.text.toString() )
+                    findNavController().navigate(R.id.addPropertySecondFragment, AddPropertySecondFragmentArgs(addPropertyFirstModel).toBundle(), navOptionsAnimation())
+                }
             }else{
                 return@setOnClickListener
             }
 
         }
         binding.btnCancel.setOnClickListener(){
-           findNavController().popBackStack()
+           findNavController().navigate(R.id.homeFragment,null, navOptionsFromBottomAnimation())
         }
     }
 
@@ -57,10 +64,7 @@ class AddPropertyFirstFragment :BindingFragment<FragmentAddPropertyFirstBinding>
                 etPropertyLocation.error = getString(R.string.please_enter_a_property_location)
                 isValid = false
             }
-            if (etPropertyVideoLink.text.isNullOrEmpty()){
-                etPropertyVideoLink.error = getString(R.string.please_enter_a_video_link)
-                isValid = false
-            }
+
         }
         return isValid
     }

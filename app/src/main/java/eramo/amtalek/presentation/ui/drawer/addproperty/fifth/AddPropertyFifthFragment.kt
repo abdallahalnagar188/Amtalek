@@ -10,10 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddPropertyFifthBinding
+import eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFourthModel
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.main.home.details.projects.AmenitiesAdapter
@@ -25,6 +27,8 @@ import javax.inject.Inject
 class AddPropertyFifthFragment : BindingFragment<FragmentAddPropertyFifthBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddPropertyFifthBinding::inflate
+    val args by navArgs<AddPropertyFifthFragmentArgs>()
+    private val fourthModel get() = args.fourthModel
 
     val viewModel by viewModels<AddPropertyFifthFragmentViewModel>()
     @Inject
@@ -35,11 +39,12 @@ class AddPropertyFifthFragment : BindingFragment<FragmentAddPropertyFifthBinding
         requestData()
         fetchData()
         clickListeners()
+        Log.e("ARGGG4", fourthModel.toString(), )
     }
 
     private fun clickListeners() {
         binding.btnSubmit.setOnClickListener(){
-            Log.e("Ameen", amenitiesAdapter.selectionList.toString() )
+
         }
     }
 

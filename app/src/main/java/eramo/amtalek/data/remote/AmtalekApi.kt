@@ -340,6 +340,28 @@ interface AmtalekApi {
     ):Response<SendOfferResponse>
 
 
+    @Multipart
+    @POST("mobile/add-property-request")
+    suspend fun addPropertyRequest(
+        @Header("Authorization") userToken:String,
+        @Part("priority") priority: RequestBody?,
+        @Part("purpose") purpose: RequestBody?,
+        @Part("category") category: RequestBody?,
+        @Part("property_type") property_type: RequestBody?,
+        @Part("country") countryId: RequestBody?,
+        @Part("city") cityId: RequestBody?,
+        @Part("region") regionId: RequestBody?,
+        @Part("sub_region") subRegionId: RequestBody?,
+        @Part("building_num") building_num: RequestBody?,
+        @Part("floor_num") floor_num: RequestBody?,
+        @Part("apartment_num") apartment_num: RequestBody?,
+        @Part("rent_price_per_month") rent_price_per_month: RequestBody?,
+        @Part("sale_price") bio: RequestBody?,
+        @Part profileImage: MultipartBody.Part?,
+        @Part coverImage: MultipartBody.Part?
+    ): Response<SuccessfulResponse>
+
+
     // ____________________________________________________________________________________________//
     // Drawer
 //

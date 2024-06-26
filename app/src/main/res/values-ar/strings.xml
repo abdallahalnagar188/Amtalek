@@ -812,6 +812,27 @@
     <string name="please_complete_all_fields">من فضلك املئ كل الحقول</string>
     <string name="no_selection">بدون اختيار</string>
     <string name="please_enter_a_description">من فضلك ادخل الوصف</string>
+    <string name="sell_price">سعر البيع</string>
+    <string name="rent_price">سعر الإيجار</string>
+    <string name="rent_duration">مدة الإيجار</string>
+    <string name="sell">بيع</string>
+    <string name="rentt">ايجار</string>
+    <string name="rent_buy">بيع و ايجار</string>
+    <string name="please_enter_a_sell_price">من فضلك ادخل سعر البيع</string>
+    <string name="please_enter_a_rent_price">من فضلك ادخل سعر ايجار</string>
+    <string name="please_enter_a_rent_duration">من فضلك ادخل مدة ايجار</string>
+
+
+
+
+    <string-array name="durations_array">
+        <item>"يوميا"</item>
+        <item>"شهريا"</item>
+        <item>"٣ شهور"</item>
+        <item>"٦ شهور"</item>
+        <item>"٩ شهور"</item>
+        <item>"سنويا"</item>
+    </string-array>
 
 
     <string-array name="offer_type">

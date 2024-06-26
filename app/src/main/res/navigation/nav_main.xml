@@ -417,19 +417,35 @@
         android:id="@+id/addPropertySecondFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.second.AddPropertySecondFragment"
         android:label="fragment_add_property_second"
-        tools:layout="@layout/fragment_add_property_second" />
+        tools:layout="@layout/fragment_add_property_second" >
+        <argument
+            android:name="firstModel"
+            app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFirstModel" />
+    </fragment>
     <fragment
         android:id="@+id/addPropertyThirdFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.third.AddPropertyThirdFragment"
-        android:label="AddPropertyThirdFragment" />
+        android:label="AddPropertyThirdFragment" >
+        <argument
+            android:name="secondModel"
+            app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertySecondModel" />
+    </fragment>
     <fragment
         android:id="@+id/addPropertyFourthFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.fourth.AddPropertyFourthFragment"
-        android:label="AddPropertyFourthFragment" />
+        android:label="AddPropertyFourthFragment" >
+        <argument
+            android:name="thirdModel"
+            app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyThirdModel" />
+    </fragment>
     <fragment
         android:id="@+id/addPropertyFifthFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.fifth.AddPropertyFifthFragment"
         android:label="fragment_add_property_fifth"
-        tools:layout="@layout/fragment_add_property_fifth" />
+        tools:layout="@layout/fragment_add_property_fifth">
+        <argument
+            android:name="fourthModel"
+            app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFourthModel" />
+    </fragment>
 
 </navigation>

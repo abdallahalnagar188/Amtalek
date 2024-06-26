@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,26 +14,33 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddPropertyFourthBinding
+import eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFourthModel
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.drawer.addproperty.fifth.AddPropertyFifthFragmentArgs
 import eramo.amtalek.util.LocalUtil
+import eramo.amtalek.util.navOptionsFromTopAnimation
 
 @AndroidEntryPoint
 class AddPropertyFourthFragment : BindingFragment<FragmentAddPropertyFourthBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddPropertyFourthBinding::inflate
+
+    val args by navArgs<AddPropertyFourthFragmentArgs>()
+    private val thirdModel  get() =  args.thirdModel
+
     private var imageUri: Uri? = null
     private val uris = mutableListOf<Uri>()
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         clickListeners()
+        Log.e("ARGGG3", thirdModel.toString(), )
     }
 
     private fun clickListeners() {
@@ -54,7 +62,17 @@ class AddPropertyFourthFragment : BindingFragment<FragmentAddPropertyFourthBindi
             }
             btnNext.setOnClickListener(){
                 if (formValidation()){
+                    val fourthModel = AddPropertyFourthModel(
+                        addPropertyThirdModel = thirdModel,
+                        descriptionInEnglish = etDescriptionEn.text.toString(),
+                        descriptionInArabic = etDescriptionAr.text.toString(),
+                        sliderImages = uris,
+                        primaryImage = imageUri!!,
+                    )
 
+                    findNavController().navigate(R.id.addPropertyFifthFragment,AddPropertyFifthFragmentArgs(fourthModel).toBundle(),
+                        navOptionsFromTopAnimation()
+                    )
                 }else{
                     return@setOnClickListener
                 }
@@ -88,7 +106,7 @@ class AddPropertyFourthFragment : BindingFragment<FragmentAddPropertyFourthBindi
                 } else {
                     result.data?.data?.let { uris.add(it) }
                 }
-                binding.ivSliderImagePicked.setImageURI(uris.get(0))
+                binding.ivSliderImagePicked.setImageURI(uris[0])
                 binding.ivSliderImagePicked.isVisible = true
                 binding.sliderCountTv.visibility = View.VISIBLE
                 if(LocalUtil.isEnglish()){

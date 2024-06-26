@@ -811,7 +811,26 @@
     <string name="please_complete_all_fields">Please complete all fields</string>
     <string name="no_selection">No Selection</string>
     <string name="please_enter_a_description">Please enter a description</string>
+    <string name="sell_price">Sell Price</string>
+    <string name="rent_price">Rent Price</string>
+    <string name="rent_duration">Rent Duration</string>
+    <string name="sell">Sell</string>
+    <string name="rentt">Rent</string>
+    <string name="rent_buy">Rent&amp;Buy</string>
+    <string name="please_enter_a_sell_price">Please enter a sell price</string>
+    <string name="please_enter_a_rent_price">Please enter a rent price</string>
+    <string name="please_enter_a_rent_duration">Please enter a rent duration</string>
 
+
+
+    <string-array name="durations_array">
+        <item>"Daily"</item>
+        <item>"Monthly"</item>
+        <item>"3 Months"</item>
+        <item>"6 Months"</item>
+        <item>"9 Months"</item>
+        <item>"Yearly"</item>
+    </string-array>
 
     <string-array name="offer_type">
         <item>"Buy"</item>

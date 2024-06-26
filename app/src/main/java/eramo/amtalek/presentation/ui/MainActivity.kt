@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderAddYourProperty.setOnClickListener {
-                navController.navigate(R.id.addPropertyFourthFragment)
+                navController.navigate(R.id.addPropertyFirstFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
