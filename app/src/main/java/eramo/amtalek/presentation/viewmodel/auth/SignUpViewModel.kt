@@ -72,6 +72,7 @@ class SignUpViewModel @Inject constructor(
             MultipartBody.Part.createFormData(img_keyName, file.name, requestBody)
         } else null
     }
+
     fun register(
         firstName: String?,
         lastName: String?,

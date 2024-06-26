@@ -32,6 +32,7 @@ import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.addproperty.AddPropertyResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.amenities.AmenitiesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.poperty_types.PropertyTypesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_categories.PropertyCategoriesResponse
@@ -347,19 +348,41 @@ interface AmtalekApi {
         @Part("priority") priority: RequestBody?,
         @Part("purpose") purpose: RequestBody?,
         @Part("category") category: RequestBody?,
-        @Part("property_type") property_type: RequestBody?,
+        @Part("property_type") propertyType: RequestBody?,
         @Part("country") countryId: RequestBody?,
         @Part("city") cityId: RequestBody?,
         @Part("region") regionId: RequestBody?,
         @Part("sub_region") subRegionId: RequestBody?,
-        @Part("building_num") building_num: RequestBody?,
-        @Part("floor_num") floor_num: RequestBody?,
-        @Part("apartment_num") apartment_num: RequestBody?,
-        @Part("rent_price_per_month") rent_price_per_month: RequestBody?,
-        @Part("sale_price") bio: RequestBody?,
-        @Part profileImage: MultipartBody.Part?,
-        @Part coverImage: MultipartBody.Part?
-    ): Response<SuccessfulResponse>
+        @Part("building_num") buildingNum: RequestBody?,
+        @Part("floor_num") floorNum: RequestBody?,
+        @Part("no_floors") noFloors: RequestBody?,
+        @Part("apartment_num") apartmentNum: RequestBody?,
+        @Part("currency") currency: RequestBody?,
+        @Part("total_area") totalArea: RequestBody?,
+        @Part("reception_pieces") receptionPieces: RequestBody?,
+        @Part("bed_rooms_no") bedRoomsNo: RequestBody?,
+        @Part("bath_room_no") bathRoomNo: RequestBody?,
+        @Part("living_room") livingRoom: RequestBody?,
+        @Part("kitchens_no") kitchensNo: RequestBody?,
+        @Part("finishing") finishing: RequestBody?,
+        @Part("reception_floor_type") receptionFloorType: RequestBody?,
+        @Part("video") video: RequestBody?,
+        @Part("location") location: RequestBody?,
+        @Part("property_title_en") propertyTitleEn: RequestBody?,
+        @Part("property_title_ar") propertyTitleAr: RequestBody?,
+        @Part("property_description_en") propertyDescriptionEn: RequestBody?,
+        @Part("property_description_ar") propertyDescriptionAr: RequestBody?,
+        @Part("address_en") addressEn: RequestBody?,
+        @Part("address_ar") addressAr: RequestBody?,
+        @Part("on_site") onSite: RequestBody?,
+        @Part("for_what") forWhat  : RequestBody?,
+        @Part("sale_price") salePrice: RequestBody?,
+        @Part("rent_price") rentPrice: RequestBody?,
+        @Part("rent_duration") rentDuration: RequestBody?,
+        @Part("amenities") amenities : RequestBody?,
+        @Part primaryImage: MultipartBody.Part?,
+        @Part sliders: List<MultipartBody.Part>?
+    ): Response<AddPropertyResponse>
 
 
     // ____________________________________________________________________________________________//

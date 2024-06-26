@@ -23,6 +23,7 @@ import eramo.amtalek.data.repository.certaria.PropertyFloorFinishingRepositoryIm
 import eramo.amtalek.data.repository.certaria.PropertyPurposeRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyTypesRepositoryImpl
 import eramo.amtalek.domain.repository.*
+import eramo.amtalek.domain.repository.AddPropertyRepository
 import eramo.amtalek.domain.repository.certaria.PropertyAmenitiesRepository
 import eramo.amtalek.domain.repository.certaria.PropertyCategoriesRepository
 import eramo.amtalek.domain.repository.certaria.PropertyFinishingRepository
@@ -200,5 +201,10 @@ object AppModule {
     @Singleton
     fun providePropertyAmenitiesRepository(amtalekApi: AmtalekApi):PropertyAmenitiesRepository{
         return PropertyAmenitiesRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun provideAddPropertyRepository(amtalekApi: AmtalekApi): AddPropertyRepository {
+        return AddPropertyRepositoryImpl(amtalekApi)
     }
 }

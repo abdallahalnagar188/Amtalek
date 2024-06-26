@@ -1,9 +1,12 @@
 package eramo.amtalek.presentation.ui.drawer.addproperty.fourth
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -95,7 +98,8 @@ class AddPropertyFourthFragment : BindingFragment<FragmentAddPropertyFourthBindi
                 Toast.makeText(requireContext(), "No Image chosen", Toast.LENGTH_SHORT).show()
             }
         }
-    private val startForSliderImageResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val startForSliderImageResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result:ActivityResult ->
             // Handle the returned Uri list
             if (result.resultCode == Activity.RESULT_OK) {
                 val clipData = result.data?.clipData

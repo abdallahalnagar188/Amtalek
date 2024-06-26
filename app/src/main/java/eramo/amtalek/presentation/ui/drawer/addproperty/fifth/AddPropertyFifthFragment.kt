@@ -44,12 +44,78 @@ class AddPropertyFifthFragment : BindingFragment<FragmentAddPropertyFifthBinding
 
     private fun clickListeners() {
         binding.btnSubmit.setOnClickListener(){
-
+            bindDataToRequestBody()
         }
+    }
+
+    private fun bindDataToRequestBody() {
+        viewModel.addProperty(
+            propertyTitleEn = fourthModel.addPropertyThirdModel.addPropertySecondModel.addPropertyFirstModel.propertyNameInEnglish,
+            propertyTitleAr = fourthModel.addPropertyThirdModel.addPropertySecondModel.addPropertyFirstModel.propertyNameInArabic,
+            addressEn = fourthModel.addPropertyThirdModel.addPropertySecondModel.addPropertyFirstModel.propertyAddressInEnglish,
+            addressAr = fourthModel.addPropertyThirdModel.addPropertySecondModel.addPropertyFirstModel.propertyAddressInArabic,
+            video = fourthModel.addPropertyThirdModel.addPropertySecondModel.addPropertyFirstModel.propertyVideoUrl,
+            location = fourthModel.addPropertyThirdModel.addPropertySecondModel.addPropertyFirstModel.propertyLocation,
+            buildingNum = fourthModel.addPropertyThirdModel.addPropertySecondModel.buildingNumber,
+            floorNum = fourthModel.addPropertyThirdModel.addPropertySecondModel.floorNumber,
+            noFloors = fourthModel.addPropertyThirdModel.addPropertySecondModel.floorNumber,
+            apartmentNum = fourthModel.addPropertyThirdModel.addPropertySecondModel.buildingNumber,
+            totalArea = fourthModel.addPropertyThirdModel.addPropertySecondModel.totalArea,
+            livingRoom = fourthModel.addPropertyThirdModel.addPropertySecondModel.livingRoomNumber,
+            receptionPieces = fourthModel.addPropertyThirdModel.addPropertySecondModel.receptionPiecesNumber,
+            kitchensNo = fourthModel.addPropertyThirdModel.addPropertySecondModel.kitchenNumber,
+            bathRoomNo = fourthModel.addPropertyThirdModel.addPropertySecondModel.bathroomNumber,
+            bedRoomsNo = fourthModel.addPropertyThirdModel.addPropertySecondModel.bedroomNumber,
+            forWhat = fourthModel.addPropertyThirdModel.addPropertySecondModel.forWhat,
+            rentPrice = fourthModel.addPropertyThirdModel.addPropertySecondModel.rentPrice,
+            salePrice = fourthModel.addPropertyThirdModel.addPropertySecondModel.sellPrice,
+            rentDuration = fourthModel.addPropertyThirdModel.addPropertySecondModel.rentDuration,
+            purpose = fourthModel.addPropertyThirdModel.purposeId,
+            category = fourthModel.addPropertyThirdModel.categoryId,
+            priority = fourthModel.addPropertyThirdModel.priorityId,
+            propertyType = fourthModel.addPropertyThirdModel.propertyType,
+            countryId = fourthModel.addPropertyThirdModel.countryId,
+            cityId = fourthModel.addPropertyThirdModel.cityId,
+            regionId = fourthModel.addPropertyThirdModel.regionId,
+            subRegionId = fourthModel.addPropertyThirdModel.subRegionId,
+            finishing = fourthModel.addPropertyThirdModel.finishingId,
+            receptionFloorType = fourthModel.addPropertyThirdModel.floorFinishingId,
+            primaryImage = fourthModel.primaryImage,
+            sliders = fourthModel.sliderImages,
+            propertyDescriptionAr = fourthModel.descriptionInArabic,
+            propertyDescriptionEn = fourthModel.descriptionInEnglish,
+            amenities = amenitiesAdapter.selectionList.toString(),
+            currency = "1",//static so far
+            onSite = "yes"//static
+        )
     }
 
     private fun fetchData() {
         fetchGetAmenitiesState()
+        fetchAddPropertyState()
+    }
+
+    private fun fetchAddPropertyState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.addPropertyState.collect(){
+                    when(it){
+                        is UiState.Success->{
+                            Toast.makeText(requireContext(), "Property added successfully", Toast.LENGTH_SHORT).show()
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+                            Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
     }
 
     private fun fetchGetAmenitiesState() {

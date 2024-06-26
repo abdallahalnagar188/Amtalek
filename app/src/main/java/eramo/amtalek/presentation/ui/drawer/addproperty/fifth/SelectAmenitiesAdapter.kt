@@ -16,7 +16,7 @@ class SelectAmenitiesAdapter @Inject constructor():RecyclerView.Adapter<SelectAm
             binding.amenityName.text = item.name
         }
     }
-    private var selectionList = mutableListOf<Int>()
+     var selectionList = mutableListOf<Int>()
 
 
     fun saveData( dataResponse: List<AmenityModel>){

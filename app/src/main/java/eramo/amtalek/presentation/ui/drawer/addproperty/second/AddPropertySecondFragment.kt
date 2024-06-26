@@ -24,6 +24,8 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
         get() = FragmentAddPropertySecondBinding::inflate
     val args by navArgs<AddPropertySecondFragmentArgs>()
     private val firstModel get() = args.firstModel
+    var rentValue = ""
+    var type = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
@@ -131,20 +133,24 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
     private fun clickListeners() {
         binding.btnNext.setOnClickListener(){
             if (formValidation()){
+                getPropType()
+                getRentValue()
                 val secondModel = AddPropertySecondModel(
                     addPropertyFirstModel = firstModel,
                     bathroomNumber = binding.etBathroomsNumber.text.toString().toInt(),
                     buildingNumber = binding.etBuildingNumber.text.toString().toInt(),
                     floorNumber = binding.etFloorNumber.text.toString().toInt(),
+                    numberFloor = binding.etFloorNumber.text.toString().toInt(),
                     kitchenNumber = binding.etKitchensNumber.text.toString().toInt(),
+                    bedroomNumber = binding.etBedroomsNumber.text.toString().toInt(),
                     livingRoomNumber = binding.etLivingRoom.text.toString().toInt(),
                     unitNumber = binding.etUnitNumber.text.toString().toInt(),
                     totalArea = binding.etTotalArea.text.toString().toInt(),
                     receptionPiecesNumber = binding.etReceptionPieces.text.toString().toInt(),
-                    forWhat = binding.autoCompleteOfferType.text.toString(),
+                    forWhat = type,
                     rentPrice = if (binding.rentPriceTv.visibility == View.VISIBLE) binding.etRentPrice.text.toString().toInt() else null,
                     sellPrice = if (binding.sellPriceTv.visibility == View.VISIBLE) binding.etSellPrice.text.toString().toInt() else null,
-                    rentDuration =  if (binding.rentDurationTv.visibility == View.VISIBLE) binding.autoCompleteEtRentDuration.text.toString() else null
+                    rentDuration =  if (binding.rentDurationTv.visibility == View.VISIBLE) rentValue  else null
                 )
                 findNavController().navigate(R.id.addPropertyThirdFragment,AddPropertyThirdFragmentArgs(secondModel).toBundle(), navOptionsAnimation())
             }else{
@@ -198,6 +204,35 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
                 }
             }
         }
+    }
+
+    private fun getPropType() {
+        if (binding.autoCompleteOfferType.text.toString()==context?.getString(R.string.rent_buy)){
+            type = "for_both"
+        }else if (binding.autoCompleteOfferType.text.toString() == context?.getString(R.string.rent)){
+            type = "for_rent"
+        }else if (binding.autoCompleteOfferType.text.toString() == context?.getString(R.string.sell)){
+            type = "for_sale"
+        }
+    }
+
+    private fun getRentValue() {
+        if (binding.rentDurationTv.visibility == View.VISIBLE){
+            if (binding.autoCompleteEtRentDuration.text.toString()==context?.getString(R.string._3_months)){
+                rentValue = "3_months"
+            }else if (binding.autoCompleteEtRentDuration.text.toString()==context?.getString(R.string._6_months)){
+                rentValue = "6_months"
+            }else if (binding.autoCompleteEtRentDuration.text.toString()==context?.getString(R.string._9_months)){
+                rentValue = "9_months"
+            } else if (binding.autoCompleteEtRentDuration.text.toString()==context?.getString(R.string.yearly)){
+                rentValue = "yearly"
+            }else if (binding.autoCompleteEtRentDuration.text.toString()==context?.getString(R.string.monthly)){
+                rentValue = "monthly"
+            }else if (binding.autoCompleteEtRentDuration.text.toString()==context?.getString(R.string.daily)){
+                rentValue = "daily"
+            }
+        }
+
     }
 
 }
