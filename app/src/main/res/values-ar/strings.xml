@@ -760,11 +760,11 @@
     <string name="property_name"> اسم العقار</string>
     <string name="property_address_without_dots">عنوان العقار</string>
     <string name="video">فيديو</string>
-    <string name="add_property_1_5">اضف عقارك (1\5)</string>
-    <string name="add_property_2_5">اضف عقارك (2\5)</string>
-    <string name="add_property_3_5">اضف عقارك (3\5)</string>
-    <string name="add_property_4_5">اضف عقارك (4\5)</string>
-    <string name="add_property_5_5">اضف عقارك (5\5)</string>
+    <string name="add_property_1_5">اضف عقارك (٥/١)</string>
+    <string name="add_property_2_5">اضف عقارك (٥/٢)</string>
+    <string name="add_property_3_5">اضف عقارك (٥/٣)</string>
+    <string name="add_property_4_5">اضف عقارك (٥/٤)</string>
+    <string name="add_property_5_5">اضف عقارك (٥/٥)</string>
     <string name="please_enter_a_address">من فضلك ادخل عنوان</string>
     <string name="please_enter_a_property_location">من فضلك ادخل موقع العقار</string>
     <string name="please_enter_a_video_link">من فضلك ادخل لينك الفيديو</string>
