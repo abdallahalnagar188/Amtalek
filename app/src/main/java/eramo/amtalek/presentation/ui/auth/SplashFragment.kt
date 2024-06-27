@@ -2,22 +2,34 @@ package eramo.amtalek.presentation.ui.auth
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.databinding.FragmentSplashBinding
+import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
-class SplashFragment : Fragment(R.layout.fragment_splash) {
-
+class SplashFragment :BindingFragment<FragmentSplashBinding>() {
+    override val bindingInflater: (LayoutInflater) -> ViewBinding
+        get() = FragmentSplashBinding::inflate
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        StatusBarUtil.transparent()
+        if(LocalUtil.isEnglish()){
+            binding.splashImage.setImageResource(R.drawable.splash_en)
+        }else{
+            binding.splashImage.setImageResource(R.drawable.splash_ar)
+        }
 
         lifecycleScope.launchWhenResumed {
             if (!UserUtil.hasDeepLink()) {

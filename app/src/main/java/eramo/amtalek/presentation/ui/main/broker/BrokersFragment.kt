@@ -17,6 +17,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.CartViewModel
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
@@ -75,6 +76,14 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
                 viewModelShared.openDrawer.value = true
             }
         }
+
+        if (LocalUtil.isEnglish()){
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+        }else{
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+        }
+
     }
 
     override fun onBrokerClick(model: BrokerModel) {

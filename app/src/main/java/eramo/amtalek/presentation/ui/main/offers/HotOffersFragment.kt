@@ -74,6 +74,12 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
             binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.select_city)
 
         }
+        if (LocalUtil.isEnglish()){
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+        }else{
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+        }
     }
 
     private fun setupViews() {

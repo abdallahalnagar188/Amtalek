@@ -41,7 +41,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSecondExtraSe
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNormalPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.filtercitydialogfragment.FilterCitiesDialogFragment
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
@@ -576,10 +575,13 @@ FavClickListener{
         }else{
             binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
         }
-        if (UserUtil.getCityFiltrationTitleAr().isEmpty()&&UserUtil.getCityFiltrationTitleEn().isEmpty()){
-            binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.select_city)
+        if (LocalUtil.isEnglish()){
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
+        }else{
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
         }
+
     }
 
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {

@@ -21,6 +21,7 @@ import eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
@@ -66,6 +67,13 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
 //                getString(R.string.s_market, Dummy.dummyMarketPostsList().size.toString())
 //                getString(R.string.social_network)
         }
+        if (LocalUtil.isEnglish()){
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+        }else{
+            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+        }
+
     }
 
     private fun initRv() {

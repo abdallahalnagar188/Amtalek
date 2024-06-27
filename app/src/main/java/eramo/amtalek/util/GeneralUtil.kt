@@ -1,6 +1,7 @@
 package eramo.amtalek.util
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -20,6 +21,7 @@ import androidx.navigation.NavOptions
 import androidx.paging.PagingConfig
 import com.google.gson.Gson
 import eramo.amtalek.R
+import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.UiText
@@ -181,4 +183,6 @@ fun TextView.setTextViewDrawableColor(color: Int) {
             )
     }
 }
+
+
 // -------------------------------------------------------------- //
