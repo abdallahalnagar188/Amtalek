@@ -41,6 +41,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.SignUpViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
 import eramo.amtalek.util.SIGN_UP_TYPE_COMPANY
@@ -76,18 +77,21 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews()
         listeners()
-
         requestData()
         fetchData()
     }
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-
         setupAnimations()
+        if (LocalUtil.isEnglish()){
+            binding.FSignUpIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+        }else{
+            binding.FSignUpIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+        }
     }
 
     private fun listeners() {

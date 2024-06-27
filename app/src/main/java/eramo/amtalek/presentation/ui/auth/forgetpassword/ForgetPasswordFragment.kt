@@ -22,6 +22,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.ForgotPassViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.showToast
@@ -37,15 +38,19 @@ class ForgetPasswordFragment : BindingFragment<FragmentForgetPasswordBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews()
         listeners()
-
         fetchData()
     }
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        if (LocalUtil.isEnglish()){
+            binding.FForgetIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+        }else{
+            binding.FForgetIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+        }
     }
 
     private fun listeners() {

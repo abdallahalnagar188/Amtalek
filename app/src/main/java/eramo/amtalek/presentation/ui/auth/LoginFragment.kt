@@ -28,6 +28,7 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.auth.LoginViewModel
 import eramo.amtalek.util.API_SUCCESS_CODE
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
@@ -63,8 +64,13 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-
         setupAnimations()
+        if (LocalUtil.isEnglish()){
+            binding.FLoginIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+        }else{
+            binding.FLoginIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+        }
     }
 
     private fun listeners() {

@@ -102,7 +102,12 @@ class MainActivity : AppCompatActivity(),
                     viewModelShared.openDrawer.value = false
                 }
             }
+            if (LocalUtil.isEnglish()){
+                binding.inDrawerHeader.navHeaderIvLogo.setImageDrawable(this@MainActivity.getDrawable(R.drawable.top_logo_en))
 
+            }else{
+                binding.inDrawerHeader.navHeaderIvLogo.setImageDrawable(this@MainActivity.getDrawable(R.drawable.top_logo_ar))
+            }
 //            viewModelShared.profileData.observe(this@MainActivity) { member ->
 //                inDrawerHeader.apply {
 //                    navHeaderTvUserName.text = member.userName

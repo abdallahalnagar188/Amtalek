@@ -497,9 +497,9 @@
                 <ImageView
                     android:id="@+id/navHeader_iv_logo"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_30sdp"
-                    android:src="@drawable/splash_screen_logo"
+                    android:src="@drawable/top_logo_ar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/navHeader_sign_out"
