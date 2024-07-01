@@ -24,7 +24,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="-72dp"
+                tools:layout_editor_absoluteY="-73dp">
 
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                     android:id="@+id/image_slider"
@@ -104,10 +106,10 @@
                     android:layout_marginHorizontal="@dimen/screen_margin_sides"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/montserratbold"
+                    android:text="99999999"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_18ssp"
                     android:textStyle="bold"
-                    android:text="99999999"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
                     tools:text="400,000,000" />
@@ -119,9 +121,9 @@
                     android:fontFamily="@font/montserratbold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_18ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_price_animation"
                     app:layout_constraintStart_toEndOf="@id/tv_price_animation"
                     app:layout_constraintTop_toTopOf="@id/tv_price_animation"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_price_animation"
                     tools:text=" EGP " />
 
                 <TextView
@@ -160,10 +162,11 @@
                     android:fontFamily="@font/montserratbold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_18ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_price_animation_rent"
                     app:layout_constraintStart_toEndOf="@id/tv_price_animation_rent"
                     app:layout_constraintTop_toTopOf="@id/tv_price_animation_rent"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_price_animation_rent"
                     tools:text=" EGP " />
+
                 <TextView
                     android:id="@+id/tv_rent_duration"
                     android:layout_width="wrap_content"
@@ -171,42 +174,43 @@
                     android:fontFamily="@font/montserratsemibold"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_18ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_currency_rent"
                     app:layout_constraintStart_toEndOf="@id/tv_currency_rent"
                     app:layout_constraintTop_toTopOf="@id/tv_currency_rent"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_currency_rent"
                     tools:text=" Per month" />
-                    <TextView
-                        android:id="@+id/tv_or"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserratsemibold"
-                        android:textColor="@color/dark_green"
-                        android:textSize="@dimen/_18ssp"
-                        app:layout_constraintStart_toEndOf="@id/tv_currency"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_currency"
-                        app:layout_constraintTop_toTopOf="@id/tv_currency"
-                        android:layout_marginStart="@dimen/_4sdp"
-                        android:text="@string/or"
-                        android:layout_marginEnd="@dimen/_20sdp"
-                        />
+
+                <TextView
+                    android:id="@+id/tv_or"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:fontFamily="@font/montserratsemibold"
+                    android:text="@string/or"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/_18ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_currency"
+                    app:layout_constraintStart_toEndOf="@id/tv_currency"
+                    app:layout_constraintTop_toTopOf="@id/tv_currency" />
+
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/sold_cardView"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:id="@+id/sold_cardView"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_currency"
-                    app:cardBackgroundColor="@color/amtalek_red"
                     android:layout_marginEnd="@dimen/_10sdp"
+                    app:cardBackgroundColor="@color/amtalek_red"
                     app:cardCornerRadius="@dimen/_10sdp"
-                    >
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_currency">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_14sdp"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/montserratbold"
                         android:text="@string/sold"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/montserratbold"/>
+                        android:textSize="@dimen/_14sdp" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
@@ -218,9 +222,9 @@
                     android:fontFamily="@font/montserratmedium"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/_12ssp"
+                    app:layout_constraintBottom_toTopOf="@id/iv_location"
                     app:layout_constraintEnd_toStartOf="@id/sold_cardView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/iv_location"
                     app:layout_constraintTop_toBottomOf="@id/tv_price_animation_rent"
                     tools:text="Residential apartment for sale, super lux with elevator" />
 
@@ -239,18 +243,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_11sdp"
                     android:layout_marginBottom="@dimen/_1sdp"
                     android:fontFamily="@font/montserratmedium"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="@id/iv_location"
                     app:layout_constraintEnd_toEndOf="@+id/iv_clock"
                     app:layout_constraintStart_toEndOf="@id/iv_location"
                     app:layout_constraintTop_toTopOf="@id/iv_location"
-                    tools:text="Sheikh Zayed , Giza"
-                    android:textAlignment="viewStart"
-                    android:layout_marginEnd="@dimen/_11sdp"
-                    />
+                    tools:text="Sheikh Zayed , Giza" />
 
                 <ImageView
                     android:id="@+id/iv_clock"
@@ -510,6 +513,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <include
                     android:id="@+id/roi_layout"
                     layout="@layout/roi_layout"
@@ -608,6 +612,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_video" />
+
                 <TextView
                     android:id="@+id/tv_myMap"
                     android:layout_width="0dp"
@@ -626,19 +631,29 @@
                     android:id="@+id/mymap_cardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginHorizontal="@dimen/screen_margin_sides"
                     android:layout_marginTop="@dimen/_20sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_myMap">
+                    android:elevation="0dp"
+                    android:nestedScrollingEnabled="false"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_myMap"
+                    app:strokeWidth="0dp">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <WebView
                             android:id="@+id/webView"
-                            android:name="com.google.android.gms.maps.SupportMapFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginStart="@dimen/_110sdp"
                             />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -649,13 +664,12 @@
                     android:id="@+id/toggle_group"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:paddingHorizontal="@dimen/_5sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mymap_cardView"
-                    app:singleSelection="true"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:paddingHorizontal="@dimen/_5sdp"
-                    >
+                    app:singleSelection="true">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/offer_btn"
@@ -668,8 +682,7 @@
                         android:textSize="@dimen/_10ssp"
                         app:cornerRadius="@dimen/_4sdp"
                         app:rippleColor="@color/transparent"
-                        app:strokeColor="@color/amtalek_blue_dark"
-                        />
+                        app:strokeColor="@color/amtalek_blue_dark" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/message_btn"
@@ -681,8 +694,8 @@
                         android:textColor="@color/amtalek_blue_dark"
                         android:textSize="@dimen/_10ssp"
                         app:rippleColor="@color/transparent"
-                        app:strokeColor="@color/amtalek_blue_dark"
-                        />
+                        app:strokeColor="@color/amtalek_blue_dark" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/rate_btn"
                         style="@style/Widget.Material3.Button.OutlinedButton"
@@ -698,19 +711,19 @@
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/forms_root"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/forms_root"
-                    app:layout_constraintTop_toBottomOf="@id/toggle_group"
-                    >
+                    app:layout_constraintTop_toBottomOf="@id/toggle_group">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/offer_layout_root"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        >
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
                         <TextView
                             android:id="@+id/tv_register_with_us"
                             android:layout_width="wrap_content"
@@ -722,7 +735,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_15ssp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_offer_name"
@@ -832,6 +845,7 @@
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/offer_spinner"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -844,23 +858,21 @@
                             app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/til_offer_value"
-                            >
+                            app:layout_constraintTop_toBottomOf="@+id/til_offer_value">
 
                             <AutoCompleteTextView
                                 android:id="@+id/autoComplete_offer_type"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:background="@drawable/edittext_background"
                                 android:fontFamily="@font/montserratregular"
                                 android:gravity="center_vertical"
                                 android:hint="@string/offer_type_with_dots"
-                                android:paddingStart="@dimen/_11sdp"
-                                android:layout_weight="1"
                                 android:inputType="none"
+                                android:paddingStart="@dimen/_11sdp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_12ssp"
-                                />
+                                android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <Button
@@ -880,16 +892,18 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/offer_spinner" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/message_layout_root"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
                         >
+
                         <TextView
                             android:id="@+id/tv_message"
                             android:layout_width="wrap_content"
@@ -901,7 +915,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_15ssp"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_message_name"
@@ -996,8 +1010,7 @@
                             app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/til_message_mail"
-                            >
+                            app:layout_constraintTop_toBottomOf="@+id/til_message_mail">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_message_value"
@@ -1030,16 +1043,17 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_message_value" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rate_us_layout_root"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="@dimen/_20sdp"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:visibility="gone"
-                        >
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
                         <TextView
                             android:id="@+id/tv_rate"
                             android:layout_width="wrap_content"
@@ -1144,6 +1158,7 @@
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
+
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_your_rate"
                             style="@style/TextInputLayoutStyle"

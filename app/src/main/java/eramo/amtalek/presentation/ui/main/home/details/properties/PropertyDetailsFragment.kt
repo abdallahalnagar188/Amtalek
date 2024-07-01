@@ -9,6 +9,8 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -46,7 +48,6 @@ import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
-import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
@@ -565,10 +566,26 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         val video = data
         video?.let {
             binding.webView.settings.javaScriptEnabled =true
-            binding.webView.webChromeClient = WebChromeClient()
+            binding.webView.settings.loadWithOverviewMode = true
+            binding.webView.settings.useWideViewPort = true
+            binding.webView.settings.setSupportZoom(false)
+            binding.webView.settings.builtInZoomControls = false
+            binding.webView.settings.displayZoomControls = false
             binding.webView.loadData(video,"text/html","utf-8")
 
         }
+
+//        data?.let {
+//            val webSettings: WebSettings = binding.webView.settings
+//            webSettings.javaScriptEnabled = true
+//            webSettings.loadWithOverviewMode = true
+//            webSettings.useWideViewPort = true
+//            webSettings.setSupportZoom(false)
+//            webSettings.builtInZoomControls = false
+//            webSettings.displayZoomControls = true
+//            binding.webView.webViewClient = WebViewClient()
+//            binding.webView.loadData(data, "text/html", "utf-8")
+//        }
     }
 
     private fun setupVideo(videoId: String) {
