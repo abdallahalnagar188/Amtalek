@@ -39,7 +39,7 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onPropertyClick(it)
+                        listener.onPropertyClickForRent(it)
                     }
                 }
             }
@@ -128,7 +128,7 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: PropertyModel)
+        fun onPropertyClickForRent(model: PropertyModel)
     }
 
     //check difference

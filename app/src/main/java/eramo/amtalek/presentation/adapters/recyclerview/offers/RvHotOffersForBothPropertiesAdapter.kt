@@ -38,7 +38,7 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-                        listener.onPropertyClick(it)
+                        listener.onPropertyClickForBoth(it)
                     }
                 }
             }
@@ -125,7 +125,7 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: PropertyModel)
+        fun onPropertyClickForBoth(model: PropertyModel)
     }
 
     //check difference

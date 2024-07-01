@@ -852,7 +852,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     override fun onFeaturedRealEstateClick(model: eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
         )
     }
 

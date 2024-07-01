@@ -32,18 +32,6 @@ class HotOffersViewModel @Inject constructor(
     private var _hotOffers = MutableStateFlow<UiState<HotOffersResponse>>(UiState.Empty())
     var hotOffers: StateFlow<UiState<HotOffersResponse>> = _hotOffers
     /////////////////////////////////////////
-    private var _forSellListState = MutableLiveData<MutableList<PropertyModel>>()
-    var forSellListState: LiveData<MutableList<PropertyModel>> = _forSellListState
-
-    private var _forRentListState = MutableLiveData<MutableList<PropertyModel>>()
-    var forRentListState: LiveData<MutableList<PropertyModel>> = _forRentListState
-
-    private var _forBothListState = MutableLiveData<MutableList<PropertyModel>>()
-    var forBothListState: LiveData<MutableList<PropertyModel>> = _forBothListState
-
-    private var _projectsListState = MutableLiveData<MutableList<ProjectModel>>()
-    var projectsListState: LiveData<MutableList<ProjectModel>> = _projectsListState
-
 
     private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
     val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
@@ -64,13 +52,7 @@ class HotOffersViewModel @Inject constructor(
                             val data = it.data
                             filterProperties(data)
 
-                            val projectsList:ArrayList<ProjectModel> = ArrayList()
-                            for (project in it.data?.data?.projects!!){
-                                if (project != null) {
-                                    projectsList.add(project.toProjectModel())
-                                }
-                            }
-                            _projectsListState.postValue(projectsList)
+
                         }
                         is Resource.Error -> {
                             _hotOffers.value = UiState.Error(it.message!!)
@@ -101,17 +83,6 @@ class HotOffersViewModel @Inject constructor(
                 }
             }
         }
-        Log.e("ViewModel", "For Sale List: $forSellPropertyList")
-        Log.e("ViewModel", "For Rent List: $forRentPropertyList")
-        Log.e("ViewModel", "For Both List: $forBothPropertyList")
-
-        _forSellListState.value = forSellPropertyList
-        _forRentListState.value =forRentPropertyList
-        _forBothListState.value  =forBothPropertyList
-
-        Log.e("post", "For Sale List: ${_forSellListState.value}")
-        Log.e("post", "For Rent List: ${_forRentListState.value}")
-        Log.e("post", "For Both List: ${_forBothListState.value}")
 
     }
     fun addOrRemoveFav(propertyId: Int) {

@@ -829,12 +829,13 @@ FavClickListener{
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsFromBottomAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())
+    }
 
     override fun onFeaturedProjectClick(model: ProjectModel) {
         findNavController().navigate(
             R.id.myProjectDetailsFragment,
-            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle()
         )    }
 
     override fun onPropertyByCityClick(model: CitiesModel) {
@@ -844,36 +845,36 @@ FavClickListener{
 
     override fun onItemClicked1(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsFromBottomAnimation()
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
         )    }
 
     override fun onItemClicked2(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsFromTopAnimation()
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
         )    }
     override fun onItemClicked3(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
     override fun onItemClicked4(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
     override fun onItemClicked5(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
 
     override fun onNewsClick(model: NewsModel) {
         findNavController().navigate(R.id.newsDetailsFragment,
-            NewsDetailsFragmentArgs(model).toBundle(), navOptionsAnimation()
+            NewsDetailsFragmentArgs(model).toBundle()
             )
     }
 
     override fun onMostViewedPropertiesClicked(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
 
     override fun onNormalPropertyClicked(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
 
     override fun onFavClick(model: PropertyModel) {
         viewModel.addOrRemoveFav(model.id)
