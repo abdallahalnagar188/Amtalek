@@ -56,7 +56,6 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
 
     override fun onResume() {
         super.onResume()
-        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
     }
 
     override fun onPause() {
@@ -66,12 +65,11 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
         hotOffersViewModel.forBothListState.observe(viewLifecycleOwner) {
             rvHotOffersForBothPropertiesAdapter.submitList(it)
             binding.rvPropertiesForBoth.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
-
+            binding.carouselSliderForBoth.visibility = View.VISIBLE
         }
         hotOffersViewModel.projectsListState.observe(viewLifecycleOwner){
             rvHotOffersForBothProjectsAdapter.submitList(it)
             binding.rvProjectsForBoth.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
-
         }
     }
     private fun fetchGetHotOffers() {
@@ -81,14 +79,14 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
                     when(it){
                         is UiState.Success->{
 
-                            dismissShimmerEffect()
+//                            dismissShimmerEffect()
                         }
                         is UiState.Error->{
 
-                            dismissShimmerEffect()
+//                            dismissShimmerEffect()
                         }
                         is UiState.Loading->{
-                            showShimmerEffect()
+//                            showShimmerEffect()
                         }
                         else -> {}
                     }
@@ -136,20 +134,20 @@ class HotOffersForBothFragment : BindingFragment<FragmentHotOffersForBothBinding
             }
         }
     }
-    private fun showShimmerEffect() {
-        binding.apply {
-            shimmerLayout.startShimmer()
-            root.visibility = View.GONE
-            shimmerLayout.visibility = View.VISIBLE
-        }
-    }
-    private fun dismissShimmerEffect() {
-        binding.apply {
-            shimmerLayout.stopShimmer()
-            root.visibility = View.VISIBLE
-            shimmerLayout.visibility = View.GONE
-        }
-    }
+//    private fun showShimmerEffect() {
+//        binding.apply {
+//            shimmerLayout.startShimmer()
+//            root.visibility = View.GONE
+//            shimmerLayout.visibility = View.VISIBLE
+//        }
+//    }
+//    private fun dismissShimmerEffect() {
+//        binding.apply {
+//            shimmerLayout.stopShimmer()
+//            root.visibility = View.VISIBLE
+//            shimmerLayout.visibility = View.GONE
+//        }
+//    }
 
 
     override fun onPropertyClick(model: PropertyModel) {

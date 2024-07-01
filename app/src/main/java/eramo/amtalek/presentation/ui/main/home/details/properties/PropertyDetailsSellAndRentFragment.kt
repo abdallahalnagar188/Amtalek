@@ -178,10 +178,10 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                 tvDescriptionValue.text = data.description
 
 //                initPropertyFeaturesRv(data.am)
-
-                getYoutubeUrlId(data.videoUrl)?.let {
-                    setupVideo(it)
-                }
+//
+//                getYoutubeUrlId(data.videoUrl)?.let {
+//                    setupVideo(it)
+//                }
 
                 if (data.chartList.isNotEmpty()) {
                     binding.tvViewsChart.visibility = View.VISIBLE

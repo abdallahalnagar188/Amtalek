@@ -31,7 +31,7 @@ data class PropertyDetailsModel(
     val landType:String,
     val description:String,
     val propertyAmenities:List<AmenityModel>,
-    val videoUrl:String,
+    val videoUrl:String?,
     val comments:List<RatingCommentsModel>,
     val similarProperties:List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>,
     val chartList:List<ChartModel>,

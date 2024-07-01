@@ -50,6 +50,8 @@
             app:showIndicator="false"
             app:showNavigationButtons="true"
             app:showTopShadow="false"
+            android:visibility="gone"
+
             />
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout"
@@ -59,6 +61,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/_15sdp"
+            android:visibility="gone"
+
             >
             <include layout="@layout/fragment_hotoffer_shimmer" />
         </com.facebook.shimmer.ShimmerFrameLayout>

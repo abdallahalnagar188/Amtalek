@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.main.offers
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +19,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.DummyProjectAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.DummyRealEstateAdapter
 import eramo.amtalek.presentation.adapters.viewpager.HotOffersTypesPagerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
 import eramo.amtalek.util.LocalUtil
@@ -35,13 +37,9 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         get() = FragmentHotOffersBinding::inflate
 
     private val viewModelShared: SharedViewModel by activityViewModels()
-    private val viewModel: ShopViewModel by viewModels()
-    private val hotOffersViewModel: HotOffersViewModel by viewModels()
-    @Inject
-    lateinit var dummyProjectAdapter: DummyProjectAdapter
 
-    @Inject
-    lateinit var dummyRealEstateAdapter: DummyRealEstateAdapter
+    private val hotOffersViewModel: HotOffersViewModel by viewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -95,15 +93,14 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                 hotOffersViewModel.hotOffers.collect(){
                     when(it){
                         is UiState.Success->{
-
-                            dismissShimmerEffect()
+                            LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
 
-                            dismissShimmerEffect()
+                            LoadingDialog.dismissDialog()
                         }
                         is UiState.Loading->{
-//                            showShimmerEffect()
+                            LoadingDialog.showDialog()
                         }
                         else -> {}
                     }
@@ -115,7 +112,12 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
 
     private fun setupTabLayoutPager() {
-        val hotOffersTypesPagerAdapter = HotOffersTypesPagerAdapter(childFragmentManager, lifecycle)
+            val fragmentList = arrayListOf<Fragment>(
+                HotOffersForBothFragment(),
+                HotOffersSellFragment(),
+                HotOffersRentFragment()
+            )
+        val hotOffersTypesPagerAdapter = HotOffersTypesPagerAdapter(fragmentList,childFragmentManager, lifecycle)
         binding.apply {
             viewPager.adapter = hotOffersTypesPagerAdapter
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -131,20 +133,20 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     override fun onProductClick(model: String) {
         findNavController().navigate(R.id.projectDetailsFragment, null, navOptionsAnimation())
     }
-    private fun showShimmerEffect() {
-        binding.apply {
-            shimmerLayout.startShimmer()
-
-            viewPager.visibility = View.GONE
-            shimmerLayout.visibility = View.VISIBLE
-        }
-    }
-    private fun dismissShimmerEffect() {
-        binding.apply {
-            shimmerLayout.stopShimmer()
-
-            viewPager.visibility = View.VISIBLE
-            shimmerLayout.visibility = View.GONE
-        }
-    }
+//    private fun showShimmerEffect() {
+//        binding.apply {
+//            shimmerLayout.startShimmer()
+//
+//            viewPager.visibility = View.GONE
+//            shimmerLayout.visibility = View.VISIBLE
+//        }
+//    }
+//    private fun dismissShimmerEffect() {
+//        binding.apply {
+//            shimmerLayout.stopShimmer()
+//
+//            viewPager.visibility = View.VISIBLE
+//            shimmerLayout.visibility = View.GONE
+//        }
+//    }
 }

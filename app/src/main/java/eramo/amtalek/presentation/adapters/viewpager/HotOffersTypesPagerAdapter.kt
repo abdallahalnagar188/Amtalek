@@ -9,11 +9,11 @@ import eramo.amtalek.presentation.ui.main.offers.HotOffersRentFragment
 import eramo.amtalek.presentation.ui.main.offers.HotOffersSellFragment
 
 
-class HotOffersTypesPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle) :
+class HotOffersTypesPagerAdapter(list:ArrayList<Fragment>,fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
-
+    private var fragmentList = list
     override fun getItemCount(): Int {
-        return 3
+        return fragmentList.size
     }
 
     override fun createFragment(position: Int): Fragment {

@@ -58,16 +58,19 @@ class HotOffersViewModel @Inject constructor(
                 repository.getHotOffers(countryId).collect(){
                     when (it){
                         is Resource.Success -> {
-                            val projectsList:ArrayList<ProjectModel> = ArrayList()
+
+                            _hotOffers.value = UiState.Success(it.data)
+
                             val data = it.data
                             filterProperties(data)
+
+                            val projectsList:ArrayList<ProjectModel> = ArrayList()
                             for (project in it.data?.data?.projects!!){
                                 if (project != null) {
                                     projectsList.add(project.toProjectModel())
                                 }
                             }
                             _projectsListState.postValue(projectsList)
-                            _hotOffers.value = UiState.Success(it.data)
                         }
                         is Resource.Error -> {
                             _hotOffers.value = UiState.Error(it.message!!)
@@ -98,9 +101,17 @@ class HotOffersViewModel @Inject constructor(
                 }
             }
         }
-        _forSellListState.value =forSellPropertyList
+        Log.e("ViewModel", "For Sale List: $forSellPropertyList")
+        Log.e("ViewModel", "For Rent List: $forRentPropertyList")
+        Log.e("ViewModel", "For Both List: $forBothPropertyList")
+
+        _forSellListState.value = forSellPropertyList
         _forRentListState.value =forRentPropertyList
-        _forBothListState.value = forBothPropertyList
+        _forBothListState.value  =forBothPropertyList
+
+        Log.e("post", "For Sale List: ${_forSellListState.value}")
+        Log.e("post", "For Rent List: ${_forRentListState.value}")
+        Log.e("post", "For Both List: ${_forBothListState.value}")
 
     }
     fun addOrRemoveFav(propertyId: Int) {

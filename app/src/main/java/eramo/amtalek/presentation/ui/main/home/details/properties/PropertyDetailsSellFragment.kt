@@ -214,9 +214,9 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
 
 //                initPropertyFeaturesRv(data.propertyFeatures)
 
-                getYoutubeUrlId(data.videoUrl)?.let {
-                    setupVideo(it)
-                }
+//                getYoutubeUrlId(data.videoUrl)?.let {
+//                    setupVideo(it)
+//                }
 
 //            val cartList = data.chartList.toMutableList()
 //

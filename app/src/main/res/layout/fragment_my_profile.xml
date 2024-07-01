@@ -144,7 +144,7 @@
                     android:text="@string/favorite"
                     android:textColor="@color/amtalek_blue_dark"
                     android:textSize="@dimen/_6ssp"
-                    app:cornerRadius="@dimen/_4sdp"
+                    app:cornerRadius="@dimen/_10sdp"
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark"
                     />
@@ -170,7 +170,7 @@
                     android:text="@string/my_properties"
                     android:textColor="@color/amtalek_blue_dark"
                     android:textSize="@dimen/_6ssp"
-                    app:cornerRadius="@dimen/_4sdp"
+                    app:cornerRadius="@dimen/_10sdp"
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark" />
             </com.google.android.material.button.MaterialButtonToggleGroup>

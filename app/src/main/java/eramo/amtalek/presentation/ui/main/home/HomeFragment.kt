@@ -49,6 +49,7 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromBottomAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.onBackPressed
 import eramo.amtalek.util.showToast
@@ -828,7 +829,7 @@ FavClickListener{
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsFromBottomAnimation())    }
 
     override fun onFeaturedProjectClick(model: ProjectModel) {
         findNavController().navigate(
@@ -843,12 +844,13 @@ FavClickListener{
 
     override fun onItemClicked1(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation()
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsFromBottomAnimation()
         )    }
 
     override fun onItemClicked2(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsFromTopAnimation()
+        )    }
     override fun onItemClicked3(model: PropertyModel) {
         findNavController().navigate(R.id.propertyDetailsFragment,
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle(), navOptionsAnimation())    }

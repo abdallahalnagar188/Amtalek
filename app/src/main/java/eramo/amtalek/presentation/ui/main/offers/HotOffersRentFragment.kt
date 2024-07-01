@@ -51,15 +51,16 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         setupObservers()
-        fetchGetHotOffers()
+//        fetchGetHotOffers()
         setupCarouselSlider()
+
     }
 
     private fun setupObservers() {
         hotOffersViewModel.forRentListState.observe(viewLifecycleOwner){
             rvHotOffersRentPropertiesAdapter.submitList(it)
             binding.rvPropertiesForRent.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
-
+            binding.carouselSliderForRent.visibility = View.VISIBLE
         }
         hotOffersViewModel.projectsListState.observe(viewLifecycleOwner){
             rvHotOffersRentProjectsAdapter.submitList(it)
@@ -70,34 +71,32 @@ class HotOffersRentFragment : BindingFragment<FragmentHotOffersRentBinding>(),Rv
 
     override fun onResume() {
         super.onResume()
-        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
-
     }
     override fun onPause() {
         super.onPause()
     }
-    private fun fetchGetHotOffers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                hotOffersViewModel.hotOffers.collect(){
-                    when(it){
-                        is UiState.Success->{
-
-                            dismissShimmerEffect()
-                        }
-                        is UiState.Error->{
-
-                            dismissShimmerEffect()
-                        }
-                        is UiState.Loading->{
-                            showShimmerEffect()
-                        }
-                        else -> {}
-                    }
-                }
-            }
-        }
-    }
+//    private fun fetchGetHotOffers() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+//                hotOffersViewModel.hotOffers.collect(){
+//                    when(it){
+//                        is UiState.Success->{
+//
+//                            dismissShimmerEffect()
+//                        }
+//                        is UiState.Error->{
+//
+//                            dismissShimmerEffect()
+//                        }
+//                        is UiState.Loading->{
+//                            showShimmerEffect()
+//                        }
+//                        else -> {}
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun setupViews() {
         binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter

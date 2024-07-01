@@ -448,7 +448,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     .load(data.brokerImageUrl)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivUserImage)
-                mapSetup(data.mapUrl)
+
+                if (data.mapUrl.isNullOrEmpty()){
+                    webView.visibility = View.GONE
+                    mymapCardView.visibility = View.GONE
+                }else{
+                    mapSetup(data.mapUrl)
+                }
 
                 propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = data.propertyType
@@ -463,19 +469,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
                 initPropertyFeaturesRv(data.propertyAmenities)
 
-                getYoutubeUrlId(data.videoUrl)?.let {
-                    setupVideo(it)
+                if (data.videoUrl.isNullOrEmpty()){
+                    youtubePlayerView.visibility = View.GONE
+                }else{
+                    getYoutubeUrlId(data.videoUrl)?.let {
+                        setupVideo(it)
+                    }
                 }
-//            setupVideo("4aNBt8imTtM")
-
-//                if (data.chartList.isNotEmpty()) {
-//                    binding.tvViewsChart.visibility = View.VISIBLE
-//                    binding.chart.visibility = View.VISIBLE
-//                    setupChartView(getChartList(data))
-//                } else {
-//                    binding.tvViewsChart.visibility = View.GONE
-//                    binding.chart.visibility = View.GONE
-//                }
 
                 tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
 

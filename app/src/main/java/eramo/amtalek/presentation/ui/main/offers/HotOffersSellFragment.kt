@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.main.offers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,16 +50,20 @@ FavClickListener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("Fragment", "onViewCreated")
         setupViews()
         setupObservers()
-        fetchGetHotOffers()
+//        fetchGetHotOffers()
         setupCarouselSlider()
     }
 
     private fun setupObservers() {
         hotOffersViewModel.forSellListState.observe(viewLifecycleOwner){
+            Log.e("observe", it.toString(), )
             rvHotOffersSellPropertiesAdapter.submitList(it)
             binding.rvProperties.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
+            binding.carouselSliderForSell.visibility = View.VISIBLE
+
         }
         hotOffersViewModel.projectsListState.observe(viewLifecycleOwner){
             rvHotOffersSellProjectsAdapter.submitList(it)
@@ -69,7 +74,6 @@ FavClickListener{
 
     override fun onResume() {
         super.onResume()
-        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
 
     }
     override fun onPause() {
@@ -81,28 +85,28 @@ FavClickListener{
         rvHotOffersSellProjectsAdapter.setListener(this@HotOffersSellFragment)
         rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersSellFragment,this)
     }
-    private fun fetchGetHotOffers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                hotOffersViewModel.hotOffers.collect(){
-                    when(it){
-                        is UiState.Success->{
-
-                            dismissShimmerEffect()
-                        }
-                        is UiState.Error->{
-
-                            dismissShimmerEffect()
-                        }
-                        is UiState.Loading->{
-                            showShimmerEffect()
-                        }
-                        else -> {}
-                    }
-                }
-            }
-        }
-    }
+//    private fun fetchGetHotOffers() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+//                hotOffersViewModel.hotOffers.collect(){
+//                    when(it){
+//                        is UiState.Success->{
+//
+//                            dismissShimmerEffect()
+//                        }
+//                        is UiState.Error->{
+//
+//                            dismissShimmerEffect()
+//                        }
+//                        is UiState.Loading->{
+//                            showShimmerEffect()
+//                        }
+//                        else -> {}
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun setupCarouselSlider() {
         binding.apply {

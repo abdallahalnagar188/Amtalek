@@ -19,10 +19,11 @@
         tools:text="Fragment Title"
         android:textColor="@color/black"
         android:textSize="@dimen/_14ssp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:fontFamily="@font/montserratmedium"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_back"
         />
 
     <ImageView
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:src="@drawable/ic_back"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -768,7 +768,7 @@
     <string name="please_enter_a_address">من فضلك ادخل عنوان</string>
     <string name="please_enter_a_property_location">من فضلك ادخل موقع العقار</string>
     <string name="please_enter_a_video_link">من فضلك ادخل لينك الفيديو</string>
-    <string name="note_please_go_to_google_maps_and_get_the_embed_link">ملاحظة: يرجى الانتقال إلى Google Maps والحصول على رابط التضمين</string>
+    <string name="note_please_go_to_google_maps_and_get_the_embed_link"> ملاحظة: يرجى الانتقال إلى Google Maps والحصول على رابط التضمين(iframe)</string>
     <string name="building_number">رقم العقار</string>
     <string name="floor_number">رقم الدور</string>
     <string name="unit_number">رقم الوحدة</string>

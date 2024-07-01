@@ -428,9 +428,9 @@
 
     <string name="edit_profile">Edit Profile</string>
 
-    <string name="for_sell">For Sell</string>
+    <string name="for_sell">For Sale</string>
     <string name="for_rent">For Rent</string>
-    <string name="for_sell_or_rent">For Sell/Rent</string>
+    <string name="for_sell_or_rent">For Sale/Rent</string>
     <string name="featured">Featured</string>
 
     <string name="fake_Compound">Sheikh Zayed Compound</string>
@@ -485,7 +485,7 @@
     <string name="project">Project</string>
     <string name="find_your_property_in_the_city">Find your property in the city</string>
 
-    <string name="s_properties_for_sell">Properties for sell: %s</string>
+    <string name="s_properties_for_sell">Properties for sale: %s</string>
     <string name="s_properties_for_rent">Properties for rent: %s</string>
 
     <string name="the_newest_apartments_in_egypt">The newest apartments in Egypt</string>
@@ -767,7 +767,7 @@
     <string name="please_enter_a_address">Please enter a address</string>
     <string name="please_enter_a_property_location">Please enter a property Location</string>
     <string name="please_enter_a_video_link">Please enter a video link</string>
-    <string name="note_please_go_to_google_maps_and_get_the_embed_link">Note: Please go to Google Maps and get the embed link</string>
+    <string name="note_please_go_to_google_maps_and_get_the_embed_link">Note: Please go to Google Maps and get the embed link(iframe)</string>
     <string name="building_number">Building Number</string>
     <string name="floor_number">Floor number</string>
     <string name="unit_number">Unit number</string>
@@ -811,13 +811,13 @@
     <string name="please_complete_all_fields">Please complete all fields</string>
     <string name="no_selection">No Selection</string>
     <string name="please_enter_a_description">Please enter a description</string>
-    <string name="sell_price">Sell Price</string>
+    <string name="sell_price">Sale Price</string>
     <string name="rent_price">Rent Price</string>
     <string name="rent_duration">Rent Duration</string>
-    <string name="sell">Sell</string>
+    <string name="sell">sale</string>
     <string name="rentt">Rent</string>
     <string name="rent_buy">Rent&amp;Buy</string>
-    <string name="please_enter_a_sell_price">Please enter a sell price</string>
+    <string name="please_enter_a_sell_price">Please enter a sale price</string>
     <string name="please_enter_a_rent_price">Please enter a rent price</string>
     <string name="please_enter_a_rent_duration">Please enter a rent duration</string>
 
@@ -845,7 +845,7 @@
     </string-array>
 
     <string-array name="property_type">
-        <item>"Sell"</item>
+        <item>"Sale"</item>
         <item>"Rent"</item>
         <item>"Rent&amp;Buy"</item>
     </string-array>
