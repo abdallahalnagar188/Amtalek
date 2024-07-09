@@ -1,0 +1,120 @@
+package eramo.amtalek.presentation.ui.search.searchform.locationspopup
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
+import eramo.amtalek.R
+import eramo.amtalek.databinding.DialogAllLocationsBinding
+import eramo.amtalek.domain.search.LocationModel
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
+import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
+import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocationsAdapter.OnItemLocationClick {
+    private lateinit var binding: DialogAllLocationsBinding
+    val viewModel by viewModels<SearchFormViewModel>()
+
+    @Inject
+    lateinit var locationAdapter: AllLocationsAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DialogAllLocationsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requestData()
+        fetchData()
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.apply {
+            rvLocations.adapter = locationAdapter
+        }
+        locationAdapter.setListener(this@AllLocationsPopUp)
+    }
+
+    private fun fetchData() {
+        fetchLocations()
+    }
+
+    private fun fetchLocations() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allLocationState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            LoadingDialog.dismissDialog()
+                            val locations = it.data
+                            locationAdapter.submitList(locations)
+                            handleLocations(locations)
+                        }
+
+                        is UiState.Error -> {
+                            dismiss()
+                        }
+                        else ->Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleLocations(locations: List<LocationModel>?) {
+        binding.apply {
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    // Handle the query submission
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    // Handle the query text change
+                    var filteredList = ArrayList<LocationModel>()
+                    for (item in locations!!) {
+                        if (item.title.lowercase().contains(newText!!.lowercase())){
+                            filteredList.add(item)
+                        }
+                    }
+                    if (filteredList.isNullOrEmpty()){
+                        Toast.makeText(requireContext(), getText(R.string.no_results_found), Toast.LENGTH_SHORT).show()
+                    }else{
+                        locationAdapter.submitList(filteredList)
+                    }
+
+                    return false
+                }
+            })
+        }
+    }
+
+
+
+    private fun requestData() {
+        viewModel.getAllLocations()
+    }
+
+    override fun onLocationClicked(model: LocationModel) {
+        // Handle the location click event
+    }
+}

@@ -145,23 +145,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_iv_menu" />
-
-    <TextView
-        android:id="@+id/tv_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search_title"
-        android:padding="@dimen/_8ssp"
-        android:layout_marginEnd="@dimen/_11sdp"
-        android:fontFamily="@font/montserratregular"
-        android:visibility="invisible"
-        tools:visibility="visible"
-        android:textColor="@color/read_more_color"
-        app:layout_constraintBottom_toBottomOf="@+id/FHome_et_search"
-        app:layout_constraintEnd_toEndOf="@+id/FHome_et_search"
-        app:layout_constraintTop_toTopOf="@+id/FHome_et_search"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_iv_menu"
+        android:focusable="false"
+        android:clickable="true"
         />
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_search"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/search_title"-->
+<!--        android:padding="@dimen/_8ssp"-->
+<!--        android:layout_marginEnd="@dimen/_11sdp"-->
+<!--        android:fontFamily="@font/montserratregular"-->
+<!--        android:visibility="invisible"-->
+<!--        tools:visibility="visible"-->
+<!--        android:textColor="@color/read_more_color"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/FHome_et_search"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/FHome_et_search"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/FHome_et_search"-->
+<!--        />-->
 
     <ImageView
         android:id="@+id/iv_search"

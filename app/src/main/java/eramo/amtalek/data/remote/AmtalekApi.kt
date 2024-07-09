@@ -41,6 +41,7 @@ import eramo.amtalek.data.remote.dto.property.newResponse.property_floor_finishi
 import eramo.amtalek.data.remote.dto.property.newResponse.property_purpose.PropertyPurposeResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
+import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -384,6 +385,13 @@ interface AmtalekApi {
         @Part sliders: List<MultipartBody.Part>?
     ): Response<AddPropertyResponse>
 
+    //--------------------------------------------------------------------------------------------//
+
+    @GET("mobile/all-locations")
+    suspend fun getAllLocations(): Response<AllLocationsResponse>
+
+
+    ////------------------------------------------------------------------------------------------------//
 
     // ____________________________________________________________________________________________//
     // Drawer

@@ -447,5 +447,14 @@
             android:name="fourthModel"
             app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFourthModel" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFormFragment"
+        android:name="eramo.amtalek.presentation.ui.search.searchform.SearchFormFragment"
+        android:label="fragment_search_form"
+        tools:layout="@layout/fragment_search_form" />
+    <dialog
+        android:id="@+id/allLocationsPopUp"
+        android:name="eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocationsPopUp"
+        android:label="AllLocationsPopUp" />
 
 </navigation>

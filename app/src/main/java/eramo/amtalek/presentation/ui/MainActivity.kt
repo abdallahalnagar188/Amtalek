@@ -388,6 +388,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.addPropertyThirdFragment,
                 R.id.addPropertyFourthFragment,
                 R.id.addPropertyFifthFragment,
+                    R.id.searchFormFragment
                 -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE

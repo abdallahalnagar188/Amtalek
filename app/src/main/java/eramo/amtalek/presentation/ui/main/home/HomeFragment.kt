@@ -145,8 +145,8 @@ FavClickListener{
 
         binding.inToolbar.FHomeEtSearch.text.clear()
 //        binding.root.requestFocus()
-        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(binding.inToolbar.FHomeEtSearch.windowToken, 0)
+//        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.hideSoftInputFromWindow(binding.inToolbar.FHomeEtSearch.windowToken, 0)
 
 //        lifecycleScope.launch {
 //            delay(1000)
@@ -162,11 +162,13 @@ FavClickListener{
     @SuppressLint("ClickableViewAccessibility")
     private fun listeners() {
         binding.apply {
-
             inToolbar.spinnerLayout.setOnClickListener {
               findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
             }
+            inToolbar.FHomeEtSearch.setOnClickListener(){
+                findNavController().navigate(R.id.searchFormFragment, null, navOptionsFromTopAnimation())
 
+            }
             inToolbar.inNotification.root.setOnClickListener {
 //                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
             }
@@ -175,7 +177,7 @@ FavClickListener{
             }
         }
 
-        setupSearchFunctionality()
+//        setupSearchFunctionality()
         this@HomeFragment.onBackPressed { pressBackAgainToExist() }
     }
 
@@ -578,6 +580,8 @@ FavClickListener{
                 findNavController().navigate(R.id.notificationFragment)
             }
         }
+
+
         if (LocalUtil.isEnglish()){
             binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
 
@@ -722,83 +726,83 @@ FavClickListener{
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setupSearchFunctionality() {
-        binding.inToolbar.apply {
-
-            // Search action
-            FHomeEtSearch.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    val query = FHomeEtSearch.text.toString().trim()
-
-                    if (query.isEmpty()) {
-                        showToast(getString(R.string.enter_a_query))
-                    } else {
-                        findNavController().navigate(
-                            R.id.searchPropertyResultFragment,
-                            null,
-                            navOptionsFromTopAnimation()
-                        )
-                    }
-
-                } else if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        delay(500)
-                        FHomeEtSearch.clearFocus()
-                    }
-                }
-                true
-            }
-
-            // onTextChange listener
-//            FHomeEtSearch.addTextChangedListener(object : TextWatcher {
-//                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//    @SuppressLint("ClickableViewAccessibility")
+//    private fun setupSearchFunctionality() {
+//        binding.inToolbar.apply {
 //
-//                }
+//            // Search action
+//            FHomeEtSearch.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                    val query = FHomeEtSearch.text.toString().trim()
 //
-//                override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
-//                    if (charSequence?.isNotEmpty() == true) {
-//                        tvSearch.visibility = View.VISIBLE
+//                    if (query.isEmpty()) {
+//                        showToast(getString(R.string.enter_a_query))
 //                    } else {
-//                        tvSearch.visibility = View.GONE
+//                        findNavController().navigate(
+//                            R.id.searchPropertyResultFragment,
+//                            null,
+//                            navOptionsFromTopAnimation()
+//                        )
+//                    }
+//
+//                } else if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    viewLifecycleOwner.lifecycleScope.launch {
+//                        delay(500)
+//                        FHomeEtSearch.clearFocus()
 //                    }
 //                }
+//                true
+//            }
 //
-//                override fun afterTextChanged(s: Editable?) {
+//            // onTextChange listener
+////            FHomeEtSearch.addTextChangedListener(object : TextWatcher {
+////                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+////
+////                }
+////
+////                override fun onTextChanged(charSequence: CharSequence?, start: Int, before: Int, count: Int) {
+////                    if (charSequence?.isNotEmpty() == true) {
+////                        tvSearch.visibility = View.VISIBLE
+////                    } else {
+////                        tvSearch.visibility = View.GONE
+////                    }
+////                }
+////
+////                override fun afterTextChanged(s: Editable?) {
+////
+////                }
+////            })
 //
+//            // onFocus listener
+//            FHomeEtSearch.setOnFocusChangeListener { _, hasFocus ->
+//                if (hasFocus) {
+//                    tvSearch.visibility = View.VISIBLE
+//                } else {
+//                    tvSearch.visibility = View.GONE
 //                }
-//            })
-
-            // onFocus listener
-            FHomeEtSearch.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    tvSearch.visibility = View.VISIBLE
-                } else {
-                    tvSearch.visibility = View.GONE
-                }
-            }
-
-            // tvSearch listener
-            tvSearch.setOnClickListener {
-                findNavController().navigate(
-                    R.id.searchPropertyResultFragment,
-                    null,
-                    navOptionsFromTopAnimation()
-                )
-            }
-        }
-
-        // remove focus onOutsideClick
-        binding.root.setOnTouchListener { _, _ ->
-            binding.inToolbar.FHomeEtSearch.clearFocus()
-            false
-        }
-
-        binding.scrollView.setOnTouchListener { _, _ ->
-            binding.inToolbar.FHomeEtSearch.clearFocus()
-            false
-        }
-    }
+//            }
+//
+//            // tvSearch listener
+//            tvSearch.setOnClickListener {
+//                findNavController().navigate(
+//                    R.id.searchPropertyResultFragment,
+//                    null,
+//                    navOptionsFromTopAnimation()
+//                )
+//            }
+//        }
+//
+//        // remove focus onOutsideClick
+//        binding.root.setOnTouchListener { _, _ ->
+//            binding.inToolbar.FHomeEtSearch.clearFocus()
+//            false
+//        }
+//
+//        binding.scrollView.setOnTouchListener { _, _ ->
+//            binding.inToolbar.FHomeEtSearch.clearFocus()
+//            false
+//        }
+//    }
 
     private fun isTouchInsideView(event: MotionEvent, view: View): Boolean {
         val location = IntArray(2)

@@ -523,7 +523,7 @@
     <string name="property_area">Space:</string>
     <string name="property_bedrooms">Bedrooms:</string>
     <string name="property_bathrooms">Bathrooms:</string>
-    <string name="property_finishing">Finishing:</string>
+    <string name="property_finishing">Property Finishing:</string>
     <string name="property_currency">Currency:</string>
 
     <string name="edit_text_hint_description">Description:</string>
@@ -820,7 +820,17 @@
     <string name="please_enter_a_sell_price">Please enter a sale price</string>
     <string name="please_enter_a_rent_price">Please enter a rent price</string>
     <string name="please_enter_a_rent_duration">Please enter a rent duration</string>
-
+    <string name="search_keyword">Search Keyword</string>
+    <string name="keyword_ex_flat_for_rent">Keyword(Ex \'flat for rent\')</string>
+    <string name="minimum_price">Minimum price</string>
+    <string name="minimum_area">Minimum area</string>
+    <string name="maximum_area">Maximum area</string>
+    <string name="max">Max</string>
+    <string name="maximum_price">Maximum Price</string>
+    <string name="amenities">Amenities</string>
+    <string name="find_your_property">Find Your Property</string>
+    <string name="min_area_must_be_greater_than_max_area">Min Area must be greater than Max Area</string>
+    <string name="min_price_must_be_greater_than_max_price">Min price must be greater than max price</string>
 
 
     <string-array name="durations_array">

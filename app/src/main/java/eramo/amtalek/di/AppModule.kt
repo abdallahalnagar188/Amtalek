@@ -22,6 +22,7 @@ import eramo.amtalek.data.repository.certaria.PropertyFinishingRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyFloorFinishingRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyPurposeRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyTypesRepositoryImpl
+import eramo.amtalek.data.repository.search.AllLocationsRepositoryImpl
 import eramo.amtalek.domain.repository.*
 import eramo.amtalek.domain.repository.AddPropertyRepository
 import eramo.amtalek.domain.repository.certaria.PropertyAmenitiesRepository
@@ -30,6 +31,7 @@ import eramo.amtalek.domain.repository.certaria.PropertyFinishingRepository
 import eramo.amtalek.domain.repository.certaria.PropertyFloorFinishingRepository
 import eramo.amtalek.domain.repository.certaria.PropertyPurposeRepository
 import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
+import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.util.parser.GsonParser
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -206,5 +208,10 @@ object AppModule {
     @Singleton
     fun provideAddPropertyRepository(amtalekApi: AmtalekApi): AddPropertyRepository {
         return AddPropertyRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun provideAllLocationsRepository(amtalekApi: AmtalekApi): AllLocationsRepository {
+        return AllLocationsRepositoryImpl(amtalekApi)
     }
 }
