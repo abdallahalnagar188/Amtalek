@@ -814,7 +814,7 @@
     <string name="sell_price">Sale Price</string>
     <string name="rent_price">Rent Price</string>
     <string name="rent_duration">Rent Duration</string>
-    <string name="sell">sale</string>
+    <string name="sell">Sale</string>
     <string name="rentt">Rent</string>
     <string name="rent_buy">Rent&amp;Buy</string>
     <string name="please_enter_a_sell_price">Please enter a sale price</string>

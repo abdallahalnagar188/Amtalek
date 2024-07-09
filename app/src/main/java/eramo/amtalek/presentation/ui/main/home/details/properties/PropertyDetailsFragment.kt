@@ -8,9 +8,6 @@ import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebViewClient
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -84,9 +81,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         setupViews()
         requestData()
         fetchData()
-        clickListners()
+        clickListeners()
         setupToggle()
-
     }
 
     private fun setupToggle() {
@@ -144,7 +140,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
 
-    private fun clickListners() {
+    private fun clickListeners() {
         binding.btnSendRate.setOnClickListener(){
             if (validRateForm()){
                 binding.apply {

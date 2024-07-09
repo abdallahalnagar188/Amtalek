@@ -127,9 +127,17 @@ FavClickListener{
         listeners()
         requestApis()
         fetchData()
+        handleRefresh()
 //        if (UserUtil.isUserLogin()) {
 //            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
 //        }
+    }
+
+    private fun handleRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            requestApis()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     override fun onResume() {

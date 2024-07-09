@@ -55,6 +55,10 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     private val viewModelShared: SharedViewModel by activityViewModels()
 
     private val hotOffersViewModel: HotOffersViewModel by viewModels()
+    private val forSellPropertyList = ArrayList<PropertyModel>()
+    private val forRentPropertyList:ArrayList<PropertyModel> = ArrayList()
+    private val forBothPropertyList:ArrayList<PropertyModel> = ArrayList()
+    private val projectsList:ArrayList<ProjectModel> = ArrayList()
 
     @Inject
     lateinit var rvHotOffersForBothPropertiesAdapter: RvHotOffersForBothPropertiesAdapter
@@ -80,6 +84,26 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         listeners()
         bindTabs()
         tabsClickListeners()
+        handleRefresh()
+    }
+
+    private fun handleRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+
+
+            rvHotOffersForBothPropertiesAdapter.submitList(null)
+
+            rvHotOffersSellPropertiesAdapter.submitList(null)
+
+            rvHotOffersRentPropertiesAdapter.submitList(null)
+
+            rvHotOffersForBothProjectsAdapter.submitList(null)
+
+            binding.swipeRefreshLayout.isRefreshing = false
+            binding.carouselSlider.visibility = View.GONE
+            hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+
+        }
     }
 
     private fun listeners() {
@@ -115,10 +139,17 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     private fun setupViews() {
         initToolbar()
+
+        binding.rvPropertiesForBoth.adapter = rvHotOffersForBothPropertiesAdapter
+        binding.rvPropertiesForSale.adapter = rvHotOffersSellPropertiesAdapter
+        binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter
+        binding.rvProjectsForBoth.adapter = rvHotOffersForBothProjectsAdapter
+
         rvHotOffersRentPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersForBothPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersForBothProjectsAdapter.setListener(this@HotOffersFragment)
+
     }
     private fun setUpObservers() {
         fetchGetHotOffers()
@@ -127,11 +158,16 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     private fun fetchGetHotOffers() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
                 hotOffersViewModel.hotOffers.collect(){
                     when(it){
                         is UiState.Success->{
-                            dismissShimmerEffect()
+
+                            forSellPropertyList.clear()
+                            forRentPropertyList.clear()
+                            forBothPropertyList.clear()
+                            projectsList.clear()
+
                             filterProperties(it.data)
                         }
                         is UiState.Error->{
@@ -212,42 +248,48 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
 
     private fun filterProperties(data: HotOffersResponse?) {
-        val forSellPropertyList:ArrayList<PropertyModel> = ArrayList()
-        val forRentPropertyList:ArrayList<PropertyModel> = ArrayList()
-        val forBothPropertyList:ArrayList<PropertyModel> = ArrayList()
-        val projectsList:ArrayList<ProjectModel> = ArrayList()
         for (project in data?.data?.projects!!){
             if (project != null) {
                 projectsList.add(project.toProjectModel())
             }
         }
-        for (property in data?.data?.properties!!){
+        Log.e("filterProperties: ", "Started", )
+        var counter = 0
+        for (property in data.data?.properties!!){
+            counter++
             when (property?.forWhat) {
                 "for_sale" -> {
-                    forSellPropertyList.add(property.toPropertyModel())
+                    if (forSellPropertyList.size < 10){
+                        forSellPropertyList.add(property.toPropertyModel()) /////////// till u apply paging on it, cuz the performance is so poor and many many data will be loaded
+                    }
                 }
                 "for_rent" -> {
-                    forRentPropertyList.add(property.toPropertyModel())
+                    if (forRentPropertyList.size < 10){
+                        forRentPropertyList.add(property.toPropertyModel()) /////////// till u apply paging on it, cuz the performance is so poor and many many data will be loaded
+                    }
                 }
                 "for_both" -> {
-                    forBothPropertyList.add(property.toPropertyModel())
+                    if (forBothPropertyList.size < 10){
+                        forBothPropertyList.add(property.toPropertyModel()) /////////// till u apply paging on it, cuz the performance is so poor and many many data will be loaded
+                    }
                 }
             }
         }
+        Log.e("filterProperties: ", "Finished", )
 
         binding.carouselSlider.visibility = View.VISIBLE
 
-        binding.rvPropertiesForBoth.adapter = rvHotOffersForBothPropertiesAdapter
+
+
         rvHotOffersForBothPropertiesAdapter.submitList(forBothPropertyList)
 
-       binding.rvPropertiesForSale.adapter = rvHotOffersSellPropertiesAdapter
         rvHotOffersSellPropertiesAdapter.submitList(forSellPropertyList)
 
-        binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter
         rvHotOffersRentPropertiesAdapter.submitList(forRentPropertyList)
 
-        binding.rvProjectsForBoth.adapter = rvHotOffersForBothProjectsAdapter
         rvHotOffersForBothProjectsAdapter.submitList(projectsList)
+        dismissShimmerEffect()
+
 //        binding.rvProjectsForBoth.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
     }
 

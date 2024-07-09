@@ -30,6 +30,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapt
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.profile.RvSubmittedOffersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
@@ -42,6 +43,7 @@ import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -53,7 +55,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
 
     private val viewModel by viewModels<MyProfileViewModel>()
     private val hotOffersViewModel by viewModels<HotOffersViewModel>()
-
+    var LIKEFLAG: Int = 0
 
 
     @Inject
@@ -182,6 +184,32 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
 
     private fun fetchData() {
         fetchGetProfileState()
+        fetchLikeState()
+    }
+
+    private fun fetchLikeState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                hotOffersViewModel.favState.collect {
+                    when (it) {
+                        is UiState.Success -> {
+                            requestData()
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                            showToast(it.message!!.asString(requireContext()))
+                        }
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+                        else -> {
+
+                        }
+                        }
+                }
+            }
+        }
     }
 
     private fun fetchGetProfileState() {
@@ -202,7 +230,12 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                         }
 
                         is UiState.Loading -> {
-                            showShimmerEffect()
+                            if (LIKEFLAG ==1){
+                                // show no shimmer effect but loading one
+                            }else{
+                                showShimmerEffect()
+
+                            }
                         }
 
                         else -> {}
@@ -307,5 +340,6 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
 
     override fun onFavClick(model: PropertyModel) {
         hotOffersViewModel.addOrRemoveFav(model.id)
+        LIKEFLAG = 1
     }
 }

@@ -47,7 +47,7 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         binding.tvTitle.text = news.title
         binding.tvBody.text = news.description
 //        setupImageSliderTop()
-        initRvComments(Dummy.dummyRatingCommentsList())
+//        initRvComments(Dummy.dummyRatingCommentsList())
     }
 
     private fun setupToolbar() {
@@ -66,8 +66,8 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         }
     }
 
-    private fun initRvComments(data: List<RatingCommentsModel>) {
-        binding.rv.adapter = rvNewsDetailsCommentsAdapter
-        rvNewsDetailsCommentsAdapter.submitList(data)
-    }
+//    private fun initRvComments(data: List<RatingCommentsModel>) {
+//        binding.rv.adapter = rvNewsDetailsCommentsAdapter
+//        rvNewsDetailsCommentsAdapter.submitList(data)
+//    }
 }

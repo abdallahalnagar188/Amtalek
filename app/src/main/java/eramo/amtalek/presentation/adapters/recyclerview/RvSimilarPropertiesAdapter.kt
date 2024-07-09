@@ -163,7 +163,6 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
     fun setListener(listener: OnItemClickListener,favListener: OnFavClickListener) {
         this.listener = listener
         this.favListener = favListener
-
     }
     interface OnItemClickListener {
         fun onFeaturedRealEstateClick(model: PropertyModel)

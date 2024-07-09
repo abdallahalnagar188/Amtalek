@@ -654,6 +654,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             android:layout_marginStart="@dimen/_110sdp"
+                            android:layoutDirection="ltr"
                             />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
