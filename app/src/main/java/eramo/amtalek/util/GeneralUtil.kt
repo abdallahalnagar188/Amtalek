@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.paging.PagingConfig
@@ -23,6 +24,7 @@ import com.google.gson.Gson
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.domain.model.ResultModel
+import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.UiText
 import kotlinx.coroutines.flow.Flow
@@ -183,6 +185,8 @@ fun TextView.setTextViewDrawableColor(color: Int) {
             )
     }
 }
+val selectedLocation = MutableLiveData<LocationModel>()
+
 
 
 // -------------------------------------------------------------- //

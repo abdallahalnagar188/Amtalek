@@ -456,5 +456,14 @@
         android:id="@+id/allLocationsPopUp"
         android:name="eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocationsPopUp"
         android:label="AllLocationsPopUp" />
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragment"
+        android:label="fragment_search_result"
+        tools:layout="@layout/fragment_search_result" >
+        <argument
+            android:name="searchQuery"
+            app:argType="eramo.amtalek.domain.search.SearchModelDto" />
+    </fragment>
 
 </navigation>

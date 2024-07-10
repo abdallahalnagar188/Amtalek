@@ -18,6 +18,8 @@ import eramo.amtalek.databinding.DialogAllLocationsBinding
 import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
+import eramo.amtalek.presentation.viewmodel.SharedViewModel
+import eramo.amtalek.util.selectedLocation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +28,7 @@ import javax.inject.Inject
 class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocationsAdapter.OnItemLocationClick {
     private lateinit var binding: DialogAllLocationsBinding
     val viewModel by viewModels<SearchFormViewModel>()
-
+    val sharedViewModel by viewModels<SharedViewModel>()
     @Inject
     lateinit var locationAdapter: AllLocationsAdapter
 
@@ -96,7 +98,7 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
                             filteredList.add(item)
                         }
                     }
-                    if (filteredList.isNullOrEmpty()){
+                    if (filteredList.isEmpty()){
                         Toast.makeText(requireContext(), getText(R.string.no_results_found), Toast.LENGTH_SHORT).show()
                     }else{
                         locationAdapter.submitList(filteredList)
@@ -115,6 +117,7 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
     }
 
     override fun onLocationClicked(model: LocationModel) {
-        // Handle the location click event
+       selectedLocation.value = model
+        dismiss()
     }
 }

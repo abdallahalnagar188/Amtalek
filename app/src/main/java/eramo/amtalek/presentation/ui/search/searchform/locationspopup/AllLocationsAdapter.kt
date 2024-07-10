@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import eramo.amtalek.databinding.ItemLocationBinding
 import eramo.amtalek.databinding.LayoutSpinnerItemBinding
 import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPropertiesAdapter
@@ -19,7 +20,7 @@ class AllLocationsAdapter  @Inject constructor(
         currentList.clear()
         submitList(filteredList)
     }
-    inner class LocationViewHolder(private val binding: LayoutSpinnerItemBinding) :
+    inner class LocationViewHolder(private val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -33,11 +34,11 @@ class AllLocationsAdapter  @Inject constructor(
         }
 
         fun bind(model: LocationModel) {
-            binding.text.text = model.title.toString()
+            binding.name.text = model.title
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =  LocationViewHolder (
-        LayoutSpinnerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
 

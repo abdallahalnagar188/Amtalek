@@ -69,7 +69,6 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
         requestApis()
         fetchApis()
         setUpPrioritySpinner()
-        Log.e("ARGGG2", secondModel.toString(), )
 
     }
 

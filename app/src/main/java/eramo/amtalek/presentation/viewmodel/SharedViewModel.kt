@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.viewmodel
 
 import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,7 @@ import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -33,6 +35,8 @@ class SharedViewModel @Inject constructor(
     val profileImageUri = MutableLiveData<Uri?>(null)
     val profileNameState = MutableLiveData<String?>(null)
     val profileCityState  = MutableLiveData<String?>(null)
+
+
 
     //____________________________________________________________________________________________//
 

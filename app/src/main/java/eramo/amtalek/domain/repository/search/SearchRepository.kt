@@ -1,0 +1,27 @@
+package eramo.amtalek.domain.repository.search
+
+import androidx.paging.PagingData
+import eramo.amtalek.domain.search.SearchResponseModel
+import kotlinx.coroutines.flow.Flow
+
+interface SearchRepository {
+    suspend fun search(
+        keyword: String?,
+        city: String?,
+        country: String?,
+        currency: Int?,
+        finishing: String?,
+        maxArea: String?,
+        minArea: String?,
+        maxPrice: String?,
+        minPrice: String?,
+        minBathes: String?,
+        minBeds: String?,
+        page: Int,
+        priceArrangeKeys: String?,
+        propertyType: String?,
+        purpose: String?,
+        region: String?,
+        subRegion: String?,
+    ): Flow<PagingData<SearchResponseModel>>
+}

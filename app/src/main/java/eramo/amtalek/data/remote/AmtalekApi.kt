@@ -42,6 +42,7 @@ import eramo.amtalek.data.remote.dto.property.newResponse.property_purpose.Prope
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
+import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
 import eramo.amtalek.domain.model.request.OrderRequest
 import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
@@ -386,11 +387,37 @@ interface AmtalekApi {
     ): Response<AddPropertyResponse>
 
     //--------------------------------------------------------------------------------------------//
-
+    //search
     @GET("mobile/all-locations")
     suspend fun getAllLocations(): Response<AllLocationsResponse>
 
+    @GET("mobile/currencies")
+    suspend fun getCurrencies(): Response<CurrenciesResponse>
 
+
+
+    @FormUrlEncoded
+    @POST("mobile/search-property")
+    suspend fun search(
+        @Header("Authorization") userToken: String?,
+        @Field("keyword") keyword:String?,
+        @Field("city") city:String?,
+        @Field("country") country:String?,
+        @Field("currency") currency:Int?,
+        @Field("finishing") finishing:String?,
+        @Field("max_area") maxArea:String?,
+        @Field("min_area") minArea:String?,
+        @Field("maxPrice") maxPrice:String?,
+        @Field("min_price") minPrice:String?,
+        @Field("min_bathes") minBathes:String?,
+        @Field("min_beds") minBeds:String?,
+        @Field("page") page:Int,
+        @Field("price_arrange_keys") priceArrangeKeys:String?,
+        @Field("property_type") propertyType:String?,
+        @Field("purpose") purpose:String?,
+        @Field("region") region:String?,
+        @Field("sub_region") subRegion:String?,
+    ):Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
     ////------------------------------------------------------------------------------------------------//
 
     // ____________________________________________________________________________________________//

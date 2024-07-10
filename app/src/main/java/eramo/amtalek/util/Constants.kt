@@ -49,7 +49,7 @@ import eramo.amtalek.R
     const val ROLLING_TEXT_ANIMATION_DURATION = 800L
 
     const val PAGING_START_INDEX = 1
-    const val PAGING_PER_PAGE = 4
+    const val PAGING_PER_PAGE = 10
 
     const val ERAMO_WEBSITE = "https://www.e-ramo.net"
     const val ERAMO_PHONE = "tel:+201011559674"

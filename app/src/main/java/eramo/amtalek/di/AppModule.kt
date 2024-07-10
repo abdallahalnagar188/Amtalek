@@ -23,6 +23,8 @@ import eramo.amtalek.data.repository.certaria.PropertyFloorFinishingRepositoryIm
 import eramo.amtalek.data.repository.certaria.PropertyPurposeRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyTypesRepositoryImpl
 import eramo.amtalek.data.repository.search.AllLocationsRepositoryImpl
+import eramo.amtalek.data.repository.search.CurrenciesRepositoryImpl
+import eramo.amtalek.data.repository.search.SearchRepositoryImpl
 import eramo.amtalek.domain.repository.*
 import eramo.amtalek.domain.repository.AddPropertyRepository
 import eramo.amtalek.domain.repository.certaria.PropertyAmenitiesRepository
@@ -32,6 +34,8 @@ import eramo.amtalek.domain.repository.certaria.PropertyFloorFinishingRepository
 import eramo.amtalek.domain.repository.certaria.PropertyPurposeRepository
 import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.domain.repository.search.AllLocationsRepository
+import eramo.amtalek.domain.repository.search.CurrenciesRepository
+import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.util.parser.GsonParser
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -213,5 +217,15 @@ object AppModule {
     @Singleton
     fun provideAllLocationsRepository(amtalekApi: AmtalekApi): AllLocationsRepository {
         return AllLocationsRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun provideCurrenciesRepository(amtalekApi: AmtalekApi): CurrenciesRepository {
+        return CurrenciesRepositoryImpl(amtalekApi)
+    }
+    @Provides
+    @Singleton
+    fun provideSearchRepository(amtalekApi: AmtalekApi): SearchRepository {
+        return SearchRepositoryImpl(amtalekApi)
     }
 }
