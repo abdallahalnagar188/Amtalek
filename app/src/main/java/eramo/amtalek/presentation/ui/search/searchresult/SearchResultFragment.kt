@@ -2,10 +2,8 @@ package eramo.amtalek.presentation.ui.search.searchresult
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,18 +11,17 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.databinding.FragmentSearchPropertyResultBinding
 import eramo.amtalek.databinding.FragmentSearchResultBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
-import eramo.amtalek.presentation.viewmodel.navbottom.extension.SearchViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),RvHotOffersForBothPropertiesAdapter.OnItemClickListener,
+class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>()
+    ,RvSearchResultsPropertiesAdapter.OnItemClickListener,
     FavClickListener {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchResultBinding::inflate
@@ -38,22 +35,46 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),RvHo
 
 
     @Inject
-    lateinit var propertiesAdapter: RvHotOffersForBothPropertiesAdapter
+    lateinit var propertiesAdapter: RvSearchResultsPropertiesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
         initViews()
         fetchData()
+        requestData()
+        Log.e("MPdededede", model.toString(), )
+    }
+
+    private fun requestData() {
+        viewModel.search(
+            city = null,
+            propertyType = null,
+            minPrice = null,
+            maxPrice = null,
+            minArea = null,
+            maxArea = null,
+            minBeds = null,
+            minBathes =null,
+            country = null,
+            currency = null,
+            finishing = null,
+            keyword = null,
+            priceArrangeKeys = null,
+            purpose = null,
+            region = null,
+            subRegion = null,
+        )
     }
 
     private fun fetchData() {
-//        lifecycleScope.launchWhenStarted {
-//            viewModel.searchState.collect(){alo->
-//                val data = a
-//                propertiesAdapter.submitList(alo)
-//            }
-//        }
+        lifecycleScope.launch {
+            viewModel.searchState.collect(){data->
+                data?.let {
+                    propertiesAdapter.submitData(viewLifecycleOwner.lifecycle, data)
+                }
+            }
+        }
     }
 
     private fun initViews() {
@@ -68,11 +89,12 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),RvHo
         }
     }
 
-    override fun onPropertyClickForBoth(model: PropertyModel) {
+
+    override fun onFavClick(model: PropertyModel) {
         //
     }
 
-    override fun onFavClick(model: PropertyModel) {
+    override fun onPropertyClicks(model: PropertyModel) {
         //
     }
 

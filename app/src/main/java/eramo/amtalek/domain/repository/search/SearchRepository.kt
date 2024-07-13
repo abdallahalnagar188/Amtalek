@@ -1,6 +1,7 @@
 package eramo.amtalek.domain.repository.search
 
 import androidx.paging.PagingData
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.search.SearchResponseModel
 import kotlinx.coroutines.flow.Flow
 
@@ -17,11 +18,10 @@ interface SearchRepository {
         minPrice: String?,
         minBathes: String?,
         minBeds: String?,
-        page: Int,
         priceArrangeKeys: String?,
         propertyType: String?,
         purpose: String?,
         region: String?,
         subRegion: String?,
-    ): Flow<PagingData<SearchResponseModel>>
+    ): Flow<PagingData<PropertyModel>>
 }

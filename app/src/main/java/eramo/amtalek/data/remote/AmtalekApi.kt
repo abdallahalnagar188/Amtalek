@@ -411,7 +411,7 @@ interface AmtalekApi {
         @Field("min_price") minPrice:String?,
         @Field("min_bathes") minBathes:String?,
         @Field("min_beds") minBeds:String?,
-        @Field("page") page:Int,
+        @Query("page") page:Int,
         @Field("price_arrange_keys") priceArrangeKeys:String?,
         @Field("property_type") propertyType:String?,
         @Field("purpose") purpose:String?,

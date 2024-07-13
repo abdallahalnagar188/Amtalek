@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingData
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.paging.PagingSearch
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.domain.search.SearchResponseModel
 import eramo.amtalek.util.pagingConfig
@@ -25,13 +26,12 @@ class SearchRepositoryImpl @Inject constructor(
         minPrice: String?,
         minBathes: String?,
         minBeds: String?,
-        page: Int,
         priceArrangeKeys: String?,
         propertyType: String?,
         purpose: String?,
         region: String?,
         subRegion: String?
-    ): Flow<PagingData<SearchResponseModel>> {
+    ): Flow<PagingData<PropertyModel>> {
         return Pager(
             config = pagingConfig(),
             pagingSourceFactory = {

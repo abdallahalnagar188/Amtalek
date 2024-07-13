@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.repository.certaria.PropertyAmenitiesRepository
@@ -15,8 +16,6 @@ import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.domain.repository.search.CurrenciesRepository
 import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.domain.search.LocationModel
-import eramo.amtalek.domain.search.SearchModelDto
-import eramo.amtalek.domain.search.SearchResponseModel
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -60,8 +59,8 @@ class SearchFormViewModel @Inject constructor(
     private val _currenciesState = MutableStateFlow<UiState<List<CriteriaModel>>>(UiState.Empty())
     val currenciesState: StateFlow<UiState<List<CriteriaModel>>> = _currenciesState
 
-    private val _searchState = MutableStateFlow<PagingData<SearchResponseModel>?>(null)
-    val searchState: MutableStateFlow<PagingData<SearchResponseModel>?> = _searchState
+    private val _searchState = MutableStateFlow<PagingData<PropertyModel>?>(null)
+    val searchState: MutableStateFlow<PagingData<PropertyModel>?> = _searchState
 
 
 
@@ -87,7 +86,6 @@ class SearchFormViewModel @Inject constructor(
         minPrice: String?,
         minBathes: String?,
         minBeds: String?,
-        page: Int,
         priceArrangeKeys: String?,
         propertyType: String?,
         purpose: String?,
@@ -110,14 +108,12 @@ class SearchFormViewModel @Inject constructor(
                         minPrice = minPrice,
                         minBathes = minBathes,
                         minBeds = minBeds,
-                        page = page,
                         priceArrangeKeys = priceArrangeKeys,
                         propertyType = propertyType,
                         purpose = purpose,
                         region = region,
                         subRegion = subRegion
                     ).cachedIn(viewModelScope).collect(){
-                        val data = it
                         _searchState.value = it
                     }
                 }
