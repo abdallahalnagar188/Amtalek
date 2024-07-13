@@ -10,7 +10,6 @@ import eramo.amtalek.databinding.ItemDropdownBinding
 import eramo.amtalek.databinding.RegionSpinnerItemBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.RegionModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 
 class RegionsSpinnerAdapter(context: Context, list: List<RegionModel>) :
     ArrayAdapter<RegionModel>(context, 0, list) {

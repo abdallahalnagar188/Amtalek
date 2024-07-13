@@ -9,7 +9,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentMessagingBinding
-import eramo.amtalek.presentation.adapters.viewpager.MessagingTypesPagerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 
 @AndroidEntryPoint
@@ -27,7 +26,7 @@ class MessagingFragment : BindingFragment<FragmentMessagingBinding>() {
     private fun setupViews() {
         setupToolbar()
 
-        setupTabLayoutPager()
+//        setupTabLayoutPager()
     }
 
     private fun setupToolbar() {
@@ -37,16 +36,16 @@ class MessagingFragment : BindingFragment<FragmentMessagingBinding>() {
         }
     }
 
-    private fun setupTabLayoutPager() {
-        val messagingTypesPagerAdapter = MessagingTypesPagerAdapter(childFragmentManager, lifecycle)
-        binding.apply {
-            viewPager.adapter = messagingTypesPagerAdapter
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                when (position) {
-                    0 -> tab.text = getString(R.string.chat)
-                    1 -> tab.text = getString(R.string.offer)
-                }
-            }.attach()
-        }
-    }
+//    private fun setupTabLayoutPager() {
+//        val messagingTypesPagerAdapter = MessagingTypesPagerAdapter(childFragmentManager, lifecycle)
+//        binding.apply {
+//            viewPager.adapter = messagingTypesPagerAdapter
+//            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+//                when (position) {
+//                    0 -> tab.text = getString(R.string.chat)
+//                    1 -> tab.text = getString(R.string.offer)
+//                }
+//            }.attach()
+//        }
+//    }
 }

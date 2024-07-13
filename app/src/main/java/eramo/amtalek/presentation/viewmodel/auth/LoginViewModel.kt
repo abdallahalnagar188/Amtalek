@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
-import eramo.amtalek.domain.repository.CartRepository
 import eramo.amtalek.domain.usecase.auth.LoginUseCase
 import eramo.amtalek.domain.usecase.auth.RegisterUseCase
 import eramo.amtalek.util.UserUtil
@@ -21,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val repository: CartRepository,
     private val registerUseCase: RegisterUseCase,
 ) : ViewModel() {
 
@@ -100,9 +98,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    suspend fun switchLocalCartToRemote() = withContext(viewModelScope.coroutineContext) {
-        repository.switchLocalCartToRemote()
-    }
+
 
     private fun saveUserInfo(userModel: UserModel, isRemember: Boolean) {
         UserUtil.saveUserInfo(

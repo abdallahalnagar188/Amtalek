@@ -27,7 +27,6 @@ import eramo.amtalek.databinding.ActivityMainBinding
 import eramo.amtalek.databinding.FragmentEditPersonalDetailsBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
-import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter

@@ -33,7 +33,6 @@ import eramo.amtalek.databinding.FragmentSignupBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.RegionModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.presentation.adapters.spinner.CitiesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.CountriesSpinnerAdapter
 import eramo.amtalek.presentation.adapters.spinner.RegionsSpinnerAdapter

@@ -15,7 +15,6 @@ import eramo.amtalek.domain.model.main.brokers.BrokerModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.presentation.viewmodel.navbottom.CartViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.navOptionsAnimation
@@ -29,7 +28,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
         get() = FragmentBrokersBinding::inflate
 
     private val viewModelShared: SharedViewModel by activityViewModels()
-    private val viewModel: CartViewModel by viewModels()
 
     @Inject
     lateinit var rvBrokersAdapter: RvBrokersAdapter

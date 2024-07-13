@@ -23,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentAddPropertyThirdBinding
 import eramo.amtalek.domain.model.auth.CityModel
-import eramo.amtalek.domain.model.auth.CountriesModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.RegionModel
 import eramo.amtalek.domain.model.home.cities.CitiesModel

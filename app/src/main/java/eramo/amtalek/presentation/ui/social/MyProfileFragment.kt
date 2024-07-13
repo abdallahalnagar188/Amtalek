@@ -20,7 +20,6 @@ import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.Favorite
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.MyProp
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.OffersItem
 import eramo.amtalek.databinding.FragmentMyProfileBinding
-import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.market.MarketPostsModel

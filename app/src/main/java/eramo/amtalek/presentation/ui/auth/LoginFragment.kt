@@ -287,27 +287,6 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun switchLocalCartToRemote() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.switchLocalCartToRemote().collect {
-                when (it) {
-                    is Resource.Success -> {
-                        LoadingDialog.dismissDialog()
-                        findNavController().popBackStack()
-                    }
-
-                    is Resource.Error -> {
-                        LoadingDialog.dismissDialog()
-                        showToast(it.message!!.asString(requireContext()))
-                    }
-
-                    is Resource.Loading -> {
-                        LoadingDialog.showDialog()
-                    }
-                }
-            }
-        }
-    }
 
 
     private fun applyLogoAnimation() {

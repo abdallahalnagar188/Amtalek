@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import eramo.amtalek.data.remote.dto.home.Amenity
 import eramo.amtalek.databinding.ItemAminitiesBinding
 import eramo.amtalek.domain.model.project.AmenityModel
 import javax.inject.Inject

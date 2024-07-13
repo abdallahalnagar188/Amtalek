@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.viewmodel.social
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.domain.model.auth.GetProfileModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase

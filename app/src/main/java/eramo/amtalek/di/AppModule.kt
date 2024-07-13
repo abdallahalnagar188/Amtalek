@@ -1,18 +1,13 @@
 package eramo.amtalek.di
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
-import androidx.room.Room
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import eramo.amtalek.data.local.Converters
-import eramo.amtalek.data.local.EventsDB
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.MyInterceptor
 import eramo.amtalek.data.repository.*
@@ -84,14 +79,7 @@ object AppModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideEventsDB(app: Application): EventsDB {
-        return Room.databaseBuilder(app, EventsDB::class.java, "EventsDB")
-            .addTypeConverter(Converters(GsonParser(Gson())))
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+
 
     @Provides
     @Singleton
@@ -117,29 +105,6 @@ object AppModule {
         return DrawerRepositoryImpl(AmtalekApi)
     }
 
-    @Provides
-    @Singleton
-    fun provideProductsRepository(AmtalekApi: AmtalekApi): ProductsRepository {
-        return ProductsRepositoryImpl(AmtalekApi)
-    }
-
-    @Provides
-    @Singleton
-    fun provideRequestRepository(AmtalekApi: AmtalekApi): RequestRepository {
-        return RequestRepositoryImpl(AmtalekApi)
-    }
-
-    @Provides
-    @Singleton
-    fun provideOrderRepository(AmtalekApi: AmtalekApi): OrderRepository {
-        return OrderRepositoryImpl(AmtalekApi)
-    }
-
-    @Provides
-    @Singleton
-    fun provideCartRepository(AmtalekApi: AmtalekApi, db: EventsDB): CartRepository {
-        return CartRepositoryImpl(AmtalekApi, db.dao)
-    }
 
     @Provides
     @Singleton

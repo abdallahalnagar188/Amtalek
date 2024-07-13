@@ -4,7 +4,6 @@ package eramo.amtalek.data.remote.dto.auth
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.RegionModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 
 data class RegionsResponse(
     @SerializedName("data")

@@ -19,7 +19,6 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
 import eramo.amtalek.presentation.ui.social.CommentsBottomDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.presentation.viewmodel.navbottom.HomeViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil

@@ -13,7 +13,6 @@ import eramo.amtalek.databinding.FragmentAllPropertiesBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.presentation.viewmodel.navbottom.ShopViewModel
 import eramo.amtalek.util.StatusBarUtil
 import javax.inject.Inject
 
@@ -24,7 +23,6 @@ class AllPropertiesFragment : BindingFragment<FragmentAllPropertiesBinding>(){
         get() = FragmentAllPropertiesBinding::inflate
 
     private val viewModelShared: SharedViewModel by activityViewModels()
-    private val viewModel: ShopViewModel by viewModels()
 
     @Inject
     lateinit var rvMyFavouritesAdapter: RvMyFavouritesAdapter

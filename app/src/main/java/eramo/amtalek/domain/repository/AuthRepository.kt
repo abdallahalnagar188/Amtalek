@@ -7,7 +7,6 @@ import eramo.amtalek.domain.model.auth.ContactUsInfoModel
 import eramo.amtalek.domain.model.auth.CountryModel
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.model.auth.RegionModel
-import eramo.amtalek.domain.model.auth.RegionsModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
