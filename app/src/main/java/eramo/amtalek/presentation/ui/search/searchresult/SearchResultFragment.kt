@@ -15,6 +15,7 @@ import eramo.amtalek.databinding.FragmentSearchResultBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -91,11 +92,14 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>()
 
 
     override fun onFavClick(model: PropertyModel) {
-        //
+        viewModel.addOrRemoveFav(model.id)
+
     }
 
     override fun onPropertyClicks(model: PropertyModel) {
-        //
+        findNavController().navigate(R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())
+
     }
 
 }

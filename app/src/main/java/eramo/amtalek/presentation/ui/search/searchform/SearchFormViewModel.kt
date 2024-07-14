@@ -5,9 +5,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
+import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.certaria.PropertyAmenitiesRepository
 import eramo.amtalek.domain.repository.certaria.PropertyFinishingRepository
 import eramo.amtalek.domain.repository.certaria.PropertyPurposeRepository
@@ -34,7 +36,8 @@ class SearchFormViewModel @Inject constructor(
     private val propertyPurposeRepository: PropertyPurposeRepository,
     private val propertyAmenitiesRepository: PropertyAmenitiesRepository,
     private val currenciesRepository: CurrenciesRepository,
-    private val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository,
+    private val addOrRemoveFavRepository: AddOrRemoveFavRepository
 ) : ViewModel() {
 
     private var _allLocationsState = MutableStateFlow<UiState<List<LocationModel>>>(UiState.Empty())
@@ -61,6 +64,9 @@ class SearchFormViewModel @Inject constructor(
 
     private val _searchState = MutableStateFlow<PagingData<PropertyModel>?>(null)
     val searchState: MutableStateFlow<PagingData<PropertyModel>?> = _searchState
+
+    private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
+    val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
 
 
 
@@ -298,4 +304,26 @@ class SearchFormViewModel @Inject constructor(
             }
         }
     }
+    fun addOrRemoveFav(propertyId: Int) {
+        viewModelScope.launch {
+            withContext(coroutineContext){
+                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect(){result->
+                    when(result){
+                        is Resource.Success->{
+                            _favState.value = UiState.Success(result.data)
+                        }
+                        is Resource.Error->{
+                            _favState.value = UiState.Error(result.message!!)
+                        }
+                        is Resource.Loading->{
+                            _favState.value = UiState.Loading()
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
 }

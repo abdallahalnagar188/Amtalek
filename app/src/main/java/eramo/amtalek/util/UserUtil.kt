@@ -52,15 +52,15 @@ object UserUtil {
     fun init(context: Context) {
         sharedPreferences = context.getSharedPreferences("user_util", Context.MODE_PRIVATE)
 
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
-
-        encryptedSharedPreferences =   EncryptedSharedPreferences.create(
-            "encrypted_preferences",
-            masterKeyAlias,
-            context,
-            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-        )
+//        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+//
+//        encryptedSharedPreferences =   EncryptedSharedPreferences.create(
+//            "encrypted_preferences",
+//            masterKeyAlias,
+//            context,
+//            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+//            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+//        )
     }
 
     fun saveUserInfo(
@@ -85,7 +85,7 @@ object UserUtil {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
 //        sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
-        encryptedSharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
+        sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
 
         sharedPreferences.edit().putString(USER_ID, userID).apply()
         sharedPreferences.edit().putString(FIRST_NAME, firstName).apply()
@@ -110,7 +110,7 @@ object UserUtil {
         sharedPreferences.edit().putBoolean(REMEMBER, false).apply()
 
 //        sharedPreferences.edit().putString(USER_TOKEN, "").apply()
-        encryptedSharedPreferences.edit().putString(USER_TOKEN, "").apply()
+        sharedPreferences.edit().putString(USER_TOKEN, "").apply()
 
         sharedPreferences.edit().putString(USER_ID, "").apply()
         sharedPreferences.edit().putString(USER_TYPE,"").apply()
@@ -146,7 +146,7 @@ object UserUtil {
     fun isRememberUser() = sharedPreferences.getBoolean(REMEMBER, false)
 
 //    fun getUserToken() = sharedPreferences.getString(USER_TOKEN, "") ?: ""
-    fun getUserToken() = encryptedSharedPreferences.getString(USER_TOKEN, "") ?: ""
+    fun getUserToken() = sharedPreferences.getString(USER_TOKEN, "") ?: ""
 
     fun getUserId() = sharedPreferences.getString(USER_ID, "") ?: ""
     fun getUserType() = sharedPreferences.getString(USER_TYPE, "") ?: ""
