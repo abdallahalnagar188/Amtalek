@@ -54,6 +54,8 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
     private val viewModel by viewModels<SearchFormViewModel>()
     private var selectedLocationId:Int? = null
+    private var selectedLocationName:String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
@@ -117,8 +119,19 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
       selectedLocation.observe(viewLifecycleOwner){
             binding.locationValue.text = it.title
             selectedLocationId = it.id
+            selectedLocationName = it.title
           Log.e("id", it.id.toString(), )
         }
+    }
+
+    private fun createListsModel(): SearchDataListsModel {
+       val data =  SearchDataListsModel(
+            listOfTypesItems = listOfTypeItems,
+            listOfCurrencyItems = listOfCurrencyItems,
+            listOfFinishingItems = listOfFinishingItems,
+            listOfPurposeItems = listOfPurposeItems
+        )
+        return data
     }
 
     private fun clickListeners() {
@@ -126,14 +139,10 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             if (isValidForm()){
                 binding.apply {
                    val myModel = createModel()
+                    val listsModel = createListsModel()
                     findNavController().navigate(R.id.searchResultFragment,
                         SearchResultFragmentArgs(searchQuery = myModel,
-                                dataLists = SearchDataListsModel(
-                                listOfTypesItems = listOfTypeItems,
-                                listOfCurrencyItems = listOfCurrencyItems,
-                                listOfFinishingItems = listOfFinishingItems,
-                                listOfPurposeItems = listOfPurposeItems
-                            )
+                                dataLists = listsModel
                         ).toBundle(),
                         navOptionsAnimation()
                     )
@@ -172,6 +181,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             val minArea = if (etMinArea.text.toString().toInt() ==0) "" else etMinArea.text.toString()
             val maxArea = if (etMaxArea.text.toString().toInt() ==0) "" else etMaxArea.text.toString()
             val locationId = if(locationValue.text.toString()==getString(R.string.location)) "" else selectedLocationId
+            val locationName = if(locationValue.text.toString()==getString(R.string.location)) getString(R.string.location) else selectedLocationName
             val purposeId = if(selectedPurposeId==-1) "" else selectedPurposeId
             val finishingId = if(selectedFinishingId==-1) "" else selectedFinishingId
             val typeId = if(selectedTypeId==-1) "" else selectedTypeId
@@ -180,6 +190,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             val myModel = SearchModelDto(
                 searchKeyWords = searchKeyWords,
                 locationId = locationId.toString(),
+                locationName = locationName,
                 currencyId =currencyId ,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
@@ -333,6 +344,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            listOfFinishingItems.clear()
             for (item in data){
                 listOfFinishingItems.add(item)
             }
@@ -351,24 +363,13 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 }
             }
 
-            // refresh onClick if getting list fail
-            finishingSpinner.setOnTouchListener { view, motionEvent ->
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.performClick()
-                        if (data.isEmpty()) {
-                            viewModel.getFinishingTypes()
-                        }
-                    }
-                }
-                return@setOnTouchListener true
-            }
         }
 
     }
     private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            listOfTypeItems.clear()
             for (item in data){
                 listOfTypeItems.add(item)
             }
@@ -386,23 +387,13 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 }
             }
 
-            // refresh onClick if getting list fail
-            typeSpinner.setOnTouchListener { view, motionEvent ->
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.performClick()
-                        if (data.isEmpty()) {
-                            viewModel.getPropertyTypes()
-                        }
-                    }
-                }
-                return@setOnTouchListener true
-            }
+
         }
     }
     private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            listOfPurposeItems.clear()
             for (item in data){
                 listOfPurposeItems.add(item)
             }
@@ -420,23 +411,12 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 }
             }
 
-            // refresh onClick if getting list fail
-            purposeSpinner.setOnTouchListener { view, motionEvent ->
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.performClick()
-                        if (data.isEmpty()) {
-                            viewModel.getPropertyPurpose()
-                        }
-                    }
-                }
-                return@setOnTouchListener true
-            }
         }
     }
     private fun setupCurrenciesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            listOfCurrencyItems.clear()
             for (item in data){
                 listOfCurrencyItems.add(item)
             }
@@ -454,18 +434,6 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 }
             }
 
-            // refresh onClick if getting list fail
-            currencySpinner.setOnTouchListener { view, motionEvent ->
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.performClick()
-                        if (data.isEmpty()) {
-                            viewModel.getCurrencies()
-                        }
-                    }
-                }
-                return@setOnTouchListener true
-            }
         }
     }
 

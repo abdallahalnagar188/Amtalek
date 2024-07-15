@@ -70,35 +70,56 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                 }
                 when (model.rentDuration) {
                     "daily" -> {
-                        tvDurationRent.text =   "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
+                        tvDurationRent.text =  itemView.context.getString(R.string.daily)
                     }
                     "monthly" -> {
-                        tvDurationRent.text = "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.monthly)}"
+                        tvDurationRent.text =  itemView.context.getString(R.string.monthly)
                     }
                     "3_months" -> {
-                        tvDurationRent.text =   "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_3_month)}"
+                        tvDurationRent.text =  itemView.context.getString(R.string._3_months)
                     }
                     "6_months" -> {
-                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_6_month)}"
+                        tvDurationRent.text = itemView.context.getString(R.string._6_months)
                     }
                     "9_months" -> {
-                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_9_month)}"
+                        tvDurationRent.text = itemView.context.getString(R.string._9_months)
                     }
                     "yearly" -> {
-                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
+                        tvDurationRent.text = itemView.context.getString(R.string.yearly)
                     }
                 }
-                tvLabel.text = itemView.context.getString(R.string.for_rent)
-                tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
-                tvTitle.text = model.title
-                tvLabel.text = model.type
-                tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
-                tvBathroom.text = model.bathroomsCount.toString()
-                tvBed.text = model.bedsCount.toString()
-                tvLocation.text = model.location
-                tvDatePosted.text = model.datePosted
-                tvLabel.text = itemView.context.getString(R.string.forBoth)
-
+                when (model.type) {
+                    "for_sale" -> {
+                        tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
+                        tvTitle.text = model.title
+                        tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
+                        tvBathroom.text = model.bathroomsCount.toString()
+                        tvBed.text = model.bedsCount.toString()
+                        tvLocation.text = model.location
+                        tvDatePosted.text = model.datePosted
+                        tvLabel.text = itemView.context.getString(R.string.for_sell)
+                    }
+                    "for_rent" -> {
+                        tvLabel.text = itemView.context.getString(R.string.for_rent)
+                        tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.rentPrice.toDouble()))
+                        tvTitle.text = model.title
+                        tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
+                        tvBathroom.text = model.bathroomsCount.toString()
+                        tvBed.text = model.bedsCount.toString()
+                        tvLocation.text = model.location
+                        tvDatePosted.text = model.datePosted
+                    }
+                    else -> {
+                        tvLabel.text = itemView.context.getString(R.string.forBoth)
+                        tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
+                        tvTitle.text = model.title
+                        tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
+                        tvBathroom.text = model.bathroomsCount.toString()
+                        tvBed.text = model.bedsCount.toString()
+                        tvLocation.text = model.location
+                        tvDatePosted.text = model.datePosted
+                    }
+                }
                 Glide.with(itemView)
                     .load(model.imageUrl)
                     .into(ivImage)

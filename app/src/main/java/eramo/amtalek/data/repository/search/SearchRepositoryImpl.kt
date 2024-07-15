@@ -41,7 +41,7 @@ class SearchRepositoryImpl @Inject constructor(
                     keyword = keyword?:"",
                     city = city?:"",
                     country = country?:"",
-                    currency = currency?:0,
+                    currency = currency,
                     finishing = finishing?:"",
                     maxArea = maxArea?:"",
                     minArea = minArea?:"",

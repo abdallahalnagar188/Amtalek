@@ -83,10 +83,8 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
                         tvDurationRent.text = itemView.context.getString(R.string.yearly)
                     }
                 }
-                    tvLabel.text = itemView.context.getString(R.string.for_rent)
 
-
-
+                tvLabel.text = itemView.context.getString(R.string.for_rent)
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.rentPrice.toDouble()))
                 tvTitle.text = model.title
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))

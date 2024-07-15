@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Events"
-        tools:replace="android:supportsRtl">
+        tools:replace="android:supportsRtl"
+
+        >
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -33,7 +35,9 @@
             android:name="eramo.amtalek.presentation.ui.MainActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

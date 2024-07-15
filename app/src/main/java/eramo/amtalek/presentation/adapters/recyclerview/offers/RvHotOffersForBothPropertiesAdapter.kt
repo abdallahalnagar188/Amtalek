@@ -81,16 +81,28 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
                         tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
                     }
                 }
-                tvLabel.text = itemView.context.getString(R.string.for_rent)
+                when (model.type) {
+                    "for_sale" -> {
+                        tvLabel.text = itemView.context.getString(R.string.for_sell)
+
+                    }
+                    "for_rent" -> {
+                        tvLabel.text = itemView.context.getString(R.string.for_rent)
+
+                    }
+                    else -> {
+                        tvLabel.text = itemView.context.getString(R.string.forBoth)
+
+                    }
+                }
+
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
-                tvLabel.text = model.type
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
-                tvLabel.text = itemView.context.getString(R.string.forBoth)
 
                 Glide.with(itemView)
                     .load(model.imageUrl)
