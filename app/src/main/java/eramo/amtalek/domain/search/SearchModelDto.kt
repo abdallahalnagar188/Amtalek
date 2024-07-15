@@ -6,16 +6,16 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SearchModelDto(
     val searchKeyWords:String?,
-    val locationId:Int?,
-    val propertyTypeId:Int?,
+    val locationId:String?,
+    val propertyTypeId:String?,
     val currencyId:Int?,
-    val propertyFinishingId:Int?,
-    val purposeId:Int?,
-    val bathroomsNumber:Int?,
-    val bedroomsNumber:Int?,
-    val minPrice:Int?,
-    val maxPrice:Int?,
-    val minArea:Int?,
-    val maxArea:Int?,
+    val propertyFinishingId:String?,
+    val purposeId:String?,
+    val bathroomsNumber:String?,
+    val bedroomsNumber:String?,
+    val minPrice:String?,
+    val maxPrice:String?,
+    val minArea:String?,
+    val maxArea:String?,
     val amenitiesListIds:List<Int>?
 ) : Parcelable

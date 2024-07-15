@@ -20,5 +20,4 @@ interface MyHomeRepository {
     suspend fun getHomeNormalProperties(countryId: String):Flow<Resource<HomeNormalPropertiesResponse>>
     suspend fun getHomeNews():Flow<Resource<HomeNewsResponse>>
     suspend fun getHomeExtraSections(countryId: String):Flow<Resource<HomeExtraSectionsResponse>>
-
 }

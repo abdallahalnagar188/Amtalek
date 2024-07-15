@@ -30,7 +30,8 @@ data class Data(
     var normalCount: Int?,
     @SerializedName("total_props")
     var totalProps: Int?
-) : Parcelable{ fun toSearchResponseModel(): SearchResponseModel {
+) : Parcelable{
+    fun toSearchResponseModel(): SearchResponseModel {
         return SearchResponseModel(
             propList = this.data?.map { it.toPropertyModel() }?: emptyList(),
             featuredCount = this.featuredCount?:0,

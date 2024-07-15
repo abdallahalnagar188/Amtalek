@@ -96,7 +96,8 @@ class SearchFormViewModel @Inject constructor(
         propertyType: String?,
         purpose: String?,
         region: String?,
-        subRegion: String?
+        subRegion: String?,
+        amenitiesListIds:String?
     ){
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
@@ -118,7 +119,9 @@ class SearchFormViewModel @Inject constructor(
                         propertyType = propertyType,
                         purpose = purpose,
                         region = region,
-                        subRegion = subRegion
+                        subRegion = subRegion,
+                        amenities = amenitiesListIds
+
                     ).cachedIn(viewModelScope).collect(){
                         _searchState.value = it
                     }

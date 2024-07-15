@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.search.searchresult.SearchResultFragment">
 
-
     <include
         android:id="@+id/in_toolbar"
         layout="@layout/layout_toolbar_with_title"
@@ -15,10 +14,150 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <HorizontalScrollView
+        android:id="@+id/filter_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fadeScrollbars="false"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            >
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/location_spinner"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginHorizontal="@dimen/screen_margin_sides"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/transparent"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/spinner_background_short"
+                        />
+                    <TextView
+                        android:id="@+id/location_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:fontFamily="@font/montserratbold"
+                        android:text="@string/location"
+                        android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/gray"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <Spinner
+                android:id="@+id/type_spinner"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background_short"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textAlignment="viewStart"
+                app:layout_constraintTop_toTopOf="@id/location_spinner"
+                app:layout_constraintStart_toEndOf="@id/location_spinner"
+                />
+            <Spinner
+                android:id="@+id/currency_spinner"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background_short"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
+                app:layout_constraintStart_toEndOf="@+id/type_spinner"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <Spinner
+                android:id="@+id/finishing_spinner"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background_short"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/currency_spinner"
+                android:layout_marginStart="@dimen/_10sdp"
+                />
+            <Spinner
+                android:id="@+id/purpose_spinner"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:allowClickWhenDisabled="true"
+                android:background="@drawable/spinner_background_short"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="viewStart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/finishing_spinner"
+                android:layout_marginStart="@dimen/_10sdp"
+                />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/amenities_spinner"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/purpose_spinner"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/transparent"
+                android:layout_marginStart="@dimen/_10sdp"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/amenites_arrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/spinner_background_short"
+                        />
+                    <TextView
+                        android:id="@+id/amenityName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:fontFamily="@font/montserratbold"
+                        android:text="@string/amenities"
+                        android:textSize="@dimen/_8ssp"
+                        android:textColor="@color/gray"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </HorizontalScrollView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_properties"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="true"
@@ -26,7 +165,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/filter_view"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/_10sdp"
         tools:listitem="@layout/item_property_preview"
 

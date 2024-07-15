@@ -28,6 +28,7 @@ class PagingSearch (
     private val subRegion:String,
     private val propertyType:String,
     private val priceArrangeKeys:String,
+    private val amenities:String,
 ):PagingSource<Int,PropertyModel> (){
     override fun getRefreshKey(state: PagingState<Int, PropertyModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -57,6 +58,7 @@ class PagingSearch (
                 subRegion = subRegion,
                 page = page,
                 propertyType = propertyType,
+                amenities = amenities,
                 priceArrangeKeys =priceArrangeKeys).body()!!.data.get(0).data!!.map {it.toPropertyModel()}
                 LoadResult.Page(
                 data = result,

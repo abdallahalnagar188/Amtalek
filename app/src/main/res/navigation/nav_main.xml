@@ -463,7 +463,10 @@
         tools:layout="@layout/fragment_search_result" >
         <argument
             android:name="searchQuery"
-            app:argType="eramo.amtalek.domain.search.SearchModelDto" />
+            app:argType="eramo.amtalek.domain.search.SearchModelDto" />        <argument
+            android:name="dataLists"
+            app:argType="eramo.amtalek.domain.search.SearchDataListsModel" />
+
     </fragment>
 
 </navigation>

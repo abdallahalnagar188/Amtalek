@@ -398,7 +398,7 @@ interface AmtalekApi {
         @Field("finishing") finishing:String?,
         @Field("max_area") maxArea:String?,
         @Field("min_area") minArea:String?,
-        @Field("maxPrice") maxPrice:String?,
+        @Field("max_price") maxPrice:String?,
         @Field("min_price") minPrice:String?,
         @Field("min_bathes") minBathes:String?,
         @Field("min_beds") minBeds:String?,
@@ -408,6 +408,7 @@ interface AmtalekApi {
         @Field("purpose") purpose:String?,
         @Field("region") region:String?,
         @Field("sub_region") subRegion:String?,
+        @Field("amenities") amenities:String?,
     ):Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
     ////------------------------------------------------------------------------------------------------//
 

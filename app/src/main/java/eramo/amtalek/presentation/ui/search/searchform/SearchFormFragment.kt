@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSearchFormBinding
 import eramo.amtalek.domain.model.property.CriteriaModel
+import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.domain.search.SearchModelDto
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -29,6 +30,7 @@ import eramo.amtalek.util.selectedLocation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 @AndroidEntryPoint
 class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
@@ -43,6 +45,10 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private var selectedTypeId:Int? = null
     private var selectedCurrencyId:Int? = null
 
+    private var listOfPurposeItems = ArrayList<CriteriaModel>()
+    private var listOfFinishingItems = ArrayList<CriteriaModel>()
+    private var listOfTypeItems = ArrayList<CriteriaModel>()
+    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
 
     private var isAmenityOpen = false
 
@@ -111,6 +117,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
       selectedLocation.observe(viewLifecycleOwner){
             binding.locationValue.text = it.title
             selectedLocationId = it.id
+          Log.e("id", it.id.toString(), )
         }
     }
 
@@ -119,7 +126,15 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             if (isValidForm()){
                 binding.apply {
                    val myModel = createModel()
-                    findNavController().navigate(R.id.searchResultFragment,SearchResultFragmentArgs(myModel).toBundle(),
+                    findNavController().navigate(R.id.searchResultFragment,
+                        SearchResultFragmentArgs(searchQuery = myModel,
+                                dataLists = SearchDataListsModel(
+                                listOfTypesItems = listOfTypeItems,
+                                listOfCurrencyItems = listOfCurrencyItems,
+                                listOfFinishingItems = listOfFinishingItems,
+                                listOfPurposeItems = listOfPurposeItems
+                            )
+                        ).toBundle(),
                         navOptionsAnimation()
                     )
 
@@ -149,32 +164,32 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
     private fun createModel(): SearchModelDto {
         binding.apply {
-            val searchKeyWords = if (etMainKey.text.toString().isEmpty()) null else etMainKey.text.toString()
-            val bedrooms = if (etBedroomsNumber.text.toString().isEmpty()) null else etBedroomsNumber.text.toString().toInt()
-            val bathrooms = if (etBathroomsNumber.text.toString().isEmpty()) null else etBathroomsNumber.text.toString().toInt()
-            val minPrice = if (etMinPrice.text.toString().toInt() ==0) null else etMinPrice.text.toString().toInt()
-            val maxPrice = if (etMaxPrice.text.toString().toInt() ==0) null else etMaxPrice.text.toString().toInt()
-            val minArea = if (etMinArea.text.toString().toInt() ==0) null else etMinArea.text.toString().toInt()
-            val maxArea = if (etMaxArea.text.toString().toInt() ==0) null else etMaxArea.text.toString().toInt()
-            val locationId = if(selectedLocationId==-1) null else selectedLocationId
-            val purposeId = if(selectedPurposeId==-1) null else selectedPurposeId
-            val finishingId = if(selectedFinishingId==-1) null else selectedFinishingId
-            val typeId = if(selectedTypeId==-1) null else selectedTypeId
-            val currencyId = if(selectedCurrencyId==-1) null else selectedCurrencyId
+            val searchKeyWords = if (etMainKey.text.toString().isEmpty()) "" else etMainKey.text.toString()
+            val bedrooms = if (etBedroomsNumber.text.toString().isEmpty()) "" else etBedroomsNumber.text.toString()
+            val bathrooms = if (etBathroomsNumber.text.toString().isEmpty()) "" else etBathroomsNumber.text.toString()
+            val minPrice = if (etMinPrice.text.toString().toInt() ==0) "" else etMinPrice.text.toString()
+            val maxPrice = if (etMaxPrice.text.toString().toInt() ==0) "" else etMaxPrice.text.toString()
+            val minArea = if (etMinArea.text.toString().toInt() ==0) "" else etMinArea.text.toString()
+            val maxArea = if (etMaxArea.text.toString().toInt() ==0) "" else etMaxArea.text.toString()
+            val locationId = if(locationValue.text.toString()==getString(R.string.location)) "" else selectedLocationId
+            val purposeId = if(selectedPurposeId==-1) "" else selectedPurposeId
+            val finishingId = if(selectedFinishingId==-1) "" else selectedFinishingId
+            val typeId = if(selectedTypeId==-1) "" else selectedTypeId
+            val currencyId = if(selectedCurrencyId==-1) -1 else selectedCurrencyId
 
             val myModel = SearchModelDto(
                 searchKeyWords = searchKeyWords,
-                locationId = locationId,
+                locationId = locationId.toString(),
                 currencyId =currencyId ,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
-                propertyTypeId = typeId,
-                propertyFinishingId = finishingId,
+                propertyTypeId = typeId.toString(),
+                propertyFinishingId = finishingId.toString(),
                 minPrice = minPrice,
                 maxPrice = maxPrice,
                 minArea = minArea,
                 maxArea = maxArea,
-                purposeId = purposeId,
+                purposeId = purposeId.toString(),
                 amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else amenitiesAdapter.selectionList
             )
             return myModel
@@ -183,29 +198,6 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
     private fun isValidForm():Boolean{
         var isValid = true
-//        if (binding.etMinArea.text.toString().isEmpty()){
-//            binding.etMinArea.setText(0.toString())
-//        }
-//        if (binding.etMaxArea.text.toString().isEmpty()){
-//            binding.etMaxArea.setText(0.toString())
-//        }
-//        if (binding.etMinPrice.text.toString().isEmpty()){
-//
-//            binding.etMinPrice.setText(0.toString())
-//
-//        }
-//        if (binding.etMaxPrice.text.toString().isEmpty()){
-//
-//            binding.etMaxPrice.setText(0.toString())
-//        }
-//        if (binding.etBathroomsNumber.text.toString().isEmpty()){
-//            binding.etBathroomsNumber.setText(0.toString())
-//        }
-//        if (binding.etBedroomsNumber.text.toString().isEmpty()){
-//            binding.etBedroomsNumber.setText(0.toString())
-//        }
-
-
         if (binding.etMinArea.text.toString().toInt()>binding.etMaxArea.text.toString().toInt()){
             isValid = false
             Toast.makeText(requireContext(), getString(R.string.min_area_must_be_greater_than_max_area), Toast.LENGTH_SHORT).show()
@@ -341,6 +333,10 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            for (item in data){
+                listOfFinishingItems.add(item)
+            }
+
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             finishingSpinner.adapter = criteriaSpinnerAdapter
 
@@ -373,7 +369,9 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
-
+            for (item in data){
+                listOfTypeItems.add(item)
+            }
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             typeSpinner.adapter = criteriaSpinnerAdapter
 
@@ -405,7 +403,9 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
-
+            for (item in data){
+                listOfPurposeItems.add(item)
+            }
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             purposeSpinner.adapter = criteriaSpinnerAdapter
 
@@ -437,7 +437,9 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private fun setupCurrenciesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
             data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
-
+            for (item in data){
+                listOfCurrencyItems.add(item)
+            }
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             currencySpinner.adapter = criteriaSpinnerAdapter
 

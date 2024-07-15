@@ -23,5 +23,6 @@ interface SearchRepository {
         purpose: String?,
         region: String?,
         subRegion: String?,
+        amenities: String?,
     ): Flow<PagingData<PropertyModel>>
 }
