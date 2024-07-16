@@ -15,10 +15,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSearchResultBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerSmallAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.drawer.addproperty.fifth.SelectAmenitiesAdapter
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
@@ -26,6 +28,8 @@ import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocatio
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.selectedLocation
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,7 +55,8 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     private var selectedCurrencyId: Int? = null
 
     private var isUserInteracting = false
-
+    @Inject
+    lateinit var amenitiesAdapter: SelectAmenitiesAdapter
 
     @Inject
     lateinit var propertiesAdapter: RvSearchResultsPropertiesAdapter
@@ -78,7 +83,19 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                     "extra"
                 )
             }
-
+            amenitiesSpinner.setOnClickListener(){
+                aminitiesCardView.visibility = View.VISIBLE
+            }
+            btnConfirm.setOnClickListener {
+                aminitiesCardView.visibility = View.GONE
+                val selectedAmenities = amenitiesAdapter.selectionList
+                searchQuery.amenitiesListIds = selectedAmenities.toString()
+                requestData()
+                amenitiesAdapter.selectionList.clear()
+            }
+            btnCancel.setOnClickListener {
+                aminitiesCardView.visibility = View.GONE
+            }
         }
     }
 
@@ -88,12 +105,21 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         val typeList = data.listOfTypesItems.toMutableList()
         val purposeList = data.listOfPurposeItems.toMutableList()
         val currencyList = data.listOfCurrencyItems.toMutableList()
+        val amenitiesList = data.listOfAmenitiesItems.toMutableList()
+        setUpAmenities(amenitiesList)
         setupFinishingSpinner(finishingList)
         setupCurrenciesSpinner(currencyList)
         setupTypesSpinner(typeList)
         setupPurposeSpinner(purposeList)
     }
 
+    private fun setUpAmenities(amenitiesList: MutableList<AmenityModel>) {
+        binding.amenitiesRv.adapter = amenitiesAdapter
+        amenitiesAdapter.saveData(amenitiesList)
+    }
+    val arrayString = "[1,2]"
+    val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
+    val body = arrayString.toRequestBody(mediaType)
     //first time request data
     private fun requestData() {
         viewModel.search(
@@ -113,46 +139,18 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             purpose = searchQuery.purposeId,
             region = searchQuery.locationId,
             subRegion = null,
-            amenitiesListIds = if (searchQuery.amenitiesListIds.isNullOrEmpty()) null else searchQuery.amenitiesListIds.toString()
+            amenitiesListIds = amenitiesAdapter.selectionList.toString()
+
         )
     }
 
 
-    private fun filter() {
-        binding.apply {
-            val locationId =
-                if (locationValue.text.toString() == getString(R.string.location)) "" else selectedLocationId
-            val purposeId = if (selectedPurposeId == -1) "" else selectedPurposeId
-            val finishingId = if (selectedFinishingId == -1) "" else selectedFinishingId
-            val typeId = if (selectedTypeId == -1) "" else selectedTypeId
-            val currencyId = if (selectedCurrencyId == -1) -1 else selectedCurrencyId
-            viewModel.search(
-                city = UserUtil.getCityFiltrationId(),
-                propertyType = typeId.toString(),
-                minPrice = searchQuery.minPrice,
-                maxPrice = searchQuery.maxPrice,
-                minArea = searchQuery.minArea,
-                maxArea = searchQuery.maxArea,
-                minBeds = searchQuery.bedroomsNumber,
-                minBathes = searchQuery.bathroomsNumber,
-                country = UserUtil.getUserCountryFiltrationTitleId(),
-                currency = currencyId,
-                finishing = finishingId.toString(),
-                keyword = searchQuery.searchKeyWords,
-                priceArrangeKeys = "asc",
-                purpose = purposeId.toString(),
-                region = locationId.toString(),
-                subRegion = null,
-                amenitiesListIds = if (searchQuery.amenitiesListIds.isNullOrEmpty()) null else searchQuery.amenitiesListIds.toString()
-            )
-        }
-
-    }
 
     private fun setupObservers() {
         selectedLocation.observe(viewLifecycleOwner) {
             binding.locationValue.text = it.title
             selectedLocationId = it.id
+            searchQuery.locationId = selectedLocationId.toString()
             selectedLocationName = it.title
             requestData()
         }
@@ -229,8 +227,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                         selectedFinishingId = model.id
                         searchQuery.propertyFinishingId = selectedFinishingId.toString()
                         requestData()
-                        isUserInteracting =
-                            false // Reset the flag after handling the user interaction
+                        isUserInteracting = false // Reset the flag after handling the user interaction
                     }
                 }
 

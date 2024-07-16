@@ -17,6 +17,7 @@ import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -94,8 +95,8 @@ class HomeMyViewModel @Inject constructor(
     //---------------------------------------------------------------------------------//
     private fun getHomeFeaturedProperties(countryId:String){
         getHomeFeaturedPropertiesJob?.cancel()
-        getHomeFeaturedPropertiesJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeFeaturedPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeFeaturedProperty(countryId).collect(){result->
                         when (result){
                             is Resource.Success->{
@@ -113,15 +114,15 @@ class HomeMyViewModel @Inject constructor(
                                 _homeFeaturedPropertiesState.emit(UiState.Loading())
                             }
                         }
-                }
+
             }
         }
 
     }
     private fun getHomeProjects(countryId:String){
         getHomeProjectsJob?.cancel()
-        getHomeProjectsJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeProjectsJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeProjects(countryId).collect(){result->
                     when(result){
                         is Resource.Success ->{
@@ -138,14 +139,14 @@ class HomeMyViewModel @Inject constructor(
                             _homeProjectsState.emit(UiState.Loading())
                         }
                     }
-                }
+
             }
         }
     }
     private fun getHomeFilterByCity(countryId:String){
         getHomeFilterByCityJob?.cancel()
-        getHomeFilterByCityJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeFilterByCityJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getFilterByCity(countryId = countryId).collect(){result->
                     when(result){
                         is Resource.Success ->{
@@ -162,15 +163,15 @@ class HomeMyViewModel @Inject constructor(
                             _homeFilterByCityState.emit(UiState.Loading())
                         }
                     }
-                }
+
             }
         }
 
     }
     private fun getHomeSlider(){
         getHomeSliderJob?.cancel()
-        getHomeSliderJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeSliderJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeSlider().collect(){result->
                     when(result){
                         is Resource.Success ->{
@@ -190,14 +191,14 @@ class HomeMyViewModel @Inject constructor(
                         }
                     }
 
-                }
+
             }
         }
     }
     private fun getHomeNormalProperties(countryId:String){
         getHomeNormalPropertiesJob?.cancel()
-        getHomeNormalPropertiesJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeNormalPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeNormalProperties(countryId).collect(){result->
                     when(result){
                         is Resource.Success ->{
@@ -215,14 +216,14 @@ class HomeMyViewModel @Inject constructor(
                         }
                     }
 
-                }
+
             }
         }
     }
     private fun getMostViewedProperties(countryId:String){
         getHomeMostViewedPropertiesJob?.cancel()
-        getHomeMostViewedPropertiesJob = viewModelScope.launch {
-            withContext(coroutineContext) {
+        getHomeMostViewedPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeMostViewedProperties(countryId).collect() { result ->
                     when(result){
                         is Resource.Success ->{
@@ -239,7 +240,7 @@ class HomeMyViewModel @Inject constructor(
                             _homeMostViewedPropertiesState.emit(UiState.Loading())
                         }
                     }
-                }
+
             }
 
 
@@ -247,8 +248,8 @@ class HomeMyViewModel @Inject constructor(
     }
     private fun getHomeNews(){
         getHomeNewsJob?.cancel()
-        getHomeNewsJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeNewsJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeNews().collect(){result->
                     when(result){
                         is Resource.Success ->{
@@ -266,14 +267,14 @@ class HomeMyViewModel @Inject constructor(
                         }
                     }
 
-                }
+
             }
         }
     }
     private fun getHomeExtraSections(countryId:String){
         getHomeExtraSectionsJob?.cancel()
-        getHomeExtraSectionsJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        getHomeExtraSectionsJob = viewModelScope.launch(Dispatchers.IO) {
+
                 homeRepository.getHomeExtraSections(countryId).collect(){result->
                     when(result){
                         is Resource.Success ->{
@@ -289,7 +290,7 @@ class HomeMyViewModel @Inject constructor(
                         is Resource.Loading->{
                             _homeExtraSectionsState.emit(UiState.Loading())
                         }
-                    }
+
 
                 }
         }
@@ -297,8 +298,8 @@ class HomeMyViewModel @Inject constructor(
 }
     fun getHomeApis(countryId: String){
         initScreenJob?.cancel()
-        initScreenJob = viewModelScope.launch {
-            withContext(coroutineContext){
+        initScreenJob = viewModelScope.launch(Dispatchers.IO) {
+
                 _initScreenState.value =UiState.Loading()
                 getHomeFeaturedProperties(countryId)
                 getHomeProjects(countryId)
@@ -320,7 +321,7 @@ class HomeMyViewModel @Inject constructor(
                     getHomeNormalPropertiesJob!!
                 )
                 _initScreenState.value = UiState.Success(null)
-            }
+
         }
     }
 

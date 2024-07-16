@@ -386,8 +386,7 @@ interface AmtalekApi {
     suspend fun getCurrencies(): Response<CurrenciesResponse>
 
 
-
-    @FormUrlEncoded
+    @Multipart
     @POST("mobile/search-property")
     suspend fun search(
         @Header("Authorization") userToken: String?,
@@ -408,7 +407,7 @@ interface AmtalekApi {
         @Field("purpose") purpose:String?,
         @Field("region") region:String?,
         @Field("sub_region") subRegion:String?,
-        @Field("amenities") amenities:String?,
+        @Part("amenities") amenities:RequestBody?
     ):Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
     ////------------------------------------------------------------------------------------------------//
 

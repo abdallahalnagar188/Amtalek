@@ -20,6 +20,7 @@ import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -100,9 +101,7 @@ class SearchFormViewModel @Inject constructor(
         amenitiesListIds:String?
     ){
         searchJob?.cancel()
-        searchJob = viewModelScope.launch {
-            viewModelScope.launch {
-                withContext(coroutineContext) {
+        searchJob = viewModelScope.launch(Dispatchers.IO) {
                     searchRepository.search(
                         keyword = keyword,
                         city = city,
@@ -125,8 +124,8 @@ class SearchFormViewModel @Inject constructor(
                     ).cachedIn(viewModelScope).collect(){
                         _searchState.value = it
                     }
-                }
-            }
+
+
         }
     }
 

@@ -9,6 +9,8 @@ import eramo.amtalek.util.PAGING_START_INDEX
 import eramo.amtalek.util.UserUtil
 import retrofit2.HttpException
 import java.io.IOException
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 class PagingSearch (
     private val amtalekApi: AmtalekApi,
@@ -58,7 +60,7 @@ class PagingSearch (
                 subRegion = subRegion,
                 page = page,
                 propertyType = propertyType,
-                amenities = amenities,
+                amenities = URLDecoder.decode(amenities, StandardCharsets.UTF_8.toString()),
                 priceArrangeKeys =priceArrangeKeys).body()!!.data.get(0).data!!.map {it.toPropertyModel()}
                 LoadResult.Page(
                 data = result,

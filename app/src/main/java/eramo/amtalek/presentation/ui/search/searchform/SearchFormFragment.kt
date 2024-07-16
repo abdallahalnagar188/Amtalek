@@ -16,6 +16,7 @@ import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentSearchFormBinding
+import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.domain.search.SearchModelDto
@@ -49,6 +50,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private var listOfFinishingItems = ArrayList<CriteriaModel>()
     private var listOfTypeItems = ArrayList<CriteriaModel>()
     private var listOfCurrencyItems = ArrayList<CriteriaModel>()
+    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
 
     private var isAmenityOpen = false
 
@@ -129,7 +131,8 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             listOfTypesItems = listOfTypeItems,
             listOfCurrencyItems = listOfCurrencyItems,
             listOfFinishingItems = listOfFinishingItems,
-            listOfPurposeItems = listOfPurposeItems
+            listOfPurposeItems = listOfPurposeItems,
+           listOfAmenitiesItems = listOfAmenitiesItems
         )
         return data
     }
@@ -201,8 +204,9 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 minArea = minArea,
                 maxArea = maxArea,
                 purposeId = purposeId.toString(),
-                amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else amenitiesAdapter.selectionList
+                amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else "${amenitiesAdapter.selectionList}"
             )
+            Log.e("Yarab", amenitiesAdapter.selectionList.toString(), )
             return myModel
         }
     }
@@ -301,6 +305,10 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                     when (it){
                         is UiState.Success->{
                             amenitiesAdapter.saveData(it.data!!)
+
+                            listOfAmenitiesItems = it.data as ArrayList<AmenityModel>
+
+                            binding.amenitiesRv.setHasFixedSize(true)
                             binding.amenitiesRv.adapter = amenitiesAdapter
                             LoadingDialog.dismissDialog()
                         }

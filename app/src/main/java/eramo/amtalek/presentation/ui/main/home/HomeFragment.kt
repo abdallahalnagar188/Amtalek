@@ -601,7 +601,7 @@ FavClickListener{
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment,this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
-        binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
 
@@ -610,28 +610,28 @@ FavClickListener{
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
-        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
     }
 
     private fun setupFindPropertiesByCityRv(data: List<CitiesModel>) {
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
-        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupNormalPropertiesRv(data: List<PropertyModel>) {
         rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment,this@HomeFragment)
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
-        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupMostViewedPropertiesRv(data: List<PropertyModel>) {
         rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment,this@HomeFragment)
         binding.inMostViewedPropertiesLayout.rv.adapter = rvHomeMostViewedPropertiesAdapter
         rvHomeMostViewedPropertiesAdapter.submitList(data)
-        binding.inMostViewedPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inMostViewedPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupExtraViews(data: List<HomeExtraSectionsModel>?) {
@@ -681,7 +681,7 @@ FavClickListener{
         rvHomeFirstExtraSectionAdapter.setListener(this,this)
         binding.inFirstExtraSectionLayout.rv.adapter = rvHomeFirstExtraSectionAdapter
         rvHomeFirstExtraSectionAdapter.submitList(data)
-        binding.inFirstExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inFirstExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
 
@@ -690,7 +690,7 @@ FavClickListener{
         rvHomeSecondExtraSectionAdapter.setListener(this,this)
         binding.inSecondExtraSectionLayout.rv.adapter = rvHomeSecondExtraSectionAdapter
         rvHomeSecondExtraSectionAdapter.submitList(data)
-        binding.inSecondExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inSecondExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
 
@@ -699,21 +699,21 @@ FavClickListener{
         rvHomeThirdExtraSectionAdapter.setListener(this,this)
         binding.inThirdExtraSectionLayout.rv.adapter = rvHomeThirdExtraSectionAdapter
         rvHomeThirdExtraSectionAdapter.submitList(data)
-        binding.inThirdExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inThirdExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupHomeFourthExtraSectionRv(data: List<PropertyModel>) {
         rvHomeFourthExtraSectionAdapter.setListener(this,this)
         binding.inFourthExtraSectionLayout.rv.adapter = rvHomeFourthExtraSectionAdapter
         rvHomeFourthExtraSectionAdapter.submitList(data)
-        binding.inFourthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inFourthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
     private fun setupHomeFifthExtraSectionRv(data: List<PropertyModel>) {
         rvHomeFifthExtraSectionAdapter.setListener(this,this)
         binding.inFifthExtraSectionLayout.rv.adapter = rvHomeFifthExtraSectionAdapter
         rvHomeFifthExtraSectionAdapter.submitList(data)
-        binding.inFifthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inFifthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
 
@@ -722,7 +722,7 @@ FavClickListener{
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
-        binding.inNewsLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+//        binding.inNewsLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
 
