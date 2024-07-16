@@ -204,6 +204,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 minArea = minArea,
                 maxArea = maxArea,
                 purposeId = purposeId.toString(),
+                priceArrangeKeys = "asc",
                 amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else "${amenitiesAdapter.selectionList}"
             )
             Log.e("Yarab", amenitiesAdapter.selectionList.toString(), )
@@ -351,7 +352,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
     private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.finishing)))
             listOfFinishingItems.clear()
             for (item in data){
                 listOfFinishingItems.add(item)
@@ -376,7 +377,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
     private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.typee)))
             listOfTypeItems.clear()
             for (item in data){
                 listOfTypeItems.add(item)
@@ -400,7 +401,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
     private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.purpose)))
             listOfPurposeItems.clear()
             for (item in data){
                 listOfPurposeItems.add(item)
@@ -423,7 +424,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
     private fun setupCurrenciesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.currency)))
             listOfCurrencyItems.clear()
             for (item in data){
                 listOfCurrencyItems.add(item)

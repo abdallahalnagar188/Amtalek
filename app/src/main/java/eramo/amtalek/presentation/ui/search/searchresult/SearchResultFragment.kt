@@ -1,10 +1,12 @@
 package eramo.amtalek.presentation.ui.search.searchresult
 
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,24 +16,27 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse
+import eramo.amtalek.data.remote.dto.search.searchresponse.GlobalProperties
 import eramo.amtalek.databinding.FragmentSearchResultBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerSmallAdapter
+import eramo.amtalek.presentation.adapters.spinner.FilterSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.drawer.addproperty.fifth.SelectAmenitiesAdapter
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
 import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocationsPopUp
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.itemsCount
 import eramo.amtalek.util.selectedLocation
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
+
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,6 +60,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     private var selectedFinishingId: Int? = null
     private var selectedTypeId: Int? = null
     private var selectedCurrencyId: Int? = null
+    private var selectedFilter:String? = null
 
     private var isUserInteracting = false
     @Inject
@@ -97,6 +103,24 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             btnCancel.setOnClickListener {
                 aminitiesCardView.visibility = View.GONE
             }
+            autoCompleteFilterType.setOnItemClickListener { parent, view, position, id ->
+                if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.asc)){
+                    searchQuery.priceArrangeKeys = "asc"
+                    requestData()
+                }else if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.desc)){
+                    searchQuery.priceArrangeKeys = "desc"
+                    requestData()
+                }else if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.featured_small)){
+                    searchQuery.priceArrangeKeys = "featured"
+                    requestData()
+
+                }else if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.normal)){
+                    searchQuery.priceArrangeKeys = "normal"
+                    requestData()
+                }
+
+            }
+
         }
     }
 
@@ -107,22 +131,30 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         val purposeList = data.listOfPurposeItems.toMutableList()
         val currencyList = data.listOfCurrencyItems.toMutableList()
         val amenitiesList = data.listOfAmenitiesItems.toMutableList()
+
         setUpAmenities(amenitiesList)
         setupFinishingSpinner(finishingList)
         setupCurrenciesSpinner(currencyList)
         setupTypesSpinner(typeList)
         setupPurposeSpinner(purposeList)
+        setUpFilterSpinner()
+    }
+
+    private fun setUpFilterSpinner() {
+        val filterTypes = resources.getStringArray(R.array.filter)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, filterTypes)
+        binding.autoCompleteFilterType.setAdapter(arrayAdapter)
+        binding.autoCompleteFilterType.inputType = InputType.TYPE_NULL
     }
 
     private fun setUpAmenities(amenitiesList: MutableList<AmenityModel>) {
         binding.amenitiesRv.adapter = amenitiesAdapter
         amenitiesAdapter.saveData(amenitiesList)
     }
-    //first time request data
     private fun requestData() {
         viewModel.search(
             city = UserUtil.getCityFiltrationId(),
-            propertyType = searchQuery.propertyTypeId,
+            propertyType = if(searchQuery.propertyTypeId=="-1"|| searchQuery.propertyTypeId=="") "" else searchQuery.propertyTypeId,
             minPrice = searchQuery.minPrice,
             maxPrice = searchQuery.maxPrice,
             minArea = searchQuery.minArea,
@@ -131,16 +163,16 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             minBathes = searchQuery.bathroomsNumber,
             country = UserUtil.getUserCountryFiltrationTitleId(),
             currency = if (searchQuery.currencyId == -1) null else searchQuery.currencyId,
-            finishing = searchQuery.propertyFinishingId,
+            finishing = if(searchQuery.propertyFinishingId=="-1"|| searchQuery.propertyFinishingId=="") "" else searchQuery.propertyFinishingId,
             keyword = searchQuery.searchKeyWords,
-            priceArrangeKeys = "asc",
-            purpose = searchQuery.purposeId,
+            priceArrangeKeys = if (searchQuery.priceArrangeKeys == "asc") "asc" else searchQuery.priceArrangeKeys,
+            purpose =if(searchQuery.purposeId=="-1"|| searchQuery.purposeId=="") "" else searchQuery.purposeId,
             region = searchQuery.locationId,
             subRegion = null,
             amenitiesListIds = amenitiesAdapter.selectionList.toString()
 
         )
-        Log.e("query", searchQuery.toString(), )
+        LoadingDialog.showDialog()
     }
 
 
@@ -153,6 +185,9 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             selectedLocationName = it.title
             requestData()
         }
+        itemsCount.observe(viewLifecycleOwner) {
+            binding.tvTotalPropsValue.text = "(${it})"
+        }
     }
 
     private fun fetchData() {
@@ -161,6 +196,10 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 viewModel.searchState.collect() { data ->
                     data?.let {
                         propertiesAdapter.submitData(viewLifecycleOwner.lifecycle, data)
+                        delay(1000)
+                        binding.rvProperties.scrollToPosition(0)
+                        LoadingDialog.dismissDialog()
+
                     }
                 }
 
@@ -171,6 +210,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     private fun initViews() {
         binding.rvProperties.adapter = propertiesAdapter
         propertiesAdapter.setListener(this@SearchResultFragment, this@SearchResultFragment)
+
     }
 
     private fun setupToolBar() {
@@ -283,6 +323,8 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
         }
     }
+
+
 
     private fun setupPurposeSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {

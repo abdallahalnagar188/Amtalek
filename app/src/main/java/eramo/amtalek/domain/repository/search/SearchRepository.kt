@@ -26,4 +26,5 @@ interface SearchRepository {
         subRegion: RequestBody?,
         amenities: RequestBody?,
     ): Flow<PagingData<PropertyModel>>
+
 }

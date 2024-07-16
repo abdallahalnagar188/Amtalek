@@ -186,7 +186,7 @@ fun TextView.setTextViewDrawableColor(color: Int) {
     }
 }
 val selectedLocation = MutableLiveData<LocationModel>()
-var itemsCount = MutableLiveData<Int>()
+var itemsCount = MutableLiveData<String>()
 
 
 // -------------------------------------------------------------- //

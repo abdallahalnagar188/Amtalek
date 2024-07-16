@@ -18,5 +18,7 @@ data class SearchModelDto(
     val maxPrice:String?,
     val minArea:String?,
     val maxArea:String?,
-    var amenitiesListIds:String?
+    var amenitiesListIds:String?,
+    var priceArrangeKeys:String?,
+
 ) : Parcelable

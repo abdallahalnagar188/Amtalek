@@ -127,8 +127,6 @@ class SearchFormViewModel @Inject constructor(
                     ).cachedIn(viewModelScope).collect(){
                         _searchState.value = it
                     }
-
-
         }
     }
     fun convertToRequestBody(part: String?): RequestBody? {

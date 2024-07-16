@@ -32,14 +32,6 @@ data class Data(
     @SerializedName("total_props")
     var totalProps: Int?
 ) : Parcelable{
-    fun toSearchResponseModel(): SearchResponseModel {
-        return SearchResponseModel(
-            propList = this.data?.map { it.toPropertyModel() }?: emptyList(),
-            featuredCount = this.featuredCount?:0,
-            normalCount = this.normalCount?:0,
-            totalProps = this.totalProps?:0
-        )
-    }
 
 }
 @Parcelize
@@ -121,7 +113,7 @@ data class DataX(
             sold = sold?:false,
             offerData = null,
             region = region?:"",
-            subRegion = subRegion?:""
+            subRegion = subRegion?:"",
         )
     }
 
@@ -177,3 +169,7 @@ data class BrokerDetails(
     @SerializedName("id")
     var id: Int?
 ) : Parcelable
+object GlobalProperties {
+      var totalItems: String =""
+}
+// Method to handle paginated response

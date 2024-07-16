@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:text="TextView"
     android:textColor="@color/gray"
-    android:fontFamily="@font/montserratsemibold"
+    android:fontFamily="@font/montserratregular"
     android:textSize="@dimen/_12ssp"
     android:padding="@dimen/_12sdp"
     android:layoutDirection="locale"

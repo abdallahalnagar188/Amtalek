@@ -832,7 +832,11 @@
     <string name="find_your_property">Find Your Property</string>
     <string name="min_area_must_be_greater_than_max_area">Min Area must be greater than Max Area</string>
     <string name="min_price_must_be_greater_than_max_price">Min price must be greater than max price</string>
-
+    <string name="total_properties">Total Properties</string>
+    <string name="asc">asc</string>
+    <string name="desc">desc</string>
+    <string name="normal">normal</string>
+    <string name="featured_small">featured</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

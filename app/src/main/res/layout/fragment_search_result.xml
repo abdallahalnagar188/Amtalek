@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:fontFamily="@font/montserratbold"
+                        android:fontFamily="@font/montserratsemibold"
                         android:text="@string/location"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_8ssp"
@@ -143,7 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:fontFamily="@font/montserratbold"
+                        android:fontFamily="@font/montserratsemibold"
                         android:text="@string/amenities"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_8ssp"
@@ -156,6 +156,63 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </HorizontalScrollView>
+    <TextView
+        android:id="@+id/tv_total_props"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_view"
+        android:text="@string/total_properties"
+        android:fontFamily="@font/montserratbold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+    <TextView
+        android:id="@+id/tv_total_props_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/tv_total_props"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_total_props"
+        app:layout_constraintStart_toEndOf="@+id/tv_total_props"
+        tools:text="(0)"
+        android:fontFamily="@font/montserratbold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12ssp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filter_spinner"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratregular"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_total_props"
+        app:layout_constraintBottom_toBottomOf="@id/tv_total_props"
+        android:layout_marginEnd="@dimen/_5sdp"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/autoComplete_filter_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
+            android:gravity="center"
+            android:hint="@string/filter"
+            android:inputType="none"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/_10ssp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_properties"
@@ -170,7 +227,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_view"
+        app:layout_constraintTop_toBottomOf="@+id/filter_spinner"
         tools:listitem="@layout/item_property_preview" />
 
     <com.google.android.material.card.MaterialCardView

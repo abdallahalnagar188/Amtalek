@@ -25,5 +25,6 @@ data class PropertyModel(
     val sold:Boolean,
     val offerData: OfferData?,
     val region:String,
-    val subRegion:String
+    val subRegion:String,
+//    val totalProps:String?,
     )
