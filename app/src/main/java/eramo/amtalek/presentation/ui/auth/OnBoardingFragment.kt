@@ -72,34 +72,6 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-//        viewModel.getOnBoarding()
-    }
-
-    private fun fetchLatestDealsState() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.onBoardingStateStateDto.collect { state ->
-                when (state) {
-                    is UiState.Success -> {
-                        LoadingDialog.dismissDialog()
-                        slideAdapter.setScreens(state.data ?: emptyList())
-                    }
-
-                    is UiState.Error -> {
-                        LoadingDialog.dismissDialog()
-                        showToast(state.message!!.asString(requireContext()))
-                    }
-
-                    is UiState.Loading -> {
-                        LoadingDialog.showDialog()
-                    }
-
-                    else -> Unit
-                }
-            }
-        }
-    }
 
     private fun navigateToMain() {
         UserUtil.saveFirstTime()

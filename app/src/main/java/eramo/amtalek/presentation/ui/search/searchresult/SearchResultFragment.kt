@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.search.searchresult
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse
 import eramo.amtalek.databinding.FragmentSearchResultBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
@@ -91,7 +93,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 val selectedAmenities = amenitiesAdapter.selectionList
                 searchQuery.amenitiesListIds = selectedAmenities.toString()
                 requestData()
-                amenitiesAdapter.selectionList.clear()
             }
             btnCancel.setOnClickListener {
                 aminitiesCardView.visibility = View.GONE
@@ -117,9 +118,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         binding.amenitiesRv.adapter = amenitiesAdapter
         amenitiesAdapter.saveData(amenitiesList)
     }
-    val arrayString = "[1,2]"
-    val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
-    val body = arrayString.toRequestBody(mediaType)
     //first time request data
     private fun requestData() {
         viewModel.search(
@@ -142,6 +140,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             amenitiesListIds = amenitiesAdapter.selectionList.toString()
 
         )
+        Log.e("query", searchQuery.toString(), )
     }
 
 

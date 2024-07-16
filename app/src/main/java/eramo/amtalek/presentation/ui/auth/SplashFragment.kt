@@ -46,7 +46,7 @@ class SplashFragment :BindingFragment<FragmentSplashBinding>() {
                 )
 
             } else findNavController().navigate(
-                R.id.selectCityFragment, null,
+                R.id.onBoardingFragment, null,
                 NavOptions.Builder().setPopUpTo(R.id.splashFragment, true).build()
             )
 //            findNavController().navigate(

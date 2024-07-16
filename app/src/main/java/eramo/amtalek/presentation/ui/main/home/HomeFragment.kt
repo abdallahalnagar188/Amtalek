@@ -583,10 +583,19 @@ FavClickListener{
 
 
         if (LocalUtil.isEnglish()){
-            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
-
+            if (UserUtil.getCityFiltrationTitleEn()==""){
+                binding.inToolbar.tvSpinnerText.text = getString(R.string.select_city)
+            }else{
+                binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
+            }
         }else{
-            binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
+            if (UserUtil.getCityFiltrationTitleAr() == ""){
+                binding.inToolbar.tvSpinnerText.text = getString(R.string.select_city)
+
+            }else{
+                binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
+
+            }
         }
         if (LocalUtil.isEnglish()){
             binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))

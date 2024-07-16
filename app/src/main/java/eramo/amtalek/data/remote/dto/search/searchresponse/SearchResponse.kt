@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.search.SearchResponseModel
+import eramo.amtalek.util.itemsCount
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -110,7 +111,7 @@ data class DataX(
             area = landArea?:0,
             brokerId = (brokerDetails?.id?:0).toString(),
             brokerLogoUrl = brokerDetails?.companyLogo?:"",
-            location = city?:"",
+            location = "$city, $region",
             datePosted = createdAt?:"",
             isFeatured = priority?:"",
             rentDuration = rentDuration?:"",

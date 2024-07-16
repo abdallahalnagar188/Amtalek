@@ -27,7 +27,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 import javax.inject.Inject
+import kotlin.math.min
 
 @HiltViewModel
 class SearchFormViewModel @Inject constructor(
@@ -103,23 +106,23 @@ class SearchFormViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch(Dispatchers.IO) {
                     searchRepository.search(
-                        keyword = keyword,
-                        city = city,
-                        country = country,
-                        currency = currency,
-                        finishing = finishing,
-                        maxArea = maxArea,
-                        minArea = minArea,
-                        maxPrice = maxPrice,
-                        minPrice = minPrice,
-                        minBathes = minBathes,
-                        minBeds = minBeds,
-                        priceArrangeKeys = priceArrangeKeys,
-                        propertyType = propertyType,
-                        purpose = purpose,
-                        region = region,
-                        subRegion = subRegion,
-                        amenities = amenitiesListIds
+                        keyword = convertToRequestBody(keyword),
+                        city =  convertToRequestBody(city),
+                        country = convertToRequestBody(country),
+                        currency = convertToRequestBodyInt(currency),
+                        finishing = convertToRequestBody(finishing),
+                        maxArea = convertToRequestBody(maxArea),
+                        minArea = convertToRequestBody(minArea),
+                        maxPrice = convertToRequestBody(maxPrice),
+                        minPrice = convertToRequestBody(minPrice),
+                        minBathes = convertToRequestBody(minBathes),
+                        minBeds = convertToRequestBody(minBeds),
+                        priceArrangeKeys = convertToRequestBody(priceArrangeKeys),
+                        propertyType = convertToRequestBody(propertyType),
+                        purpose = convertToRequestBody(purpose),
+                        region = convertToRequestBody(region),
+                        subRegion = convertToRequestBody(subRegion),
+                        amenities = convertToRequestBody(amenitiesListIds)
 
                     ).cachedIn(viewModelScope).collect(){
                         _searchState.value = it
@@ -128,7 +131,25 @@ class SearchFormViewModel @Inject constructor(
 
         }
     }
+    fun convertToRequestBody(part: String?): RequestBody? {
+        return try {
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part!!)
+        } catch (e: Exception) {
+            null
+        }
 
+    }
+    fun convertToRequestBodyInt(part: Int?): RequestBody? {
+        return try {
+            if (part.toString() == "null"){
+                null
+            }else{
+                RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part.toString())
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
     fun getPropertyTypes() {
         propertyTypesJob?.cancel()
         propertyTypesJob = viewModelScope.launch {

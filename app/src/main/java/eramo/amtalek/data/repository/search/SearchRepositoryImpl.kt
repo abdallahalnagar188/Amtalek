@@ -9,52 +9,53 @@ import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.domain.search.SearchResponseModel
 import eramo.amtalek.util.pagingConfig
 import kotlinx.coroutines.flow.Flow
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
     val amtalekApi: AmtalekApi
 ): SearchRepository {
     override suspend fun search(
-        keyword: String?,
-        city: String?,
-        country: String?,
-        currency: Int?,
-        finishing: String?,
-        maxArea: String?,
-        minArea: String?,
-        maxPrice: String?,
-        minPrice: String?,
-        minBathes: String?,
-        minBeds: String?,
-        priceArrangeKeys: String?,
-        propertyType: String?,
-        purpose: String?,
-        region: String?,
-        subRegion: String?,
-        amenities:String?
+        keyword: RequestBody?,
+        city: RequestBody?,
+        country: RequestBody?,
+        currency: RequestBody?,
+        finishing: RequestBody?,
+        maxArea: RequestBody?,
+        minArea: RequestBody?,
+        maxPrice: RequestBody?,
+        minPrice: RequestBody?,
+        minBathes: RequestBody?,
+        minBeds: RequestBody?,
+        priceArrangeKeys: RequestBody?,
+        propertyType: RequestBody?,
+        purpose: RequestBody?,
+        region: RequestBody?,
+        subRegion: RequestBody?,
+        amenities:RequestBody?
     ): Flow<PagingData<PropertyModel>> {
         return Pager(
             config = pagingConfig(),
             pagingSourceFactory = {
                 PagingSearch(
                     amtalekApi = amtalekApi,
-                    keyword = keyword?:"",
-                    city = city?:"",
-                    country = country?:"",
+                    keyword = keyword,
+                    city = city,
+                    country = country,
                     currency = currency,
-                    finishing = finishing?:"",
-                    maxArea = maxArea?:"",
-                    minArea = minArea?:"",
-                    maxPrice = maxPrice?:"",
-                    minPrice = minPrice?:"",
-                    minBathes = minBathes?:"",
-                    minBeds = minBeds?:"",
-                    priceArrangeKeys = priceArrangeKeys?:"",
-                    propertyType = propertyType?:"",
-                    purpose = purpose?:"",
-                    region = region?:"",
-                    subRegion = subRegion?:"",
-                    amenities = amenities?:""
+                    finishing = finishing,
+                    maxArea = maxArea,
+                    minArea = minArea,
+                    maxPrice = maxPrice,
+                    minPrice = minPrice,
+                    minBathes = minBathes,
+                    minBeds = minBeds,
+                    priceArrangeKeys = priceArrangeKeys,
+                    propertyType = propertyType,
+                    purpose = purpose,
+                    region = region,
+                    subRegion = subRegion,
+                    amenities = amenities
                     )
             }
         ).flow

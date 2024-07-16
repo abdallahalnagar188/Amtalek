@@ -238,7 +238,15 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderAddYourProperty.setOnClickListener {
-                navController.navigate(R.id.addPropertyFirstFragment)
+                if (UserUtil.isUserLogin()){
+                    if (UserUtil.getUserType() == "user"){
+                        navController.navigate(R.id.addPropertyFirstFragment)
+                    }else{
+                        navController.navigate(R.id.myProfileFragment)
+                    }
+                }else{
+                    navController.navigate(R.id.loginDialog)
+                }
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }

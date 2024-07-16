@@ -7,6 +7,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.search.SearchResponseModel
 import eramo.amtalek.util.PAGING_START_INDEX
 import eramo.amtalek.util.UserUtil
+import okhttp3.RequestBody
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.URLDecoder
@@ -14,23 +15,23 @@ import java.nio.charset.StandardCharsets
 
 class PagingSearch (
     private val amtalekApi: AmtalekApi,
-    private val keyword:String?,
-    private val city:String?,
-    private val country:String?,
-    private val currency:Int?,
-    private val finishing:String?,
-    private val minArea:String?,
-    private val maxArea:String?,
-    private val minPrice:String?,
-    private val maxPrice:String?,
-    private val minBathes:String?,
-    private val minBeds:String?,
-    private val purpose:String?,
-    private val region:String?,
-    private val subRegion:String?,
-    private val propertyType:String?,
-    private val priceArrangeKeys:String?,
-    private val amenities:String?,
+    private val keyword: RequestBody?,
+    private val city:RequestBody?,
+    private val country:RequestBody?,
+    private val currency:RequestBody?,
+    private val finishing:RequestBody?,
+    private val minArea:RequestBody?,
+    private val maxArea:RequestBody?,
+    private val minPrice:RequestBody?,
+    private val maxPrice:RequestBody?,
+    private val minBathes:RequestBody?,
+    private val minBeds:RequestBody?,
+    private val purpose:RequestBody?,
+    private val region:RequestBody?,
+    private val subRegion:RequestBody?,
+    private val propertyType:RequestBody?,
+    private val priceArrangeKeys:RequestBody?,
+    private val amenities:RequestBody?,
 ):PagingSource<Int,PropertyModel> (){
     override fun getRefreshKey(state: PagingState<Int, PropertyModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -60,13 +61,13 @@ class PagingSearch (
                 subRegion = subRegion,
                 page = page,
                 propertyType = propertyType,
-                amenities = URLDecoder.decode(amenities, StandardCharsets.UTF_8.toString()),
+                amenities = amenities,
                 priceArrangeKeys =priceArrangeKeys).body()!!.data.get(0).data!!.map {it.toPropertyModel()}
                 LoadResult.Page(
                 data = result,
                 prevKey = if (page == PAGING_START_INDEX) null else page - 1,
-                nextKey = if (result.isEmpty()) null else page + 1
-            )
+                nextKey = if (result.isEmpty()) null else page + 1)
+
         } catch (e: IOException) {
             e.printStackTrace()
             LoadResult.Error(e)
