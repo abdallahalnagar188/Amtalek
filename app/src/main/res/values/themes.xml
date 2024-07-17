@@ -77,6 +77,18 @@
         <item name="boxStrokeWidth">@dimen/_1sdp</item>
         <item name="hintTextColor">@color/selector_text_input_box</item>
     </style>
+    
+    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeColor">@color/transparent</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="android:background">@drawable/ic_filter2</item>
+        <item name="android:padding">10dp</item>
+    </style>
 
     <style name="menu_text_style" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Menu">
         <item name="android:textSize">@dimen/_10ssp</item>

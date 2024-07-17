@@ -4,8 +4,6 @@ package eramo.amtalek.data.remote.dto.search.searchresponse
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.domain.search.SearchResponseModel
-import eramo.amtalek.util.itemsCount
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

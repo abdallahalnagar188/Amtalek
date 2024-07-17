@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -60,7 +61,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     private var selectedFinishingId: Int? = null
     private var selectedTypeId: Int? = null
     private var selectedCurrencyId: Int? = null
-    private var selectedFilter:String? = null
 
     private var isUserInteracting = false
     @Inject
@@ -75,13 +75,16 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         initViews()
         fetchData()
         requestData()
-        val data = dataLists
-        setupSpinners(data)
         clickListeners()
         setupObservers()
+        val data = dataLists
+        setupSpinners(data)
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        binding.autoCompleteFilterType.setText("")
+    }
     private fun clickListeners() {
         binding.apply {
             locationSpinner.setOnClickListener() {
@@ -104,19 +107,27 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 aminitiesCardView.visibility = View.GONE
             }
             autoCompleteFilterType.setOnItemClickListener { parent, view, position, id ->
-                if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.asc)){
+                if (position==0){
                     searchQuery.priceArrangeKeys = "asc"
                     requestData()
-                }else if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.desc)){
+                    binding.autoCompleteFilterType.setText("")
+
+                }else if (position==1){
                     searchQuery.priceArrangeKeys = "desc"
                     requestData()
-                }else if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.featured_small)){
+                    binding.autoCompleteFilterType.setText("")
+
+                }else if (position==2){
                     searchQuery.priceArrangeKeys = "featured"
                     requestData()
+                    binding.autoCompleteFilterType.setText("")
 
-                }else if (binding.autoCompleteFilterType.text.toString() == context?.getString(R.string.normal)){
+
+                }else if (position==3){
                     searchQuery.priceArrangeKeys = "normal"
                     requestData()
+                    binding.autoCompleteFilterType.setText("")
+
                 }
 
             }
@@ -140,17 +151,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         setUpFilterSpinner()
     }
 
-    private fun setUpFilterSpinner() {
-        val filterTypes = resources.getStringArray(R.array.filter)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, filterTypes)
-        binding.autoCompleteFilterType.setAdapter(arrayAdapter)
-        binding.autoCompleteFilterType.inputType = InputType.TYPE_NULL
-    }
-
-    private fun setUpAmenities(amenitiesList: MutableList<AmenityModel>) {
-        binding.amenitiesRv.adapter = amenitiesAdapter
-        amenitiesAdapter.saveData(amenitiesList)
-    }
     private fun requestData() {
         viewModel.search(
             city = UserUtil.getCityFiltrationId(),
@@ -367,6 +367,17 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         }
     }
 
+    private fun setUpFilterSpinner() {
+        val filterTypes = resources.getStringArray(R.array.filter)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_dropdown, filterTypes)
+        binding.autoCompleteFilterType.setAdapter(arrayAdapter)
+        binding.autoCompleteFilterType.inputType = InputType.TYPE_NULL
+    }
+
+    private fun setUpAmenities(amenitiesList: MutableList<AmenityModel>) {
+        binding.amenitiesRv.adapter = amenitiesAdapter
+        amenitiesAdapter.saveData(amenitiesList)
+    }
     private fun setupCurrenciesSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
             val criteriaSpinnerAdapter = CriteriaSpinnerSmallAdapter(requireContext(), data)

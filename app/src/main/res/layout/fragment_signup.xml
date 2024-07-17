@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/FSignUp_iv_logo"
             android:layout_width="@dimen/_125sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/screen_margin_headers"
             android:src="@drawable/splash_screen_logo"
             app:layout_constraintStart_toStartOf="parent"
