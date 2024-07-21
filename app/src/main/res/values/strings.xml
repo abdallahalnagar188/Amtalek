@@ -473,8 +473,8 @@
 
     <string name="profile">Profile</string>
 
-    <string name="s_residential_projects">%s residential projects</string>
-    <string name="s_property">%s Property</string>
+    <string name="s_residential_projects">%s Properties for sale</string>
+    <string name="s_property">%s Property for rent</string>
 
     <string name="add_property">Add property</string>
 

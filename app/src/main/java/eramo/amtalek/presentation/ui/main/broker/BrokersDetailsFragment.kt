@@ -1,65 +1,77 @@
 package eramo.amtalek.presentation.ui.main.broker
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.brokersDetails.Data
+import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.Dummy
+import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), RvBrokerDetailsPropertiesAdapter.OnItemClickListener {
+class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
+    RvBrokerDetailsPropertiesAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokerDetailsBinding::inflate
 
-//    private val viewModelShared: SharedViewModel by activityViewModels()
-//    private val viewModel: CartViewModel by viewModels()
+    private val viewModelShared: SharedViewModel by viewModels()
+    private val viewModel: BrokersViewModel by viewModels()
 
     @Inject
     lateinit var rvBrokerDetailsPropertiesAdapter: RvBrokerDetailsPropertiesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        super.registerApiRequest { viewModel.cartData() }
-//        super.registerApiCancellation { viewModel.cancelRequest() }
-
-        setupViews()
-        setupListeners()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
-    }
-
-    private fun setupViews() {
         setupToolbar()
-        assignData()
+        setupListeners()
 
-        initRv(Dummy.dummyMyFavouritesList(requireContext()))
+        val id = arguments?.getInt("id") ?: 0
+        Log.e("id in fragment", id.toString())
+
+        fetchData(id)
+    }
+
+    private fun fetchData(id: Int) {
+        viewModel.getBrokersDetails(id)
+        viewModel.getBrokersProperties(id)
+
+        lifecycleScope.launch {
+            viewModel.brokersDetails.collect { state ->
+                Log.e("details in fragment", state?.data.toString())
+                state?.data?.firstOrNull()?.let { assignData(it) }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.brokersProperties.collect { state ->
+                Log.e("properties in fragment", state?.data.toString())
+                initRv(state?.data?.original ?: emptyList())
+            }
+        }
     }
 
     private fun setupListeners() {
-        setupHeaderListener()
-
         binding.apply {
             btnProjects.setOnClickListener {
                 findNavController().navigate(R.id.completedProjectsFragment, null, navOptionsAnimation())
             }
-
             btnSatisfiedCustomers.setOnClickListener {
                 findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())
             }
@@ -74,54 +86,32 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(), 
         }
     }
 
-    private fun setupHeaderListener() {
-
+    private fun assignData(data: Data) {
         binding.apply {
-
-            tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-
-            tvAll.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            }
-
-            tvForSell.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-            }
-
-            tvForRent.setOnClickListener {
-                tvAll.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForSell.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_faded_gray))
-                tvForRent.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            }
+            tvAllProjectsCount.text = "${data.property_for_sale?.plus(data.property_for_rent ?: 0)} properties"
+            tvTitle.text = data.name
+            tvDescription.text = data.description
+            tvLocation.text = data.phone
+            tvProjectsCount.text = "${data.property_for_sale?.plus(data.property_for_rent ?: 0)} properties"
+            Glide.with(requireContext()).load(data.logo).into(ivBrokerLogo)
         }
     }
 
-    private fun assignData() {
-        binding.apply {
-            tvTitle.text = "Lana Real Estate Development Company"
-            tvDescription.text = "A leading real estate company in real estate design for more than 100 years"
-            tvLocation.text = "Sheikh Zayed Giza"
-            tvProjectsCount.text = getString(R.string.s_projects, "105")
-            tvSatisfiedCustomers.text = getString(R.string.s_satisfied_customers, "605")
-            tvAllProjectsCount.text = getString(R.string.s_all_properties, "105")
-
-            Glide.with(requireContext()).load("https://www.era-egypt.com/wp-content/uploads/2021/06/ERA-2004.png").into(ivBrokerLogo)
-        }
-    }
-
-    private fun initRv(data: List<PropertyModel>) {
+    private fun initRv(data: List<OriginalItem>) {
         rvBrokerDetailsPropertiesAdapter.setListener(this@BrokersDetailsFragment)
         binding.rv.adapter = rvBrokerDetailsPropertiesAdapter
         rvBrokerDetailsPropertiesAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: PropertyModel) {
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+    }
 
+    override fun onPropertyClick(model: OriginalItem) {
+        val bundle = Bundle().apply {
+            model.id?.let { putInt("id", it) }
+        }
+        findNavController().navigate(R.id.propertyDetailsFragment, bundle, navOptionsAnimation())
     }
 }

@@ -471,8 +471,8 @@
 
     <string name="profile">الصفحة الشخصية</string>
 
-    <string name="s_residential_projects">%s مشروعات سكنية</string>
-    <string name="s_property">%s شقة</string>
+    <string name="s_residential_projects">%s مشروعات سكنية للبيع</string>
+    <string name="s_property">%s مشروعات سكنية ايجار</string>
 
     <string name="add_property">إضافة عقار</string>
 

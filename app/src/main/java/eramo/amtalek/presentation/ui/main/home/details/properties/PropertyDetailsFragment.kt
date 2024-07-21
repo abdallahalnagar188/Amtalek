@@ -27,6 +27,7 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.brokersDetails.Data
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
@@ -48,6 +49,8 @@ import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -62,6 +65,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private val viewModel: PropertyDetailsViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
+    private val LoginData = MutableStateFlow<UiState<Data>>(UiState.Empty())
+
     private val propertyListingNumber get() = args.propertyId
     lateinit var propertyId:String
     private lateinit var vendorId:String
@@ -78,6 +83,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkActorType()
         setupViews()
         requestData()
         fetchData()
@@ -210,6 +216,38 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     propertyId = propertyId
                 )
 
+            }
+        }
+    }
+
+    private fun checkActorType() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                LoginData.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            binding.shimmerLayoutShareView.apply {
+                                if (state.data?.broker_type == "broker" && state.data?.has_package == "yes") {
+                                    visibility = View.VISIBLE
+                                } else {
+                                    visibility = View.GONE
+                                }
+                            }
+
+                        }
+
+                        is UiState.Empty -> {
+                            Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
+                        }
+                        is UiState.Error -> {
+                            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                        }
+                        is UiState.Loading -> {
+
+                            Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
     }

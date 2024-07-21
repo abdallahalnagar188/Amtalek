@@ -31,7 +31,13 @@
     <fragment
         android:id="@+id/brokersFragment"
         android:name="eramo.amtalek.presentation.ui.main.broker.BrokersFragment"
-        tools:layout="@layout/fragment_brokers" />
+        tools:layout="@layout/fragment_brokers"
+
+        >
+        <action
+            android:id="@+id/action_brokersFragment_to_brokersDetailsFragment"
+            app:destination="@id/brokersDetailsFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/editPersonalDetailsFragment"
@@ -115,7 +121,12 @@
         android:id="@+id/brokersDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragment"
         android:label="BrokersDetailsFragment"
-        tools:layout="@layout/fragment_broker_details" />
+        tools:layout="@layout/fragment_broker_details" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/nyEstateRentFragment"
         android:name="eramo.amtalek.presentation.ui.main.myestate.MyEstateRentFragment"

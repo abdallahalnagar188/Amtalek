@@ -44,6 +44,24 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+
+    @Provides
+    @Singleton
+    fun provideRepository(apiService: AmtalekApi): BrokersRepo {
+        return BrokersRepoImpl(apiService)
+    }
+    @Provides
+    @Singleton
+    fun provideBrokersDetailsRepository(apiService: AmtalekApi): BrokersDetailsRepo  {
+        return BrokersDetailsRepoImpl(apiService)
+    }
+    @Provides
+    @Singleton
+    fun provideBrokersPropertiesRepository(apiService: AmtalekApi): BrokersPropertiesRepo  {
+        return BrokersPropertiesRepoImpl(apiService)
+    }
+
+
     @Provides
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): AmtalekApi =

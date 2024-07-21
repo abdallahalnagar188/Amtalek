@@ -1,10 +1,16 @@
 package eramo.amtalek.data.remote
 
-import eramo.amtalek.data.remote.dto.NotificationDto
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
-import eramo.amtalek.data.remote.dto.auth.*
+import eramo.amtalek.data.remote.dto.auth.CitiesResponse
+import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
+import eramo.amtalek.data.remote.dto.auth.CountriesResponse
+import eramo.amtalek.data.remote.dto.auth.OnBoardingDto
+import eramo.amtalek.data.remote.dto.auth.RegionsResponse
 import eramo.amtalek.data.remote.dto.bases.BaseResponse
 import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
+import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
+import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
+import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
@@ -14,10 +20,6 @@ import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
 import eramo.amtalek.data.remote.dto.myHome.extra_sections.HomeExtraSectionsResponse
-import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
-import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
-import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.MyPropertyDetailsResponse
-import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
 import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
@@ -27,23 +29,33 @@ import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
+import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
+import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.addproperty.AddPropertyResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.amenities.AmenitiesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.poperty_types.PropertyTypesResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.MyPropertyDetailsResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_categories.PropertyCategoriesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_finishing.PropertyFinishingResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_floor_finishing.PropertyFloorFinishingResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.property_purpose.PropertyPurposeResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
-import eramo.amtalek.domain.model.request.OrderRequest
-import eramo.amtalek.domain.model.request.SearchRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface AmtalekApi {
     companion object {
@@ -55,6 +67,19 @@ interface AmtalekApi {
 
     @GET("SplashScreens")
     suspend fun onBoardingScreens(): Response<OnBoardingDto>
+    @GET("mobile/brokers")
+    suspend fun getBrokers(): BrokersResponse
+    @GET("mobile/broker/{id}/broker")
+    suspend fun getBrokersDetails(
+        @Path("id") id: Int
+    ):BrokersDetailsResponse
+
+    @GET("mobile/brokers-properties/{id}")
+    suspend fun getBrokersProperties(
+        @Path("id") id: Int
+    ): BrokersPropertyResponse
+
+
 
     @Multipart
     @POST("mobile/sign-up")

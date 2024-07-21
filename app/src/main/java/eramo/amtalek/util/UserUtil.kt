@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import eramo.amtalek.data.remote.dto.bases.HasCity
 
 object UserUtil {
 
@@ -80,7 +81,7 @@ object UserUtil {
         profileImageUrl: String,
         hasPackage:String,
         brokerName:String,
-        dashboardLink:String
+        dashboardLink:String,
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
 
