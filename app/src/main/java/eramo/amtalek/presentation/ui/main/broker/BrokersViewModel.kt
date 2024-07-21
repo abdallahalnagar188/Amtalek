@@ -40,6 +40,7 @@ class BrokersViewModel @Inject constructor(
     fun getBrokers() {
         viewModelScope.launch {
             try {
+
                 _brokers.value = getBrokersUseCase()
                 Log.e("success", _brokers.value.toString())
 
