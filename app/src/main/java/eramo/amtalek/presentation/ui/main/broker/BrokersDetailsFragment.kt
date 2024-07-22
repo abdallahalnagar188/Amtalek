@@ -1,10 +1,11 @@
 package eramo.amtalek.presentation.ui.main.broker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,8 +18,11 @@ import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
@@ -69,12 +73,14 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
     private fun setupListeners() {
         binding.apply {
+
             btnProjects.setOnClickListener {
-                findNavController().navigate(R.id.completedProjectsFragment, null, navOptionsAnimation())
+
+                findNavController().navigate(R.id.completedProjectsFragment, bundleOf("id" to 1))
             }
-            btnSatisfiedCustomers.setOnClickListener {
-                findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())
-            }
+//            btnSatisfiedCustomers.setOnClickListener {
+//                findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())
+//            }
         }
     }
 
@@ -86,13 +92,14 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun assignData(data: Data) {
         binding.apply {
             tvAllProjectsCount.text = "${data.property_for_sale?.plus(data.property_for_rent ?: 0)} properties"
             tvTitle.text = data.name
             tvDescription.text = data.description
             tvLocation.text = data.phone
-            tvProjectsCount.text = "${data.property_for_sale?.plus(data.property_for_rent ?: 0)} properties"
+            tvProjectsCount.text = "${data.projects_count} projects"
             Glide.with(requireContext()).load(data.logo).into(ivBrokerLogo)
         }
     }
@@ -109,9 +116,33 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     }
 
     override fun onPropertyClick(model: OriginalItem) {
-        val bundle = Bundle().apply {
-            model.id?.let { putInt("id", it) }
+        //findNavController().navigate(R.id.propertyDetailsFragment, bundleOf("id" to model.id))
+
+        when (model.forWhat) {
+            PropertyType.FOR_SELL.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellFragment,
+                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
+
+            PropertyType.FOR_RENT.key -> {
+//                findNavController().navigate(
+//                    R.id.propertyDetailsRentFragment,
+//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
+//                    navOptionsAnimation()
+//                )
+            }
+
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsSellAndRentFragment,
+                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
+                    navOptionsAnimation()
+                )
+            }
         }
-        findNavController().navigate(R.id.propertyDetailsFragment, bundle, navOptionsAnimation())
+
     }
 }

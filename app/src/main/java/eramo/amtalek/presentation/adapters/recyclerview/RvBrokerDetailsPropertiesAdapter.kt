@@ -46,7 +46,7 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
             binding.apply {
 
                 tvPrice.text = itemView.context.getString(R.string.s_egp,
-                    model.salePrice?.let { formatPrice(it.toDouble()) })
+                    model.salePrice?: 0.0)
                 tvTitle.text = model.title
                 tvLabel.text = model.propertyType
                 tvArea.text = itemView.context.getString(R.string.s_meter_square,

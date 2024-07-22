@@ -1298,21 +1298,8 @@
         android:layout_marginVertical="@dimen/_6sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_layout_share_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginVertical="@dimen/_6sdp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:shimmer_duration="4000">
+      />
 
-        <include layout="@layout/layout_contact_us_shimmer" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

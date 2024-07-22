@@ -7,6 +7,7 @@ import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
+import eramo.amtalek.data.remote.dto.spceProperty.BrokerDetailsItem
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.PropertyRepository
@@ -41,6 +42,26 @@ class PropertyDetailsViewModel @Inject constructor(
 
     private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
     val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
+
+    private val _loginData = MutableStateFlow<UiState<BrokerDetailsItem>>(UiState.Empty())
+    val loginData: StateFlow<UiState<BrokerDetailsItem>> = _loginData
+
+
+    fun performLogin() {
+        viewModelScope.launch {
+            _loginData.value = UiState.Loading()
+            try {
+                val brokerDetails = fetchBrokerDetails() // Replace with actual data fetching
+                _loginData.value = UiState.Success(brokerDetails)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    private suspend fun fetchBrokerDetails(): BrokerDetailsItem {
+        // Replace this with actual implementation to fetch broker details
+        return BrokerDetailsItem(brokerType = "broker", hasPackage = "yes")
+    }
 
 
 

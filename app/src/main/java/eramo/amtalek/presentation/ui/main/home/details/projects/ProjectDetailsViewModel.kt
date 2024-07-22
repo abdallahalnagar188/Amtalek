@@ -28,18 +28,6 @@ class ProjectDetailsViewModel @Inject constructor(
     private var _sentToBrokerState = MutableStateFlow<UiState<SendToBrokerResponse>>(UiState.Empty())
     val sentToBrokerState : StateFlow<UiState<SendToBrokerResponse>> = _sentToBrokerState
 
-
-
-
-
-
-
-
-
-
-
-
-
     private var projectDetailsJob: Job? = null
     private var sentToBrokerJob: Job? = null
 

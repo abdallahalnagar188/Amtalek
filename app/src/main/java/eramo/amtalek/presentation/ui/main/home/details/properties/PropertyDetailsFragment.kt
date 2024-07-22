@@ -27,7 +27,6 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.brokersDetails.Data
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
@@ -49,7 +48,6 @@ import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
@@ -65,7 +63,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private val viewModel: PropertyDetailsViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
-    private val LoginData = MutableStateFlow<UiState<Data>>(UiState.Empty())
 
     private val propertyListingNumber get() = args.propertyId
     lateinit var propertyId:String
@@ -83,6 +80,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.performLogin()
         checkActorType()
         setupViews()
         requestData()
@@ -220,22 +218,26 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
+
     private fun checkActorType() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                LoginData.collect { state ->
-                    when (state) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.loginData.collect {
+                    when (it) {
                         is UiState.Success -> {
-                            binding.shimmerLayoutShareView.apply {
-                                if (state.data?.broker_type == "broker" && state.data?.has_package == "yes") {
-                                    visibility = View.VISIBLE
+
+                            binding.shareView.apply {
+                                Log.e("state", it.data?.brokerType!!)
+                                Log.e("state", it.data?.hasPackage!!)
+
+                                if (it.data.brokerType == "user" && it.data.hasPackage == "no") {
+                                    View.GONE
+
                                 } else {
-                                    visibility = View.GONE
+                                    View.GONE
                                 }
                             }
-
                         }
-
                         is UiState.Empty -> {
                             Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
                         }
@@ -243,7 +245,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
                         }
                         is UiState.Loading -> {
-
                             Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -251,6 +252,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
     }
+
 
     override fun onPause() {
         super.onPause()
@@ -298,11 +300,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     private fun fetchData() {
+
+        //fetchActorType()
         fetchPropertyDetailsState()
         fetchSendCommentOnPropertyState()
         fetchSendPropertyOfferState()
         fetchSubmitMessageToPropertyOwnerState()
     }
+
     private fun fetchSendPropertyOfferState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -885,7 +890,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             shimmerLayout.visibility = View.VISIBLE
 
             shareView.root.visibility = View.GONE
-            shimmerLayoutShareView.visibility = View.VISIBLE
         }
     }
 
@@ -897,7 +901,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             shimmerLayout.visibility = View.GONE
 
             shareView.root.visibility = View.VISIBLE
-            shimmerLayoutShareView.visibility = View.GONE
         }
     }
 
