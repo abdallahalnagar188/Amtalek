@@ -67,17 +67,11 @@ interface AmtalekApi {
 
     @GET("SplashScreens")
     suspend fun onBoardingScreens(): Response<OnBoardingDto>
-    @GET("mobile/brokers")
-    suspend fun getBrokers(): BrokersResponse
-    @GET("mobile/broker/{id}/broker")
-    suspend fun getBrokersDetails(
-        @Path("id") id: Int
-    ):BrokersDetailsResponse
 
-    @GET("mobile/brokers-properties/{id}")
-    suspend fun getBrokersProperties(
-        @Path("id") id: Int
-    ): BrokersPropertyResponse
+
+
+    @POST("email")
+    suspend fun sendEmail(@Field("email") email: String): Response<Void>
 
 
 
@@ -126,6 +120,8 @@ interface AmtalekApi {
         @Field("new_password") newPassword: String,
         @Field("confirm_new_password") rePassword: String
     ): Response<SuccessfulResponse>
+
+
 
     @FormUrlEncoded
     @POST("mobile/login")
@@ -526,6 +522,20 @@ interface AmtalekApi {
     ):Response<SendToBrokerResponse>
 
 
+    //-----------------------------------------------------------------------------------------------//
+    // Brokers
+    @GET("mobile/brokers")
+    suspend fun getBrokers(): BrokersResponse
+
+    @GET("mobile/broker/{id}/broker")
+    suspend fun getBrokersDetails(
+        @Path("id") id: Int
+    ):BrokersDetailsResponse
+
+    @GET("mobile/brokers-properties/{id}")
+    suspend fun getBrokersProperties(
+        @Path("id") id: Int
+    ): BrokersPropertyResponse
 
 
 

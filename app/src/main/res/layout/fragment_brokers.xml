@@ -36,11 +36,10 @@
         android:textColorHint="@color/gray"
         android:textCursorDrawable="@null"
         android:textDirection="locale"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/in_toolbar" />
-
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -59,5 +58,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_search"
         tools:listitem="@layout/item_broker" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -116,7 +116,7 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     }
 
     override fun onPropertyClick(model: OriginalItem) {
-        //findNavController().navigate(R.id.propertyDetailsFragment, bundleOf("id" to model.id))
+        //findNavController().navigate(R.id.propertyDetailsSellFragment, bundleOf("id" to model.id))
 
         when (model.forWhat) {
             PropertyType.FOR_SELL.key -> {

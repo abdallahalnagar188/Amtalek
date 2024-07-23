@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -38,6 +39,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
@@ -46,6 +48,7 @@ import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
@@ -219,6 +222,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
             }
         }
+
+        binding.tvVisitProfile.setOnClickListener() {
+            findNavController().navigate(
+                R.id.brokersDetailsFragment,
+                bundleOf("vendorId" to vendorId),
+                navOptionsAnimation()
+            )
+        }
     }
 
 
@@ -231,7 +242,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             Log.e("state", it.data?.brokerType!!)
                             Log.e("state", it.data?.hasPackage!!)
                             if (it.data?.brokerType == "broker" && it.data?.hasPackage == "yes") {
-                                binding.contactUs.root.visibility= View.VISIBLE
+                                binding.contactUs.root.visibility = View.VISIBLE
                             } else {
                                 binding.contactUs.root.visibility = View.GONE
                             }
@@ -262,7 +273,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private fun setupViews() {
         setupToolbar()
-
     }
 
     private fun setPriceValue(number: String) {
@@ -906,6 +916,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
             viewLayout.visibility = View.GONE
             shimmerLayout.visibility = View.VISIBLE
+
 
         }
     }
