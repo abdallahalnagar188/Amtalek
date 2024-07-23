@@ -143,6 +143,5 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                 )
             }
         }
-
     }
 }

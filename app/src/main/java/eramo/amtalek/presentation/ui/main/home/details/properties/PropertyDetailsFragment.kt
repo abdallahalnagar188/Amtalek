@@ -390,7 +390,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
                         else -> {}
                     }
-
                 }
             }
         }
