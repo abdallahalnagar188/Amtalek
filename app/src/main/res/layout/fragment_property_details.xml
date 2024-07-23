@@ -1290,7 +1290,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <include
-        android:id="@+id/share_view"
+        android:id="@+id/contact_us"
         layout="@layout/layout_contact_us"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_90sdp"

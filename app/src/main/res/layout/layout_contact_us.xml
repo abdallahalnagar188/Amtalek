@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_114sdp"
@@ -26,15 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/view_divider_one"
-            android:layout_width="@dimen/_1sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@color/gray_layer"
-            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
             android:id="@+id/btn_messaging"
@@ -42,19 +34,19 @@
             android:layout_height="0dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
-            android:drawablePadding="@dimen/_4sdp"
             android:focusable="true"
             android:fontFamily="@font/montserratsemibold"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/_40sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
             android:text="@string/chat_messaging_"
             android:textColor="@color/black"
             android:textSize="@dimen/_8ssp"
             app:drawableStartCompat="@drawable/ic_messaging_yellow"
             app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
-            app:layout_constraintEnd_toStartOf="@id/view_divider_one"
+            app:layout_constraintEnd_toStartOf="@id/btn_call"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintWidth_percent="0.33" />
 
         <TextView
             android:id="@+id/btn_call"
@@ -62,19 +54,39 @@
             android:layout_height="0dp"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
-            android:drawablePadding="@dimen/_4sdp"
             android:focusable="true"
             android:fontFamily="@font/montserratsemibold"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/_40sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
             android:text="@string/call_us"
             android:textColor="@color/black"
             android:textSize="@dimen/_8ssp"
             app:drawableStartCompat="@drawable/ic_calling"
             app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
+            app:layout_constraintEnd_toStartOf="@id/whats_app"
+            app:layout_constraintStart_toEndOf="@id/btn_messaging"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintWidth_percent="0.33" />
+
+        <TextView
+            android:id="@+id/whats_app"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/montserratsemibold"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:text="@string/whatsapp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_8ssp"
+            app:drawableStartCompat="@drawable/ic_whatsapp_green"
+            app:layout_constraintBottom_toTopOf="@id/view_bottom_background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/view_divider_one"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintStart_toEndOf="@id/btn_call"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintWidth_percent="0.33" />
 
         <View
             android:id="@+id/view_bottom_background"
