@@ -15,6 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,7 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactBrokerDetailsInPropertyDetails
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
@@ -40,6 +42,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragmentArgs
+import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
@@ -64,7 +67,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPropertyDetailsBinding::inflate
 
+
     private val viewModel: PropertyDetailsViewModel by viewModels()
+    private val sharedViewModel : SharedViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
 
@@ -222,14 +227,39 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
             }
         }
+        val propertyId = 123
+        val brokerId = 456
+
+        binding.contactUs.btnCall.setOnClickListener {
+            handleContactAction(propertyId, brokerId, "call")
+        }
+
+        binding.contactUs.btnWhatsApp.setOnClickListener {
+            handleContactAction(propertyId, brokerId, "meeting")
+        }
+
+        binding.contactUs.btnMessaging.setOnClickListener {
+            handleContactAction(propertyId, brokerId, "email")
+        }
+        sharedViewModel.contactResult.observe(viewLifecycleOwner) { result ->
+            result.onSuccess {
+                Toast.makeText(requireContext(), "Request sent successfully", Toast.LENGTH_SHORT).show()
+            }.onFailure {
+                Toast.makeText(requireContext(), "Failed to send request: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         binding.tvVisitProfile.setOnClickListener() {
             findNavController().navigate(
                 R.id.brokersDetailsFragment,
-                bundleOf("vendorId" to vendorId),
+                bundleOf(  "vendorId" to vendorId),
                 navOptionsAnimation()
             )
         }
+    }
+
+    private fun handleContactAction(propertyId: Int, brokerId: Int, transactionType: String) {
+        sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
     }
 
 

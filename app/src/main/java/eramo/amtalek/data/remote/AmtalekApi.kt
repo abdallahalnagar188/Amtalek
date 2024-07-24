@@ -11,6 +11,7 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
+import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactBrokerDetailsInPropertyDetails
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
@@ -47,6 +48,7 @@ import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -70,10 +72,6 @@ interface AmtalekApi {
 
 
 
-    @POST("email")
-    suspend fun sendEmail(@Field("email") email: String): Response<Void>
-
-
 
     @Multipart
     @POST("mobile/sign-up")
@@ -94,7 +92,7 @@ interface AmtalekApi {
         @Part("not_ropot") notRobot: RequestBody?,
         @Part("iam") iam: RequestBody?,
         @Part("company_name") companyName: RequestBody?,
-        @Part companyLogo:MultipartBody.Part?
+        @Part companyLogo: MultipartBody.Part?
     ): Response<SuccessfulResponse>
 
     @FormUrlEncoded
@@ -120,7 +118,6 @@ interface AmtalekApi {
         @Field("new_password") newPassword: String,
         @Field("confirm_new_password") rePassword: String
     ): Response<SuccessfulResponse>
-
 
 
     @FormUrlEncoded
@@ -185,53 +182,53 @@ interface AmtalekApi {
     suspend fun getHomeFeaturedProperty(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeFeaturedPropertiesResponse>
+    ): Response<HomeFeaturedPropertiesResponse>
 
     @GET("mobile/mobile-home-projects")
     suspend fun getHomeProjects(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeProjectsResponse>
+    ): Response<HomeProjectsResponse>
 
 
     @GET("mobile/mobile-home-filter-by-city")
     suspend fun getFilterByCity(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeCitiesResponse>
+    ): Response<HomeCitiesResponse>
 
 
     @GET("mobile/mobile-home-sliders")
     suspend fun getHomeSlider(
         @Header("Authorization") userToken: String?,
-        ):Response<HomeSlidersResponse>
-
+    ): Response<HomeSlidersResponse>
 
 
     @GET("mobile/mobile-home-prop-most-views")
     suspend fun getHomeMostViewedProperties(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeMostViewsResponse>
+    ): Response<HomeMostViewsResponse>
 
     @GET("mobile/mobile-home-normal-props")
     suspend fun getHomeNormalProperties(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-    ):Response<HomeNormalPropertiesResponse>
+    ): Response<HomeNormalPropertiesResponse>
 
 
     @GET("mobile/mobile-home-news")
     suspend fun getHomeNews(
         @Header("Authorization") userToken: String?,
-        ):Response<HomeNewsResponse>
+    ): Response<HomeNewsResponse>
 
     @GET("mobile/mobile-home-extra-sections")
     suspend fun getHomeNewestSections(
         @Header("Authorization") userToken: String?,
         @Query("country_id") countryId: String,
-        ):Response<HomeExtraSectionsResponse>
-//////////////////////////////////////////////////////////////////
+    ): Response<HomeExtraSectionsResponse>
+
+    //////////////////////////////////////////////////////////////////
     // new fav request for property
     @FormUrlEncoded
     @POST("mobile/favorite-property")
@@ -241,7 +238,7 @@ interface AmtalekApi {
     ): Response<AddOrRemoveFavResponse>
 
 
-////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
     @GET("mobile/home")
     suspend fun getHome(
         @Header("Authorization") userToken: String?
@@ -251,7 +248,7 @@ interface AmtalekApi {
     @POST("mobile/cities-filter")
     suspend fun getHomeFilteredByCity(
         @Header("Authorization") userToken: String?,
-        @Field("city_id")cityId: String
+        @Field("city_id") cityId: String
     ): Response<HomeResponse>
 
     //____________________________________________________________________________________________//
@@ -266,43 +263,40 @@ interface AmtalekApi {
     @GET("packages/{type}")
     suspend fun getPackages(
 
-        @Path ("type") type:String,
+        @Path("type") type: String,
     ): Response<PackagesResponse>
 
     @FormUrlEncoded
     @POST("subscribe-package")
     suspend fun subscribeToPackage(
         @Header("Authorization") userToken: String?,
-        @Field("package_id") packageId:String,
-        @Field("duration") duration:String,
-        @Field("actor_type") actorType:String,
-    ):Response<SubscribeToPackageResponse>
+        @Field("package_id") packageId: String,
+        @Field("duration") duration: String,
+        @Field("actor_type") actorType: String,
+    ): Response<SubscribeToPackageResponse>
 
 
     //____________________________________________________________________________________________//
     // Add Property cer-tria
 
     @GET("mobile/property-types")
-    suspend fun getPropertyTypes():Response<PropertyTypesResponse>
+    suspend fun getPropertyTypes(): Response<PropertyTypesResponse>
 
     @GET("mobile/property-finishing")
-    suspend fun getPropertyFinishing():Response<PropertyFinishingResponse>
+    suspend fun getPropertyFinishing(): Response<PropertyFinishingResponse>
 
     @GET("mobile/property-puropse")
-    suspend fun getPropertyPurpose():Response<PropertyPurposeResponse>
+    suspend fun getPropertyPurpose(): Response<PropertyPurposeResponse>
 
     @GET("mobile/categories")
-    suspend fun getPropertyCategories():Response<PropertyCategoriesResponse>
+    suspend fun getPropertyCategories(): Response<PropertyCategoriesResponse>
 
 
     @GET("mobile/reception-floor-types")
-    suspend fun getPropertyFloorFinishing():Response<PropertyFloorFinishingResponse>
+    suspend fun getPropertyFloorFinishing(): Response<PropertyFloorFinishingResponse>
 
     @GET("mobile/aminities")
-    suspend fun getPropertyAmenities():Response<AmenitiesResponse>
-
-
-
+    suspend fun getPropertyAmenities(): Response<AmenitiesResponse>
 
 
     //____________________________________________________________________________________________//
@@ -311,54 +305,54 @@ interface AmtalekApi {
     @GET("mobile/property/{propertyId}")
     suspend fun getPropertyDetails(
         @Header("Authorization") userToken: String?,
-        @Path("propertyId") propertyId:String
+        @Path("propertyId") propertyId: String
     ): Response<MyPropertyDetailsResponse>
 
     @FormUrlEncoded
     @POST("mobile/send-property-comment")
     suspend fun sendPropertyComment(
         @Header("Authorization") userToken: String?,
-        @Field("property_id") propertyId:String,
-        @Field("message") message:String,
-        @Field("starts") stars:Int,
-        @Field("not_ropot") not_ropot:String = "yes",
-        @Field("name") name:String,
-        @Field("phone") phone:String,
-        @Field("email") email:String,
-    ):Response<SendPropertyCommentResponse>
+        @Field("property_id") propertyId: String,
+        @Field("message") message: String,
+        @Field("starts") stars: Int,
+        @Field("not_ropot") not_ropot: String = "yes",
+        @Field("name") name: String,
+        @Field("phone") phone: String,
+        @Field("email") email: String,
+    ): Response<SendPropertyCommentResponse>
 
     @FormUrlEncoded
     @POST("mobile/submit-to-broker")
     suspend fun sendMessageToPropertyOwner(
         @Header("Authorization") userToken: String?,
-        @Field("property_id") propertyId:String,
-        @Field("message") message:String,
-        @Field("vendor_id") vendorId:String,
-        @Field("not_ropot") not_ropot:String = "yes",
-        @Field("name") name:String,
-        @Field("phone") phone:String,
-        @Field("email") email:String,
-    ):Response<SubmitToBrokerResponse>
+        @Field("property_id") propertyId: String,
+        @Field("message") message: String,
+        @Field("vendor_id") vendorId: String,
+        @Field("not_ropot") not_ropot: String = "yes",
+        @Field("name") name: String,
+        @Field("phone") phone: String,
+        @Field("email") email: String,
+    ): Response<SubmitToBrokerResponse>
 
     @FormUrlEncoded
     @POST("mobile/send-offer")
     suspend fun sendPropertyOffer(
         @Header("Authorization") userToken: String?,
-        @Field("property_id") propertyId:String,
-        @Field("vendor_id") vendorId:String,
-        @Field("not_ropot") not_ropot:String = "yes",
-        @Field("name") name:String,
-        @Field("phone") phone:String,
-        @Field("email") email:String,
-        @Field("offer") offer:String,
-        @Field("offer_type") offerType:String,
-    ):Response<SendOfferResponse>
+        @Field("property_id") propertyId: String,
+        @Field("vendor_id") vendorId: String,
+        @Field("not_ropot") not_ropot: String = "yes",
+        @Field("name") name: String,
+        @Field("phone") phone: String,
+        @Field("email") email: String,
+        @Field("offer") offer: String,
+        @Field("offer_type") offerType: String,
+    ): Response<SendOfferResponse>
 
 
     @Multipart
     @POST("mobile/add-property-request")
     suspend fun addPropertyRequest(
-        @Header("Authorization") userToken:String,
+        @Header("Authorization") userToken: String,
         @Part("priority") priority: RequestBody?,
         @Part("purpose") purpose: RequestBody?,
         @Part("category") category: RequestBody?,
@@ -389,11 +383,11 @@ interface AmtalekApi {
         @Part("address_en") addressEn: RequestBody?,
         @Part("address_ar") addressAr: RequestBody?,
         @Part("on_site") onSite: RequestBody?,
-        @Part("for_what") forWhat  : RequestBody?,
+        @Part("for_what") forWhat: RequestBody?,
         @Part("sale_price") salePrice: RequestBody?,
         @Part("rent_price") rentPrice: RequestBody?,
         @Part("rent_duration") rentDuration: RequestBody?,
-        @Part("amenities") amenities : RequestBody?,
+        @Part("amenities") amenities: RequestBody?,
         @Part primaryImage: MultipartBody.Part?,
         @Part sliders: List<MultipartBody.Part>?
     ): Response<AddPropertyResponse>
@@ -411,25 +405,25 @@ interface AmtalekApi {
     @POST("mobile/search-property")
     suspend fun search(
         @Header("Authorization") userToken: String?,
-        @Part("keyword") keyword:RequestBody?,
-        @Part("city") city:RequestBody?,
-        @Part("country") country:RequestBody?,
-        @Part("currency") currency:RequestBody?,
-        @Part("finishing") finishing:RequestBody?,
-        @Part("max_area") maxArea:RequestBody?,
-        @Part("min_area") minArea:RequestBody?,
-        @Part("max_price") maxPrice:RequestBody?,
-        @Part("min_price") minPrice:RequestBody?,
-        @Part("min_bathes") minBathes:RequestBody?,
-        @Part("min_beds") minBeds:RequestBody?,
-        @Part("page") page:Int,
-        @Part("price_arrange_keys") priceArrangeKeys:RequestBody?,
-        @Part("property_type") propertyType:RequestBody?,
-        @Part("purpose") purpose:RequestBody?,
-        @Part("region") region:RequestBody?,
-        @Part("sub_region") subRegion:RequestBody?,
-        @Part("amenities") amenities:RequestBody?
-    ):Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
+        @Part("keyword") keyword: RequestBody?,
+        @Part("city") city: RequestBody?,
+        @Part("country") country: RequestBody?,
+        @Part("currency") currency: RequestBody?,
+        @Part("finishing") finishing: RequestBody?,
+        @Part("max_area") maxArea: RequestBody?,
+        @Part("min_area") minArea: RequestBody?,
+        @Part("max_price") maxPrice: RequestBody?,
+        @Part("min_price") minPrice: RequestBody?,
+        @Part("min_bathes") minBathes: RequestBody?,
+        @Part("min_beds") minBeds: RequestBody?,
+        @Part("page") page: Int,
+        @Part("price_arrange_keys") priceArrangeKeys: RequestBody?,
+        @Part("property_type") propertyType: RequestBody?,
+        @Part("purpose") purpose: RequestBody?,
+        @Part("region") region: RequestBody?,
+        @Part("sub_region") subRegion: RequestBody?,
+        @Part("amenities") amenities: RequestBody?
+    ): Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
     ////------------------------------------------------------------------------------------------------//
 
     // ____________________________________________________________________________________________//
@@ -438,15 +432,15 @@ interface AmtalekApi {
     @GET("mobile/get-profile/{type}/{id}")
     suspend fun getProfile(
         @Header("Authorization") userToken: String,
-        @Path("type")type:String,
-        @Path("id")id:String
+        @Path("type") type: String,
+        @Path("id") id: String
     ): Response<GetProfileResponse>
 
 
     @Multipart
     @POST("mobile/update-image")
     suspend fun updateProfilePics(
-        @Header("Authorization") userToken:String?,
+        @Header("Authorization") userToken: String?,
         @Part("image_key") imageKey: RequestBody?,
         @Part image: MultipartBody.Part?
     ): Response<EditProfileResponse>
@@ -454,7 +448,7 @@ interface AmtalekApi {
     @Multipart
     @POST("mobile/update-profile")
     suspend fun updateProfile(
-        @Header("Authorization") userToken:String,
+        @Header("Authorization") userToken: String,
         @Part("first_name") firstName: RequestBody?,
         @Part("last_name") lastName: RequestBody?,
         @Part("phone") mobileNumber: RequestBody?,
@@ -477,14 +471,14 @@ interface AmtalekApi {
     @FormUrlEncoded
     @POST("mobile/update-profile/user")
     suspend fun editProfile(
-        @Header("Authorization") userToken:String?,
+        @Header("Authorization") userToken: String?,
         @Field("first_name") firstName: String?,
         @Field("last_name") lastName: String?,
         @Field("phone") phone: String?,
         @Field("email") email: String?,
         @Field("country") countryId: String?,
         @Field("city") cityId: String?,
-        @Field("not_ropot") not_ropot: String="yes",
+        @Field("not_ropot") not_ropot: String = "yes",
     ): Response<EditProfileResponse>
 
 
@@ -504,22 +498,23 @@ interface AmtalekApi {
         @Field("subject") subject: String,
         @Field("details") details: String
     ): Response<ResultDto>
+
     //-----------------------------------------------------------------------------------------------//
     // Projects
     @GET("mobile/project-details/{listing_number}")
     suspend fun getProjectDetails(
         @Path("listing_number") listingNumber: String
-    ):Response<ProjectDetailsResponse>
+    ): Response<ProjectDetailsResponse>
 
     @FormUrlEncoded
     @POST("mobile/submit-to-broker")
     suspend fun sendToBroker(
-        @Field ("vendor_id") vendorId: String?,
-        @Field ("name") name: String?,
-        @Field ("email") email: String?,
-        @Field ("phone") phone: String?,
-        @Field ("message") message: String?
-    ):Response<SendToBrokerResponse>
+        @Field("vendor_id") vendorId: String?,
+        @Field("name") name: String?,
+        @Field("email") email: String?,
+        @Field("phone") phone: String?,
+        @Field("message") message: String?
+    ): Response<SendToBrokerResponse>
 
 
     //-----------------------------------------------------------------------------------------------//
@@ -530,7 +525,7 @@ interface AmtalekApi {
     @GET("mobile/broker/{id}/broker")
     suspend fun getBrokersDetails(
         @Path("id") id: Int
-    ):BrokersDetailsResponse
+    ): BrokersDetailsResponse
 
     @GET("mobile/brokers-properties/{id}")
     suspend fun getBrokersProperties(
@@ -538,5 +533,9 @@ interface AmtalekApi {
     ): BrokersPropertyResponse
 
 
+    @POST("web/contact-brokers-in-details")
+    suspend fun sendContactRequest(
+        @Body request: ContactBrokerDetailsInPropertyDetails
+    ):Response<ResultDto>
 
 }
