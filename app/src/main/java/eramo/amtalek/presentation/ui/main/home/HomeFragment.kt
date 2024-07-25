@@ -144,14 +144,14 @@ FavClickListener{
         super.onResume()
 
         binding.inToolbar.FHomeEtSearch.text.clear()
-//        binding.root.requestFocus()
-//        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        inputMethodManager.hideSoftInputFromWindow(binding.inToolbar.FHomeEtSearch.windowToken, 0)
+        binding.root.requestFocus()
+        val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.inToolbar.FHomeEtSearch.windowToken, 0)
 
-//        lifecycleScope.launch {
-//            delay(1000)
-//        binding.inToolbar.FHomeEtSearch.clearFocus()
-//        }
+        lifecycleScope.launch {
+            delay(1000)
+        binding.inToolbar.FHomeEtSearch.clearFocus()
+        }
     }
 
     private fun setupViews() {
@@ -173,7 +173,7 @@ FavClickListener{
 //                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
             }
             inToolbar.inMessaging.root.setOnClickListener {
-//                findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
+                findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
             }
         }
 

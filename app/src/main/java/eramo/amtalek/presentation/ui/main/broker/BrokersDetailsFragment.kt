@@ -122,7 +122,7 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(
                     R.id.propertyDetailsSellFragment,
-                    PropertyDetailsSellFragmentArgs(model.id.toString()).toBundle(),
+                    model.priority?.let { PropertyDetailsSellFragmentArgs(it).toBundle() },
                     navOptionsAnimation()
                 )
             }

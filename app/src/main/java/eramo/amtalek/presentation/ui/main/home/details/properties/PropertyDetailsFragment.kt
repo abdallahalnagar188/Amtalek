@@ -30,6 +30,7 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.broker.entity.DataX
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactBrokerDetailsInPropertyDetails
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
@@ -41,6 +42,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragment
 import eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
@@ -69,7 +71,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 
     private val viewModel: PropertyDetailsViewModel by viewModels()
-    private val sharedViewModel : SharedViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
 
@@ -245,18 +247,26 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             result.onSuccess {
                 Toast.makeText(requireContext(), "Request sent successfully", Toast.LENGTH_SHORT).show()
             }.onFailure {
-                Toast.makeText(requireContext(), "Failed to send request: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(), "Failed to send request: ${it.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
+    }
+    private fun navigateToProfile(model:PropertyDetailsModel){
         binding.tvVisitProfile.setOnClickListener() {
             findNavController().navigate(
                 R.id.brokersDetailsFragment,
-                bundleOf(  "vendorId" to vendorId),
+                bundleOf("id" to model.brokerId),
                 navOptionsAnimation()
             )
         }
+
     }
+
+
 
     private fun handleContactAction(propertyId: Int, brokerId: Int, transactionType: String) {
         sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
@@ -562,6 +572,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         setupVideo(it)
                     }
                 }
+                navigateToProfile(model = data )
 
                 tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
 
