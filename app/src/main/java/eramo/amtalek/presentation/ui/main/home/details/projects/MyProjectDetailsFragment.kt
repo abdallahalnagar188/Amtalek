@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -31,6 +32,7 @@ import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.project.Slider
 import eramo.amtalek.databinding.FragmentMyProjectDetailsBinding
 import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.Dummy
@@ -241,6 +243,18 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
                 .into(ivUserImage)
 
         }
+        navigateToProfile(model = data)
+    }
+
+    private fun navigateToProfile(model: Data?){
+        binding.tvVisitProfile.setOnClickListener() {
+            findNavController().navigate(
+                R.id.brokersDetailsFragment,
+                bundleOf("id" to model?.brokerDetails?.get(0)?.id),
+                navOptionsAnimation()
+            )
+        }
+
     }
     private fun handleAutocadImages(autocad: List<Autocad?>?): List<CarouselItem> {
         val imageList = mutableListOf<CarouselItem>()
