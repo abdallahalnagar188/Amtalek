@@ -16,8 +16,10 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersDetails.Data
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -121,25 +123,22 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         when (model.forWhat) {
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(
-                    R.id.propertyDetailsSellFragment,
-                    model.priority?.let { PropertyDetailsSellFragmentArgs(it).toBundle() },
-                    navOptionsAnimation()
+                    R.id.propertyDetailsFragment,
+                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
                 )
             }
 
             PropertyType.FOR_RENT.key -> {
-//                findNavController().navigate(
-//                    R.id.propertyDetailsRentFragment,
-//                    PropertyDetailsRentFragmentArgs(model.id.toString()).toBundle(),
-//                    navOptionsAnimation()
-//                )
+                findNavController().navigate(
+                    R.id.propertyDetailsFragment,
+                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
+                )
             }
 
             PropertyType.FOR_BOTH.key -> {
                 findNavController().navigate(
-                    R.id.propertyDetailsSellAndRentFragment,
-                    PropertyDetailsSellAndRentFragmentArgs(model.id.toString()).toBundle(),
-                    navOptionsAnimation()
+                    R.id.propertyDetailsFragment,
+                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
                 )
             }
         }

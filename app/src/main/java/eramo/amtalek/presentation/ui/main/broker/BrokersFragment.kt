@@ -52,7 +52,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     private fun setupViews() {
         setupToolbar()
-
         initRv(viewModel.brokers.value?.data?.original?.data ?: emptyList())
     }
 
@@ -83,6 +82,9 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 //            tvTitle.text = getString(R.string.brokers)
             toolbarIvMenu.setOnClickListener {
                 viewModelShared.openDrawer.value = true
+            }
+            FHomeEtSearch.setOnClickListener {
+
             }
         }
 

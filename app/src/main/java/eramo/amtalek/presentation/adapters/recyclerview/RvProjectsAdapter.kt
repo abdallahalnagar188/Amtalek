@@ -7,6 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.project.BrokerDetail
+import eramo.amtalek.data.remote.dto.project.Data
+import eramo.amtalek.data.remote.dto.project.Project
+import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
+import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
+import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.ItemProjectPreviewBinding
 import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.util.TRUE
@@ -14,7 +20,7 @@ import javax.inject.Inject
 
 
 class RvProjectsAdapter @Inject constructor() :
-    ListAdapter<ProjectModelx, RvProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<DataX, RvProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -38,35 +44,22 @@ class RvProjectsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: ProjectModelx) {
-            var isFav = model.isFavourite == TRUE
+        fun bind(model: DataX) {
             binding.apply {
-                ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
-                }
-
                 tvTitle.text = model.title
                 tvDescription.text = model.description
 
-                tvLocation.text = model.location
-                tvDatePosted.text = model.datePosted
+                tvLocation.text = model.address
+                tvDatePosted.text = model.createdAt
 
                 Glide.with(itemView)
-                    .load(model.imageUrl)
+                    .load(model.primaryImage)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
 
                 Glide.with(itemView)
-                    .load(model.brokerLogoUrl)
+                    .load(model.brokerDetails?.get(0)?.logo)
                     .into(ivBroker)
-
-                if (model.isFavourite == TRUE) {
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-                } else {
-                    ivFav.setImageResource(R.drawable.ic_heart)
-                }
             }
         }
     }
@@ -76,20 +69,20 @@ class RvProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: ProjectModelx)
+        fun onPropertyClick(model: DataX)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<ProjectModelx>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
             override fun areItemsTheSame(
-                oldItem: ProjectModelx,
-                newItem: ProjectModelx
+                oldItem: DataX,
+                newItem: DataX
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: ProjectModelx,
-                newItem: ProjectModelx
+                oldItem: DataX,
+                newItem: DataX
             ) = oldItem == newItem
         }
     }

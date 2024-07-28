@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.util.TRUE
@@ -21,7 +22,7 @@ import javax.inject.Inject
 
 
 class RvPropertiesAdapter @Inject constructor() :
-    ListAdapter<PropertyModelx, RvPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<DataX, RvPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -45,8 +46,8 @@ class RvPropertiesAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: PropertyModelx) {
-            var isFav = model.isFavourite == TRUE
+        fun bind(model: DataX) {
+            var isFav = model.isFav == "0"
             binding.apply {
                 ivFav.setOnClickListener {
                     isFav = !isFav
@@ -55,10 +56,10 @@ class RvPropertiesAdapter @Inject constructor() :
                 }
 
                 tvPrice.text =
-                    itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice), model.currency)
+                    itemView.context.getString(R.string.s_currency, model.salePrice?.let { formatPrice(it.toDouble()) }, model.currency)
                 tvTitle.text = model.title
 
-                tvLabel.text = when (model.type) {
+                tvLabel.text = when (model.forWhat) {
                     PropertyType.FOR_SELL.key -> itemView.context.getString(R.string.for_sell)
                     PropertyType.FOR_RENT.key -> itemView.context.getString(R.string.for_rent)
                     PropertyType.FOR_BOTH.key -> itemView.context.getString(R.string.for_sell_or_rent)
@@ -67,7 +68,7 @@ class RvPropertiesAdapter @Inject constructor() :
                     }
                 }
 
-                when (model.type) {
+                when (model.forWhat) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvDurationRent.visibility = View.GONE
@@ -77,7 +78,13 @@ class RvPropertiesAdapter @Inject constructor() :
                         tvPrice.visibility = View.GONE
                         tvDurationRent.visibility = View.VISIBLE
                         tvDurationRent.text =
-                            getRentPrice(itemView.context, model.rentDuration, model.rentPrice, model.currency)
+                            model.rentDuration?.let { model.currency?.let { it1 ->
+                                model.rentPrice?.toDouble()?.let { it2 ->
+                                    getRentPrice(itemView.context, it, it2,
+                                        it1
+                                    )
+                                }
+                            } }
 
                     }
 
@@ -85,7 +92,13 @@ class RvPropertiesAdapter @Inject constructor() :
                         tvPrice.visibility = View.VISIBLE
                         tvDurationRent.visibility = View.VISIBLE
                         tvDurationRent.text =
-                            getRentPrice(itemView.context, model.rentDuration, model.rentPrice, model.currency)
+                            model.rentDuration?.let { model.currency?.let { it1 ->
+                                model.rentPrice?.let { it2 ->
+                                    getRentPrice(itemView.context, it, it2.toDouble(),
+                                        it1
+                                    )
+                                }
+                            } }
 
                     }
 
@@ -94,36 +107,36 @@ class RvPropertiesAdapter @Inject constructor() :
                     }
                 }
 
-                tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
-                tvBathroom.text = model.bathroomsCount.toString()
-                tvBed.text = model.bedsCount.toString()
-                tvLocation.text = model.location
-                tvDatePosted.text = model.datePosted
+                tvArea.text = itemView.context.getString(R.string.s_meter_square, model.landArea?.let { formatNumber(it) })
+                tvBathroom.text = model.bathRoomNo.toString()
+                tvBed.text = model.bedRoomsNo.toString()
+                tvLocation.text = model.address
+                tvDatePosted.text = model.createdAt
 
                 Glide.with(itemView)
-                    .load(model.imageUrl)
+                    .load(model.primaryImage)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
 
                 Glide.with(itemView)
-                    .load(model.brokerLogoUrl)
+                    .load(model.brokerDetails?.get(0)?.logo)
                     .into(ivBroker)
 
-                if (model.isFavourite == TRUE) {
+                if (model.isFav == "0") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-
-                if (model.isFeatured == TRUE) {
-                    tvFeatured.visibility = View.VISIBLE
-                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
-                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
-                } else {
-                    tvFeatured.visibility = View.GONE
-                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
-                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
-                }
+//
+//                if (model. == TRUE) {
+//                    tvFeatured.visibility = View.VISIBLE
+//                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
+//                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
+//                } else {
+//                    tvFeatured.visibility = View.GONE
+//                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
+//                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+//                }
             }
         }
     }
@@ -163,20 +176,20 @@ class RvPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: PropertyModelx)
+        fun onPropertyClick(model: DataX)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModelx>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
             override fun areItemsTheSame(
-                oldItem: PropertyModelx,
-                newItem: PropertyModelx
+                oldItem: DataX,
+                newItem: DataX
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PropertyModelx,
-                newItem: PropertyModelx
+                oldItem: DataX,
+                newItem: DataX
             ) = oldItem == newItem
         }
     }

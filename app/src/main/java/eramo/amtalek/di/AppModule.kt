@@ -10,6 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.MyInterceptor
+import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.data.repository.*
 import eramo.amtalek.data.repository.certaria.PropertyAmenitiesRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyCategoriesRepositoryImpl
@@ -49,6 +50,11 @@ object AppModule {
     @Singleton
     fun provideRepository(apiService: AmtalekApi): BrokersRepo {
         return BrokersRepoImpl(apiService)
+    }
+    @Provides
+    @Singleton
+    fun provideAllPropertyRepo(apiService: AmtalekApi):AllPropertyRepo{
+        return AllPropertiesRepoImpl(apiService)
     }
     @Provides
     @Singleton

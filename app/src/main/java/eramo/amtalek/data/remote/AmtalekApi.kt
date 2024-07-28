@@ -32,6 +32,7 @@ import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
 import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
+import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.addproperty.AddPropertyResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.amenities.AmenitiesResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.poperty_types.PropertyTypesResponse
@@ -69,8 +70,6 @@ interface AmtalekApi {
 
     @GET("SplashScreens")
     suspend fun onBoardingScreens(): Response<OnBoardingDto>
-
-
 
 
     @Multipart
@@ -181,13 +180,13 @@ interface AmtalekApi {
     @GET("mobile/mobile-home-featured-props")
     suspend fun getHomeFeaturedProperty(
         @Header("Authorization") userToken: String?,
-        @Query("country_id") countryId: String,
+        @Query("city_id") cityId: String,
     ): Response<HomeFeaturedPropertiesResponse>
 
     @GET("mobile/mobile-home-projects")
     suspend fun getHomeProjects(
         @Header("Authorization") userToken: String?,
-        @Query("country_id") countryId: String,
+        @Query("city_id") cityId: String,
     ): Response<HomeProjectsResponse>
 
 
@@ -207,13 +206,13 @@ interface AmtalekApi {
     @GET("mobile/mobile-home-prop-most-views")
     suspend fun getHomeMostViewedProperties(
         @Header("Authorization") userToken: String?,
-        @Query("country_id") countryId: String,
+        @Query("city_id") cityId: String,
     ): Response<HomeMostViewsResponse>
 
     @GET("mobile/mobile-home-normal-props")
     suspend fun getHomeNormalProperties(
         @Header("Authorization") userToken: String?,
-        @Query("country_id") countryId: String,
+        @Query("city_id") cityId: String,
     ): Response<HomeNormalPropertiesResponse>
 
 
@@ -225,8 +224,12 @@ interface AmtalekApi {
     @GET("mobile/mobile-home-extra-sections")
     suspend fun getHomeNewestSections(
         @Header("Authorization") userToken: String?,
-        @Query("country_id") countryId: String,
+        @Query("city_id") cityId: String,
     ): Response<HomeExtraSectionsResponse>
+
+
+    @GET("mobile/all-properties/all?limit=10")
+    suspend fun getAllProperties(): AllPropertyResponse
 
     //////////////////////////////////////////////////////////////////
     // new fav request for property
@@ -262,7 +265,6 @@ interface AmtalekApi {
     //packages
     @GET("packages/{type}")
     suspend fun getPackages(
-
         @Path("type") type: String,
     ): Response<PackagesResponse>
 
@@ -536,6 +538,6 @@ interface AmtalekApi {
     @POST("web/contact-brokers-in-details")
     suspend fun sendContactRequest(
         @Body request: ContactBrokerDetailsInPropertyDetails
-    ):Response<ResultDto>
+    ): Response<ResultDto>
 
 }

@@ -3,7 +3,11 @@ package eramo.amtalek.presentation.ui.main.broker
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
@@ -22,7 +26,7 @@ import javax.inject.Inject
 class BrokersViewModel @Inject constructor(
     private val getBrokersUseCase: GetBrokers,
     private val getBrokersDetailsUseCase: GetBrokersDetails,
-    private val getBrokersPropertiesUseCase: GetBrokersProperties
+    private val getBrokersPropertiesUseCase: GetBrokersProperties,
 
 ) : ViewModel() {
     private val _brokers: MutableStateFlow<BrokersResponse?> = MutableStateFlow(null)

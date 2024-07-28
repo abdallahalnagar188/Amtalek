@@ -63,18 +63,18 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<FragmentHomeBinding>(),
-RvHomeFeaturedRealEstateAdapter.OnItemClickListener ,
-RvHomeFeaturedProjectsAdapter.OnItemClickListener,
-RvHomeFindPropertyByCityAdapter.OnItemClickListener,
+    RvHomeFeaturedRealEstateAdapter.OnItemClickListener,
+    RvHomeFeaturedProjectsAdapter.OnItemClickListener,
+    RvHomeFindPropertyByCityAdapter.OnItemClickListener,
     RvHomeNormalPropertiesAdapter.OnItemClickListenerNormalProperties,
     RvHomeMostViewedPropertiesAdapter.OnItemClickListenerMostViewedProperties,
-RvHomeFirstExtraSectionAdapter.OnItemClickListenerFirstSection,
-RvHomeSecondExtraSectionAdapter.OnItemClickListenerSecondSection,
-RvHomeThirdExtraSectionAdapter.OnItemClickListenerThirdSection,
-RvHomeFourthExtraSectionAdapter.OnItemClickListenerFourthSection,
-RvHomeFifthExtraSectionAdapter.OnItemClickListenerFifthSection,
-RvHomeNewsAdapter.OnItemClickListener ,
-FavClickListener{
+    RvHomeFirstExtraSectionAdapter.OnItemClickListenerFirstSection,
+    RvHomeSecondExtraSectionAdapter.OnItemClickListenerSecondSection,
+    RvHomeThirdExtraSectionAdapter.OnItemClickListenerThirdSection,
+    RvHomeFourthExtraSectionAdapter.OnItemClickListenerFourthSection,
+    RvHomeFifthExtraSectionAdapter.OnItemClickListenerFifthSection,
+    RvHomeNewsAdapter.OnItemClickListener,
+    FavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
@@ -150,7 +150,7 @@ FavClickListener{
 
         lifecycleScope.launch {
             delay(1000)
-        binding.inToolbar.FHomeEtSearch.clearFocus()
+            binding.inToolbar.FHomeEtSearch.clearFocus()
         }
     }
 
@@ -163,9 +163,9 @@ FavClickListener{
     private fun listeners() {
         binding.apply {
             inToolbar.spinnerLayout.setOnClickListener {
-              findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
+                findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
             }
-            inToolbar.FHomeEtSearch.setOnClickListener(){
+            inToolbar.FHomeEtSearch.setOnClickListener() {
                 findNavController().navigate(R.id.searchFormFragment, null, navOptionsFromTopAnimation())
 
             }
@@ -200,20 +200,21 @@ FavClickListener{
     }
 
 
-
     // -------------------------------------- fetchData -------------------------------------- //
-    private fun fetchGetHomeApis(){
+    private fun fetchGetHomeApis() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.initScreenState.collect(){state->
-                    when (state){
-                        is UiState.Success->{
+                viewModel.initScreenState.collect() { state ->
+                    when (state) {
+                        is UiState.Success -> {
                             dismissShimmerEffect()
                         }
-                        is UiState.Loading->{
+
+                        is UiState.Loading -> {
                             showShimmerEffect()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                         }
@@ -224,10 +225,11 @@ FavClickListener{
             }
         }
     }
+
     private fun fetchAddRemoveToFavState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.favState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect() { state ->
                     when (state) {
 
                         is UiState.Success -> {
@@ -250,18 +252,19 @@ FavClickListener{
 
 
     }
+
     private fun fetchGetHomeFeaturedProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeFeaturedPropertiesState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeFeaturedPropertiesState.collect() { state ->
                     when (state) {
 
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.propertiesList
                             binding.inFeaturedRealEstate.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 setupFeaturedRealEstateRv(data)
-                            }else{
+                            } else {
                                 binding.inFeaturedRealEstate.root.visibility = View.GONE
                             }
                         }
@@ -280,17 +283,18 @@ FavClickListener{
             }
         }
     }
-    private fun fetchGetHomeProjects(){
+
+    private fun fetchGetHomeProjects() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeProjectsState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeProjectsState.collect() { state ->
                     when (state) {
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.projects
                             binding.inFeaturedProjects.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 setupFeaturedProjectsRv(data)
-                            }else{
+                            } else {
                                 binding.inFeaturedProjects.root.visibility = View.GONE
                             }
                         }
@@ -310,17 +314,18 @@ FavClickListener{
             }
         }
     }
-    private fun fetchGetHomeFilterByCity(){
+
+    private fun fetchGetHomeFilterByCity() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeFilterByCityState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeFilterByCityState.collect() { state ->
                     when (state) {
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.cities
                             binding.inPropertiesByCity.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 setupFindPropertiesByCityRv(data)
-                            }else{
+                            } else {
                                 binding.inPropertiesByCity.root.visibility = View.GONE
                             }
                         }
@@ -340,19 +345,20 @@ FavClickListener{
             }
         }
     }
-    private fun fetchGetHomeSlider(){
+
+    private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeSliderState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeSliderState.collect() { state ->
                     when (state) {
 
                         is UiState.Success -> {
                             val data = state.data
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 binding.carouselSliderBetween.visibility = View.VISIBLE
                                 binding.carouselSliderBetweenDots.visibility = View.VISIBLE
                                 setupSliderBetween(parseBetweenCarouselSliderList(data))
-                            }else{
+                            } else {
                                 binding.carouselSliderBetween.visibility = View.GONE
                                 binding.carouselSliderBetweenDots.visibility = View.GONE
 
@@ -372,19 +378,20 @@ FavClickListener{
 
                 }
             }
+        }
     }
-    }
-    private fun fetchHomeNormalProperties(){
+
+    private fun fetchHomeNormalProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeNormalPropertiesState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeNormalPropertiesState.collect() { state ->
                     when (state) {
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.propertiesList
                             binding.inNormalPropertiesLayout.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 setupNormalPropertiesRv(data)
-                            }else{
+                            } else {
                                 binding.inNormalPropertiesLayout.root.visibility = View.GONE
                             }
                         }
@@ -393,8 +400,10 @@ FavClickListener{
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
+
                         is UiState.Loading -> {
                         }
+
                         else -> {}
                     }
 
@@ -402,24 +411,27 @@ FavClickListener{
             }
         }
     }
-    private fun fetchGetHomeMostViewedProperties(){
-        viewLifecycleOwner.lifecycleScope.launch{
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeMostViewedPropertiesState.collect(){state->
+
+    private fun fetchGetHomeMostViewedProperties() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeMostViewedPropertiesState.collect() { state ->
                     when (state) {
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.propertiesList
                             binding.inMostViewedPropertiesLayout.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 setupMostViewedPropertiesRv(data)
-                            }else{
+                            } else {
                                 binding.inMostViewedPropertiesLayout.root.visibility = View.GONE
                             }
                         }
+
                         is UiState.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
+
                         is UiState.Loading -> {
                         }
 
@@ -432,16 +444,16 @@ FavClickListener{
     }
 
 
-
-    private fun fetchGetHomeExtraSections(){
+    private fun fetchGetHomeExtraSections() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.homeExtraSectionsState.collect(){state->
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeExtraSectionsState.collect() { state ->
                     when (state) {
                         is UiState.Success -> {
                             val data = state.data
                             setupExtraViews(data)
                         }
+
                         is UiState.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
@@ -457,6 +469,7 @@ FavClickListener{
             }
         }
     }
+
     private fun fetchGetNews() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -466,9 +479,9 @@ FavClickListener{
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.news
                             binding.inNewsLayout.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()){
+                            if (!data.isNullOrEmpty()) {
                                 setupNewsRv(data)
-                            }else{
+                            } else {
                                 binding.inNewsLayout.root.visibility = View.GONE
                             }
 
@@ -491,6 +504,7 @@ FavClickListener{
 
         }
     }
+
     private fun fetchUserCityState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -518,6 +532,7 @@ FavClickListener{
             }
         }
     }
+
     //------------------------------------------------------------------------------------------//
     private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
         val list = ArrayList<CarouselItem>()
@@ -582,35 +597,38 @@ FavClickListener{
         }
 
 
-        if (LocalUtil.isEnglish()){
-            if (UserUtil.getCityFiltrationTitleEn()==""){
+        if (LocalUtil.isEnglish()) {
+            if (UserUtil.getCityFiltrationTitleEn() == "") {
                 binding.inToolbar.tvSpinnerText.text = getString(R.string.select_city)
-            }else{
+            } else {
                 binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
             }
-        }else{
-            if (UserUtil.getCityFiltrationTitleAr() == ""){
+        } else {
+            if (UserUtil.getCityFiltrationTitleAr() == "") {
                 binding.inToolbar.tvSpinnerText.text = getString(R.string.select_city)
 
-            }else{
+            } else {
                 binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
 
             }
         }
-        if (LocalUtil.isEnglish()){
+        if (LocalUtil.isEnglish()) {
             binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
-        }else{
+        } else {
             binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
         }
 
     }
 
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
-        rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment,this@HomeFragment)
+        rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
-//        binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+ //       binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+        binding.inFeaturedRealEstate.tvSeeMore.setOnClickListener{
+            findNavController().navigate(R.id.seeMorePropertiesFragment)
+        }
 
     }
 
@@ -619,8 +637,12 @@ FavClickListener{
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
+        binding.inFeaturedProjects.tvSeeMore.setOnClickListener{
+            findNavController().navigate(R.id.seeMoreProjectsFragment)
+        }
 //        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
     }
+
 
     private fun setupFindPropertiesByCityRv(data: List<CitiesModel>) {
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
@@ -629,65 +651,72 @@ FavClickListener{
 //        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
+
     private fun setupNormalPropertiesRv(data: List<PropertyModel>) {
-        rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment,this@HomeFragment)
+        rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
 //        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
+
     private fun setupMostViewedPropertiesRv(data: List<PropertyModel>) {
-        rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment,this@HomeFragment)
+        rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inMostViewedPropertiesLayout.rv.adapter = rvHomeMostViewedPropertiesAdapter
         rvHomeMostViewedPropertiesAdapter.submitList(data)
 //        binding.inMostViewedPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
+
     private fun setupExtraViews(data: List<HomeExtraSectionsModel>?) {
         ////// first
         binding.inFirstExtraSectionLayout.tvTitle.text = data?.get(0)?.title
-        if (data?.get(0)?.sections?.isNotEmpty() == true){
+        if (data?.get(0)?.sections?.isNotEmpty() == true) {
             setupHomeFirstExtraSectionRv(data[0].sections!!)
 
-        }else{
+        } else {
             binding.inFirstExtraSectionLayout.root.visibility = View.GONE
+        }
+        binding.inFirstExtraSectionLayout.tvSeeMore.setOnClickListener{
+            findNavController().navigate(R.id.seeMorePropertiesFragment)
         }
         ///// second
         binding.inSecondExtraSectionLayout.tvTitle.text = data?.get(1)?.title
-        if (data?.get(1)?.sections?.isNotEmpty() == true){
+        if (data?.get(1)?.sections?.isNotEmpty() == true) {
             setupHomeSecondExtraSectionRv(data[1].sections!!)
 
-        }else{
+        } else {
             binding.inSecondExtraSectionLayout.root.visibility = View.GONE
         }
         ///// third
         binding.inThirdExtraSectionLayout.tvTitle.text = data?.get(2)?.title
-        if (data?.get(2)?.sections?.isNotEmpty()== true){
+        if (data?.get(2)?.sections?.isNotEmpty() == true) {
             setupHomeThirdExtraSectionRv(data[2].sections!!)
 
-        }else{
+        } else {
             binding.inThirdExtraSectionLayout.root.visibility = View.GONE
         }
         ///// fourth
         binding.inFourthExtraSectionLayout.tvTitle.text = data?.get(3)?.title
-        if (data?.get(3)?.sections?.isNotEmpty()== true){
+        if (data?.get(3)?.sections?.isNotEmpty() == true) {
             setupHomeFourthExtraSectionRv(data[3].sections!!)
 
-        }else{
+        } else {
             binding.inFourthExtraSectionLayout.root.visibility = View.GONE
         }
         ///// fifth
         binding.inFifthExtraSectionLayout.tvTitle.text = data?.get(4)?.title
-        if (data?.get(4)?.sections?.isNotEmpty()== true){
+        if (data?.get(4)?.sections?.isNotEmpty() == true) {
             setupHomeFifthExtraSectionRv(data[4].sections!!)
 
-        }else{
+        } else {
             binding.inFifthExtraSectionLayout.root.visibility = View.GONE
         }
     }
+
     // -------------------------------------------------------------------------------------------------------------- //
     private fun setupHomeFirstExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeFirstExtraSectionAdapter.setListener(this,this)
+        rvHomeFirstExtraSectionAdapter.setListener(this, this)
         binding.inFirstExtraSectionLayout.rv.adapter = rvHomeFirstExtraSectionAdapter
         rvHomeFirstExtraSectionAdapter.submitList(data)
 //        binding.inFirstExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -696,7 +725,7 @@ FavClickListener{
 
 
     private fun setupHomeSecondExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeSecondExtraSectionAdapter.setListener(this,this)
+        rvHomeSecondExtraSectionAdapter.setListener(this, this)
         binding.inSecondExtraSectionLayout.rv.adapter = rvHomeSecondExtraSectionAdapter
         rvHomeSecondExtraSectionAdapter.submitList(data)
 //        binding.inSecondExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -705,21 +734,23 @@ FavClickListener{
 
 
     private fun setupHomeThirdExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeThirdExtraSectionAdapter.setListener(this,this)
+        rvHomeThirdExtraSectionAdapter.setListener(this, this)
         binding.inThirdExtraSectionLayout.rv.adapter = rvHomeThirdExtraSectionAdapter
         rvHomeThirdExtraSectionAdapter.submitList(data)
 //        binding.inThirdExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
+
     private fun setupHomeFourthExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeFourthExtraSectionAdapter.setListener(this,this)
+        rvHomeFourthExtraSectionAdapter.setListener(this, this)
         binding.inFourthExtraSectionLayout.rv.adapter = rvHomeFourthExtraSectionAdapter
         rvHomeFourthExtraSectionAdapter.submitList(data)
 //        binding.inFourthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
+
     private fun setupHomeFifthExtraSectionRv(data: List<PropertyModel>) {
-        rvHomeFifthExtraSectionAdapter.setListener(this,this)
+        rvHomeFifthExtraSectionAdapter.setListener(this, this)
         binding.inFifthExtraSectionLayout.rv.adapter = rvHomeFifthExtraSectionAdapter
         rvHomeFifthExtraSectionAdapter.submitList(data)
 //        binding.inFifthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -849,15 +880,18 @@ FavClickListener{
     }
 
     override fun onFeaturedRealEstateClick(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
+        )
     }
 
     override fun onFeaturedProjectClick(model: ProjectModel) {
         findNavController().navigate(
             R.id.myProjectDetailsFragment,
             MyProjectDetailsFragmentArgs(model.listingNumber).toBundle()
-        )    }
+        )
+    }
 
     override fun onPropertyByCityClick(model: CitiesModel) {
         Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
@@ -865,37 +899,60 @@ FavClickListener{
 
 
     override fun onItemClicked1(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
-        )    }
+        )
+    }
 
     override fun onItemClicked2(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
             PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
-        )    }
+        )
+    }
+
     override fun onItemClicked3(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
+        )
+    }
+
     override fun onItemClicked4(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
+        )
+    }
+
     override fun onItemClicked5(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
+        )
+    }
 
     override fun onNewsClick(model: NewsModel) {
-        findNavController().navigate(R.id.newsDetailsFragment,
+        findNavController().navigate(
+            R.id.newsDetailsFragment,
             NewsDetailsFragmentArgs(model).toBundle()
-            )
+        )
     }
 
     override fun onMostViewedPropertiesClicked(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
+        )
+    }
 
     override fun onNormalPropertyClicked(model: PropertyModel) {
-        findNavController().navigate(R.id.propertyDetailsFragment,
-            PropertyDetailsFragmentArgs(model.listingNumber).toBundle())    }
+        findNavController().navigate(
+            R.id.propertyDetailsFragment,
+            PropertyDetailsFragmentArgs(model.listingNumber).toBundle()
+        )
+    }
 
     override fun onFavClick(model: PropertyModel) {
         viewModel.addOrRemoveFav(model.id)

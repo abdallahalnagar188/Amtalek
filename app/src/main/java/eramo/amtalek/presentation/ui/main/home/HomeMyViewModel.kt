@@ -1,9 +1,12 @@
 package eramo.amtalek.presentation.ui.main.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
+import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.home.HomeExtraSectionsModel
 import eramo.amtalek.domain.model.home.cities.HomeCitiesSectionsModel
@@ -13,6 +16,7 @@ import eramo.amtalek.domain.model.home.property.HomePropertySectionModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.MyHomeRepository
+import eramo.amtalek.domain.usecase.allpropety.GetAllProperty
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
@@ -30,9 +34,14 @@ import javax.inject.Inject
 class HomeMyViewModel @Inject constructor(
     private val homeRepository:MyHomeRepository,
     private val getProfileUseCase: GetProfileUseCase,
-    private val addOrRemoveFavRepository: AddOrRemoveFavRepository
+    private val addOrRemoveFavRepository: AddOrRemoveFavRepository,
+    private val allPropertyUseCase: GetAllProperty
 
 ): ViewModel(){
+
+    private val _allProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
+    val allProperty: StateFlow<AllPropertyResponse?> get() = _allProperty
+
     private val _homeFeaturedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
     val homeFeaturedPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeFeaturedPropertiesState
 
@@ -93,13 +102,14 @@ class HomeMyViewModel @Inject constructor(
         getProfileJob?.cancel()
     }
     //---------------------------------------------------------------------------------//
-    private fun getHomeFeaturedProperties(countryId:String){
+    private fun getHomeFeaturedProperties(cityId:String){
         getHomeFeaturedPropertiesJob?.cancel()
         getHomeFeaturedPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeFeaturedProperty(countryId).collect(){result->
+                homeRepository.getHomeFeaturedProperty(cityId).collect(){result->
                         when (result){
                             is Resource.Success->{
+                                Log.e("getHomeFeatured success",result.data.toString())
                                 ///its a list cuz the response data is array of a single object** careful with that
                                 val list = mutableListOf<HomePropertySectionModel>()
                                 for (item in result.data?.data!!){
@@ -382,6 +392,21 @@ class HomeMyViewModel @Inject constructor(
 
             }
         }
+
+    }
+
+    fun getAllProperty(){
+
+            viewModelScope.launch {
+                try {
+
+                    _allProperty.value = allPropertyUseCase()
+                    Log.e("success", _allProperty.value.toString())
+
+                } catch (e: Exception) {
+                    Log.e("failed", e.message.toString())
+                }
+            }
 
     }
 
