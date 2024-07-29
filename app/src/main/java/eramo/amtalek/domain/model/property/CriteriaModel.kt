@@ -7,5 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class CriteriaModel (
     val id:Int,
     val propertyCount :Int?,
-    val title:String
+    var title:String
 ) : Parcelable

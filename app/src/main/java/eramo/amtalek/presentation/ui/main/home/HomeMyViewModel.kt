@@ -321,20 +321,20 @@ class HomeMyViewModel @Inject constructor(
         }
     }
 }
-    fun getHomeApis(countryId: String){
+    fun getHomeApis(countryId: String,cityId: String){
         initScreenJob?.cancel()
         initScreenJob = viewModelScope.launch(Dispatchers.IO) {
 
                 _initScreenState.value =UiState.Loading()
-                getHomeFeaturedProperties(countryId)
-                getHomeProjects(countryId)
+                getHomeFeaturedProperties(cityId)
+                getHomeProjects(cityId)
                 getHomeFilterByCity(countryId)
                 getHomeSlider()
-                getMostViewedProperties(countryId)
+                getMostViewedProperties(cityId)
                 getHomeSlider()
                 getHomeNews()
-                getHomeExtraSections(countryId)
-                getHomeNormalProperties(countryId)
+                getHomeExtraSections(cityId)
+                getHomeNormalProperties(cityId)
                 joinAll(
                     getHomeFeaturedPropertiesJob!!,
                     getHomeProjectsJob!!,

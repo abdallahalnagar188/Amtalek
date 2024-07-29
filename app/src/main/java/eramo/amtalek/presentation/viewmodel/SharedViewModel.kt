@@ -1,14 +1,11 @@
 package eramo.amtalek.presentation.viewmodel
 
 import android.net.Uri
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactBrokerDetailsInPropertyDetails
-import eramo.amtalek.data.remote.dto.general.ResultDto
+import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponse
 import eramo.amtalek.data.repository.ContactRepository
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
@@ -40,8 +37,9 @@ class SharedViewModel @Inject constructor(
     val profileCityState  = MutableLiveData<String?>(null)
 
 
-    private val _contactResult = MutableLiveData<Result<ResultDto>>()
-    val contactResult: LiveData<Result<ResultDto>> = _contactResult
+    private val _contactResult = MutableStateFlow<Resource<ContactUsResponse>>(Resource.Loading())
+    val contactResult: MutableStateFlow<Resource<ContactUsResponse>> = _contactResult
+
 
 
 
@@ -85,19 +83,21 @@ class SharedViewModel @Inject constructor(
 
     fun sendContactRequest(propertyId: Int, brokerId: Int, transactionType: String) {
         viewModelScope.launch {
-            try {
-                val response = repository.sendContactRequest(propertyId, brokerId, transactionType)
-                if (response.isSuccessful) {
-                    _contactResult.value = Result.success(ResultDto())
-                } else {
-                    val errorBody = response.errorBody()?.string() ?: "Unknown error"
-                    _contactResult.value = Result.failure(Throwable("Error: ${response.code()} - $errorBody"))
+            repository.contactUs(propertyId, brokerId, transactionType).collect { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        _contactResult.value = Resource.Success(result.data)
+                    }
+
+                    is Resource.Error -> {
+                        _contactResult.value = Resource.Error(result.message!!)
+                    }
+
+                    is Resource.Loading -> {
+                        _contactResult.value = Resource.Loading()
+                    }
                 }
-            } catch (e: Exception) {
-                Log.e("contact view model", e.toString())
-                _contactResult.value = Result.failure(e)
             }
         }
     }
-
 }

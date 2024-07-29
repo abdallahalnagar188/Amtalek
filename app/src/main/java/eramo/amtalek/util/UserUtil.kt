@@ -210,4 +210,7 @@ object UserUtil {
     fun getUserCountryFiltrationTitleId():String{
         return sharedPreferences.getString(COUNTRY_FILTRATION_ID, "")!!
     }
+    fun getUserCityFiltrationTitleId():String{
+        return sharedPreferences.getString(CITY_FILTRATION_ID, "")!!
+    }
 }

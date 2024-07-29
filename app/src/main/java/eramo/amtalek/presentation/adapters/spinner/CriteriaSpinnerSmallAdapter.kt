@@ -41,6 +41,33 @@ class CriteriaSpinnerSmallAdapter(context: Context, list: List<CriteriaModel>) :
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
 
+            if (getItem(0)?.title == "Type") {
+                getItem(0)?.title = "All Types"
+            }
+            if (getItem(0)?.title == "النوع") {
+                getItem(0)?.title = "كل الانواع"
+            }
+            if (getItem(0)?.title == "Currency") {
+                getItem(0)?.title = "All Currency"
+            }
+
+            if (getItem(0)?.title == "العملة") {
+                getItem(0)?.title = "كل العملات"
+            }
+
+            if (getItem(0)?.title == "Finishing") {
+                getItem(0)?.title = "Completion stages"
+            }
+            if (getItem(0)?.title == "التشطيب") {
+                getItem(0)?.title = "كل مراحل التشطيب"
+            }
+            if (getItem(0)?.title == "Purpose") {
+                getItem(0)?.title = "All Purposes"
+            }
+            if (getItem(0)?.title == "الغرض") {
+                getItem(0)?.title = "كل الاغراض"
+            }
+
             name.text = getItem(position)?.title
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }

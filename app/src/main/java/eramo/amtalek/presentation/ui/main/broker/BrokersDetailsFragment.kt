@@ -77,8 +77,8 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         binding.apply {
 
             btnProjects.setOnClickListener {
-
-                findNavController().navigate(R.id.completedProjectsFragment, bundleOf("id" to 1))
+                findNavController().navigate(R.id.completedProjectsFragment,
+                    bundleOf("id" to arguments?.getInt("id")), navOptionsAnimation())
             }
 //            btnSatisfiedCustomers.setOnClickListener {
 //                findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())

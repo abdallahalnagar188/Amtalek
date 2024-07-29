@@ -232,4 +232,10 @@ object AppModule {
     fun provideSearchRepository(amtalekApi: AmtalekApi): SearchRepository {
         return SearchRepositoryImpl(amtalekApi)
     }
+    @Provides
+    @Singleton
+    fun provideContactUsRepository(amtalekApi: AmtalekApi): ContactUsRepo{
+        return ContactRepository(amtalekApi)
+    }
+
 }

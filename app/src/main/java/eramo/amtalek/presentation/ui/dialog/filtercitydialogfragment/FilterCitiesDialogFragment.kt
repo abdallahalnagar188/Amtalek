@@ -163,7 +163,7 @@ class FilterCitiesDialogFragment : BottomSheetDialogFragment(), RvSelectCountryA
         dismissShimmerEffect()
     }
     private fun showShimmerEffect() {
-        binding?.apply {
+        binding.apply {
             viewLayout.visibility = View.GONE
             shimmerLayout.visibility = View.VISIBLE
             shimmerLayout.startShimmer()

@@ -17,7 +17,8 @@ import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(), RvMessagingChatAdapter.OnItemClickListener {
+class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
+    RvMessagingChatAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMessagingChatBinding::inflate

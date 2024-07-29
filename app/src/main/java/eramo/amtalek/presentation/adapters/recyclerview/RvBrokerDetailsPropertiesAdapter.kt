@@ -7,7 +7,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
@@ -90,10 +89,17 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
+                    binding.tvFeatured.text = itemView.context.getString(R.string.featured)
+
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+
                 } else {
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+
+                    ivFav.setImageResource(R.drawable.ic_heart)
+
                 }
             }
         }

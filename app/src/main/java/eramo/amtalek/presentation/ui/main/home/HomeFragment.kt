@@ -182,7 +182,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun requestApis() {
-        viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId())
+        viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId(),UserUtil.getUserCityFiltrationTitleId())
     }
 
     private fun fetchData() {
@@ -233,7 +233,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                            viewModel.getHomeApis("1")
+                            viewModel.getHomeApis("1","1")
                         }
 
                         is UiState.Error -> {
