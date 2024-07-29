@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_220sdp"
+    android:layout_margin="@dimen/_4sdp"
+    app:cardCornerRadius="@dimen/_20sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            tools:src="@color/colorAccent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.66"
+            android:background="@drawable/black_gradient_background"
+            android:contentDescription="@null" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"
+            android:text="@string/by_broker"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintBottom_toTopOf="@id/card_view"
+            app:layout_constraintStart_toStartOf="@id/card_view"
+            app:layout_constraintEnd_toEndOf="@id/card_view"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_margin="@dimen/_30sdp"
+            app:strokeWidth="0dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            >
+            <ImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:scaleType="fitXY"
+                tools:src="@drawable/gold_sqare" />
+        </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tv_project_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toTopOf="@id/tv_project_location"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Project name one" />
+
+        <TextView
+            android:id="@+id/tv_properties_for_rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:fontFamily="@font/montserratregular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Properties for rent : 505" />
+
+        <TextView
+            android:id="@+id/tv_project_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:fontFamily="@font/montserratregular"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintBottom_toTopOf="@id/tv_properties_for_rent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Properties for sell : 505" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

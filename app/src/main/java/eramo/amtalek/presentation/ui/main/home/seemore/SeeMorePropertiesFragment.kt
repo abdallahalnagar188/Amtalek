@@ -42,8 +42,8 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.getAllProperty()
+        viewModel.getAllNormalProjects()
         lifecycleScope.launch {
             viewModel.allProperty.collect {
 //                Log.e("elnagar", it?.data?.original?.data.toString())
@@ -62,7 +62,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            tvTitle.text = "Featured Properties in Egypt"
+ //           tvTitle.text = "Featured Properties in Egypt"
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }

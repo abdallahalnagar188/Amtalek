@@ -20,6 +20,7 @@ import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.general.ResultDto
 import eramo.amtalek.data.remote.dto.home.HomeResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
+import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
 import eramo.amtalek.data.remote.dto.myHome.extra_sections.HomeExtraSectionsResponse
 import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
@@ -31,6 +32,7 @@ import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.packages.PackagesResponse
 import eramo.amtalek.data.remote.dto.packages.SubscribeToPackageResponse
 import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
+import eramo.amtalek.data.remote.dto.project.allProjects.AllProjectsResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.addproperty.AddPropertyResponse
@@ -228,8 +230,21 @@ interface AmtalekApi {
     ): Response<HomeExtraSectionsResponse>
 
 
-    @GET("mobile/all-properties/all?limit=10")
-    suspend fun getAllProperties(): AllPropertyResponse
+    @GET("mobile/all-properties/featured?limit=10")
+    suspend fun getAllFeaturedProperties(
+    ): AllPropertyResponse
+
+
+    @GET("mobile/all-properties/normal?limit=10")
+    suspend fun getAllNormalProperties(
+    ): AllPropertyResponse
+
+    @GET("mobile/projects")
+    suspend fun getAllProjects():AllProjectsResponse
+
+    @GET("mobile/all-cities?")
+    suspend fun getAllCities(
+    ):AllCityResponse
 
     //////////////////////////////////////////////////////////////////
     // new fav request for property
@@ -239,6 +254,7 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?,
         @Field("property_id") propertyId: Int,
     ): Response<AddOrRemoveFavResponse>
+
 
 
     ////////////////////////////////////////////////////////////////////

@@ -10,7 +10,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.MyInterceptor
-import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.data.repository.*
 import eramo.amtalek.data.repository.certaria.PropertyAmenitiesRepositoryImpl
 import eramo.amtalek.data.repository.certaria.PropertyCategoriesRepositoryImpl
@@ -32,7 +31,6 @@ import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.domain.repository.search.CurrenciesRepository
 import eramo.amtalek.domain.repository.search.SearchRepository
-import eramo.amtalek.util.parser.GsonParser
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -55,6 +53,23 @@ object AppModule {
     @Singleton
     fun provideAllPropertyRepo(apiService: AmtalekApi):AllPropertyRepo{
         return AllPropertiesRepoImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAllNormalPropertiesRepo(apiService: AmtalekApi):AllNormalPropertiesRepo{
+        return AllNormalPropertiesRepoImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAllCitiesRepo(apiService: AmtalekApi):AllCitiesRepo{
+        return AllCitiesRepoImpl(apiService)
+    }
+    @Provides
+    @Singleton
+    fun provideAllProjectsRepo(apiService: AmtalekApi):AllProjectsRepo{
+        return AllProjectsRepoImpl(apiService)
     }
     @Provides
     @Singleton

@@ -9,7 +9,6 @@ import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
-import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.domain.repository.MyHomeRepository
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
@@ -22,12 +21,12 @@ import javax.inject.Inject
 class MyHomeRepositoryImpl @Inject constructor(
     val amtalekApi: AmtalekApi
 ) : MyHomeRepository {
-    override suspend fun getHomeFeaturedProperty(countryId: String): Flow<Resource<HomeFeaturedPropertiesResponse>> {
+    override suspend fun getHomeFeaturedProperty(cityId: String): Flow<Resource<HomeFeaturedPropertiesResponse>> {
         return flow {
             val result = toResultFlow {
                 amtalekApi.getHomeFeaturedProperty(
                     userToken = if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
-                    cityId = countryId
+                    cityId = cityId
                 )
             }
             result.collect() {

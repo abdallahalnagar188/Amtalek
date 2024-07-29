@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
+import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
+import eramo.amtalek.data.remote.dto.project.allProjects.AllProjectsResponse
 import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.home.HomeExtraSectionsModel
@@ -16,6 +17,9 @@ import eramo.amtalek.domain.model.home.property.HomePropertySectionModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.MyHomeRepository
+import eramo.amtalek.domain.usecase.allcitys.GetAllCities
+import eramo.amtalek.domain.usecase.allprojects.GetAllProjects
+import eramo.amtalek.domain.usecase.allpropety.GetAllNormalProperty
 import eramo.amtalek.domain.usecase.allpropety.GetAllProperty
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
 import eramo.amtalek.util.UserUtil
@@ -35,12 +39,23 @@ class HomeMyViewModel @Inject constructor(
     private val homeRepository:MyHomeRepository,
     private val getProfileUseCase: GetProfileUseCase,
     private val addOrRemoveFavRepository: AddOrRemoveFavRepository,
-    private val allPropertyUseCase: GetAllProperty
-
+    private val allPropertyUseCase: GetAllProperty,
+    private val allProjectsUseCase: GetAllProjects,
+    private val allNormalPropertyUseCase: GetAllNormalProperty,
+    private val allCitiesUseCase: GetAllCities
 ): ViewModel(){
 
     private val _allProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
     val allProperty: StateFlow<AllPropertyResponse?> get() = _allProperty
+
+    private val _allNormalProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
+    val allNormalProperty: StateFlow<AllPropertyResponse?> get() = _allNormalProperty
+
+    private val _allProject: MutableStateFlow<AllProjectsResponse?> = MutableStateFlow(null)
+    val allProject: StateFlow<AllProjectsResponse?> get() = _allProject
+
+    private val _allCities: MutableStateFlow<AllCityResponse?> = MutableStateFlow(null)
+    val allCities: StateFlow<AllCityResponse?> get() = _allCities
 
     private val _homeFeaturedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
     val homeFeaturedPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeFeaturedPropertiesState
@@ -129,11 +144,11 @@ class HomeMyViewModel @Inject constructor(
         }
 
     }
-    private fun getHomeProjects(countryId:String){
+    private fun getHomeProjects(cityId:String){
         getHomeProjectsJob?.cancel()
         getHomeProjectsJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeProjects(countryId).collect(){result->
+                homeRepository.getHomeProjects(cityId).collect(){result->
                     when(result){
                         is Resource.Success ->{
                             val list = mutableListOf<HomeProjectsSectionModel>()
@@ -205,11 +220,11 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-    private fun getHomeNormalProperties(countryId:String){
+    private fun getHomeNormalProperties(cityId:String){
         getHomeNormalPropertiesJob?.cancel()
         getHomeNormalPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeNormalProperties(countryId).collect(){result->
+                homeRepository.getHomeNormalProperties(cityId).collect(){result->
                     when(result){
                         is Resource.Success ->{
                             val list = mutableListOf<HomePropertySectionModel>()
@@ -396,10 +411,8 @@ class HomeMyViewModel @Inject constructor(
     }
 
     fun getAllProperty(){
-
             viewModelScope.launch {
                 try {
-
                     _allProperty.value = allPropertyUseCase()
                     Log.e("success", _allProperty.value.toString())
 
@@ -407,7 +420,42 @@ class HomeMyViewModel @Inject constructor(
                     Log.e("failed", e.message.toString())
                 }
             }
+    }
 
+    fun getAllProjects(){
+        viewModelScope.launch {
+            try {
+                _allProject.value = allProjectsUseCase()
+                Log.e("success", _allProject.value.toString())
+
+            } catch (e: Exception) {
+                Log.e("failed", e.message.toString())
+            }
+        }
+    }
+
+    fun getAllNormalProjects(){
+        viewModelScope.launch {
+            try {
+                _allNormalProperty.value = allNormalPropertyUseCase()
+                Log.e("success", _allNormalProperty.value.toString())
+
+            } catch (e: Exception) {
+                Log.e("failed", e.message.toString())
+            }
+        }
+    }
+
+    fun getAllCities(){
+        viewModelScope.launch {
+            try {
+                _allCities.value = allCitiesUseCase()
+                Log.e("success", _allNormalProperty.value.toString())
+
+            } catch (e: Exception) {
+                Log.e("failed", e.message.toString())
+            }
+        }
     }
 
 }

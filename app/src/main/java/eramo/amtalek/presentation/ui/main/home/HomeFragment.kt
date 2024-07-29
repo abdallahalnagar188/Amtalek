@@ -170,7 +170,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
             }
             inToolbar.inNotification.root.setOnClickListener {
-//                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
             }
             inToolbar.inMessaging.root.setOnClickListener {
                 findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
@@ -637,10 +637,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
+
+//        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inFeaturedProjects.tvSeeMore.setOnClickListener{
             findNavController().navigate(R.id.seeMoreProjectsFragment)
         }
-//        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
     }
 
 
@@ -648,14 +649,21 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
-//        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
+//        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+        binding.inPropertiesByCity.tvSeeMore.setOnClickListener{
+            findNavController().navigate(R.id.seeMorePropertiesByCityFragment)
+        }
     }
 
     private fun setupNormalPropertiesRv(data: List<PropertyModel>) {
         rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
+        binding.inNormalPropertiesLayout.tvSeeMore.setOnClickListener{
+            findNavController().navigate(R.id.seeMorePropertiesFragment)
+        }
+
 //        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }

@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.ui.main.home.seemore
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -11,15 +10,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.project.BrokerDetail
-import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
-import eramo.amtalek.data.remote.dto.property.allproperty.DataX
+import eramo.amtalek.data.remote.dto.project.allProjects.DataX
 import eramo.amtalek.databinding.FragmentSeeMoreProjectsBinding
-import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.presentation.adapters.recyclerview.RvProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
-import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,9 +35,10 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getAllProperty()
+        viewModel.getAllProjects()
+
         lifecycleScope.launch {
-            viewModel.allProperty.collect {
+            viewModel.allProject.collect {
 //                Log.e("elnagar", it?.data?.original?.data.toString())
 //                rvProjectsAdapter.submitList(it?.data?.original?.data)
 //                binding.rvProperties.adapter = rvProjectsAdapter
@@ -54,7 +51,6 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
 
     private fun setupViews(list: List<DataX>) {
         setupToolbar()
-
         setupRv(list)
     }
 
@@ -72,6 +68,9 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
     }
 
     override fun onPropertyClick(model: DataX) {
-      //  findNavController().navigate(R.id.myProjectDetailsFragment, null, navOptionsAnimation())
+        findNavController().navigate(
+            R.id.myProjectDetailsFragment,
+            model.listingNumber?.let { MyProjectDetailsFragmentArgs(it).toBundle() }
+        )
     }
 }

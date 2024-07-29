@@ -2,6 +2,6 @@ package eramo.amtalek.domain.repository
 
 import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 
-interface AllPropertyRepo {
-        suspend fun getAllPropertiesFromRemote(): AllPropertyResponse
+interface AllNormalPropertiesRepo {
+    suspend fun getAllNormalPropertiesFromRemote():AllPropertyResponse
 }

@@ -7,15 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.project.BrokerDetail
-import eramo.amtalek.data.remote.dto.project.Data
-import eramo.amtalek.data.remote.dto.project.Project
-import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
-import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
-import eramo.amtalek.data.remote.dto.property.allproperty.DataX
+import eramo.amtalek.data.remote.dto.project.allProjects.DataX
 import eramo.amtalek.databinding.ItemProjectPreviewBinding
-import eramo.amtalek.domain.model.main.home.ProjectModelx
-import eramo.amtalek.util.TRUE
+import eramo.amtalek.databinding.ItemSeeMoreProjectsBinding
+import eramo.amtalek.databinding.ItemSeeMorePropertiesByCityBinding
+import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
@@ -24,14 +20,14 @@ class RvProjectsAdapter @Inject constructor() :
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemProjectPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemSeeMoreProjectsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemProjectPreviewBinding) :
+    inner class ProductViewHolder(private val binding: ItemSeeMoreProjectsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -46,20 +42,21 @@ class RvProjectsAdapter @Inject constructor() :
 
         fun bind(model: DataX) {
             binding.apply {
-                tvTitle.text = model.title
-                tvDescription.text = model.description
+                tvProjectName.text = model.title
+                tvPropertiesForRent.text = model.priceFrom?.let { formatPrice(it.toDouble()) }
+                tvProjectLocation.text = model.region
 
-                tvLocation.text = model.address
-                tvDatePosted.text = model.createdAt
+//                tvLocation.text = model.country
+//                tvDatePosted.text = model.createdAt
 
                 Glide.with(itemView)
-                    .load(model.primaryImage)
+                    .load(model.image)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
 
                 Glide.with(itemView)
-                    .load(model.brokerDetails?.get(0)?.logo)
-                    .into(ivBroker)
+                    .load(model.agentData?.get(0)?.logo)
+                    .into(ivLogo)
             }
         }
     }

@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.databinding.ItemLatestProjectsBinding
+import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
+import eramo.amtalek.data.remote.dto.myHome.allCitys.Data
 import eramo.amtalek.databinding.ItemSeeMorePropertiesByCityBinding
-import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import javax.inject.Inject
 
 
 class RvPropertiesByCityAdapter @Inject constructor() :
-    ListAdapter<PropertiesByCityModel, RvPropertiesByCityAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<Data, RvPropertiesByCityAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -39,15 +39,15 @@ class RvPropertiesByCityAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: PropertiesByCityModel) {
+        fun bind(model: Data) {
             binding.apply {
-                tvCityName.text = model.cityName
+                tvCityName.text = model.titleEn
                 tvPropertiesForRent.text =
-                    itemView.context.getString(R.string.s_properties_for_rent, model.forRentCount.toString())
+                    itemView.context.getString(R.string.s_properties_for_rent, model.rentProperties.toString())
                 tvPropertiesForSell.text =
-                    itemView.context.getString(R.string.s_properties_for_sell, model.forSellCount.toString())
+                    itemView.context.getString(R.string.s_properties_for_sell, model.saleProperties.toString())
 
-                Glide.with(itemView).load(model.imageUrl).placeholder(R.drawable.ic_no_image).into(ivImage)
+                Glide.with(itemView).load(model.image).placeholder(R.drawable.ic_no_image).into(ivImage)
             }
         }
     }
@@ -57,20 +57,20 @@ class RvPropertiesByCityAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onCityClick(model: PropertiesByCityModel)
+        fun onCityClick(model: Data)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertiesByCityModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
             override fun areItemsTheSame(
-                oldItem: PropertiesByCityModel,
-                newItem: PropertiesByCityModel
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: PropertiesByCityModel,
-                newItem: PropertiesByCityModel
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
         }
     }

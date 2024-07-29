@@ -66,10 +66,14 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
 
                 tvPrice.text = itemView.context.getString(
                     R.string.s_egp,
-                    model.salePrice ?: model.rentPrice
+                    formatPrice( model.salePrice?.toDouble() ?: 0.0)
+                )
+                tvDurationRent.text = itemView.context.getString(
+                    R.string.s_egp,
+                    formatPrice( model.rentPrice?.toDouble() ?: 0.0)
                 )
                 tvTitle.text = model.title
-                tvLabel.text = model.propertyType
+                tvLabel.text = model.forWhat
                 tvArea.text = itemView.context.getString(R.string.s_meter_square,
                     model.landArea?.let { formatNumber(it) })
                 tvBathroom.text = model.bathRoomNo.toString()
