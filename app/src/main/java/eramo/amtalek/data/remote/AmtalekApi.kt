@@ -48,6 +48,7 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.Send
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -246,6 +247,8 @@ interface AmtalekApi {
     suspend fun getAllCities(
     ):AllCityResponse
 
+
+
     //////////////////////////////////////////////////////////////////
     // new fav request for property
     @FormUrlEncoded
@@ -263,12 +266,19 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?
     ): Response<HomeResponse>
 
+    @GET("web/get-contacted-agents")
+    suspend fun getContactedAgents(
+        @Header("Authorization") userToken: String?
+    ): Response<ContactedAgentResponse>
+
     @FormUrlEncoded
     @POST("mobile/cities-filter")
     suspend fun getHomeFilteredByCity(
         @Header("Authorization") userToken: String?,
         @Field("city_id") cityId: String
     ): Response<HomeResponse>
+
+
 
     //____________________________________________________________________________________________//
     //hot offers
@@ -550,10 +560,11 @@ interface AmtalekApi {
         @Path("id") id: Int
     ): BrokersPropertyResponse
 
+//
+//    @POST("web/contact-brokers-in-details")
+//    suspend fun sendContactRequest(
+//    ): Response<ResultDto>
 
-    @POST("web/contact-brokers-in-details")
-    suspend fun sendContactRequest(
-        @Body request: ContactBrokerDetailsInPropertyDetails
-    ): Response<ResultDto>
+
 
 }

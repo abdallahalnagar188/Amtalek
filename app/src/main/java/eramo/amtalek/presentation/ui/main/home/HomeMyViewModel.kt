@@ -48,8 +48,8 @@ class HomeMyViewModel @Inject constructor(
     private val _allProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
     val allProperty: StateFlow<AllPropertyResponse?> get() = _allProperty
 
-    private val _allNormalProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
-    val allNormalProperty: StateFlow<AllPropertyResponse?> get() = _allNormalProperty
+    private val _allNormalProperty: MutableStateFlow<HomePropertySectionModel?> = MutableStateFlow(null)
+    val allNormalProperty: StateFlow<HomePropertySectionModel?> get() = _allNormalProperty
 
     private val _allProject: MutableStateFlow<AllProjectsResponse?> = MutableStateFlow(null)
     val allProject: StateFlow<AllProjectsResponse?> get() = _allProject
@@ -271,7 +271,7 @@ class HomeMyViewModel @Inject constructor(
 
         }
     }
-    private fun getHomeNews(){
+    fun getHomeNews(){
         getHomeNewsJob?.cancel()
         getHomeNewsJob = viewModelScope.launch(Dispatchers.IO) {
 
@@ -433,18 +433,18 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-
-    fun getAllNormalProjects(){
-        viewModelScope.launch {
-            try {
-                _allNormalProperty.value = allNormalPropertyUseCase()
-                Log.e("success", _allNormalProperty.value.toString())
-
-            } catch (e: Exception) {
-                Log.e("failed", e.message.toString())
-            }
-        }
-    }
+//
+//    fun getAllNormalProjects(){
+//        viewModelScope.launch {
+//            try {
+//                _allNormalProperty.value = allNormalPropertyUseCase()
+//                Log.e("success", _allNormalProperty.value.toString())
+//
+//            } catch (e: Exception) {
+//                Log.e("failed", e.message.toString())
+//            }
+//        }
+//    }
 
     fun getAllCities(){
         viewModelScope.launch {

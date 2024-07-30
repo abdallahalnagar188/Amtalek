@@ -72,7 +72,11 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                     formatPrice( model.rentPrice?.toDouble() ?: 0.0)
                 )
                 tvTitle.text = model.title
-                tvLabel.text = model.forWhat
+                tvLabel.text = (if (model.forWhat.equals("for_sale")){
+                    itemView.context.getString(R.string.for_sell)
+                } else {
+                    itemView.context.getString(R.string.for_rent)
+                }).toString()
                 tvArea.text = itemView.context.getString(R.string.s_meter_square,
                     model.landArea?.let { formatNumber(it) })
                 tvBathroom.text = model.bathRoomNo.toString()

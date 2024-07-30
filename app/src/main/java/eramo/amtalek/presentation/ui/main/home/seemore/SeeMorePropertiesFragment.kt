@@ -43,7 +43,6 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAllProperty()
-        viewModel.getAllNormalProjects()
         lifecycleScope.launch {
             viewModel.allProperty.collect {
 //                Log.e("elnagar", it?.data?.original?.data.toString())

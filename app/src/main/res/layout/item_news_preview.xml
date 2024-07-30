@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView19"
+            android:id="@+id/iv_news"
             android:layout_width="0dp"
             android:layout_height="@dimen/_100sdp"
             android:scaleType="centerCrop"
@@ -24,7 +24,7 @@
             android:contentDescription="@null"/>
 
         <TextView
-            android:id="@+id/textView37"
+            android:id="@+id/tv_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -42,12 +42,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/textView37"
+            app:layout_constraintBottom_toTopOf="@+id/tv_desc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView38"
+            android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/gray_low"

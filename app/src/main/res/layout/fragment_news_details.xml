@@ -10,27 +10,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/image_cardView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:cardElevation="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:strokeWidth="0dp"
-            app:cardElevation="2dp"
-            >
+            app:strokeWidth="0dp">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <ImageView
                     android:id="@+id/iv_news_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
-                    />
+                    android:scaleType="fitXY" />
 
                 <ImageView
                     android:id="@+id/iv_back"
@@ -39,9 +40,9 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:src="@drawable/ic_back_dark"
-                    app:tint="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/black" />
 
                 <ImageView
                     android:id="@+id/iv_share"
@@ -77,19 +78,20 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/screen_margin_sides"
             android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
             android:fontFamily="@font/montserratmedium"
-            tools:text="Lörem ipsum drop shipping Inger Hansson Henrik Sjögren.
-Marcus Sjöberg Linda Lundgren.
-Prehånas bede Karl Lind attribution kås.
-Sofia Björklund metaosmos Alf Martinsson Viola Jakobsson Agneta Jonsson.
-Prende Alf Persson.
-"
             android:textAlignment="viewStart"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="Lörem ipsum drop shipping Inger Hansson Henrik Sjögren.
+Marcus Sjöberg Linda Lundgren.
+Prehånas bede Karl Lind attribution kås.
+Sofia Björklund metaosmos Alf Martinsson Viola Jakobsson Agneta Jonsson.
+Prende Alf Persson.
+" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

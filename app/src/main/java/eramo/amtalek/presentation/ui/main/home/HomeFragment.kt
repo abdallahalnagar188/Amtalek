@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -45,6 +46,7 @@ import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
@@ -771,6 +773,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
 //        binding.inNewsLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+        binding.inNewsLayout.tvSeeMore.setOnClickListener{
+            findNavController().navigate(R.id.seeMoreNewsFragment)
+        }
 
     }
 
@@ -902,6 +907,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     override fun onPropertyByCityClick(model: CitiesModel) {
+//        findNavController().navigate(R.id.searchResultFragment,
+//            SearchResultFragmentArgs(searchQuery = ,
+//                dataLists =
+//            ).toBundle(),
+//            navOptionsAnimation()
+//        )
         Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
     }
 

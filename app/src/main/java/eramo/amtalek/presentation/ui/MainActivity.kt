@@ -67,10 +67,10 @@ class MainActivity : AppCompatActivity(),
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         FirebaseApp.initializeApp(this)
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {
             val token = it.result
             UserUtil.saveFireBaseToken(token)
-            Log.e("alo",token, )
+            Log.e("alo", token)
         })
         //setup navStart
         val navHostFragment = supportFragmentManager
@@ -81,10 +81,10 @@ class MainActivity : AppCompatActivity(),
         binding.apply {
             mainBn.background = null
             mainBn.menu.getItem(2).isEnabled = false
-            mainBn.menu.getItem(0).setOnMenuItemClickListener(){
-                if(UserUtil.isUserLogin()){
+            mainBn.menu.getItem(0).setOnMenuItemClickListener() {
+                if (UserUtil.isUserLogin()) {
                     navController.navigate(R.id.myProfileFragment)
-                }else{
+                } else {
                     navController.navigate(R.id.loginDialog)
                 }
                 true
@@ -102,10 +102,10 @@ class MainActivity : AppCompatActivity(),
                     viewModelShared.openDrawer.value = false
                 }
             }
-            if (LocalUtil.isEnglish()){
+            if (LocalUtil.isEnglish()) {
                 binding.inDrawerHeader.navHeaderIvLogo.setImageDrawable(this@MainActivity.getDrawable(R.drawable.top_logo_en))
 
-            }else{
+            } else {
                 binding.inDrawerHeader.navHeaderIvLogo.setImageDrawable(this@MainActivity.getDrawable(R.drawable.top_logo_ar))
             }
 //            viewModelShared.profileData.observe(this@MainActivity) { member ->
@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity(),
         }
 
     }
+
     var hasNotificationPermissionGranted = false
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -142,6 +143,7 @@ class MainActivity : AppCompatActivity(),
                 }
             }
         }
+
     private fun showNotificationPermissionRationale() {
 
         MaterialAlertDialogBuilder(this, com.google.android.material.R.style.MaterialAlertDialog_Material3)
@@ -161,6 +163,7 @@ class MainActivity : AppCompatActivity(),
         setUserInfo()
 
     }
+
     // Hide keyboard onTouch outside
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
@@ -200,9 +203,9 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderClUserCell.setOnClickListener {
-                if(UserUtil.isUserLogin()){
+                if (UserUtil.isUserLogin()) {
                     navController.navigate(R.id.myProfileFragment)
-                }else{
+                } else {
                     navController.navigate(R.id.loginDialog)
                 }
 
@@ -232,19 +235,19 @@ class MainActivity : AppCompatActivity(),
 //
 //                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
 //            }
-            navHeaderPricing.setOnClickListener(){
+            navHeaderPricing.setOnClickListener() {
                 navController.navigate(R.id.packagesFragment)
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderAddYourProperty.setOnClickListener {
-                if (UserUtil.isUserLogin()){
-                    if (UserUtil.getUserType() == "user"){
+                if (UserUtil.isUserLogin()) {
+                    if (UserUtil.getUserType() == "user") {
                         navController.navigate(R.id.addPropertyFirstFragment)
-                    }else{
+                    } else {
                         navController.navigate(R.id.myProfileFragment)
                     }
-                }else{
+                } else {
                     navController.navigate(R.id.loginDialog)
                 }
 
@@ -258,9 +261,9 @@ class MainActivity : AppCompatActivity(),
 //            }
 
             navHeaderProfileTab.setOnClickListener {
-                if(UserUtil.isUserLogin()){
+                if (UserUtil.isUserLogin()) {
                     navController.navigate(R.id.myProfileFragment)
-                }else{
+                } else {
                     navController.navigate(R.id.loginDialog)
                 }
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
@@ -396,14 +399,17 @@ class MainActivity : AppCompatActivity(),
                 R.id.addPropertyThirdFragment,
                 R.id.addPropertyFourthFragment,
                 R.id.addPropertyFifthFragment,
-                    R.id.searchFormFragment,
-                    R.id.searchResultFragment
+                R.id.searchFormFragment,
+                R.id.searchResultFragment,
+                R.id.seeMoreNewsFragment
+
                 -> {
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE
                         mainFabHome.visibility = View.GONE
                     }
                 }
+
                 R.id.homeFragment -> {
                     binding.apply {
                         binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -419,8 +425,8 @@ class MainActivity : AppCompatActivity(),
                     }
                 }
             }
-            when(destination.id){
-                R.id.brokersFragment,R.id.marketFragment,R.id.hotOffersFragment,R.id.myEstateFragment ->{
+            when (destination.id) {
+                R.id.brokersFragment, R.id.marketFragment, R.id.hotOffersFragment, R.id.myEstateFragment -> {
                     binding.mainFabHome.setColorFilter(resources.getColor(R.color.amtalek_blue))
                 }
             }
@@ -430,34 +436,34 @@ class MainActivity : AppCompatActivity(),
     private fun setUserInfo() {
         if (UserUtil.isUserLogin()) {
             binding.inDrawerHeader.apply {
-                viewModelShared.profileNameState.observe(this@MainActivity){
-                    if (it.isNullOrEmpty()){
-                        if (UserUtil.getUserType() == "user"){
+                viewModelShared.profileNameState.observe(this@MainActivity) {
+                    if (it.isNullOrEmpty()) {
+                        if (UserUtil.getUserType() == "user") {
                             navHeaderTvUserName.text =
                                 getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName())
                             navHeaderTvUserCity.text = UserUtil.getCityName()
-                        }else if (UserUtil.getUserType()=="broker"){
+                        } else if (UserUtil.getUserType() == "broker") {
                             navHeaderTvUserName.text = UserUtil.getBrokerName()
                             navHeaderTvUserCity.text = UserUtil.getUserPhone()
                         }
 
-                    }else{
+                    } else {
                         navHeaderTvUserName.text = it
                     }
                 }
-                viewModelShared.profileCityState.observe(this@MainActivity){
-                    if (it.isNullOrEmpty()){
-                        if (UserUtil.getUserType() == "user"){
+                viewModelShared.profileCityState.observe(this@MainActivity) {
+                    if (it.isNullOrEmpty()) {
+                        if (UserUtil.getUserType() == "user") {
                             navHeaderTvUserCity.text = UserUtil.getCityName()
-                        }else if (UserUtil.getUserType()=="broker"){
+                        } else if (UserUtil.getUserType() == "broker") {
                             navHeaderTvUserCity.text = UserUtil.getUserPhone()
                         }
-                    }else{
+                    } else {
                         navHeaderTvUserCity.text = it
                     }
                 }
                 navHeaderTvSignOut.text = getString(R.string.sign_out)
-                viewModelShared.profileImageUri.observe(this@MainActivity){
+                viewModelShared.profileImageUri.observe(this@MainActivity) {
                     Glide.with(this@MainActivity)
                         .load(it)
                         .into(navHeaderIvProfile)
@@ -496,13 +502,13 @@ class MainActivity : AppCompatActivity(),
                         is UiState.Success -> {
                             setUserInfo()
                             binding.inDrawerHeader.apply {
-                                if (state.data?.actorType == "broker"){
+                                if (state.data?.actorType == "broker") {
                                     navHeaderTvUserName.text = state.data.name
-                                }else if (state.data?.actorType == "user"){
+                                } else if (state.data?.actorType == "user") {
                                     navHeaderTvUserName.text =
                                         getString(R.string.S_user_name, state.data?.firstName, state.data?.lastName)
                                 }
-                                Log.e("cityy",  state.data?.cityName!!, )
+                                Log.e("cityy", state.data?.cityName!!)
                                 navHeaderTvUserCity.text = state.data?.cityName
                                 Glide.with(this@MainActivity)
                                     .load(
@@ -530,35 +536,35 @@ class MainActivity : AppCompatActivity(),
 
     private fun fetchLogoutState() {
         lifecycleScope.launch {
-                viewModelShared.logoutState.collect { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            setUserInfo()
-                            navController.navigate(
-                                NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
-                                NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
-                            )
+            viewModelShared.logoutState.collect { state ->
+                when (state) {
+                    is UiState.Success -> {
+                        setUserInfo()
+                        navController.navigate(
+                            NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+                            NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+                        )
 
-                            LoadingDialog.dismissDialog()
-                        }
+                        LoadingDialog.dismissDialog()
+                    }
 
-                        is UiState.Error -> {
-                            LoadingDialog.dismissDialog()
-                            val errorMessage = state.message!!.asString(this@MainActivity)
-                            Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                    is UiState.Error -> {
+                        LoadingDialog.dismissDialog()
+                        val errorMessage = state.message!!.asString(this@MainActivity)
+                        Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
 
-                            navController.navigate(
-                                NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
-                                NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
-                            )
-                        }
+                        navController.navigate(
+                            NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
+                            NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
+                        )
+                    }
 
-                        is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+                    is UiState.Loading -> {
+                        LoadingDialog.showDialog()
 
-                        }
+                    }
 
-                        else -> Unit
+                    else -> Unit
 
                 }
             }

@@ -17,7 +17,7 @@
         app:shapeAppearanceOverlay="@style/ImagesTopStyle" />
 
     <TextView
-        android:id="@+id/textView37"
+        android:id="@+id/tv_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/yellow"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/textView37"
+        app:layout_constraintBottom_toTopOf="@+id/tv_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -52,7 +52,7 @@
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_16sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        app:layout_constraintBottom_toTopOf="@+id/textView37"
+        app:layout_constraintBottom_toTopOf="@+id/tv_desc"
         app:layout_constraintEnd_toStartOf="@+id/imageView15"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

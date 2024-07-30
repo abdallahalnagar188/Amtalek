@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
-    RvBrokerDetailsPropertiesAdapter.OnItemClickListener {
+    RvBrokerDetailsPropertiesAdapter.OnItemClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokerDetailsBinding::inflate
@@ -143,4 +143,5 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             }
         }
     }
+
 }

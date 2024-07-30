@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -19,6 +20,7 @@ import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesByCityAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
+import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
@@ -34,6 +36,10 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
     private val args by navArgs<SeeMorePropertiesByCityFragmentArgs>()
     private val citiesList get() = args.citiesList
     val viewModel: HomeMyViewModel by viewModels()
+
+    val argsTwo by navArgs<SearchResultFragmentArgs>()
+    val searchQuery get() = argsTwo.searchQuery
+    private val dataLists get() = argsTwo.dataLists
 
     @Inject
     lateinit var rvPropertiesByCityAdapter: RvPropertiesByCityAdapter
@@ -92,11 +98,14 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         }
     }
 
+
     override fun onCityClick(model: Data) {
 //        findNavController().navigate(
-//        R.id.searchResultFragment,
-//        model.properties?.let { SearchResultFragmentArgs(it).toBundle() }
-//    )
-
+//            R.id.searchResultFragment,
+//            SearchResultFragmentArgs(
+//                searchQuery,
+//                dataLists
+//            ).toBundle(), navOptionsAnimation()
+//        )
     }
 }

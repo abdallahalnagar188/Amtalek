@@ -131,6 +131,11 @@ object AppModule {
     fun provideHomeRepository(AmtalekApi: AmtalekApi): HomeRepository {
         return HomeRepositoryImpl(AmtalekApi)
     }
+    @Provides
+    @Singleton
+    fun ProvideContactedAgentRepo(amtalekApi: AmtalekApi): ContactedAgentRepo {
+        return ContactedAgentsRepoImpl(amtalekApi)
+    }
 
     @Provides
     @Singleton
