@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.main.home.details.properties
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
@@ -15,12 +16,10 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.transition.Visibility
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -30,9 +29,6 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.broker.entity.DataX
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactBrokerDetailsInPropertyDetails
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponse
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
@@ -43,8 +39,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragment
-import eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
@@ -61,7 +55,6 @@ import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
-import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -102,6 +95,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         fetchData()
         clickListeners()
         setupToggle()
+
     }
 
     private fun setupToggle() {
@@ -254,34 +248,41 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         if (response.equals("Sorry contact before")){
             showToast("Sorry contact before")}
         else{
-
+            binding.contactUs.btnCall.setOnClickListener {
+                handleContactAction(propertyId.toInt(), vendorId.toInt(), "call")
+                Intent.ACTION_CALL
+                showToast("call")
+            }
+            binding.contactUs.btnMessaging.setOnClickListener {
+                handleContactAction(propertyId.toInt(), vendorId.toInt(), "email")
+                showToast("email")
+            }
+            binding.contactUs.btnWhatsApp.setOnClickListener {
+                handleContactAction(propertyId.toInt(), vendorId.toInt(), "meeting")
+                showToast("meeting")
+                }
         }
 
     }
     private fun contactUsListener() {
         lifecycleScope.launch {
-            sharedViewModel.contactResult.collect {
-
-                when(it){
+            sharedViewModel.contactResult.collect { result ->
+                when (result) {
                     is Resource.Success -> {
-
-                        it.data?.message?.let { it1 -> chickeListenerForContactBefore(it1) }
-
+                        result.data?.message?.let { message ->
+                            chickeListenerForContactBefore(message)
+                        }
                     }
                     is Resource.Error -> {
-                        showToast(it.message.toString())
-
+                        Log.e("error", result.message.toString())
+                        showToast(result.message.toString())
                     }
                     is Resource.Loading -> {
+                        // Show loading indicator if necessary
                     }
-
                 }
-
             }
         }
-
-
-
     }
     private fun handleContactAction(propertyId: Int, brokerId: Int, transactionType: String) {
         sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
@@ -469,6 +470,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         is UiState.Success -> {
                             assignData(state.data!!)
                             loadOfferTypes(state.data.forWhat!!)
+                            propertyId = state.data.id.toString()
+                            vendorId = state.data.brokerId.toString()
                         }
 
                         is UiState.Error -> {
@@ -604,20 +607,18 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 } else if (data.calcRoi == "no") {
                     roiLayout.root.visibility = View.GONE
                 }
-//                binding.contactUs.btnCall.setOnClickListener {
-//
-//                    handleContactAction(data.id, data.brokerId, "call")
-//                    showToast("call")
-//                }
-//                binding.contactUs.btnMessaging.setOnClickListener {
-//                    handleContactAction(data.id, data.brokerId, "email")
-//                    showToast("email")
-//                }
-//                binding.contactUs.btnWhatsApp.setOnClickListener {
-//                    handleContactAction(data.id, data.brokerId, "whatsapp")
-//                    showToast("whatsapp")
-//                }
+                binding.contactUs.btnCall.setOnClickListener {
 
+                    handleContactAction(data.id, data.brokerId, "call")
+                }
+                binding.contactUs.btnMessaging.setOnClickListener {
+                    handleContactAction(data.id, data.brokerId, "email")
+                }
+                binding.contactUs.btnWhatsApp.setOnClickListener {
+                    handleContactAction(data.id, data.brokerId, "meeting")
+                }
+
+                contactUsListener()
             }
             dismissShimmerEffect()
 

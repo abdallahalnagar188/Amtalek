@@ -31,6 +31,7 @@ import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.domain.repository.search.CurrenciesRepository
 import eramo.amtalek.domain.repository.search.SearchRepository
+import eramo.amtalek.util.UserUtil
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -108,7 +109,10 @@ object AppModule {
         val certificatePinner = CertificatePinner.Builder()
             .add("amtalek.com", "sha256/KZz5PR4GnwfX9vpcizpjR+LgwK/eGu6dQJHR0lXlN+k=")
             .build()
-        return OkHttpClient.Builder()
+        return OkHttpClient.Builder().addInterceptor{
+            val request = it.request().newBuilder().addHeader("Authorization", "Bearer ${UserUtil.getUserToken()}").build()
+            it.proceed(request)
+        }
 //            .certificatePinner(certificatePinner)
             .addInterceptor(MyInterceptor())
             .addInterceptor(loggingInterceptor)

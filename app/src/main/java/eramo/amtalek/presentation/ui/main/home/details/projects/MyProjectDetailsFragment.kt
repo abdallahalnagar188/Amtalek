@@ -153,6 +153,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
                         when(it){
                             is UiState.Success ->{
                                 val data = it.data
+                                Log.e("Nega", data.toString())
                                 handleSuccessState(data)
 
                                 LoadingDialog.dismissDialog()
@@ -235,7 +236,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvTitle.text = data?.name
             tvLocation.text = data?.quickSummary?.address
             tvDate.text = data?.deliveryDate
-            Log.e("Nega", data?.deliveryDate?: "null", )
+            Log.e("Nega1", data?.deliveryDate?: "null", )
             tvDescriptionValue.text = data?.description
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description

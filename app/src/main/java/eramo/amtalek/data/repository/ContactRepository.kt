@@ -1,7 +1,7 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponse
+import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
 import eramo.amtalek.domain.repository.ContactUsRepo
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
@@ -48,7 +48,24 @@ class ContactRepository @Inject constructor(private val apiService: AmtalekApi) 
         propertyId: Int,
         brokerId: Int,
         transactionType: String
-    ): Flow<Resource<ContactUsResponse>> {
-        TODO("Not yet implemented")
+    ): Flow<Resource<ContactUsResponseInProperty>> {
+
+        return flow {
+            val result = toResultFlow {
+                apiService.sendContactRequest(
+                    propertyId.toString(), brokerId.toString(), transactionType
+                )
+            }
+            result.collect {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data
+                        emit(Resource.Success(model))
+                    }
+                }
+            }
+        }
     }
 }

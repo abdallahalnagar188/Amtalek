@@ -2,7 +2,6 @@ package eramo.amtalek.data.remote
 
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.CitiesResponse
-import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
 import eramo.amtalek.data.remote.dto.auth.CountriesResponse
 import eramo.amtalek.data.remote.dto.auth.OnBoardingDto
 import eramo.amtalek.data.remote.dto.auth.RegionsResponse
@@ -11,7 +10,9 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactBrokerDetailsInPropertyDetails
+import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
+import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
+import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
@@ -48,11 +49,9 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.Send
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
-import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -560,10 +559,14 @@ interface AmtalekApi {
         @Path("id") id: Int
     ): BrokersPropertyResponse
 
-//
-//    @POST("web/contact-brokers-in-details")
-//    suspend fun sendContactRequest(
-//    ): Response<ResultDto>
+
+    @FormUrlEncoded
+    @POST("web/contact-brokers-in-details")
+    suspend fun sendContactRequest(
+        @Field("property_id") propertyId: String,
+        @Field("broker_id") brokerId: String,
+        @Field("transaction_type") transactionType: String,
+    ): Response<ContactUsResponseInProperty>
 
 
 
