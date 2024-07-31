@@ -31,7 +31,6 @@ import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.domain.repository.search.CurrenciesRepository
 import eramo.amtalek.domain.repository.search.SearchRepository
-import eramo.amtalek.util.UserUtil
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -55,6 +54,13 @@ object AppModule {
     fun provideAllPropertyRepo(apiService: AmtalekApi):AllPropertyRepo{
         return AllPropertiesRepoImpl(apiService)
     }
+
+    @Provides
+    @Singleton
+    fun provideContactedAgentsRepo(apiService: AmtalekApi):ContactedAgentRepo{
+        return ContactedAgentsRepoImpl(apiService)
+    }
+
 
     @Provides
     @Singleton
@@ -109,10 +115,7 @@ object AppModule {
         val certificatePinner = CertificatePinner.Builder()
             .add("amtalek.com", "sha256/KZz5PR4GnwfX9vpcizpjR+LgwK/eGu6dQJHR0lXlN+k=")
             .build()
-        return OkHttpClient.Builder().addInterceptor{
-            val request = it.request().newBuilder().addHeader("Authorization", "Bearer ${UserUtil.getUserToken()}").build()
-            it.proceed(request)
-        }
+        return OkHttpClient.Builder()
 //            .certificatePinner(certificatePinner)
             .addInterceptor(MyInterceptor())
             .addInterceptor(loggingInterceptor)
@@ -135,11 +138,7 @@ object AppModule {
     fun provideHomeRepository(AmtalekApi: AmtalekApi): HomeRepository {
         return HomeRepositoryImpl(AmtalekApi)
     }
-    @Provides
-    @Singleton
-    fun ProvideContactedAgentRepo(amtalekApi: AmtalekApi): ContactedAgentRepo {
-        return ContactedAgentsRepoImpl(amtalekApi)
-    }
+
 
     @Provides
     @Singleton
@@ -246,5 +245,12 @@ object AppModule {
     fun provideContactUsRepository(amtalekApi: AmtalekApi): ContactUsRepo{
         return ContactRepository(amtalekApi)
     }
+
+    @Provides
+    @Singleton
+    fun provideContactedAgentMessageRepository(amtalekApi: AmtalekApi): ContactedAgentsMessageRepo{
+        return ContactedAgentsMessageRepositoryImpl(amtalekApi)
+    }
+
 
 }

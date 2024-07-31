@@ -1,10 +1,11 @@
-package eramo.amtalek.data.remote.dto.contactedAgent
+package eramo.amtalek.data.remote.dto.contactedAgent.message
+
 
 import com.google.gson.annotations.SerializedName
 
-data class ContactedAgentResponse(
+data class ContactAgentsMessageResponse(
     @SerializedName("data")
-    var `data`: List<Data?>?,
+    var `data`: DataX?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")

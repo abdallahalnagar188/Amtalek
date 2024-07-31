@@ -175,7 +175,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
             }
             inToolbar.inMessaging.root.setOnClickListener {
-                findNavController().navigate(R.id.messagingFragment, null, navOptionsAnimation())
+                findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
             }
         }
 

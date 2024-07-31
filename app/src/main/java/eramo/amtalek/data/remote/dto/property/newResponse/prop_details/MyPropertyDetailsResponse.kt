@@ -19,19 +19,19 @@ data class MyPropertyDetailsResponse(
     var message: String?,
     @SerializedName("status")
     var status: Int?
-) : Parcelable{
-    fun toPropertyDetailsModel(): PropertyDetailsModel{
+) : Parcelable {
+    fun toPropertyDetailsModel(): PropertyDetailsModel {
         return PropertyDetailsModel(
             sliderImages = sliderImagesList(),
             sellPrice = data?.get(0)?.salePrice?.toDouble() ?: 0.0,
             rentPrice = data?.get(0)?.rentPrice?.toDouble() ?: 0.0,
-            currency = data?.get(0)?.currency?:"",
+            currency = data?.get(0)?.currency ?: "",
             rentDuration = data?.get(0)?.rentDuration ?: "",
-           title =  data?.get(0)?.title ?: "",
+            title = data?.get(0)?.title ?: "",
             location = "${data?.get(0)?.city}, ${data?.get(0)?.region}, ${data?.get(0)?.subRegion}",
             datePosted = data?.get(0)?.createdAt ?: "",
             finishing = data?.get(0)?.finishing ?: "",
-           finishingAvailability =  "----",
+            finishingAvailability = "----",
             areaLocation = data?.get(0)?.region ?: "",
             area = data?.get(0)?.landArea ?: -1,
             bathroomsCount = data?.get(0)?.bathRoomNo ?: -1,
@@ -42,9 +42,9 @@ data class MyPropertyDetailsResponse(
             propertyCode = data?.get(0)?.listingNumber ?: "",
             propertyType = data?.get(0)?.propertyType ?: "",
             furniture = "----",
-            forWhat = data?.get(0)?.forWhat?:"",
+            forWhat = data?.get(0)?.forWhat ?: "",
             floors = listOf(data?.get(0)?.floorNum ?: -1),
-           landType =  data?.get(0)?.receptionFloorType ?: "",
+            landType = data?.get(0)?.receptionFloorType ?: "",
             description = data?.get(0)?.description ?: "",
             propertyAmenities = propertyFeaturesList(),
             videoUrl = data?.get(0)?.video ?: "",
@@ -59,8 +59,13 @@ data class MyPropertyDetailsResponse(
             roi = data?.get(0)?.roi ?: "",
             calcRoi = data?.get(0)?.calcRoi ?: "",
             brokerId = data?.get(0)?.brokerDetails?.get(0)?.id ?: -1,
-        )
+            brokerEmail = data?.get(0)?.brokerDetails?.get(0)?.email ?: "",
+            brokerPhone = data?.get(0)?.brokerDetails?.get(0)?.phone ?: "",
+            vendorType = data?.get(0)?.brokerDetails?.get(0)?.brokerType ?: "",
+
+            )
     }
+
     private fun sliderImagesList(): List<String> {
         val list = mutableListOf<String>()
         for (i in data?.get(0)?.sliders!!) {
@@ -68,13 +73,15 @@ data class MyPropertyDetailsResponse(
         }
         return list
     }
+
     private fun propertyFeaturesList(): List<AmenityModel> {
         val list = mutableListOf<AmenityModel>()
         for (i in data?.get(0)?.aminities!!) {
-            list.add(AmenityModel(name = i?.title?:"", id = i?.id?:-1))
+            list.add(AmenityModel(name = i?.title ?: "", id = i?.id ?: -1))
         }
         return list
     }
+
     private fun commentsList(): List<RatingCommentsModel> {
         val list = mutableListOf<RatingCommentsModel>()
 
@@ -93,40 +100,42 @@ data class MyPropertyDetailsResponse(
 
         return list
     }
+
     private fun similarPropertiesList(): List<PropertyModel> {
         val list = mutableListOf<PropertyModel>()
         for (i in data?.get(0)?.similarProperties!!) {
             list.add(
-        PropertyModel(
+                PropertyModel(
                     id = i?.id ?: -1,
                     imageUrl = i?.primaryImage ?: "",
-                     type =  i?.forWhat ?: "",
-                    isFavourite = i?.isFav?:"" ,
-                    isFeatured = i?.priority?:"",
-                    sellPrice = i?.salePrice?: 0,
-                    rentPrice = i?.rentPrice?:0,
+                    type = i?.forWhat ?: "",
+                    isFavourite = i?.isFav ?: "",
+                    isFeatured = i?.priority ?: "",
+                    sellPrice = i?.salePrice ?: 0,
+                    rentPrice = i?.rentPrice ?: 0,
                     listingNumber = i?.listingNumber ?: "",
                     rentDuration = i?.rentDuration ?: "",
-                    title = i?.title?:"",
+                    title = i?.title ?: "",
                     area = i?.landArea ?: 0,
                     bathroomsCount = i?.bathRoomNo ?: 0,
                     bedsCount = i?.bedRoomsNo ?: 0,
-                    location = "${i?.city}, ${i?.region}, ${i?.subRegion}" ,
+                    location = "${i?.city}, ${i?.region}, ${i?.subRegion}",
                     datePosted = i?.createdAt ?: "",
                     brokerId = i.brokerDetails?.id.toString() ?: "",
                     brokerLogoUrl = i.brokerDetails?.company_logo ?: NONE_IMAGE_URL,
-                    currency = i.currency?:"",
-                    acceptance = i.acceptance?:"",
-                    sold = i.sold?:false,
+                    currency = i.currency ?: "",
+                    acceptance = i.acceptance ?: "",
+                    sold = i.sold ?: false,
                     offerData = null,
-                    region = i.region?:"",
-                    subRegion = i.subRegion?:""
+                    region = i.region ?: "",
+                    subRegion = i.subRegion ?: "",
                 )
             )
         }
 
         return list
     }
+
     private fun chartList(): List<ChartModel> {
         val list = mutableListOf<ChartModel>()
 
@@ -143,6 +152,7 @@ data class MyPropertyDetailsResponse(
 
 
 }
+
 @Parcelize
 data class Data(
     @SerializedName("address")
@@ -154,7 +164,7 @@ data class Data(
     @SerializedName("autocad")
     var autocad: List<Autocad>?,
     @SerializedName("summary")
-    var summary : List<summaryItem>?,
+    var summary: List<summaryItem>?,
     @SerializedName("bath_room_no")
     var bathRoomNo: Int?,
     @SerializedName("bed_rooms_no")
@@ -262,7 +272,8 @@ data class Data(
     @SerializedName("sub_region")
     var subRegion: String?,
 
-) : Parcelable
+    ) : Parcelable
+
 @Parcelize
 data class Slider(
     @SerializedName("id")
@@ -272,6 +283,7 @@ data class Slider(
     @SerializedName("type")
     var type: String?
 ) : Parcelable
+
 @Parcelize
 data class SimilarProperty(
     @SerializedName("address")
@@ -335,7 +347,8 @@ data class SimilarProperty(
     @SerializedName("sub_region")
     var subRegion: String?,
 
-) : Parcelable
+    ) : Parcelable
+
 @Parcelize
 data class Project(
     @SerializedName("agent_data")
@@ -373,6 +386,7 @@ data class Project(
     @SerializedName("twitter")
     var twitter: String?
 ) : Parcelable
+
 @Parcelize
 data class Comment(
     @SerializedName("created_at")
@@ -388,6 +402,7 @@ data class Comment(
     @SerializedName("user_name")
     var userName: String?
 ) : Parcelable
+
 @Parcelize
 data class BrokerDetailX(
     @SerializedName("company_name")
@@ -399,6 +414,7 @@ data class BrokerDetailX(
     @SerializedName("id")
     var id: Int?,
 ) : Parcelable
+
 @Parcelize
 data class BrokerDetail(
     @SerializedName("broker_type")
@@ -422,6 +438,7 @@ data class BrokerDetail(
     @SerializedName("properties_count")
     var propertiesCount: Int?
 ) : Parcelable
+
 @Parcelize
 data class Autocad(
     @SerializedName("id")
@@ -431,6 +448,7 @@ data class Autocad(
     @SerializedName("type")
     var type: String?
 ) : Parcelable
+
 @Parcelize
 data class summaryItem(
     @SerializedName("created_at")
@@ -454,6 +472,7 @@ data class Aminity(
     @SerializedName("title")
     var title: String?
 ) : Parcelable
+
 @Parcelize
 data class AgentData(
     @SerializedName("broker_type")

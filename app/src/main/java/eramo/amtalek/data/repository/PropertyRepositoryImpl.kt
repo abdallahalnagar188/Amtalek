@@ -71,7 +71,8 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
         vendorId:String,
         name: String,
         phone: String,
-        email: String
+        email: String,
+        vendorType:String
     ): Flow<Resource<SubmitToBrokerResponse>> {
         return flow {
             val result = toResultFlow {
@@ -82,7 +83,8 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
                     vendorId = vendorId,
                     name = name,
                     phone = phone,
-                    email = email
+                    email = email,
+                    vendorType = vendorType
                 )
             }
             result.collect {

@@ -1,5 +1,6 @@
 package eramo.amtalek.domain.model.property
 
+import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.BrokerDetail
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 
@@ -40,5 +41,8 @@ data class PropertyDetailsModel(
     val isFavourite:String,
     val sold:Boolean,
     val calcRoi:String,
-    val roi:String
+    val roi:String,
+    val brokerPhone: String,
+    val brokerEmail:String,
+    val vendorType:String
     )

@@ -165,6 +165,7 @@ class PropertyDetailsViewModel @Inject constructor(
         name:String,
         phone:String,
         email:String,
+        vendorType:String
     ){
         sendMessageToPropertyOwnerJob?.cancel()
         sendMessageToPropertyOwnerJob = viewModelScope.launch {
@@ -175,7 +176,8 @@ class PropertyDetailsViewModel @Inject constructor(
                     vendorId = vendorId,
                     name = name,
                     phone = phone,
-                    email = email
+                    email = email,
+                    vendorType = vendorType
                 ).collect { result ->
                     when (result) {
                         is Resource.Success -> {

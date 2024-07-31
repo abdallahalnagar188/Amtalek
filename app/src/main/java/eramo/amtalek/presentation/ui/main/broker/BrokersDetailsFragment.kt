@@ -1,10 +1,13 @@
 package eramo.amtalek.presentation.ui.main.broker
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,14 +19,12 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersDetails.Data
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
@@ -71,6 +72,11 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                 initRv(state?.data?.original ?: emptyList())
             }
         }
+
+    }
+
+    private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String) {
+        viewModelShared.sendContactRequest(propertyId?:0, brokerId, transactionType)
     }
 
     private fun setupListeners() {
@@ -95,15 +101,65 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     }
 
     @SuppressLint("SetTextI18n")
-    private fun assignData(data: Data) {
+    private fun assignData(model: Data) {
         binding.apply {
-            tvAllProjectsCount.text = "${data.property_for_sale?.plus(data.property_for_rent ?: 0)} properties"
-            tvTitle.text = data.name
-            tvDescription.text = data.description
-            tvLocation.text = data.phone
-            tvProjectsCount.text = "${data.projects_count} projects"
-            Glide.with(requireContext()).load(data.logo).into(ivBrokerLogo)
+            tvAllProjectsCount.text = "${model.property_for_sale?.plus(model.property_for_rent ?: 0)} properties"
+            tvTitle.text = model.name
+            tvDescription.text = model.description
+            tvLocation.text = model.phone
+            tvProjectsCount.text = "${model.projects_count} projects"
+            Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
         }
+        binding.shareView.btnCall.setOnClickListener {
+            if (UserUtil.isUserLogin()){
+                model.id?.let { it1 -> handleContactAction(null, it1, "call") }
+                val phoneNumber = "+20${model.phone}"
+                val callIntent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:$phoneNumber")
+                }
+                startActivity(callIntent)
+            }else{
+                findNavController().navigate(R.id.loginDialog)
+            }
+
+        }
+
+        binding.shareView.btnWhatsApp.setOnClickListener {
+            if (UserUtil.isUserLogin()){
+                model.id?.let { it1 -> handleContactAction(null, it1, "meeting") }
+                val phoneNumber = model.phone
+                val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
+                val sendIntent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
+                try {
+                    startActivity(sendIntent)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
+                }
+            }else{
+                findNavController().navigate(R.id.loginDialog)
+            }
+
+        }
+
+        binding.shareView.btnMessaging.setOnClickListener {
+            if (UserUtil.isUserLogin()){
+                model.id?.let { it1 -> handleContactAction(null, it1, "email") }
+                val emailAddress = model.email
+                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:$emailAddress")
+                    putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
+                    putExtra(Intent.EXTRA_TEXT, "Email body here")
+                }
+                startActivity(emailIntent)
+            }else{
+                findNavController().navigate(R.id.loginDialog)
+            }
+
+        }
+
     }
 
     private fun initRv(data: List<OriginalItem>) {

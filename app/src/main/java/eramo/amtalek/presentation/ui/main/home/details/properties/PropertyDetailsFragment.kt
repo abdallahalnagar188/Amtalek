@@ -1,7 +1,9 @@
 package eramo.amtalek.presentation.ui.main.home.details.properties
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.text.TextUtils
@@ -41,6 +43,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapt
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
@@ -75,6 +78,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private val propertyListingNumber get() = args.propertyId
     lateinit var propertyId: String
     private lateinit var vendorId: String
+    private lateinit var vendorType:String
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
@@ -216,67 +220,67 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 val message = binding.etMessageValue.text.toString()
                 val vendorId = vendorId
                 val propertyId = propertyId
+                val vendorType = vendorType
                 viewModel.sendMessageToPropertyOwner(
                     name = name,
                     email = email,
                     phone = phone,
                     message = message,
                     vendorId = vendorId,
-                    propertyId = propertyId
+                    propertyId = propertyId,
+                    vendorType = vendorType
                 )
 
             }
         }
 
 
-
     }
-    private fun navigateToProfile(model:PropertyDetailsModel){
-        binding.tvVisitProfile.setOnClickListener() {
+
+    private fun navigateToProfile(model: PropertyDetailsModel) {
             findNavController().navigate(
                 R.id.brokersDetailsFragment,
                 bundleOf("id" to model.brokerId),
                 navOptionsAnimation()
             )
-        }
+
 
     }
 
 
+    fun chickeListenerForContactBefore() {
 
-    fun chickeListenerForContactBefore(response: String ){
-        if (response.equals("Sorry contact before")){
-            showToast("Sorry contact before")}
-        else{
-            binding.contactUs.btnCall.setOnClickListener {
-                handleContactAction(propertyId.toInt(), vendorId.toInt(), "call")
-                Intent.ACTION_CALL
-                showToast("call")
-            }
-            binding.contactUs.btnMessaging.setOnClickListener {
-                handleContactAction(propertyId.toInt(), vendorId.toInt(), "email")
-                showToast("email")
-            }
-            binding.contactUs.btnWhatsApp.setOnClickListener {
-                handleContactAction(propertyId.toInt(), vendorId.toInt(), "meeting")
-                showToast("meeting")
-                }
+        binding.contactUs.btnCall.setOnClickListener {
+            handleContactAction(propertyId.toInt(), vendorId.toInt(), "call")
+//                val callIntent = Intent(Intent.ACTION_DIAL)
+//                callIntent.data = Uri.parse(UserUtil.getUserPhone()) // Replace with the actual phone number
+//                startActivity(callIntent)
+        }
+        binding.contactUs.btnMessaging.setOnClickListener {
+            handleContactAction(propertyId.toInt(), vendorId.toInt(), "email")
+        }
+        binding.contactUs.btnWhatsApp.setOnClickListener {
+            handleContactAction(propertyId.toInt(), vendorId.toInt(), "meeting")
         }
 
+
     }
+
     private fun contactUsListener() {
         lifecycleScope.launch {
             sharedViewModel.contactResult.collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data?.message?.let { message ->
-                            chickeListenerForContactBefore(message)
+                            chickeListenerForContactBefore()
                         }
                     }
+
                     is Resource.Error -> {
                         Log.e("error", result.message.toString())
                         showToast(result.message.toString())
                     }
+
                     is Resource.Loading -> {
                         // Show loading indicator if necessary
                     }
@@ -284,8 +288,11 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
     }
+
     private fun handleContactAction(propertyId: Int, brokerId: Int, transactionType: String) {
-        sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
+            sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
+
+
     }
 
 
@@ -472,6 +479,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             loadOfferTypes(state.data.forWhat!!)
                             propertyId = state.data.id.toString()
                             vendorId = state.data.brokerId.toString()
+                            vendorType = state.data.vendorType
                         }
 
                         is UiState.Error -> {
@@ -492,12 +500,12 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
-    private fun assignData(data: PropertyDetailsModel) {
+    private fun assignData(model: PropertyDetailsModel) {
         try {
             binding.apply {
-                var isFav = data.isFavourite
+                var isFav = model.isFavourite
                 ivFavourite.setOnClickListener {
-                    viewModel.addOrRemoveFav(data.id)
+                    viewModel.addOrRemoveFav(model.id)
                     if (isFav == "0") {
                         ivFavourite.setImageResource(R.drawable.ic_heart_fill)
                         isFav = "1"
@@ -511,32 +519,32 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 } else {
                     ivFavourite.setImageResource(R.drawable.ic_heart)
                 }
-                propertyId = data.id.toString()
-                vendorId = data.brokerId.toString()
-                setupImageSliderTop(data.sliderImages)
-                checkRentDuration(data.rentDuration)
-                when (data.forWhat) {
+                propertyId = model.id.toString()
+                vendorId = model.brokerId.toString()
+                setupImageSliderTop(model.sliderImages)
+                checkRentDuration(model.rentDuration)
+                when (model.forWhat) {
                     "for_rent" -> {
-                        setRentPriceValue(formatPrice(data.rentPrice))
-                        tvCurrencyRent.text = " " + data.currency
+                        setRentPriceValue(formatPrice(model.rentPrice))
+                        tvCurrencyRent.text = " " + model.currency
                         tvOr.isVisible = false
                         tvPrice.isVisible = false
                         tvPriceAnimation.isVisible = false
                     }
 
                     "for_sale" -> {
-                        setPriceValue(formatPrice(data.sellPrice))
-                        tvCurrency.text = " " + data.currency
+                        setPriceValue(formatPrice(model.sellPrice))
+                        tvCurrency.text = " " + model.currency
                         tvOr.isVisible = false
                         tvPriceRent.isVisible = false
                         tvPriceAnimationRent.isVisible = false
                     }
 
                     "for_both" -> {
-                        setPriceValue(formatPrice(data.sellPrice))
-                        setRentPriceValue(formatPrice(data.rentPrice))
-                        tvCurrency.text = " " + data.currency
-                        tvCurrencyRent.text = " " + data.currency
+                        setPriceValue(formatPrice(model.sellPrice))
+                        setRentPriceValue(formatPrice(model.rentPrice))
+                        tvCurrency.text = " " + model.currency
+                        tvCurrencyRent.text = " " + model.currency
                         tvOr.isVisible = true
                     }
                 }
@@ -544,81 +552,107 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 //                tvCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
 
-                tvTitle.text = data.title
-                tvLocation.text = data.location
-                tvDate.text = data.datePosted
+                tvTitle.text = model.title
+                tvLocation.text = model.location
+                tvDate.text = model.datePosted
                 // header layout
-                tvFinishing.text = data.finishing
-                tvLocation2.text = data.areaLocation
-                tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(data.area))
-                tvBedrooms.text = getString(R.string.s_bedroom_count_n, data.bedroomsCount.toString())
-                tvBathrooms.text = getString(R.string.s_bathroom_count_n, data.bathroomsCount.toString())
+                tvFinishing.text = model.finishing
+                tvLocation2.text = model.areaLocation
+                tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(model.area))
+                tvBedrooms.text = getString(R.string.s_bedroom_count_n, model.bedroomsCount.toString())
+                tvBathrooms.text = getString(R.string.s_bathroom_count_n, model.bathroomsCount.toString())
 
 
-                tvUserName.text = data.brokerName
-                tvUserId.text = data.brokerDescription
+                tvUserName.text = model.brokerName
+                tvUserId.text = model.brokerDescription
 
                 Glide.with(requireContext())
-                    .load(data.brokerImageUrl)
+                    .load(model.brokerImageUrl)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivUserImage)
 
-                if (data.mapUrl.isNullOrEmpty()) {
+                if (model.mapUrl.isNullOrEmpty()) {
                     webView.visibility = View.GONE
                     mymapCardView.visibility = View.GONE
                 } else {
-                    mapSetup(data.mapUrl)
+                    mapSetup(model.mapUrl)
                 }
 
-                propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
-                propertyDetailsLayout.tvTypeValue.text = data.propertyType
-                propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))
-                propertyDetailsLayout.tvBedroomsValue.text = data.bedroomsCount.toString()
-                propertyDetailsLayout.tvBathroomValue.text = data.bathroomsCount.toString()
-                propertyDetailsLayout.tvFinishingValue.text = data.finishing
-                propertyDetailsLayout.tvFloorsValue.text = data.floors.joinToString(", ")
-                propertyDetailsLayout.tvFloorValue.text = data.landType
+                propertyDetailsLayout.tvPropertyCodeValue.text = model.propertyCode
+                propertyDetailsLayout.tvTypeValue.text = model.propertyType
+                propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(model.area))
+                propertyDetailsLayout.tvBedroomsValue.text = model.bedroomsCount.toString()
+                propertyDetailsLayout.tvBathroomValue.text = model.bathroomsCount.toString()
+                propertyDetailsLayout.tvFinishingValue.text = model.finishing
+                propertyDetailsLayout.tvFloorsValue.text = model.floors.joinToString(", ")
+                propertyDetailsLayout.tvFloorValue.text = model.landType
 
-                tvDescriptionValue.text = data.description
+                tvDescriptionValue.text = model.description
 
-                initPropertyFeaturesRv(data.propertyAmenities)
+                initPropertyFeaturesRv(model.propertyAmenities)
 
-                if (data.videoUrl.isNullOrEmpty()) {
+                if (model.videoUrl.isNullOrEmpty()) {
                     youtubePlayerView.visibility = View.GONE
                 } else {
-                    getYoutubeUrlId(data.videoUrl)?.let {
+                    getYoutubeUrlId(model.videoUrl)?.let {
                         setupVideo(it)
                     }
                 }
-                navigateToProfile(model = data )
+                tvVisitProfile.setOnClickListener {
+                    if (model.vendorType == "broker")
+                    navigateToProfile(model = model)
+                    else if (model.vendorType == "user"){
 
-                tvRatings.text = getString(R.string.s_ratings, data.comments.size.toString())
+                    }
+                }
 
-                initCommentsRv(data.comments)
-                initSimilarPropertiesRv(data.similarProperties)
 
-                if (data.sold) {
+                tvRatings.text = getString(R.string.s_ratings, model.comments.size.toString())
+
+                initCommentsRv(model.comments)
+                initSimilarPropertiesRv(model.similarProperties)
+
+                if (model.sold) {
                     soldCardView.visibility = View.VISIBLE
                 } else {
                     soldCardView.visibility = View.GONE
                 }
-                if (data.calcRoi == "yes") {
-                    roiLayout.tvRoiValue.text = data.roi
-                } else if (data.calcRoi == "no") {
+                if (model.calcRoi == "yes") {
+                    roiLayout.tvRoiValue.text = model.roi
+                } else if (model.calcRoi == "no") {
                     roiLayout.root.visibility = View.GONE
                 }
                 binding.contactUs.btnCall.setOnClickListener {
-
-                    handleContactAction(data.id, data.brokerId, "call")
+                    if (UserUtil.isUserLogin()){
+                        handleContactAction(model.id, model.brokerId, "call")
+                        val phoneNumber = "+20${model.brokerPhone}"
+                        makeCall(phoneNumber)
+                    }else{
+                        sharedViewModel.previousScreen = (R.id.propertyDetailsFragment)
+                        findNavController().navigate(R.id.loginDialog)
+                    }
                 }
                 binding.contactUs.btnMessaging.setOnClickListener {
-                    handleContactAction(data.id, data.brokerId, "email")
+                    if (UserUtil.isUserLogin()){
+                        handleContactAction(model.id, model.brokerId, "email")
+                        val emailAddress = model.brokerEmail
+                        sendEmail(emailAddress)
+                    }else{
+                        findNavController().navigate(R.id.loginDialog)
+                    }
+
                 }
                 binding.contactUs.btnWhatsApp.setOnClickListener {
-                    handleContactAction(data.id, data.brokerId, "meeting")
-                }
+                    if (UserUtil.isUserLogin()){
+                        handleContactAction(model.id, model.brokerId, "meeting")
+                        val phoneNumber =
+                            model.brokerPhone // Make sure this is the full phone number in international format, e.g., "201234567890"
+                        openWhatsApp(phoneNumber)
+                    }else{
+                        findNavController().navigate(R.id.loginDialog)
+                    }
 
-                contactUsListener()
+                }
             }
             dismissShimmerEffect()
 
@@ -626,6 +660,35 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             dismissShimmerEffect()
             showToast(getString(R.string.invalid_data_parsing))
         }
+    }
+
+    fun makeCall(phoneNumber: String) {
+        val callIntent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+        startActivity(callIntent)
+    }
+
+    private fun openWhatsApp(phoneNumber: String) {
+        val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
+        val sendIntent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        try {
+            startActivity(sendIntent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun sendEmail(emailAddress: String) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$emailAddress")
+            putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
+            putExtra(Intent.EXTRA_TEXT, "Email body here")
+        }
+        startActivity(emailIntent)
     }
 
     private fun checkRentDuration(rentDuration: String) {

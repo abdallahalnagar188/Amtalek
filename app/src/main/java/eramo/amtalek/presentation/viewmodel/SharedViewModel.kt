@@ -7,10 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
+import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.repository.ContactRepository
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.domain.repository.ContactedAgentRepo
+import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -24,8 +27,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val repository: ContactRepository
+    private val repository: ContactRepository,
+
 ) : ViewModel() {
+
+    var previousScreen: Int? = null
 
     val openDrawer = MutableLiveData<Boolean>()
     val profileData = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
@@ -40,6 +46,7 @@ class SharedViewModel @Inject constructor(
 
     private val _contactResult = MutableStateFlow<Resource<ContactUsResponseInProperty>>(Resource.Loading())
     val contactResult: MutableStateFlow<Resource<ContactUsResponseInProperty>> = _contactResult
+
 
 
 
@@ -102,4 +109,5 @@ class SharedViewModel @Inject constructor(
             }
         }
     }
+
 }

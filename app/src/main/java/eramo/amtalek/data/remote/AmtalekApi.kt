@@ -12,6 +12,7 @@ import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
 import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
+import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
@@ -257,9 +258,8 @@ interface AmtalekApi {
         @Field("property_id") propertyId: Int,
     ): Response<AddOrRemoveFavResponse>
 
-
-
     ////////////////////////////////////////////////////////////////////
+
     @GET("mobile/home")
     suspend fun getHome(
         @Header("Authorization") userToken: String?
@@ -268,7 +268,7 @@ interface AmtalekApi {
     @GET("web/get-contacted-agents")
     suspend fun getContactedAgents(
         @Header("Authorization") userToken: String?
-    ): Response<ContactedAgentResponse>
+    ): ContactedAgentResponse
 
     @FormUrlEncoded
     @POST("mobile/cities-filter")
@@ -353,6 +353,7 @@ interface AmtalekApi {
     suspend fun sendMessageToPropertyOwner(
         @Header("Authorization") userToken: String?,
         @Field("property_id") propertyId: String,
+        @Field("broker_type") vendorType:String,
         @Field("message") message: String,
         @Field("vendor_id") vendorId: String,
         @Field("not_ropot") not_ropot: String = "yes",
@@ -563,10 +564,15 @@ interface AmtalekApi {
     @FormUrlEncoded
     @POST("web/contact-brokers-in-details")
     suspend fun sendContactRequest(
-        @Field("property_id") propertyId: String,
+        @Field("property_id") propertyId: String?,
         @Field("broker_id") brokerId: String,
         @Field("transaction_type") transactionType: String,
     ): Response<ContactUsResponseInProperty>
+
+    @POST("web/get-contacted-agents-messages")
+    suspend fun getContactedAgentsMessage(
+        @Field("agent_id") agentId:String
+    ):Response<ContactAgentsMessageResponse>
 
 
 

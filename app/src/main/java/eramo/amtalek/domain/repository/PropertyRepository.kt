@@ -27,6 +27,7 @@ interface PropertyRepository {
         name:String,
         phone:String,
         email:String,
+        vendorType:String
     ):Flow<Resource<SubmitToBrokerResponse>>
     suspend fun sendPropertyOffer(
         propertyId: String,

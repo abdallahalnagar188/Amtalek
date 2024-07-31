@@ -1,104 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_4sdp"
-    android:paddingHorizontal="@dimen/_6sdp"
-    android:paddingVertical="@dimen/_5sdp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="@dimen/_4ssp"
+    android:layout_marginVertical="@dimen/_6sdp"
+    android:layout_marginHorizontal="@dimen/_2sdp"
+    app:cardCornerRadius="@dimen/_10sdp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_image"
-        android:layout_width="@dimen/_45sdp"
-        android:layout_height="@dimen/_40sdp"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_4sdp"
+        android:paddingHorizontal="@dimen/_6sdp"
+        android:paddingVertical="@dimen/_5sdp">
 
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@null"
-            android:scaleType="centerCrop"
-            tools:src="@color/colorAccent" />
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_image"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
-    <ImageView
-        android:id="@+id/iv_status"
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginStart="@dimen/_36sdp"
-        android:layout_marginTop="@dimen/_32ssp"
-        android:src="@drawable/status_shape_green"
-        app:layout_constraintBottom_toBottomOf="@id/cv_image"
-        app:layout_constraintEnd_toEndOf="@id/cv_image"
-        app:layout_constraintStart_toStartOf="@id/cv_image"
-        app:layout_constraintTop_toTopOf="@id/cv_image" />
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                tools:src="@color/colorAccent" />
+        </com.google.android.material.card.MaterialCardView>
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:fontFamily="@font/montserratsemibold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        android:textDirection="locale"
-        android:ellipsize="end"
-        android:maxLines="1"
-        app:layout_constraintEnd_toStartOf="@id/tv_date"
-        app:layout_constraintStart_toEndOf="@id/cv_image"
-        app:layout_constraintTop_toTopOf="@id/cv_image"
-        tools:text="Athalia Putri" />
 
-    <TextView
-        android:id="@+id/tv_message"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_45sdp"
-        android:layout_marginTop="@dimen/_1sdp"
-        android:textColor="#ADB5BD"
-        android:textSize="@dimen/_11ssp"
-        android:textDirection="locale"
-        android:ellipsize="end"
-        android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cv_image"
-        app:layout_constraintTop_toBottomOf="@id/tv_name"
-        tools:text="Good morning, did you sleep well?" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserratsemibold"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textDirection="locale"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cv_image"
+            app:layout_constraintTop_toTopOf="@id/cv_image"
+            tools:text="Athalia Putri" />
 
-    <TextView
-        android:id="@+id/tv_Count"
-        android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"
-        android:background="@drawable/shape_red"
-        android:fontFamily="@font/montserratbold"
-        android:gravity="center"
-        android:layout_marginStart="@dimen/_12sdp"
-        tools:text="4"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_7ssp"
-        app:layout_constraintStart_toEndOf="@+id/tv_message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_message"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_message"
-        />
-
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserratsemibold"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_9ssp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cv_image"
-        tools:text="3 Days ago" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

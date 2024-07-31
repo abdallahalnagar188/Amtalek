@@ -315,8 +315,6 @@ class HomeMyViewModel @Inject constructor(
                         is Resource.Loading->{
                             _homeExtraSectionsState.emit(UiState.Loading())
                         }
-
-
                 }
         }
     }

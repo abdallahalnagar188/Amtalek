@@ -5,5 +5,5 @@ import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface ContactedAgentRepo {
-    suspend fun getContactedAgents(): Flow<Resource<ContactedAgentResponse>>
+    suspend fun getContactedAgents(): ContactedAgentResponse
 }

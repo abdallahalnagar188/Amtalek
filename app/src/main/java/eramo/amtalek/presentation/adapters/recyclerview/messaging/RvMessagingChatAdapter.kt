@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.ItemMessagingChatBinding
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
 import javax.inject.Inject
 
 
 class RvMessagingChatAdapter @Inject constructor() :
-    ListAdapter<MessagingChatModel, RvMessagingChatAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<Data, RvMessagingChatAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -36,15 +37,11 @@ class RvMessagingChatAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: MessagingChatModel) {
+        fun bind(model: Data) {
             binding.apply {
 
-                tvName.text = model.senderName
-                tvMessage.text = model.lastMessage
-                tvCount.text = model.unseenCount.toString()
-                tvDate.text = model.date
-
-                Glide.with(itemView).load(model.senderImageUrl).into(ivImage)
+                tvName.text = model.name
+                Glide.with(itemView).load(model.image).into(ivImage)
             }
         }
     }
@@ -54,20 +51,20 @@ class RvMessagingChatAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onChatClick(model: MessagingChatModel)
+        fun onChatClick(model: Data)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<MessagingChatModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
             override fun areItemsTheSame(
-                oldItem: MessagingChatModel,
-                newItem: MessagingChatModel
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: MessagingChatModel,
-                newItem: MessagingChatModel
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
         }
     }

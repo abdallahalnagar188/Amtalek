@@ -39,13 +39,13 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getBrokers()
-        lifecycleScope.launch {
-            viewModel.brokers.collect {
-                Log.e("elnagar", it?.data?.original?.data.toString())
-                rvBrokersAdapter.submitList(it?.data?.original?.data)
-                binding.rvBrokers.adapter = rvBrokersAdapter
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.brokers.collect {
+//                Log.e("elnagar", it?.data?.original?.data.toString())
+//                rvBrokersAdapter.submitList(it?.data?.original?.data)
+//                binding.rvBrokers.adapter = rvBrokersAdapter
+//            }
+//        }
         setupViews()
 
     }

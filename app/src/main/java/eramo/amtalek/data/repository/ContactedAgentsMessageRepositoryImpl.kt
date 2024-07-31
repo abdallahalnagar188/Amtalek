@@ -1,8 +1,8 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
-import eramo.amtalek.domain.repository.ContactUsRepo
+import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
+import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.toResultFlow
@@ -10,19 +10,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ContactRepository @Inject constructor(private val apiService: AmtalekApi) : ContactUsRepo {
+class ContactedAgentsMessageRepositoryImpl @Inject constructor(private val apiService: AmtalekApi) : ContactedAgentsMessageRepo {
 
-    override suspend fun contactUs(
-        propertyId: Int,
-        brokerId: Int,
-        transactionType: String
-    ): Flow<Resource<ContactUsResponseInProperty>> {
-
+    override suspend fun getContactedAgentsMessage(agentId: String): Flow<Resource<ContactAgentsMessageResponse>> {
         return flow {
             val result = toResultFlow {
-                apiService.sendContactRequest(
-                    propertyId.toString(), brokerId.toString(), transactionType
-                )
+                apiService.getContactedAgentsMessage(agentId = agentId)
             }
             result.collect {
                 when (it) {

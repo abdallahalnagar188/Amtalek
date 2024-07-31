@@ -1,19 +1,25 @@
 package eramo.amtalek.presentation.ui.drawer.messaging
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.FragmentMessagingChatBinding
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.navOptionsAnimation
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +31,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     @Inject
     lateinit var rvMessagingChatAdapter: RvMessagingChatAdapter
+    val viewModel:MessagingViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,25 +41,31 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     private fun setupViews() {
 
-        initChatRv(Dummy.dummyMessagingChatList())
+        viewModel.getContactedAgents()
+        lifecycleScope.launch {
+            Log.e("contacted agents",viewModel.contactedAgents.toString())
+            viewModel.contactedAgents.collect(){
+                initChatRv(viewModel.contactedAgents.value?.data?: emptyList())
+            }
+        }
+
     }
 
 
-    private fun initChatRv(data: List<MessagingChatModel>) {
+    private fun initChatRv(data: List<Data?>) {
         rvMessagingChatAdapter.setListener(this@MessagingChatFragment)
         binding.rv.adapter = rvMessagingChatAdapter
         rvMessagingChatAdapter.submitList(data)
-
         setupSearchRv(data)
     }
 
-    private fun setupSearchRv(data: List<MessagingChatModel>) {
+    private fun setupSearchRv(data: List<Data?>) {
         binding.etSearch.addTextChangedListener { text ->
             if (text.toString().isEmpty()) {
                 rvMessagingChatAdapter.submitList(data)
             } else {
                 val list = data.filter {
-                    it.senderName.lowercase().contains(text.toString().lowercase())
+                    it?.name?.lowercase()?.contains(text.toString().lowercase()) == true
                 }
                 rvMessagingChatAdapter.submitList(null)
                 rvMessagingChatAdapter.submitList(list)
@@ -60,7 +73,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
         }
     }
 
-    override fun onChatClick(model: MessagingChatModel) {
+    override fun onChatClick(model: Data) {
         findNavController().navigate(R.id.usersChatFragment, null, navOptionsAnimation())
     }
 }
