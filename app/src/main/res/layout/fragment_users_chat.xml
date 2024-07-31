@@ -15,87 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_user_header"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_76sdp"
-        android:background="@color/amtalek_blue_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_user_image"
-            android:layout_width="@dimen/_44sdp"
-            android:layout_height="@dimen/_44sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="@id/view_user_header"
-            app:layout_constraintStart_toStartOf="@id/view_user_header"
-            app:layout_constraintTop_toTopOf="@id/view_user_header"
-            app:shapeAppearanceOverlay="@style/ShapeableImageViewCircularStyle"
-            tools:src="@color/gold" />
-
-        <TextView
-            android:id="@+id/tv_user_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserratmedium"
-            android:maxLines="1"
-            android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toTopOf="@id/tv_user_id"
-            app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
-            app:layout_constraintStart_toEndOf="@id/iv_user_image"
-            app:layout_constraintTop_toTopOf="@id/iv_user_image"
-            tools:text="Lana Realstate company" />
-
-        <TextView
-            android:id="@+id/tv_user_id"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_9sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserratregular"
-            android:maxLines="1"
-            android:textAlignment="viewStart"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
-            app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
-            app:layout_constraintStart_toEndOf="@id/iv_user_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_user_name"
-            tools:text="Lana.Eramo12" />
-
-        <TextView
-            android:id="@+id/tv_visit_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_9sdp"
-            android:layout_marginEnd="@dimen/_2ssp"
-            android:fontFamily="@font/montserratregular"
-            android:gravity="center"
-            android:text="@string/visit_profile"
-            android:textColor="#EAB010"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_arrow_broker"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_arrow_broker"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/screen_margin_sides"
-            android:src="@drawable/ic_arrow_right_goldt"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -109,7 +29,7 @@
         app:layout_constraintBottom_toTopOf="@id/til_write_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_user_header"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:listitem="@layout/item_chat_sender" />
 
     <com.google.android.material.textfield.TextInputLayout

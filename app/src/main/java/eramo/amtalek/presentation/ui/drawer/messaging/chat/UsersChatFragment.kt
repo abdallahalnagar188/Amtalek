@@ -1,20 +1,20 @@
 package eramo.amtalek.presentation.ui.drawer.messaging.chat
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.FragmentUsersChatBinding
-import eramo.amtalek.domain.model.social.messaging.ChatMessageModel
-import eramo.amtalek.domain.model.social.messaging.ChatMessageType
 import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.presentation.ui.drawer.messaging.MessagingViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,12 +25,20 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
 
     @Inject
     lateinit var rvUsersChatAdapter: RvUsersChatAdapter
+    val viewModel: MessagingViewModel by viewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupViews()
-        listeners()
+        viewModel.getContactedAgentsMessage(viewModel.contactedAgentsMessageResult.value?.data?.data?.agentData?.id.toString())
+        Log.e("Message", viewModel.contactedAgentsMessageResult.toString())
+        viewModel.contactedAgentsMessageResult.value?.data?.data?.agentData?.messages?.get(0)
+            ?.let { setupViews(viewModel.contactedAgentsMessageResult.value?.data!!) }
+        viewModel.contactedAgentsMessageResult.value?.data?.data?.agentData?.messages?.get(0)?.let {
+            listeners(
+                it
+            )
+        }
     }
 
     override fun onPause() {
@@ -38,50 +46,64 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
         rvUsersChatAdapter.submitList(null)
     }
 
-    private fun setupViews() {
-        setupToolbar()
+    private fun setupViews(model: ContactAgentsMessageResponse) {
+        model.data?.agentData?.name?.let { setupToolbar(it) }
 
         assignFakeData()
-        initRvChat()
+        model?.data?.agentData?.messages?.filterNotNull()?.toMutableList()?.let {
+            rvUsersChatAdapter.submitList(it)
+        }
+
     }
 
-    private fun listeners() {
+    private fun listeners(model: Message) {
         binding.apply {
-            viewUserHeader.setOnClickListener {
-                findNavController().navigate(R.id.userProfileFragment, null, navOptionsAnimation())
-            }
+//        viewUserHeader.setOnClickListener {
+//            findNavController().navigate(R.id.userProfileFragment, null, navOptionsAnimation())
+//        }
 
             btnSendMessage.setOnClickListener {
-                rvUsersChatAdapter.sendMessage(etWriteMessage.text.toString().trim())
-                etWriteMessage.text = null
+                model.id?.let { messageId ->
+                    val messageText = etWriteMessage.text.toString().trim()
+                    rvUsersChatAdapter.sendMessage(
+                        message = messageText,
+                        messageId = messageId,
+                        link = model.link.toString()
+                    )
+                    etWriteMessage.text?.clear() // Clear the message input field after sending
 
-                rv.smoothScrollToPosition(rvUsersChatAdapter.currentList.size )
+                    rv.smoothScrollToPosition(rvUsersChatAdapter.currentList.size)
+                }
             }
         }
     }
 
-    private fun setupToolbar() {
+
+    private fun setupToolbar(agentName: String) {
         binding.toolbar.apply {
             ivBack.setOnClickListener { findNavController().popBackStack() }
-            tvTitle.text = getString(R.string.chat_messaging)
+            tvTitle.text = agentName
         }
     }
 
     private fun assignFakeData() {
         binding.apply {
-            tvUserName.text = "Erlan Sadewa"
-            tvUserId.text = "erlan.sadewa"
-            Glide.with(requireContext())
-                .load("https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg")
-                .into(ivUserImage)
+//            tvUserName.text = "Erlan Sadewa"
+//            tvUserId.text = "erlan.sadewa"
+//            Glide.with(requireContext())
+//                .load("https://preview.keenthemes.com/metronic-v4/theme/assets/pages/media/profile/profile_user.jpg")
+//                .into(ivUserImage)
 
 
         }
     }
 
-    private fun initRvChat() {
+    private fun initRvChat(list: MutableList<Message>) {
         binding.rv.adapter = rvUsersChatAdapter
-        rvUsersChatAdapter.submitList(Dummy.dummyChatList())
+        rvUsersChatAdapter.submitList(
+            list
+
+        )
 
     }
 }
