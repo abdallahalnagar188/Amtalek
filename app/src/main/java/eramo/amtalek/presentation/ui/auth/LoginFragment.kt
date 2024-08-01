@@ -60,15 +60,37 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
         listeners()
 
         fetchData()
+        loginUser {
+            if (it) {
+                onLoginSuccess()
+            } else {
+                // Handle login failure
+            }
+        }
+    }
+
+
+
+    private fun loginUser(callback: (Boolean) -> Unit) {
+        // Your login logic here
+        // Call callback(true) on success, callback(false) on failure
+    }
+
+    fun onLoginSuccess() {
+        viewModelShared.previousScreen?.let { destinationId ->
+            findNavController().popBackStack(destinationId, false)
+            // Optionally clear the previousScreen after navigating
+            viewModelShared.previousScreen = null
+        }
     }
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         setupAnimations()
-        if (LocalUtil.isEnglish()){
+        if (LocalUtil.isEnglish()) {
             binding.FLoginIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
-        }else{
+        } else {
             binding.FLoginIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
         }
     }
@@ -78,7 +100,7 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
 
         binding.apply {
             FLoginTvSignUp.setOnClickListener {
-                findNavController().navigate(R.id.signUpFragment,null, navOptionsFromBottomAnimation())
+                findNavController().navigate(R.id.signUpFragment, null, navOptionsFromBottomAnimation())
             }
 
             FLoginTvForgotPassword.setOnClickListener {
@@ -108,13 +130,13 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
         fetchSendingVerificationCodeEmailState()
     }
 
-    private fun setupAnimations(){
+    private fun setupAnimations() {
         applyLogoAnimation()
     }
 
     private fun fetchLoginState() {
         lifecycleScope.launch {
-           withContext(coroutineContext){
+            withContext(coroutineContext) {
                 viewModel.loginState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
@@ -139,15 +161,19 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
                                 getString(R.string.please_verify_account) -> {
                                     showToast(getString(R.string.please_verify_account_an_email_sent))
                                     viewModel.sendVerificationCodeEmail(binding.FLoginEtMail.text.toString().trim())
-                                    findNavController().navigate(R.id.otpSignUpFragment,OtpSignUpFragmentArgs(binding.FLoginEtMail.text.toString().trim()).toBundle(), navOptionsAnimation())
+                                    findNavController().navigate(
+                                        R.id.otpSignUpFragment,
+                                        OtpSignUpFragmentArgs(binding.FLoginEtMail.text.toString().trim()).toBundle(),
+                                        navOptionsAnimation()
+                                    )
 
                                 }
 
-                                getString(R.string.suspended_account_string)->{
+                                getString(R.string.suspended_account_string) -> {
                                     findNavController().navigate(R.id.deletedAccountDialogFragment)
                                 }
 
-                                else ->{
+                                else -> {
                                     showToast(errorMessage)
                                 }
                             }
@@ -286,7 +312,6 @@ class LoginFragment : BindingFragment<FragmentLoginBinding>() {
             )
         }
     }
-
 
 
     private fun applyLogoAnimation() {

@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.main.home.details.properties
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -99,8 +101,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         fetchData()
         clickListeners()
         setupToggle()
-
     }
+
+
 
     private fun setupToggle() {
         binding.toggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -247,52 +250,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     }
 
-
-    fun chickeListenerForContactBefore() {
-
-        binding.contactUs.btnCall.setOnClickListener {
-            handleContactAction(propertyId.toInt(), vendorId.toInt(), "call")
-//                val callIntent = Intent(Intent.ACTION_DIAL)
-//                callIntent.data = Uri.parse(UserUtil.getUserPhone()) // Replace with the actual phone number
-//                startActivity(callIntent)
-        }
-        binding.contactUs.btnMessaging.setOnClickListener {
-            handleContactAction(propertyId.toInt(), vendorId.toInt(), "email")
-        }
-        binding.contactUs.btnWhatsApp.setOnClickListener {
-            handleContactAction(propertyId.toInt(), vendorId.toInt(), "meeting")
-        }
-
-
-    }
-
-    private fun contactUsListener() {
-        lifecycleScope.launch {
-            sharedViewModel.contactResult.collect { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        result.data?.message?.let { message ->
-                            chickeListenerForContactBefore()
-                        }
-                    }
-
-                    is Resource.Error -> {
-                        Log.e("error", result.message.toString())
-                        showToast(result.message.toString())
-                    }
-
-                    is Resource.Loading -> {
-                        // Show loading indicator if necessary
-                    }
-                }
-            }
-        }
-    }
-
     private fun handleContactAction(propertyId: Int, brokerId: Int, transactionType: String) {
             sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
-
-
     }
 
 
@@ -624,16 +583,18 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
                 binding.contactUs.btnCall.setOnClickListener {
                     if (UserUtil.isUserLogin()){
+//                        sharedViewModel.sendContactRequest(model.id,model.brokerId,"call")
+                        Log.e("call",model.brokerPhone.toString())
                         handleContactAction(model.id, model.brokerId, "call")
                         val phoneNumber = "+20${model.brokerPhone}"
                         makeCall(phoneNumber)
                     }else{
-                        sharedViewModel.previousScreen = (R.id.propertyDetailsFragment)
                         findNavController().navigate(R.id.loginDialog)
                     }
                 }
                 binding.contactUs.btnMessaging.setOnClickListener {
                     if (UserUtil.isUserLogin()){
+                        sharedViewModel.sendContactRequest(model.id,model.brokerId,"email")
                         handleContactAction(model.id, model.brokerId, "email")
                         val emailAddress = model.brokerEmail
                         sendEmail(emailAddress)
@@ -644,11 +605,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
                 binding.contactUs.btnWhatsApp.setOnClickListener {
                     if (UserUtil.isUserLogin()){
+                        sharedViewModel.sendContactRequest(model.id,model.brokerId,"meeting")
                         handleContactAction(model.id, model.brokerId, "meeting")
                         val phoneNumber =
                             model.brokerPhone // Make sure this is the full phone number in international format, e.g., "201234567890"
                         openWhatsApp(phoneNumber)
                     }else{
+
                         findNavController().navigate(R.id.loginDialog)
                     }
 
@@ -661,6 +624,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             showToast(getString(R.string.invalid_data_parsing))
         }
     }
+
 
     fun makeCall(phoneNumber: String) {
         val callIntent = Intent(Intent.ACTION_DIAL).apply {

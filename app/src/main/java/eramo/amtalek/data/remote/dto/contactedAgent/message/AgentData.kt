@@ -9,7 +9,7 @@ data class AgentData(
     @SerializedName("image")
     var image: Any?,
     @SerializedName("messages")
-    var messages: MutableList<Message?>?,
+    var messages: MutableList<Message>,
     @SerializedName("name")
     var name: String?
 )

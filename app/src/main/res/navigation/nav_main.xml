@@ -305,7 +305,11 @@
         android:id="@+id/usersChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragment"
         android:label="fragment_users_chat"
-        tools:layout="@layout/fragment_users_chat" />
+        tools:layout="@layout/fragment_users_chat" >
+        <argument
+            android:name="agentId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="eramo.amtalek.presentation.ui.social.UserProfileFragment"

@@ -8,13 +8,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
-import eramo.amtalek.data.repository.ContactRepository
+import eramo.amtalek.data.repository.ContactRepositoryImpl
+import eramo.amtalek.data.repository.ContactedAgentsMessageRepositoryImpl
 import eramo.amtalek.domain.model.ResultModel
 import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.repository.AuthRepository
-import eramo.amtalek.domain.repository.ContactedAgentRepo
 import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -27,9 +28,12 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val repository: ContactRepository,
+    private val repository: ContactRepositoryImpl,
+    private val contactedAgentsMessageRepo: ContactedAgentsMessageRepositoryImpl,
 
-) : ViewModel() {
+
+
+    ) : ViewModel() {
 
     var previousScreen: Int? = null
 
@@ -47,6 +51,8 @@ class SharedViewModel @Inject constructor(
     private val _contactResult = MutableStateFlow<Resource<ContactUsResponseInProperty>>(Resource.Loading())
     val contactResult: MutableStateFlow<Resource<ContactUsResponseInProperty>> = _contactResult
 
+    private val _messagesState = MutableStateFlow<Resource<ContactAgentsMessageResponse>>(Resource.Loading())
+    val messagesState: StateFlow<Resource<ContactAgentsMessageResponse>> get() = _messagesState
 
 
 
@@ -61,6 +67,7 @@ class SharedViewModel @Inject constructor(
     fun cancelRequest() {
         logoutJob?.cancel()
     }
+
 
     fun logout() {
         logoutJob?.cancel()
@@ -106,6 +113,28 @@ class SharedViewModel @Inject constructor(
                         _contactResult.value = Resource.Loading()
                     }
                 }
+            }
+        }
+    }
+
+    fun getMessages(agentId: String) {
+        viewModelScope.launch {
+            contactedAgentsMessageRepo.getContactedAgentsMessage(agentId).collect { resource ->
+                when(resource){
+                    is Resource.Success ->{
+                        _messagesState.value = resource
+                        Log.e("Success",resource.toString())
+                    }
+
+                    is Resource.Error -> {
+                        Log.e("contactUsF", "sendContactRequest: ${resource.data}")
+                        _messagesState.value = Resource.Error(resource.message!!)
+                    }
+                    is Resource.Loading -> {
+                        _messagesState.value = Resource.Loading()
+                    }
+                }
+
             }
         }
     }

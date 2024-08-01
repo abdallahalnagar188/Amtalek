@@ -24,9 +24,7 @@ class MessagingFragment : BindingFragment<FragmentMessagingBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getContactedAgentsMessage(viewModel.contactedAgents.value?.data?.get(0)?.id.toString())
-        Log.e("Message",viewModel.contactedAgents.toString())
+      //  Log.e("Message",viewModel.contactedAgentsMessageResult.toString())
         setupViews()
     }
 

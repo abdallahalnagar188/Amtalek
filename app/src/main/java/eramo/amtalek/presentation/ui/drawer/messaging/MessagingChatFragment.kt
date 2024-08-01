@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,7 +17,11 @@ import eramo.amtalek.databinding.FragmentMessagingChatBinding
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
+import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.Dummy
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -31,7 +36,8 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     @Inject
     lateinit var rvMessagingChatAdapter: RvMessagingChatAdapter
-    val viewModel:MessagingViewModel by viewModels()
+    val viewModel: MessagingViewModel by viewModels()
+    val svm: SharedViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,14 +47,19 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     private fun setupViews() {
 
+
         viewModel.getContactedAgents()
         lifecycleScope.launch {
-            Log.e("contacted agents",viewModel.contactedAgents.toString())
-            viewModel.contactedAgents.collect(){
-                initChatRv(viewModel.contactedAgents.value?.data?: emptyList())
+            Log.e("contacted agents", viewModel.contactedAgents.toString())
+            viewModel.contactedAgents.collect() {
+                initChatRv(viewModel.contactedAgents.value?.data ?: emptyList())
             }
         }
 
+    }
+
+    private fun handleContactAction(agentId: String) {
+        svm.getMessages(agentId)
     }
 
 
@@ -73,7 +84,14 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
         }
     }
 
+//    private fun handleContactAction(agentId: String) {
+//        viewModel.getContactedAgentsMessage(agentId)
+//    }
     override fun onChatClick(model: Data) {
-        findNavController().navigate(R.id.usersChatFragment, null, navOptionsAnimation())
+        findNavController().navigate(
+            R.id.usersChatFragment,
+            model.id?.let { UsersChatFragmentArgs(it.toString()).toBundle() }
+        )
+    Log.e("id",model.id.toString())
     }
 }

@@ -243,7 +243,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideContactUsRepository(amtalekApi: AmtalekApi): ContactUsRepo{
-        return ContactRepository(amtalekApi)
+        return ContactRepositoryImpl(amtalekApi)
     }
 
     @Provides

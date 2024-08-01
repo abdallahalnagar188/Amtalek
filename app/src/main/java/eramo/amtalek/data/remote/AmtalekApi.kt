@@ -564,13 +564,16 @@ interface AmtalekApi {
     @FormUrlEncoded
     @POST("web/contact-brokers-in-details")
     suspend fun sendContactRequest(
+        @Header("Authorization") userToken: String?,
         @Field("property_id") propertyId: String?,
         @Field("broker_id") brokerId: String,
         @Field("transaction_type") transactionType: String,
     ): Response<ContactUsResponseInProperty>
 
+    @FormUrlEncoded
     @POST("web/get-contacted-agents-messages")
     suspend fun getContactedAgentsMessage(
+        @Header("Authorization") userToken: String?,
         @Field("agent_id") agentId:String
     ):Response<ContactAgentsMessageResponse>
 

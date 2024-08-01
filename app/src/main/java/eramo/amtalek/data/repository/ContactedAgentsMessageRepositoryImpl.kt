@@ -3,6 +3,7 @@ package eramo.amtalek.data.repository
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.toResultFlow
@@ -15,7 +16,10 @@ class ContactedAgentsMessageRepositoryImpl @Inject constructor(private val apiSe
     override suspend fun getContactedAgentsMessage(agentId: String): Flow<Resource<ContactAgentsMessageResponse>> {
         return flow {
             val result = toResultFlow {
-                apiService.getContactedAgentsMessage(agentId = agentId)
+                apiService.getContactedAgentsMessage(
+                    userToken = UserUtil.getUserToken(),
+                    agentId = agentId
+                )
             }
             result.collect {
                 when (it) {
