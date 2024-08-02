@@ -3,6 +3,7 @@ package eramo.amtalek.data.repository
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.domain.repository.SendToBrokerRepository
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.toResultFlow
@@ -21,7 +22,16 @@ class SendToBrokerRepositoryImpl @Inject constructor(
         message: String?
     ): Flow<Resource<SendToBrokerResponse>> {
         return flow {
-            val result = toResultFlow {  amtalekApi.sendToBroker(vendorId, name, email, phone, message)}
+            val result = toResultFlow {
+                amtalekApi.sendToBroker(
+                    vendorId,
+                    name,
+                    email,
+                    phone,
+                    message,
+                    UserUtil.getUserToken()
+                )
+            }
             result.collect(){
                 when (it) {
                     is ApiState.Success -> {

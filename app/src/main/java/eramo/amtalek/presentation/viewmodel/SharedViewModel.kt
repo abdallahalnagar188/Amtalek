@@ -117,26 +117,26 @@ class SharedViewModel @Inject constructor(
         }
     }
 
-    fun getMessages(agentId: String) {
-        viewModelScope.launch {
-            contactedAgentsMessageRepo.getContactedAgentsMessage(agentId).collect { resource ->
-                when(resource){
-                    is Resource.Success ->{
-                        _messagesState.value = resource
-                        Log.e("Success",resource.toString())
-                    }
-
-                    is Resource.Error -> {
-                        Log.e("contactUsF", "sendContactRequest: ${resource.data}")
-                        _messagesState.value = Resource.Error(resource.message!!)
-                    }
-                    is Resource.Loading -> {
-                        _messagesState.value = Resource.Loading()
-                    }
-                }
-
-            }
-        }
-    }
+//    fun getMessages(agentId: String) {
+//        viewModelScope.launch {
+//            contactedAgentsMessageRepo.getContactedAgentsMessage(agentId).collect { resource ->
+//                when(resource){
+//                    is Resource.Success ->{
+//                        _messagesState.value = resource
+//                        Log.e("Success",resource.toString())
+//                    }
+//
+//                    is Resource.Error -> {
+//                        Log.e("contactUsF", "sendContactRequest: ${resource.data}")
+//                        _messagesState.value = Resource.Error(resource.message!!)
+//                    }
+//                    is Resource.Loading -> {
+//                        _messagesState.value = Resource.Loading()
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
 
 }

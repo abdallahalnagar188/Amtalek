@@ -33,7 +33,6 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(), RvMyFav
 
     private fun setupViews() {
         setupToolbar()
-
         initFavouritesRv(dummyMyFavouritesList(requireContext()))
     }
 
@@ -51,7 +50,7 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(), RvMyFav
     }
 
     override fun onPropertyClick(model: PropertyModel) {
-
+        findNavController().navigate(R.id.propertyDetailsFragment)
     }
 
 }

@@ -13,13 +13,12 @@ import javax.inject.Inject
 
 class ContactedAgentsMessageRepositoryImpl @Inject constructor(private val apiService: AmtalekApi) : ContactedAgentsMessageRepo {
 
-    override suspend fun getContactedAgentsMessage(agentId: String): Flow<Resource<ContactAgentsMessageResponse>> {
+    override suspend fun getContactedAgentsMessage(
+        agentId: String
+    ): Flow<Resource<ContactAgentsMessageResponse>> {
         return flow {
             val result = toResultFlow {
-                apiService.getContactedAgentsMessage(
-                    userToken = UserUtil.getUserToken(),
-                    agentId = agentId
-                )
+                apiService.getContactedAgentsMessage(UserUtil.getUserToken(),agentId = agentId)
             }
             result.collect {
                 when (it) {

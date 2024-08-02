@@ -14,16 +14,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.FragmentMessagingChatBinding
-import eramo.amtalek.domain.model.drawer.MessagingChatModel
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
-import eramo.amtalek.util.Dummy
-import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,7 +44,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
         viewModel.getContactedAgents()
         lifecycleScope.launch {
-            Log.e("contacted agents", viewModel.contactedAgents.toString())
+            Log.e("contacted agents", "contacted agents${viewModel.contactedAgents}")
             viewModel.contactedAgents.collect() {
                 initChatRv(viewModel.contactedAgents.value?.data ?: emptyList())
             }
@@ -58,9 +52,9 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     }
 
-    private fun handleContactAction(agentId: String) {
-        svm.getMessages(agentId)
-    }
+//    private fun handleContactAction(agentId: String) {
+//        svm.getMessages(agentId)
+//    }
 
 
     private fun initChatRv(data: List<Data?>) {
@@ -90,8 +84,9 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
     override fun onChatClick(model: Data) {
         findNavController().navigate(
             R.id.usersChatFragment,
-            model.id?.let { UsersChatFragmentArgs(it.toString()).toBundle() }
+            bundleOf("id" to model.id),
+            navOptionsAnimation()
         )
-    Log.e("id",model.id.toString())
+    Log.e("id", model.id.toString())
     }
 }

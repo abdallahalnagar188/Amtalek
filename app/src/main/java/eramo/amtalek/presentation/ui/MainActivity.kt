@@ -213,13 +213,13 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderMyFavourite.setOnClickListener {
-//                navController.navigate(R.id.favouritesFragment)
+                navController.navigate(R.id.favouritesFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
             navHeaderNotifications.setOnClickListener {
-//                navController.navigate(R.id.notificationFragment)
+                navController.navigate(R.id.notificationFragment)
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -369,7 +369,6 @@ class MainActivity : AppCompatActivity(),
                 R.id.myAddPropertyFragmentFragment,
                 R.id.latestProjectsFragment,
                 R.id.joinUsFragment,
-                R.id.brokersDetailsFragment,
                 R.id.completedProjectsFragment,
                 R.id.satisfiedCustomersFragment,
                 R.id.newsDetailsFragment,
@@ -407,6 +406,14 @@ class MainActivity : AppCompatActivity(),
                     binding.apply {
                         mainBottomAppBar.visibility = View.GONE
                         mainFabHome.visibility = View.GONE
+                    }
+                }
+
+                R.id.brokersDetailsFragment -> {
+                    binding.apply {
+                        binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                        mainBottomAppBar.visibility = View.VISIBLE
+                        mainFabHome.visibility = View.VISIBLE
                     }
                 }
 

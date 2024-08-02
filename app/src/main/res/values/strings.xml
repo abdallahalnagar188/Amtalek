@@ -413,7 +413,7 @@
     <string name="favourite">Favourite</string>
     <string name="chat">Chat</string>
     <string name="chat_messaging">Chat</string>
-    <string name="chat_messaging_">Chat</string>
+    <string name="chat_messaging_">Email</string>
     <string name="buy_packages">Buy Packages</string>
     <string name="new_projects">New Projects</string>
     <string name="help">Help</string>
@@ -734,7 +734,7 @@
     <string name="social_network">Social Network</string>
     <string name="user_packages">User Packages</string>
     <string name="agencies_packages">Agencies Packages</string>
-    <string name="pricing">Pricing</string>
+    <string name="pricing">Packages</string>
     <string name="submitted_offers">Submitted Offers</string>
     <string name="favorite">Favorites</string>
     <string name="my_properties">My Properties</string>

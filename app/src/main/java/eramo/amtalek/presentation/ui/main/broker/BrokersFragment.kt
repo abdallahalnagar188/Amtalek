@@ -83,9 +83,21 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
             toolbarIvMenu.setOnClickListener {
                 viewModelShared.openDrawer.value = true
             }
-            FHomeEtSearch.setOnClickListener {
-
+            inMessaging.ivMessaging .setOnClickListener {
+                findNavController().navigate(
+                    R.id.messagingChatFragment,
+                    null,
+                    navOptionsAnimation()
+                )
             }
+            inNotification.ivNotification.setOnClickListener {
+                findNavController().navigate(
+                    R.id.notificationFragment,
+                    null,
+                    navOptionsAnimation()
+                )
+            }
+
         }
 
         if (LocalUtil.isEnglish()){

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_tool"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="@dimen/_10sdp"
+    android:layoutDirection="locale"
+    android:minHeight="?attr/actionBarSize"
+    android:paddingHorizontal="@dimen/screen_margin_sides"
+    android:paddingVertical="@dimen/_8sdp">
+
+    <ImageView
+        android:id="@+id/toolbar_iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:src="@drawable/top_logo_en"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/toolbar_iv_menu"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_iv_logo"
+        app:srcCompat="@drawable/ic_menu" />
+
+
+    <include
+        android:id="@+id/in_notification"
+        layout="@layout/layout_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintStart_toEndOf="@id/toolbar_iv_menu"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_iv_logo" />
+
+    <include
+        android:id="@+id/in_messaging"
+        layout="@layout/layout_messaging"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toEndOf="@id/in_notification"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_iv_logo" />
+
+    <ImageView
+        android:id="@+id/toolbar_iv_location"
+        android:layout_width="@dimen/_27sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_iv_logo"
+        app:srcCompat="@drawable/ic_location" />
+
+    <Spinner
+        android:id="@+id/toolbar_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_spinner_background"
+        android:paddingStart="@dimen/_18sdp"
+        android:spinnerMode="dropdown"
+        android:textAlignment="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/toolbar_iv_location"
+        app:layout_constraintEnd_toStartOf="@id/toolbar_iv_location"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_iv_location" />
+
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_search"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/search_title"-->
+<!--        android:padding="@dimen/_8ssp"-->
+<!--        android:layout_marginEnd="@dimen/_11sdp"-->
+<!--        android:fontFamily="@font/montserratregular"-->
+<!--        android:visibility="invisible"-->
+<!--        tools:visibility="visible"-->
+<!--        android:textColor="@color/read_more_color"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/FHome_et_search"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/FHome_et_search"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/FHome_et_search"-->
+<!--        />-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
