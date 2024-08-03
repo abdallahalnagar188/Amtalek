@@ -50,6 +50,8 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.Send
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
+import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
+import eramo.amtalek.presentation.ui.main.user.UserDetailsFragment
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -555,11 +557,15 @@ interface AmtalekApi {
     suspend fun getBrokersDetails(
         @Path("id") id: Int
     ): BrokersDetailsResponse
-
     @GET("mobile/brokers-properties/{id}")
     suspend fun getBrokersProperties(
         @Path("id") id: Int
     ): BrokersPropertyResponse
+
+    @GET("mobile/user/{id}")
+    suspend fun getUserDetails(
+        @Path("id") id: Int
+    ): UserDetailsResponse
 
 
     @FormUrlEncoded

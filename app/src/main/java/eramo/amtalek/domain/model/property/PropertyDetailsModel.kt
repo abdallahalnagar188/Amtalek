@@ -44,5 +44,5 @@ data class PropertyDetailsModel(
     val roi:String,
     val brokerPhone: String,
     val brokerEmail:String,
-    val vendorType:String
+    val vendorType:String,
     )

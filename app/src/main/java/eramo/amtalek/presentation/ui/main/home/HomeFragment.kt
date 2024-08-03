@@ -663,7 +663,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
         binding.inNormalPropertiesLayout.tvSeeMore.setOnClickListener{
-            findNavController().navigate(R.id.seeMorePropertiesFragment)
+            findNavController().navigate(R.id.seeMoreNormalPropertiesFragment)
         }
 
 //        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
@@ -908,9 +908,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     override fun onPropertyByCityClick(model: CitiesModel) {
 //        findNavController().navigate(R.id.searchResultFragment,
-//            SearchResultFragmentArgs(searchQuery = ,
-//                dataLists =
-//            ).toBundle(),
+//            bundleOf("id" to model.id),
 //            navOptionsAnimation()
 //        )
         Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()

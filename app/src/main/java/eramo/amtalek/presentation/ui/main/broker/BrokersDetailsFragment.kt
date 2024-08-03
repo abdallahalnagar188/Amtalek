@@ -21,6 +21,8 @@ import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
+import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
@@ -33,13 +35,15 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
-    RvBrokerDetailsPropertiesAdapter.OnItemClickListener{
+    RvBrokerDetailsPropertiesAdapter.OnItemClickListener,
+    FavClickListenerOriginalItem {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokerDetailsBinding::inflate
 
     private val viewModelShared: SharedViewModel by viewModels()
     private val viewModel: BrokersViewModel by viewModels()
+    private val homeViewModel: HomeMyViewModel by viewModels()
 
     @Inject
     lateinit var rvBrokerDetailsPropertiesAdapter: RvBrokerDetailsPropertiesAdapter
@@ -109,6 +113,11 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             tvLocation.text = model.phone
             tvProjectsCount.text = "${model.projects_count} projects"
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
+            if (model.broker_type == "broker" && model.has_package == "yes") {
+                shareView.root.visibility = View.VISIBLE
+            } else {
+                shareView.root.visibility = View.GONE
+            }
         }
         binding.shareView.btnCall.setOnClickListener {
             if (UserUtil.isUserLogin()){
@@ -163,7 +172,10 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     }
 
     private fun initRv(data: List<OriginalItem>) {
-        rvBrokerDetailsPropertiesAdapter.setListener(this@BrokersDetailsFragment)
+        rvBrokerDetailsPropertiesAdapter.setListener(
+            this@BrokersDetailsFragment,
+            this@BrokersDetailsFragment
+        )
         binding.rv.adapter = rvBrokerDetailsPropertiesAdapter
         rvBrokerDetailsPropertiesAdapter.submitList(data)
     }
@@ -198,6 +210,11 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                 )
             }
         }
+    }
+
+    override fun onFavClick(model: OriginalItem) {
+        model.id?.let { homeViewModel.addOrRemoveFav(it) }
+
     }
 
 }

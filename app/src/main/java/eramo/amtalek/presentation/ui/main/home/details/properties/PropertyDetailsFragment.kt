@@ -1,7 +1,5 @@
 package eramo.amtalek.presentation.ui.main.home.details.properties
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -14,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -45,7 +42,6 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapt
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
-import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
@@ -55,7 +51,6 @@ import eramo.amtalek.util.formatPrice
 import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
-import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -94,8 +89,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.performLogin()
-        checkActorType()
+       // checkActorTypefirstime()
         setupViews()
         requestData()
         fetchData()
@@ -255,6 +249,15 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
 
+    private fun checkActorTypefirstime() {
+        Log.e("state", UserUtil.getUserType())
+        Log.e("state", UserUtil.getHasPackage())
+        if (UserUtil.getUserType() == "broker" && UserUtil.getHasPackage() == "yes") {
+            binding.contactUs.root.visibility = View.VISIBLE
+        } else {
+            binding.contactUs.root.visibility = View.GONE
+        }
+    }
     private fun checkActorType() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -262,12 +265,15 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     when (it) {
                         is UiState.Success -> {
                             Log.e("state", it.data?.brokerType!!)
-                            Log.e("state", it.data?.hasPackage!!)
-                            if (it.data?.brokerType == "broker" && it.data?.hasPackage == "yes") {
-                                binding.contactUs.root.visibility = View.VISIBLE
-                            } else {
-                                binding.contactUs.root.visibility = View.GONE
+                            Log.e("state", it.data.hasPackage!!)
+                            if (UserUtil.getUserType() == "broker" && it.data.hasPackage == "") {
+
                             }
+//                            if (it.data.brokerType == "broker" && it.data.hasPackage == "yes") {
+//                                binding.contactUs.root.visibility = View.VISIBLE
+//                            } else if (it.data.brokerType == "user" && it.data.hasPackage == "no"){
+//                                binding.contactUs.root.visibility = View.GONE
+//                            }
                         }
 
                         is UiState.Empty -> {
@@ -335,6 +341,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private fun fetchData() {
 
+       // checkActorTypefirstime()
         //fetchActorType()
         fetchPropertyDetailsState()
         fetchSendCommentOnPropertyState()
@@ -537,6 +544,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     mapSetup(model.mapUrl)
                 }
 
+
                 propertyDetailsLayout.tvPropertyCodeValue.text = model.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = model.propertyType
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(model.area))
@@ -557,11 +565,21 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         setupVideo(it)
                     }
                 }
+                if (model.vendorType == "broker") {
+                    contactUs.root.visibility = View.VISIBLE
+                }else {
+                    contactUs.root.visibility = View.GONE
+                }
+
                 tvVisitProfile.setOnClickListener {
                     if (model.vendorType == "broker")
                     navigateToProfile(model = model)
                     else if (model.vendorType == "user"){
-
+                        findNavController().navigate(
+                            R.id.userDetailsFragment,
+                            bundleOf("id" to model.id),
+                            navOptionsAnimation()
+                        )
                     }
                 }
 
@@ -626,7 +644,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
 
-    fun makeCall(phoneNumber: String) {
+    private fun makeCall(phoneNumber: String) {
         val callIntent = Intent(Intent.ACTION_DIAL).apply {
             data = Uri.parse("tel:$phoneNumber")
         }

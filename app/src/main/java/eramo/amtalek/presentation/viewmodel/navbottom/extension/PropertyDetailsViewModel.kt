@@ -47,20 +47,20 @@ class PropertyDetailsViewModel @Inject constructor(
     val loginData: StateFlow<UiState<BrokerDetailsItem>> = _loginData
 
 
-    fun performLogin() {
+    fun performLogin(data: BrokerDetailsItem) {
         viewModelScope.launch {
             _loginData.value = UiState.Loading()
             try {
-                val brokerDetails = fetchBrokerDetails() // Replace with actual data fetching
+                val brokerDetails = fetchBrokerDetails(data) // Replace with actual data fetching
                 _loginData.value = UiState.Success(brokerDetails)
             } catch (e: Exception) {
             }
         }
     }
 
-    private suspend fun fetchBrokerDetails(): BrokerDetailsItem {
+    private suspend fun fetchBrokerDetails(model: BrokerDetailsItem): BrokerDetailsItem {
         // Replace this with actual implementation to fetch broker details
-        return BrokerDetailsItem(brokerType = "broker", hasPackage = "yes")
+        return BrokerDetailsItem(brokerType =model.brokerType, hasPackage = model.hasPackage)
     }
 
 

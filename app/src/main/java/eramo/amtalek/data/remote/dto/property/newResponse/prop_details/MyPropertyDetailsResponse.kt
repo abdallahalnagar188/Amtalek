@@ -62,7 +62,6 @@ data class MyPropertyDetailsResponse(
             brokerEmail = data?.get(0)?.brokerDetails?.get(0)?.email ?: "",
             brokerPhone = data?.get(0)?.brokerDetails?.get(0)?.phone ?: "",
             vendorType = data?.get(0)?.brokerDetails?.get(0)?.brokerType ?: "",
-
             )
     }
 

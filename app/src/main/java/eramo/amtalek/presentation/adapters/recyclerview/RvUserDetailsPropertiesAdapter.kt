@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
+import eramo.amtalek.data.remote.dto.userDetials.Data
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
@@ -18,8 +19,8 @@ import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
-class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
-    ListAdapter<OriginalItem, RvBrokerDetailsPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvUserDetailsPropertiesAdapter @Inject constructor() :
+    ListAdapter<Data, RvUserDetailsPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
     private lateinit var favListener: FavClickListenerOriginalItem
 
@@ -45,10 +46,10 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: OriginalItem) {
-            var isFav = model.isFav
+        fun bind(model: Data) {
+            var isFav = model.submitted_props_for_sale?.get(0)?.is_fav
             binding.apply {
-                favListener.onFavClick(model)
+           //     favListener.onFavClick(model)
                 ivFav.setOnClickListener {
                     if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
                         isFav = "1"
@@ -65,31 +66,31 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
 
                 tvPrice.text = itemView.context.getString(
                     R.string.s_egp,
-                    formatPrice( model.salePrice?.toDouble() ?: 0.0)
+                    model.submitted_props_for_sale?.get(0)?.sale_price?.let { formatPrice( it.toDouble()) }
                 )
                 tvDurationRent.text = itemView.context.getString(
                     R.string.s_egp,
-                    formatPrice( model.rentPrice?.toDouble() ?: 0.0)
+                    formatPrice( model.submitted_props_for_rent?.get(0)?.rent_price?.toDouble() ?: 0.0)
                 )
-                tvTitle.text = model.title
-                tvLabel.text = (if (model.forWhat.equals("for_sale")){
+                tvTitle.text = model.submitted_props_for_sale?.get(0)?.title
+                tvLabel.text = (if (model.submitted_props_for_sale?.get(0)?.for_what == "for_sale"){
                     itemView.context.getString(R.string.for_sell)
                 } else {
                     itemView.context.getString(R.string.for_rent)
                 }).toString()
                 tvArea.text = itemView.context.getString(R.string.s_meter_square,
-                    model.landArea?.let { formatNumber(it) })
-                tvBathroom.text = model.bathRoomNo.toString()
-                tvBed.text = model.bedRoomsNo.toString()
-                tvLocation.text = model.address
-                tvDatePosted.text = model.createdAt
+                    model.submitted_props_for_sale?.get(0)?.land_area?.let { formatNumber(it) })
+                tvBathroom.text = model.submitted_props_for_sale?.get(0)?.bath_room_no.toString()
+                tvBed.text = model.submitted_props_for_sale?.get(0)?.bed_rooms_no.toString()
+                tvLocation.text = model.submitted_props_for_sale?.get(0)?.address
+                tvDatePosted.text = model.submitted_props_for_sale?.get(0)?.created_at
 
                 Glide.with(itemView)
-                    .load(model.primaryImage)
+                    .load(model.submitted_props_for_sale?.get(0)?.primary_image)
                     .into(ivImage)
-                Glide.with(itemView).load(model.brokerDetails?.companyLogo).into(ivBroker)
+                Glide.with(itemView).load(model.submitted_props_for_sale?.get(0)?.broker_details?.get(0)?.logo).into(ivBroker)
 
-                if (model.isFav == "") {
+                if (model.submitted_props_for_sale?.get(0)?.is_fav == "") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
@@ -118,20 +119,20 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onPropertyClick(model: OriginalItem)
+        fun onPropertyClick(model: Data)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<OriginalItem>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
             override fun areItemsTheSame(
-                oldItem: OriginalItem,
-                newItem: OriginalItem
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: OriginalItem,
-                newItem: OriginalItem
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
         }
     }

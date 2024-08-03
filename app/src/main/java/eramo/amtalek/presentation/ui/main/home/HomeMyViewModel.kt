@@ -220,7 +220,7 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-    private fun getHomeNormalProperties(cityId:String){
+    fun getHomeNormalProperties(cityId:String){
         getHomeNormalPropertiesJob?.cancel()
         getHomeNormalPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
 

@@ -51,6 +51,11 @@ object AppModule {
     }
     @Provides
     @Singleton
+    fun provideUserDetailsRepository(apiService: AmtalekApi): UsersDetailsRepo {
+        return UsersRepoImpl(apiService)
+    }
+    @Provides
+    @Singleton
     fun provideAllPropertyRepo(apiService: AmtalekApi):AllPropertyRepo{
         return AllPropertiesRepoImpl(apiService)
     }
