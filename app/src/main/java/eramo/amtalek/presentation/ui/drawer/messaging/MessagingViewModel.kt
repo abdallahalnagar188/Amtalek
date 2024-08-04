@@ -6,17 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
-import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
-import eramo.amtalek.domain.repository.SendToBrokerRepository
 import eramo.amtalek.domain.repository.SentToBrokerMessageRepo
 import eramo.amtalek.domain.usecase.contactedAgents.GetContactedAgents
-import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,11 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MessagingViewModel @Inject constructor(
     private val getContactedAgentsUseCase: GetContactedAgents,
- //   private val contactedAgentsMessage: GetMessagesContactedAgents
     private val contactedAgentsMessage: ContactedAgentsMessageRepo,
     private val sendToBrokerRepository: SentToBrokerMessageRepo
-
-
 ) : ViewModel() {
 
     private val _messages = MutableLiveData<List<Message>>()
@@ -43,42 +36,22 @@ class MessagingViewModel @Inject constructor(
     private val _contactedAgents: MutableStateFlow<ContactedAgentResponse?> = MutableStateFlow(null)
     val contactedAgents: StateFlow<ContactedAgentResponse?> get() = _contactedAgents
 
-//    private val _contactedAgentsMessageResult= MutableStateFlow<ContactAgentsMessageResponse?>(null)
-//    val contactedAgentsMessageResult: StateFlow<ContactAgentsMessageResponse?> get() = _contactedAgentsMessageResult
-
-
-
     private var _sentToBrokerState = MutableStateFlow<UiState<SentToBrokerMessageResponse>>(UiState.Empty())
-    val sentToBrokerState : StateFlow<UiState<SentToBrokerMessageResponse>> = _sentToBrokerState
+    val sentToBrokerState: StateFlow<UiState<SentToBrokerMessageResponse>> = _sentToBrokerState
 
     private val _contactedAgentsMessageResult = MutableStateFlow<Resource<ContactAgentsMessageResponse>>(Resource.Loading())
     val contactedAgentsMessageResult: MutableStateFlow<Resource<ContactAgentsMessageResponse>> = _contactedAgentsMessageResult
 
     fun getContactedAgents() {
-
         viewModelScope.launch {
             try {
                 _contactedAgents.value = getContactedAgentsUseCase()
                 Log.e("success", _contactedAgents.value.toString())
-
             } catch (e: Exception) {
                 Log.e("failed", e.message.toString())
             }
         }
-
     }
-
-//    fun getContactedAgentsMessage(agentId: String) {
-//        viewModelScope.launch {
-//            try {
-//                Log.e("success", contactedAgentsMessage(agentId).toString())
-//                _contactedAgentsMessageResult.value = contactedAgentsMessage(agentId)
-//
-//            } catch (e: Exception) {
-//                Log.e("failed to get message", e.message.toString())
-//            }
-//            }
-//    }
 
     fun getContactedAgentsMessage(agentId: String) {
         viewModelScope.launch {
@@ -100,27 +73,38 @@ class MessagingViewModel @Inject constructor(
             }
         }
     }
+
     fun sendToBrokerInChat(
         vendorId: String?,
         name: String?,
         email: String?,
         phone: String?,
         message: String?,
-        vendorType:String) {
+        vendorType: String
+    ) {
+        Log.e(
+            "sendToBrokerInChat",
+            "vendorId: $vendorId, name: $name, email: $email, phone: $phone, message: $message, vendorType: $vendorType"
+        )
         viewModelScope.launch {
-            sendToBrokerRepository.sendToBrokerInChat(vendorId, name, email, phone, message, vendorType).collect() {
+            sendToBrokerRepository.sendToBrokerInChat(
+                vendorId,
+                name,
+                email,
+                phone,
+                message,
+                vendorType
+            ).collect {
                 when (it) {
                     is Resource.Success -> {
                         _sentToBrokerState.value = UiState.Success(it.data)
-                    }
 
+                    }
                     is Resource.Error -> {
                         _sentToBrokerState.value = UiState.Error(it.message!!)
                     }
-
                     is Resource.Loading -> {
                         _sentToBrokerState.value = UiState.Loading()
-
                     }
                 }
             }
