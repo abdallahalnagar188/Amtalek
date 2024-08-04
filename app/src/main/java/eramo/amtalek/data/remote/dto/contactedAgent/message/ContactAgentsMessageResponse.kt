@@ -36,5 +36,5 @@ data class Message(
     @SerializedName("message_time")
     var messageTime: String?,
     @SerializedName("message_type")
-    var messageType: String?
+    var messageType: String
 )

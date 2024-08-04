@@ -2,6 +2,7 @@ package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
@@ -32,4 +33,5 @@ class ContactedAgentsMessageRepositoryImpl @Inject constructor(private val apiSe
             }
         }
     }
+
 }

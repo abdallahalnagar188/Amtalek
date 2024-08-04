@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.main.home.details.projects
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.domain.repository.ProjectRepository
@@ -56,6 +57,10 @@ class ProjectDetailsViewModel @Inject constructor(
         }
 
     }
+
+
+
+
     fun getProjectDetails(listingNumber: String){
         projectDetailsJob?.cancel()
         projectDetailsJob = viewModelScope.launch {

@@ -5,17 +5,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import eramo.amtalek.data.remote.dto.contactedAgent.message.DataX
+import eramo.amtalek.data.remote.dto.contactedAgent.DataX
+import eramo.amtalek.data.remote.dto.contactedAgent.message.AgentData
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.FragmentUsersChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.drawer.messaging.MessagingViewModel
+import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
+import eramo.amtalek.presentation.ui.main.home.details.projects.ProjectDetailsViewModel
+import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
+import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,9 +34,14 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentUsersChatBinding::inflate
 
+    private lateinit var agentId: String
+
     @Inject
     lateinit var rvUsersChatAdapter: RvUsersChatAdapter
+
     val viewModel: MessagingViewModel by viewModels()
+    val homeMyViewModel: HomeMyViewModel by viewModels()
+    val propViewModel: ProjectDetailsViewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,55 +49,109 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
         binding.toolbar.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
-        viewModel.getContactedAgentsMessage(viewModel.contactedAgentsMessageResult.value.data?.data?.agentData?.id.toString())
-        lifecycleScope.launch {
-            Log.e("message agents ", viewModel.contactedAgentsMessageResult.toString())
-            viewModel.contactedAgentsMessageResult.collect() {
-                it.data?.data?.let { it1 -> setupViews(it1) }
+        agentId = arguments.let {
+            UsersChatFragmentArgs.fromBundle(it!!).agentId
+        }
+
+//        binding.btnSendMessage.setOnClickListener{
+//            val message =  binding.etWriteMessage.text.toString()
+//            propViewModel.sendToBrokerInChat( message =message,
+//                vendorId = UserUtil.getUserId(),
+//                name = null,
+//                phone = null,
+//                email =  null,
+//                )
+//        }
+        Log.e("id for agent", agentId)
+
+        viewModel.getContactedAgentsMessage(agentId)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.contactedAgentsMessageResult.collect { resource ->
+                when (resource) {
+                    is Resource.Success -> {
+                        resource.data?.data?.let { dataX ->
+                            dataX.agentData?.let { setupViews(it) }
+                            viewModel.sentToBrokerState.value.data?.data?.let { listeners(it) }
+
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        // Handle error
+                        Log.e("Error", (resource.message ?: "Unknown error").toString())
+                    }
+
+                    is Resource.Loading -> {
+                        // Show loading state if needed
+                    }
+                }
             }
         }
-        viewModel.contactedAgentsMessageResult.value.data?.data?.agentData?.messages?.get(0)
-            ?.let { listeners(it) }
+
+
+//
+//        lifecycleScope.launch {
+//            Log.e("message agents ", viewModel.contactedAgentsMessageResult.toString())
+//            viewModel.contactedAgentsMessageResult.collect() {
+//                it.data?.data?.let { it1 -> it1.agentData?.let { it2 -> setupViews(it2) } }
+//            }
+//        }
+        viewModel.sentToBrokerState.value.data?.data?.let { listeners(it) }
+
 
 
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
+    private fun setupViews(model: AgentData) {
+        binding.toolbar.tvTitle.text = model.name
 
-    private fun setupViews(model: DataX) {
+        // setupToolbar(model.agentData?.name?:"")
 
-        binding.toolbar.tvTitle.text = model.agentData?.name
-
-        model.agentData?.name?.let { setupToolbar(it) }
-
-        model.agentData?.messages?.toMutableList()?.let { initRvChat(it) }
+        model.messages?.toMutableList()?.let { initRvChat(it) }
         assignFakeData()
-        model.agentData?.messages?.toList()?.toMutableList()?.let {
+        model.messages?.toList()?.toMutableList()?.let {
             rvUsersChatAdapter.submitList(it)
         }
 
     }
 
-    private fun listeners(model: Message) {
+    fun listeners(model: DataX) {
         binding.apply {
-//            toolbar.iconProfile.setOnClickListener {
-//                findNavController().navigate(R.id.userProfileFragment, null, navOptionsAnimation())
-//            }
-
             btnSendMessage.setOnClickListener {
-                model.id?.let { messageId ->
-                    val messageText = etWriteMessage.text.toString().trim()
-                    rvUsersChatAdapter.sendMessage(
+                val messageText = etWriteMessage.text.toString().trim()
+                if (messageText.isNotEmpty()) {
+                    rvUsersChatAdapter.sendMessage(messageText, model.id ?: 0, null.toString())
+                    val message = Message(
+                        id = model.id,
                         message = messageText,
-                        messageId = messageId,
-                        link = model.link.toString()
+                        link = null,
+                        messageTime = SimpleDateFormat("yyyy_mm_dd", Locale.getDefault()).format(Date()),
+                        messageType = "sender"
                     )
-                    etWriteMessage.text?.clear() // Clear the message input field after sending
-                    rv.smoothScrollToPosition(rvUsersChatAdapter.currentList.size)
+                    Log.e("failed to send ", message.toString())
+                    val updatedList = rvUsersChatAdapter.currentList.toMutableList().apply { add(message) }
+                    rvUsersChatAdapter.submitList(updatedList)
+                    viewModel.sentToBrokerState.value.data?.data?.actorType?.let { it1 ->
+                        viewModel.sendToBrokerInChat(
+                            vendorId = viewModel.sentToBrokerState.value.data?.data?.vendorId,
+                            name = viewModel.sentToBrokerState.value.data?.data?.name,
+                            email = viewModel.sentToBrokerState.value.data?.data?.email,
+                            phone = viewModel.sentToBrokerState.value.data?.data?.phone,
+                            message = messageText,
+                            vendorType = it1
+                        )
+                    }
+//                    val currentList = rvUsersChatAdapter.currentList.toMutableList()
+//                    currentList.add(message)
+//                    rvUsersChatAdapter.submitList(currentList)
+                    binding.etWriteMessage.text?.clear()
                 }
+                etWriteMessage.text?.clear() // Clear the message input field after sending
+                binding.rv.smoothScrollToPosition(rvUsersChatAdapter.itemCount - 1)
+                rvUsersChatAdapter.notifyDataSetChanged()
+
             }
+
         }
     }
 
@@ -112,6 +181,6 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
             list
 
         )
-
     }
+
 }

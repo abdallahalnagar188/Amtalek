@@ -2,9 +2,8 @@ package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
-import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
-import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.domain.repository.SendToBrokerRepository
+import eramo.amtalek.domain.repository.SentToBrokerMessageRepo
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
@@ -13,25 +12,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class SendToBrokerRepositoryImpl @Inject constructor(
+class SentToBrokerMessageRepoImpl @Inject constructor(
     val amtalekApi: AmtalekApi
-) : SendToBrokerRepository {
-    override suspend fun sendToBroker(
+) : SentToBrokerMessageRepo {
+    override suspend fun sendToBrokerInChat(
         vendorId: String?,
         name: String?,
         email: String?,
         phone: String?,
-        message: String?
-    ): Flow<Resource<SendToBrokerResponse>> {
+        message: String?,
+        vendorType: String
+    ): Flow<Resource<SentToBrokerMessageResponse>> {
         return flow {
             val result = toResultFlow {
-                amtalekApi.sendToBroker(
-                    vendorId,
-                    name,
-                    email,
-                    phone,
-                    message,
-                    UserUtil.getUserToken()
+                amtalekApi.sendToBrokerInChat(
+                    vendorId = vendorId,
+                    name = name,
+                    email = email,
+                    phone = phone,
+                    message = message,
+                    userToken = UserUtil.getUserToken(),
+                    vendorType = vendorType
+
                 )
             }
             result.collect() {
@@ -51,7 +53,4 @@ class SendToBrokerRepositoryImpl @Inject constructor(
             }
         }
     }
-
-
-
 }

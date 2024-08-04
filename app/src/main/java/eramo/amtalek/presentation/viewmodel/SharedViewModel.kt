@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
+import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.repository.ContactRepositoryImpl
 import eramo.amtalek.data.repository.ContactedAgentsMessageRepositoryImpl
@@ -29,7 +30,6 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val repository: ContactRepositoryImpl,
-    private val contactedAgentsMessageRepo: ContactedAgentsMessageRepositoryImpl,
 
 
 
@@ -51,8 +51,8 @@ class SharedViewModel @Inject constructor(
     private val _contactResult = MutableStateFlow<Resource<ContactUsResponseInProperty>>(Resource.Loading())
     val contactResult: MutableStateFlow<Resource<ContactUsResponseInProperty>> = _contactResult
 
-    private val _messagesState = MutableStateFlow<Resource<ContactAgentsMessageResponse>>(Resource.Loading())
-    val messagesState: StateFlow<Resource<ContactAgentsMessageResponse>> get() = _messagesState
+    private val _messagesState = MutableStateFlow<Resource<SentToBrokerMessageResponse>>(Resource.Loading())
+    val messagesState: StateFlow<Resource<SentToBrokerMessageResponse>> get() = _messagesState
 
 
 
@@ -94,6 +94,7 @@ class SharedViewModel @Inject constructor(
             }
         }
     }
+
 
 
     fun sendContactRequest(propertyId: Int, brokerId: Int, transactionType: String) {

@@ -246,7 +246,15 @@
         android:id="@+id/messagingChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragment"
         android:label="fragment_messaging_chat"
-        tools:layout="@layout/fragment_messaging_chat" />
+        tools:layout="@layout/fragment_messaging_chat" >
+        <action
+            android:id="@+id/action_to_usersChatFragment"
+            app:destination="@id/usersChatFragment" >
+            <argument
+                android:name="agentId"
+                app:argType="string" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/messagingOfferFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingOfferFragment"

@@ -78,15 +78,13 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
         }
     }
 
+
 //    private fun handleContactAction(agentId: String) {
 //        viewModel.getContactedAgentsMessage(agentId)
 //    }
     override fun onChatClick(model: Data) {
-        findNavController().navigate(
-            R.id.usersChatFragment,
-            bundleOf("id" to model.id),
-            navOptionsAnimation()
-        )
-    Log.e("id", model.id.toString())
+    val action = MessagingChatFragmentDirections.actionToUsersChatFragment(model.id.toString())
+    findNavController().navigate(action)
+  //  Log.e("id", model.id.toString())
     }
 }

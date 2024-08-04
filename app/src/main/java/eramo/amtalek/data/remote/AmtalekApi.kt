@@ -1,5 +1,6 @@
 package eramo.amtalek.data.remote
 
+import android.os.Message
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.auth.CitiesResponse
 import eramo.amtalek.data.remote.dto.auth.CountriesResponse
@@ -14,6 +15,7 @@ import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
@@ -536,16 +538,7 @@ interface AmtalekApi {
         @Path("listing_number") listingNumber: String
     ): Response<ProjectDetailsResponse>
 
-    @FormUrlEncoded
-    @POST("mobile/submit-to-broker")
-    suspend fun sendToBroker(
-        @Header("Authorization") userToken: String?,
-        @Field("vendor_id") vendorId: String?,
-        @Field("name") name: String?,
-        @Field("email") email: String?,
-        @Field("phone") phone: String?,
-        @Field("message") message: String?
-    ): Response<SendToBrokerResponse>
+
 
 
     //-----------------------------------------------------------------------------------------------//
@@ -585,4 +578,26 @@ interface AmtalekApi {
     ):Response<ContactAgentsMessageResponse>
 
 
+    @FormUrlEncoded
+    @POST("mobile/submit-to-broker")
+    suspend fun sendToBroker(
+        @Header("Authorization") userToken: String?,
+        @Field("vendor_id") vendorId: String?,
+        @Field("name") name: String?,
+        @Field("email") email: String?,
+        @Field("phone") phone: String?,
+        @Field("message") message: String?
+    ): Response<SendToBrokerResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/submit-to-broker")
+    suspend fun sendToBrokerInChat(
+        @Header("Authorization") userToken: String?,
+        @Field("vendor_id") vendorId: String?,
+        @Field("name") name: String?,
+        @Field("email") email: String?,
+        @Field("phone") phone: String?,
+        @Field("broker_type") vendorType: String?,
+        @Field("message") message: String?
+    ): Response<SentToBrokerMessageResponse>
 }

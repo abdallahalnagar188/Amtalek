@@ -37,6 +37,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.getYoutubeUrlId
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
@@ -83,7 +84,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
                         email =email,
                         phone = phone,
                         message = message,
-                        vendorId =vendorId
+                        vendorId =UserUtil.getUserId()
                         )
                 }
             }else{

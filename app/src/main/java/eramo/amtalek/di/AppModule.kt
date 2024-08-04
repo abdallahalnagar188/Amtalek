@@ -180,6 +180,11 @@ object AppModule {
     }
     @Provides
     @Singleton
+    fun provideSendToBrokerMessageRepository(amtalekApi: AmtalekApi): SentToBrokerMessageRepo {
+        return SentToBrokerMessageRepoImpl(amtalekApi =amtalekApi )
+    }
+    @Provides
+    @Singleton
     fun provideMyHomeRepository(amtalekApi: AmtalekApi): MyHomeRepository {
         return MyHomeRepositoryImpl(amtalekApi =amtalekApi )
     }
