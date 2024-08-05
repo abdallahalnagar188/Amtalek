@@ -70,7 +70,7 @@ class RvUserDetailsPropertiesAdapter @Inject constructor() :
                 )
                 tvDurationRent.text = itemView.context.getString(
                     R.string.s_egp,
-                    formatPrice( model.submitted_props_for_rent?.get(0)?.rent_price?.toDouble() ?: 0.0)
+              //      formatPrice( model.submitted_props_for_rent?.get(0)?.rent_price?.toDouble() ?: 0.0)
                 )
                 tvTitle.text = model.submitted_props_for_sale?.get(0)?.title
                 tvLabel.text = (if (model.submitted_props_for_sale?.get(0)?.for_what == "for_sale"){

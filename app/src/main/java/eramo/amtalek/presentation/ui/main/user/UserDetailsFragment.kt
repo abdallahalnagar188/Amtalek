@@ -42,29 +42,31 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     @Inject
     lateinit var rvBrokerDetailsPropertiesAdapter: RvUserDetailsPropertiesAdapter
 
+    lateinit var id: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupListeners()
 
-        val id = arguments?.getInt("id") ?: 0
-        Log.e("id in fragment", id.toString())
+        id = arguments.let {
+            UserDetailsFragmentArgs.fromBundle(it!!).id
+        }
+        Log.e("id in fragment", id)
 
-        fetchData(viewModel.userDetails.value?.data?.get(0)?.id ?: 0)
+        fetchData(id)
     }
 
-    private fun fetchData(id: Int) {
+    private fun fetchData(id: String) {
 
-        viewModel.getUserDetails(id)
+        viewModel.getUserDetails(id.toInt())
         lifecycleScope.launch {
             viewModel.userDetails.collect { state ->
                 state?.data?.get(0)?.let { assignData(it) }
             }
         }
-        Log.e("properties in fragment", viewModel.userDetails.value?.data.toString())
+        Log.e("properties in fragment", viewModel.getUserDetails(id.toInt()).toString())
         lifecycleScope.launch {
             viewModel.userDetails.collect { state ->
-                Log.e("properties in fragment", state?.data.toString())
                 initRv(state?.data ?: emptyList())
             }
         }

@@ -18,21 +18,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_Count"
-        android:layout_width="@dimen/_12sdp"
-        android:layout_height="@dimen/_12sdp"
-        android:background="@drawable/shape_red"
-        android:fontFamily="@font/montserratbold"
-        android:gravity="center"
-        android:text="4"
-        android:layoutDirection="ltr"
-        android:textColor="@color/white"
-        android:layout_marginBottom="@dimen/_3sdp"
-        android:layout_marginEnd="@dimen/_1sdp"
-        android:textSize="@dimen/_7ssp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_notification"
-        app:layout_constraintEnd_toEndOf="@id/iv_notification"
-/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

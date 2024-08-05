@@ -40,6 +40,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
@@ -492,6 +493,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 vendorId = model.brokerId.toString()
                 setupImageSliderTop(model.sliderImages)
                 checkRentDuration(model.rentDuration)
+                Log.e("state", model.mapUrl)
                 when (model.forWhat) {
                     "for_rent" -> {
                         setRentPriceValue(formatPrice(model.rentPrice))
@@ -578,11 +580,11 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     if (model.vendorType == "broker")
                     navigateToProfile(model = model)
                     else if (model.vendorType == "user"){
-                        findNavController().navigate(
-                            R.id.userDetailsFragment,
-                            bundleOf("id" to model.id),
-                            navOptionsAnimation()
+                        val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
+                            model.brokerId.toString()
                         )
+                        findNavController().navigate(action)
+                        Log.e("id for user", model.id.toString())
                     }
                 }
 

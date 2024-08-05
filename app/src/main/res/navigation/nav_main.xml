@@ -134,8 +134,9 @@
         tools:layout="@layout/fragment_broker_details" >
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            app:argType="string" />
+
+
     </fragment>
     <fragment
         android:id="@+id/nyEstateRentFragment"
@@ -369,6 +370,9 @@
         android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragment"
         android:label="fragment_property_details"
         tools:layout="@layout/fragment_property_details" >
+        <action
+            android:id="@+id/action_to_usersDetailsFragment"
+            app:destination="@id/userDetailsFragment"/>
         <argument
             android:name="propertyId"
             app:argType="string" />
