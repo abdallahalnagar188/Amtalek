@@ -18,6 +18,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingCha
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,10 +29,10 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMessagingChatBinding::inflate
 
+
     @Inject
     lateinit var rvMessagingChatAdapter: RvMessagingChatAdapter
     val viewModel: MessagingViewModel by viewModels()
-    val svm: SharedViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +42,6 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     private fun setupViews() {
 
-
         viewModel.getContactedAgents()
         lifecycleScope.launch {
             Log.e("contacted agents", "contacted agents${viewModel.contactedAgents}")
@@ -49,7 +49,6 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
                 initChatRv(viewModel.contactedAgents.value?.data ?: emptyList())
             }
         }
-
     }
 
 //    private fun handleContactAction(agentId: String) {
@@ -79,12 +78,21 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
     }
 
 
-//    private fun handleContactAction(agentId: String) {
+    //    private fun handleContactAction(agentId: String) {
 //        viewModel.getContactedAgentsMessage(agentId)
 //    }
     override fun onChatClick(model: Data) {
-    val action = MessagingChatFragmentDirections.actionToUsersChatFragment(model.id.toString())
-    findNavController().navigate(action)
-  //  Log.e("id", model.id.toString())
+        if(model.messageType == "valid"){
+            val action = MessagingChatFragmentDirections.actionToUsersChatFragment(
+                model.id.toString(),
+                model.actorType.toString(),
+                model.name.toString(),
+                model.image
+            )
+            findNavController().navigate(action)
+            //  Log.e("id", model.id.toString())
+        }else{
+            showToast("Agent is not valid")
+        }
     }
 }

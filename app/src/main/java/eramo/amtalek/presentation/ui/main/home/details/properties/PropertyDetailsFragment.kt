@@ -209,6 +209,10 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
             }
         }
+
+        binding.etMessageName.setText(UserUtil.getUserFirstName()+" "+UserUtil.getUserLastName())
+        binding.etMessageMail.setText(UserUtil.getUserEmail())
+        binding.etMessagePhone.setText(UserUtil.getUserPhone())
         binding.btnMessageSend.setOnClickListener() {
             if (validMessageForm()) {
                 val name = binding.etMessageName.text.toString()
@@ -227,7 +231,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     propertyId = propertyId,
                     vendorType = vendorType
                 )
-
             }
         }
 

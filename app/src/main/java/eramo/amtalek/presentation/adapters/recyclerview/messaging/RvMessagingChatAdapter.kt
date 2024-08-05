@@ -39,7 +39,6 @@ class RvMessagingChatAdapter @Inject constructor() :
 
         fun bind(model: Data) {
             binding.apply {
-
                 tvName.text = model.name
                 Glide.with(itemView).load(model.image).into(ivImage)
             }

@@ -1,5 +1,6 @@
 package eramo.amtalek.data.repository
 
+import android.util.Log
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
@@ -90,8 +91,13 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
-                    is ApiState.Error -> emit(Resource.Error(it.message!!))
-                    is ApiState.Success -> { emit(Resource.Success(it.data)) }
+                    is ApiState.Error -> {
+                        Log.e("aaaa",it.message.toString())
+                        emit(Resource.Error(it.message!!))}
+                    is ApiState.Success -> {
+                        Log.e("bbbb",it.message.toString())
+
+                        emit(Resource.Success(it.data)) }
                 }
             }
         }
@@ -122,7 +128,8 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
             result.collect {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
-                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Error -> {
+                        emit(Resource.Error(it.message!!))}
                     is ApiState.Success -> { emit(Resource.Success(it.data)) }
                 }
             }

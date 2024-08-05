@@ -2,6 +2,7 @@ package eramo.amtalek.di
 
 import android.content.Context
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,8 @@ import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.domain.repository.search.CurrenciesRepository
 import eramo.amtalek.domain.repository.search.SearchRepository
+import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
+import eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragmentArgs
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -172,6 +175,18 @@ object AppModule {
     @Singleton
     fun provideProjectsRepository(amtalekApi: AmtalekApi): ProjectRepository {
         return ProjectRepositoryImpl(amtalekApi =amtalekApi )
+    }
+
+    @Provides
+    fun provideAgentImageUrl(fragment: Fragment): String {
+        return fragment.arguments?.let {
+            UsersChatFragmentArgs.fromBundle(it).agentImage
+        }.toString()
+    }
+
+    @Provides
+    fun provideRvUsersChatAdapter(): RvUsersChatAdapter {
+        return RvUsersChatAdapter()
     }
     @Provides
     @Singleton

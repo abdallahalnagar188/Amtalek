@@ -15,9 +15,11 @@ import eramo.amtalek.domain.repository.SentToBrokerMessageRepo
 import eramo.amtalek.domain.usecase.contactedAgents.GetContactedAgents
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,11 +38,12 @@ class MessagingViewModel @Inject constructor(
     private val _contactedAgents: MutableStateFlow<ContactedAgentResponse?> = MutableStateFlow(null)
     val contactedAgents: StateFlow<ContactedAgentResponse?> get() = _contactedAgents
 
-    private var _sentToBrokerState = MutableStateFlow<UiState<SentToBrokerMessageResponse>>(UiState.Empty())
-    val sentToBrokerState: StateFlow<UiState<SentToBrokerMessageResponse>> = _sentToBrokerState
 
     private val _contactedAgentsMessageResult = MutableStateFlow<Resource<ContactAgentsMessageResponse>>(Resource.Loading())
     val contactedAgentsMessageResult: MutableStateFlow<Resource<ContactAgentsMessageResponse>> = _contactedAgentsMessageResult
+
+
+    private var sendMessageToPropertyOwnerJob: Job? = null
 
     fun getContactedAgents() {
         viewModelScope.launch {
@@ -62,10 +65,12 @@ class MessagingViewModel @Inject constructor(
                         _contactedAgentsMessageResult.value = Resource.Success(result.data)
                         _messages.value = result.data?.data?.agentData?.messages ?: emptyList()
                     }
+
                     is Resource.Error -> {
                         Log.e("getMessageAgents fails", "sendContactRequest: ${result.message}")
                         _contactedAgentsMessageResult.value = Resource.Error(result.message!!)
                     }
+
                     is Resource.Loading -> {
                         _contactedAgentsMessageResult.value = Resource.Loading()
                     }
@@ -74,7 +79,11 @@ class MessagingViewModel @Inject constructor(
         }
     }
 
-    fun sendToBrokerInChat(
+
+    private var _sentToBrokerState = MutableStateFlow<UiState<SentToBrokerMessageResponse>>(UiState.Empty())
+    val sentToBrokerState: StateFlow<UiState<SentToBrokerMessageResponse>> = _sentToBrokerState
+
+    fun sendMessageToBrokerInChat(
         vendorId: String?,
         name: String?,
         email: String?,
@@ -82,29 +91,30 @@ class MessagingViewModel @Inject constructor(
         message: String?,
         vendorType: String
     ) {
-        Log.e(
-            "sendToBrokerInChat",
-            "vendorId: $vendorId, name: $name, email: $email, phone: $phone, message: $message, vendorType: $vendorType"
-        )
-        viewModelScope.launch {
-            sendToBrokerRepository.sendToBrokerInChat(
-                vendorId,
-                name,
-                email,
-                phone,
-                message,
-                vendorType
-            ).collect {
-                when (it) {
-                    is Resource.Success -> {
-                        _sentToBrokerState.value = UiState.Success(it.data)
+        sendMessageToPropertyOwnerJob?.cancel()
+        sendMessageToPropertyOwnerJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                sendToBrokerRepository.sendToBrokerInChat(
+                    vendorId,
+                    name,
+                    email,
+                    phone,
+                    message,
+                    vendorType
+                ).collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _sentToBrokerState.value = UiState.Success(it.data)
 
-                    }
-                    is Resource.Error -> {
-                        _sentToBrokerState.value = UiState.Error(it.message!!)
-                    }
-                    is Resource.Loading -> {
-                        _sentToBrokerState.value = UiState.Loading()
+                        }
+
+                        is Resource.Error -> {
+                            _sentToBrokerState.value = UiState.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _sentToBrokerState.value = UiState.Loading()
+                        }
                     }
                 }
             }

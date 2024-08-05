@@ -1,21 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.ui.drawer.messaging.chat.UsersChatFragment">
 
-    <include
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar_with_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="@dimen/_10sdp"
+        android:layoutDirection="locale"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingHorizontal="@dimen/screen_margin_sides"
+        android:paddingVertical="@dimen/_14sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratmedium"
+            android:text="Fragment Title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/amtalek_blue"
+                android:contentDescription="@null"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,8 +74,8 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/screen_margin_sides"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:paddingTop="@dimen/_8sdp"
         android:clipToPadding="false"
+        android:paddingTop="@dimen/_8sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/til_write_message"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +105,8 @@
             android:id="@+id/et_write_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:drawablePadding="@dimen/_8sdp"
             android:background="@color/Events_color_low"
+            android:drawablePadding="@dimen/_8sdp"
             android:fontFamily="@font/montserratregular"
             android:inputType="textMultiLine"
             android:textAlignment="textStart"
@@ -70,12 +120,12 @@
         android:layout_width="33dp"
         android:layout_height="35dp"
         android:layout_margin="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:backgroundTint="@color/amtalek_blue"
         android:clickable="true"
         android:focusable="true"
-        app:cardElevation="0dp"
-        android:layout_marginStart="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="@id/til_write_message"
         app:layout_constraintEnd_toEndOf="@id/til_write_message"
         app:layout_constraintTop_toTopOf="@id/til_write_message">

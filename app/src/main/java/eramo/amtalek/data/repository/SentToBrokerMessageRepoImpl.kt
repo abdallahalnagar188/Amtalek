@@ -2,6 +2,7 @@ package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.domain.repository.SendToBrokerRepository
 import eramo.amtalek.domain.repository.SentToBrokerMessageRepo
 import eramo.amtalek.util.UserUtil
@@ -26,12 +27,12 @@ class SentToBrokerMessageRepoImpl @Inject constructor(
         return flow {
             val result = toResultFlow {
                 amtalekApi.sendToBrokerInChat(
+                    if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
                     vendorId = vendorId,
                     name = name,
                     email = email,
                     phone = phone,
                     message = message,
-                    userToken = UserUtil.getUserToken(),
                     vendorType = vendorType
 
                 )
@@ -53,4 +54,5 @@ class SentToBrokerMessageRepoImpl @Inject constructor(
             }
         }
     }
+
 }

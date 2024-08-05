@@ -1,25 +1,24 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.ItemChatReceiverBinding
 import eramo.amtalek.databinding.ItemChatSenderBinding
-import eramo.amtalek.domain.model.social.messaging.ChatMessageType
-import eramo.amtalek.presentation.ui.drawer.messaging.MessagingViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 import javax.inject.Inject
 
 class RvUsersChatAdapter @Inject constructor() :
     ListAdapter<Message, RecyclerView.ViewHolder>(MessageDiffCallback()) {
 
     private var listener: OnItemClickListener? = null
+    private var agentImageUrl: String? = null
+    private var senderName: String? = null
 
 
     companion object {
@@ -61,8 +60,10 @@ class RvUsersChatAdapter @Inject constructor() :
 
     inner class SenderViewHolder(private val binding: ItemChatSenderBinding) : RecyclerView.ViewHolder(binding.root), BindView {
         override fun bind(model: Message) {
+
             binding.apply {
                 tvMessage.text = model.message
+                tvDataSender.text = model.messageTime
                 root.setOnClickListener {
                     if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                         listener?.onItemClick(model)
@@ -74,20 +75,39 @@ class RvUsersChatAdapter @Inject constructor() :
 
     inner class ReceiverViewHolder(private val binding: ItemChatReceiverBinding) : RecyclerView.ViewHolder(binding.root), BindView {
         override fun bind(model: Message) {
+
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+
+            val date = model.messageTime?.let { inputFormat.parse(it) }
+            val formattedTime = date?.let { outputFormat.format(it) } ?: "Unknown time"
             binding.apply {
-                Glide.with(root.context).load(
-                    model.link
-                ).into(ivProfile)
+                agentImageUrl?.let {
+                    Glide.with(binding.root.context)
+                        .load(it)
+                        .into(ivProfileMessage)
+                }
+                tvSender.text = senderName
+                // Load the agent image
                 tvMessage.text = model.message
+                tvData.text = formattedTime // Set the formatted time
                 root.setOnClickListener {
                     if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                         listener?.onItemClick(model)
                     }
                 }
             }
+
         }
     }
 
+    fun setAgentImageUrl(url: String) {
+        agentImageUrl = url
+    }
+
+    fun setAgentName(name: String) {
+        senderName = name
+    }
     fun sendMessage(message: String, messageId: Int, link: String) {
         val newMessage = Message(
             id = messageId,
