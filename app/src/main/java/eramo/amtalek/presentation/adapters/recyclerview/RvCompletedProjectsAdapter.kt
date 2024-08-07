@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import eramo.amtalek.data.remote.dto.brokersDetails.Project
 import eramo.amtalek.databinding.ItemLatestProjectsBinding
 import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
 import javax.inject.Inject
 
 
 class RvCompletedProjectsAdapter @Inject constructor() :
-    ListAdapter<LatestProjectsModel, RvCompletedProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<Project, RvCompletedProjectsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -36,17 +37,16 @@ class RvCompletedProjectsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: LatestProjectsModel) {
+        fun bind(model: Project) {
             binding.apply {
                 tvTitle.text = model.title
-                tvLocation.text = model.location
 
                 Glide.with(itemView)
-                    .load(model.imageUrl)
+                    .load(model.image)
                     .into(ivImage)
 
                 Glide.with(itemView)
-                    .load(model.brokerImageUrl)
+                    .load(model.agent_data?.logo)
                     .into(ivBrokerLogo)
             }
         }
@@ -57,20 +57,20 @@ class RvCompletedProjectsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onProjectClick(model: LatestProjectsModel)
+        fun onProjectClick(model: Project)
     }
 
     //check difference
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<LatestProjectsModel>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Project>() {
             override fun areItemsTheSame(
-                oldItem: LatestProjectsModel,
-                newItem: LatestProjectsModel
+                oldItem: Project,
+                newItem: Project
             ) = oldItem == newItem
 
             override fun areContentsTheSame(
-                oldItem: LatestProjectsModel,
-                newItem: LatestProjectsModel
+                oldItem: Project,
+                newItem: Project
             ) = oldItem == newItem
         }
     }

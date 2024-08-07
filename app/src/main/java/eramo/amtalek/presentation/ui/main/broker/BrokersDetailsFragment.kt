@@ -12,18 +12,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersDetails.Data
+import eramo.amtalek.data.remote.dto.brokersDetails.Project
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragmentDirections
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
@@ -45,17 +49,18 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private val viewModel: BrokersViewModel by viewModels()
     private val homeViewModel: HomeMyViewModel by viewModels()
 
+
     @Inject
     lateinit var rvBrokerDetailsPropertiesAdapter: RvBrokerDetailsPropertiesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
-        setupListeners()
+
 
         val id = arguments?.getInt("id") ?: 0
         Log.e("id in fragment", id.toString())
-
+        setupListeners(id)
         fetchData(id)
     }
 
@@ -63,10 +68,12 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         viewModel.getBrokersDetails(id)
         viewModel.getBrokersProperties(id)
 
+
         lifecycleScope.launch {
             viewModel.brokersDetails.collect { state ->
                 Log.e("details in fragment", state?.data.toString())
                 state?.data?.firstOrNull()?.let { assignData(it) }
+                Log.e("projects fragment", state?.data?.get(0)?.projects.toString())
             }
         }
 
@@ -82,14 +89,20 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String) {
         viewModelShared.sendContactRequest(propertyId?:0, brokerId, transactionType)
     }
+    val projectList = arguments?.getStringArray("projectList") as? Array<String>
 
-    private fun setupListeners() {
+    private fun setupListeners(id: Int) {
         binding.apply {
 
-            btnProjects.setOnClickListener {
-                findNavController().navigate(R.id.completedProjectsFragment,
-                    bundleOf("id" to arguments?.getInt("id")), navOptionsAnimation())
-            }
+//            btnProjects.setOnClickListener {
+//
+//                val bundle = Bundle().apply {
+//                    putStringArray("projectList", projectList)
+//                }
+//                findNavController().navigate(R.id.completedProjectsFragment, bundle)
+//
+//
+//            }
 //            btnSatisfiedCustomers.setOnClickListener {
 //                findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())
 //            }
@@ -107,11 +120,14 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     @SuppressLint("SetTextI18n")
     private fun assignData(model: Data) {
         binding.apply {
-            tvAllProjectsCount.text = "${model.property_for_sale?.plus(model.property_for_rent ?: 0)} properties"
+
+
+            tvAllProjectsCount.text =
+                "${model.property_for_sale?.plus(model.property_for_rent ?: 0)}  " + getString(R.string.property)
             tvTitle.text = model.name
             tvDescription.text = model.description
-            tvLocation.text = model.phone
-            tvProjectsCount.text = "${model.projects_count} projects"
+            tvLocation.visibility = View.GONE
+            tvProjectsCount.text = "${model.projects_count}  " + getString(R.string.project)
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
             if (model.broker_type == "broker" && model.has_package == "yes") {
                 shareView.root.visibility = View.VISIBLE

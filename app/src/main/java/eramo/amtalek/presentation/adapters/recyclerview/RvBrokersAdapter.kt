@@ -2,18 +2,17 @@ package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.broker.entity.DataX
 import eramo.amtalek.databinding.ItemBrokerBinding
-import eramo.amtalek.domain.model.main.brokers.BrokerModel
 import javax.inject.Inject
 
 class RvBrokersAdapter @Inject constructor() :
-    ListAdapter<DataX, RvBrokersAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    PagingDataAdapter<DataX, RvBrokersAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
@@ -21,7 +20,7 @@ class RvBrokersAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it) }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     inner class ProductViewHolder(private val binding: ItemBrokerBinding) :
@@ -30,7 +29,7 @@ class RvBrokersAdapter @Inject constructor() :
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    getItem(bindingAdapterPosition).let {
+                    getItem(bindingAdapterPosition)?.let {
                         listener.onBrokerClick(it)
                     }
                 }
@@ -58,13 +57,12 @@ class RvBrokersAdapter @Inject constructor() :
         fun onBrokerClick(model: DataX)
     }
 
-    //check difference
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
             override fun areItemsTheSame(
                 oldItem: DataX,
                 newItem: DataX
-            ) = oldItem == newItem
+            ) = oldItem.id == newItem.id // Assuming 'id' is unique for each item
 
             override fun areContentsTheSame(
                 oldItem: DataX,

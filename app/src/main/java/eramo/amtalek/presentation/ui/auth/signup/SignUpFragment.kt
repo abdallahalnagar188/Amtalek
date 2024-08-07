@@ -142,7 +142,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         dialog.show()
     }
 
-    val startForProfileImageResult =
+    private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
             val data = result.data

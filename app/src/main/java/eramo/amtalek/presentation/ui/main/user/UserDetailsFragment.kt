@@ -104,7 +104,8 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             //tvAllProjectsCount.text = "${model.property_for_sale?.plus(model.property_for_rent ?: 0)} properties"
             tvTitle.text = model.name
             tvDescription.text = model.description
-            tvLocation.text = model.phone
+            tvLocation.visibility = View.GONE
+
             //     tvProjectsCount.text = "${model.projects_count} projects"
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
             // Glide.with(requireContext()).load(model.cover).into(ivUserCover)

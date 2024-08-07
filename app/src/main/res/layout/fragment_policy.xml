@@ -22,8 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_22sdp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="icon close"
+        android:layoutDirection="locale"
+        android:src="@drawable/ic_back_reversed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"  />
 
     <ImageView

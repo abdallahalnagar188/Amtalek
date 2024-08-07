@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.auth
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
@@ -21,9 +22,18 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
 
     private val viewModel by viewModels<TermsAndConditionsViewModel>()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState).also {
+            StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
 
         binding.apply {
             ivClose.setOnClickListener {

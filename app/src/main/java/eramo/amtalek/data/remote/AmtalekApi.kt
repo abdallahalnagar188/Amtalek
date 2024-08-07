@@ -538,13 +538,13 @@ interface AmtalekApi {
         @Path("listing_number") listingNumber: String
     ): Response<ProjectDetailsResponse>
 
-
-
-
     //-----------------------------------------------------------------------------------------------//
     // Brokers
     @GET("mobile/brokers")
-    suspend fun getBrokers(): BrokersResponse
+    suspend fun getBrokers(
+    @Query("page") page: Int,
+    @Query("size") size: Int = 1, // You can set default page size
+    ): BrokersResponse
 
     @GET("mobile/broker/{id}/broker")
     suspend fun getBrokersDetails(

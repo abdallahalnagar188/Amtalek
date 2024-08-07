@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -62,15 +61,25 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-
-                tvPrice.text = itemView.context.getString(
-                    R.string.s_egp,
-                    formatPrice( model.salePrice?.toDouble() ?: 0.0)
-                )
-                tvDurationRent.text = itemView.context.getString(
-                    R.string.s_egp,
-                    formatPrice( model.rentPrice?.toDouble() ?: 0.0)
-                )
+                if (model.forWhat == "for_sale"){
+                    tvPrice.text = itemView.context.getString(
+                        R.string.s_egp,
+                        formatPrice( model.salePrice?.toDouble() ?: 0.0)
+                    )
+                }else{
+                    tvPrice.text = itemView.context.getString(
+                        R.string.s_egp,
+                        formatPrice( model.rentPrice?.toDouble() ?: 0.0)
+                    )
+                }
+//                tvPrice.text = itemView.context.getString(
+//                    R.string.s_egp,
+//                    formatPrice( model.salePrice?.toDouble() ?: 0.0)
+//                )
+//                tvDurationRent.text = itemView.context.getString(
+//                    R.string.s_egp,
+//                    formatPrice( model.rentPrice?.toDouble() ?: 0.0)
+//                )
                 tvTitle.text = model.title
                 tvLabel.text = (if (model.forWhat.equals("for_sale")){
                     itemView.context.getString(R.string.for_sell)

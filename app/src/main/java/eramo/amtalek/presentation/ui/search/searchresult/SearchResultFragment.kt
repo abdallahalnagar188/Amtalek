@@ -117,17 +117,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                     requestData()
                     binding.autoCompleteFilterType.setText("")
 
-                }else if (position==2){
-                    searchQuery.priceArrangeKeys = "featured"
-                    requestData()
-                    binding.autoCompleteFilterType.setText("")
-
-
-                }else if (position==3){
-                    searchQuery.priceArrangeKeys = "normal"
-                    requestData()
-                    binding.autoCompleteFilterType.setText("")
-
                 }
 
             }
