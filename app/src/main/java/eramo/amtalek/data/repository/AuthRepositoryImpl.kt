@@ -54,26 +54,26 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
         gender: RequestBody?,
         countryId: RequestBody?,
         cityId: RequestBody?,
-        regionId:RequestBody?,
-        birthday:RequestBody?,
-        companyName:RequestBody?,
-        iam:RequestBody?,
+        regionId: RequestBody?,
+        birthday: RequestBody?,
+        companyName: RequestBody?,
+        iam: RequestBody?,
         companyLogo: MultipartBody.Part?
     ): Flow<Resource<ResultModel>> {
         return flow {
 
             val result = toResultFlow {
                 amtalekApi.register(
-                   firstName =  firstName, lastName = lastName, phone =  phone, email =  email, password =  password,
+                    firstName = firstName, lastName = lastName, phone = phone, email = email, password = password,
                     confirmPassword = confirmPassword, gender = gender, countryId = countryId, cityId = cityId,
-                    regionId = regionId , createdFrom = convertToRequestBody(FROM_ANDROID),
-                     acceptCondition =  convertToRequestBody(SIGN_UP_GENDER_ACCEPT_CONDITION),
+                    regionId = regionId, createdFrom = convertToRequestBody(FROM_ANDROID),
+                    acceptCondition = convertToRequestBody(SIGN_UP_GENDER_ACCEPT_CONDITION),
                     notRobot = convertToRequestBody(NOT_ROBOT),
-                    companyName =  companyName,
-                    iam =  iam ,
+                    companyName = companyName,
+                    iam = iam,
                     companyLogo = companyLogo,
                     birthday = birthday
-                    )
+                )
             }
             result.collect {
                 when (it) {
@@ -87,6 +87,7 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
+
     fun convertToRequestBody(part: String?): RequestBody? {
         return try {
             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part!!)
@@ -289,6 +290,7 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
+
     override suspend fun getRegions(regionsId: String): Flow<Resource<List<RegionModel>>> {
         return flow {
             val result = toResultFlow { amtalekApi.getRegions(regionsId) }
@@ -304,6 +306,7 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
+
     override suspend fun getSubRegions(regionsId: String): Flow<Resource<List<RegionModel>>> {
         return flow {
             val result = toResultFlow { amtalekApi.getSubRegions(regionsId) }
@@ -319,6 +322,7 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             }
         }
     }
+
     override suspend fun getContactUsInfo(): Flow<Resource<ContactUsInfoModel>> {
         return flow {
             val result = toResultFlow { amtalekApi.contactUsInfo() }

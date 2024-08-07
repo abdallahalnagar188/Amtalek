@@ -114,9 +114,15 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
     private fun initToolbar() {
         binding.inToolbar.apply {
+
+            FHomeEtSearch.visibility = View.GONE
+            ivSearch.visibility =  View.GONE
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
+            }
+            inMessaging.root.setOnClickListener{
+                findNavController().navigate(R.id.messagingChatFragment)
             }
         }
         if (LocalUtil.isEnglish()){

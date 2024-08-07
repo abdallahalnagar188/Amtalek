@@ -60,6 +60,7 @@ class MarketFragment : BindingFragment<FragmentMarketBinding>(),
     }
 
     private fun setupToolbar() {
+        binding.inToolbar.root.visibility = View.GONE
         binding.inToolbar.apply {
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
 //            tvTitle.text =
