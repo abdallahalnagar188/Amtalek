@@ -336,6 +336,7 @@
                         android:background="@drawable/shape_red"
                         android:fontFamily="@font/montserratsemibold"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:layoutDirection="locale"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_7ssp"

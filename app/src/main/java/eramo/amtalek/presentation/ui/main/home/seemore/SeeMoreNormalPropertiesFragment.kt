@@ -60,6 +60,7 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
+            tvTitle.visibility = View.GONE
  //           tvTitle.text = "Featured Properties in Egypt"
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }

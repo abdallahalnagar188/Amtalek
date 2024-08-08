@@ -42,6 +42,14 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     private fun setupViews() {
 
+        binding.inToolbar.tvTitle.text = getString(R.string.messagings)
+        binding.inToolbar.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.addAdoms.setOnClickListener {
+            findNavController().navigate(R.id.addAdomsFragment)
+        }
+        binding.addAdoms.visibility = View.GONE
         viewModel.getContactedAgents()
         lifecycleScope.launch {
             Log.e("contacted agents", "contacted agents${viewModel.contactedAgents}")
@@ -60,22 +68,22 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
         rvMessagingChatAdapter.setListener(this@MessagingChatFragment)
         binding.rv.adapter = rvMessagingChatAdapter
         rvMessagingChatAdapter.submitList(data)
-        setupSearchRv(data)
+        //setupSearchRv(data)
     }
 
-    private fun setupSearchRv(data: List<Data?>) {
-        binding.etSearch.addTextChangedListener { text ->
-            if (text.toString().isEmpty()) {
-                rvMessagingChatAdapter.submitList(data)
-            } else {
-                val list = data.filter {
-                    it?.name?.lowercase()?.contains(text.toString().lowercase()) == true
-                }
-                rvMessagingChatAdapter.submitList(null)
-                rvMessagingChatAdapter.submitList(list)
-            }
-        }
-    }
+//    private fun setupSearchRv(data: List<Data?>) {
+//        binding.etSearch.addTextChangedListener { text ->
+//            if (text.toString().isEmpty()) {
+//                rvMessagingChatAdapter.submitList(data)
+//            } else {
+//                val list = data.filter {
+//                    it?.name?.lowercase()?.contains(text.toString().lowercase()) == true
+//                }
+//                rvMessagingChatAdapter.submitList(null)
+//                rvMessagingChatAdapter.submitList(list)
+//            }
+//        }
+//    }
 
 
     //    private fun handleContactAction(agentId: String) {

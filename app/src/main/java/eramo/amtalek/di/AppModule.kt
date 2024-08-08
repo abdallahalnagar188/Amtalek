@@ -69,7 +69,11 @@ object AppModule {
         return ContactedAgentsRepoImpl(apiService)
     }
 
-
+    @Provides
+    @Singleton
+    fun provideAdonsRepo(apiService: AmtalekApi):AdonsRepo{
+        return AdonsRepoImpl(apiService)
+    }
     @Provides
     @Singleton
     fun provideAllNormalPropertiesRepo(apiService: AmtalekApi):AllNormalPropertiesRepo{

@@ -76,7 +76,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private val propertyListingNumber get() = args.propertyId
     lateinit var propertyId: String
     private lateinit var vendorId: String
-    private lateinit var vendorType:String
+    private lateinit var vendorType: String
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
@@ -90,14 +90,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // checkActorTypefirstime()
+        // checkActorTypefirstime()
         setupViews()
         requestData()
         fetchData()
         clickListeners()
         setupToggle()
     }
-
 
 
     private fun setupToggle() {
@@ -211,7 +210,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
 
-        binding.etMessageName.setText(UserUtil.getUserFirstName()+" "+UserUtil.getUserLastName())
+        binding.etMessageName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
         binding.etMessageMail.setText(UserUtil.getUserEmail())
         binding.etMessagePhone.setText(UserUtil.getUserPhone())
         binding.btnMessageSend.setOnClickListener() {
@@ -239,17 +238,17 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     private fun navigateToProfile(model: PropertyDetailsModel) {
-            findNavController().navigate(
-                R.id.brokersDetailsFragment,
-                bundleOf("id" to model.brokerId),
-                navOptionsAnimation()
-            )
+        findNavController().navigate(
+            R.id.brokersDetailsFragment,
+            bundleOf("id" to model.brokerId),
+            navOptionsAnimation()
+        )
 
 
     }
 
-    private fun handleContactAction(propertyId: Int, brokerId: Int, transactionType: String) {
-            sharedViewModel.sendContactRequest(propertyId, brokerId, transactionType)
+    private fun handleContactAction(propertyId: Int, brokerId: Int, brokerType: String, transactionType: String) {
+        sharedViewModel.sendContactRequest(propertyId, brokerId, brokerType = brokerType, transactionType)
     }
 
 
@@ -262,6 +261,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             binding.contactUs.root.visibility = View.GONE
         }
     }
+
     private fun checkActorType() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -345,7 +345,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private fun fetchData() {
 
-       // checkActorTypefirstime()
+        // checkActorTypefirstime()
         //fetchActorType()
         fetchPropertyDetailsState()
         fetchSendCommentOnPropertyState()
@@ -570,16 +570,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         setupVideo(it)
                     }
                 }
-                if (model.vendorType == "broker") {
-                    contactUs.root.visibility = View.VISIBLE
-                }else {
-                    contactUs.root.visibility = View.GONE
-                }
+//                if (model.sold) {
+//                    contactUs.root.visibility = View.VISIBLE
+//                }else {
+//                    contactUs.root.visibility = View.GONE
+//                }
 
                 tvVisitProfile.setOnClickListener {
                     if (model.vendorType == "broker")
-                    navigateToProfile(model = model)
-                    else if (model.vendorType == "user"){
+                        navigateToProfile(model = model)
+                    else if (model.vendorType == "user") {
                         val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
                             model.brokerId.toString()
                         )
@@ -605,35 +605,68 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     roiLayout.root.visibility = View.GONE
                 }
                 binding.contactUs.btnCall.setOnClickListener {
-                    if (UserUtil.isUserLogin()){
-//                        sharedViewModel.sendContactRequest(model.id,model.brokerId,"call")
-                        Log.e("call",model.brokerPhone.toString())
-                        handleContactAction(model.id, model.brokerId, "call")
+                    if (UserUtil.isUserLogin()) {
+
+                        sharedViewModel.sendContactRequest(
+                            propertyId = model.id,
+                            brokerId = model.brokerId,
+                            brokerType = model.vendorType,
+                            transactionType = "call"
+                        )
+//                        handleContactAction(
+//                            propertyId = model.id,
+//                            brokerId = model.brokerId,
+//                            brokerType = model.vendorType,
+//                            transactionType = "call"
+//                        )
                         val phoneNumber = "+20${model.brokerPhone}"
                         makeCall(phoneNumber)
-                    }else{
+                    } else {
                         findNavController().navigate(R.id.loginDialog)
                     }
                 }
                 binding.contactUs.btnMessaging.setOnClickListener {
-                    if (UserUtil.isUserLogin()){
-                        sharedViewModel.sendContactRequest(model.id,model.brokerId,"email")
-                        handleContactAction(model.id, model.brokerId, "email")
+                    if (UserUtil.isUserLogin()) {
+                        Log.e("id", model.brokerId.toString())
+                        Log.e("type", model.vendorType)
+                        sharedViewModel.sendContactRequest(
+                            propertyId = model.id,
+                            brokerId = model.brokerId,
+                            brokerType = model.vendorType,
+                            transactionType = "email"
+                        )
+//                        handleContactAction(
+//                            propertyId = model.id,
+//                            brokerId = model.brokerId,
+//                            brokerType = model.vendorType,
+//                            transactionType = "email"
+//                        )
                         val emailAddress = model.brokerEmail
                         sendEmail(emailAddress)
-                    }else{
+                    } else {
                         findNavController().navigate(R.id.loginDialog)
                     }
 
                 }
                 binding.contactUs.btnWhatsApp.setOnClickListener {
-                    if (UserUtil.isUserLogin()){
-                        sharedViewModel.sendContactRequest(model.id,model.brokerId,"meeting")
-                        handleContactAction(model.id, model.brokerId, "meeting")
+                    if (UserUtil.isUserLogin()) {
+
+                        sharedViewModel.sendContactRequest(
+                            propertyId = model.id,
+                            brokerId = model.brokerId,
+                            brokerType = model.vendorType,
+                            transactionType = "meeting"
+                        )
+//                        handleContactAction(
+//                            propertyId = model.id,
+//                            brokerId = model.brokerId,
+//                            brokerType = model.vendorType,
+//                            transactionType = "meeting"
+//                        )
                         val phoneNumber =
-                            model.brokerPhone // Make sure this is the full phone number in international format, e.g., "201234567890"
+                            model.brokerPhone
                         openWhatsApp(phoneNumber)
-                    }else{
+                    } else {
 
                         findNavController().navigate(R.id.loginDialog)
                     }

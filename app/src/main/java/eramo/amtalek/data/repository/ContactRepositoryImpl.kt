@@ -16,13 +16,19 @@ class ContactRepositoryImpl @Inject constructor(private val apiService: AmtalekA
     override suspend fun contactUs(
         propertyId: Int,
         brokerId: Int,
-        transactionType: String
+        transactionType: String,
+        brokerType: String
     ): Flow<Resource<ContactUsResponseInProperty>> {
 
         return flow {
             val result = toResultFlow {
                 apiService.sendContactRequest(
-                    UserUtil.getUserToken(),propertyId.toString(), brokerId.toString(), transactionType
+                    UserUtil.getUserToken(),
+                    propertyId.toString(),
+                    brokerId.toString(),
+                    brokerType = brokerType,
+                    transactionType = transactionType
+
                 )
             }
             result.collect {

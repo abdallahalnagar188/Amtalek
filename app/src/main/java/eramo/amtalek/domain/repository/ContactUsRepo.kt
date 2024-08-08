@@ -8,6 +8,7 @@ interface ContactUsRepo {
     suspend fun contactUs(
         propertyId: Int,
         brokerId: Int,
+        brokerType: String,
         transactionType: String
     ): Flow<Resource<ContactUsResponseInProperty>>
 

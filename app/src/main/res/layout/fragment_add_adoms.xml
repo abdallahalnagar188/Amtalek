@@ -1,0 +1,86 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.drawer.messaging.AddAdomsFragment">
+
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/layout_toolbar_with_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/user_toggle_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/monthly_btn_adom"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratsemibold"
+            android:text="@string/monthly"
+            android:textColor="@color/amtalek_blue_dark"
+            android:textSize="@dimen/_12ssp"
+            app:cornerRadius="@dimen/_4sdp"
+            app:rippleColor="@color/transparent"
+            app:strokeColor="@color/amtalek_blue_dark" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/yearly_btn_adom"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratsemibold"
+            android:text="@string/yearly"
+            android:textColor="@color/amtalek_blue_dark"
+            android:textSize="@dimen/_12ssp"
+            app:cornerRadius="@dimen/_4sdp"
+            app:rippleColor="@color/transparent"
+            app:strokeColor="@color/amtalek_blue_dark" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <!-- RecyclerView for the addon cards -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAddons"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
+        app:layout_constraintBottom_toTopOf="@id/btnTotalPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_adons" />
+
+    <!-- Button for Total Price -->
+    <Button
+        android:id="@+id/btnTotalPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/total_price"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/amtalek_blue_dark"
+        android:fontFamily="@font/montserratsemibold"
+        android:textSize="@dimen/_14ssp"
+        android:paddingVertical="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/_50sdp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewAddons"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

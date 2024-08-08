@@ -97,23 +97,23 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                     .load(model.primaryImage)
                     .into(ivImage)
                 Glide.with(itemView).load(model.brokerDetails?.companyLogo).into(ivBroker)
-
-                if (model.isFav == "") {
-                    tvFeatured.visibility = View.VISIBLE
-                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
-                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
-                    binding.tvFeatured.text = itemView.context.getString(R.string.featured)
-
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-
-                } else {
-                    tvFeatured.visibility = View.GONE
-                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
-                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
-
-                    ivFav.setImageResource(R.drawable.ic_heart)
-
-                }
+//
+//                if (model. == "") {
+//                    tvFeatured.visibility = View.VISIBLE
+//                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
+//                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
+//                    binding.tvFeatured.text = itemView.context.getString(R.string.featured)
+//
+//                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+//
+//                } else {
+//                    tvFeatured.visibility = View.GONE
+//                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
+//                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+//
+//                    ivFav.setImageResource(R.drawable.ic_heart)
+//
+//                }
             }
         }
     }

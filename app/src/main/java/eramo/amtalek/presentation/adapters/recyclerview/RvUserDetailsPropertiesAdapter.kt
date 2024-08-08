@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.data.remote.dto.userDetials.Data
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -49,7 +47,7 @@ class RvUserDetailsPropertiesAdapter @Inject constructor() :
         fun bind(model: Data) {
             var isFav = model.submitted_props_for_sale?.get(0)?.is_fav
             binding.apply {
-           //     favListener.onFavClick(model)
+        //       favListener.onFavClick(model)
                 ivFav.setOnClickListener {
                     if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
                         isFav = "1"

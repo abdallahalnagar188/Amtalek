@@ -32,7 +32,6 @@ class SharedViewModel @Inject constructor(
     private val repository: ContactRepositoryImpl,
 
 
-
     ) : ViewModel() {
 
     var previousScreen: Int? = null
@@ -45,7 +44,7 @@ class SharedViewModel @Inject constructor(
 
     val profileImageUri = MutableLiveData<Uri?>(null)
     val profileNameState = MutableLiveData<String?>(null)
-    val profileCityState  = MutableLiveData<String?>(null)
+    val profileCityState = MutableLiveData<String?>(null)
 
 
     private val _contactResult = MutableStateFlow<Resource<ContactUsResponseInProperty>>(Resource.Loading())
@@ -53,8 +52,6 @@ class SharedViewModel @Inject constructor(
 
     private val _messagesState = MutableStateFlow<Resource<SentToBrokerMessageResponse>>(Resource.Loading())
     val messagesState: StateFlow<Resource<SentToBrokerMessageResponse>> get() = _messagesState
-
-
 
 
     //____________________________________________________________________________________________//
@@ -96,20 +93,21 @@ class SharedViewModel @Inject constructor(
     }
 
 
-
-    fun sendContactRequest(propertyId: Int, brokerId: Int, transactionType: String) {
+    fun sendContactRequest(propertyId: Int, brokerId: Int, brokerType: String, transactionType: String) {
         viewModelScope.launch {
-            repository.contactUs(propertyId, brokerId, transactionType).collect { result ->
+            repository.contactUs(propertyId, brokerId, brokerType = brokerType, transactionType = transactionType).collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         Log.e("contactUs", "sendContactRequest: ${result.data}")
                         _contactResult.value = Resource.Success(result.data)
 
                     }
+
                     is Resource.Error -> {
                         Log.e("contactUsF", "sendContactRequest: ${result.data}")
                         _contactResult.value = Resource.Error(result.message!!)
                     }
+
                     is Resource.Loading -> {
                         _contactResult.value = Resource.Loading()
                     }

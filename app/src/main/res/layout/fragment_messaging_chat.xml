@@ -6,26 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.drawer.messaging.MessagingChatFragment">
 
-    <EditText
-        android:id="@+id/et_search"
+    <include
+        android:id="@+id/in_toolbar"
+        layout="@layout/layout_toolbar_with_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="@dimen/screen_margin_sides"
-        android:layout_marginBottom="@dimen/_6sdp"
-        android:autofillHints=""
-        android:background="@drawable/search_edit_text_background"
-        android:drawablePadding="@dimen/_4sdp"
-        android:gravity="center_vertical"
-        android:hint="@string/search_chat"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:padding="@dimen/_8sdp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/gray"
-        android:textCursorDrawable="@null"
-        android:textDirection="locale"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,9 +21,9 @@
         android:layout_height="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_8sdp"
         android:src="@drawable/ic_magnifier"
-        app:layout_constraintBottom_toBottomOf="@+id/et_search"
-        app:layout_constraintEnd_toEndOf="@+id/et_search"
-        app:layout_constraintTop_toTopOf="@+id/et_search" />
+        app:layout_constraintBottom_toBottomOf="@+id/in_toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/in_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/in_toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -52,7 +37,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_search"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
         tools:listitem="@layout/item_messaging_chat" />
 
+
+    <Button
+        android:id="@+id/add_adoms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_70sdp"
+        android:background="@drawable/blue_border_with_radius_background"
+        android:text="@string/add_adom"
+        android:textAllCaps="false"
+        android:fontFamily="@font/font"
+        android:padding="@dimen/_10sdp"
+        android:textColor="@color/white"
+        android:drawableTint="@color/white"
+        android:drawablePadding="@dimen/_8sdp"
+        android:drawableStart="@drawable/ic_add_adom"
+        android:backgroundTint="@color/amtalek_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

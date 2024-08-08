@@ -45,6 +45,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
         viewModel.getAllProperty()
         lifecycleScope.launch {
             viewModel.allProperty.collect {
+
 //                Log.e("elnagar", it?.data?.original?.data.toString())
 //                rvPropertiesAdapter.submitList(it?.data?.original?.data)
 //                binding.rvProperties.adapter = rvPropertiesAdapter
@@ -61,7 +62,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
- //           tvTitle.text = "Featured Properties in Egypt"
+            tvTitle.visibility = View.GONE
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }

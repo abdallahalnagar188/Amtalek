@@ -1011,6 +1011,10 @@
     <string name="normal">عقار عادي</string>
     <string name="featured_small">عقار مميز</string>
     <string name="property">عقار</string>
+    <string name="add_adom">أضف اضافات</string>
+    <string name="messagings">محادثات</string>
+    <string name="add_adoms">Add Adoms</string>
+    <string name="total_price">total pricse</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

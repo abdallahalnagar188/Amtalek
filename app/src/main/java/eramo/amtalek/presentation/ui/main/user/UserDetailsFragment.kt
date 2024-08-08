@@ -1,10 +1,13 @@
 package eramo.amtalek.presentation.ui.main.user
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +25,7 @@ import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
@@ -73,8 +77,8 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
     }
 
-    private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String) {
-        viewModelShared.sendContactRequest(propertyId ?: 0, brokerId, transactionType)
+    private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String, brokerType: String) {
+        viewModelShared.sendContactRequest(propertyId ?: 0, brokerId, brokerType = brokerType, transactionType)
     }
 
     private fun setupListeners() {
@@ -110,55 +114,55 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
             // Glide.with(requireContext()).load(model.cover).into(ivUserCover)
         }
-//        binding.shareView.btnCall.setOnClickListener {
-//            if (UserUtil.isUserLogin()){
-//                model.id?.let { it1 -> handleContactAction(null, it1, "call") }
-//                val phoneNumber = "+20${model.phone}"
-//                val callIntent = Intent(Intent.ACTION_DIAL).apply {
-//                    data = Uri.parse("tel:$phoneNumber")
-//                }
-//                startActivity(callIntent)
-//            }else{
-//                findNavController().navigate(R.id.loginDialog)
-//            }
-//
-//        }
-//
-//        binding.shareView.btnWhatsApp.setOnClickListener {
-//            if (UserUtil.isUserLogin()){
-//                model.id?.let { it1 -> handleContactAction(null, it1, "meeting") }
-//                val phoneNumber = model.phone
-//                val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
-//                val sendIntent = Intent(Intent.ACTION_VIEW).apply {
-//                    data = Uri.parse(url)
-//                }
-//                try {
-//                    startActivity(sendIntent)
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                    Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
-//                }
-//            }else{
-//                findNavController().navigate(R.id.loginDialog)
-//            }
-//
-//        }
-//
-//        binding.shareView.btnMessaging.setOnClickListener {
-//            if (UserUtil.isUserLogin()){
-//                model.id?.let { it1 -> handleContactAction(null, it1, "email") }
-//                val emailAddress = model.email
-//                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-//                    data = Uri.parse("mailto:$emailAddress")
-//                    putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
-//                    putExtra(Intent.EXTRA_TEXT, "Email body here")
-//                }
-//                startActivity(emailIntent)
-//            }else{
-//                findNavController().navigate(R.id.loginDialog)
-//            }
-//
-//        }
+        binding.shareView.btnCall.setOnClickListener {
+            if (UserUtil.isUserLogin()) {
+                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "call", it2) } }
+                val phoneNumber = "+20${model.phone}"
+                val callIntent = Intent(Intent.ACTION_DIAL).apply {
+                    data = Uri.parse("tel:$phoneNumber")
+                }
+                startActivity(callIntent)
+            } else {
+                findNavController().navigate(R.id.loginDialog)
+            }
+
+        }
+
+        binding.shareView.btnWhatsApp.setOnClickListener {
+            if (UserUtil.isUserLogin()) {
+                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "meeting", it2) } }
+                val phoneNumber = model.phone
+                val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
+                val sendIntent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
+                try {
+                    startActivity(sendIntent)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                findNavController().navigate(R.id.loginDialog)
+            }
+
+        }
+
+        binding.shareView.btnMessaging.setOnClickListener {
+            if (UserUtil.isUserLogin()) {
+                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "email", it2) } }
+                val emailAddress = model.email
+                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:$emailAddress")
+                    putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
+                    putExtra(Intent.EXTRA_TEXT, "Email body here")
+                }
+                startActivity(emailIntent)
+            } else {
+                findNavController().navigate(R.id.loginDialog)
+            }
+
+        }
 
     }
 

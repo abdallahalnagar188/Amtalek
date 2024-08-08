@@ -86,9 +86,10 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
     }
 
-    private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String) {
-        viewModelShared.sendContactRequest(propertyId?:0, brokerId, transactionType)
+    private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String, brokerType: String) {
+        viewModelShared.sendContactRequest(propertyId ?: 0, brokerId, brokerType = brokerType, transactionType)
     }
+
     val projectList = arguments?.getStringArray("projectList") as? Array<String>
 
     private fun setupListeners(id: Int) {
@@ -129,29 +130,29 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             tvLocation.visibility = View.GONE
             tvProjectsCount.text = "${model.projects_count}  " + getString(R.string.project)
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
-            if (model.broker_type == "broker" && model.has_package == "yes") {
-                shareView.root.visibility = View.VISIBLE
-            } else {
-                shareView.root.visibility = View.GONE
-            }
+//            if (model.broker_type == "broker" && model.has_package == "yes") {
+//                shareView.root.visibility = View.VISIBLE
+//            } else {
+//                shareView.root.visibility = View.GONE
+//            }
         }
         binding.shareView.btnCall.setOnClickListener {
-            if (UserUtil.isUserLogin()){
-                model.id?.let { it1 -> handleContactAction(null, it1, "call") }
+            if (UserUtil.isUserLogin()) {
+                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "call", brokerType = it2) } }
                 val phoneNumber = "+20${model.phone}"
                 val callIntent = Intent(Intent.ACTION_DIAL).apply {
                     data = Uri.parse("tel:$phoneNumber")
                 }
                 startActivity(callIntent)
-            }else{
+            } else {
                 findNavController().navigate(R.id.loginDialog)
             }
 
         }
 
         binding.shareView.btnWhatsApp.setOnClickListener {
-            if (UserUtil.isUserLogin()){
-                model.id?.let { it1 -> handleContactAction(null, it1, "meeting") }
+            if (UserUtil.isUserLogin()) {
+                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "meeting", brokerType = it2) } }
                 val phoneNumber = model.phone
                 val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
                 val sendIntent = Intent(Intent.ACTION_VIEW).apply {
@@ -163,15 +164,15 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                     e.printStackTrace()
                     Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
                 }
-            }else{
+            } else {
                 findNavController().navigate(R.id.loginDialog)
             }
 
         }
 
         binding.shareView.btnMessaging.setOnClickListener {
-            if (UserUtil.isUserLogin()){
-                model.id?.let { it1 -> handleContactAction(null, it1, "email") }
+            if (UserUtil.isUserLogin()) {
+                model.id?.let { it1 -> handleContactAction(null, it1, "email", brokerType = model.broker_type.toString()) }
                 val emailAddress = model.email
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:$emailAddress")
@@ -179,7 +180,7 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                     putExtra(Intent.EXTRA_TEXT, "Email body here")
                 }
                 startActivity(emailIntent)
-            }else{
+            } else {
                 findNavController().navigate(R.id.loginDialog)
             }
 
@@ -229,7 +230,7 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     }
 
     override fun onFavClick(model: OriginalItem) {
-        model.id?.let { homeViewModel.addOrRemoveFav(it) }
+        //   model.id?.let { homeViewModel.addOrRemoveFav(it) }
 
     }
 

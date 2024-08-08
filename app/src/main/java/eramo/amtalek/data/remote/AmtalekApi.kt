@@ -2,6 +2,7 @@ package eramo.amtalek.data.remote
 
 import android.os.Message
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
+import eramo.amtalek.data.remote.dto.adons.AdonsResponse
 import eramo.amtalek.data.remote.dto.auth.CitiesResponse
 import eramo.amtalek.data.remote.dto.auth.CountriesResponse
 import eramo.amtalek.data.remote.dto.auth.OnBoardingDto
@@ -268,6 +269,11 @@ interface AmtalekApi {
     suspend fun getHome(
         @Header("Authorization") userToken: String?
     ): Response<HomeResponse>
+
+    @GET("addons")
+    suspend fun getAdons(
+        @Header("Authorization") userToken: String?,
+    ): Response<AdonsResponse>
 
     @GET("web/get-contacted-agents")
     suspend fun getContactedAgents(
@@ -567,6 +573,7 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?,
         @Field("property_id") propertyId: String?,
         @Field("broker_id") brokerId: String,
+        @Field("broker_type") brokerType: String,
         @Field("transaction_type") transactionType: String,
     ): Response<ContactUsResponseInProperty>
 
@@ -600,4 +607,6 @@ interface AmtalekApi {
         @Field("broker_type") vendorType: String?,
         @Field("message") message: String?
     ): Response<SentToBrokerMessageResponse>
+
+
 }

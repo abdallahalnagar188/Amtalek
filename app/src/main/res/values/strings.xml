@@ -974,6 +974,10 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="featured_small">Featured</string>
     <string name="total_properties">Total Properties</string>
     <string name="property">Property</string>
+    <string name="add_adom">Add Adom</string>
+    <string name="messagings">Messages</string>
+    <string name="add_adoms">Add Adoms</string>
+    <string name="total_price">total pricse</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

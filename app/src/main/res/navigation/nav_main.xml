@@ -47,9 +47,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/addAdomsFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.AddAdomsFragment"
+        tools:layout="@layout/fragment_add_adoms">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="eramo.amtalek.presentation.ui.drawer.myaccount.ChangePasswordFragment"
-        tools:layout="@layout/fragment_change_password">
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.AddAdomsFragment"
+        tools:layout="@layout/fragment_add_adoms">
 
     </fragment>
 
