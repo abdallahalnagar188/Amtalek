@@ -1,8 +1,7 @@
 package eramo.amtalek.data.remote
 
-import android.os.Message
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
-import eramo.amtalek.data.remote.dto.adons.AdonsResponse
+import eramo.amtalek.data.remote.dto.adons.AddonsResponse
 import eramo.amtalek.data.remote.dto.auth.CitiesResponse
 import eramo.amtalek.data.remote.dto.auth.CountriesResponse
 import eramo.amtalek.data.remote.dto.auth.OnBoardingDto
@@ -54,7 +53,6 @@ import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.Submi
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
-import eramo.amtalek.presentation.ui.main.user.UserDetailsFragment
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -271,9 +269,9 @@ interface AmtalekApi {
     ): Response<HomeResponse>
 
     @GET("addons")
-    suspend fun getAdons(
+    suspend fun getAddons(
         @Header("Authorization") userToken: String?,
-    ): Response<AdonsResponse>
+    ): Response<AddonsResponse>
 
     @GET("web/get-contacted-agents")
     suspend fun getContactedAgents(
@@ -593,7 +591,8 @@ interface AmtalekApi {
         @Field("name") name: String?,
         @Field("email") email: String?,
         @Field("phone") phone: String?,
-        @Field("message") message: String?
+        @Field("message") message: String?,
+        @Field("broker_type") vendorType: String?
     ): Response<SendToBrokerResponse>
 
     @FormUrlEncoded

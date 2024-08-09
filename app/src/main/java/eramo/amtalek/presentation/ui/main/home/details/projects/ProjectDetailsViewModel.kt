@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui.main.home.details.projects
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.domain.repository.ProjectRepository
@@ -37,10 +36,13 @@ class ProjectDetailsViewModel @Inject constructor(
         name: String?,
         email: String?,
         phone: String?,
-        message: String?){
+        message: String?,
+        vendorType: String?
+    ) {
         sentToBrokerJob?.cancel()
         sentToBrokerJob =viewModelScope.launch {
-            sendToBrokerRepository.sendToBroker(vendorId,name,email,phone,message).collect(){
+            sendToBrokerRepository.sendToBroker(vendorId, name, email, phone, message, vendorType)
+                .collect() {
                 when(it){
                     is Resource.Success -> {
                         _sentToBrokerState.value = UiState.Success(it.data)

@@ -45,7 +45,6 @@ import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
@@ -219,7 +218,11 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderNotifications.setOnClickListener {
-                navController.navigate(R.id.notificationFragment)
+                if (UserUtil.isUserLogin()) {
+                    navController.navigate(R.id.notificationFragment)
+                } else {
+                    navController.navigate(R.id.loginDialog)
+                }
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
@@ -400,7 +403,8 @@ class MainActivity : AppCompatActivity(),
                 R.id.addPropertyFifthFragment,
                 R.id.searchFormFragment,
                 R.id.searchResultFragment,
-                R.id.seeMoreNewsFragment
+                R.id.seeMoreNewsFragment,
+                R.id.addAdomsFragment
 
                 -> {
                     binding.apply {

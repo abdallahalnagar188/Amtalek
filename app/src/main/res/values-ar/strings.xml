@@ -720,6 +720,7 @@
     <string name="free">Free</string>
 
     <string name="s_normal_listing">عادى : %S</string>
+    <string name="s_monthly_listing">عادى : %S</string>
     <string name="s_featured_listings">مميز : %S</string>
     <string name="s_social_media_promotion">ترقية : %S</string>
     <string name="s_leads_management">عملاء : %S</string>
@@ -857,7 +858,7 @@
     <string name="coming_soon">قريبا!!</string>
 
     <string name="invalid_data_parsing">خطأ فى البيانات</string>
-    <string name="select_a_city">أختر مدينة</string>
+    <string name="select_a_city">مصر</string>
 
     <string name="max_price">أقصى سعر</string>
     <string name="low_price">أقل سعر</string>
@@ -1013,8 +1014,10 @@
     <string name="property">عقار</string>
     <string name="add_adom">أضف اضافات</string>
     <string name="messagings">محادثات</string>
-    <string name="add_adoms">Add Adoms</string>
-    <string name="total_price">total pricse</string>
+    <string name="add_adoms">أضف اضافات</string>
+    <string name="total_price">السعر الكلي</string>
+    <string name="addon_name">addon_name</string>
+    <string name="egypt">Egypt</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

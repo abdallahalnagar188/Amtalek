@@ -149,7 +149,6 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                         ).toBundle(),
                         navOptionsAnimation()
                     )
-
                 }
             }
         }

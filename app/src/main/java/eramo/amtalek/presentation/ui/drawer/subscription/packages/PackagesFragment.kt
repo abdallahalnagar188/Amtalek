@@ -291,7 +291,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
         if (UserUtil.isUserLogin()){
             viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
         }else{
-            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
         }
 
     }
@@ -300,7 +300,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
         if (UserUtil.isUserLogin()){
             viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
         }else{
-            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
         }
     }
 
@@ -308,7 +308,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
         if (UserUtil.isUserLogin()){
             viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "user")
         }else{
-            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
         }
     }
 
@@ -316,7 +316,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
         if (UserUtil.isUserLogin()){
             viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "user")
         }else{
-            findNavController().navigate(R.id.loginFragment, null,navOptionsAnimation())
+            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
         }
     }
 }

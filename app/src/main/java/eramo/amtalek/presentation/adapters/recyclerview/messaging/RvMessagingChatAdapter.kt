@@ -13,18 +13,56 @@ import javax.inject.Inject
 
 
 class RvMessagingChatAdapter @Inject constructor() :
-    ListAdapter<Data, RvMessagingChatAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<Data, RecyclerView.ViewHolder>(PRODUCT_COMPARATOR) {
+
     private lateinit var listener: OnItemClickListener
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemMessagingChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
+    companion object {
+        private const val VIEW_TYPE_VALID = 1
+        private const val VIEW_TYPE_BLURRED = 2
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it) }
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
+            override fun areItemsTheSame(oldItem: Data, newItem: Data) = oldItem == newItem
+
+            override fun areContentsTheSame(oldItem: Data, newItem: Data) = oldItem == newItem
+        }
     }
 
-    inner class ProductViewHolder(private val binding: ItemMessagingChatBinding) :
+    override fun getItemViewType(position: Int): Int {
+        return if (getItem(position).messageType == "valid") {
+            VIEW_TYPE_VALID
+        } else {
+            VIEW_TYPE_BLURRED
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_VALID -> {
+                val binding = ItemMessagingChatBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                ValidMessageViewHolder(binding)
+            }
+            VIEW_TYPE_BLURRED -> {
+                val binding = ItemMessagingChatBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                BlurredMessageViewHolder(binding)
+            }
+            else -> throw IllegalArgumentException("Invalid view type")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val message = getItem(position)
+        when (holder) {
+            is ValidMessageViewHolder -> holder.bind(message)
+            is BlurredMessageViewHolder -> holder.bind(message)
+        }
+    }
+
+    inner class ValidMessageViewHolder(private val binding: ItemMessagingChatBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -41,6 +79,29 @@ class RvMessagingChatAdapter @Inject constructor() :
             binding.apply {
                 tvName.text = model.name
                 Glide.with(itemView).load(model.image).into(ivImage)
+                // Other binding logic for valid messages
+            }
+        }
+    }
+
+    inner class BlurredMessageViewHolder(private val binding: ItemMessagingChatBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                // Optionally prevent clicking on blurred messages or show a toast
+                listener.onChatClick(getItem(bindingAdapterPosition))
+            }
+        }
+
+        fun bind(model: Data) {
+            binding.apply {
+                tvName.text = model.name
+                Glide.with(itemView).load(model.image).into(ivImage)
+                // Set text and image with low opacity for blurred messages
+                tvName.alpha = 0.5f
+                ivImage.alpha = 0.5f
+                // Additional UI changes for blurred messages
             }
         }
     }
@@ -51,20 +112,5 @@ class RvMessagingChatAdapter @Inject constructor() :
 
     interface OnItemClickListener {
         fun onChatClick(model: Data)
-    }
-
-    //check difference
-    companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
-            override fun areItemsTheSame(
-                oldItem: Data,
-                newItem: Data
-            ) = oldItem == newItem
-
-            override fun areContentsTheSame(
-                oldItem: Data,
-                newItem: Data
-            ) = oldItem == newItem
-        }
     }
 }

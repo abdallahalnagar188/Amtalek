@@ -112,6 +112,7 @@ data class DataX(
             offerData = null,
             region = region?:"",
             subRegion = subRegion?:"",
+            vendorType = brokerDetails?.brokerType?:"",
         )
     }
 

@@ -172,10 +172,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
             }
             inToolbar.inNotification.root.setOnClickListener {
-                findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+                if (UserUtil.isUserLogin()){
+                    findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+                }else{
+                    findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
+                }
+
             }
             inToolbar.inMessaging.root.setOnClickListener {
-                findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
+                if (UserUtil.isUserLogin()){
+                    findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
+                }else{
+                    findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
+                }
+
             }
         }
 

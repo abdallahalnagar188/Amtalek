@@ -96,7 +96,9 @@ data class MyData(
             sold = sold?:false,
             offerData = null,
             region = region?:"",
-            subRegion = subRegion?:""
+            subRegion = subRegion?:"",
+            vendorType = brokerDetails?.brokerType?:"",
+
 
         )
     }

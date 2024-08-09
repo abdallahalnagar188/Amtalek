@@ -1,8 +1,6 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
-import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.domain.repository.SendToBrokerRepository
 import eramo.amtalek.util.UserUtil
@@ -16,22 +14,26 @@ import javax.inject.Inject
 class SendToBrokerRepositoryImpl @Inject constructor(
     val amtalekApi: AmtalekApi
 ) : SendToBrokerRepository {
+
+
     override suspend fun sendToBroker(
         vendorId: String?,
         name: String?,
         email: String?,
         phone: String?,
-        message: String?
+        message: String?,
+        vendorType: String?
     ): Flow<Resource<SendToBrokerResponse>> {
         return flow {
             val result = toResultFlow {
                 amtalekApi.sendToBroker(
-                    vendorId,
-                    name,
-                    email,
-                    phone,
-                    message,
-                    UserUtil.getUserToken()
+                    userToken = (if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null).toString(),
+                    vendorId = vendorId,
+                    name = name,
+                    email = email,
+                    phone = phone,
+                    message = message,
+                    vendorType = vendorType
                 )
             }
             result.collect() {
@@ -51,7 +53,6 @@ class SendToBrokerRepositoryImpl @Inject constructor(
             }
         }
     }
-
 
 
 }

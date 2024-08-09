@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.adons.AddonsResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
+import eramo.amtalek.domain.repository.AddonsRepo
 import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
 import eramo.amtalek.domain.repository.SentToBrokerMessageRepo
 import eramo.amtalek.domain.usecase.contactedAgents.GetContactedAgents
@@ -26,7 +28,8 @@ import javax.inject.Inject
 class MessagingViewModel @Inject constructor(
     private val getContactedAgentsUseCase: GetContactedAgents,
     private val contactedAgentsMessage: ContactedAgentsMessageRepo,
-    private val sendToBrokerRepository: SentToBrokerMessageRepo
+    private val sendToBrokerRepository: SentToBrokerMessageRepo,
+    private val getAddonsUseCase: AddonsRepo
 ) : ViewModel() {
 
     private val _messages = MutableLiveData<List<Message>>()
@@ -43,7 +46,11 @@ class MessagingViewModel @Inject constructor(
     val contactedAgentsMessageResult: MutableStateFlow<Resource<ContactAgentsMessageResponse>> = _contactedAgentsMessageResult
 
 
+    private val _addons = MutableStateFlow<Resource<AddonsResponse>>(Resource.Loading())
+    val addons: MutableStateFlow<Resource<AddonsResponse>> = _addons
+
     private var sendMessageToPropertyOwnerJob: Job? = null
+    private var getAddonsJob: Job? = null
 
     fun getContactedAgents() {
         viewModelScope.launch {
@@ -52,6 +59,29 @@ class MessagingViewModel @Inject constructor(
                 Log.e("success", _contactedAgents.value.toString())
             } catch (e: Exception) {
                 Log.e("failed", e.message.toString())
+            }
+        }
+    }
+
+    fun getAddons() {
+        getAddonsJob?.cancel()
+        getAddonsJob = viewModelScope.launch {
+            withContext(coroutineContext) {
+                getAddonsUseCase.getAddons().collect {
+                    when (it) {
+                        is Resource.Success -> {
+                            _addons.value = Resource.Success(it.data)
+                        }
+
+                        is Resource.Error -> {
+                            _addons.value = Resource.Error(it.message!!)
+                        }
+
+                        is Resource.Loading -> {
+                            _addons.value = Resource.Loading()
+                        }
+                    }
+                }
             }
         }
     }

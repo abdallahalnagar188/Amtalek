@@ -21,6 +21,7 @@ interface PropertyRepository {
         email:String,
     ):Flow<Resource<SendPropertyCommentResponse>>
     suspend fun sendMessageToPropertyOwner(
+
         propertyId: String,
         message: String,
         vendorId:String,

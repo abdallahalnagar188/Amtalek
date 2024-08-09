@@ -111,6 +111,7 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
+                tvBroker.text = model.vendorType
 
                 Glide.with(itemView)
                     .load(model.imageUrl)

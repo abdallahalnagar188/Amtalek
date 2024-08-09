@@ -157,6 +157,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 
     private fun clickListeners() {
+        binding.etName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etMail.setText(UserUtil.getUserEmail())
+        binding.etPhone.setText(UserUtil.getUserPhone())
         binding.btnSendRate.setOnClickListener() {
             if (validRateForm()) {
                 binding.apply {
@@ -177,6 +180,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
             }
         }
+        binding.etOfferName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etOfferMail.setText(UserUtil.getUserEmail())
+        binding.etOfferPhone.setText(UserUtil.getUserPhone())
         binding.btnOfferSend.setOnClickListener() {
             if (validOfferForm()) {
                 binding.apply {
@@ -218,7 +224,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 val name = binding.etMessageName.text.toString()
                 val email = binding.etMessageMail.text.toString()
                 val phone = binding.etMessagePhone.text.toString()
-                val message = binding.etMessageValue.text.toString()
+                val message = binding.etMessageValue.text.toString().trim()
                 val vendorId = vendorId
                 val propertyId = propertyId
                 val vendorType = vendorType
@@ -549,7 +555,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     mapSetup(model.mapUrl)
                 }
 
-
                 propertyDetailsLayout.tvPropertyCodeValue.text = model.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = model.propertyType
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(model.area))
@@ -564,6 +569,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 initPropertyFeaturesRv(model.propertyAmenities)
 
                 if (model.videoUrl.isNullOrEmpty()) {
+                    tvVideo.visibility = View.GONE
                     youtubePlayerView.visibility = View.GONE
                 } else {
                     getYoutubeUrlId(model.videoUrl)?.let {

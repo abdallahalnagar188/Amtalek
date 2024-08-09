@@ -128,6 +128,7 @@ data class MyPropertyDetailsResponse(
                     offerData = null,
                     region = i.region ?: "",
                     subRegion = i.subRegion ?: "",
+                    vendorType = i.brokerDetails?.broker_type ?: "",
                 )
             )
         }

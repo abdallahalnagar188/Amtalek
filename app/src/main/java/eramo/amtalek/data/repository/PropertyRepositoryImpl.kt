@@ -1,6 +1,7 @@
 package eramo.amtalek.data.repository
 
 import android.util.Log
+import com.google.gson.GsonBuilder
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
@@ -47,7 +48,7 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
         return flow {
             val result = toResultFlow {
                 amtalekApi.sendPropertyComment(
-                    if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
+                    userToken = (if (UserUtil.isUserLogin())UserUtil.getUserToken() else null).toString(),
                     propertyId = propertyId,
                     message = message,
                     stars = stars,
@@ -69,16 +70,16 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
     override suspend fun sendMessageToPropertyOwner(
         propertyId: String,
         message: String,
-        vendorId:String,
+        vendorId: String,
         name: String,
         phone: String,
         email: String,
-        vendorType:String
+        vendorType: String
     ): Flow<Resource<SubmitToBrokerResponse>> {
         return flow {
             val result = toResultFlow {
                 amtalekApi.sendMessageToPropertyOwner(
-                    if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
+                    userToken =  if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null,
                     propertyId = propertyId,
                     message = message,
                     vendorId = vendorId,
@@ -92,12 +93,13 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())
                     is ApiState.Error -> {
-                        Log.e("aaaa",it.message.toString())
-                        emit(Resource.Error(it.message!!))}
+                        Log.e("aaaa", it.message.toString())
+                        emit(Resource.Error(it.message!!))
+                    }
                     is ApiState.Success -> {
-                        Log.e("bbbb",it.message.toString())
-
-                        emit(Resource.Success(it.data)) }
+                        Log.e("bbbb", it.message.toString())
+                        emit(Resource.Success(it.data))
+                    }
                 }
             }
         }

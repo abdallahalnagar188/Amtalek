@@ -127,6 +127,7 @@ class RvHomeNormalPropertiesAdapter @Inject constructor() :
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
+                tvBroker.text = model.vendorType
                 if (model.isFeatured == "featured"){
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)

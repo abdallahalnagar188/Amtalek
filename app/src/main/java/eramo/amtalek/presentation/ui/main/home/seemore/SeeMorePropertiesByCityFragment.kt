@@ -4,26 +4,26 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navOptions
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.myHome.allCitys.Data
 import eramo.amtalek.databinding.FragmentSeeMorePropertiesByCityBinding
-import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
+import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.property.CriteriaModel
+import eramo.amtalek.domain.search.SearchDataListsModel
+import eramo.amtalek.domain.search.SearchModelDto
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesByCityAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
-import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.selectedLocation
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,14 +33,9 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesByCityBinding::inflate
 
-    private val args by navArgs<SeeMorePropertiesByCityFragmentArgs>()
-    private val citiesList get() = args.citiesList
     val viewModel: HomeMyViewModel by viewModels()
-
-    val argsTwo by navArgs<SearchResultFragmentArgs>()
-    val searchQuery get() = argsTwo.searchQuery
-    private val dataLists get() = argsTwo.dataLists
-
+    private var selectedLocationId:Int? = null
+    private var selectedLocationName:String? = null
     @Inject
     lateinit var rvPropertiesByCityAdapter: RvPropertiesByCityAdapter
 
@@ -48,7 +43,6 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         viewModel.getAllCities()
-
         lifecycleScope.launch {
             viewModel.allCities.collect { state ->
                 Log.e("details in fragment", state?.data.toString())
@@ -98,14 +92,64 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         }
     }
 
+    private fun createModel(): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = ""
+            val currencyId =0
 
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = typeId,
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = ""
+            )
+            return myModel
+        }
+    }
+
+    private var listOfPurposeItems = ArrayList<CriteriaModel>()
+    private var listOfFinishingItems = ArrayList<CriteriaModel>()
+    private var listOfTypeItems = ArrayList<CriteriaModel>()
+    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
+    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
+    private fun createListsModel(): SearchDataListsModel {
+        val data = SearchDataListsModel(
+            listOfTypesItems = listOfTypeItems,
+            listOfCurrencyItems = listOfCurrencyItems,
+            listOfFinishingItems = listOfFinishingItems,
+            listOfPurposeItems = listOfPurposeItems,
+            listOfAmenitiesItems = listOfAmenitiesItems
+        )
+        return data
+    }
     override fun onCityClick(model: Data) {
-//        findNavController().navigate(
-//            R.id.searchResultFragment,
-//            SearchResultFragmentArgs(
-//                searchQuery,
-//                dataLists
-//            ).toBundle(), navOptionsAnimation()
-//        )
+        findNavController().navigate(
+            R.id.searchResultFragment,
+            SearchResultFragmentArgs(
+                createModel(), createListsModel()
+            ).toBundle(), navOptionsAnimation()
+        )
     }
 }

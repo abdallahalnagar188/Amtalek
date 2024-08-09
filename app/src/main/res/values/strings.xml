@@ -686,6 +686,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="free">Free</string>
 
     <string name="s_normal_listing">NORMAL LISTING : %s</string>
+    <string name="s_monthly_listing">NORMAL LISTING : %s</string>
     <string name="s_featured_listings">FEATURED LISTINGS : %s</string>
     <string name="s_social_media_promotion">SOCIAL MEDIA PROMOTION : %s</string>
     <string name="s_leads_management">LEADS MANAGEMENT : %s</string>
@@ -821,7 +822,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="coming_soon">Coming Soon!!</string>
 
     <string name="invalid_data_parsing">Invalid data</string>
-    <string name="select_a_city">Select a city</string>
+    <string name="select_a_city">Egypt</string>
 
     <string name="max_price">Max price</string>
     <string name="low_price">Low price</string>
@@ -977,7 +978,9 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="add_adom">Add Adom</string>
     <string name="messagings">Messages</string>
     <string name="add_adoms">Add Adoms</string>
-    <string name="total_price">total pricse</string>
+    <string name="total_price">Total Price</string>
+    <string name="addon_name">addon_name!</string>
+    <string name="egypt">Egypt</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

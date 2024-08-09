@@ -5,9 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 data class SubmitToBrokerResponse(
     @SerializedName("data")
-    var `data`: List<Any?>?,
+    var `data`: List<Any?>?,  // Keep it as a list
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")
     var status: Int?
 )
+

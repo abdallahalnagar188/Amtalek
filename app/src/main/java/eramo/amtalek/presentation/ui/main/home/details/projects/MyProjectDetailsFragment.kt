@@ -58,6 +58,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     private val args: MyProjectDetailsFragmentArgs by navArgs()
     val listingNumber  get() = args.projectId
     lateinit var vendorId:String
+    private lateinit var vendorType: String
 
     @Inject
     lateinit var amenitiesAdapter: AmenitiesAdapter
@@ -72,6 +73,9 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     }
 
     private fun clicks() {
+        binding.etName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etMail.setText(UserUtil.getUserEmail())
+        binding.etPhone.setText(UserUtil.getUserPhone())
         binding.btnSend.setOnClickListener()    {
             if (validForm()){
                 binding.apply {
@@ -84,7 +88,8 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
                         email =email,
                         phone = phone,
                         message = message,
-                        vendorId =UserUtil.getUserId()
+                        vendorId =vendorId,
+                        vendorType = vendorType,
                         )
                 }
             }else{
@@ -179,8 +184,15 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         val topSliderImages = handleImageTopSlider(data?.data?.get(0)?.sliders)
         setupImageSliderTop(topSliderImages)
 
-        val autocadImages = handleAutocadImages(data?.data?.get(0)?.autocad)
-        setupAutocadImagesSlider(autocadImages)
+        if (data?.data?.get(0)?.autocad.isNullOrEmpty()){
+            val autocadImages = handleAutocadImages(data?.data?.get(0)?.autocad)
+            setupAutocadImagesSlider(autocadImages)
+        }else{
+            binding.autocadDrawingsSlider.visibility = View.GONE
+            binding.autocadDrawingsSliderDots.visibility = View.GONE
+            binding.tvAutocadDrawings.visibility = View.GONE
+        }
+
 
         val amenities = handleAmenities(data?.data?.get(0)?.aminities)
         binding.projectFeaturesLayout.recyclerView.adapter = amenitiesAdapter
@@ -197,6 +209,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         injectData(data?.data?.get(0))
 
         vendorId = data?.data?.get(0)?.brokerDetails?.get(0)?.id.toString()
+        vendorType = data?.data?.get(0)?.brokerDetails?.get(0)?.brokerType.toString()
         
     }
     private fun mapSetup(data: String?) {
@@ -233,6 +246,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     }
     private fun injectData(data: Data?) {
         binding.apply {
+            autocadDrawingsSlider
             tvPrice.text = data?.startPrice.toString()
             tvTitle.text = data?.name
             tvLocation.text = data?.quickSummary?.address

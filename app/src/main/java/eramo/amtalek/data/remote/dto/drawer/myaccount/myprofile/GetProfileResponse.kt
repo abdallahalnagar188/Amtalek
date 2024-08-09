@@ -213,7 +213,8 @@ data class Favorite(
             sold = sold?:false,
             offerData = null,
             region = region?:"",
-            subRegion = subRegion?:""
+            subRegion = subRegion?:"",
+            vendorType = brokerDetails?.brokerType?:""
 
         )
     }
@@ -298,7 +299,8 @@ data class MyProp(
             sold = sold?:false,
             offerData = null,
             region = region?:"",
-            subRegion = subRegion?:""
+            subRegion = subRegion?:"",
+            vendorType = brokerDetails?.brokerType?:""
         )
     }
 }
@@ -345,7 +347,8 @@ data class OffersItem(
             sold = propertyData?.get(0)?.sold?:false,
             offerData = offerData,
             region = propertyData?.get(0)?.region?:"",
-            subRegion = propertyData?.get(0)?.subRegion?:""
+            subRegion = propertyData?.get(0)?.subRegion?:"",
+            vendorType = propertyData?.get(0)?.brokerDetails?.brokerType?:""
         )
     }
 

@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.ItemChatReceiverBinding
 import eramo.amtalek.databinding.ItemChatSenderBinding
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
@@ -60,10 +61,21 @@ class RvUsersChatAdapter @Inject constructor() :
 
     inner class SenderViewHolder(private val binding: ItemChatSenderBinding) : RecyclerView.ViewHolder(binding.root), BindView {
         override fun bind(model: Message) {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("ar")) // Arabic locale
+            val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault()) // Output in the device's default locale
+
+            val date = model.messageTime?.let {
+                try {
+                    inputFormat.parse(it)
+                } catch (e: ParseException) {
+                    null // Handle the error gracefully
+                }
+            }
+            val formattedTime = date?.let { outputFormat.format(it) } ?: ""
 
             binding.apply {
                 tvMessage.text = model.message
-                tvDataSender.text = model.messageTime
+                tvDataSender.text = formattedTime // Set the formatted time
                 root.setOnClickListener {
                     if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                         listener?.onItemClick(model)
@@ -72,6 +84,7 @@ class RvUsersChatAdapter @Inject constructor() :
             }
         }
     }
+
 
     inner class ReceiverViewHolder(private val binding: ItemChatReceiverBinding) : RecyclerView.ViewHolder(binding.root), BindView {
         override fun bind(model: Message) {

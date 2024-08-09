@@ -5,8 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -21,7 +19,6 @@ import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
 import eramo.amtalek.databinding.FragmentHotOffersBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.presentation.adapters.recyclerview.DummyProjectAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
@@ -38,7 +35,6 @@ import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @AndroidEntryPoint
 class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
@@ -119,10 +115,20 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
             ivSearch.visibility =  View.GONE
             toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
             inNotification.root.setOnClickListener {
+                if (UserUtil.isUserLogin())
                 findNavController().navigate(R.id.notificationFragment)
+                else
+                    findNavController().navigate(
+                        R.id.loginDialog, null, navOptionsFromTopAnimation()
+                    )
             }
             inMessaging.root.setOnClickListener{
-                findNavController().navigate(R.id.messagingChatFragment)
+                if (UserUtil.isUserLogin())
+                    findNavController().navigate(R.id.messagingChatFragment)
+                else
+                    findNavController().navigate(
+                    R.id.loginDialog, null, navOptionsFromTopAnimation()
+                )
             }
         }
         if (LocalUtil.isEnglish()){

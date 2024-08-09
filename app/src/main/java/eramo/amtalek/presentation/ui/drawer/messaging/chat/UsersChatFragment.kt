@@ -5,17 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
-import dagger.assisted.AssistedFactory
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.contactedAgent.DataX
-import eramo.amtalek.data.remote.dto.contactedAgent.message.AgentData
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.FragmentUsersChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
@@ -23,9 +19,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.drawer.messaging.MessagingViewModel
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
-import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.collect
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -73,7 +67,9 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
             .into(binding.ivProfile)
         rvUsersChatAdapter.setAgentImageUrl(agentImage)
         rvUsersChatAdapter.setAgentName(agentName)
-
+        binding.btnRefrsh.setOnClickListener {
+            fetchMessages()
+        }
         fetchMessages()
         listeners()
         //observeSendMessageState()
@@ -141,6 +137,7 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
                     is Resource.Loading -> {
                         Log.e("Loading", "Loading")
                     }
+
                 }
             }
         }

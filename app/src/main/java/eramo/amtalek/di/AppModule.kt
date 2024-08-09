@@ -71,8 +71,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAdonsRepo(apiService: AmtalekApi):AdonsRepo{
-        return AdonsRepoImpl(apiService)
+    fun provideAddonsRepo(apiService: AmtalekApi):AddonsRepo{
+        return AddonsRepoImpl(apiService)
     }
     @Provides
     @Singleton

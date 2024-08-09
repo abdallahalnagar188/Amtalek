@@ -438,7 +438,7 @@
                 android:layout_marginStart="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/montserratbold"
-                android:text="@string/register_with_us"
+                android:text="@string/contact_us"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15ssp"
                 app:layout_constraintStart_toStartOf="parent"

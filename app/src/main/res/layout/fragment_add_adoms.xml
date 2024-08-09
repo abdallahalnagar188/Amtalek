@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.drawer.messaging.AddAdomsFragment">
+    tools:context=".presentation.ui.drawer.messaging.addons.AddAddonsFragment">
 
     <include
         android:id="@+id/in_toolbar"
@@ -26,12 +26,13 @@
         app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/monthly_btn_adom"
+            android:id="@+id/monthly_btn_addon"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserratsemibold"
             android:text="@string/monthly"
+            android:paddingHorizontal="@dimen/_30sdp"
             android:textColor="@color/amtalek_blue_dark"
             android:textSize="@dimen/_12ssp"
             app:cornerRadius="@dimen/_4sdp"
@@ -39,12 +40,13 @@
             app:strokeColor="@color/amtalek_blue_dark" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/yearly_btn_adom"
+            android:id="@+id/yearly_btn_addon"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserratsemibold"
             android:text="@string/yearly"
+            android:paddingHorizontal="@dimen/_30sdp"
             android:textColor="@color/amtalek_blue_dark"
             android:textSize="@dimen/_12ssp"
             app:cornerRadius="@dimen/_4sdp"
@@ -61,26 +63,55 @@
         app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
         app:layout_constraintBottom_toTopOf="@id/btnTotalPrice"
         app:layout_constraintStart_toStartOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_adons" />
 
-    <!-- Button for Total Price -->
-    <Button
+    <androidx.cardview.widget.CardView
         android:id="@+id/btnTotalPrice"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/total_price"
-        android:textColor="@color/white"
+        android:layout_marginHorizontal="@dimen/_14sdp"
+        android:layout_marginBottom="@dimen/_50sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="4dp"
         android:backgroundTint="@color/amtalek_blue_dark"
-        android:fontFamily="@font/montserratsemibold"
-        android:textSize="@dimen/_14ssp"
-        android:paddingVertical="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_50sdp"
-        android:layout_marginHorizontal="@dimen/_14sdp"
         app:layout_constraintTop_toBottomOf="@id/recyclerViewAddons"
-        />
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/_12sdp"
+            android:paddingHorizontal="@dimen/_16sdp">
+
+            <TextView
+                android:id="@+id/tvTotalPriceLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/total_price"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserratsemibold"
+                android:textSize="@dimen/_14ssp"/>
+
+            <TextView
+                android:id="@+id/tvTotalPriceAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="$0.00"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

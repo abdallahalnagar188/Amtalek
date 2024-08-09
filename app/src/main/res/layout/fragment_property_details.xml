@@ -632,7 +632,6 @@
                     android:id="@+id/mymap_cardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/screen_margin_sides"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:elevation="0dp"
                     android:nestedScrollingEnabled="false"

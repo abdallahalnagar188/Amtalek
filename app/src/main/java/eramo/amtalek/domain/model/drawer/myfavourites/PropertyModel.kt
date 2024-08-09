@@ -26,5 +26,6 @@ data class PropertyModel(
     val offerData: OfferData?,
     val region:String,
     val subRegion:String,
+    val vendorType:String,
 //    val totalProps:String?,
     )
