@@ -30,6 +30,10 @@ import eramo.amtalek.domain.model.home.HomeExtraSectionsModel
 import eramo.amtalek.domain.model.home.cities.CitiesModel
 import eramo.amtalek.domain.model.home.news.NewsModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
+import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.property.CriteriaModel
+import eramo.amtalek.domain.search.SearchDataListsModel
+import eramo.amtalek.domain.search.SearchModelDto
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFeaturedRealEstateAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeFifthExtraSectionAdapter
@@ -916,12 +920,66 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         )
     }
 
+    private fun createModel(): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = ""
+            val currencyId =0
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = typeId,
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = ""
+            )
+            return myModel
+        }
+    }
+
+    private var listOfPurposeItems = ArrayList<CriteriaModel>()
+    private var listOfFinishingItems = ArrayList<CriteriaModel>()
+    private var listOfTypeItems = ArrayList<CriteriaModel>()
+    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
+    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
+    private fun createListsModel(): SearchDataListsModel {
+        val data = SearchDataListsModel(
+            listOfTypesItems = listOfTypeItems,
+            listOfCurrencyItems = listOfCurrencyItems,
+            listOfFinishingItems = listOfFinishingItems,
+            listOfPurposeItems = listOfPurposeItems,
+            listOfAmenitiesItems = listOfAmenitiesItems
+        )
+        return data
+    }
     override fun onPropertyByCityClick(model: CitiesModel) {
-//        findNavController().navigate(R.id.searchResultFragment,
-//            bundleOf("id" to model.id),
-//            navOptionsAnimation()
-//        )
-        Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            R.id.searchResultFragment,
+            SearchResultFragmentArgs(
+                createModel(), createListsModel()
+            ).toBundle(), navOptionsAnimation()
+        )
+       // Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
     }
 
 
