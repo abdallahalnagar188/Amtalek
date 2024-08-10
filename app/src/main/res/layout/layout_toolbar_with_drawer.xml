@@ -39,8 +39,8 @@
         android:layout_marginTop="@dimen/_12sdp"
         tools:text="Fragment Title"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
-        android:fontFamily="@font/montserratmedium"
+        android:textSize="@dimen/_12ssp"
+        android:fontFamily="@font/font"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_iv_logo"
 

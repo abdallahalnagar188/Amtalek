@@ -21,6 +21,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvBrokersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -64,25 +65,34 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     }
 
     private fun setupToolbar() {
-        binding.inToolbar.apply {
-            toolbarIvMenu.setOnClickListener {
-                viewModelShared.openDrawer.value = true
+        if (UserUtil.isUserLogin()){
+            binding.inToolbar.apply {
+                toolbarIvMenu.setOnClickListener {
+                    viewModelShared.openDrawer.value = true
+                }
+                inMessaging.ivMessaging.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.messagingChatFragment,
+                        null,
+                        navOptionsAnimation()
+                    )
+                }
+                inNotification.ivNotification.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.notificationFragment,
+                        null,
+                        navOptionsAnimation()
+                    )
+                }
+                ivSpinnerIcon.visibility= View.GONE
+                FHomeEtSearch.visibility = View.GONE
+
+
             }
-            inMessaging.ivMessaging.setOnClickListener {
-                findNavController().navigate(
-                    R.id.messagingChatFragment,
-                    null,
-                    navOptionsAnimation()
-                )
-            }
-            inNotification.ivNotification.setOnClickListener {
-                findNavController().navigate(
-                    R.id.notificationFragment,
-                    null,
-                    navOptionsAnimation()
-                )
-            }
+        }else{
+            findNavController().navigate(R.id.loginDialog)
         }
+
 
         if (LocalUtil.isEnglish()) {
             binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))

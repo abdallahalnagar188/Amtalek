@@ -51,6 +51,15 @@ class RvAddonsMonthlyPriceAdapter @Inject constructor() :
         fun bind(model: Data) {
             binding.apply {
 
+                if (model.name.toString()== "normal_listings") {
+                    tvAddonName.text= itemView.context.getString(R.string.normal_listings)
+                }else if (model.name.toString()== "featured_listings") {
+                    tvAddonName.text= itemView.context.getString(R.string.featured_listings)
+                }else if (model.name== "projects") {
+                    tvAddonName.text= itemView.context.getString(R.string.projects)
+                }else if (model.name== "messages") {
+                    tvAddonName.text= itemView.context.getString(R.string.message)
+                }
                 tvAddonName.text = model.name
                 tvAddonPrice.text = model.monthlyPrice.toString()
                 tvCounter.text = counter.toString()

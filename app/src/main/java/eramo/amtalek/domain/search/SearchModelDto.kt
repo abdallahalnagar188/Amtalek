@@ -18,6 +18,7 @@ data class SearchModelDto(
     val maxPrice:String?,
     val minArea:String?,
     val maxArea:String?,
+    val city:Int? = 0 ,
     var amenitiesListIds:String?,
     var priceArrangeKeys:String?,
 

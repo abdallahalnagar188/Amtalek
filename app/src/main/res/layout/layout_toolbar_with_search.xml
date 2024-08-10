@@ -17,12 +17,12 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserratsemibold"
+        android:fontFamily="@font/font"
         tools:text="Title"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_4sdp"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +49,8 @@
         android:background="@drawable/search_edit_text_background"
         android:drawablePadding="@dimen/_4sdp"
         android:gravity="center_vertical"
+        android:fontFamily="@font/font"
+        android:textSize="@dimen/_10ssp"
         android:hint="@string/how_can_we_help_you"
         android:imeOptions="actionSearch"
         android:inputType="text"

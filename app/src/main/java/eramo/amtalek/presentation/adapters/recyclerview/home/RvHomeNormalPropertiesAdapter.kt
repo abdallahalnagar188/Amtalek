@@ -69,6 +69,11 @@ class RvHomeNormalPropertiesAdapter @Inject constructor() :
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
+                if (model.vendorType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
                 tvTitle.text = model.title
 

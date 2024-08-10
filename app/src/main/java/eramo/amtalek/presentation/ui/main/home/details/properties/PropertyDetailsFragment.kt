@@ -619,12 +619,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             brokerType = model.vendorType,
                             transactionType = "call"
                         )
-//                        handleContactAction(
-//                            propertyId = model.id,
-//                            brokerId = model.brokerId,
-//                            brokerType = model.vendorType,
-//                            transactionType = "call"
-//                        )
+
                         val phoneNumber = "+20${model.brokerPhone}"
                         makeCall(phoneNumber)
                     } else {
@@ -641,12 +636,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             brokerType = model.vendorType,
                             transactionType = "email"
                         )
-//                        handleContactAction(
-//                            propertyId = model.id,
-//                            brokerId = model.brokerId,
-//                            brokerType = model.vendorType,
-//                            transactionType = "email"
-//                        )
+
                         val emailAddress = model.brokerEmail
                         sendEmail(emailAddress)
                     } else {
@@ -663,12 +653,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             brokerType = model.vendorType,
                             transactionType = "meeting"
                         )
-//                        handleContactAction(
-//                            propertyId = model.id,
-//                            brokerId = model.brokerId,
-//                            brokerType = model.vendorType,
-//                            transactionType = "meeting"
-//                        )
                         val phoneNumber =
                             model.brokerPhone
                         openWhatsApp(phoneNumber)

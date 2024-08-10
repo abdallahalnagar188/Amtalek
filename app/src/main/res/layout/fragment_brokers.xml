@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/in_toolbar"
-        layout="@layout/layout_toolbar_broker"
+        layout="@layout/layout_toolbar_main"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

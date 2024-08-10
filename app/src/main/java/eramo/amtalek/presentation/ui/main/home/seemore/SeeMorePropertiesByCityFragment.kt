@@ -92,7 +92,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         }
     }
 
-    private fun createModel(): SearchModelDto {
+    private fun createModel(data: Data): SearchModelDto {
         binding.apply {
             val searchKeyWords = ""
             val bedrooms = ""
@@ -123,7 +123,8 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                 maxArea = maxArea,
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
-                amenitiesListIds = ""
+                amenitiesListIds = "",
+                city = data.id
             )
             return myModel
         }
@@ -148,7 +149,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         findNavController().navigate(
             R.id.searchResultFragment,
             SearchResultFragmentArgs(
-                createModel(), createListsModel()
+                createModel(model), createListsModel()
             ).toBundle(), navOptionsAnimation()
         )
     }

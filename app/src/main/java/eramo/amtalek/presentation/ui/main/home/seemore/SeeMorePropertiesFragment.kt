@@ -1,33 +1,33 @@
 package eramo.amtalek.presentation.ui.main.home.seemore
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
-import eramo.amtalek.domain.model.main.home.PropertyModelx
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragmentArgs
 import eramo.amtalek.util.enum.PropertyType
-import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBinding>(),
-    RvPropertiesAdapter.OnItemClickListener {
+    RvPropertiesAdapter.OnItemClickListener, RvSimilarPropertiesAdapter.OnFavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
@@ -52,6 +52,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                 it?.data?.original?.data?.let { it1 -> setupViews(it1) }
             }
         }
+        fetchAddRemoveToFavState()
     }
 
     private fun setupViews(list:List<DataX> ) {
@@ -97,5 +98,36 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                 )
             }
         }
+    }
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            viewModel.getAllProperty()
+                            // homeViewModel.getHomeApis("1","1")
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    override fun onFavClick(model: PropertyModel) {
+        viewModel.addOrRemoveFav(model.id)
     }
 }

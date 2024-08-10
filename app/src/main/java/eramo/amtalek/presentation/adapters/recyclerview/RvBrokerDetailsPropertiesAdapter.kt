@@ -12,6 +12,7 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
@@ -47,8 +48,8 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
         fun bind(model: OriginalItem) {
             var isFav = model.isFav
             binding.apply {
-                favListener.onFavClick(model)
                 ivFav.setOnClickListener {
+                    favListener.onFavClick(model)
                     if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
                         isFav = "1"
                     }
@@ -72,6 +73,7 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                         formatPrice( model.rentPrice?.toDouble() ?: 0.0)
                     )
                 }
+//                binding.tvBroker.text = model.brokerDetails?.brokerType
 //                tvPrice.text = itemView.context.getString(
 //                    R.string.s_egp,
 //                    formatPrice( model.salePrice?.toDouble() ?: 0.0)
@@ -97,6 +99,17 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                     .load(model.primaryImage)
                     .into(ivImage)
                 Glide.with(itemView).load(model.brokerDetails?.companyLogo).into(ivBroker)
+                if (model.isFav == "1") {
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_heart)
+                }
+                if (UserUtil.getUserType()=="broker"){
+                    ivFav.visibility = View.GONE
+                }
+                else {
+                    ivFav.visibility = View.VISIBLE
+                }
 //
 //                if (model. == "") {
 //                    tvFeatured.visibility = View.VISIBLE

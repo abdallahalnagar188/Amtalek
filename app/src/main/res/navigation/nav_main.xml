@@ -129,10 +129,18 @@
         android:name="eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragment"
         android:label="BrokersDetailsFragment"
         tools:layout="@layout/fragment_broker_details" >
+
+        <!-- Argument passed to BrokersDetailsFragment -->
         <argument
-            android:name="projects"
-            app:argType="eramo.amtalek.data.remote.dto.brokersDetails.Project[]" />
+            android:name="id"
+            app:argType="integer" />
+
+        <!-- Action to navigate to the next fragment -->
+        <action
+            android:id="@+id/action_brokersDetailsFragment_to_completedProjectsFragment"
+            app:destination="@id/completedProjectsFragment" />
     </fragment>
+
 
 
     <fragment
@@ -318,6 +326,9 @@
         android:name="eramo.amtalek.presentation.ui.main.broker.CompletedProjectsFragment"
         android:label="fragment_completed_projects"
         tools:layout="@layout/fragment_completed_projects" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/satisfiedCustomersFragment"

@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.ui.main.broker
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -11,13 +10,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.broker.entity.DataX
-import eramo.amtalek.data.remote.dto.brokersDetails.Data
 import eramo.amtalek.data.remote.dto.brokersDetails.Project
 import eramo.amtalek.databinding.FragmentCompletedProjectsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvCompletedProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,29 +29,34 @@ class CompletedProjectsFragment : BindingFragment<FragmentCompletedProjectsBindi
 
     @Inject
     lateinit var rvCompletedProjectsAdapter: RvCompletedProjectsAdapter
-
-
-    private val args by navArgs<BrokersDetailsFragmentArgs>()
-    private val projectsList get() = args.projects.toList()
-
-
     val viewModel: BrokersViewModel by viewModels()
 
+    private val args by navArgs<CompletedProjectsFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getBrokersDetails(args.id)
 
         setupViews()
     }
 
-    private fun setupViews() {
-        try {
-            setupToolbar()
-            Log.e("CompletedProjectsFragment", "Projects List: $projectsList")
-            initRv(projectsList)
-        } catch (e: Exception) {
-            Log.e("CompletedProjectsFragment", projectsList.toString())
+    override fun onResume() {
+        super.onResume()
+        getDeitalsListener()
+    }
+
+    private fun getDeitalsListener() {
+        lifecycleScope.launch {
+            viewModel.brokersDetails.collectLatest {
+                rvCompletedProjectsAdapter.submitList(
+                    viewModel.brokersDetails.value?.data?.get(0)?.projects ?: emptyList()
+                )
+            }
         }
+    }
+    private fun setupViews() {
+        setupToolbar()
+        initRv()
     }
 
 
@@ -60,18 +64,20 @@ class CompletedProjectsFragment : BindingFragment<FragmentCompletedProjectsBindi
     private fun setupToolbar() {
 
         binding.apply {
-          //  inToolbar.tvTitle.text = getString(R.string.s_completed_projects, "122")
+            inToolbar.tvTitle.text = getString(R.string.completed_projects)
             inToolbar.ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
 
-    private fun initRv(data: List<Project?>) {
+    private fun initRv() {
         rvCompletedProjectsAdapter.setListener(this@CompletedProjectsFragment)
         binding.rv.adapter = rvCompletedProjectsAdapter
-        rvCompletedProjectsAdapter.submitList(data)
     }
 
     override fun onProjectClick(model: Project) {
-
+        findNavController().navigate(
+            R.id.myProjectDetailsFragment,
+            model.listing_number?.let { MyProjectDetailsFragmentArgs(it).toBundle() }
+        )
     }
 }

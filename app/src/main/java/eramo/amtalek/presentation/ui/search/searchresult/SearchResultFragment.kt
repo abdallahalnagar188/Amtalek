@@ -141,8 +141,9 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     }
 
     private fun requestData() {
+        val cityfromargs = if(searchQuery.city==0) UserUtil.getCityFiltrationId() else searchQuery.city
         viewModel.search(
-            city = UserUtil.getCityFiltrationId(),
+            city = cityfromargs.toString(),
             propertyType = if(searchQuery.propertyTypeId=="-1"|| searchQuery.propertyTypeId=="") "" else searchQuery.propertyTypeId,
             minPrice = searchQuery.minPrice,
             maxPrice = searchQuery.maxPrice,

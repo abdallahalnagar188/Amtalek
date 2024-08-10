@@ -40,6 +40,7 @@ class RvHomeFindPropertyByCityAdapter @Inject constructor() :
 
         fun bind(model: CitiesModel) {
             binding.apply {
+
                 tvCityName.text = model.title
                 tvPropertiesForRent.text =
                     itemView.context.getString(R.string.s_properties_for_rent, model.rentProperties.toString())

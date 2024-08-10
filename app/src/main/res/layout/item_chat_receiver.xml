@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/_1sdp"
         android:text="12:00 PM"
+        android:fontFamily="@font/font"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_message"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/chat_receiver_background"
-        android:fontFamily="@font/montserratsemibold"
+        android:fontFamily="@font/font"
         android:padding="@dimen/_8ssp"
         android:layout_marginStart="@dimen/_2sdp"
         android:textColor="@color/black"

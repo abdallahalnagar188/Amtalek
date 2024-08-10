@@ -57,7 +57,8 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                 }
 
                 tvPrice.text =
-                    itemView.context.getString(R.string.s_currency, model.sellPrice?.let { formatPrice(it.toDouble()) }, model.currency)
+                    itemView.context.getString(R.string.s_currency,
+                        model.sellPrice.let { formatPrice(it.toDouble()) }, model.currency)
                 tvTitle.text = model.title
 
                 tvLabel.text = when (model.type) {
@@ -67,6 +68,11 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                     else -> {
                         ""
                     }
+                }
+                if (model.vendorType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
                 }
 
                 when (model.type) {
@@ -79,13 +85,15 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                         tvPrice.visibility = View.GONE
                         tvDurationRent.visibility = View.VISIBLE
                         tvDurationRent.text =
-                            model.rentDuration?.let { model.currency?.let { it1 ->
-                                model.rentPrice?.toDouble()?.let { it2 ->
-                                    getRentPrice(itemView.context, it, it2,
-                                        it1
-                                    )
+                            model.rentDuration.let {
+                                model.currency.let { it1 ->
+                                    model.rentPrice.toDouble().let { it2 ->
+                                        getRentPrice(itemView.context, it, it2,
+                                            it1
+                                        )
+                                    }
                                 }
-                            } }
+                            }
 
                     }
 
@@ -93,13 +101,15 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                         tvPrice.visibility = View.VISIBLE
                         tvDurationRent.visibility = View.VISIBLE
                         tvDurationRent.text =
-                            model.rentDuration?.let { model.currency?.let { it1 ->
-                                model.rentPrice?.let { it2 ->
-                                    getRentPrice(itemView.context, it, it2.toDouble(),
-                                        it1
-                                    )
+                            model.rentDuration.let {
+                                model.currency.let { it1 ->
+                                    model.rentPrice.let { it2 ->
+                                        getRentPrice(itemView.context, it, it2.toDouble(),
+                                            it1
+                                        )
+                                    }
                                 }
-                            } }
+                            }
 
                     }
 
@@ -108,7 +118,8 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                     }
                 }
 
-                tvArea.text = itemView.context.getString(R.string.s_meter_square, model.area?.let { formatNumber(it) })
+                tvArea.text = itemView.context.getString(R.string.s_meter_square,
+                    model.area.let { formatNumber(it) })
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location

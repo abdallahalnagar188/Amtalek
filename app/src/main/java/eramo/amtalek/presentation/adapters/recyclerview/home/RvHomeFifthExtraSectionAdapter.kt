@@ -80,6 +80,11 @@ class RvHomeFifthExtraSectionAdapter @Inject constructor() :
                 }
 
 
+                if (model.vendorType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 when (model.type) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE

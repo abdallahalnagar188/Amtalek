@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     app:labelVisibilityMode="labeled"
+                    android:fontFamily="@font/font"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="16dp"

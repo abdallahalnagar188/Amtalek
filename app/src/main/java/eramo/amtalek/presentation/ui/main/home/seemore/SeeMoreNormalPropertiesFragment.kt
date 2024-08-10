@@ -18,7 +18,7 @@ import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.main.home.PropertyModelx
 import eramo.amtalek.presentation.adapters.recyclerview.RvNormalPropertiesAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBinding>(),
-    RvNormalPropertiesAdapter.OnItemClickListener {
+    RvNormalPropertiesAdapter.OnItemClickListener,RvSimilarPropertiesAdapter.OnFavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
@@ -51,11 +51,13 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
         super.onViewCreated(view, savedInstanceState)
         viewModel.getHomeNormalProperties(UserUtil.getCityFiltrationId())
         fetchHomeNormalProperties()
+        fetchAddRemoveToFavState()
     }
 
     private fun setupViews(list:List<PropertyModel> ) {
         setupToolbar()
         setupRv(list)
+
     }
 
     private fun setupToolbar() {
@@ -128,5 +130,37 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
                 )
             }
         }
+    }
+
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            viewModel.getHomeNormalProperties(UserUtil.getCityFiltrationId())
+
+                            // homeViewModel.getHomeApis("1","1")
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
+    override fun onFavClick(model: PropertyModel) {
+        viewModel.addOrRemoveFav(model.id)
     }
 }

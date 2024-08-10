@@ -44,7 +44,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:ellipsize="end"
-            android:fontFamily="@font/montserratsemibold"
+            android:fontFamily="@font/font"
             android:maxLines="1"
             android:textColor="@color/black"
             android:textDirection="locale"

@@ -4,12 +4,16 @@
     <item
         android:id="@+id/myProfileFragment"
         android:icon="@drawable/ic_profile"
-        android:title="@string/profile" />
+        android:title="@string/profile"
+        android:fontFamily="@font/font"
+        />
 
     <item
         android:id="@+id/hotOffersFragment"
         android:icon="@drawable/ic_hot_offers"
-        android:title="@string/hot_offer" />
+        android:title="@string/hot_offer"
+        android:fontFamily="@font/font"
+        />
 
     <item
         android:id="@+id/homeFragment"
@@ -18,11 +22,15 @@
     <item
         android:id="@+id/marketFragment"
         android:icon="@drawable/ic_social_network"
-        android:title="@string/social_network" />
+        android:title="@string/social_network"
+        android:fontFamily="@font/font"
+        />
 
     <item
         android:id="@+id/brokersFragment"
         android:icon="@drawable/ic_agency"
-        android:title="@string/brokers" />
+        android:title="@string/brokers"
+        android:fontFamily="@font/font"
+        />
 
 </menu>

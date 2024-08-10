@@ -24,6 +24,7 @@ import javax.inject.Inject
 class RvPropertiesAdapter @Inject constructor() :
     ListAdapter<DataX, RvPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
+    private lateinit var favListener: RvSimilarPropertiesAdapter.OnFavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -68,6 +69,11 @@ class RvPropertiesAdapter @Inject constructor() :
                     }
                 }
 
+                if (model.brokerDetails?.get(0)?.brokerType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 when (model.forWhat) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE
@@ -122,6 +128,7 @@ class RvPropertiesAdapter @Inject constructor() :
                     .load(model.brokerDetails?.get(0)?.logo)
                     .into(ivBroker)
 
+
                 if (model.isFav == "0") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
@@ -173,6 +180,7 @@ class RvPropertiesAdapter @Inject constructor() :
 
     fun setListener(listener: OnItemClickListener) {
         this.listener = listener
+        this.favListener = listener as RvSimilarPropertiesAdapter.OnFavClickListener
     }
 
     interface OnItemClickListener {

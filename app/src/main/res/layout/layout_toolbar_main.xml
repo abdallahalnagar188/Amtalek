@@ -101,9 +101,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_a_city"
+            android:textSize="@dimen/_9ssp"
             android:layout_marginStart="@dimen/_4sdp"
             android:textColor="@color/black"
-            android:fontFamily="@font/montserratsemibold"
+            android:fontFamily="@font/font"
             app:layout_constraintStart_toEndOf="@id/iv_spinner_arrow"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -117,7 +118,8 @@
             android:layout_marginTop="@dimen/_12sdp"
             android:contentDescription="@null"
             app:layout_constraintStart_toEndOf="@id/tv_spinner_text"
-            app:srcCompat="@drawable/ic_location" />
+            app:srcCompat="@drawable/ic_location"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,6 +134,8 @@
         android:background="@drawable/search_edit_text_background"
         android:drawablePadding="@dimen/_4sdp"
         android:gravity="center_vertical"
+        android:fontFamily="@font/font"
+        android:textSize="@dimen/_12ssp"
         android:hint="@string/how_can_we_help_you"
         android:imeOptions="actionSearch"
         android:inputType="text"

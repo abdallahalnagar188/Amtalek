@@ -70,6 +70,11 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                 tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
                 tvTitle.text = model.title
 
+                if (model.vendorType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 tvLabel.text = when (model.type) {
                     PropertyType.FOR_SELL.key -> itemView.context.getString(R.string.for_sell)
                     PropertyType.FOR_RENT.key -> itemView.context.getString(R.string.for_rent)

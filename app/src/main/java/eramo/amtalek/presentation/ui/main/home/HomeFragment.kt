@@ -665,6 +665,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFindPropertyByCityAdapter.setListener(this@HomeFragment)
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
+        binding.inPropertiesByCity.tvTitle.text = getString(R.string.find_your_property_in_the_city)
 
 //        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inPropertiesByCity.tvSeeMore.setOnClickListener{
@@ -920,7 +921,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         )
     }
 
-    private fun createModel(): SearchModelDto {
+    private fun createModel(model: CitiesModel): SearchModelDto {
         binding.apply {
             val searchKeyWords = ""
             val bedrooms = ""
@@ -951,7 +952,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 maxArea = maxArea,
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
-                amenitiesListIds = ""
+                amenitiesListIds = "",
+                city = model.id
             )
             return myModel
         }
@@ -976,7 +978,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         findNavController().navigate(
             R.id.searchResultFragment,
             SearchResultFragmentArgs(
-                createModel(), createListsModel()
+                createModel(model), createListsModel()
             ).toBundle(), navOptionsAnimation()
         )
        // Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()

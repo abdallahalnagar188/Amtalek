@@ -10,7 +10,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
@@ -23,17 +25,16 @@ import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragmentDirections
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -49,7 +50,6 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private val viewModel: BrokersViewModel by viewModels()
     private val homeViewModel: HomeMyViewModel by viewModels()
 
-
     @Inject
     lateinit var rvBrokerDetailsPropertiesAdapter: RvBrokerDetailsPropertiesAdapter
 
@@ -60,7 +60,16 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
         val id = arguments?.getInt("id") ?: 0
         Log.e("id in fragment", id.toString())
-        setupListeners(id)
+
+        binding.btnProjects.setOnClickListener {
+
+            findNavController().navigate(
+                R.id.action_brokersDetailsFragment_to_completedProjectsFragment,
+                bundleOf("id" to id),
+                navOptionsAnimation()
+            )
+
+        }
         fetchData(id)
     }
 
@@ -84,31 +93,20 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             }
         }
 
+        fetchAddRemoveToFavState(id)
     }
 
     private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String, brokerType: String) {
-        viewModelShared.sendContactRequest(propertyId ?: 0, brokerId, brokerType = brokerType, transactionType)
+        viewModelShared.sendContactRequest(propertyId = propertyId ?: 0, brokerId = brokerId, brokerType = brokerType, transactionType = transactionType)
     }
 
-    val projectList = arguments?.getStringArray("projectList") as? Array<String>
 
-    private fun setupListeners(id: Int) {
-        binding.apply {
-
-//            btnProjects.setOnClickListener {
-//
-//                val bundle = Bundle().apply {
-//                    putStringArray("projectList", projectList)
-//                }
-//                findNavController().navigate(R.id.completedProjectsFragment, bundle)
+//    private fun setupListeners(id: Int) {
+//        binding.apply {
 //
 //
-//            }
-//            btnSatisfiedCustomers.setOnClickListener {
-//                findNavController().navigate(R.id.satisfiedCustomersFragment, null, navOptionsAnimation())
-//            }
-        }
-    }
+//        }
+//    }
 
     private fun setupToolbar() {
         StatusBarUtil.transparent()
@@ -229,9 +227,36 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         }
     }
 
-    override fun onFavClick(model: OriginalItem) {
-        //   model.id?.let { homeViewModel.addOrRemoveFav(it) }
+    private fun fetchAddRemoveToFavState(id: Int) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.favState.collect() { state ->
+                    when (state) {
 
+                        is UiState.Success -> {
+                            viewModel.getBrokersDetails(id)
+
+                           // homeViewModel.getHomeApis("1","1")
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
+    override fun onFavClick(model: OriginalItem) {
+          homeViewModel.addOrRemoveFav(model.id?:0)
     }
 
 }

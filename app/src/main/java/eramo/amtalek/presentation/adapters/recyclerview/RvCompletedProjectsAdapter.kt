@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.data.remote.dto.brokersDetails.Project
 import eramo.amtalek.databinding.ItemLatestProjectsBinding
-import eramo.amtalek.domain.model.drawer.latestprojects.LatestProjectsModel
+import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
@@ -40,7 +40,7 @@ class RvCompletedProjectsAdapter @Inject constructor() :
         fun bind(model: Project) {
             binding.apply {
                 tvTitle.text = model.title
-
+                tvLocation.text = model.price_from?.toDouble()?.let { formatPrice(it) }
                 Glide.with(itemView)
                     .load(model.image)
                     .into(ivImage)

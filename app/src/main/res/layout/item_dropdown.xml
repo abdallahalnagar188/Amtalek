@@ -6,8 +6,8 @@
     android:text="TextView"
     android:gravity="center"
     android:textColor="@color/gray"
-    android:fontFamily="@font/montserratregular"
-    android:textSize="@dimen/_12ssp"
+    android:fontFamily="@font/font"
+    android:textSize="@dimen/_10ssp"
     android:padding="@dimen/_12sdp"
     android:layoutDirection="locale"
 

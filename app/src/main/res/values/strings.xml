@@ -981,6 +981,11 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="total_price">Total Price</string>
     <string name="addon_name">addon_name!</string>
     <string name="egypt">Egypt</string>
+    <string name="broker">Broker</string>
+    <string name="user">User</string>
+    <string name="completed_projects">Completed Projects</string>
+    <string name="normal_listings">Normal Listings</string>
+    <string name="featured_listings">Featured Listings</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

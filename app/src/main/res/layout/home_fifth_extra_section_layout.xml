@@ -11,11 +11,11 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserratsemibold"
+        android:fontFamily="@font/font"
         tools:text="@string/the_newest_apartments_in_egypt"
         android:textColor="@color/black"
-        android:layout_marginStart="@dimen/_11sdp"
-        android:textSize="@dimen/_12ssp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,6 +23,8 @@
         android:id="@+id/tv_see_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/font"
+
         tools:text="@string/see_more"
         android:layout_marginEnd="@dimen/_11sdp"
         android:textColor="@color/text_gray"

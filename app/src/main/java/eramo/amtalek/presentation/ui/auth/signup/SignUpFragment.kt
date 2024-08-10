@@ -217,7 +217,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
             val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
             FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter
-
+            FSignUpCountriesSpinner.isSaveEnabled = true
             FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CountryModel
@@ -249,7 +249,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
             val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
             FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
-
+            FSignUpCitiesSpinner.isSaveEnabled = true
             FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CityModel
@@ -282,6 +282,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
             val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
             FSignUpRegionsSpinner.adapter = regionsSpinnerAdapter
+            FSignUpRegionsSpinner.isSaveEnabled = true
 
             FSignUpRegionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -290,17 +291,17 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                    // Handle case when nothing is selected if needed
                 }
             }
 
-            // refresh onClick if getting list fail
+            // Refresh onClick if getting list fails
             FSignUpRegionsSpinner.setOnTouchListener { view, motionEvent ->
                 when (motionEvent?.action) {
                     MotionEvent.ACTION_DOWN -> {
                         view.performClick()
                         if (data.isEmpty()) {
-//                            viewModel.getCountries()
+                            viewModel.getCountries()  // Fetch data if the list is empty
                         }
                     }
                 }
@@ -308,6 +309,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
 
 
     private fun setupGenderSwitch() {
