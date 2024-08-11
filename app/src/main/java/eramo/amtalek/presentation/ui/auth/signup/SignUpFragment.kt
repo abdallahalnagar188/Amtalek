@@ -31,6 +31,7 @@ import androidx.viewbinding.ViewBinding
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+
 import eramo.amtalek.databinding.FragmentSignupBinding
 import eramo.amtalek.domain.model.auth.CityModel
 import eramo.amtalek.domain.model.auth.CountryModel
@@ -80,8 +81,11 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.FSignUpTvTerms.setOnClickListener {
-            findNavController().navigate(R.id.action_signUpFragment_to_termsFragment)
+            findNavController().navigate(R.id.termsAndConditionsFragment)
         }
+        setupCitiesSpinner(data = emptyList())
+        setupRegionsSpinner(data = emptyList())
+        setupCountriesSpinner(data = emptyList())
         setupViews()
         listeners()
         requestData()
@@ -162,7 +166,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 Toast.makeText(requireContext(), "No Image chosen", Toast.LENGTH_SHORT).show()
             }
         }
-
 
     private fun requestData() {
         viewLifecycleOwner.lifecycleScope.launch {

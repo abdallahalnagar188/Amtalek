@@ -15,7 +15,7 @@
             android:id="@+id/iv_news"
             android:layout_width="0dp"
             android:layout_height="@dimen/_100sdp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -62,7 +62,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     private fun setupViews() {
         setupToolbar()
-        // No need to initialize the RecyclerView here as it's done in onViewCreated
     }
 
     private fun setupToolbar() {

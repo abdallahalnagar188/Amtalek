@@ -87,8 +87,7 @@ class MainActivity : AppCompatActivity(),
 
         binding.apply {
             mainBn.background = null
-            mainBn.menu.getItem(2).isEnabled = false
-            mainBn.menu.getItem(0).setOnMenuItemClickListener() {
+            mainBn.menu.getItem(2).setOnMenuItemClickListener() {
                 if (UserUtil.isUserLogin()) {
                     navController.navigate(R.id.myProfileFragment)
                 } else {

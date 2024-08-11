@@ -33,9 +33,6 @@
         android:name="eramo.amtalek.presentation.ui.auth.signup.SignUpFragment"
         android:label="@string/sign_up"
         tools:layout="@layout/fragment_signup"/>
-    <action
-        android:id="@+id/action_signUpFragment_to_termsFragment"
-        app:destination="@id/termsAndConditionsFragment" />
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="eramo.amtalek.presentation.ui.auth.forgetpassword.ForgetPasswordFragment"
@@ -44,7 +41,7 @@
     <fragment
         android:id="@+id/termsAndConditionsFragment"
         android:name="eramo.amtalek.presentation.ui.auth.TermsAndConditionsFragment"
-        android:label="PolicyFragment"
+        android:label="@string/terms_and_conditions"
         tools:layout="@layout/fragment_policy">
     </fragment>
 
