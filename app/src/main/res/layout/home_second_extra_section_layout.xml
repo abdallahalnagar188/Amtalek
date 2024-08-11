@@ -9,13 +9,15 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_230sdp"
+        android:textSize="@dimen/_12ssp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:layout_height="wrap_content"
         android:fontFamily="@font/font"
         tools:text="@string/the_newest_villas_in_egypt"
         android:textColor="@color/black"
         android:layout_marginStart="@dimen/_8sdp"
-        android:textSize="@dimen/_10ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +30,7 @@
         tools:text="@string/see_more"
         android:layout_marginEnd="@dimen/_11sdp"
         android:textColor="@color/text_gray"
-        android:textSize="@dimen/_10ssp"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="@id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_title" />

@@ -13,8 +13,10 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,6 +47,7 @@ import eramo.amtalek.util.SIGN_UP_GENDER_FEMALE
 import eramo.amtalek.util.SIGN_UP_GENDER_MALE
 import eramo.amtalek.util.SIGN_UP_TYPE_COMPANY
 import eramo.amtalek.util.SIGN_UP_TYPE_INDIVIDUAL
+import eramo.amtalek.util.StatusBarUtil
 
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromBottomAnimation
@@ -76,6 +79,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.FSignUpTvTerms.setOnClickListener {
+            findNavController().navigate(R.id.action_signUpFragment_to_termsFragment)
+        }
         setupViews()
         listeners()
         requestData()
@@ -101,9 +107,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         setupTermsAndConditionsCheckBox()
 
         binding.apply {
-            FSignUpTvTerms.setOnClickListener {
-                findNavController().navigate(R.id.termsAndConditionsFragment, null, navOptionsAnimation())
-            }
+
             FSignUpBtnRegisterNow.setOnClickListener {
                 validateAndSignUp()
             }
@@ -177,12 +181,12 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         fetchSendingVerificationCodeEmailState()
     }
 
-
-
     private fun setupAnimations() {
         applyLogoAnimation()
         applyCheckboxAnimation()
     }
+
+
 
     private fun applyCheckboxAnimation() {
         val view = binding.FSignUpCbAgreeAnimator
@@ -217,7 +221,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
             val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
             FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter
-            FSignUpCountriesSpinner.isSaveEnabled = true
             FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CountryModel
@@ -249,7 +252,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
             val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
             FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
-            FSignUpCitiesSpinner.isSaveEnabled = true
             FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CityModel
@@ -282,8 +284,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         binding.apply {
             val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
             FSignUpRegionsSpinner.adapter = regionsSpinnerAdapter
-            FSignUpRegionsSpinner.isSaveEnabled = true
-
             FSignUpRegionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as RegionModel

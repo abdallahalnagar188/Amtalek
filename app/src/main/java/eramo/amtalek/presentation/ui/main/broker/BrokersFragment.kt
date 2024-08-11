@@ -23,6 +23,7 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.navOptionsFromTopAnimation
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -65,32 +66,35 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     }
 
     private fun setupToolbar() {
-        if (UserUtil.isUserLogin()){
+
             binding.inToolbar.apply {
                 toolbarIvMenu.setOnClickListener {
                     viewModelShared.openDrawer.value = true
                 }
+                spinnerLayout.setOnClickListener {
+                        findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
+
+
+                }
+                FHomeEtSearch.setOnClickListener() {
+                    findNavController().navigate(R.id.searchFormFragment, null, navOptionsFromTopAnimation())
+                }
                 inMessaging.ivMessaging.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.messagingChatFragment,
-                        null,
-                        navOptionsAnimation()
-                    )
+                    if (UserUtil.isUserLogin()) {
+                        findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
+                    }else{
+                        findNavController().navigate(R.id.loginDialog)
+                    }
                 }
                 inNotification.ivNotification.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.notificationFragment,
-                        null,
-                        navOptionsAnimation()
-                    )
+                    if (UserUtil.isUserLogin()) {
+                    findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+                }else{
+                    findNavController().navigate(R.id.loginDialog)
                 }
-                ivSpinnerIcon.visibility= View.GONE
-                FHomeEtSearch.visibility = View.GONE
+                }
 
 
-            }
-        }else{
-            findNavController().navigate(R.id.loginDialog)
         }
 
 

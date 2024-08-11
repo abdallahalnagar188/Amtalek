@@ -29,6 +29,7 @@ import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,15 +51,17 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getHomeNormalProperties(UserUtil.getCityFiltrationId())
-        fetchHomeNormalProperties()
+        setupRecyclerView()
+        setupToolbar()
+        fetchProperties()
         fetchAddRemoveToFavState()
     }
-
-    private fun setupViews(list:List<PropertyModel> ) {
-        setupToolbar()
-        setupRv(list)
-
-    }
+//
+//    private fun setupViews(list:List<PropertyModel> ) {
+//
+//        setupRv(list)
+//
+//    }
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
@@ -68,66 +71,50 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
         }
     }
 
-    private fun fetchHomeNormalProperties() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeNormalPropertiesState.collect() { state ->
-                    when (state) {
-                        is UiState.Success -> {
-                            val data = state.data?.get(0)?.propertiesList
-                            setupRv(data?: emptyList())
-                            setupViews(data?: emptyList())
-                            binding.inToolbar.tvTitle.text = state.data?.get(0)?.title
-                            if (!data.isNullOrEmpty()) {
-                                setupRv(data)
-                            } else {
-                                binding.rvProperties.rootView.visibility = View.GONE
-                            }
-                        }
+//    private fun fetchHomeNormalProperties() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.homeNormalPropertiesState.collect() { state ->
+//                    when (state) {
+//                        is UiState.Success -> {
+//                            val data = state.data?.get(0)?.propertiesList
+//                            setupRv(data?: emptyList())
+//                            setupViews(data?: emptyList())
+//                            binding.inToolbar.tvTitle.text = state.data?.get(0)?.title
+//                            if (!data.isNullOrEmpty()) {
+//                                setupRv(data)
+//                            } else {
+//                                binding.rvProperties.rootView.visibility = View.GONE
+//                            }
+//                        }
+//
+//                        is UiState.Error -> {
+//                            val errorMessage = state.message!!.asString(requireContext())
+//                            showToast(errorMessage)
+//                        }
+//
+//                        is UiState.Loading -> {
+//                        }
+//
+//                        else -> {}
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
-                        is UiState.Error -> {
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
-    }
-
-    private fun setupRv(data: List<PropertyModel>) {
-        rvPropertiesAdapter.setListener(this@SeeMoreNormalPropertiesFragment)
+    private fun setupRecyclerView() {
+        rvPropertiesAdapter.setListener(this)
         binding.rvProperties.adapter = rvPropertiesAdapter
-        rvPropertiesAdapter.submitList(data)
     }
 
-    override fun onPropertyClick(model: PropertyModel) {
-        when (model.type) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
-                )
-            }
-
-            PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
-                )
-            }
-
-            PropertyType.FOR_BOTH.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
-                )
+    private fun fetchProperties() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allNormalPropertyPagingFlow.collectLatest { pagingData ->
+                    rvPropertiesAdapter.submitData(pagingData)
+                }
             }
         }
     }
@@ -160,6 +147,20 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
 
 
     }
+
+    override fun onPropertyClick(model: DataX) {
+        when (model.forWhat) {
+            PropertyType.FOR_SELL.key,
+            PropertyType.FOR_RENT.key,
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsFragment,
+                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
+                )
+            }
+        }
+    }
+
     override fun onFavClick(model: PropertyModel) {
         viewModel.addOrRemoveFav(model.id)
     }

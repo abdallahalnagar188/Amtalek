@@ -176,17 +176,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
             }
             inToolbar.inNotification.root.setOnClickListener {
-                if (UserUtil.isUserLogin()){
+                if (UserUtil.isUserLogin()) {
                     findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
-                }else{
+                } else {
                     findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
                 }
 
             }
             inToolbar.inMessaging.root.setOnClickListener {
-                if (UserUtil.isUserLogin()){
+                if (UserUtil.isUserLogin()) {
                     findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
-                }else{
+                } else {
                     findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
                 }
 
@@ -198,7 +198,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     private fun requestApis() {
-        viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId(),UserUtil.getUserCityFiltrationTitleId())
+        viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId(), UserUtil.getUserCityFiltrationTitleId())
     }
 
     private fun fetchData() {
@@ -249,7 +249,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                            viewModel.getHomeApis("1","1")
+                            viewModel.getHomeApis("1", "1")
                         }
 
                         is UiState.Error -> {
@@ -528,7 +528,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
+                                binding.inToolbar.tvSpinnerText.text = state.data?.cityName
                         }
 
                         is UiState.Error -> {
@@ -615,13 +615,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         if (LocalUtil.isEnglish()) {
             if (UserUtil.getCityFiltrationTitleEn() == "") {
-                binding.inToolbar.tvSpinnerText.text = getString(R.string.select_city)
+                binding.inToolbar.tvSpinnerText.text = getString(R.string.egypt)
             } else {
                 binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
             }
         } else {
             if (UserUtil.getCityFiltrationTitleAr() == "") {
-                binding.inToolbar.tvSpinnerText.text = getString(R.string.select_city)
+                binding.inToolbar.tvSpinnerText.text = getString(R.string.egypt)
 
             } else {
                 binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
@@ -641,8 +641,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
- //       binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
-        binding.inFeaturedRealEstate.tvSeeMore.setOnClickListener{
+        //       binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
+        binding.inFeaturedRealEstate.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMorePropertiesFragment)
         }
 
@@ -655,7 +655,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFeaturedProjectsAdapter.submitList(data)
 
 //        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
-        binding.inFeaturedProjects.tvSeeMore.setOnClickListener{
+        binding.inFeaturedProjects.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMoreProjectsFragment)
         }
     }
@@ -668,7 +668,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.inPropertiesByCity.tvTitle.text = getString(R.string.find_your_property_in_the_city)
 
 //        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
-        binding.inPropertiesByCity.tvSeeMore.setOnClickListener{
+        binding.inPropertiesByCity.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMorePropertiesByCityFragment)
         }
     }
@@ -677,7 +677,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
-        binding.inNormalPropertiesLayout.tvSeeMore.setOnClickListener{
+        binding.inNormalPropertiesLayout.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMoreNormalPropertiesFragment)
         }
 
@@ -702,7 +702,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         } else {
             binding.inFirstExtraSectionLayout.root.visibility = View.GONE
         }
-        binding.inFirstExtraSectionLayout.tvSeeMore.setOnClickListener{
+        binding.inFirstExtraSectionLayout.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMorePropertiesFragment)
         }
         ///// second
@@ -788,7 +788,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
 //        binding.inNewsLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
-        binding.inNewsLayout.tvSeeMore.setOnClickListener{
+        binding.inNewsLayout.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMoreNewsFragment)
         }
 
@@ -935,7 +935,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             val purposeId = ""
             val finishingId = ""
             val typeId = ""
-            val currencyId =0
+            val currencyId = 0
 
             val myModel = SearchModelDto(
                 searchKeyWords = searchKeyWords,
@@ -974,6 +974,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         )
         return data
     }
+
     override fun onPropertyByCityClick(model: CitiesModel) {
         findNavController().navigate(
             R.id.searchResultFragment,
@@ -981,7 +982,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 createModel(model), createListsModel()
             ).toBundle(), navOptionsAnimation()
         )
-       // Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
+        // Toast.makeText(requireContext(), model.title, Toast.LENGTH_SHORT).show()
     }
 
 

@@ -17,15 +17,14 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>(),
-    RvAddonsMonthlyPriceAdapter.OnItemClickListener {
+class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddAdomsBinding::inflate
 
-    private val rvAddonsMonthlyPriceAdapter = RvAddonsMonthlyPriceAdapter()
+    private lateinit var rvAddonsMonthlyPriceAdapter :RvAddonsMonthlyPriceAdapter
 
-    private val rvAddonsYearlyPriceAdapter = RvAddonsYearlyPriceAdapter()
+    private lateinit var rvAddonsYearlyPriceAdapter : RvAddonsYearlyPriceAdapter
 
     private val viewModel: AddonsViewModel by viewModels()
 
@@ -33,7 +32,15 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>(),
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
         toggleSetup()
+        setupListeners()
 
+        rvAddonsMonthlyPriceAdapter = RvAddonsMonthlyPriceAdapter { totalPrice ->
+            binding.tvTotalPriceAmount.text =  totalPrice.toString()
+        }
+        rvAddonsYearlyPriceAdapter = RvAddonsYearlyPriceAdapter { totalPrice ->
+            binding.tvTotalPriceAmount.text =  totalPrice.toString()
+
+        }
 
     }
 
@@ -115,7 +122,9 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>(),
         }
     }
 
-    override fun onPriceUpdate(model: Data, totalPrice: Int) {
-        
+    fun setupListeners() {
+        binding.btnTotalPrice.setOnClickListener {
+            findNavController().navigate(R.id.buyAddonsFragment)
+        }
     }
 }

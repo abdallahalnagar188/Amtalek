@@ -22,15 +22,6 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
 
     private val viewModel by viewModels<TermsAndConditionsViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState).also {
-            StatusBarUtil.whiteWithBackground(requireActivity(), R.color.amtalek_blue_dark)
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,3 +33,4 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
         }
     }
 }
+

@@ -56,7 +56,7 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            tvTitle.text = "Featured Projects in Egypt"
+            tvTitle.text = getString(R.string.featured_projects_in_egypt)
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }

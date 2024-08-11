@@ -36,7 +36,7 @@
                     app:autoPlay="false"
                     app:autoPlayDelay="2000"
                     app:carouselType="BLOCK"
-                    app:imageScaleType="centerCrop"
+                    app:imageScaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

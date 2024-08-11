@@ -15,82 +15,86 @@ import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBinding>(),
-    RvPropertiesAdapter.OnItemClickListener, RvSimilarPropertiesAdapter.OnFavClickListener {
+    RvPropertiesAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
 
-//    private val args by navArgs<SeeMorePropertiesFragmentArgs>()
-//    private val propertiesList get() = args.propertiesList
-//    private val title get() = args.title
+    private val viewModel: HomeMyViewModel by viewModels()
 
-    val viewModel: HomeMyViewModel by viewModels()
     @Inject
-    lateinit var rvPropertiesAdapter: RvPropertiesAdapter
+    lateinit var rvPropertiesPagingAdapter: RvPropertiesAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getAllProperty()
-        lifecycleScope.launch {
-            viewModel.allProperty.collect {
-
-//                Log.e("elnagar", it?.data?.original?.data.toString())
-//                rvPropertiesAdapter.submitList(it?.data?.original?.data)
-//                binding.rvProperties.adapter = rvPropertiesAdapter
-                it?.data?.original?.data?.let { it1 -> setupViews(it1) }
-            }
-        }
-        fetchAddRemoveToFavState()
-    }
-
-    private fun setupViews(list:List<DataX> ) {
         setupToolbar()
+        setupRecyclerView()
 
-        setupRv(list)
+        fetchProperties()
+        fetchAddRemoveToFavState()
     }
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
-            tvTitle.visibility = View.GONE
+            tvTitle.text = getString(R.string.featured_properties_in_egypt)
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
 
+    private fun setupRecyclerView() {
+        rvPropertiesPagingAdapter.setListener(this)
+        binding.rvProperties.adapter = rvPropertiesPagingAdapter
+    }
 
-    private fun setupRv(data: List<DataX>) {
-        rvPropertiesAdapter.setListener(this@SeeMorePropertiesFragment)
-        binding.rvProperties.adapter = rvPropertiesAdapter
-        rvPropertiesAdapter.submitList(data)
+    private fun fetchProperties() {
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allPropertiesPagingData.collectLatest { pagingData ->
+                    rvPropertiesPagingAdapter.submitData(pagingData)
+                }
+            }
+        }
+    }
+
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            // Refresh the PagingData if necessary
+                            rvPropertiesPagingAdapter.refresh()
+                        }
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+                        is UiState.Loading -> {
+                            // Handle loading state if necessary
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
     override fun onPropertyClick(model: DataX) {
         when (model.forWhat) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
-                )
-            }
-
-            PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listingNumber?.let { PropertyDetailsFragmentArgs(it).toBundle() }
-                )
-            }
-
+            PropertyType.FOR_SELL.key,
+            PropertyType.FOR_RENT.key,
             PropertyType.FOR_BOTH.key -> {
                 findNavController().navigate(
                     R.id.propertyDetailsFragment,
@@ -98,36 +102,5 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                 )
             }
         }
-    }
-    private fun fetchAddRemoveToFavState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.favState.collect() { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            viewModel.getAllProperty()
-                            // homeViewModel.getHomeApis("1","1")
-                        }
-
-                        is UiState.Error -> {
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                        }
-
-                        else -> {}
-                    }
-                }
-            }
-        }
-
-
-    }
-
-    override fun onFavClick(model: PropertyModel) {
-        viewModel.addOrRemoveFav(model.id)
     }
 }

@@ -26,7 +26,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BrokersViewModel @Inject constructor(
-    private val getBrokersUseCase: GetBrokers,
     private val getBrokersDetailsUseCase: GetBrokersDetails,
     private val getBrokersPropertiesUseCase: GetBrokersProperties,
     private val getUserDetailsUseCase: GetUserDetails,
@@ -35,9 +34,6 @@ class BrokersViewModel @Inject constructor(
 
     private val _brokersDetails: MutableStateFlow<BrokersDetailsResponse?> = MutableStateFlow(null)
     val brokersDetails: StateFlow<BrokersDetailsResponse?> get() = _brokersDetails
-
-    private val _brokerProject: MutableStateFlow<BrokersDetailsResponse?> = MutableStateFlow(null)
-    val brokerProject: StateFlow<BrokersDetailsResponse?> get() = _brokerProject
 
     private val _userDetails: MutableStateFlow<UserDetailsResponse?> = MutableStateFlow(null)
     val userDetails: StateFlow<UserDetailsResponse?> get() = _userDetails
@@ -50,15 +46,6 @@ class BrokersViewModel @Inject constructor(
         pagingSourceFactory = { BrokersPagingSource(brokerApi) } // Use the PagingSource
     ).flow.cachedIn(viewModelScope)
 
-    fun getBrokersProjects(id: Int) {
-        viewModelScope.launch {
-            try {
-                _brokerProject.value = getBrokersDetailsUseCase(id)
-            } catch (e: Exception) {
-                Log.e("failed", e.message.toString())
-            }
-        }
-    }
 
     fun getBrokersDetails(id: Int) {
         viewModelScope.launch {

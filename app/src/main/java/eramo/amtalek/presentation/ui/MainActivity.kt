@@ -20,13 +20,17 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity(),
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val viewModelShared: SharedViewModel by viewModels()
-
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StatusBarUtil.init(window)
@@ -65,7 +69,11 @@ class MainActivity : AppCompatActivity(),
         WebViewLocaleHelper(this).implementWorkaround()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         FirebaseApp.initializeApp(this)
+        // Obtain the FirebaseAnalytics instance.
+        firebaseAnalytics = Firebase.analytics
+
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {
             val token = it.result
             UserUtil.saveFireBaseToken(token)
@@ -212,7 +220,11 @@ class MainActivity : AppCompatActivity(),
             }
 
             navHeaderMyFavourite.setOnClickListener {
-                navController.navigate(R.id.favouritesFragment)
+                if (UserUtil.isUserLogin()) {
+                    navController.navigate(R.id.favouritesFragment)
+                } else {
+                    navController.navigate(R.id.loginDialog)
+                }
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }

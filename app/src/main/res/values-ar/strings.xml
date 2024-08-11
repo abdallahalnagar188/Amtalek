@@ -650,7 +650,7 @@
     <string name="add_property">إضافة عقار</string>
 
     <string name="featured_real_estate_in_egypt">عقارات مميزة فى مصر</string>
-    <string name="featured_projects_in_egypt">أهم المشاريع العقارية في مصر</string>
+    <string name="featured_projects_in_egypt">المشاريع العقارية في مصر</string>
     <string name="see_more">مشاهدة الكل</string>
     <string name="all">الكل</string>
     <string name="project">مشروع</string>
@@ -1017,11 +1017,12 @@
     <string name="add_adoms">أضف اضافات</string>
     <string name="total_price">السعر الكلي</string>
     <string name="addon_name">addon_name</string>
-    <string name="egypt">Egypt</string>
+    <string name="egypt">مصر</string>
     <string name="user">مستخدم</string>
     <string name="completed_projects">المشاريع المكتمله</string>
     <string name="normal_listings">العقارات العاديه</string>
     <string name="featured_listings">العقارات المميزه</string>
+    <string name="your_order">طلبك</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

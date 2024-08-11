@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
 import eramo.amtalek.data.remote.dto.project.allProjects.AllProjectsResponse
@@ -21,13 +22,15 @@ import eramo.amtalek.domain.model.home.project.HomeProjectsSectionModel
 import eramo.amtalek.domain.model.home.property.HomePropertySectionModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
+import eramo.amtalek.domain.repository.AllNormalPropertiesRepo
+import eramo.amtalek.domain.repository.AllPropertyRepo
 import eramo.amtalek.domain.repository.MyHomeRepository
 import eramo.amtalek.domain.usecase.allcitys.GetAllCities
 import eramo.amtalek.domain.usecase.allprojects.GetAllProjects
 import eramo.amtalek.domain.usecase.allpropety.GetAllNormalProperty
 import eramo.amtalek.domain.usecase.allpropety.GetAllProperty
 import eramo.amtalek.domain.usecase.drawer.GetProfileUseCase
-import eramo.amtalek.presentation.ui.main.broker.BrokersPagingSource
+import eramo.amtalek.presentation.ui.main.home.seemore.AllPropertiesPagingSource
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
@@ -49,14 +52,19 @@ class HomeMyViewModel @Inject constructor(
     private val allPropertyUseCase: GetAllProperty,
     private val allProjectsUseCase: GetAllProjects,
     private val allNormalPropertyUseCase: GetAllNormalProperty,
-    private val allCitiesUseCase: GetAllCities
+    private val allCitiesUseCase: GetAllCities,
+    private val allPropertyRepo: AllPropertyRepo,
+    private val allNormalProperty:AllNormalPropertiesRepo,
+
+    private val api: AmtalekApi // Inject BrokerApi for PagingSource
+
 ): ViewModel(){
 
     private val _allProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
     val allProperty: StateFlow<AllPropertyResponse?> get() = _allProperty
 
     private val _allNormalProperty: MutableStateFlow<HomePropertySectionModel?> = MutableStateFlow(null)
-    val allNormalProperty: StateFlow<HomePropertySectionModel?> get() = _allNormalProperty
+   // val allNormalProperty: StateFlow<HomePropertySectionModel?> get() = _allNormalProperty
 
     private val _allProject: MutableStateFlow<AllProjectsResponse?> = MutableStateFlow(null)
     val allProject: StateFlow<AllProjectsResponse?> get() = _allProject
@@ -123,6 +131,28 @@ class HomeMyViewModel @Inject constructor(
         getHomeExtraSectionsJob?.cancel()
         getProfileJob?.cancel()
     }
+
+
+
+
+    val allPropertiesPagingData: Flow<PagingData<DataX>> = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { allPropertyRepo.getAllPropertiesPagingSource() }
+    ).flow
+        .cachedIn(viewModelScope)
+
+    val allNormalPropertyPagingFlow: Flow<PagingData<DataX>> = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { allNormalProperty.getAllNormalPropertiesPagingSource() }
+    ).flow
+        .cachedIn(viewModelScope)
+
     //---------------------------------------------------------------------------------//
     private fun getHomeFeaturedProperties(cityId:String){
         getHomeFeaturedPropertiesJob?.cancel()

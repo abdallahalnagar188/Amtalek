@@ -10,10 +10,11 @@ import eramo.amtalek.data.remote.dto.adons.Data
 import eramo.amtalek.databinding.ItemAdonsBinding
 import javax.inject.Inject
 
-class RvAddonsMonthlyPriceAdapter @Inject constructor() :
-    ListAdapter<Data, RvAddonsMonthlyPriceAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvAddonsMonthlyPriceAdapter @Inject constructor(
+    private val onTotalPriceChanged: (Double) -> Unit // Callback to send total price to the fragment
+) : ListAdapter<Data, RvAddonsMonthlyPriceAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
-    private var listener: OnItemClickListener? = null
+    private val totalPrices = mutableListOf<Double>() // List to track total prices for each item
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ProductViewHolder(
@@ -22,7 +23,7 @@ class RvAddonsMonthlyPriceAdapter @Inject constructor() :
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val model = getItem(position)
-        holder.bind(model)
+        holder.bind(model, position)
     }
 
     inner class ProductViewHolder(private val binding: ItemAdonsBinding) :
@@ -31,57 +32,51 @@ class RvAddonsMonthlyPriceAdapter @Inject constructor() :
         private var counter: Int = 0
 
         init {
-            binding.btnMinus.setOnClickListener {
-                getItem(bindingAdapterPosition).let {
-                    counter++
-                    updatePrice(it)
-                }
+            binding.btnAdd.setOnClickListener {
+                counter++
+                updatePrice(bindingAdapterPosition)
             }
 
-            binding.btnAdd.setOnClickListener {
-                getItem(bindingAdapterPosition).let {
-                    if (counter > 0) {
-                        counter--
-                        updatePrice(it)
-                    }
+            binding.btnMinus.setOnClickListener {
+                if (counter > 0) {
+                    counter--
+                    updatePrice(bindingAdapterPosition)
                 }
             }
         }
 
-        fun bind(model: Data) {
+        fun bind(model: Data, position: Int) {
             binding.apply {
-
-                if (model.name.toString()== "normal_listings") {
-                    tvAddonName.text= itemView.context.getString(R.string.normal_listings)
-                }else if (model.name.toString()== "featured_listings") {
-                    tvAddonName.text= itemView.context.getString(R.string.featured_listings)
-                }else if (model.name== "projects") {
-                    tvAddonName.text= itemView.context.getString(R.string.projects)
-                }else if (model.name== "messages") {
-                    tvAddonName.text= itemView.context.getString(R.string.message)
+                when (model.name) {
+                    "normal_listings" -> tvAddonName.text = itemView.context.getString(R.string.normal_listings)
+                    "featured_listings" -> tvAddonName.text = itemView.context.getString(R.string.featured_listings)
+                    "projects" -> tvAddonName.text = itemView.context.getString(R.string.projects)
+                    "messages" -> tvAddonName.text = itemView.context.getString(R.string.message)
+                    else -> tvAddonName.text = model.name
                 }
-                tvAddonName.text = model.name
+
                 tvAddonPrice.text = model.monthlyPrice.toString()
                 tvCounter.text = counter.toString()
-                updatePrice(model)
+                updatePrice(position)
             }
         }
 
-        private fun updatePrice(model: Data) {
-            val monthlyPrice = model.monthlyPrice?.toIntOrNull() ?: 0
+        private fun updatePrice(position: Int) {
+            val monthlyPrice = binding.tvAddonPrice.text.toString().toDouble()
             val totalPrice = monthlyPrice * counter
             binding.tvCounter.text = counter.toString()
             binding.totalPriceForAddon.text = totalPrice.toString()
-            listener?.onPriceUpdate(model, totalPrice)
+
+            totalPrices[position] = totalPrice // Update the total price for this item
+            val aggregatedTotalPrice = totalPrices.sum() // Calculate the sum of all total prices
+            onTotalPriceChanged(aggregatedTotalPrice) // Send the aggregated total price to the fragment
         }
     }
 
-    fun setListener(listener: OnItemClickListener?) {
-        this.listener = listener
-    }
-
-    interface OnItemClickListener {
-        fun onPriceUpdate(model: Data, totalPrice: Int)
+    override fun submitList(list: List<Data?>?) {
+        super.submitList(list)
+        totalPrices.clear() // Reset the total prices list
+        list?.forEach { _ -> totalPrices.add(0.0) } // Initialize the total prices list with zeros
     }
 
     companion object {
@@ -94,4 +89,3 @@ class RvAddonsMonthlyPriceAdapter @Inject constructor() :
         }
     }
 }
-

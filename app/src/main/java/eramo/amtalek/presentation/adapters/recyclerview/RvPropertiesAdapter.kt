@@ -5,24 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.domain.model.main.home.PropertyModelx
-import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
-
 class RvPropertiesAdapter @Inject constructor() :
-    ListAdapter<DataX, RvPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    PagingDataAdapter<DataX, RvPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+
     private lateinit var listener: OnItemClickListener
     private lateinit var favListener: RvSimilarPropertiesAdapter.OnFavClickListener
 
@@ -31,7 +29,7 @@ class RvPropertiesAdapter @Inject constructor() :
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        getItem(position).let { holder.bind(it) }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     inner class ProductViewHolder(private val binding: ItemPropertyPreviewBinding) :
@@ -40,7 +38,7 @@ class RvPropertiesAdapter @Inject constructor() :
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    getItem(bindingAdapterPosition).let {
+                    getItem(bindingAdapterPosition)?.let {
                         listener.onPropertyClick(it)
                     }
                 }
@@ -64,9 +62,7 @@ class RvPropertiesAdapter @Inject constructor() :
                     PropertyType.FOR_SELL.key -> itemView.context.getString(R.string.for_sell)
                     PropertyType.FOR_RENT.key -> itemView.context.getString(R.string.for_rent)
                     PropertyType.FOR_BOTH.key -> itemView.context.getString(R.string.for_sell_or_rent)
-                    else -> {
-                        ""
-                    }
+                    else -> ""
                 }
 
                 if (model.brokerDetails?.get(0)?.brokerType == "broker"){
@@ -74,6 +70,7 @@ class RvPropertiesAdapter @Inject constructor() :
                 }else{
                     tvBroker.text = itemView.context.getString(R.string.user)
                 }
+
                 when (model.forWhat) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE
@@ -83,34 +80,28 @@ class RvPropertiesAdapter @Inject constructor() :
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
                         tvDurationRent.visibility = View.VISIBLE
-                        tvDurationRent.text =
-                            model.rentDuration?.let { model.currency?.let { it1 ->
+                        tvDurationRent.text = model.rentDuration?.let {
+                            model.currency?.let { it1 ->
                                 model.rentPrice?.toDouble()?.let { it2 ->
-                                    getRentPrice(itemView.context, it, it2,
-                                        it1
-                                    )
+                                    getRentPrice(itemView.context, it, it2, it1)
                                 }
-                            } }
-
+                            }
+                        }
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvDurationRent.visibility = View.VISIBLE
-                        tvDurationRent.text =
-                            model.rentDuration?.let { model.currency?.let { it1 ->
+                        tvDurationRent.text = model.rentDuration?.let {
+                            model.currency?.let { it1 ->
                                 model.rentPrice?.let { it2 ->
-                                    getRentPrice(itemView.context, it, it2.toDouble(),
-                                        it1
-                                    )
+                                    getRentPrice(itemView.context, it, it2.toDouble(), it1)
                                 }
-                            } }
-
+                            }
+                        }
                     }
 
-                    else -> {
-
-                    }
+                    else -> {}
                 }
 
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, model.landArea?.let { formatNumber(it) })
@@ -128,14 +119,13 @@ class RvPropertiesAdapter @Inject constructor() :
                     .load(model.brokerDetails?.get(0)?.logo)
                     .into(ivBroker)
 
-
                 if (model.isFav == "0") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-//
-//                if (model. == TRUE) {
+
+//                if (model.featured == TRUE) {
 //                    tvFeatured.visibility = View.VISIBLE
 //                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
 //                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
@@ -150,55 +140,30 @@ class RvPropertiesAdapter @Inject constructor() :
 
     private fun getRentPrice(context: Context, duration: String, price: Double, currency: String): String {
         return when (duration) {
-            RentDuration.DAILY.key -> {
-                context.getString(R.string.s_daily_price, formatPrice(price), currency)
-            }
-
-            RentDuration.MONTHLY.key -> {
-                context.getString(R.string.s_monthly_price, formatPrice(price), currency)
-            }
-
-            RentDuration.THREE_MONTHS.key -> {
-                context.getString(R.string.s_3_months_price, formatPrice(price), currency)
-            }
-
-            RentDuration.SIX_MONTHS.key -> {
-                context.getString(R.string.s_6_months_price, formatPrice(price), currency)
-            }
-
-            RentDuration.NINE_MONTHS.key -> {
-                context.getString(R.string.s_9_months_price, formatPrice(price), currency)
-            }
-
-            RentDuration.YEARLY.key -> {
-                context.getString(R.string.s_yearly_price, formatPrice(price), currency)
-            }
-
+            RentDuration.DAILY.key -> context.getString(R.string.s_daily_price, formatPrice(price), currency)
+            RentDuration.MONTHLY.key -> context.getString(R.string.s_monthly_price, formatPrice(price), currency)
+            RentDuration.THREE_MONTHS.key -> context.getString(R.string.s_3_months_price, formatPrice(price), currency)
+            RentDuration.SIX_MONTHS.key -> context.getString(R.string.s_6_months_price, formatPrice(price), currency)
+            RentDuration.NINE_MONTHS.key -> context.getString(R.string.s_9_months_price, formatPrice(price), currency)
+            RentDuration.YEARLY.key -> context.getString(R.string.s_yearly_price, formatPrice(price), currency)
             else -> ""
         }
     }
 
     fun setListener(listener: OnItemClickListener) {
         this.listener = listener
-        this.favListener = listener as RvSimilarPropertiesAdapter.OnFavClickListener
+     //   this.favListener = listener as RvSimilarPropertiesAdapter.OnFavClickListener
     }
 
     interface OnItemClickListener {
         fun onPropertyClick(model: DataX)
     }
 
-    //check difference
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
-            override fun areItemsTheSame(
-                oldItem: DataX,
-                newItem: DataX
-            ) = oldItem == newItem
+            override fun areItemsTheSame(oldItem: DataX, newItem: DataX) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(
-                oldItem: DataX,
-                newItem: DataX
-            ) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: DataX, newItem: DataX) = oldItem == newItem
         }
     }
 }

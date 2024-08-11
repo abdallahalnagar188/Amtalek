@@ -50,6 +50,15 @@
         android:id="@+id/addAdomsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.AddAddonsFragment"
         tools:layout="@layout/fragment_add_adoms">
+        <action
+            android:id="@+id/action_addAdomsFragment_to_byAddonsFragment"
+            app:destination="@id/buyAddonsFragment"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/buyAddonsFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.BuyAddonsFragment"
+        tools:layout="@layout/fragment_buy_addons">
 
     </fragment>
 
