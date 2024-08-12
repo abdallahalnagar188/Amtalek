@@ -30,6 +30,7 @@ import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPrope
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
 import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
+import eramo.amtalek.data.remote.dto.myHome.news.allnews.AllNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
@@ -226,6 +227,10 @@ interface AmtalekApi {
     suspend fun getHomeNews(
         @Header("Authorization") userToken: String?,
     ): Response<HomeNewsResponse>
+
+    @GET("mobile/news")
+    suspend fun getAllNews(
+    ): Response<AllNewsResponse>
 
     @GET("mobile/mobile-home-extra-sections")
     suspend fun getHomeNewestSections(

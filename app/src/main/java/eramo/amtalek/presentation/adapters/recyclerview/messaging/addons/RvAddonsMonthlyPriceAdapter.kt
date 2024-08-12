@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 class RvAddonsMonthlyPriceAdapter @Inject constructor(
     private val onTotalPriceChanged: (Double) -> Unit // Callback to send total price to the fragment
-) : ListAdapter<Data, RvAddonsMonthlyPriceAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+) : ListAdapter<Data, RvAddonsMonthlyPriceAdapter.ProductViewHolder>(PRODUCT_COMPARATOR)
+{
 
     private val totalPrices = mutableListOf<Double>() // List to track total prices for each item
 
@@ -26,11 +27,11 @@ class RvAddonsMonthlyPriceAdapter @Inject constructor(
         holder.bind(model, position)
     }
 
+
     inner class ProductViewHolder(private val binding: ItemAdonsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private var counter: Int = 0
-
         init {
             binding.btnAdd.setOnClickListener {
                 counter++
@@ -60,6 +61,7 @@ class RvAddonsMonthlyPriceAdapter @Inject constructor(
                 updatePrice(position)
             }
         }
+
 
         private fun updatePrice(position: Int) {
             val monthlyPrice = binding.tvAddonPrice.text.toString().toDouble()

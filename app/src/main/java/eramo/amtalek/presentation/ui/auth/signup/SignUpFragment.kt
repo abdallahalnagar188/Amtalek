@@ -74,31 +74,45 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private var selectedCityId = -1
     private var selectedRegionId = -1
     private lateinit var selectedGender: String
-    private lateinit var selectType:String
+    private lateinit var selectType: String
     private var imageUri: Uri? = null
     val calender = Calendar.getInstance()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        LocalUtil.loadLocal(requireActivity())
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.FSignUpTvTerms.setOnClickListener {
-            findNavController().navigate(R.id.termsAndConditionsFragment)
-        }
-        setupCitiesSpinner(data = emptyList())
-        setupRegionsSpinner(data = emptyList())
-        setupCountriesSpinner(data = emptyList())
         setupViews()
         listeners()
         requestData()
         fetchData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        selectedCountryId = -1
+        selectedCityId = -1
+        selectedRegionId = -1
+        //fetchData()
+    }
+
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupAnimations()
-        if (LocalUtil.isEnglish()){
+        binding.FSignUpTvTerms.setOnClickListener {
+            findNavController().navigate(R.id.termsAndConditionsFragment, null, navOptionsAnimation())
+        }
+        if (LocalUtil.isEnglish()) {
             binding.FSignUpIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
-        }else{
+        } else {
             binding.FSignUpIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
         }
     }
@@ -118,7 +132,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             FSignUpTvLogin.setOnClickListener {
                 findNavController().navigate(R.id.loginFragment, null, navOptionsFromBottomAnimation())
             }
-            identityCard.setOnClickListener(){
+            identityCard.setOnClickListener() {
                 ImagePicker.with(requireActivity())
                     .compress(1024)
                     .cropSquare()
@@ -126,26 +140,26 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                         startForProfileImageResult.launch(intent)
                     }
             }
-            FSignUpTilBirthdate.setOnClickListener(){
+            FSignUpTilBirthdate.setOnClickListener() {
                 setupBirthDate()
             }
-           birthDateView.setOnClickListener(){
-               setupBirthDate()
-           }
+            birthDateView.setOnClickListener() {
+                setupBirthDate()
+            }
         }
 
     }
+
     private fun setupBirthDate() {
         val dialog = DatePickerDialog(requireContext())
-        dialog.setOnDateSetListener {
-                datePicker,year,month,day->
+        dialog.setOnDateSetListener { datePicker, year, month, day ->
 
-            binding.FSignUpEtBirthdate.text =Editable.Factory.getInstance().newEditable( "$year-${month+1}-$day")
-            calender.set(year,month,day)
-            calender.set(Calendar.HOUR_OF_DAY,0)
-            calender.set(Calendar.MINUTE,0)
-            calender.set(Calendar.SECOND,0)
-            calender.set(Calendar.MILLISECOND,0)
+            binding.FSignUpEtBirthdate.text = Editable.Factory.getInstance().newEditable("$year-${month + 1}-$day")
+            calender.set(year, month, day)
+            calender.set(Calendar.HOUR_OF_DAY, 0)
+            calender.set(Calendar.MINUTE, 0)
+            calender.set(Calendar.SECOND, 0)
+            calender.set(Calendar.MILLISECOND, 0)
         }
         dialog.show()
     }
@@ -190,7 +204,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     }
 
 
-
     private fun applyCheckboxAnimation() {
         val view = binding.FSignUpCbAgreeAnimator
         view.setBackgroundResource(R.drawable.checkbox_ripple_effect_background)
@@ -209,14 +222,14 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     }
 
     private fun applyLogoAnimation() {
-            val view = binding.FSignUpIvLogoWhiteView
-            val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
-            animator.duration = 1500
-            animator.addUpdateListener { animation ->
-                view?.alpha = animation.animatedValue as Float
-            }
+        val view = binding.FSignUpIvLogoWhiteView
+        val animator = ValueAnimator.ofFloat(1.0f, 0.0f)
+        animator.duration = 1500
+        animator.addUpdateListener { animation ->
+            view?.alpha = animation.animatedValue as Float
+        }
 
-            animator.start()
+        animator.start()
     }
 
     // -------------------------------------- setupViews -------------------------------------- //
@@ -251,6 +264,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
     private fun setupCitiesSpinner(data: List<CityModel>) {
         binding.apply {
             val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
@@ -283,6 +297,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
     private fun setupRegionsSpinner(data: List<RegionModel>) {
         binding.apply {
             val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
@@ -312,7 +327,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
-
 
 
     private fun setupGenderSwitch() {
@@ -358,6 +372,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
         }
     }
+
     private fun setupTypeSwitch() {
         binding.typeSelectionLayout.apply {
             // Default
@@ -497,6 +512,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
     private fun fetchRegions() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -524,6 +540,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             }
         }
     }
+
     private fun fetchRegisterState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -534,10 +551,10 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                             LoadingDialog.dismissDialog()
 
                             if (state.data?.status == API_SUCCESS_CODE) {
-                                if (selectType == SIGN_UP_TYPE_INDIVIDUAL){
+                                if (selectType == SIGN_UP_TYPE_INDIVIDUAL) {
                                     viewModel.sendVerificationCodeEmail()
-                                }else{
-                                    findNavController().navigate(R.id.loginFragment,null, navOptionsAnimation())
+                                } else {
+                                    findNavController().navigate(R.id.loginFragment, null, navOptionsAnimation())
                                 }
                             } else {
                                 showToast(getString(R.string.something_went_wrong))
@@ -545,7 +562,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                         }
 
                         is UiState.Error -> {
-                            Log.e("Mego", state.message!!.toString(), )
+                            Log.e("Mego", state.message!!.toString())
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
@@ -685,16 +702,16 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
             viewModel.register(
                 firstName = firstName,
                 lastName = lastname,
-                phone =  mobileNumber,
+                phone = mobileNumber,
                 email = email,
                 password = password,
                 confirmPassword = rePassword,
-               gender =  selectedGender,
-               countryId =  selectedCountryId.toString(),
-               cityId =  selectedCityId.toString(),
-               regionId =  selectedRegionId.toString(),
+                gender = selectedGender,
+                countryId = selectedCountryId.toString(),
+                cityId = selectedCityId.toString(),
+                regionId = selectedRegionId.toString(),
                 companyName = binding.FSignUpEtCompanyName.text.toString(),
-                companyLogo =imageUri,
+                companyLogo = imageUri,
                 iam = selectType,
                 birthday = binding.FSignUpEtBirthdate.text.toString()
             )

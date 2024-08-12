@@ -14,6 +14,7 @@ import eramo.amtalek.databinding.FragmentAddAdomsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsMonthlyPriceAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsYearlyPriceAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragmentDirections
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -52,7 +53,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
     }
 
     private fun toggleSetup() {
-        binding.userToggleGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
+        binding.userToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
                     R.id.monthly_btn_addon -> {
@@ -88,7 +89,6 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                             lifecycleScope.launch {
                                 viewModel.addons.collect {
                                     viewModel.addons.value.data?.data?.let { initYearlyRv(it) }
-
                                 }
                             }
                         }
@@ -97,7 +97,6 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
             }
         }
 
-        // Set default selection if necessary
         binding.monthlyBtnAddon.isChecked = true
     }
 
@@ -107,6 +106,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
             binding.recyclerViewAddons.visibility = View.VISIBLE
             binding.recyclerViewAddons.adapter = rvAddonsMonthlyPriceAdapter
             rvAddonsMonthlyPriceAdapter.submitList(data)
+            rvAddonsMonthlyPriceAdapter.notifyDataSetChanged()
         } else {
             binding.recyclerViewAddons.visibility = View.GONE
         }
@@ -117,14 +117,15 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
             binding.recyclerViewAddons.visibility = View.VISIBLE
             binding.recyclerViewAddons.adapter = rvAddonsYearlyPriceAdapter
             rvAddonsYearlyPriceAdapter.submitList(data)
+            rvAddonsYearlyPriceAdapter.notifyDataSetChanged()
         } else {
             binding.recyclerViewAddons.visibility = View.GONE
         }
     }
 
-    fun setupListeners() {
+    private fun setupListeners( ) {
         binding.btnTotalPrice.setOnClickListener {
-            findNavController().navigate(R.id.buyAddonsFragment)
+           findNavController().navigate(R.id.buyAddonsFragment)
         }
     }
 }

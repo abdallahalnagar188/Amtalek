@@ -44,7 +44,7 @@ class OnBoardingFragment : BindingFragment<FragmentOnBoardingBinding>() {
         binding.apply {
             onBoardingBtnNext.setOnClickListener {
 //                if (binding.slider.currentItem < 2)
-                binding.slider.currentItem = binding.slider.currentItem + 1
+                binding.slider.currentItem += 1
 //                else navigateToMain()
             }
 

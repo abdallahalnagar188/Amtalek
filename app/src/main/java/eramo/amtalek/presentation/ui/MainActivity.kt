@@ -72,13 +72,14 @@ class MainActivity : AppCompatActivity(),
 
         FirebaseApp.initializeApp(this)
         // Obtain the FirebaseAnalytics instance.
+// Obtain the FirebaseAnalytics instance.
         firebaseAnalytics = Firebase.analytics
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
             val token = it.result
             UserUtil.saveFireBaseToken(token)
             Log.e("alo", token)
-        })
+        }
         //setup navStart
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_navHost) as NavHostFragment

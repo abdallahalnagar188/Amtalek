@@ -1,12 +1,11 @@
-package eramo.amtalek.data.remote.dto.property
+package eramo.amtalek.data.remote.dto.myHome.news.allnews
 
 
 import com.google.gson.annotations.SerializedName
-import eramo.amtalek.data.remote.dto.contactedAgent.DataX
 
-data class SendToBrokerResponse(
+data class AllNewsResponse(
     @SerializedName("data")
-    var `data`: List<DataX?>?,
+    var `data`: Data?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")

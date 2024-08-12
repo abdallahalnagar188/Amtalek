@@ -46,6 +46,7 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         Glide.with(requireContext()).load(image).into(binding.ivNewsImage)
         binding.tvTitle.text = news.title
         binding.tvBody.text = news.description
+        binding.tvCategory.text = news.newsCategory.mainTitle
 //        setupImageSliderTop()
 //        initRvComments(Dummy.dummyRatingCommentsList())
     }
@@ -53,6 +54,7 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
     private fun setupToolbar() {
         StatusBarUtil.transparent()
         binding.apply {
+            ivShare.visibility = View.GONE
             ivShare.setOnClickListener { showToast("share") }
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }

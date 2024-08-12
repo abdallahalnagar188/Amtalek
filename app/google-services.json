@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "875923813181",
-    "project_id": "amtalek-test",
-    "storage_bucket": "amtalek-test.appspot.com"
+    "project_number": "78621973655",
+    "project_id": "amtalek-project",
+    "storage_bucket": "amtalek-project.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:875923813181:android:b250b54e52b37d00ef0b54",
+        "mobilesdk_app_id": "1:78621973655:android:0c4d717b862a0130e4ddd2",
         "android_client_info": {
           "package_name": "eramo.amtalek"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDle2Eyv8FrD-7t37iqchCB9lYZQRr26w4"
+          "current_key": "AIzaSyDE3obST9qFXnxsS5Glkxe3dPze967uufU"
         }
       ],
       "services": {

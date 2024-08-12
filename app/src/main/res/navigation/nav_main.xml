@@ -36,7 +36,7 @@
         >
         <action
             android:id="@+id/action_brokersFragment_to_brokersDetailsFragment"
-            app:destination="@id/brokersDetailsFragment"/>
+            app:destination="@id/brokersDetailsFragment" />
     </fragment>
 
     <fragment
@@ -50,22 +50,26 @@
         android:id="@+id/addAdomsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.AddAddonsFragment"
         tools:layout="@layout/fragment_add_adoms">
-        <action
-            android:id="@+id/action_addAdomsFragment_to_byAddonsFragment"
-            app:destination="@id/buyAddonsFragment"/>
-
+<!--        <action-->
+<!--            android:id="@+id/action_addAdomsFragment_to_buyAddonsFragment"-->
+<!--            app:destination="@id/buyAddonsFragment" />-->
+<!--        <argument-->
+<!--            android:name="addon"-->
+<!--            app:argType="eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard" />-->
     </fragment>
     <fragment
         android:id="@+id/buyAddonsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.BuyAddonsFragment"
         tools:layout="@layout/fragment_buy_addons">
-
+<!--        <argument-->
+<!--            android:name="addon"-->
+<!--            app:argType="eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard" />-->
     </fragment>
 
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.AddAddonsFragment"
-        tools:layout="@layout/fragment_add_adoms">
+        tools:layout="@layout/fragment_change_password">
 
     </fragment>
 
@@ -137,7 +141,7 @@
         android:id="@+id/brokersDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.broker.BrokersDetailsFragment"
         android:label="BrokersDetailsFragment"
-        tools:layout="@layout/fragment_broker_details" >
+        tools:layout="@layout/fragment_broker_details">
 
         <!-- Argument passed to BrokersDetailsFragment -->
         <argument
@@ -151,12 +155,11 @@
     </fragment>
 
 
-
     <fragment
         android:id="@+id/userDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.user.UserDetailsFragment"
         android:label="UserDetailsFragment"
-        tools:layout="@layout/fragment_broker_details" >
+        tools:layout="@layout/fragment_broker_details">
         <argument
             android:name="id"
             app:argType="string" />
@@ -271,10 +274,10 @@
         android:id="@+id/messagingChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragment"
         android:label="fragment_messaging_chat"
-        tools:layout="@layout/fragment_messaging_chat" >
+        tools:layout="@layout/fragment_messaging_chat">
         <action
             android:id="@+id/action_to_usersChatFragment"
-            app:destination="@id/usersChatFragment" >
+            app:destination="@id/usersChatFragment">
             <argument
                 android:name="agentId"
                 app:argType="string" />
@@ -301,7 +304,7 @@
         android:id="@+id/imagesListFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragment"
         android:label="fragment_images_list"
-        tools:layout="@layout/fragment_images_list" >
+        tools:layout="@layout/fragment_images_list">
         <argument
             android:name="imagesList"
             app:argType="string[]" />
@@ -310,7 +313,7 @@
         android:id="@+id/imageViewFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.imagviewer.ImageViewFragment"
         android:label="fragment_image_view"
-        tools:layout="@layout/fragment_image_view" >
+        tools:layout="@layout/fragment_image_view">
         <argument
             android:name="image"
             app:argType="android.graphics.Bitmap" />
@@ -334,7 +337,7 @@
         android:id="@+id/completedProjectsFragment"
         android:name="eramo.amtalek.presentation.ui.main.broker.CompletedProjectsFragment"
         android:label="fragment_completed_projects"
-        tools:layout="@layout/fragment_completed_projects" >
+        tools:layout="@layout/fragment_completed_projects">
         <argument
             android:name="id"
             app:argType="integer" />
@@ -348,11 +351,10 @@
         android:id="@+id/newsDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragment"
         android:label="fragment_news_details"
-        tools:layout="@layout/fragment_news_details" >
+        tools:layout="@layout/fragment_news_details">
         <argument
             android:name="news"
-            app:argType="eramo.amtalek.domain.model.home.news.NewsModel"
-            />
+            app:argType="eramo.amtalek.domain.model.home.news.NewsModel" />
     </fragment>
     <fragment
         android:id="@+id/offersChatFragment"
@@ -363,7 +365,7 @@
         android:id="@+id/usersChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.UsersChatFragment"
         android:label="fragment_users_chat"
-        tools:layout="@layout/fragment_users_chat" >
+        tools:layout="@layout/fragment_users_chat">
         <argument
             android:name="agentId"
             app:argType="string" />
@@ -388,7 +390,7 @@
         android:id="@+id/propertyDetailsSellFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellFragment"
         android:label="fragment_property_details_sell"
-        tools:layout="@layout/fragment_property_details_sell" >
+        tools:layout="@layout/fragment_property_details_sell">
         <argument
             android:name="propertyId"
             app:argType="string" />
@@ -397,10 +399,10 @@
         android:id="@+id/propertyDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragment"
         android:label="fragment_property_details"
-        tools:layout="@layout/fragment_property_details" >
+        tools:layout="@layout/fragment_property_details">
         <action
             android:id="@+id/action_to_usersDetailsFragment"
-            app:destination="@id/userDetailsFragment"/>
+            app:destination="@id/userDetailsFragment" />
         <argument
             android:name="propertyId"
             app:argType="string" />
@@ -409,7 +411,7 @@
         android:id="@+id/myProjectDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragment"
         android:label="fragment_my_project_details"
-        tools:layout="@layout/fragment_my_project_details" >
+        tools:layout="@layout/fragment_my_project_details">
         <argument
             android:name="projectId"
             app:argType="string" />
@@ -448,7 +450,7 @@
         android:id="@+id/propertyDetailsSellAndRentFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsSellAndRentFragment"
         android:label="fragment_property_details_sell_and_rent"
-        tools:layout="@layout/fragment_property_details_sell_and_rent" >
+        tools:layout="@layout/fragment_property_details_sell_and_rent">
         <argument
             android:name="propertyId"
             app:argType="string" />
@@ -457,7 +459,7 @@
         android:id="@+id/seeMorePropertiesFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesFragment"
         android:label="fragment_see_more_properties"
-        tools:layout="@layout/fragment_see_more_properties" >
+        tools:layout="@layout/fragment_see_more_properties">
         <argument
             android:name="title"
             app:argType="eramo.amtalek.domain.model.main.home.PropertyModelx" />
@@ -467,7 +469,7 @@
         android:id="@+id/seeMoreNormalPropertiesFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreNormalPropertiesFragment"
         android:label="fragment_see_more_properties"
-        tools:layout="@layout/fragment_see_more_properties" >
+        tools:layout="@layout/fragment_see_more_properties">
         <argument
             android:name="title"
             app:argType="eramo.amtalek.domain.model.main.home.PropertyModelx" />
@@ -476,7 +478,7 @@
         android:id="@+id/seeMoreProjectsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragment"
         android:label="fragment_see_more_projects"
-        tools:layout="@layout/fragment_see_more_projects" >
+        tools:layout="@layout/fragment_see_more_projects">
         <argument
             android:name="projectsList"
             app:argType="eramo.amtalek.domain.model.main.home.ProjectModelx[]" />
@@ -490,7 +492,7 @@
         android:id="@+id/seeMorePropertiesByCityFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMorePropertiesByCityFragment"
         android:label="fragment_see_more_properties_by_city"
-        tools:layout="@layout/fragment_see_more_properties_by_city" >
+        tools:layout="@layout/fragment_see_more_properties_by_city">
         <argument
             android:name="citiesList"
             app:argType="eramo.amtalek.domain.model.main.home.PropertiesByCityModel[]" />
@@ -499,7 +501,7 @@
         android:id="@+id/seeMoreNewsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreNewsFragment"
         android:label="fragment_see_more_news"
-        tools:layout="@layout/fragment_see_more_news" >
+        tools:layout="@layout/fragment_see_more_news">
 
     </fragment>
     <dialog
@@ -521,7 +523,7 @@
         android:id="@+id/addPropertySecondFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.second.AddPropertySecondFragment"
         android:label="fragment_add_property_second"
-        tools:layout="@layout/fragment_add_property_second" >
+        tools:layout="@layout/fragment_add_property_second">
         <argument
             android:name="firstModel"
             app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyFirstModel" />
@@ -529,7 +531,7 @@
     <fragment
         android:id="@+id/addPropertyThirdFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.third.AddPropertyThirdFragment"
-        android:label="AddPropertyThirdFragment" >
+        android:label="AddPropertyThirdFragment">
         <argument
             android:name="secondModel"
             app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertySecondModel" />
@@ -537,7 +539,7 @@
     <fragment
         android:id="@+id/addPropertyFourthFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.addproperty.fourth.AddPropertyFourthFragment"
-        android:label="AddPropertyFourthFragment" >
+        android:label="AddPropertyFourthFragment">
         <argument
             android:name="thirdModel"
             app:argType="eramo.amtalek.domain.model.property.addpropertymodels.AddPropertyThirdModel" />
@@ -564,10 +566,11 @@
         android:id="@+id/searchResultFragment"
         android:name="eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragment"
         android:label="fragment_search_result"
-        tools:layout="@layout/fragment_search_result" >
+        tools:layout="@layout/fragment_search_result">
         <argument
             android:name="searchQuery"
-            app:argType="eramo.amtalek.domain.search.SearchModelDto" />        <argument
+            app:argType="eramo.amtalek.domain.search.SearchModelDto" />
+        <argument
             android:name="dataLists"
             app:argType="eramo.amtalek.domain.search.SearchDataListsModel" />
 

@@ -8,7 +8,8 @@ import eramo.amtalek.domain.model.home.news.NewsModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class HomeNewsResponse(
+data class
+HomeNewsResponse(
     @SerializedName("data")
     var `data`: List<Data>?,
     @SerializedName("message")
