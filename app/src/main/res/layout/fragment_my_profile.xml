@@ -100,6 +100,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:drawablePadding="@dimen/_4sdp"
+                android:fontFamily="@font/font"
                 android:gravity="center"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/_12ssp"
@@ -157,7 +158,7 @@
                         android:fontFamily="@font/font"
                         android:text="@string/total_impressions"
                         android:textAppearance="?attr/textAppearanceBody1"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_8ssp" />
                 </LinearLayout>
 
                 <!-- Second Vertical LinearLayout -->
@@ -197,7 +198,7 @@
                         android:fontFamily="@font/font"
                         android:text="@string/total_page_view"
                         android:textAppearance="?attr/textAppearanceBody1"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_8ssp" />
                 </LinearLayout>
 
                 <!-- Third Vertical LinearLayout -->
@@ -236,7 +237,7 @@
                         android:fontFamily="@font/font"
                         android:text="@string/leads"
                         android:textAppearance="?attr/textAppearanceBody1"
-                        android:textSize="@dimen/_10ssp" />
+                        android:textSize="@dimen/_8ssp" />
                 </LinearLayout>
 
             </LinearLayout>

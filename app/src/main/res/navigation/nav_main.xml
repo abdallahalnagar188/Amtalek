@@ -76,10 +76,12 @@
     <fragment
         android:id="@+id/myAccountFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.myaccount.MyAccountFragment"
-        tools:layout="@layout/fragment_my_account" />
-<!--    <argument-->
-<!--        android:name="profileModel"-->
-<!--        app:argType="eramo.amtalek.domain.model.profile.ProfileModel" />-->
+        tools:layout="@layout/fragment_my_account">
+<!--        <argument-->
+<!--            android:name="profileModel"-->
+<!--            app:argType="eramo.amtalek.domain.model.profile.ProfileModel" />-->
+    </fragment>
+
 
     <dialog
         android:id="@+id/loginDialog"
@@ -428,10 +430,12 @@
         android:id="@+id/packageDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.PackageDetailsFragment"
         android:label="fragment_package_details"
-        tools:layout="@layout/fragment_package_details" />
-<!--    <argument-->
-<!--        android:name="profileModel"-->
-<!--        app:argType="eramo.amtalek.domain.model.profile.ProfileModel" />-->
+        tools:layout="@layout/fragment_package_details">
+<!--        <argument-->
+<!--            android:name="profileModel"-->
+<!--            app:argType="eramo.amtalek.domain.model.profile.ProfileModel" />-->
+    </fragment>
+
     <fragment
         android:id="@+id/rechargePackageFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.RechargePackageFragment"

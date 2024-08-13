@@ -14,6 +14,7 @@ import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.drawer.myaccount.MyAccountFragment
+import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
 import eramo.amtalek.presentation.ui.social.MyProfileFragment
 import eramo.amtalek.util.navOptionsAnimation
@@ -24,17 +25,22 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPackageDetailsBinding::inflate
 
+
+//    val args: PackageDetailsFragmentArgs by navArgs()
+//    private val packageModel get() = args.profileModel
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
-        listeners()
+      //  listeners()
 
     }
 
     private fun setupViews() {
         setupToolbar()
-        //setupData()
+     //   setupData(packageModel)
+
 
     }
 
@@ -45,21 +51,22 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
         }
     }
 
-    private fun listeners() {
-        binding.apply {
-//            btnRechargePackage.setOnClickListener {
-//                findNavController().navigate(R.id.rechargePackageFragment, null, navOptionsAnimation())
-//            }
-
-//            btnChangePackage.visibility = View.GONE
-//            btnRechargePackage.visibility = View.GONE
-//            btnChangePackage.setOnClickListener {
-//                findNavController().navigate(R.id.packagesFragment, null, navOptionsAnimation())
-//            }
-        }
-    }
+//    private fun listeners() {
+//        binding.apply {
+////            btnRechargePackage.setOnClickListener {
+////                findNavController().navigate(R.id.rechargePackageFragment, null, navOptionsAnimation())
+////            }
+//
+////            btnChangePackage.visibility = View.GONE
+////            btnRechargePackage.visibility = View.GONE
+////            btnChangePackage.setOnClickListener {
+////                findNavController().navigate(R.id.packagesFragment, null, navOptionsAnimation())
+////            }
+//        }
+//    }
 
     private fun setupData(model: ProfileModel) {
+
         binding.apply {
             tvCardTitle.visibility = View.GONE
             tvDescription.visibility = View.GONE

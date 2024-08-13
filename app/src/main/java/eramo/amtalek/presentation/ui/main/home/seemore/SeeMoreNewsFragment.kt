@@ -61,6 +61,8 @@ class SeeMoreNewsFragment : BindingFragment<FragmentSeeMorePropertiesByCityBindi
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
+            ivSearch.visibility = View.GONE
+            etSearch.visibility = View.GONE
             tvTitle.text = getString(R.string.news)
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }

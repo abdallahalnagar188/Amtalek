@@ -110,6 +110,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             tvDescription.text = model.description
             tvLocation.visibility = View.GONE
 
+            btnProjects.visibility = View.GONE
             //     tvProjectsCount.text = "${model.projects_count} projects"
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
             // Glide.with(requireContext()).load(model.cover).into(ivUserCover)
@@ -187,7 +188,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(
                     R.id.propertyDetailsFragment,
-                    model.submitted_props_for_sale?.get(0)?.listing_number?.let {
+                    model.submitted_props_for_sale[0].listing_number?.let {
                         PropertyDetailsFragmentArgs(
                             it
                         ).toBundle()

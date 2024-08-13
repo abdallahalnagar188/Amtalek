@@ -14,5 +14,6 @@ data class Data(
     val phone: String?,
     val src: String?,
     val submitted_props_for_rent: List<SubmittedPropsForRent>?,
-    val submitted_props_for_sale: List<SubmittedPropsForSale>?
+    val submitted_props_for_sale: List<SubmittedPropsForSale>?,
+    val allProperties: List<List<Any>?> = listOf(submitted_props_for_rent, submitted_props_for_sale)
 )

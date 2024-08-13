@@ -7,13 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.project.allProjects.DataX
 import eramo.amtalek.databinding.ItemProjectBinding
-import eramo.amtalek.databinding.ItemProjectPreviewBinding
-import eramo.amtalek.databinding.ItemSeeMoreProjectsBinding
-import eramo.amtalek.databinding.ItemSeeMorePropertiesByCityBinding
 import eramo.amtalek.domain.model.home.news.NewsModel
-import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 

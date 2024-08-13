@@ -103,6 +103,15 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         //fetchData()
     }
 
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+        selectedCountryId = -1
+        selectedCityId = -1
+        selectedRegionId = -1
+        fetchData()
+    }
+
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupAnimations()

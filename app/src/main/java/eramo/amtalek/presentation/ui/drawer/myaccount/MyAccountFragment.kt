@@ -18,6 +18,7 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.MyAccountViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint
 class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnClickListener {
@@ -38,7 +39,10 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
         binding.apply {
             FMyAccountTvEdit.setOnClickListener(this@MyAccountFragment)
-            FMyAccountTvMySubscriptions.setOnClickListener(this@MyAccountFragment)
+            //FMyAccountTvMySubscriptions.setOnClickListener(this@MyAccountFragment)
+            FMyAccountTvMySubscriptions.setOnClickListener{
+                findNavController().navigate(R.id.packageDetailsFragment)
+            }
             FMyAccountTvSuspendAccount.setOnClickListener(this@MyAccountFragment)
             ivClose.setOnClickListener(this@MyAccountFragment)
             FMyAccountTvAddAddons.setOnClickListener(this@MyAccountFragment)
@@ -82,8 +86,9 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 //                val args = Bundle()
 //                args.putParcelable(NavKeys.MEMBER_MODEL, memberModel)
                 findNavController().navigate(
-                    R.id.packageDetailsFragment
+                    R.id.packageDetailsFragment, args = arguments, navOptionsAnimation()
                 )
+
             }
 
             R.id.FMyAccount_tv_change_password -> {

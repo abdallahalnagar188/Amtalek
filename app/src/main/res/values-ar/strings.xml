@@ -1030,8 +1030,8 @@
     <string name="offer_price">سعر العرض</string>
     <string name="date">الوقت</string>
     <string name="my_invoices">فواتيري</string>
-    <string name="payment_method">Payment Method</string>
-    <string name="expiration_date">Expiration date</string>
+    <string name="payment_method">طريقة الدفع</string>
+    <string name="expiration_date">وقت الانتهاء</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

@@ -17,7 +17,8 @@ import eramo.amtalek.util.Dummy.dummyMyFavouritesList
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(), RvMyFavouritesAdapter.OnItemClickListener {
+class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(),
+    RvMyFavouritesAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentFavouritesBinding::inflate

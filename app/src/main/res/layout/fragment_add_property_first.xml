@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/screen_margin_sides"
                 android:fontFamily="@font/font"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_12ssp"
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
@@ -67,7 +67,7 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_property_name_arabic"
@@ -94,7 +94,7 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/property_address_tv"
@@ -106,7 +106,7 @@
                 android:layout_marginStart="@dimen/screen_margin_sides"
                 android:fontFamily="@font/font"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_12ssp"
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
@@ -131,12 +131,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/edittext_background"
-                    android:fontFamily="@font/montserratregular"
+                    android:fontFamily="@font/font"
                     android:hint="@string/enter_property_address_in_english"
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_property_address_arabic"
@@ -163,7 +163,7 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/property_video_link_tv"
@@ -175,7 +175,7 @@
                 android:layout_marginStart="@dimen/screen_margin_sides"
                 android:fontFamily="@font/font"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_12ssp"
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
@@ -205,7 +205,7 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/property_location_tv"
@@ -217,7 +217,7 @@
                 android:layout_marginStart="@dimen/screen_margin_sides"
                 android:fontFamily="@font/font"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_12ssp"
                 android:textAllCaps="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 />
@@ -247,7 +247,7 @@
                     android:inputType="textEmailAddress"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_10ssp" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/property_location_warning_tv"
