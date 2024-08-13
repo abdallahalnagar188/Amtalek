@@ -53,8 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_45sdp"
                 android:layout_marginEnd="@dimen/_16sdp"
-                android:visibility="gone"
                 android:src="@drawable/ic_share"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/iv_edit"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,67 +109,197 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_user_name"
                 tools:text="Cairo" />
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/tv_bio"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_14sdp"
-                android:fontFamily="@font/montserratmedium"
-                android:gravity="center"
-                android:textColor="#ADB5BD"
-                android:textSize="@dimen/_11ssp"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_location"
-                tools:text="Lörem ipsum drop shipping Yvonne Isaksson. Avvisningsfrekvens Inger Danielsson sede Åsa Magnusson medelvalens." />
+                app:layout_constraintTop_toBottomOf="@id/tv_location">
+
+                <!-- First Vertical LinearLayout -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:src="@drawable/ic_total_impression"
+                            app:tint="@color/amtalek_blue" />
+                        <TextView
+                            android:id="@+id/tv_total_impressions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/font"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:textSize="@dimen/_12ssp"
+                            />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font"
+                        android:text="@string/total_impressions"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                        android:textSize="@dimen/_10ssp" />
+                </LinearLayout>
+
+                <!-- Second Vertical LinearLayout -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <ImageView
+                        android:layout_width="@dimen/_26sdp"
+                        android:layout_height="@dimen/_26sdp"
+                        android:src="@drawable/ic_page_view"
+                        app:tint="@color/amtalek_blue" />
+                        <TextView
+                            android:id="@+id/tv_total_page_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/font"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:textSize="@dimen/_12ssp"
+                            />
+                    </LinearLayout>
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font"
+                        android:text="@string/total_page_view"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                        android:textSize="@dimen/_10ssp" />
+                </LinearLayout>
+
+                <!-- Third Vertical LinearLayout -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:src="@drawable/ic_leads"
+                            app:tint="@color/amtalek_blue" />
+                        <TextView
+                            android:id="@+id/tv_leads"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/font"
+                            android:paddingHorizontal="@dimen/_4sdp"
+                            android:textSize="@dimen/_12ssp"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font"
+                        android:text="@string/leads"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                        android:textSize="@dimen/_10ssp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/user_toggle_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_5sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_bio"
-                app:singleSelection="true"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:paddingHorizontal="@dimen/_5sdp"
-                >
+                app:singleSelection="true">
+
 
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fav_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_75sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:fontFamily="@font/montserratsemibold"
+                    android:fontFamily="@font/font"
                     android:text="@string/favorite"
                     android:textColor="@color/amtalek_blue_dark"
                     android:textSize="@dimen/_6ssp"
                     app:cornerRadius="@dimen/_10sdp"
                     app:rippleColor="@color/transparent"
-                    app:strokeColor="@color/amtalek_blue_dark"
-                    />
+                    app:strokeColor="@color/amtalek_blue_dark" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/submited_offer_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_75sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:fontFamily="@font/montserratsemibold"
+                    android:fontFamily="@font/font"
                     android:text="@string/submitted_offers"
                     android:textColor="@color/amtalek_blue_dark"
                     android:textSize="@dimen/_6ssp"
                     app:rippleColor="@color/transparent"
-                    app:strokeColor="@color/amtalek_blue_dark"
-                    />
+                    app:strokeColor="@color/amtalek_blue_dark" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/my_prop_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_75sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:fontFamily="@font/montserratsemibold"
+                    android:fontFamily="@font/font"
                     android:text="@string/my_properties"
+                    android:textColor="@color/amtalek_blue_dark"
+                    android:textSize="@dimen/_6ssp"
+                    app:cornerRadius="@dimen/_10sdp"
+                    app:rippleColor="@color/transparent"
+                    app:strokeColor="@color/amtalek_blue_dark" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/reseived_offer_btn"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="@dimen/_75sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:fontFamily="@font/font"
+                    android:text="@string/received_offers"
                     android:textColor="@color/amtalek_blue_dark"
                     android:textSize="@dimen/_6ssp"
                     app:cornerRadius="@dimen/_10sdp"
@@ -181,54 +311,64 @@
                 android:id="@+id/fav_Rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
                 tools:listitem="@layout/item_property_preview"
 
                 />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/submitted_offer_Rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 android:visibility="gone"
-                />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/my_properties_Rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
                 android:visibility="gone"
-                />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/my_received_offers_Rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_toggle_group" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_dashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tv_bio"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="@dimen/_14sdp"
-                android:padding="@dimen/_14sdp"
-                android:fontFamily="@font/montserratbold"
-                app:cornerRadius="@dimen/_10sdp"
-                android:text="@string/visit_your_dashboard"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/montserratbold"
+                android:padding="@dimen/_14sdp"
+                android:text="@string/visit_your_dashboard"
+                android:textSize="@dimen/_14sdp"
                 android:visibility="gone"
-                />
+                app:cornerRadius="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_bio" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout

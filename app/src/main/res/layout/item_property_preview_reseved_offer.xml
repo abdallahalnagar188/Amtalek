@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_137sdp"
+    android:layout_height="@dimen/_155sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
     app:cardCornerRadius="@dimen/_15sdp"
@@ -146,9 +147,9 @@
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:src="@drawable/ic_bathroom"
+            app:layout_constraintBottom_toBottomOf="@id/iv_area"
             app:layout_constraintStart_toEndOf="@id/tv_area"
-            app:layout_constraintTop_toTopOf="@id/iv_area"
-            app:layout_constraintBottom_toBottomOf="@id/iv_area"/>
+            app:layout_constraintTop_toTopOf="@id/iv_area" />
 
         <TextView
             android:id="@+id/tv_bathroom"
@@ -168,9 +169,9 @@
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:src="@drawable/ic_bed"
+            app:layout_constraintBottom_toBottomOf="@id/iv_area"
             app:layout_constraintStart_toEndOf="@id/tv_bathroom"
-            app:layout_constraintTop_toTopOf="@id/iv_area"
-            app:layout_constraintBottom_toBottomOf="@id/iv_area"/>
+            app:layout_constraintTop_toTopOf="@id/iv_area" />
 
         <TextView
             android:id="@+id/tv_bed"
@@ -190,60 +191,111 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_6sdp"
             android:fontFamily="@font/montserratsemibold"
-            android:textSize="@dimen/_11ssp"
+            android:text="@string/offer_price"
             android:textColor="@color/black"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintStart_toStartOf="@id/iv_area"
-            app:layout_constraintTop_toBottomOf="@id/iv_area"
-            android:text="@string/my_offer" />
+            app:layout_constraintTop_toBottomOf="@id/iv_area" />
+
         <TextView
-            android:id="@+id/tv_my_offer_value"
+            android:id="@+id/tv_offer_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/montserratsemibold"
-            android:textSize="@dimen/_11ssp"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/tv_my_offer"
-            app:layout_constraintTop_toTopOf="@id/tv_my_offer"
+            android:layout_marginEnd="@dimen/_6sdp"
+            app:layout_constraintEnd_toStartOf="@id/tv_broker"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_my_offer"
+            app:layout_constraintTop_toTopOf="@id/tv_my_offer"
             tools:text="100000 EGP " />
 
 
         <TextView
-            android:id="@+id/tv_status"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
             android:fontFamily="@font/montserratsemibold"
-            android:textSize="@dimen/_11ssp"
+            android:text="@string/name"
             android:textColor="@color/black"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:layout_constraintTop_toBottomOf="@id/tv_my_offer"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintStart_toStartOf="@id/tv_my_offer"
-            android:text="@string/status_" />
+            app:layout_constraintTop_toBottomOf="@id/tv_my_offer" />
+
         <TextView
-            android:id="@+id/tv_status_value"
+            android:id="@+id/tv_name_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserratsemibold"
-            android:textSize="@dimen/_11ssp"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/tv_status"
-            app:layout_constraintTop_toTopOf="@+id/tv_status"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_status"
-            tools:text="Seen" />
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+            app:layout_constraintEnd_toEndOf="@id/tv_offer_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_name"
+            tools:text="name value" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:text="@string/phone"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintStart_toStartOf="@id/tv_my_offer"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_value" />
+
+        <TextView
+            android:id="@+id/tv_phone_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_phone"
+            app:layout_constraintEnd_toEndOf="@id/tv_offer_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_phone"
+            tools:text="phone value" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:fontFamily="@font/montserratsemibold"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintStart_toStartOf="@id/tv_my_offer"
+            app:layout_constraintTop_toBottomOf="@id/tv_phone" />
+
+        <TextView
+            android:id="@+id/tv_date_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratsemibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="@id/tv_offer_value"
+            app:layout_constraintBottom_toBottomOf="@id/tv_date"
+            tools:text="date value" />
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="@dimen/_26sdp"
             android:layout_height="@dimen/_26sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/tv_broker"
             app:layout_constraintStart_toStartOf="@id/tv_broker"
             app:layout_constraintTop_toBottomOf="@id/tv_broker"
-            app:cardCornerRadius="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            app:strokeWidth="0dp"
-            >
+            app:strokeWidth="0dp">
+
             <ImageView
                 android:id="@+id/iv_broker"
                 android:layout_width="@dimen/_26sdp"
@@ -252,17 +304,18 @@
                 android:scaleType="fitXY"
                 tools:src="@drawable/gold_sqare" />
         </com.google.android.material.card.MaterialCardView>
+
         <TextView
             android:id="@+id/tv_broker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:text="@string/agency"
             android:textColor="@color/black"
-            android:layout_marginEnd="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_my_offer"
+            app:layout_constraintBottom_toTopOf="@id/tv_broker"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_my_offer" />
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

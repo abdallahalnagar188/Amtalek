@@ -1,3 +1,5 @@
+package eramo.amtalek.presentation.ui.auth.signup
+
 import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable

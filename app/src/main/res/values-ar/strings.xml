@@ -910,7 +910,7 @@
     <string name="user_packages">باقات المستخدمين</string>
     <string name="agencies_packages">باقات الشركات العقارية</string>
     <string name="pricing">الاسعار</string>
-    <string name="submitted_offers">العروض المرسلة</string>
+    <string name="submitted_offers">عروضي</string>
     <string name="favorite">المفضلة</string>
     <string name="my_properties">عقاراتي</string>
     <string name="my_offer">عرضي : </string>
@@ -1023,6 +1023,15 @@
     <string name="normal_listings">العقارات العاديه</string>
     <string name="featured_listings">العقارات المميزه</string>
     <string name="your_order">طلبك</string>
+    <string name="total_page_view">اجمالي المشاهدات</string>
+    <string name="total_impressions">اجمالي الانطباعات</string>
+    <string name="leads">العملاء</string>
+    <string name="received_offers">العروض المستلمه</string>
+    <string name="offer_price">سعر العرض</string>
+    <string name="date">الوقت</string>
+    <string name="my_invoices">فواتيري</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="expiration_date">Expiration date</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

@@ -27,5 +27,9 @@ data class PropertyModel(
     val region:String,
     val subRegion:String,
     val vendorType:String,
+    val senderName:String,
+    val senderPhone:String,
+    val offerPrice:String,
+    val offerDate:String,
 //    val totalProps:String?,
     )

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,23 +18,19 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.Favorite
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.MyProp
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.OffersItem
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.ReceivedOffer
 import eramo.amtalek.databinding.FragmentMyProfileBinding
-import eramo.amtalek.domain.model.auth.UserModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.domain.model.main.market.MarketPostsModel
 import eramo.amtalek.domain.model.profile.ProfileModel
-import eramo.amtalek.presentation.adapters.recyclerview.RvMyProfilePostsAdapter
-import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.profile.RvReceivedOfferAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.profile.RvSubmittedOffersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
-import eramo.amtalek.presentation.ui.main.extension.imagviewer.ImagesListFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.offers.HotOffersViewModel
 import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
@@ -47,7 +42,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMostViewedPropertiesAdapter.OnItemClickListenerMostViewedProperties,
-    FavClickListener, RvSubmittedOffersAdapter.OnItemClickListener {
+    FavClickListener, RvSubmittedOffersAdapter.OnItemClickListener ,RvReceivedOfferAdapter.OnItemClickListener{
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMyProfileBinding::inflate
@@ -63,6 +58,9 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
 
     @Inject
     lateinit var rvSubmittedOffersAdapter: RvSubmittedOffersAdapter
+
+    @Inject
+    lateinit var rvRecivedOfferAdapter: RvReceivedOfferAdapter
 
     @Inject
     lateinit var rvMyPropertiesAdapter: RvHomeMostViewedPropertiesAdapter /// because its the same usage at home fragment so no need to create a new one
@@ -109,9 +107,13 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                             submitedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             myPropBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
                             myPropBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            reseivedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            reseivedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             submittedOfferRv.visibility = View.GONE
                             favRv.visibility = View.VISIBLE
                             myPropertiesRv.visibility = View.GONE
+                            myReceivedOffersRv.visibility = View.GONE
+
 
                         }
                     }
@@ -123,8 +125,11 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                             favBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             myPropBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
                             myPropBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            reseivedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            reseivedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             submittedOfferRv.visibility = View.VISIBLE
                             favRv.visibility = View.GONE
+                            myReceivedOffersRv.visibility = View.GONE
                             myPropertiesRv.visibility = View.GONE
 
                         }
@@ -137,13 +142,31 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                             favBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             submitedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
                             submitedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            reseivedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            reseivedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             submittedOfferRv.visibility = View.GONE
                             favRv.visibility = View.GONE
+                            myReceivedOffersRv.visibility = View.GONE
                             myPropertiesRv.visibility = View.VISIBLE
+                        }
+                    }
+                    R.id.reseived_offer_btn -> {
+                        binding.apply {
+                            reseivedOfferBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            reseivedOfferBtn.setTextColor(context?.getColor(R.color.white)!!)
+                            favBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            favBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            myPropBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            myPropBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submitedOfferBtn.setBackgroundColor(context?.getColor(R.color.white)!!)
+                            submitedOfferBtn.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
+                            submittedOfferRv.visibility = View.GONE
+                            favRv.visibility = View.GONE
+                            myPropertiesRv.visibility = View.GONE
+                            myReceivedOffersRv.visibility = View.VISIBLE
 
                         }
                     }
-
                 }
             }
         }
@@ -249,6 +272,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
         initRvMyFavList(data.favList)
         initRvSubmittedOffersList(data.offers)
         initRvMyPropertiesList(data.myProperties)
+        initRvOffersList(data.receivedOffer)
     }
 
     private fun initRvMyPropertiesList(myProperties: List<MyProp>) {
@@ -259,6 +283,16 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
         binding.myPropertiesRv.adapter = rvMyPropertiesAdapter
         rvMyPropertiesAdapter.submitList(data)
         rvMyPropertiesAdapter.setListener(this, this)
+    }
+
+    private fun initRvOffersList(myProperties: List<ReceivedOffer>) {
+        val data = ArrayList<PropertyModel>()
+        for(item in myProperties){
+            data.add(item.toProperty())
+        }
+        binding.myReceivedOffersRv.adapter = rvRecivedOfferAdapter
+        rvRecivedOfferAdapter.submitList(data)
+        rvRecivedOfferAdapter.setListener(this, this)
     }
 
     private fun initRvSubmittedOffersList(offers: List<OffersItem>) {
@@ -286,7 +320,10 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
             binding.apply {
                 tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
                 tvLocation.text = user.cityName
-                tvBio.text = user.bio
+                tvLeads.text = user.leadsNumber.toString()
+                tvTotalImpressions.text = user.totalImpressions.toString()
+                tvTotalPageView.text = user.totalViews.toString()
+               // tvBio.text = user.bio
 
 //                if (user.cover != "") {
 //                    Glide.with(requireContext()).load(user.cover).into(ivUserCover)

@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.AddAddonsFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.myaccount.ChangePasswordFragment"
         tools:layout="@layout/fragment_change_password">
 
     </fragment>
@@ -77,6 +77,9 @@
         android:id="@+id/myAccountFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.myaccount.MyAccountFragment"
         tools:layout="@layout/fragment_my_account" />
+<!--    <argument-->
+<!--        android:name="profileModel"-->
+<!--        app:argType="eramo.amtalek.domain.model.profile.ProfileModel" />-->
 
     <dialog
         android:id="@+id/loginDialog"
@@ -426,6 +429,9 @@
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.PackageDetailsFragment"
         android:label="fragment_package_details"
         tools:layout="@layout/fragment_package_details" />
+<!--    <argument-->
+<!--        android:name="profileModel"-->
+<!--        app:argType="eramo.amtalek.domain.model.profile.ProfileModel" />-->
     <fragment
         android:id="@+id/rechargePackageFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.subscription.RechargePackageFragment"

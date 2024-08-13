@@ -986,6 +986,15 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="normal_listings">Normal Listings</string>
     <string name="featured_listings">Featured Listings</string>
     <string name="your_order">Your Order</string>
+    <string name="total_page_view">Total Page View</string>
+    <string name="total_impressions">Total impressions</string>
+    <string name="leads">leads</string>
+    <string name="received_offers">Received offers</string>
+    <string name="offer_price">offer price</string>
+    <string name="date">date</string>
+    <string name="my_invoices">My invoices</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="expiration_date">Expiration date</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

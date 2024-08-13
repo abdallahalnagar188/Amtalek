@@ -18,7 +18,6 @@ import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.drawer.myaccount.MyAccountViewModel
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
-import eramo.amtalek.util.navOptionsAnimation
 
 @AndroidEntryPoint
 class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnClickListener {
@@ -42,7 +41,7 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
             FMyAccountTvMySubscriptions.setOnClickListener(this@MyAccountFragment)
             FMyAccountTvSuspendAccount.setOnClickListener(this@MyAccountFragment)
             ivClose.setOnClickListener(this@MyAccountFragment)
-
+            FMyAccountTvAddAddons.setOnClickListener(this@MyAccountFragment)
             FMyAccountTvChangePassword.setOnClickListener(this@MyAccountFragment)
 
             Glide.with(requireContext()).load(
@@ -72,8 +71,7 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 //                val args = Bundle()
 //                args.putParcelable(NavKeys.MEMBER_MODEL, memberModel)
                 findNavController().navigate(
-                    R.id.editPersonalDetailsFragment, null,
-                    navOptionsAnimation()
+                    R.id.editPersonalDetailsFragment
                 )
             }
 
@@ -84,23 +82,26 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 //                val args = Bundle()
 //                args.putParcelable(NavKeys.MEMBER_MODEL, memberModel)
                 findNavController().navigate(
-                    R.id.packageDetailsFragment,
-                    null,
-                    navOptionsAnimation()
+                    R.id.packageDetailsFragment
                 )
             }
 
             R.id.FMyAccount_tv_change_password -> {
                 findNavController().navigate(
-                    R.id.changePasswordFragment,
-                    null,
-                    navOptionsAnimation()
+                    R.id.changePasswordFragment
                 )
             }
+
 
             R.id.FMyAccount_tv_suspendAccount -> {
                 Navigation.findNavController(requireActivity(), R.id.main_navHost)
                     .navigate(R.id.suspendDialog)
+            }
+
+            R.id.FMyAccount_tv_add_addons -> {
+                findNavController().navigate(
+                    R.id.addAdomsFragment
+                )
             }
 
             R.id.iv_close -> findNavController().popBackStack()

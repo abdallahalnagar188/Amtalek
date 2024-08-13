@@ -113,6 +113,10 @@ data class DataX(
             region = region?:"",
             subRegion = subRegion?:"",
             vendorType = brokerDetails?.brokerType?:"",
+            senderName = brokerDetails?.companyName?:"",
+            senderPhone = "",
+            offerPrice = "",
+            offerDate = "",
         )
     }
 

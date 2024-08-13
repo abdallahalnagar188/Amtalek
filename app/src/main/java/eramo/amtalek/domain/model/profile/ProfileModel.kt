@@ -1,10 +1,12 @@
 package eramo.amtalek.domain.model.profile
 
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.CurrentPackageInfo
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.Favorite
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.MyProp
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.OffersItem
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.ReceivedOffer
 
-data class ProfileModel (
+data class ProfileModel(
     val id:Int,
     val firstName:String,
     val lastName:String,
@@ -23,5 +25,9 @@ data class ProfileModel (
     val offers:List<OffersItem>,
     val hasPackage:String,
     val bio:String,
-
+    val leadsNumber:Int,
+    val totalImpressions:Int,
+    val totalViews:Int,
+    val receivedOffer:List<ReceivedOffer>,
+    val currentPackage: CurrentPackageInfo?,
     )

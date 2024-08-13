@@ -129,6 +129,10 @@ data class MyPropertyDetailsResponse(
                     region = i.region ?: "",
                     subRegion = i.subRegion ?: "",
                     vendorType = i.brokerDetails?.broker_type ?: "",
+                    senderName = i.brokerDetails?.company_name ?: "",
+                    senderPhone = "",
+                    offerPrice = "",
+                    offerDate = "",
                 )
             )
         }
