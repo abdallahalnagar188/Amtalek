@@ -30,11 +30,11 @@ class MyProfileViewModel @Inject constructor(
         getProfileJob?.cancel()
     }
 
-    fun getProfile(type:String,id:String) {
+    fun getProfile(type: String, id: String) {
         getProfileJob?.cancel()
         getProfileJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                getProfileUseCase(type,id).collect { result ->
+                getProfileUseCase(type, id).collect { result ->
                     when (result) {
                         is Resource.Success -> {
                             saveUserInfo(result.data?.data?.data?.toProfile()!!)
@@ -58,11 +58,22 @@ class MyProfileViewModel @Inject constructor(
     private fun saveUserInfo(user: ProfileModel) {
         UserUtil.saveUserInfo(
             isRemember = true,
-            userToken = UserUtil.getUserToken(), userID = user.id.toString(),
-            firstName = user.firstName, lastName = user.lastName, phone = user.phone,
-           email =  user.email, countryId =  user.countryId.toString(),
-            countryName = user.countryName, cityName = user.cityName.toString(), cityId = user.cityId.toString(), userBio =  user.bio, profileImageUrl = user.image,
-            userType = user.actorType?:"", hasPackage = user.hasPackage,brokerName = "",dashboardLink = user.dashboardLink?:""
+            userToken = UserUtil.getUserToken(),
+            userID = user.id.toString(),
+            firstName = user.firstName,
+            lastName = user.lastName,
+            phone = user.phone,
+            email = user.email,
+            countryId = user.countryId.toString(),
+            countryName = user.countryName,
+            cityName = user.cityName.toString(),
+            cityId = user.cityId.toString(),
+            userBio = user.bio,
+            profileImageUrl = user.image,
+            userType = user.actorType ?: "",
+            hasPackage = user.hasPackage,
+            brokerName = "",
+            dashboardLink = user.dashboardLink ?: "",
         )
     }
 }

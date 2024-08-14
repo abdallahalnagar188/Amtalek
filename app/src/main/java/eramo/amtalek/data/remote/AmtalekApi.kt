@@ -204,11 +204,23 @@ interface AmtalekApi {
     ): Response<HomeCitiesResponse>
 
 
-    @GET("mobile/mobile-home-sliders")
+    @GET("ads-getter/home-mobile-app")
     suspend fun getHomeSlider(
-        @Header("Authorization") userToken: String?,
     ): Response<HomeSlidersResponse>
 
+
+    @GET("ads-getter/resultpage-mobile-app")
+    suspend fun getResultsSlider(
+    ): Response<HomeSlidersResponse>
+
+    @GET("ads-getter/hotoffers-mobile-app")
+    suspend fun getHotOffersSlider(
+    ): Response<HomeSlidersResponse>
+
+
+    @GET("ads-getter/propertypage-mobile-app")
+    suspend fun getPropertySlider(
+    ): Response<HomeSlidersResponse>
 
     @GET("mobile/mobile-home-prop-most-views")
     suspend fun getHomeMostViewedProperties(

@@ -10,6 +10,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -31,7 +32,9 @@ import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
+import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
@@ -55,7 +58,9 @@ import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 
@@ -91,6 +96,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // checkActorTypefirstime()
+        viewModel.getPropertySlider()
         setupViews()
         requestData()
         fetchData()
@@ -253,6 +259,90 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     }
 
+
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
+
+        for (i in data!!) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i.image,
+                )
+            )
+        }
+
+        return list
+    }
+    private fun fetchGetPropertySlider() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.propertySliderState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data
+                            if (!data.isNullOrEmpty()) {
+                                binding.adsSlider.visibility = View.VISIBLE
+                                setupSliderBetween(parseBetweenCarouselSliderList(data))
+                            } else {
+                                binding.adsSlider.visibility = View.GONE
+
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+        binding.apply {
+            adsSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
+            adsSlider.setData(data)
+            //  carouselSlider.setIndicator(carouselSliderBetweenDots)
+            adsSlider.carouselListener = object : CarouselListener {
+                override fun onCreateViewHolder(
+                    layoutInflater: LayoutInflater,
+                    parent: ViewGroup
+                ): ViewBinding {
+//                    return ItemAdsBinding.inflate(
+                    return ItemSliderTopBinding.inflate(
+                        layoutInflater,
+                        parent,
+                        false
+                    )
+                }
+
+                override fun onBindViewHolder(
+                    binding: ViewBinding,
+                    item: CarouselItem,
+                    position: Int
+                ) {
+//                    val currentBinding = binding as ItemAdsBinding
+                    val currentBinding = binding as ItemSliderTopBinding
+                    currentBinding.apply {
+                        imageView13.setImage(item)
+                        this.root.setOnClickListener {
+                            this@PropertyDetailsFragment.binding
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun handleContactAction(propertyId: Int, brokerId: Int, brokerType: String, transactionType: String) {
         sharedViewModel.sendContactRequest(propertyId, brokerId, brokerType = brokerType, transactionType)
     }
@@ -353,6 +443,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
         // checkActorTypefirstime()
         //fetchActorType()
+        fetchGetPropertySlider()
         fetchPropertyDetailsState()
         fetchSendCommentOnPropertyState()
         fetchSendPropertyOfferState()

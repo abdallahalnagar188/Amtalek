@@ -8,11 +8,13 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferRe
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.spceProperty.BrokerDetailsItem
+import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.PropertyRepository
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,6 +48,9 @@ class PropertyDetailsViewModel @Inject constructor(
     private val _loginData = MutableStateFlow<UiState<BrokerDetailsItem>>(UiState.Empty())
     val loginData: StateFlow<UiState<BrokerDetailsItem>> = _loginData
 
+    private val _propertySliderState= MutableStateFlow<UiState<List<SliderModel>>>(UiState.Empty())
+    val propertySliderState: StateFlow<UiState<List<SliderModel>>> = _propertySliderState
+
 
     fun performLogin(data: BrokerDetailsItem) {
         viewModelScope.launch {
@@ -70,6 +75,32 @@ class PropertyDetailsViewModel @Inject constructor(
     private var sendCommentOnPropertyJob: Job? = null
     private var sendPropertyOfferJob: Job? = null
     private var sendMessageToPropertyOwnerJob: Job? = null
+
+    fun getPropertySlider(){
+        getPropertyDetailsJob?.cancel()
+        getPropertyDetailsJob = viewModelScope.launch(Dispatchers.IO) {
+
+            propertyRepository.getPropertySlider().collect(){result->
+                when(result){
+                    is Resource.Success ->{
+                        val list = mutableListOf<SliderModel>()
+                        for (item in result.data?.data!!){
+                            if (item != null) {
+                                list.add(item.toSliderModel())
+                            }
+                        }
+                        _propertySliderState.emit(UiState.Success(list))
+                    }
+                    is Resource.Error ->{
+                        _propertySliderState.emit(UiState.Error(result.message!!))
+                    }
+                    is Resource.Loading->{
+                        _propertySliderState.emit(UiState.Loading())
+                    }
+                }
+            }
+        }
+    }
 
     fun cancelRequest() {
         getPropertyDetailsJob?.cancel()

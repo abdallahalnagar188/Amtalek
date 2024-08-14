@@ -558,7 +558,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         for (i in data!!) {
             list.add(
                 CarouselItem(
-                    imageUrl = i?.image,
+                    imageUrl = i.image,
                 )
             )
         }
@@ -597,8 +597,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                             this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
                         }
                     }
-
-
                 }
             }
         }

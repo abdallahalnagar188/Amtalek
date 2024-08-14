@@ -284,6 +284,24 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
+            navHeaderAddAddons.setOnClickListener{
+                if (UserUtil.isUserLogin()) {
+                    navController.navigate(R.id.addAdomsFragment)
+                } else {
+                    navController.navigate(R.id.loginDialog)
+                }
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
+            navHeaderCurrentPackage.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    navController.navigate(R.id.packageDetailsFragment)
+                } else {
+                    navController.navigate(R.id.loginDialog)
+                }
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
+
             navHeaderSignOut.setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
                 if (UserUtil.isUserLogin()) {

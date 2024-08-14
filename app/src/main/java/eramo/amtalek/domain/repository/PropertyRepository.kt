@@ -1,6 +1,7 @@
 package eramo.amtalek.domain.repository
 
 import com.google.common.math.IntMath
+import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.property.SendToBrokerResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
@@ -40,4 +41,5 @@ interface PropertyRepository {
         offerType:String
     ):Flow<Resource<SendOfferResponse>>
 
+    suspend fun getPropertySlider():Flow<Resource<HomeSlidersResponse>>
 }

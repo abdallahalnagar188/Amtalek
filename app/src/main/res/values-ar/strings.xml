@@ -580,7 +580,7 @@
 
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
-    <string name="how_can_we_help_you">كيف يمكننا مساعدتك</string>
+    <string name="how_can_we_help_you">كيف يمكننا مساعدتك ؟</string>
 
     <string name="favourite">عقاراتى المفضلة</string>
     <string name="chat">الدردشة</string>
@@ -723,6 +723,7 @@
     <string name="s_monthly_listing">عادى : %S</string>
     <string name="s_featured_listings">مميز : %S</string>
     <string name="s_social_media_promotion">ترقية : %S</string>
+    <string name="s_num_projects">عملاء : %S</string>
     <string name="s_leads_management">عملاء : %S</string>
     <string name="messages_s">الرسائل :%s</string>
     <string name="e_money_s">النقود الألكترونية :%s</string>
@@ -1032,6 +1033,8 @@
     <string name="my_invoices">فواتيري</string>
     <string name="payment_method">طريقة الدفع</string>
     <string name="expiration_date">وقت الانتهاء</string>
+    <string name="no_package">you must buy a package</string>
+    <string name="buy_addon_now">اشتري الان</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

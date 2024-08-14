@@ -61,64 +61,93 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
-        app:layout_constraintBottom_toTopOf="@id/btnTotalPrice"
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutTotalPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/item_adons" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btnTotalPrice"
+    <LinearLayout
+        android:id="@+id/linearLayoutTotalPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_14sdp"
-        android:layout_marginBottom="@dimen/_50sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="4dp"
-        android:backgroundTint="@color/amtalek_blue_dark"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewAddons"
-        android:clickable="true"
-        android:focusable="true">
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewAddons">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="4dp"
+            android:backgroundTint="@color/amtalek_blue_dark"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_12sdp"
+                android:paddingHorizontal="@dimen/_16sdp">
+
+                <TextView
+                    android:id="@+id/tvTotalPriceLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_price"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/font"
+                    android:textSize="@dimen/_12ssp"/>
+                <TextView
+                    android:id="@+id/egp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="EGP"/>
+                <TextView
+                    android:id="@+id/tvTotalPriceAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:text="$0.00"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTotalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginVertical="@dimen/_8sdp"
+            app:cornerRadius="@dimen/_10sdp"
             android:paddingVertical="@dimen/_12sdp"
-            android:paddingHorizontal="@dimen/_16sdp">
+            android:backgroundTint="@color/amtalek_blue_dark"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/buy_addon_now"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:fontFamily="@font/font"
+            android:textSize="@dimen/_12ssp"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:drawableEnd="@drawable/ic_arrow_right"
+            android:drawableTint="@color/white"
+            />
 
-            <TextView
-                android:id="@+id/tvTotalPriceLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+    </LinearLayout>
 
-                android:text="@string/total_price"
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:fontFamily="@font/font"
-                android:textSize="@dimen/_14ssp"/>
-            <TextView
-                android:id="@+id/egp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="EGP"/>
-            <TextView
-                android:id="@+id/tvTotalPriceAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:text="$0.00"/>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
 
 

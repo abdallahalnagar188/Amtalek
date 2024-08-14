@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
@@ -17,7 +19,12 @@ import eramo.amtalek.presentation.ui.drawer.myaccount.MyAccountFragment
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
 import eramo.amtalek.presentation.ui.social.MyProfileFragment
+import eramo.amtalek.presentation.viewmodel.drawer.myaccount.MyAccountViewModel
+import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() {
@@ -26,22 +33,38 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
         get() = FragmentPackageDetailsBinding::inflate
 
 
+    private val viewModel: MyProfileViewModel by viewModels()
+
 //    val args: PackageDetailsFragmentArgs by navArgs()
 //    private val packageModel get() = args.profileModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
         setupViews()
-      //  listeners()
+        //  listeners()
 
     }
 
     private fun setupViews() {
         setupToolbar()
-     //   setupData(packageModel)
+        //   setupData(packageModel)
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getCurrentPackage()
+    }
+
+    private fun getCurrentPackage() {
+        lifecycleScope.launch {
+            viewModel.getProfileState.collectLatest {
+                it.data?.let { it1 -> setupData(it1) }
+            }
+        }
     }
 
     private fun setupToolbar() {
@@ -74,14 +97,20 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
 //            tvDescription.text = model.currentPackage?.packageInfo?.get(0)?.title
             tvPrice.text = model.currentPackage?.actualPayment
             tvExpirationDate.text = model.currentPackage?.expirationDate?.expirationDate
-//            tvPayment.text = model.currentPackage?.payment?.payment
+            tvPayment.text = model.currentPackage?.expirationDate?.paymentMethod
 
-            tvNormalListing.text = getString(R.string.s_normal_listing, model.currentPackage?.packageInfo?.get(0)?.base.toString())
-            tvFeaturedListing.text = getString(R.string.s_featured_listings, model.currentPackage?.packageInfo?.get(1)?.base.toString())
-            tvSocialMediaPromotion.text =
-                getString(R.string.s_social_media_promotion, model.currentPackage?.packageInfo?.get(2)?.base.toString())
-            tvLeadsManagement.text = getString(R.string.s_leads_management, model.currentPackage?.packageInfo?.get(3)?.base.toString())
-
+            tvNormalListing.text = getString(R.string.normal_listings)
+            basedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.base.toString()
+            usedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.used.toString()
+            tvFeaturedListing.text = getString(R.string.featured_listings)
+            basedNumberOfFeaturedListing.text = model.currentPackage?.packageInfo?.get(0)?.base.toString()
+            usedNumberOfFeaturedListing.text = model.currentPackage?.packageInfo?.get(0)?.used.toString()
+            tvProjects.text = getString(R.string.projects)
+            basedNumberOfProjects.text = model.currentPackage?.packageInfo?.get(2)?.base.toString()
+            usedNumberOfProjects.text = model.currentPackage?.packageInfo?.get(2)?.used.toString()
+            tvLeadsManagement.text = getString(R.string.messages)
+            basedNumberOfMessages.text = model.currentPackage?.packageInfo?.get(3)?.base.toString()
+            usedNumberOfMessages.text = model.currentPackage?.packageInfo?.get(3)?.used.toString()
 //            tvExtraLeads.text = getString(R.string.s_extra_lead, "25")
 
             cover.setBackgroundColor(Color.parseColor("#1E617A"))

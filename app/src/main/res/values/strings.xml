@@ -545,7 +545,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
 
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="how_can_we_help_you">How can we help you</string>
+    <string name="how_can_we_help_you">How can we help you ?</string>
 
     <string name="favourite">Favourite</string>
     <string name="chat">Chat</string>
@@ -689,7 +689,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="s_monthly_listing">NORMAL LISTING : %s</string>
     <string name="s_featured_listings">FEATURED LISTINGS : %s</string>
     <string name="s_social_media_promotion">SOCIAL MEDIA PROMOTION : %s</string>
-    <string name="s_leads_management">LEADS MANAGEMENT : %s</string>
+    <string name="s_num_projects">PROJECTS : %s</string>
+    <string name="s_leads_management">MESSAGE : %s</string>
     <string name="messages_s">MESSAGES: %s</string>
     <string name="e_money_s">E-MONEY: %s</string>
     <string name="projects_s">PROJECTS: %s</string>
@@ -995,6 +996,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="my_invoices">My invoices</string>
     <string name="payment_method">Payment Method</string>
     <string name="expiration_date">Expiration date</string>
+    <string name="no_package">you must buy a package</string>
+    <string name="buy_addon_now">By Addons now</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

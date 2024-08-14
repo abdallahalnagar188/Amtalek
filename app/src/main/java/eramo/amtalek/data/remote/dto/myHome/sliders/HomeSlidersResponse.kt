@@ -22,12 +22,21 @@ data class Data(
     @SerializedName("id")
     var id: Int?,
     @SerializedName("image")
-    var image: String?
+    var image: String?,
+    @SerializedName("type")
+    var type:String?,
+    @SerializedName("inframe")
+    var inFrame: String?,
+    @SerializedName("url")
+    var url: String?
 ) : Parcelable{
     fun toSliderModel(): SliderModel {
         return SliderModel(
             image = image?:"",
-            id = id?:0
+            id = id?:0,
+            type = type?:"",
+            inFrame = inFrame?:"",
+            url = url?:""
         )
     }
 }

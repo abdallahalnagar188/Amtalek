@@ -19,6 +19,7 @@ import eramo.amtalek.databinding.FragmentMessagingChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
@@ -48,7 +49,12 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
             findNavController().popBackStack()
         }
         binding.addAdoms.setOnClickListener {
-            findNavController().navigate(R.id.addAdomsFragment)
+            if (UserUtil.getHasPackage() == "yes"){
+                findNavController().navigate(R.id.addAdomsFragment)
+            }
+            else{
+                showToast(getString(R.string.no_package))
+            }
         }
         viewModel.getContactedAgents()
         lifecycleScope.launch {

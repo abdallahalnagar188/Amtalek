@@ -163,6 +163,43 @@
                         app:layout_constraintStart_toEndOf="@id/iv_right_mark"
                         app:layout_constraintTop_toTopOf="@id/line_one_view"
                         tools:text="@string/s_normal_listing" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_normal_listing"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_normal_listing"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/based_number_of_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            />
+                        <TextView
+                            android:id="@+id/used_number_of_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+
+                    </LinearLayout>
+
 
 
                     <View
@@ -189,14 +226,50 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:textColor="@color/amtalek_blue"
                         android:fontFamily="@font/font"
-
+                        android:textColor="@color/amtalek_blue"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintBottom_toBottomOf="@id/line_two_view"
                         app:layout_constraintStart_toEndOf="@id/iv_right_mark2"
                         app:layout_constraintTop_toTopOf="@id/line_two_view"
                         tools:text="@string/s_featured_listings" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_featured_listing"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_featured_listing"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/based_number_of_featured_listing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            />
+                        <TextView
+                            android:id="@+id/used_number_of_featured_listing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+
+                    </LinearLayout>
 
                     <View
                         android:id="@+id/line_three_view"
@@ -206,6 +279,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/line_two_view" />
+
 
                     <ImageView
                         android:id="@+id/iv_right_mark3"
@@ -218,20 +292,54 @@
                         app:layout_constraintTop_toTopOf="@id/line_three_view" />
 
                     <TextView
-                        android:id="@+id/tv_social_media_promotion"
+                        android:id="@+id/tv_projects"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:fontFamily="@font/font"
                         android:textColor="@color/amtalek_blue"
                         android:textSize="@dimen/_12ssp"
-                        android:fontFamily="@font/font"
-
                         app:layout_constraintBottom_toBottomOf="@id/line_three_view"
                         app:layout_constraintStart_toEndOf="@id/iv_right_mark3"
                         app:layout_constraintTop_toTopOf="@id/line_three_view"
-                        tools:text="@string/s_social_media_promotion" />
+                        tools:text="@string/projects" />
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_projects"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_projects"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/based_number_of_projects"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            />
+                        <TextView
+                            android:id="@+id/used_number_of_projects"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
 
+                    </LinearLayout>
                     <View
                         android:id="@+id/line_four_view"
                         android:layout_width="match_parent"
@@ -256,188 +364,210 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:textColor="@color/amtalek_blue"
                         android:fontFamily="@font/font"
+                        android:textColor="@color/amtalek_blue"
 
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintBottom_toBottomOf="@id/line_four_view"
                         app:layout_constraintStart_toEndOf="@id/iv_right_mark4"
                         app:layout_constraintTop_toTopOf="@id/line_four_view"
-                        tools:text="@string/s_leads_management" />
+                        tools:text="@string/messages" />
 
-                    <TextView
-                        android:id="@+id/tv_extra_leads"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#1AA260"
-                        android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="@id/line_four_view"
-                        app:layout_constraintEnd_toEndOf="@id/line_four_view"
-                        app:layout_constraintHorizontal_bias="0.7"
-                        app:layout_constraintStart_toEndOf="@id/tv_leads_management"
-                        app:layout_constraintTop_toTopOf="@id/line_four_view"
-                        tools:text="@string/s_extra_lead" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_leads_management"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_leads_management"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/based_number_of_messages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_marginHorizontal="@dimen/_8sdp"
+                            />
+                        <TextView
+                            android:id="@+id/used_number_of_messages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:fontFamily="@font/font"
+                            android:textColor="@color/amtalek_blue"
+                            android:textSize="@dimen/_12ssp"
+                            tools:text="12"/>
+
+                    </LinearLayout>
 
                     <View
                         android:id="@+id/line_five_view"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="@color/amtalek_blue"
-                        android:layout_marginVertical="@dimen/_24sdp"
                         android:layout_marginHorizontal="@dimen/_8sdp"
-                        app:layout_constraintTop_toBottomOf="@id/tv_extra_leads"
-                        />
-<!--                    <com.google.android.material.card.MaterialCardView-->
-<!--                        android:id="@+id/btn_recharge_package"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/_38sdp"-->
-<!--                        android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--                        android:layout_marginTop="@dimen/_60sdp"-->
-<!--                        android:layout_marginBottom="@dimen/_20sdp"-->
-<!--                        android:clickable="true"-->
-<!--                        android:focusable="true"-->
-<!--                        app:cardCornerRadius="@dimen/_40sdp"-->
-<!--                        app:cardElevation="0dp"-->
-<!--                        app:layout_constraintBottom_toTopOf="@id/btn_change_package"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/line_four_view"-->
-<!--                        app:strokeColor="@color/amtalek_blue"-->
-<!--                        app:strokeWidth="@dimen/_1sdp">-->
+                        android:layout_marginVertical="@dimen/_24sdp"
+                        android:background="@color/amtalek_blue"
+                        app:layout_constraintTop_toBottomOf="@id/line_four_view" />
+                    <!--                    <com.google.android.material.card.MaterialCardView-->
+                    <!--                        android:id="@+id/btn_recharge_package"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="@dimen/_38sdp"-->
+                    <!--                        android:layout_marginHorizontal="@dimen/_14sdp"-->
+                    <!--                        android:layout_marginTop="@dimen/_60sdp"-->
+                    <!--                        android:layout_marginBottom="@dimen/_20sdp"-->
+                    <!--                        android:clickable="true"-->
+                    <!--                        android:focusable="true"-->
+                    <!--                        app:cardCornerRadius="@dimen/_40sdp"-->
+                    <!--                        app:cardElevation="0dp"-->
+                    <!--                        app:layout_constraintBottom_toTopOf="@id/btn_change_package"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:layout_constraintTop_toBottomOf="@+id/line_four_view"-->
+                    <!--                        app:strokeColor="@color/amtalek_blue"-->
+                    <!--                        app:strokeWidth="@dimen/_1sdp">-->
 
-<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent">-->
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="match_parent">-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/tv_recharge_package"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginStart="@dimen/_14sdp"-->
-<!--                                android:fontFamily="@font/montserratsemibold"-->
-<!--                                android:text="@string/recharge_the_package"-->
-<!--                                android:textColor="@color/amtalek_blue"-->
-<!--                                android:textSize="@dimen/_12ssp"-->
-<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                app:layout_constraintEnd_toStartOf="@id/iv_recharge_package"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/tv_recharge_package"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginStart="@dimen/_14sdp"-->
+                    <!--                                android:fontFamily="@font/montserratsemibold"-->
+                    <!--                                android:text="@string/recharge_the_package"-->
+                    <!--                                android:textColor="@color/amtalek_blue"-->
+                    <!--                                android:textSize="@dimen/_12ssp"-->
+                    <!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                                app:layout_constraintEnd_toStartOf="@id/iv_recharge_package"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                            <ImageView-->
-<!--                                android:id="@+id/iv_recharge_package"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginEnd="@dimen/_18sdp"-->
-<!--                                android:src="@drawable/ic_recharge_package"-->
-<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+                    <!--                            <ImageView-->
+                    <!--                                android:id="@+id/iv_recharge_package"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginEnd="@dimen/_18sdp"-->
+                    <!--                                android:src="@drawable/ic_recharge_package"-->
+                    <!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-<!--                    </com.google.android.material.card.MaterialCardView>-->
+                    <!--                    </com.google.android.material.card.MaterialCardView>-->
 
-<!--                    <com.google.android.material.card.MaterialCardView-->
-<!--                        android:id="@+id/btn_change_package"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="@dimen/_38sdp"-->
-<!--                        android:layout_marginHorizontal="@dimen/_14sdp"-->
-<!--                        android:layout_marginBottom="@dimen/_20sdp"-->
-<!--                        android:clickable="true"-->
-<!--                        android:focusable="true"-->
-<!--                        app:cardCornerRadius="@dimen/_40sdp"-->
-<!--                        app:cardElevation="0dp"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:strokeColor="@color/amtalek_blue"-->
-<!--                        app:strokeWidth="@dimen/_1sdp">-->
+                    <!--                    <com.google.android.material.card.MaterialCardView-->
+                    <!--                        android:id="@+id/btn_change_package"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="@dimen/_38sdp"-->
+                    <!--                        android:layout_marginHorizontal="@dimen/_14sdp"-->
+                    <!--                        android:layout_marginBottom="@dimen/_20sdp"-->
+                    <!--                        android:clickable="true"-->
+                    <!--                        android:focusable="true"-->
+                    <!--                        app:cardCornerRadius="@dimen/_40sdp"-->
+                    <!--                        app:cardElevation="0dp"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                        app:strokeColor="@color/amtalek_blue"-->
+                    <!--                        app:strokeWidth="@dimen/_1sdp">-->
 
-<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="match_parent">-->
+                    <!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--                            android:layout_width="match_parent"-->
+                    <!--                            android:layout_height="match_parent">-->
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/tv_change_package"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginStart="@dimen/_14sdp"-->
-<!--                                android:fontFamily="@font/montserratsemibold"-->
-<!--                                android:text="@string/change_package"-->
-<!--                                android:textColor="@color/amtalek_blue"-->
-<!--                                android:textSize="@dimen/_12ssp"-->
-<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                app:layout_constraintEnd_toStartOf="@id/iv_change_package"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+                    <!--                            <TextView-->
+                    <!--                                android:id="@+id/tv_change_package"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginStart="@dimen/_14sdp"-->
+                    <!--                                android:fontFamily="@font/montserratsemibold"-->
+                    <!--                                android:text="@string/change_package"-->
+                    <!--                                android:textColor="@color/amtalek_blue"-->
+                    <!--                                android:textSize="@dimen/_12ssp"-->
+                    <!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                                app:layout_constraintEnd_toStartOf="@id/iv_change_package"-->
+                    <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                            <ImageView-->
-<!--                                android:id="@+id/iv_change_package"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginEnd="@dimen/_18sdp"-->
-<!--                                android:src="@drawable/ic_change_packge"-->
-<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+                    <!--                            <ImageView-->
+                    <!--                                android:id="@+id/iv_change_package"-->
+                    <!--                                android:layout_width="wrap_content"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:layout_marginEnd="@dimen/_18sdp"-->
+                    <!--                                android:src="@drawable/ic_change_packge"-->
+                    <!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                                app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+                    <!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-<!--                    </com.google.android.material.card.MaterialCardView>-->
+                    <!--                    </com.google.android.material.card.MaterialCardView>-->
 
                     <TextView
                         android:id="@+id/tv_payment_method"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/line_five_view"
-                        android:text="@string/payment_method"
-                        android:paddingHorizontal="@dimen/_10sdp"
-                        android:paddingVertical="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/font"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_4sdp"
+                        android:text="@string/payment_method"
                         android:textColor="@color/amtalek_blue"
                         android:textSize="@dimen/_13ssp"
                         app:layout_constraintStart_toStartOf="@id/line_five_view"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/line_five_view" />
+
                     <TextView
                         android:id="@+id/tv_payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_payment_method"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_payment_method"
                         android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:text="Cash"
                         android:fontFamily="@font/font"
                         android:textColor="@color/amtalek_blue"
                         android:textSize="@dimen/_13ssp"
-                        />
+                        app:layout_constraintBottom_toBottomOf="@id/tv_payment_method"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_payment_method"
+                        tools:text="Cash" />
+
                     <TextView
                         android:id="@+id/tv_expiration_method"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_payment_method"
-                        android:text="@string/expiration_date"
+                        android:fontFamily="@font/font"
                         android:paddingHorizontal="@dimen/_10sdp"
                         android:paddingVertical="@dimen/_4sdp"
-                        android:fontFamily="@font/font"
+                        android:text="@string/expiration_date"
                         android:textColor="@color/amtalek_blue"
                         android:textSize="@dimen/_13ssp"
                         app:layout_constraintStart_toStartOf="@id/line_five_view"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/tv_payment_method" />
+
                     <TextView
                         android:id="@+id/tv_expiration_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_expiration_method"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_expiration_method"
                         android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:text="Cash"
                         android:fontFamily="@font/font"
                         android:textColor="@color/amtalek_blue"
                         android:textSize="@dimen/_13ssp"
-                        />
+                        app:layout_constraintBottom_toBottomOf="@id/tv_expiration_method"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_expiration_method"
+                        tools:text="Cash" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

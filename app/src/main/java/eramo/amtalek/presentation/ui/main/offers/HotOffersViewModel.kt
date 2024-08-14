@@ -10,11 +10,13 @@ import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.HotOffersRepository
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,9 +38,41 @@ class HotOffersViewModel @Inject constructor(
     private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
     val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
 
+
+    private val _hotOffersSliderState = MutableStateFlow<UiState<List<SliderModel>>>(UiState.Empty())
+    val hotOffersSliderState: StateFlow<UiState<List<SliderModel>>> = _hotOffersSliderState
+
     //////////////////////////////////////////
     private var getHotOffersJob: Job? = null
     //////////////////////////////////////////
+
+    fun getSearchResultSlider(){
+        getHotOffersJob?.cancel()
+        getHotOffersJob = viewModelScope.launch(Dispatchers.IO) {
+
+            repository.getHotOffersSlider().collect(){result->
+                when(result){
+                    is Resource.Success ->{
+                        val list = mutableListOf<SliderModel>()
+                        for (item in result.data?.data!!){
+                            if (item != null) {
+                                list.add(item.toSliderModel())
+                            }
+                        }
+                        _hotOffersSliderState.emit(UiState.Success(list))
+                    }
+                    is Resource.Error ->{
+                        _hotOffersSliderState.emit(UiState.Error(result.message!!))
+                    }
+                    is Resource.Loading->{
+                        _hotOffersSliderState.emit(UiState.Loading())
+                    }
+                }
+            }
+        }
+    }
+
+
     fun getHotOffers(countryId:String){
         getHotOffersJob?.cancel()
         getHotOffersJob = viewModelScope.launch {

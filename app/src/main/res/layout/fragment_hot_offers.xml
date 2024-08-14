@@ -16,6 +16,7 @@
             android:id="@+id/root"
             >
             <include
+
                 android:id="@+id/in_toolbar"
                 layout="@layout/layout_toolbar_main"
                 android:layout_width="match_parent"
@@ -119,7 +120,17 @@
                 app:showIndicator="false"
                 app:showNavigationButtons="true"
                 app:showTopShadow="false"
-                android:visibility="gone"
+                />
+            <TextView
+                android:id="@+id/tv_projects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/rv_projects_forBoth"
+                app:layout_constraintTop_toBottomOf="@id/carousel_slider"
+                tools:text="@string/projects"
+                android:fontFamily="@font/font"
+                android:textSize="@dimen/_18ssp"
+                android:textColor="@color/amtalek_blue"
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_projects_forBoth"
@@ -135,7 +146,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/carousel_slider"
+                app:layout_constraintTop_toBottomOf="@+id/tv_projects"
                 tools:listitem="@layout/item_project_preview"
 
                 />

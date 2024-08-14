@@ -3,6 +3,7 @@ package eramo.amtalek.data.repository
 import android.util.Log
 import com.google.gson.GsonBuilder
 import eramo.amtalek.data.remote.AmtalekApi
+import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_offer.SendOfferResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.SendPropertyCommentResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
@@ -133,6 +134,23 @@ class PropertyRepositoryImpl(private val amtalekApi: AmtalekApi) : PropertyRepos
                     is ApiState.Error -> {
                         emit(Resource.Error(it.message!!))}
                     is ApiState.Success -> { emit(Resource.Success(it.data)) }
+                }
+            }
+        }
+    }
+
+    override suspend fun getPropertySlider(): Flow<Resource<HomeSlidersResponse>> {
+        return flow {
+            val result =
+                toResultFlow { amtalekApi.getPropertySlider() }
+            result.collect() {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data
+                        emit(Resource.Success(model))
+                    }
                 }
             }
         }

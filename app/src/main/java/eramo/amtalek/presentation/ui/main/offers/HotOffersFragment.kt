@@ -17,8 +17,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
 import eramo.amtalek.databinding.FragmentHotOffersBinding
+import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothProjectsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBothPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
@@ -32,8 +34,12 @@ import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
+import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -47,6 +53,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHotOffersBinding::inflate
+
 
     private val viewModelShared: SharedViewModel by activityViewModels()
 
@@ -75,7 +82,9 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+        hotOffersViewModel.getSearchResultSlider()
         setUpObservers()
+        Log.e("id: ", hotOffersViewModel.hotOffersSliderState.value.data?.get(0)?.id.toString() )
         setupViews()
         listeners()
         bindTabs()
@@ -97,6 +106,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
             binding.swipeRefreshLayout.isRefreshing = false
             binding.carouselSlider.visibility = View.GONE
+            hotOffersViewModel.getSearchResultSlider()
             hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
 
         }
@@ -157,6 +167,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter
         binding.rvProjectsForBoth.adapter = rvHotOffersForBothProjectsAdapter
 
+        binding.tvProjects.text = getString(R.string.projects)
         rvHotOffersRentPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersForBothPropertiesAdapter.setListener(this@HotOffersFragment,this)
@@ -165,8 +176,90 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
     private fun setUpObservers() {
         fetchGetHotOffers()
+        fetchGetHomeSlider()
     }
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
 
+        for (i in data!!) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i.image,
+                )
+            )
+        }
+
+        return list
+    }
+    private fun fetchGetHomeSlider() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                hotOffersViewModel.hotOffersSliderState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data
+                            if (!data.isNullOrEmpty()) {
+                                binding.carouselSlider.visibility = View.VISIBLE
+                                setupSliderBetween(parseBetweenCarouselSliderList(data))
+                            } else {
+                                binding.carouselSlider.visibility = View.GONE
+
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+        binding.apply {
+            carouselSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
+            carouselSlider.setData(data)
+          //  carouselSlider.setIndicator(carouselSliderBetweenDots)
+            carouselSlider.carouselListener = object : CarouselListener {
+                override fun onCreateViewHolder(
+                    layoutInflater: LayoutInflater,
+                    parent: ViewGroup
+                ): ViewBinding {
+//                    return ItemAdsBinding.inflate(
+                    return ItemSliderTopBinding.inflate(
+                        layoutInflater,
+                        parent,
+                        false
+                    )
+                }
+
+                override fun onBindViewHolder(
+                    binding: ViewBinding,
+                    item: CarouselItem,
+                    position: Int
+                ) {
+//                    val currentBinding = binding as ItemAdsBinding
+                    val currentBinding = binding as ItemSliderTopBinding
+                    currentBinding.apply {
+                        imageView13.setImage(item)
+                        this.root.setOnClickListener {
+                            this@HotOffersFragment.binding.inToolbar
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     private fun fetchGetHotOffers() {
         viewLifecycleOwner.lifecycleScope.launch {

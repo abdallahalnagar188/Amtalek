@@ -15,7 +15,6 @@ import eramo.amtalek.databinding.FragmentCompletedProjectsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvCompletedProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
-import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -36,16 +35,15 @@ class CompletedProjectsFragment : BindingFragment<FragmentCompletedProjectsBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getBrokersDetails(args.id)
-
         setupViews()
     }
 
     override fun onResume() {
         super.onResume()
-        getDeitalsListener()
+        getDetailsListener()
     }
 
-    private fun getDeitalsListener() {
+    private fun getDetailsListener() {
         lifecycleScope.launch {
             viewModel.brokersDetails.collectLatest {
                 rvCompletedProjectsAdapter.submitList(

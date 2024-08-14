@@ -5,9 +5,9 @@ import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,14 +17,14 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.search.searchresponse.GlobalProperties
 import eramo.amtalek.databinding.FragmentSearchResultBinding
+import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerSmallAdapter
-import eramo.amtalek.presentation.adapters.spinner.FilterSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.drawer.addproperty.fifth.SelectAmenitiesAdapter
@@ -35,9 +35,13 @@ import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocatio
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.itemsCount
 import eramo.amtalek.util.selectedLocation
+import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.utils.setImage
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,6 +60,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     private var selectedLocationName: String? = null
 
     val viewModel by viewModels<SearchFormViewModel>()
+    val searchResultViewModel by viewModels<SearchResultViewModel>()
 
     private var selectedPurposeId: Int? = null
     private var selectedFinishingId: Int? = null
@@ -124,6 +129,90 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         }
     }
 
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
+
+        for (i in data!!) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i.image,
+                )
+            )
+        }
+
+        return list
+    }
+    private fun fetchGetHomeSlider() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchResultViewModel.searchResultSliderState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            val data = state.data
+                            if (!data.isNullOrEmpty()) {
+                                binding.carouselSliderBetween.visibility = View.VISIBLE
+                             //   binding.carouselSliderBetweenDots.visibility = View.VISIBLE
+                                setupSliderBetween(parseBetweenCarouselSliderList(data))
+                            } else {
+                                binding.carouselSliderBetween.visibility = View.GONE
+                             //   binding.carouselSliderBetweenDots.visibility = View.GONE
+
+                            }
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+
+                }
+            }
+        }
+    }
+    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+        binding.apply {
+            carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
+            carouselSliderBetween.setData(data)
+          //  carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
+            carouselSliderBetween.carouselListener = object : CarouselListener {
+                override fun onCreateViewHolder(
+                    layoutInflater: LayoutInflater,
+                    parent: ViewGroup
+                ): ViewBinding {
+//                    return ItemAdsBinding.inflate(
+                    return ItemSliderTopBinding.inflate(
+                        layoutInflater,
+                        parent,
+                        false
+                    )
+                }
+
+                override fun onBindViewHolder(
+                    binding: ViewBinding,
+                    item: CarouselItem,
+                    position: Int
+                ) {
+//                    val currentBinding = binding as ItemAdsBinding
+                    val currentBinding = binding as ItemSliderTopBinding
+                    currentBinding.apply {
+                        imageView13.setImage(item)
+                        this.root.setOnClickListener {
+                            this@SearchResultFragment.binding.inToolbar
+                        }
+                    }
+                }
+            }
+        }
+    }
     private fun setupSpinners(data: SearchDataListsModel) {
 
         val finishingList = data.listOfFinishingItems.toMutableList()
@@ -141,6 +230,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     }
 
     private fun requestData() {
+        searchResultViewModel.getSearchResultSlider()
         val cityfromargs = if(searchQuery.city==0) UserUtil.getCityFiltrationId() else searchQuery.city
         viewModel.search(
             city = cityfromargs.toString(),
@@ -181,6 +271,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     }
 
     private fun fetchData() {
+        fetchGetHomeSlider()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchState.collect() { data ->

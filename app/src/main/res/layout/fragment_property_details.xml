@@ -581,6 +581,26 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_description"
                     tools:text="Descriptive Text is a text which says what a person or a thing is like. Its purpose is to describe and reveal a particular person, place, or thing." />
 
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                    android:id="@+id/ads_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_140sdp"
+                    android:layout_marginVertical="@dimen/home_margin_top"
+                    android:translationZ="8dp"
+                    app:autoPlay="true"
+                    app:autoPlayDelay="2000"
+                    app:carouselType="BLOCK"
+                    app:nextButtonId="@id/btn_next_carousel"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description_value"
+                    app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
+                    app:previousButtonId="@id/btn_previous_carousel"
+                    app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
+                    app:showBottomShadow="false"
+                    app:showCaption="false"
+                    app:showIndicator="false"
+                    app:showNavigationButtons="true"
+                    app:showTopShadow="false" />
+
                 <include
                     android:id="@+id/property_features_layout"
                     layout="@layout/property_features_layout_dynamic"
@@ -589,7 +609,7 @@
                     android:layout_marginTop="@dimen/_50sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_description_value" />
+                    app:layout_constraintTop_toBottomOf="@id/ads_slider" />
 
                 <TextView
                     android:id="@+id/tv_video"

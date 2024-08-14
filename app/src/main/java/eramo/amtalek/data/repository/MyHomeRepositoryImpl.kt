@@ -91,7 +91,7 @@ class MyHomeRepositoryImpl @Inject constructor(
     override suspend fun getHomeSlider(): Flow<Resource<HomeSlidersResponse>> {
         return flow {
             val result =
-                toResultFlow { amtalekApi.getHomeSlider(userToken = if (UserUtil.isUserLogin()) UserUtil.getUserToken() else null) }
+                toResultFlow { amtalekApi.getHomeSlider() }
             result.collect() {
                 when (it) {
                     is ApiState.Loading -> emit(Resource.Loading())

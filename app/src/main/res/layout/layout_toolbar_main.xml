@@ -141,7 +141,7 @@
         android:inputType="text"
         android:minHeight="48dp"
         android:padding="@dimen/_8sdp"
-        android:drawableStart="@drawable/ic_magnifier"
+        android:drawableEnd="@drawable/ic_magnifier"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         android:textCursorDrawable="@null"

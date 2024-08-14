@@ -86,7 +86,7 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 //                val args = Bundle()
 //                args.putParcelable(NavKeys.MEMBER_MODEL, memberModel)
                 findNavController().navigate(
-                    R.id.packageDetailsFragment, args = arguments, navOptionsAnimation()
+                    R.id.packageDetailsFragment,null, navOptionsAnimation()
                 )
 
             }

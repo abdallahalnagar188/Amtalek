@@ -33,5 +33,5 @@ data class Member(
     @SerializedName("time_send") var timeSend: String? = null,
     @SerializedName("rand_key") var randKey: String? = null,
     @SerializedName("user_city") var userCity: String? = null,
-    @SerializedName("user_from") var userFrom: String? = null
+    @SerializedName("user_from") var userFrom: String? = null,
 ) : Parcelable
