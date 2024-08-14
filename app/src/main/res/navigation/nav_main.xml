@@ -53,17 +53,17 @@
 <!--        <action-->
 <!--            android:id="@+id/action_addAdomsFragment_to_buyAddonsFragment"-->
 <!--            app:destination="@id/buyAddonsFragment" />-->
-<!--        <argument-->
-<!--            android:name="addon"-->
-<!--            app:argType="eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard" />-->
+        <argument
+            android:name="addon"
+            app:argType="eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard" />
     </fragment>
     <fragment
         android:id="@+id/buyAddonsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.BuyAddonsFragment"
         tools:layout="@layout/fragment_buy_addons">
-<!--        <argument-->
-<!--            android:name="addon"-->
-<!--            app:argType="eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard" />-->
+        <argument
+            android:name="addon"
+            app:argType="eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard" />
     </fragment>
 
     <fragment

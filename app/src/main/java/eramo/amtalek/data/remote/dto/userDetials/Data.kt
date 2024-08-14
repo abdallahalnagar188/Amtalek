@@ -1,5 +1,7 @@
 package eramo.amtalek.data.remote.dto.userDetials
 
+import android.os.Parcelable
+
 data class Data(
     val broker_type: String?,
     val description: String?,
@@ -10,10 +12,9 @@ data class Data(
     val last_name: String?,
     val logo: String?,
     val name: String?,
-    val offers: List<Any>?,
+    val offers: List<String>?,
     val phone: String?,
     val src: String?,
     val submitted_props_for_rent: List<SubmittedPropsForRent>?,
     val submitted_props_for_sale: List<SubmittedPropsForSale>?,
-    val allProperties: List<List<Any>?> = listOf(submitted_props_for_rent, submitted_props_for_sale)
 )

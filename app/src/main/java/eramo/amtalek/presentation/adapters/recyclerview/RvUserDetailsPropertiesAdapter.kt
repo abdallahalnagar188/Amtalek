@@ -46,6 +46,7 @@ class RvUserDetailsPropertiesAdapter @Inject constructor() :
 
         fun bind(model: Data) {
             var isFav = model.submitted_props_for_sale?.get(0)?.is_fav
+                ?: model.submitted_props_for_rent?.get(0)?.is_fav
             val root = binding.root
             binding.apply {
         //       favListener.onFavClick(model)

@@ -1,5 +1,9 @@
 package eramo.amtalek.data.remote.dto.userDetials
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class BrokerDetail(
     val broker_type: String?,
     val description: String?,
@@ -11,4 +15,4 @@ data class BrokerDetail(
     val name: String?,
     val phone: String?,
     val src: String?
-)
+): Parcelable

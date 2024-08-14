@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/your_order"
                 android:fontFamily="@font/font"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textColor="@color/amtalek_blue"
                 android:layout_marginBottom="@dimen/_16sdp" />
 
@@ -47,20 +47,32 @@
                 android:layout_marginBottom="@dimen/_20sdp">
                 <TextView
                     android:id="@+id/tv_item1_label"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Item 1 Label"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:gravity="start"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/amtalek_blue" />
+                <TextView
+                    android:id="@+id/tv_item1_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item 1 counter"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:fontFamily="@font/font"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
                 <TextView
                     android:id="@+id/tv_item1_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Item 1 Value"
+                    android:gravity="end"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
             </LinearLayout>
 
@@ -77,7 +89,17 @@
                     android:layout_weight="1"
                     android:text="Item 2 Label"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/amtalek_blue" />
+                <TextView
+                    android:id="@+id/tv_item2_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item 1 Value"
+                    android:fontFamily="@font/font"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
                 <TextView
                     android:id="@+id/tv_item2_value"
@@ -85,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:text="Item 2 Value"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
             </LinearLayout>
 
@@ -102,7 +124,17 @@
                     android:layout_weight="1"
                     android:text="Item 3 Label"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/amtalek_blue" />
+                <TextView
+                    android:id="@+id/tv_item3_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item 1 Value"
+                    android:fontFamily="@font/font"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
                 <TextView
                     android:id="@+id/tv_item3_value"
@@ -110,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:text="Item 3 Value"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
             </LinearLayout>
 
@@ -127,7 +159,17 @@
                     android:layout_weight="1"
                     android:text="Item 4 Label"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/amtalek_blue" />
+                <TextView
+                    android:id="@+id/tv_item4_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item 1 Value"
+                    android:fontFamily="@font/font"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
                 <TextView
                     android:id="@+id/tv_item4_value"
@@ -135,12 +177,12 @@
                     android:layout_height="wrap_content"
                     android:text="Item 4 Value"
                     android:fontFamily="@font/font"
-                    android:textSize="@dimen/_14sdp"
+                    android:textSize="@dimen/_12sdp"
                     android:textColor="@color/amtalek_blue" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_2sdp"
+                android:layout_height="@dimen/_1sdp"
                 android:layout_marginVertical="@dimen/_8sdp"
                 android:background="@color/amtalek_blue"/>
 

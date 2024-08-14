@@ -1,6 +1,9 @@
 package eramo.amtalek.data.remote.dto.userDetials
 
+import android.os.Parcelable
 import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.BrokerDetailX
+import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import kotlinx.parcelize.Parcelize
 
 data class SubmittedPropsForSale(
     val address: String?,
@@ -32,3 +35,36 @@ data class SubmittedPropsForSale(
     val title: String?,
     val twitter: String?
 )
+//    fun toPropertyModel(): PropertyModel {
+//        return PropertyModel(
+//            id = id?:0,
+//            imageUrl = primary_image?:"",
+//            title = title?:"",
+//            type = for_what?:"",
+//            isFavourite = is_fav?:"",
+//            rentPrice = rent_price?:0,
+//            sellPrice = sale_price?:0,
+//            bedsCount = bed_rooms_no?:0,
+//            bathroomsCount = bath_room_no?:0,
+//            area = land_area?:0,
+//            brokerId = (broker_details?.get(0)?.id?:0).toString(),
+//            brokerLogoUrl = broker_details?.get(0)?.logo?:"",
+//            location = "$city, $region",
+//            datePosted = created_at?:"",
+//            isFeatured = property_type?:"",
+//            rentDuration = rent_duration?:"",
+//            listingNumber = listing_number?:"",
+//            currency = currency?:"",
+//            acceptance = "",
+//            sold = false,
+//            offerData = null,
+//            region = region?:"",
+//            subRegion = "",
+//            vendorType = broker_details?.get(0)?.broker_type?:"",
+//            senderName = broker_details?.get(0)?.name?:"",
+//            senderPhone = "",
+//            offerPrice = "",
+//            offerDate = "",
+//
+//            )
+//    }

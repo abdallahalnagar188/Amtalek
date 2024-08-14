@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.drawer.messaging.addons
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,7 +15,6 @@ import eramo.amtalek.databinding.FragmentAddAdomsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsMonthlyPriceAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsYearlyPriceAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.drawer.messaging.MessagingChatFragmentDirections
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,7 +33,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
         toggleSetup()
-        setupListeners()
+
 
         rvAddonsMonthlyPriceAdapter = RvAddonsMonthlyPriceAdapter { totalPrice ->
             binding.tvTotalPriceAmount.text =  totalPrice.toString()
@@ -70,6 +70,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                             lifecycleScope.launch {
                                 viewModel.addons.collect {
                                     viewModel.addons.value.data?.data?.let { initMonthlyRv(it) }
+                                    setupListeners(it.data?.data ?: emptyList())
                                 }
                             }
                         }
@@ -118,14 +119,27 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
             binding.recyclerViewAddons.adapter = rvAddonsYearlyPriceAdapter
             rvAddonsYearlyPriceAdapter.submitList(data)
             rvAddonsYearlyPriceAdapter.notifyDataSetChanged()
+
         } else {
             binding.recyclerViewAddons.visibility = View.GONE
         }
     }
 
-    private fun setupListeners( ) {
+
+    private fun setupListeners(data: List<Data?>) {
+
         binding.btnTotalPrice.setOnClickListener {
-           findNavController().navigate(R.id.buyAddonsFragment)
+
+            findNavController().navigate(
+                R.id.buyAddonsFragment,
+                bundleOf(
+                    "addon" to ItemCard(
+                        rvAddonsMonthlyPriceAdapter.getUpdatedDataList(),
+                        rvAddonsMonthlyPriceAdapter.calculateTotalPrice(data).toInt()
+                    )
+                )
+            )
+
         }
     }
 }
