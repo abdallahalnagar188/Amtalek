@@ -3,8 +3,11 @@ package eramo.amtalek.presentation.viewmodel.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eramo.amtalek.data.remote.dto.splash.SplashResponse
+import eramo.amtalek.data.remote.dto.splash.splashV2.OnBordingResponse
 import eramo.amtalek.domain.model.auth.OnBoardingModel
 import eramo.amtalek.domain.repository.AuthRepository
+import eramo.amtalek.domain.repository.SplashRepo
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
@@ -16,11 +19,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor(
-    private val repository: AuthRepository
+    private val repository: SplashRepo
 ) : ViewModel() {
 
-    private val _onBoardingStateState = MutableStateFlow<UiState<List<OnBoardingModel>>>(UiState.Empty())
-    val onBoardingStateStateDto: StateFlow<UiState<List<OnBoardingModel>>> = _onBoardingStateState
+    private val _onBoardingStateState = MutableStateFlow<Resource<OnBordingResponse>>(Resource.Loading())
+    val onBoardingStateStateDto: StateFlow<Resource<OnBordingResponse>> = _onBoardingStateState
 
     private var onBoardingStateJob: Job? = null
 
@@ -30,21 +33,16 @@ class OnBoardingViewModel @Inject constructor(
         onBoardingStateJob?.cancel()
         onBoardingStateJob = viewModelScope.launch {
             withContext(coroutineContext) {
-                repository.onBoardingScreens().collect { result ->
-                    when (result) {
+                repository.getOnBoardingSlider().collect { result ->
+
+                    when
+                            (result) {
                         is Resource.Success -> {
-                            result.data?.let {
-                                _onBoardingStateState.value =
-                                    UiState.Success(data = result.data)
-                            } ?: run { _onBoardingStateState.value = UiState.Empty() }
+                            _onBoardingStateState.value = Resource.Success(result.data)
                         }
-                        is Resource.Error -> {
-                            _onBoardingStateState.value =
-                                UiState.Error(result.message!!)
-                        }
-                        is Resource.Loading -> {
-                            _onBoardingStateState.value = UiState.Loading()
-                        }
+
+                        is Resource.Error -> {}
+                        is Resource.Loading -> {}
                     }
                 }
             }

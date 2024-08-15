@@ -53,6 +53,8 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.Send
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
+import eramo.amtalek.data.remote.dto.splash.SplashResponse
+import eramo.amtalek.data.remote.dto.splash.splashV2.OnBordingResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -209,6 +211,11 @@ interface AmtalekApi {
     ): Response<HomeSlidersResponse>
 
 
+    @GET("mobile/splashes")
+    suspend fun getOnBoardingSlider()
+    : Response<OnBordingResponse>
+
+
     @GET("ads-getter/resultpage-mobile-app")
     suspend fun getResultsSlider(
     ): Response<HomeSlidersResponse>
@@ -240,9 +247,7 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?,
     ): Response<HomeNewsResponse>
 
-    @GET("mobile/news")
-    suspend fun getAllNews(
-    ): Response<AllNewsResponse>
+
 
     @GET("mobile/mobile-home-extra-sections")
     suspend fun getHomeNewestSections(
@@ -567,10 +572,17 @@ interface AmtalekApi {
     @Query("size") size: Int = 1, // You can set default page size
     ): BrokersResponse
 
+    @GET("mobile/news")
+    suspend fun getAllNews(
+        @Query("page") page: Int,
+        @Query("size") size: Int = 1,
+    ): Response<AllNewsResponse>
+
     @GET("mobile/broker/{id}/broker")
     suspend fun getBrokersDetails(
         @Path("id") id: Int
     ): BrokersDetailsResponse
+
     @GET("mobile/brokers-properties/{id}")
     suspend fun getBrokersProperties(
         @Path("id") id: Int

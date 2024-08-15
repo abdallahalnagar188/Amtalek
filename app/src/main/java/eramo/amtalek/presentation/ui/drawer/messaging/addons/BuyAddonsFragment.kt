@@ -45,6 +45,11 @@ class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
             tvItem2Label.text = getString(R.string.featured_listings)
             tvItem3Label.text = getString(R.string.projects)
             tvItem4Label.text = getString(R.string.messages)
+            if (itemCard.deuration == "monthly"){
+                tvItem1Value.text = itemCard.card[0].monthlyPrice
+            }else{
+                tvItem1Value.text = itemCard.card.get(0).yearlyPrice
+            }
             tvItem1Value.text = itemCard.card.get(0).monthlyPrice
             tvItem2Value.text = itemCard.card.get(1).monthlyPrice
             tvItem3Value.text = itemCard.card.get(2).monthlyPrice

@@ -11,10 +11,12 @@ import eramo.amtalek.databinding.ItemAdonsBinding
 import javax.inject.Inject
 
 class RvAddonsYearlyPriceAdapter @Inject constructor(
-    private val onTotalPriceUpdated: (Double) -> Unit
-) : ListAdapter<Data, RvAddonsYearlyPriceAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    private val onTotalPriceChanged: (Double) -> Unit // Callback to send total price to the fragment
+) : ListAdapter<Data, RvAddonsYearlyPriceAdapter.ProductViewHolder>(PRODUCT_COMPARATOR)
+{
 
-    private val totalPrices = mutableListOf<Double>()
+    private val totalPrices = mutableListOf<Double>() // List to track total prices for each item
+    private val quantities = mutableListOf<Int>() // List to track quantities for each item
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ProductViewHolder(
@@ -23,7 +25,7 @@ class RvAddonsYearlyPriceAdapter @Inject constructor(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val model = getItem(position)
-        holder.bind(model,position)
+        holder.bind(model, position)
     }
 
     inner class ProductViewHolder(private val binding: ItemAdonsBinding) :
@@ -34,18 +36,20 @@ class RvAddonsYearlyPriceAdapter @Inject constructor(
         init {
             binding.btnAdd.setOnClickListener {
                 counter++
+                quantities[bindingAdapterPosition] = counter // Update quantity
                 updatePrice(bindingAdapterPosition)
             }
 
             binding.btnMinus.setOnClickListener {
                 if (counter > 0) {
                     counter--
+                    quantities[bindingAdapterPosition] = counter // Update quantity
                     updatePrice(bindingAdapterPosition)
                 }
             }
         }
 
-        fun bind(model: Data,position: Int) {
+        fun bind(model: Data, position: Int) {
             binding.apply {
                 when (model.name) {
                     "normal_listings" -> tvAddonName.text = itemView.context.getString(R.string.normal_listings)
@@ -56,6 +60,7 @@ class RvAddonsYearlyPriceAdapter @Inject constructor(
                 }
 
                 tvAddonPrice.text = model.yearlyPrice.toString()
+                counter = model.quantity ?: 0
                 tvCounter.text = counter.toString()
                 updatePrice(position)
             }
@@ -66,18 +71,38 @@ class RvAddonsYearlyPriceAdapter @Inject constructor(
             val totalPrice = yearlyPrice * counter
             binding.tvCounter.text = counter.toString()
             binding.totalPriceForAddon.text = totalPrice.toString()
-
-            totalPrices[position] = totalPrice // Update the total price for this item
-            val aggregatedTotalPrice = totalPrices.sum() // Calculate the sum of all total prices
-            onTotalPriceUpdated(aggregatedTotalPrice)
+            totalPrices[position] = totalPrice
+            val aggregatedTotalPrice = totalPrices.sum()
+            onTotalPriceChanged(aggregatedTotalPrice)
         }
     }
 
     override fun submitList(list: List<Data?>?) {
         super.submitList(list)
-        totalPrices.clear() // Reset the total prices list
-        list?.forEach { _ -> totalPrices.add(0.0) } // Initialize the total prices list with zeros
+        totalPrices.clear()
+        quantities.clear()
+        list?.forEach { item ->
+            totalPrices.add(0.0)
+            quantities.add(
+                item?.quantity ?: 0
+            )
+        }
     }
+
+    fun getUpdatedDataList(): List<Data> {
+        return currentList.mapIndexed { index, data ->
+            data.copy(quantity = quantities[index])
+        }
+    }
+
+    fun calculateTotalPrice(list: List<Data?>): Double {
+        return list.sumOf { item ->
+            val price = item?.yearlyPrice?.toDouble() ?: 0.0
+            val quantity = quantities[currentList.indexOf(item)]
+            price * quantity
+        }
+    }
+
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
             override fun areItemsTheSame(oldItem: Data, newItem: Data) =
@@ -88,3 +113,4 @@ class RvAddonsYearlyPriceAdapter @Inject constructor(
         }
     }
 }
+

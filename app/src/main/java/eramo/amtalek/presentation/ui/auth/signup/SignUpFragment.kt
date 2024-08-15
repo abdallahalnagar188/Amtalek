@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -20,6 +21,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -78,6 +80,10 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     private var imageUri: Uri? = null
     val calender = Calendar.getInstance()
 
+
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,20 +93,28 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        selectedCountryId = -1
+        selectedCityId = -1
+        selectedRegionId = -1
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         listeners()
         requestData()
         fetchData()
+
     }
+
 
     override fun onResume() {
         super.onResume()
         selectedCountryId = -1
         selectedCityId = -1
         selectedRegionId = -1
-        //fetchData()
+        fetchData()
     }
 
     override fun onPause() {
@@ -111,6 +125,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         selectedRegionId = -1
         fetchData()
     }
+
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -241,6 +256,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         animator.start()
     }
 
+
     // -------------------------------------- setupViews -------------------------------------- //
     private fun setupCountriesSpinner(data: List<CountryModel>) {
         binding.apply {
@@ -253,6 +269,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
                     viewModel.getCities(model.id.toString())
                 }
+
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -756,7 +773,6 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 override fun afterTextChanged(s: Editable?) {
 
                 }
-
             })
 
             // onTouch method

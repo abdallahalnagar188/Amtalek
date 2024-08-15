@@ -241,6 +241,11 @@
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification" />
     <fragment
+        android:id="@+id/termsAndConditionsFragmentInHome"
+        android:name="eramo.amtalek.presentation.ui.auth.TermsAndConditionsFragment"
+        android:label="TermsAndConditions"
+        tools:layout="@layout/fragment_terms" />
+    <fragment
         android:id="@+id/notificationDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.notification.NotificationDetailsFragment"
         android:label="NotificationInfoFragment"

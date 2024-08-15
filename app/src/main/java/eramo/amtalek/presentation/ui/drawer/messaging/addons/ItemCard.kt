@@ -6,4 +6,5 @@ import java.io.Serializable
 data class ItemCard(
     val card: List<Data>,
     val totalPrice: Int,
+    val deuration: String,
 ): Serializable

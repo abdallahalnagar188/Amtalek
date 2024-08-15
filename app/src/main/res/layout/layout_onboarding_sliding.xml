@@ -28,6 +28,7 @@
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         tools:text="dlnkndlskm;lks"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slider_img" />

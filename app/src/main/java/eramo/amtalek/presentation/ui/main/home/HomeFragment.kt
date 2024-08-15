@@ -701,7 +701,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             binding.inFirstExtraSectionLayout.root.visibility = View.GONE
         }
         binding.inFirstExtraSectionLayout.tvSeeMore.setOnClickListener {
-            findNavController().navigate(R.id.seeMorePropertiesFragment)
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(0)?.let { it1 -> createModelForSections(it1) }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
         }
         ///// second
         binding.inSecondExtraSectionLayout.tvTitle.text = data?.get(1)?.title
@@ -711,6 +718,16 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         } else {
             binding.inSecondExtraSectionLayout.root.visibility = View.GONE
         }
+        binding.inSecondExtraSectionLayout.tvSeeMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(1)?.let { it1 -> createModelForSections(it1) }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
+        }
         ///// third
         binding.inThirdExtraSectionLayout.tvTitle.text = data?.get(2)?.title
         if (data?.get(2)?.sections?.isNotEmpty() == true) {
@@ -718,6 +735,16 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         } else {
             binding.inThirdExtraSectionLayout.root.visibility = View.GONE
+        }
+        binding.inThirdExtraSectionLayout.tvSeeMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(2)?.let { it1 -> createModelForSections(it1) }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
         }
         ///// fourth
         binding.inFourthExtraSectionLayout.tvTitle.text = data?.get(3)?.title
@@ -727,6 +754,16 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         } else {
             binding.inFourthExtraSectionLayout.root.visibility = View.GONE
         }
+        binding.inFourthExtraSectionLayout.tvSeeMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(3)?.let { it1 -> createModelForSections(it1) }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
+        }
         ///// fifth
         binding.inFifthExtraSectionLayout.tvTitle.text = data?.get(4)?.title
         if (data?.get(4)?.sections?.isNotEmpty() == true) {
@@ -734,6 +771,54 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         } else {
             binding.inFifthExtraSectionLayout.root.visibility = View.GONE
+        }
+        binding.inFifthExtraSectionLayout.tvSeeMore.setOnClickListener {
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(4)?.let { it1 -> createModelForSections(it1) }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
+        }
+    }
+
+    private fun createModelForSections(model: HomeExtraSectionsModel): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = model.propertyTypeId
+            val currencyId = 0
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId =typeId.toString(),
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = "",
+                city = 0,
+            )
+            return myModel
         }
     }
 
@@ -951,7 +1036,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
-                city = model.id
+                city = model.id,
             )
             return myModel
         }

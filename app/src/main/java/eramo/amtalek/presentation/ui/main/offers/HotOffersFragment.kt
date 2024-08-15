@@ -82,19 +82,21 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
-        hotOffersViewModel.getSearchResultSlider()
+        binding.carouselSlider.visibility = View.GONE
         setUpObservers()
-        Log.e("id: ", hotOffersViewModel.hotOffersSliderState.value.data?.get(0)?.id.toString() )
         setupViews()
         listeners()
         bindTabs()
         tabsClickListeners()
         handleRefresh()
     }
+    override fun onResume() {
+        super.onResume()
+        hotOffersViewModel.getSearchResultSlider()
+    }
 
     private fun handleRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-
 
             rvHotOffersForBothPropertiesAdapter.submitList(null)
 
@@ -116,8 +118,8 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         binding.inToolbar.spinnerLayout.setOnClickListener {
             findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
         }
-
     }
+
     private fun initToolbar() {
         binding.inToolbar.apply {
 
@@ -148,7 +150,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
             binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
         }
         if (UserUtil.getCityFiltrationTitleAr().isEmpty()&&UserUtil.getCityFiltrationTitleEn().isEmpty()){
-            binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.select_city)
+            binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.egypt)
 
         }
         if (LocalUtil.isEnglish()){
@@ -167,7 +169,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         binding.rvPropertiesForRent.adapter = rvHotOffersRentPropertiesAdapter
         binding.rvProjectsForBoth.adapter = rvHotOffersForBothProjectsAdapter
 
-        binding.tvProjects.text = getString(R.string.projects)
+        binding.tvProjects.visibility = View.GONE
         rvHotOffersRentPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersSellPropertiesAdapter.setListener(this@HotOffersFragment,this)
         rvHotOffersForBothPropertiesAdapter.setListener(this@HotOffersFragment,this)
@@ -175,6 +177,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     }
     private fun setUpObservers() {
+        hotOffersViewModel.getSearchResultSlider()
         fetchGetHotOffers()
         fetchGetHomeSlider()
     }
@@ -196,9 +199,8 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                hotOffersViewModel.hotOffersSliderState.collect() { state ->
+                hotOffersViewModel.hotOffersSliderState.collect { state ->
                     when (state) {
-
                         is UiState.Success -> {
                             val data = state.data
                             if (!data.isNullOrEmpty()) {
@@ -206,25 +208,24 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                                 setupSliderBetween(parseBetweenCarouselSliderList(data))
                             } else {
                                 binding.carouselSlider.visibility = View.GONE
-
                             }
                         }
-
                         is UiState.Error -> {
+                            binding.carouselSlider.visibility = View.GONE
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
-
                         is UiState.Loading -> {
+                            // Optional: Keep the carouselSlider GONE during loading
+                            binding.carouselSlider.visibility = View.GONE
                         }
-
                         else -> {}
                     }
-
                 }
             }
         }
     }
+
     private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
         binding.apply {
             carouselSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
@@ -267,7 +268,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                 hotOffersViewModel.hotOffers.collect(){
                     when(it){
                         is UiState.Success->{
-
+                            binding.carouselSlider.visibility = View.GONE
                             forSellPropertyList.clear()
                             forRentPropertyList.clear()
                             forBothPropertyList.clear()

@@ -28,7 +28,7 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
 
         binding.apply {
             ivClose.setOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigate(R.id.signUpFragment)
             }
         }
     }

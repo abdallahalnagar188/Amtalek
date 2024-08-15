@@ -47,6 +47,12 @@ import javax.inject.Singleton
 object AppModule {
 
 
+
+    @Provides
+    @Singleton
+    fun provideOnBoardingRepository(apiService: AmtalekApi): SplashRepo {
+        return SplashRepoImpl(apiService)
+    }
     @Provides
     @Singleton
     fun provideRepository(apiService: AmtalekApi): BrokersRepo {

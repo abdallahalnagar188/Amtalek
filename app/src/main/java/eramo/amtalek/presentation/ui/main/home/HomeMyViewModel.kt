@@ -22,6 +22,7 @@ import eramo.amtalek.domain.model.home.project.HomeProjectsSectionModel
 import eramo.amtalek.domain.model.home.property.HomePropertySectionModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
+import eramo.amtalek.domain.repository.AllNewsRepo
 import eramo.amtalek.domain.repository.AllNormalPropertiesRepo
 import eramo.amtalek.domain.repository.AllPropertyRepo
 import eramo.amtalek.domain.repository.MyHomeRepository
@@ -46,7 +47,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeMyViewModel @Inject constructor(
-    private val homeRepository:MyHomeRepository,
+    private val homeRepository: MyHomeRepository,
     private val getProfileUseCase: GetProfileUseCase,
     private val addOrRemoveFavRepository: AddOrRemoveFavRepository,
     private val allPropertyUseCase: GetAllProperty,
@@ -54,17 +55,17 @@ class HomeMyViewModel @Inject constructor(
     private val allNormalPropertyUseCase: GetAllNormalProperty,
     private val allCitiesUseCase: GetAllCities,
     private val allPropertyRepo: AllPropertyRepo,
-    private val allNormalProperty:AllNormalPropertiesRepo,
+    private val allNormalProperty: AllNormalPropertiesRepo,
+    private val api: AmtalekApi,// Inject BrokerApi for PagingSource
+    private val newsRepo: AllNewsRepo,
 
-    private val api: AmtalekApi // Inject BrokerApi for PagingSource
-
-): ViewModel(){
+    ) : ViewModel() {
 
     private val _allProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
     val allProperty: StateFlow<AllPropertyResponse?> get() = _allProperty
 
     private val _allNormalProperty: MutableStateFlow<HomePropertySectionModel?> = MutableStateFlow(null)
-   // val allNormalProperty: StateFlow<HomePropertySectionModel?> get() = _allNormalProperty
+    // val allNormalProperty: StateFlow<HomePropertySectionModel?> get() = _allNormalProperty
 
     private val _allProject: MutableStateFlow<AllProjectsResponse?> = MutableStateFlow(null)
     val allProject: StateFlow<AllProjectsResponse?> get() = _allProject
@@ -73,29 +74,29 @@ class HomeMyViewModel @Inject constructor(
     val allCities: StateFlow<AllCityResponse?> get() = _allCities
 
     private val _homeFeaturedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
-    val homeFeaturedPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeFeaturedPropertiesState
+    val homeFeaturedPropertiesState: StateFlow<UiState<List<HomePropertySectionModel>>> = _homeFeaturedPropertiesState
 
     private val _homeProjectsState = MutableStateFlow<UiState<List<HomeProjectsSectionModel>>>(UiState.Empty())
-    val homeProjectsState:StateFlow<UiState<List<HomeProjectsSectionModel>>> = _homeProjectsState
+    val homeProjectsState: StateFlow<UiState<List<HomeProjectsSectionModel>>> = _homeProjectsState
 
     private val _homeFilterByCityState = MutableStateFlow<UiState<List<HomeCitiesSectionsModel>>>(UiState.Empty())
-    val homeFilterByCityState:StateFlow<UiState<List<HomeCitiesSectionsModel>>> = _homeFilterByCityState
+    val homeFilterByCityState: StateFlow<UiState<List<HomeCitiesSectionsModel>>> = _homeFilterByCityState
 
     private val _homeSliderState = MutableStateFlow<UiState<List<SliderModel>>>(UiState.Empty())
-    val homeSliderState:StateFlow<UiState<List<SliderModel>>> = _homeSliderState
+    val homeSliderState: StateFlow<UiState<List<SliderModel>>> = _homeSliderState
 
     private val _homeMostViewedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
-    val homeMostViewedPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeMostViewedPropertiesState
+    val homeMostViewedPropertiesState: StateFlow<UiState<List<HomePropertySectionModel>>> = _homeMostViewedPropertiesState
 
     private val _homeNormalPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
-    val homeNormalPropertiesState:StateFlow<UiState<List<HomePropertySectionModel>>> = _homeNormalPropertiesState
+    val homeNormalPropertiesState: StateFlow<UiState<List<HomePropertySectionModel>>> = _homeNormalPropertiesState
 
 
     private val _homeNewsState = MutableStateFlow<UiState<List<HomeNewsSectionsModel>>>(UiState.Empty())
-    val homeNewsState:StateFlow<UiState<List<HomeNewsSectionsModel>>> = _homeNewsState
+    val homeNewsState: StateFlow<UiState<List<HomeNewsSectionsModel>>> = _homeNewsState
 
     private val _homeExtraSectionsState = MutableStateFlow<UiState<List<HomeExtraSectionsModel>>>(UiState.Empty())
-    val homeExtraSectionsState:StateFlow<UiState<List<HomeExtraSectionsModel>>> = _homeExtraSectionsState
+    val homeExtraSectionsState: StateFlow<UiState<List<HomeExtraSectionsModel>>> = _homeExtraSectionsState
 
 
     private val _getProfileState = MutableStateFlow<UiState<UserModel>>(UiState.Empty())
@@ -109,17 +110,17 @@ class HomeMyViewModel @Inject constructor(
 
     //---------------------------------------------------------------------------------//
     private var initScreenJob: Job? = null
-    private var getHomeFeaturedPropertiesJob:Job?=null
-    private var getHomeProjectsJob:Job?=null
-    private var getHomeFilterByCityJob:Job?=null
-    private var getHomeSliderJob:Job?=null
-    private var getHomeMostViewedPropertiesJob:Job?=null
-    private var getHomeNormalPropertiesJob:Job?=null
-    private var getHomeNewsJob:Job?=null
-    private var getHomeExtraSectionsJob:Job?=null
+    private var getHomeFeaturedPropertiesJob: Job? = null
+    private var getHomeProjectsJob: Job? = null
+    private var getHomeFilterByCityJob: Job? = null
+    private var getHomeSliderJob: Job? = null
+    private var getHomeMostViewedPropertiesJob: Job? = null
+    private var getHomeNormalPropertiesJob: Job? = null
+    private var getHomeNewsJob: Job? = null
+    private var getHomeExtraSectionsJob: Job? = null
     private var getProfileJob: Job? = null
 
-    fun cancelRequests(){
+    fun cancelRequests() {
         initScreenJob?.cancel()
         getHomeFeaturedPropertiesJob?.cancel()
         getHomeProjectsJob?.cancel()
@@ -131,8 +132,6 @@ class HomeMyViewModel @Inject constructor(
         getHomeExtraSectionsJob?.cancel()
         getProfileJob?.cancel()
     }
-
-
 
 
     val allPropertiesPagingData: Flow<PagingData<DataX>> = Pager(
@@ -153,234 +152,266 @@ class HomeMyViewModel @Inject constructor(
     ).flow
         .cachedIn(viewModelScope)
 
+    val allNewsPagingFlow: Flow<PagingData<eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX>> = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { newsRepo.getAllNewsPagingSource() }
+    ).flow
+        .cachedIn(viewModelScope)
+
     //---------------------------------------------------------------------------------//
-    private fun getHomeFeaturedProperties(cityId:String){
+    private fun getHomeFeaturedProperties(cityId: String) {
         getHomeFeaturedPropertiesJob?.cancel()
         getHomeFeaturedPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeFeaturedProperty(cityId).collect(){result->
-                        when (result){
-                            is Resource.Success->{
-                                Log.e("getHomeFeatured success",result.data.toString())
-                                ///its a list cuz the response data is array of a single object** careful with that
-                                val list = mutableListOf<HomePropertySectionModel>()
-                                for (item in result.data?.data!!){
-                                    list.add(item.toHomePropertySectionModel())
-                                }
-                                _homeFeaturedPropertiesState.emit(UiState.Success(list))
-                            }
-                            is Resource.Error->{
-                                _homeFeaturedPropertiesState.emit(UiState.Error(result.message!!))
-                            }
-                            is Resource.Loading->{
-                                _homeFeaturedPropertiesState.emit(UiState.Loading())
-                            }
+            homeRepository.getHomeFeaturedProperty(cityId).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        Log.e("getHomeFeatured success", result.data.toString())
+                        ///its a list cuz the response data is array of a single object** careful with that
+                        val list = mutableListOf<HomePropertySectionModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomePropertySectionModel())
                         }
+                        _homeFeaturedPropertiesState.emit(UiState.Success(list))
+                    }
 
+                    is Resource.Error -> {
+                        _homeFeaturedPropertiesState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeFeaturedPropertiesState.emit(UiState.Loading())
+                    }
+                }
             }
         }
 
     }
-    private fun getHomeProjects(cityId:String){
+
+    private fun getHomeProjects(cityId: String) {
         getHomeProjectsJob?.cancel()
         getHomeProjectsJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeProjects(cityId).collect(){result->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<HomeProjectsSectionModel>()
-                            for (item in result.data?.data!!){
-                                list.add(item.toHomeProjectsSectionModel())
-                            }
-                            _homeProjectsState.emit(UiState.Success(list))
+            homeRepository.getHomeProjects(cityId).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<HomeProjectsSectionModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomeProjectsSectionModel())
                         }
-                        is Resource.Error ->{
-                            _homeProjectsState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeProjectsState.emit(UiState.Loading())
-                        }
+                        _homeProjectsState.emit(UiState.Success(list))
                     }
+
+                    is Resource.Error -> {
+                        _homeProjectsState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeProjectsState.emit(UiState.Loading())
+                    }
+                }
 
             }
         }
     }
-    private fun getHomeFilterByCity(countryId:String){
+
+    private fun getHomeFilterByCity(countryId: String) {
         getHomeFilterByCityJob?.cancel()
         getHomeFilterByCityJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getFilterByCity(countryId = countryId).collect(){result->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<HomeCitiesSectionsModel>()
-                            for (item in result.data?.data!!){
-                                list.add(item.toHomeCitiesSectionsModel())
-                            }
-                            _homeFilterByCityState.emit(UiState.Success(list))
+            homeRepository.getFilterByCity(countryId = countryId).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<HomeCitiesSectionsModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomeCitiesSectionsModel())
                         }
-                        is Resource.Error ->{
-                            _homeFilterByCityState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeFilterByCityState.emit(UiState.Loading())
-                        }
+                        _homeFilterByCityState.emit(UiState.Success(list))
                     }
+
+                    is Resource.Error -> {
+                        _homeFilterByCityState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeFilterByCityState.emit(UiState.Loading())
+                    }
+                }
 
             }
         }
 
     }
-    private fun getHomeSlider(){
+
+    private fun getHomeSlider() {
         getHomeSliderJob?.cancel()
         getHomeSliderJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeSlider().collect(){result->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<SliderModel>()
-                            for (item in result.data?.data!!){
-                                if (item != null) {
-                                    list.add(item.toSliderModel())
-                                }
+            homeRepository.getHomeSlider().collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<SliderModel>()
+                        for (item in result.data?.data!!) {
+                            if (item != null) {
+                                list.add(item.toSliderModel())
                             }
-                            _homeSliderState.emit(UiState.Success(list))
                         }
-                        is Resource.Error ->{
-                            _homeSliderState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeSliderState.emit(UiState.Loading())
-                        }
+                        _homeSliderState.emit(UiState.Success(list))
                     }
+
+                    is Resource.Error -> {
+                        _homeSliderState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeSliderState.emit(UiState.Loading())
+                    }
+                }
 
 
             }
         }
     }
-    fun getHomeNormalProperties(cityId:String){
+
+    fun getHomeNormalProperties(cityId: String) {
         getHomeNormalPropertiesJob?.cancel()
         getHomeNormalPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeNormalProperties(cityId).collect(){result->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<HomePropertySectionModel>()
-                            for (item in result.data?.data!!){
-                                list.add(item.toHomePropertySectionModel())
-                            }
-                            _homeNormalPropertiesState.emit(UiState.Success(list))
+            homeRepository.getHomeNormalProperties(cityId).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<HomePropertySectionModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomePropertySectionModel())
                         }
-                        is Resource.Error ->{
-                            _homeNormalPropertiesState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeNormalPropertiesState.emit(UiState.Loading())
-                        }
+                        _homeNormalPropertiesState.emit(UiState.Success(list))
                     }
+
+                    is Resource.Error -> {
+                        _homeNormalPropertiesState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeNormalPropertiesState.emit(UiState.Loading())
+                    }
+                }
 
 
             }
         }
     }
-    private fun getMostViewedProperties(countryId:String){
+
+    private fun getMostViewedProperties(countryId: String) {
         getHomeMostViewedPropertiesJob?.cancel()
         getHomeMostViewedPropertiesJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeMostViewedProperties(countryId).collect() { result ->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<HomePropertySectionModel>()
-                            for (item in result.data?.data!!){
-                                list.add(item.toHomePropertySectionModel())
-                            }
-                            _homeMostViewedPropertiesState.emit(UiState.Success(list))
+            homeRepository.getHomeMostViewedProperties(countryId).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<HomePropertySectionModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomePropertySectionModel())
                         }
-                        is Resource.Error ->{
-                            _homeMostViewedPropertiesState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeMostViewedPropertiesState.emit(UiState.Loading())
-                        }
+                        _homeMostViewedPropertiesState.emit(UiState.Success(list))
                     }
+
+                    is Resource.Error -> {
+                        _homeMostViewedPropertiesState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeMostViewedPropertiesState.emit(UiState.Loading())
+                    }
+                }
 
             }
 
 
         }
     }
-    fun getHomeNews(){
+
+    fun getHomeNews() {
         getHomeNewsJob?.cancel()
         getHomeNewsJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeNews().collect(){result->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<HomeNewsSectionsModel>()
-                            for (item in result.data?.data!!){
-                                list.add(item.toHomeNewsSectionModel())
-                            }
-                            _homeNewsState.emit(UiState.Success(list))
+            homeRepository.getHomeNews().collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<HomeNewsSectionsModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomeNewsSectionModel())
                         }
-                        is Resource.Error ->{
-                            _homeNewsState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeNewsState.emit(UiState.Loading())
-                        }
+                        _homeNewsState.emit(UiState.Success(list))
                     }
+
+                    is Resource.Error -> {
+                        _homeNewsState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeNewsState.emit(UiState.Loading())
+                    }
+                }
 
 
             }
         }
     }
-    private fun getHomeExtraSections(countryId:String){
+
+    private fun getHomeExtraSections(countryId: String) {
         getHomeExtraSectionsJob?.cancel()
         getHomeExtraSectionsJob = viewModelScope.launch(Dispatchers.IO) {
 
-                homeRepository.getHomeExtraSections(countryId).collect(){result->
-                    when(result){
-                        is Resource.Success ->{
-                            val list = mutableListOf<HomeExtraSectionsModel>()
-                            for (item in result.data?.data!!){
-                                list.add(item.toHomeExtraSectionsModel())
-                            }
-                            _homeExtraSectionsState.emit(UiState.Success(list))
+            homeRepository.getHomeExtraSections(countryId).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<HomeExtraSectionsModel>()
+                        for (item in result.data?.data!!) {
+                            list.add(item.toHomeExtraSectionsModel())
                         }
-                        is Resource.Error ->{
-                            _homeExtraSectionsState.emit(UiState.Error(result.message!!))
-                        }
-                        is Resource.Loading->{
-                            _homeExtraSectionsState.emit(UiState.Loading())
-                        }
+                        _homeExtraSectionsState.emit(UiState.Success(list))
+                    }
+
+                    is Resource.Error -> {
+                        _homeExtraSectionsState.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _homeExtraSectionsState.emit(UiState.Loading())
+                    }
                 }
+            }
         }
     }
-}
-    fun getHomeApis(countryId: String,cityId: String){
+
+    fun getHomeApis(countryId: String, cityId: String) {
         initScreenJob?.cancel()
         initScreenJob = viewModelScope.launch(Dispatchers.IO) {
 
-                _initScreenState.value =UiState.Loading()
-                getHomeFeaturedProperties(cityId)
-                getHomeProjects(cityId)
-                getHomeFilterByCity(countryId)
-                getHomeSlider()
-                getMostViewedProperties(cityId)
-                getHomeSlider()
-                getHomeNews()
-                getHomeExtraSections(cityId)
-                getHomeNormalProperties(cityId)
-                joinAll(
-                    getHomeFeaturedPropertiesJob!!,
-                    getHomeProjectsJob!!,
-                    getHomeFilterByCityJob!!,
-                    getHomeSliderJob!!,
-                    getHomeMostViewedPropertiesJob!!,
-                    getHomeNewsJob!!,
-                    getHomeExtraSectionsJob!!,
-                    getHomeNormalPropertiesJob!!
-                )
-                _initScreenState.value = UiState.Success(null)
+            _initScreenState.value = UiState.Loading()
+            getHomeFeaturedProperties(cityId)
+            getHomeProjects(cityId)
+            getHomeFilterByCity(countryId)
+            getHomeSlider()
+            getMostViewedProperties(cityId)
+            getHomeSlider()
+            getHomeNews()
+            getHomeExtraSections(cityId)
+            getHomeNormalProperties(cityId)
+            joinAll(
+                getHomeFeaturedPropertiesJob!!,
+                getHomeProjectsJob!!,
+                getHomeFilterByCityJob!!,
+                getHomeSliderJob!!,
+                getHomeMostViewedPropertiesJob!!,
+                getHomeNewsJob!!,
+                getHomeExtraSectionsJob!!,
+                getHomeNormalPropertiesJob!!
+            )
+            _initScreenState.value = UiState.Success(null)
 
         }
     }
@@ -414,27 +445,40 @@ class HomeMyViewModel @Inject constructor(
     private fun saveUserInfo(user: UserModel) {
         UserUtil.saveUserInfo(
             isRemember = true,
-            userToken = UserUtil.getUserToken(), userID =  user.id.toString(),
-            firstName = user.firstName, lastName = user.lastName, phone =  user.phone,
-            email = user.email, countryId =  user.country.toString(),
-            cityName = user.cityName, cityId =  user.city.toString(), countryName =  user.countryName, userBio = user.bio, profileImageUrl =  user.userImage,
-            userType = user.actorType, hasPackage = user.hasPackage,brokerName = user.name?:"",dashboardLink = user.dashboardLink?:""
+            userToken = UserUtil.getUserToken(),
+            userID = user.id.toString(),
+            firstName = user.firstName,
+            lastName = user.lastName,
+            phone = user.phone,
+            email = user.email,
+            countryId = user.country.toString(),
+            cityName = user.cityName,
+            cityId = user.city.toString(),
+            countryName = user.countryName,
+            userBio = user.bio,
+            profileImageUrl = user.userImage,
+            userType = user.actorType,
+            hasPackage = user.hasPackage,
+            brokerName = user.name ?: "",
+            dashboardLink = user.dashboardLink ?: ""
 
         )
     }
 
     fun addOrRemoveFav(propertyId: Int) {
         viewModelScope.launch {
-            withContext(coroutineContext){
-                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect(){result->
-                    when(result){
-                        is Resource.Success->{
+            withContext(coroutineContext) {
+                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect() { result ->
+                    when (result) {
+                        is Resource.Success -> {
                             _favState.value = UiState.Success(result.data)
                         }
-                        is Resource.Error->{
+
+                        is Resource.Error -> {
                             _favState.value = UiState.Error(result.message!!)
                         }
-                        is Resource.Loading->{
+
+                        is Resource.Loading -> {
                             _favState.value = UiState.Loading()
                         }
                     }
@@ -445,19 +489,19 @@ class HomeMyViewModel @Inject constructor(
 
     }
 
-    fun getAllProperty(){
-            viewModelScope.launch {
-                try {
-                    _allProperty.value = allPropertyUseCase()
-                    Log.e("success", _allProperty.value.toString())
+    fun getAllProperty() {
+        viewModelScope.launch {
+            try {
+                _allProperty.value = allPropertyUseCase()
+                Log.e("success", _allProperty.value.toString())
 
-                } catch (e: Exception) {
-                    Log.e("failed", e.message.toString())
-                }
+            } catch (e: Exception) {
+                Log.e("failed", e.message.toString())
             }
+        }
     }
 
-    fun getAllProjects(){
+    fun getAllProjects() {
         viewModelScope.launch {
             try {
                 _allProject.value = allProjectsUseCase()
@@ -481,7 +525,7 @@ class HomeMyViewModel @Inject constructor(
 //        }
 //    }
 
-    fun getAllCities(){
+    fun getAllCities() {
         viewModelScope.launch {
             try {
                 _allCities.value = allCitiesUseCase()

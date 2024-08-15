@@ -77,8 +77,7 @@ class PropertyDetailsViewModel @Inject constructor(
     private var sendMessageToPropertyOwnerJob: Job? = null
 
     fun getPropertySlider(){
-        getPropertyDetailsJob?.cancel()
-        getPropertyDetailsJob = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
 
             propertyRepository.getPropertySlider().collect(){result->
                 when(result){

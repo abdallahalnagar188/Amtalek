@@ -4,5 +4,6 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 
 data class HomeExtraSectionsModel (
     var title: String,
-    var sections: List<PropertyModel>?
+    var sections: List<PropertyModel>?,
+    var propertyTypeId: Int?
 )

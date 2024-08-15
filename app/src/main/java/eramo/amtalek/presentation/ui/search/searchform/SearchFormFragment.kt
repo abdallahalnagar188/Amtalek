@@ -204,7 +204,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 maxArea = maxArea,
                 purposeId = purposeId.toString(),
                 priceArrangeKeys = "asc",
-                amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else "${amenitiesAdapter.selectionList}"
+                amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else "${amenitiesAdapter.selectionList}",
             )
             Log.e("Yarab", amenitiesAdapter.selectionList.toString(), )
             return myModel

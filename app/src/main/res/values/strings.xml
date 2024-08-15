@@ -710,7 +710,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="egp_9_month">EGP/9 Months</string>
 
     <string name="posts">Posts</string>
-    <string name="contact_us_throw">Contact Us</string>
+    <string name="contact_us_throw">Contact With Agency</string>
     <string name="messaging">Messaging</string>
     <string name="whatsapp">WhatsApp</string>
     <string name="call_us">Call Us</string>
@@ -998,6 +998,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="expiration_date">Expiration date</string>
     <string name="no_package">you must buy a package</string>
     <string name="buy_addon_now">By Addons now</string>
+    <string name="please_select_addons_to_buy">Please select addons to buy</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

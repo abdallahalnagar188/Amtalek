@@ -34,8 +34,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         get() = FragmentSeeMorePropertiesByCityBinding::inflate
 
     val viewModel: HomeMyViewModel by viewModels()
-    private var selectedLocationId:Int? = null
-    private var selectedLocationName:String? = null
+
     @Inject
     lateinit var rvPropertiesByCityAdapter: RvPropertiesByCityAdapter
 
@@ -124,7 +123,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
-                city = data.id
+                city = data.id,
             )
             return myModel
         }

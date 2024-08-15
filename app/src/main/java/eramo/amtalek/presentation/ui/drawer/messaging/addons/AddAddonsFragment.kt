@@ -15,6 +15,7 @@ import eramo.amtalek.databinding.FragmentAddAdomsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsMonthlyPriceAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsYearlyPriceAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -23,9 +24,9 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentAddAdomsBinding::inflate
 
-    private lateinit var rvAddonsMonthlyPriceAdapter :RvAddonsMonthlyPriceAdapter
+    private lateinit var rvAddonsMonthlyPriceAdapter: RvAddonsMonthlyPriceAdapter
 
-    private lateinit var rvAddonsYearlyPriceAdapter : RvAddonsYearlyPriceAdapter
+    private lateinit var rvAddonsYearlyPriceAdapter: RvAddonsYearlyPriceAdapter
 
     private val viewModel: AddonsViewModel by viewModels()
 
@@ -36,10 +37,10 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
 
 
         rvAddonsMonthlyPriceAdapter = RvAddonsMonthlyPriceAdapter { totalPrice ->
-            binding.tvTotalPriceAmount.text =  totalPrice.toString()
+            binding.tvTotalPriceAmount.text = totalPrice.toString()
         }
         rvAddonsYearlyPriceAdapter = RvAddonsYearlyPriceAdapter { totalPrice ->
-            binding.tvTotalPriceAmount.text =  totalPrice.toString()
+            binding.tvTotalPriceAmount.text = totalPrice.toString()
 
         }
 
@@ -129,17 +130,31 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
     private fun setupListeners(data: List<Data?>) {
 
         binding.btnTotalPrice.setOnClickListener {
-
-            findNavController().navigate(
-                R.id.buyAddonsFragment,
-                bundleOf(
-                    "addon" to ItemCard(
-                        rvAddonsMonthlyPriceAdapter.getUpdatedDataList(),
-                        rvAddonsMonthlyPriceAdapter.calculateTotalPrice(data).toInt()
+            if (binding.tvTotalPriceAmount.text != "0.0") {
+                findNavController().navigate(
+                    R.id.buyAddonsFragment,
+                    bundleOf(
+                        "addon" to ItemCard(
+                            if (binding.monthlyBtnAddon.isChecked) {
+                                rvAddonsMonthlyPriceAdapter.getUpdatedDataList()
+                            } else {
+                                rvAddonsYearlyPriceAdapter.getUpdatedDataList()
+                            },
+                            if (binding.monthlyBtnAddon.isChecked) {
+                                rvAddonsMonthlyPriceAdapter.calculateTotalPrice(data).toInt()
+                            } else {
+                                rvAddonsYearlyPriceAdapter.calculateTotalPrice(data).toInt()
+                            }, deuration = if (binding.monthlyBtnAddon.isChecked) {
+                                "monthly"
+                            } else {
+                                "yearly"
+                            }
+                        )
                     )
                 )
-            )
-
+            } else {
+                showToast(getString(R.string.please_select_addons_to_buy))
+            }
         }
     }
 }

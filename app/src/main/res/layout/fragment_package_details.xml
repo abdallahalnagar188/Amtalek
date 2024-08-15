@@ -104,9 +104,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_14sdp"
-                                android:fontFamily="@font/montserratbold"
+                                android:fontFamily="@font/font"
                                 android:textColor="@color/white"
-                                android:textSize="@dimen/_30ssp"
+                                android:textSize="@dimen/_14ssp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -147,6 +147,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:src="@drawable/ic_right_mark"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/line_one_view"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/line_one_view" />
@@ -217,6 +218,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:src="@drawable/ic_right_mark"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/line_two_view"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/line_two_view" />
@@ -287,6 +289,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:src="@drawable/ic_right_mark"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/line_three_view"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/line_three_view" />
@@ -355,6 +358,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:src="@drawable/ic_right_mark"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/line_four_view"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/line_four_view" />

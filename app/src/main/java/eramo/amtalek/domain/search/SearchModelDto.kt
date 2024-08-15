@@ -1,6 +1,7 @@
 package eramo.amtalek.domain.search
 
 import android.os.Parcelable
+import androidx.privacysandbox.ads.adservices.adid.AdId
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

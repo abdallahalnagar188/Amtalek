@@ -749,7 +749,7 @@
 
     <string name="posts">المنشورات</string>
 
-    <string name="contact_us_throw">تواصل معنا عبر</string>
+    <string name="contact_us_throw">تواصل مع الشركه </string>
     <string name="messaging">محادثة</string>
     <string name="whatsapp">واتساب</string>
     <string name="call_us">إتصل بنا</string>
@@ -1035,6 +1035,7 @@
     <string name="expiration_date">وقت الانتهاء</string>
     <string name="no_package">you must buy a package</string>
     <string name="buy_addon_now">اشتري الان</string>
+    <string name="please_select_addons_to_buy">برجاء اختيار اضافات</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

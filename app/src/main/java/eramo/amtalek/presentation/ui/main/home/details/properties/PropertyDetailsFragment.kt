@@ -335,7 +335,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     currentBinding.apply {
                         imageView13.setImage(item)
                         this.root.setOnClickListener {
-                            this@PropertyDetailsFragment.binding
+                            this@PropertyDetailsFragment.binding.adsSlider
                         }
                     }
                 }

@@ -238,6 +238,7 @@ class MainActivity : AppCompatActivity(),
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
+            navHeaderTerms.visibility = View.GONE
 
 //            navHeaderNewProjects.setOnClickListener {
 ////                navController.navigate(R.id.latestProjectsFragment)
@@ -284,7 +285,7 @@ class MainActivity : AppCompatActivity(),
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
 
-            navHeaderAddAddons.setOnClickListener{
+            navHeaderAddAddons.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
                     navController.navigate(R.id.addAdomsFragment)
                 } else {

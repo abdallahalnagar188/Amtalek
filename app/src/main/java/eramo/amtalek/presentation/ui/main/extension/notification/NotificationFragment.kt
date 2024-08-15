@@ -40,12 +40,12 @@ class NotificationFragment : BindingFragment<FragmentNotificationBinding>(),
 
         setupScreenHeader()
 
-        initNotificationsRv(Dummy.dummyNotificationsList())
+      //  initNotificationsRv(Dummy.dummyNotificationsList())
     }
 
     private fun setupScreenHeader() {
         binding.inToolbar.apply {
-            tvTitle.text = getString(R.string.s_Notifications, Dummy.dummyNotificationsList().size.toString())
+           // tvTitle.text = getString(R.string.s_Notifications, Dummy.dummyNotificationsList().size.toString())
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }

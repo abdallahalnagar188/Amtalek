@@ -112,12 +112,15 @@ data class Data(
     @SerializedName("data")
     var `data`: List<MyData>?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("property_type_id")
+    var propertyTypeId: Int?
 ) : Parcelable{
     fun toHomeExtraSectionsModel(): HomeExtraSectionsModel {
         return HomeExtraSectionsModel(
             title = title?:"",
-            sections = data?.map { it.toPropertyModel() }?: emptyList()
+            sections = data?.map { it.toPropertyModel() }?: emptyList(),
+            propertyTypeId = propertyTypeId?:0
         )
     }
 }

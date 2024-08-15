@@ -261,7 +261,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/FSignUp_til_re_password" />
 
-            <androidx.appcompat.widget.AppCompatSpinner
+            <Spinner
                 android:id="@+id/FSignUp_countries_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
@@ -275,7 +275,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/FSignUp_til_re_password" />
 
-            <androidx.appcompat.widget.AppCompatSpinner
+            <Spinner
                 android:id="@+id/FSignUp_cities_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
@@ -288,7 +288,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/FSignUp_countries_spinner" />
-            <androidx.appcompat.widget.AppCompatSpinner
+            <Spinner
                 android:id="@+id/FSignUp_regions_spinner"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_text_height"
