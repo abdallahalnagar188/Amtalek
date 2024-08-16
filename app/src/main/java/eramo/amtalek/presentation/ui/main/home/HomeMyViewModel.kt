@@ -136,16 +136,16 @@ class HomeMyViewModel @Inject constructor(
 
     val allPropertiesPagingData: Flow<PagingData<DataX>> = Pager(
         config = PagingConfig(
-            pageSize = 10,
+            pageSize = 1,
             enablePlaceholders = false
         ),
-        pagingSourceFactory = { allPropertyRepo.getAllPropertiesPagingSource() }
+        pagingSourceFactory = {AllPropertiesPagingSource(api) }
     ).flow
         .cachedIn(viewModelScope)
 
     val allNormalPropertyPagingFlow: Flow<PagingData<DataX>> = Pager(
         config = PagingConfig(
-            pageSize = 10,
+            pageSize = 1,
             enablePlaceholders = false
         ),
         pagingSourceFactory = { allNormalProperty.getAllNormalPropertiesPagingSource() }
@@ -154,7 +154,7 @@ class HomeMyViewModel @Inject constructor(
 
     val allNewsPagingFlow: Flow<PagingData<eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX>> = Pager(
         config = PagingConfig(
-            pageSize = 10,
+            pageSize = 1,
             enablePlaceholders = false
         ),
         pagingSourceFactory = { newsRepo.getAllNewsPagingSource() }

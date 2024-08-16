@@ -261,11 +261,15 @@ interface AmtalekApi {
 
     @GET("mobile/all-properties/featured?limit=10")
     suspend fun getAllFeaturedProperties(
+        @Query("page") page: Int,
+        @Query("size") size: Int = 1
     ): AllPropertyResponse
 
 
     @GET("mobile/all-properties/normal?limit=10")
     suspend fun getAllNormalProperties(
+        @Query("page") page: Int,
+        @Query("size") size: Int = 1
     ): AllPropertyResponse
 
     @GET("mobile/projects")

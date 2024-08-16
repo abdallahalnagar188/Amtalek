@@ -11,13 +11,14 @@ class AllPropertiesPagingSource @Inject constructor(
 ) : PagingSource<Int, DataX>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DataX> {
+        val page = params.key ?: 1
         return try {
-            val response = amtalekApi.getAllFeaturedProperties()
+            val response = amtalekApi.getAllFeaturedProperties(page)
             val data = response.data?.original?.data
             LoadResult.Page(
                 data = data?: emptyList(),
                 prevKey = null, // No previous page
-                nextKey = if (data?.isEmpty() == true) null else params.key?.plus(1) // Next page key
+                nextKey = if (data.isNullOrEmpty()) null else page + 1 // Next page key
             )
         } catch (e: Exception) {
             LoadResult.Error(e)
@@ -25,10 +26,11 @@ class AllPropertiesPagingSource @Inject constructor(
     }
 
     override fun getRefreshKey(state: PagingState<Int, DataX>): Int? {
+        return null
         // Return the initial key used when the list was first loaded.
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
-        }
+//        return state.anchorPosition?.let { anchorPosition ->
+//            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+//                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+//        }
     }
 }

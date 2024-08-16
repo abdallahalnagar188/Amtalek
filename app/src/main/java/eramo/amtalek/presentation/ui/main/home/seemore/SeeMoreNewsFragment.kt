@@ -24,13 +24,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SeeMoreNewsFragment : BindingFragment<FragmentSeeMorePropertiesByCityBinding>(), RvNewsAdapter.OnItemClickListener {
+class SeeMoreNewsFragment : BindingFragment<FragmentSeeMorePropertiesByCityBinding>(),
+    RvNewsAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesByCityBinding::inflate
 
-    private val args by navArgs<SeeMoreProjectsFragmentArgs>()
-    private val projectsList get() = args.projectsList
 
     val viewModel: HomeMyViewModel by viewModels()
 

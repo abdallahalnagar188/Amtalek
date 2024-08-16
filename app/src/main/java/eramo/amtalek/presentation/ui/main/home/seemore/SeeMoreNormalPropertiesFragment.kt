@@ -40,9 +40,6 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
 
-//    private val args by navArgs<SeeMorePropertiesFragmentArgs>()
-//    private val propertiesList get() = args.propertiesList
-//    private val title get() = args.title
 
     val viewModel: HomeMyViewModel by viewModels()
     @Inject
@@ -56,12 +53,7 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
         fetchProperties()
         fetchAddRemoveToFavState()
     }
-//
-//    private fun setupViews(list:List<PropertyModel> ) {
-//
-//        setupRv(list)
-//
-//    }
+
 
     private fun setupToolbar() {
         binding.inToolbar.apply {

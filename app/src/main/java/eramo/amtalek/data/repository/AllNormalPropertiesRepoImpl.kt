@@ -10,7 +10,7 @@ import eramo.amtalek.domain.repository.AllPropertyRepo
 
 class AllNormalPropertiesRepoImpl(private val apiService:AmtalekApi) :AllNormalPropertiesRepo{
     override suspend fun getAllNormalPropertiesFromRemote(): AllPropertyResponse {
-        return apiService.getAllNormalProperties()
+        return apiService.getAllNormalProperties(1)
     }
 
     override fun getAllNormalPropertiesPagingSource(): PagingSource<Int, DataX> {
@@ -20,14 +20,14 @@ class AllNormalPropertiesRepoImpl(private val apiService:AmtalekApi) :AllNormalP
                     val currentPage = params.key ?: 1
 
                     // Fetching the data from the API
-                    val response = apiService.getAllNormalProperties()
+                    val response = apiService.getAllNormalProperties(currentPage)
                     val data = response.data?.original?.data
 
                     // Returning the loaded result
                     LoadResult.Page(
                         data = data?: emptyList(),
                         prevKey = if (currentPage == 1) null else currentPage - 1,
-                        nextKey = if (data?.isEmpty() == true) null else currentPage + 1
+                        nextKey = if (data.isNullOrEmpty()) null else currentPage + 1
                     )
                 } catch (e: Exception) {
                     LoadResult.Error(e)

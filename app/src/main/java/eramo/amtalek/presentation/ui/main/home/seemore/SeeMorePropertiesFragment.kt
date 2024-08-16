@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.main.home.seemore
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,11 +38,18 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     @Inject
     lateinit var rvPropertiesPagingAdapter: RvPropertiesAdapter
 
+    @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupRecyclerView()
-
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allPropertiesPagingData.collect { pagingData ->
+                    rvPropertiesPagingAdapter.submitData(pagingData)
+                }
+            }
+        }
         fetchProperties()
         fetchAddRemoveToFavState()
     }
@@ -59,13 +67,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     }
 
     private fun fetchProperties() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allPropertiesPagingData.collectLatest { pagingData ->
-                    rvPropertiesPagingAdapter.submitData(pagingData)
-                }
-            }
-        }
+
     }
 
     private fun fetchAddRemoveToFavState() {

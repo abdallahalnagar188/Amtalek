@@ -10,7 +10,7 @@ import eramo.amtalek.domain.repository.AllPropertyRepo
 class AllPropertiesRepoImpl(private val apiService: AmtalekApi) : AllPropertyRepo {
 
     override suspend fun getAllPropertiesFromRemote(): AllPropertyResponse {
-        return apiService.getAllFeaturedProperties()
+        return apiService.getAllFeaturedProperties(1)
     }
 
     override fun getAllPropertiesPagingSource(): PagingSource<Int, DataX> {
@@ -20,7 +20,7 @@ class AllPropertiesRepoImpl(private val apiService: AmtalekApi) : AllPropertyRep
                     val currentPage = params.key ?: 1
 
                     // Fetching the data from the API
-                    val response = apiService.getAllFeaturedProperties()
+                    val response = apiService.getAllFeaturedProperties(currentPage)
                     val data = response.data?.original?.data
 
                     // Returning the loaded result
