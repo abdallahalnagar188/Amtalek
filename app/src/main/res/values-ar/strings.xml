@@ -925,7 +925,7 @@
     <string name="please_provide_your_offer_type">من فضلك ادخل نوع عرضك</string>
     <string name="message_with_dots">رسالتك: </string>
     <string name="rent">ايجار</string>
-    <string name="buy">شراء</string>
+    <string name="buy">شراء الان</string>
     <string name="choose_a_valid_offer_type">اختر نوع عرض صحيح</string>
     <string name="enter_property_name_in_english">ادخل اسم العقار بالانجليزية</string>
     <string name="enter_property_name_in_arabic">ادخل اسم العقار بالعربية</string>
@@ -1035,7 +1035,12 @@
     <string name="expiration_date">وقت الانتهاء</string>
     <string name="no_package">you must buy a package</string>
     <string name="buy_addon_now">اشتري الان</string>
+    <string name="buy_now_addon">اشتري الان</string>
     <string name="please_select_addons_to_buy">برجاء اختيار اضافات</string>
+    <string name="duration">المدة الزمنيه</string>
+    <string name="duration_value">duration value</string>
+    <string name="way_to_bay">طريقة الدفع</string>
+    <string name="payment_card">فيزا</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

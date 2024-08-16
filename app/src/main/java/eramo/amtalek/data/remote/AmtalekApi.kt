@@ -2,7 +2,10 @@ package eramo.amtalek.data.remote
 
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.adons.AddonsResponse
+import eramo.amtalek.data.remote.dto.adons.BuyAddonsRequest
+import eramo.amtalek.data.remote.dto.adons.BuyAddonsResponse
 import eramo.amtalek.data.remote.dto.auth.CitiesResponse
+import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
 import eramo.amtalek.data.remote.dto.auth.CountriesResponse
 import eramo.amtalek.data.remote.dto.auth.OnBoardingDto
 import eramo.amtalek.data.remote.dto.auth.RegionsResponse
@@ -11,11 +14,10 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
-import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
-import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.drawer.AppInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.PolicyInfoResponse
 import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.GetProfileResponse
@@ -53,12 +55,13 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.Send
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
-import eramo.amtalek.data.remote.dto.splash.SplashResponse
 import eramo.amtalek.data.remote.dto.splash.splashV2.OnBordingResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
+import eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -378,19 +381,7 @@ interface AmtalekApi {
         @Field("email") email: String,
     ): Response<SendPropertyCommentResponse>
 
-    @FormUrlEncoded
-    @POST("mobile/submit-to-broker")
-    suspend fun sendMessageToPropertyOwner(
-        @Header("Authorization") userToken: String?,
-        @Field("property_id") propertyId: String,
-        @Field("broker_type") vendorType:String,
-        @Field("message") message: String,
-        @Field("vendor_id") vendorId: String,
-        @Field("not_ropot") not_ropot: String = "yes",
-        @Field("name") name: String,
-        @Field("phone") phone: String,
-        @Field("email") email: String,
-    ): Response<SubmitToBrokerResponse>
+
 
     @FormUrlEncoded
     @POST("mobile/send-offer")
@@ -620,9 +611,23 @@ interface AmtalekApi {
         @Field("name") name: String?,
         @Field("email") email: String?,
         @Field("phone") phone: String?,
-        @Field("message") message: String?,
-        @Field("broker_type") vendorType: String?
+        @Field("broker_type") vendorType: String?,
+        @Field("message") message: String?
     ): Response<SendToBrokerResponse>
+
+    @FormUrlEncoded
+    @POST("mobile/submit-to-broker")
+    suspend fun sendMessageToPropertyOwner(
+        @Header("Authorization") userToken: String?,
+        @Field("property_id") propertyId: String,
+        @Field("broker_type") vendorType: String,
+        @Field("message") message: String,
+        @Field("vendor_id") vendorId: String,
+        @Field("not_ropot") not_ropot: String = "yes",
+        @Field("name") name: String,
+        @Field("phone") phone: String,
+        @Field("email") email: String,
+    ): Response<SubmitToBrokerResponse>
 
     @FormUrlEncoded
     @POST("mobile/submit-to-broker")
@@ -637,4 +642,9 @@ interface AmtalekApi {
     ): Response<SentToBrokerMessageResponse>
 
 
+    @POST("subscribe-addons")
+    suspend fun buyAddons(
+        @Header("Authorization") userToken: String?,
+        @Body requestBody: ItemCard,
+    ): Response<BuyAddonsResponse>
 }

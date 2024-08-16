@@ -672,15 +672,18 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //                }else {
 //                    contactUs.root.visibility = View.GONE
 //                }
-
+                if (model.vendorType == "user") {
+                    tvVisitProfile.visibility = View.GONE
+                    ivArrowBroker.visibility = View.GONE
+                }
                 tvVisitProfile.setOnClickListener {
                     if (model.vendorType == "broker")
                         navigateToProfile(model = model)
                     else if (model.vendorType == "user") {
-                        val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
-                            model.brokerId.toString()
-                        )
-                        findNavController().navigate(action)
+//                        val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
+//                            model.brokerId.toString()
+//                        )
+//                        findNavController().navigate(action)
                         Log.e("id for user", model.id.toString())
                     }
                 }

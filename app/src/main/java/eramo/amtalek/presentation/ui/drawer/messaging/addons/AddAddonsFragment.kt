@@ -17,6 +17,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddon
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
@@ -37,10 +38,10 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
 
 
         rvAddonsMonthlyPriceAdapter = RvAddonsMonthlyPriceAdapter { totalPrice ->
-            binding.tvTotalPriceAmount.text = totalPrice.toString()
+            binding.tvTotalPriceAmount.text = getString(R.string.s_egp, totalPrice.toString())
         }
         rvAddonsYearlyPriceAdapter = RvAddonsYearlyPriceAdapter { totalPrice ->
-            binding.tvTotalPriceAmount.text = totalPrice.toString()
+            binding.tvTotalPriceAmount.text = getString(R.string.s_egp, totalPrice.toString())
 
         }
 
@@ -69,9 +70,9 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
 
                             viewModel.getAddons()
                             lifecycleScope.launch {
-                                viewModel.addons.collect {
+                                viewModel.addons.collect { it ->
                                     viewModel.addons.value.data?.data?.let { initMonthlyRv(it) }
-                                    setupListeners(it.data?.data ?: emptyList())
+                                    setupListeners(it.data?.data ?: emptyList(),"monthly")
                                 }
                             }
                         }
@@ -89,8 +90,10 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
 
                             viewModel.getAddons()
                             lifecycleScope.launch {
-                                viewModel.addons.collect {
+                                viewModel.addons.collect { it ->
                                     viewModel.addons.value.data?.data?.let { initYearlyRv(it) }
+                                    setupListeners(it.data?.data ?: emptyList(),"yearly")
+
                                 }
                             }
                         }
@@ -127,10 +130,10 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
     }
 
 
-    private fun setupListeners(data: List<Data?>) {
+    private fun setupListeners(data: List<Data?>,durations:String) {
 
         binding.btnTotalPrice.setOnClickListener {
-            if (binding.tvTotalPriceAmount.text != "0.0") {
+            if (binding.tvTotalPriceAmount.text != getString(R.string.s_egp, "0.0")) {
                 findNavController().navigate(
                     R.id.buyAddonsFragment,
                     bundleOf(
@@ -144,7 +147,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                                 rvAddonsMonthlyPriceAdapter.calculateTotalPrice(data).toInt()
                             } else {
                                 rvAddonsYearlyPriceAdapter.calculateTotalPrice(data).toInt()
-                            }, deuration = if (binding.monthlyBtnAddon.isChecked) {
+                            }, deuration = if (durations == "monthly") {
                                 "monthly"
                             } else {
                                 "yearly"

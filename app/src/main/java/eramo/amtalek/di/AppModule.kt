@@ -48,6 +48,7 @@ object AppModule {
 
 
 
+
     @Provides
     @Singleton
     fun provideOnBoardingRepository(apiService: AmtalekApi): SplashRepo {
@@ -85,6 +86,12 @@ object AppModule {
     fun provideAddonsRepo(apiService: AmtalekApi):AddonsRepo{
         return AddonsRepoImpl(apiService)
     }
+
+    @Provides
+    @Singleton
+    fun provideBuyAddonsRepository(apiService: AmtalekApi): BuyAddonsRepo {
+        return BuyAddonsRepoImpl(apiService)
+    }
     @Provides
     @Singleton
     fun provideAllNormalPropertiesRepo(apiService: AmtalekApi):AllNormalPropertiesRepo{
@@ -111,8 +118,6 @@ object AppModule {
     fun provideBrokersPropertiesRepository(apiService: AmtalekApi): BrokersPropertiesRepo  {
         return BrokersPropertiesRepoImpl(apiService)
     }
-
-
     @Provides
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): AmtalekApi =

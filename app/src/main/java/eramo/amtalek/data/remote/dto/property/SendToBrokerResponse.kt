@@ -6,7 +6,7 @@ import eramo.amtalek.data.remote.dto.contactedAgent.DataX
 
 data class SendToBrokerResponse(
     @SerializedName("data")
-    var `data`: List<DataX?>?,
+    var `data`: DataX?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")

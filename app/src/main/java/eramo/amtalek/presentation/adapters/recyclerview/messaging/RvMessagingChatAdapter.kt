@@ -1,11 +1,14 @@
 package eramo.amtalek.presentation.adapters.recyclerview.messaging
 
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import eightbitlab.com.blurview.RenderScriptBlur
 import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.ItemMessagingChatBinding
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
@@ -22,35 +25,24 @@ class RvMessagingChatAdapter @Inject constructor() :
         private const val VIEW_TYPE_BLURRED = 2
 
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
-            override fun areItemsTheSame(oldItem: Data, newItem: Data) = oldItem == newItem
+            override fun areItemsTheSame(oldItem: Data, newItem: Data) = oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: Data, newItem: Data) = oldItem == newItem
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position).messageType == "valid") {
-            VIEW_TYPE_VALID
-        } else {
-            VIEW_TYPE_BLURRED
-        }
+        return if (getItem(position).messageType == "valid") VIEW_TYPE_VALID else VIEW_TYPE_BLURRED
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_VALID -> {
-                val binding = ItemMessagingChatBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                ValidMessageViewHolder(binding)
-            }
-            VIEW_TYPE_BLURRED -> {
-                val binding = ItemMessagingChatBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                BlurredMessageViewHolder(binding)
-            }
-            else -> throw IllegalArgumentException("Invalid view type")
+        val binding = ItemMessagingChatBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return if (viewType == VIEW_TYPE_VALID) {
+            ValidMessageViewHolder(binding)
+        } else {
+            BlurredMessageViewHolder(binding)
         }
     }
 
@@ -68,9 +60,7 @@ class RvMessagingChatAdapter @Inject constructor() :
         init {
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
-                    getItem(bindingAdapterPosition).let {
-                        listener.onChatClick(it)
-                    }
+                    listener.onChatClick(getItem(bindingAdapterPosition))
                 }
             }
         }
@@ -79,7 +69,7 @@ class RvMessagingChatAdapter @Inject constructor() :
             binding.apply {
                 tvName.text = model.name
                 Glide.with(itemView).load(model.image).into(ivImage)
-                // Other binding logic for valid messages
+                blurView.visibility = View.GONE  // Hide blur for valid messages
             }
         }
     }
@@ -89,8 +79,10 @@ class RvMessagingChatAdapter @Inject constructor() :
 
         init {
             binding.root.setOnClickListener {
-                // Optionally prevent clicking on blurred messages or show a toast
-                listener.onChatClick(getItem(bindingAdapterPosition))
+                // Handle or prevent clicks on blurred messages
+                if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                    listener.onChatClick(getItem(bindingAdapterPosition))
+                }
             }
         }
 
@@ -98,10 +90,16 @@ class RvMessagingChatAdapter @Inject constructor() :
             binding.apply {
                 tvName.text = model.name
                 Glide.with(itemView).load(model.image).into(ivImage)
-                // Set text and image with low opacity for blurred messages
-                tvName.alpha = 0.5f
-                ivImage.alpha = 0.5f
-                // Additional UI changes for blurred messages
+
+                // Apply blur effect
+                blurView.apply {
+                    visibility = View.VISIBLE
+                    setupWith(binding.root)
+                        .setBlurAlgorithm(RenderScriptBlur(itemView.context))
+                        .setBlurRadius(10f)
+                        .setOverlayColor(Color.parseColor("#99000000"))
+                        .setHasFixedTransformationMatrix(true)
+                }
             }
         }
     }
@@ -114,3 +112,4 @@ class RvMessagingChatAdapter @Inject constructor() :
         fun onChatClick(model: Data)
     }
 }
+

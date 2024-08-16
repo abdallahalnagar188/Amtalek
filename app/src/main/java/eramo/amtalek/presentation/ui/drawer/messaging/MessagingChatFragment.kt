@@ -1,27 +1,21 @@
 package eramo.amtalek.presentation.ui.drawer.messaging
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import eightbitlab.com.blurview.RenderScriptBlur
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.FragmentMessagingChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.UserUtil
-import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,12 +28,30 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
     @Inject
     lateinit var rvMessagingChatAdapter: RvMessagingChatAdapter
+
     val viewModel: MessagingViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.getContactedAgents()
         setupViews()
+        initChatRv()
+        fetchContactedAgents()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getContactedAgents()
+        lifecycleScope.launch {
+            viewModel.contactedAgents.collect {
+                rvMessagingChatAdapter.submitList(it?.data)
+            }
+        }
+        if (UserUtil.getHasPackage() == "yes") {
+            binding.addAdoms.visibility = View.VISIBLE
+        }
+
     }
 
     private fun setupViews() {
@@ -56,19 +68,24 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
                 showToast(getString(R.string.no_package))
             }
         }
-        viewModel.getContactedAgents()
+
+
+    }
+
+    private fun fetchContactedAgents() {
         lifecycleScope.launch {
-            viewModel.contactedAgents.collect {
-                initChatRv(viewModel.contactedAgents.value?.data ?: emptyList())
+            viewModel.contactedAgents.collectLatest {
+                rvMessagingChatAdapter.submitList(it?.data)
             }
         }
     }
 
-    private fun initChatRv(data: List<Data?>) {
+    private fun initChatRv() {
         rvMessagingChatAdapter.setListener(this@MessagingChatFragment)
         binding.rv.adapter = rvMessagingChatAdapter
-        rvMessagingChatAdapter.submitList(data)
+
     }
+
 
     override fun onChatClick(model: Data) {
         if (model.messageType == "valid") {
@@ -81,18 +98,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
             findNavController().navigate(action)
         } else {
             showToast("Agent is not valid")
-            blurChatScreen()
         }
     }
 
-    private fun blurChatScreen() {
-        binding.blurView.apply {
-            setupWith(binding.root)
-                .setBlurAlgorithm(RenderScriptBlur(requireContext()))
-                .setBlurRadius(10f)
-                .setOverlayColor(Color.parseColor("#99000000"))
-                .setHasFixedTransformationMatrix(true)
-            visibility = View.VISIBLE
-        }
-    }
 }

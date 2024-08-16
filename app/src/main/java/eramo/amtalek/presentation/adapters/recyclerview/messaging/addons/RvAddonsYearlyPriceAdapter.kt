@@ -70,7 +70,7 @@ class RvAddonsYearlyPriceAdapter @Inject constructor(
             val yearlyPrice = binding.tvAddonPrice.text.toString().toDouble()
             val totalPrice = yearlyPrice * counter
             binding.tvCounter.text = counter.toString()
-            binding.totalPriceForAddon.text = totalPrice.toString()
+            binding.totalPriceForAddon.text = itemView.context.getString(R.string.s_egp, totalPrice.toString())
             totalPrices[position] = totalPrice
             val aggregatedTotalPrice = totalPrices.sum()
             onTotalPriceChanged(aggregatedTotalPrice)
