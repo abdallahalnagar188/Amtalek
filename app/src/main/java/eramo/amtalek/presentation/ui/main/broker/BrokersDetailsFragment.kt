@@ -120,6 +120,9 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private fun assignData(model: Data) {
         binding.apply {
 
+            tvPropertyForRent.visibility = View.GONE
+            tvPropertyForSeal.visibility = View.GONE
+            rvForRent.visibility = View.GONE
 
             tvAllProjectsCount.text =
                 "${model.property_for_sale?.plus(model.property_for_rent ?: 0)}  " + getString(R.string.property)

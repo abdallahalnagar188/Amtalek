@@ -1,8 +1,11 @@
 package eramo.amtalek.data.remote.dto.myHome.news.allnews
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class DataX(
     @SerializedName("added_by")
     var addedBy: String?,
@@ -26,4 +29,4 @@ data class DataX(
     var title: String?,
     @SerializedName("views")
     var views: Int?
-)
+): Parcelable

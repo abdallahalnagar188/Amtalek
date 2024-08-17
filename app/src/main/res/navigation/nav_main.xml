@@ -366,6 +366,16 @@
             android:name="news"
             app:argType="eramo.amtalek.domain.model.home.news.NewsModel" />
     </fragment>
+
+    <fragment
+        android:id="@+id/newsDetailsFragmentInSeeMore"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.NewsDetailsInSeeMoreFragment"
+        android:label="fragment_news_details_in_see_more"
+        tools:layout="@layout/fragment_news_details_in_see_more">
+        <argument
+            android:name="news"
+            app:argType="eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX" />
+    </fragment>
     <fragment
         android:id="@+id/offersChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.OffersChatFragment"

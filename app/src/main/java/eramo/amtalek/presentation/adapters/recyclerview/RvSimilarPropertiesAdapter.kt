@@ -47,7 +47,6 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
 
         fun bind(model: PropertyModel) {
             var isFav = model.isFavourite
-            Log.e("Megozz", isFav, )
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)

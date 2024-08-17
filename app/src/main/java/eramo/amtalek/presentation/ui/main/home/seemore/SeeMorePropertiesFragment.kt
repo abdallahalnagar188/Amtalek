@@ -15,6 +15,7 @@ import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.FragmentSeeMorePropertiesBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.presentation.adapters.recyclerview.RvNormalPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
@@ -28,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBinding>(),
-    RvPropertiesAdapter.OnItemClickListener {
+    RvPropertiesAdapter.OnItemClickListener, RvNormalPropertiesAdapter.OnFavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
@@ -50,7 +51,6 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                 }
             }
         }
-        fetchProperties()
         fetchAddRemoveToFavState()
     }
 
@@ -62,13 +62,10 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     }
 
     private fun setupRecyclerView() {
-        rvPropertiesPagingAdapter.setListener(this)
+        rvPropertiesPagingAdapter.setListener(this, this)
         binding.rvProperties.adapter = rvPropertiesPagingAdapter
     }
 
-    private fun fetchProperties() {
-
-    }
 
     private fun fetchAddRemoveToFavState() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -77,7 +74,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                     when (state) {
                         is UiState.Success -> {
                             // Refresh the PagingData if necessary
-                            rvPropertiesPagingAdapter.refresh()
+//                            rvPropertiesPagingAdapter.refresh()
                         }
                         is UiState.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
@@ -104,5 +101,9 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                 )
             }
         }
+    }
+
+    override fun onFavClick(model: DataX) {
+        viewModel.addOrRemoveFav(model.id?:0)
     }
 }

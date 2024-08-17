@@ -16,8 +16,12 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
+import eramo.amtalek.data.remote.dto.userDetials.Data
+import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForRent
+import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForSale
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
-import eramo.amtalek.presentation.adapters.recyclerview.RvUserDetailsPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvUserDetailsPropertiesForRentAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.RvUserDetailsPropertiesForSallAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.presentation.ui.main.broker.BrokersViewModel
@@ -28,13 +32,14 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.showToast
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
-    RvUserDetailsPropertiesAdapter.OnItemClickListener,
-    FavClickListenerOriginalItem {
+    RvUserDetailsPropertiesForSallAdapter.OnItemClickListener,
+    FavClickListenerOriginalItem, RvUserDetailsPropertiesForRentAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokerDetailsBinding::inflate
@@ -44,7 +49,10 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private val homeViewModel: HomeMyViewModel by viewModels()
 
     @Inject
-    lateinit var rvBrokerDetailsPropertiesAdapter: RvUserDetailsPropertiesAdapter
+    lateinit var rvBrokerDetailsPropertiesAdapter: RvUserDetailsPropertiesForSallAdapter
+
+    @Inject
+    lateinit var rvBrokerDetailsPropertiesForRentAdapter: RvUserDetailsPropertiesForRentAdapter
 
     lateinit var id: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,17 +72,12 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
         viewModel.getUserDetails(id.toInt())
         lifecycleScope.launch {
-            viewModel.userDetails.collect { state ->
+            viewModel.userDetails.collectLatest { state ->
                 state?.data?.get(0)?.let { assignData(it) }
+                initRv(state?.data?.get(0)?.submitted_props_for_sale ?: emptyList())
+                initRvForRent(state?.data?.get(0)?.submitted_props_for_rent ?: emptyList())
             }
         }
-        Log.e("properties in fragment", viewModel.getUserDetails(id.toInt()).toString())
-        lifecycleScope.launch {
-            viewModel.userDetails.collect { state ->
-                initRv(state?.data ?: emptyList())
-            }
-        }
-
     }
 
     private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String, brokerType: String) {
@@ -102,72 +105,99 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun assignData(model: eramo.amtalek.data.remote.dto.userDetials.Data) {
+    private fun assignData(model: Data) {
         binding.apply {
-            //tvAllProjectsCount.text = "${model.property_for_sale?.plus(model.property_for_rent ?: 0)} properties"
+            // Set title, description, and other properties
             tvTitle.text = model.name
             tvDescription.text = model.description
             tvLocation.visibility = View.GONE
 
             btnProjects.visibility = View.GONE
-            //     tvProjectsCount.text = "${model.projects_count} projects"
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
-            // Glide.with(requireContext()).load(model.cover).into(ivUserCover)
-        }
-        binding.shareView.btnCall.setOnClickListener {
-            if (UserUtil.isUserLogin()) {
-                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "call", it2) } }
-                val phoneNumber = "+20${model.phone}"
-                val callIntent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:$phoneNumber")
-                }
-                startActivity(callIntent)
+
+            // Show the "for sale" properties first
+            if (!model.submitted_props_for_sale.isNullOrEmpty()) {
+                initRv(model.submitted_props_for_sale)
+                rv.visibility = View.VISIBLE
+                rvForRent.visibility = View.GONE
             } else {
-                findNavController().navigate(R.id.loginDialog)
+                // If there are no "for sale" properties, show the "for rent" properties instead
+                initRvForRent(model.submitted_props_for_rent ?: emptyList())
+                rv.visibility = View.GONE
+                rvForRent.visibility = View.VISIBLE
             }
 
-        }
-
-        binding.shareView.btnWhatsApp.setOnClickListener {
-            if (UserUtil.isUserLogin()) {
-                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "meeting", it2) } }
-                val phoneNumber = model.phone
-                val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
-                val sendIntent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(url)
+            tvPropertyForSeal.setOnClickListener {
+                if (model.submitted_props_for_sale != null) {
+                    initRv(model.submitted_props_for_sale)
+                    rv.visibility = View.VISIBLE
+                    rvForRent.visibility = View.GONE
+                } else {
+                    rv.visibility = View.GONE
                 }
-                try {
-                    startActivity(sendIntent)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
-                }
-            } else {
-                findNavController().navigate(R.id.loginDialog)
             }
 
-        }
-
-        binding.shareView.btnMessaging.setOnClickListener {
-            if (UserUtil.isUserLogin()) {
-                model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "email", it2) } }
-                val emailAddress = model.email
-                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:$emailAddress")
-                    putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
-                    putExtra(Intent.EXTRA_TEXT, "Email body here")
+            tvPropertyForRent.setOnClickListener {
+                if (model.submitted_props_for_rent != null) {
+                    initRvForRent(model.submitted_props_for_rent)
+                    rvForRent.visibility = View.VISIBLE
+                    rv.visibility = View.GONE
+                } else {
+                    rvForRent.visibility = View.GONE
                 }
-                startActivity(emailIntent)
-            } else {
-                findNavController().navigate(R.id.loginDialog)
             }
 
-        }
+            binding.shareView.btnCall.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "call", it2) } }
+                    val phoneNumber = "+20${model.phone}"
+                    val callIntent = Intent(Intent.ACTION_DIAL).apply {
+                        data = Uri.parse("tel:$phoneNumber")
+                    }
+                    startActivity(callIntent)
+                } else {
+                    findNavController().navigate(R.id.loginDialog)
+                }
+            }
 
+            binding.shareView.btnWhatsApp.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "meeting", it2) } }
+                    val phoneNumber = model.phone
+                    val url = "https://api.whatsapp.com/send?phone=+20$phoneNumber"
+                    val sendIntent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(url)
+                    }
+                    try {
+                        startActivity(sendIntent)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        Toast.makeText(requireContext(), "WhatsApp is not installed on your device", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    findNavController().navigate(R.id.loginDialog)
+                }
+            }
+
+            binding.shareView.btnMessaging.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    model.id?.let { it1 -> model.broker_type?.let { it2 -> handleContactAction(null, it1, "email", it2) } }
+                    val emailAddress = model.email
+                    val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:$emailAddress")
+                        putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
+                        putExtra(Intent.EXTRA_TEXT, "Email body here")
+                    }
+                    startActivity(emailIntent)
+                } else {
+                    findNavController().navigate(R.id.loginDialog)
+                }
+            }
+        }
     }
 
-    private fun initRv(data: List<eramo.amtalek.data.remote.dto.userDetials.Data>) {
+
+    private fun initRv(data: List<SubmittedPropsForSale>) {
         rvBrokerDetailsPropertiesAdapter.setListener(
             this@UserDetailsFragment,
             this@UserDetailsFragment
@@ -176,19 +206,27 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         rvBrokerDetailsPropertiesAdapter.submitList(data)
     }
 
+    private fun initRvForRent(data: List<SubmittedPropsForRent>) {
+        rvBrokerDetailsPropertiesForRentAdapter.setListener(
+            this@UserDetailsFragment,
+            this@UserDetailsFragment
+        )
+        binding.rv.adapter = rvBrokerDetailsPropertiesForRentAdapter
+        rvBrokerDetailsPropertiesForRentAdapter.submitList(data)
+    }
     override fun onPause() {
         super.onPause()
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
-    override fun onPropertyClick(model: eramo.amtalek.data.remote.dto.userDetials.Data) {
+    override fun onPropertyClick(model: SubmittedPropsForSale) {
         //findNavController().navigate(R.id.propertyDetailsSellFragment, bundleOf("id" to model.id))
 
-        when (model.submitted_props_for_sale?.get(0)?.for_what) {
+        when (model.for_what) {
             PropertyType.FOR_SELL.key -> {
                 findNavController().navigate(
                     R.id.propertyDetailsFragment,
-                    model.submitted_props_for_sale[0].listing_number?.let {
+                    model.listing_number?.let {
                         PropertyDetailsFragmentArgs(
                             it
                         ).toBundle()
@@ -199,7 +237,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             PropertyType.FOR_RENT.key -> {
                 findNavController().navigate(
                     R.id.propertyDetailsFragment,
-                    model.submitted_props_for_sale?.get(0)?.listing_number?.let {
+                    model.listing_number?.let {
                         PropertyDetailsFragmentArgs(
                             it
                         ).toBundle()
@@ -210,7 +248,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             PropertyType.FOR_BOTH.key -> {
                 findNavController().navigate(
                     R.id.propertyDetailsFragment,
-                    model.submitted_props_for_sale?.get(0)?.listing_number?.let {
+                    model.listing_number?.let {
                         PropertyDetailsFragmentArgs(
                             it
                         ).toBundle()
@@ -222,6 +260,43 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
     override fun onFavClick(model: OriginalItem) {
         model.id?.let { homeViewModel.addOrRemoveFav(it) }
+    }
+
+    override fun onPropertyClick(model: SubmittedPropsForRent) {
+        when (model.for_what) {
+            PropertyType.FOR_SELL.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsFragment,
+                    model.listing_number?.let {
+                        PropertyDetailsFragmentArgs(
+                            it
+                        ).toBundle()
+                    }
+                )
+            }
+
+            PropertyType.FOR_RENT.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsFragment,
+                    model.listing_number?.let {
+                        PropertyDetailsFragmentArgs(
+                            it
+                        ).toBundle()
+                    }
+                )
+            }
+
+            PropertyType.FOR_BOTH.key -> {
+                findNavController().navigate(
+                    R.id.propertyDetailsFragment,
+                    model.listing_number?.let {
+                        PropertyDetailsFragmentArgs(
+                            it
+                        ).toBundle()
+                    }
+                )
+            }
+        }
     }
 
 }

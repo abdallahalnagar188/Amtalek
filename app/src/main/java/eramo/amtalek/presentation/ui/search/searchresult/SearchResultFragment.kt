@@ -60,7 +60,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     private var selectedLocationName: String? = null
 
     val viewModel by viewModels<SearchFormViewModel>()
-    val searchResultViewModel by viewModels<SearchResultViewModel>()
+    private val searchResultViewModel by viewModels<SearchResultViewModel>()
 
     private var selectedPurposeId: Int? = null
     private var selectedFinishingId: Int? = null

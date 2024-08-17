@@ -210,7 +210,7 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/_10ssp" />
+            android:textSize="@dimen/_8ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

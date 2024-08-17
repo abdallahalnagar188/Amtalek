@@ -11,6 +11,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -343,55 +344,55 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
-    private fun handleContactAction(propertyId: Int, brokerId: Int, brokerType: String, transactionType: String) {
-        sharedViewModel.sendContactRequest(propertyId, brokerId, brokerType = brokerType, transactionType)
-    }
-
-
-    private fun checkActorTypefirstime() {
-        Log.e("state", UserUtil.getUserType())
-        Log.e("state", UserUtil.getHasPackage())
-        if (UserUtil.getUserType() == "broker" && UserUtil.getHasPackage() == "yes") {
-            binding.contactUs.root.visibility = View.VISIBLE
-        } else {
-            binding.contactUs.root.visibility = View.GONE
-        }
-    }
-
-    private fun checkActorType() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.loginData.collect {
-                    when (it) {
-                        is UiState.Success -> {
-                            Log.e("state", it.data?.brokerType!!)
-                            Log.e("state", it.data.hasPackage!!)
-                            if (UserUtil.getUserType() == "broker" && it.data.hasPackage == "") {
-
-                            }
-//                            if (it.data.brokerType == "broker" && it.data.hasPackage == "yes") {
-//                                binding.contactUs.root.visibility = View.VISIBLE
-//                            } else if (it.data.brokerType == "user" && it.data.hasPackage == "no"){
-//                                binding.contactUs.root.visibility = View.GONE
+//    private fun handleContactAction(propertyId: Int, brokerId: Int, brokerType: String, transactionType: String) {
+//        sharedViewModel.sendContactRequest(propertyId, brokerId, brokerType = brokerType, transactionType)
+//    }
+//
+//
+//    private fun checkActorTypefirstime() {
+//        Log.e("state", UserUtil.getUserType())
+//        Log.e("state", UserUtil.getHasPackage())
+//        if (UserUtil.getUserType() == "broker" && UserUtil.getHasPackage() == "yes") {
+//            binding.contactUs.root.visibility = View.VISIBLE
+//        } else {
+//            binding.contactUs.root.visibility = View.GONE
+//        }
+//    }
+//
+//    private fun checkActorType() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.loginData.collect {
+//                    when (it) {
+//                        is UiState.Success -> {
+//                            Log.e("state", it.data?.brokerType!!)
+//                            Log.e("state", it.data.hasPackage!!)
+//                            if (UserUtil.getUserType() == "broker" && it.data.hasPackage == "") {
+//
 //                            }
-                        }
-
-                        is UiState.Empty -> {
-                            Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
-                        }
-
-                        is UiState.Error -> {
-                            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                        }
-
-                        is UiState.Loading -> {
-                            Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        }
-    }
+////                            if (it.data.brokerType == "broker" && it.data.hasPackage == "yes") {
+////                                binding.contactUs.root.visibility = View.VISIBLE
+////                            } else if (it.data.brokerType == "user" && it.data.hasPackage == "no"){
+////                                binding.contactUs.root.visibility = View.GONE
+////                            }
+//                        }
+//
+//                        is UiState.Empty -> {
+//                            Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                        is UiState.Error -> {
+//                            Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+//                        }
+//
+//                        is UiState.Loading -> {
+//                            Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     override fun onPause() {
@@ -672,18 +673,18 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //                }else {
 //                    contactUs.root.visibility = View.GONE
 //                }
-                if (model.vendorType == "user") {
-                    tvVisitProfile.visibility = View.GONE
-                    ivArrowBroker.visibility = View.GONE
-                }
+//                if (model.vendorType == "user") {
+//                    tvVisitProfile.visibility = View.GONE
+//                    ivArrowBroker.visibility = View.GONE
+//                }
                 tvVisitProfile.setOnClickListener {
                     if (model.vendorType == "broker")
                         navigateToProfile(model = model)
                     else if (model.vendorType == "user") {
-//                        val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
-//                            model.brokerId.toString()
-//                        )
-//                        findNavController().navigate(action)
+                        val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
+                            model.brokerId.toString()
+                        )
+                        findNavController().navigate(action)
                         Log.e("id for user", model.id.toString())
                     }
                 }
@@ -863,13 +864,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun mapSetup(data: String?) {
         val video = data
         video?.let {
-            binding.webView.settings.javaScriptEnabled = true
-            binding.webView.settings.loadWithOverviewMode = true
-            binding.webView.settings.useWideViewPort = true
-            binding.webView.settings.setSupportZoom(false)
-            binding.webView.settings.builtInZoomControls = false
-            binding.webView.settings.displayZoomControls = false
-            binding.webView.loadData(video, "text/html", "utf-8")
+            binding.webView.settings.javaScriptEnabled =true
+            binding.webView.webChromeClient = WebChromeClient()
+            binding.webView.loadData(video,"text/html","utf-8")
 
         }
 

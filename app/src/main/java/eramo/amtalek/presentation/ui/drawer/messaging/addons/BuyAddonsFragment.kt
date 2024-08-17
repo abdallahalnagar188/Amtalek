@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.drawer.messaging.addons
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -76,8 +77,9 @@ class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
 
     fun fetchData() {
         viewModel.buyAddons(
-           itemCard
+           itemCard,
         )
+        Log.e("Addons", "fetchData: ${itemCard.card[0].quantity}")
     }
     private fun setupViews(){
         binding.apply {

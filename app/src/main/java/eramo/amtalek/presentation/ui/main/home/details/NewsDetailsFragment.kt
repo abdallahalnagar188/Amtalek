@@ -3,6 +3,8 @@ package eramo.amtalek.presentation.ui.main.home.details
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
@@ -10,12 +12,15 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentNewsDetailsBinding
+import eramo.amtalek.domain.model.home.news.NewsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvNewsDetailsCommentsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.showToast
+import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
 
@@ -29,10 +34,12 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
     @Inject
     lateinit var rvNewsDetailsCommentsAdapter: RvNewsDetailsCommentsAdapter
 
+    val viewModel: HomeMyViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupViews()
+
     }
 
     override fun onPause() {

@@ -22,7 +22,7 @@ class RvPropertiesAdapter @Inject constructor() :
     PagingDataAdapter<DataX, RvPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
-    private lateinit var favListener: RvSimilarPropertiesAdapter.OnFavClickListener
+    private lateinit var favListener: RvNormalPropertiesAdapter.OnFavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -46,13 +46,23 @@ class RvPropertiesAdapter @Inject constructor() :
         }
 
         fun bind(model: DataX) {
-            var isFav = model.isFav == "0"
+            var isFav = model.isFav
             binding.apply {
                 ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
+                    favListener.onFavClick(model)
+                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                        isFav = "1"
+                    }
+                    else {ivFav.setImageResource(R.drawable.ic_heart)
+                        isFav ="0"
+                    }
                 }
+                if (isFav == "1") {
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_heart)
+                }
+
 
                 tvPrice.text =
                     itemView.context.getString(R.string.s_currency, model.salePrice?.let { formatPrice(it.toDouble()) }, model.currency)
@@ -119,21 +129,15 @@ class RvPropertiesAdapter @Inject constructor() :
                     .load(model.brokerDetails?.get(0)?.logo)
                     .into(ivBroker)
 
-                if (model.isFav == "0") {
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                if (model.normalFeatured == "featured") {
+                    tvFeatured.visibility = View.VISIBLE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
                 } else {
-                    ivFav.setImageResource(R.drawable.ic_heart)
+                    tvFeatured.visibility = View.GONE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
                 }
-
-//                if (model.featured == TRUE) {
-//                    tvFeatured.visibility = View.VISIBLE
-//                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
-//                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
-//                } else {
-//                    tvFeatured.visibility = View.GONE
-//                    tvLabel.setBackgroundResource(R.drawable.property_label_background)
-//                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
-//                }
             }
         }
     }
@@ -150,9 +154,9 @@ class RvPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: OnItemClickListener, favListener: RvNormalPropertiesAdapter.OnFavClickListener) {
         this.listener = listener
-     //   this.favListener = listener as RvSimilarPropertiesAdapter.OnFavClickListener
+        this.favListener =favListener
     }
 
     interface OnItemClickListener {

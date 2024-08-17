@@ -653,6 +653,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_margin="@dimen/_10sdp"
                     android:elevation="0dp"
                     android:nestedScrollingEnabled="false"
                     app:cardElevation="0dp"
@@ -673,7 +674,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginStart="@dimen/_110sdp"
                             android:layoutDirection="ltr"
                             />
 

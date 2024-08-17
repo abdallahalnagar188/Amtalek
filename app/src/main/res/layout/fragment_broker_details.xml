@@ -243,6 +243,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_projects"
                 tools:text="@string/s_all_properties" />
+            <TextView
+                android:id="@+id/tv_property_for_seal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:fontFamily="@font/font"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:text="@string/for_sell"
+                app:layout_constraintStart_toEndOf="@id/tv_all_projects_count"
+                app:layout_constraintTop_toBottomOf="@id/btn_projects"
+                />
+            <TextView
+                android:id="@+id/tv_property_for_rent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_28sdp"
+                android:fontFamily="@font/font"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:text="@string/for_rent"
+                app:layout_constraintStart_toEndOf="@id/tv_property_for_seal"
+                app:layout_constraintTop_toBottomOf="@id/btn_projects"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/header"
@@ -263,6 +289,22 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_all_projects_count"
+                tools:listitem="@layout/item_property_preview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_for_rent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"

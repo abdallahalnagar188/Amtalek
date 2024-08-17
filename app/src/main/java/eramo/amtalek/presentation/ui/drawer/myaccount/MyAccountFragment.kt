@@ -28,7 +28,6 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
     private val viewModel by viewModels<MyAccountViewModel>()
     private val viewModelShared: SharedViewModel by activityViewModels()
-    private var memberModel: Member? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -35,7 +35,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBinding>(),
-    RvNormalPropertiesAdapter.OnItemClickListener,RvSimilarPropertiesAdapter.OnFavClickListener {
+    RvNormalPropertiesAdapter.OnItemClickListener,RvNormalPropertiesAdapter.OnFavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMorePropertiesBinding::inflate
@@ -97,7 +97,7 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
 //    }
 
     private fun setupRecyclerView() {
-        rvPropertiesAdapter.setListener(this)
+        rvPropertiesAdapter.setListener(this,this)
         binding.rvProperties.adapter = rvPropertiesAdapter
     }
 
@@ -106,6 +106,8 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.allNormalPropertyPagingFlow.collectLatest { pagingData ->
                     rvPropertiesAdapter.submitData(pagingData)
+                    rvPropertiesAdapter.notifyDataSetChanged()
+
                 }
             }
         }
@@ -118,9 +120,7 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
                     when (state) {
 
                         is UiState.Success -> {
-                            viewModel.getHomeNormalProperties(UserUtil.getCityFiltrationId())
-
-                            // homeViewModel.getHomeApis("1","1")
+                          // viewModel.getAllProperty()
                         }
 
                         is UiState.Error -> {
@@ -153,7 +153,8 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
         }
     }
 
-    override fun onFavClick(model: PropertyModel) {
-        viewModel.addOrRemoveFav(model.id)
+
+    override fun onFavClick(model: DataX) {
+        viewModel.addOrRemoveFav(model.id?:0)
     }
 }

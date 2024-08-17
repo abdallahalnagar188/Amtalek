@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import eramo.amtalek.domain.model.main.home.PropertyModelx
-import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -27,7 +24,7 @@ class RvNormalPropertiesAdapter @Inject constructor() :
     PagingDataAdapter<DataX, RvNormalPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
-    private lateinit var favListener: RvSimilarPropertiesAdapter.OnFavClickListener
+    private lateinit var favListener:OnFavClickListener
     override fun onBindViewHolder(holder: RvNormalPropertiesAdapter.ProductViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
 
@@ -52,13 +49,18 @@ class RvNormalPropertiesAdapter @Inject constructor() :
         }
 
         fun bind(model: DataX) {
-            var isFav = model.isFav == "0"
+            var isFav = model.isFav
             binding.apply {
                 ivFav.setOnClickListener {
-                    isFav = !isFav
-                    if (isFav) ivFav.setImageResource(R.drawable.ic_heart_fill)
-                    else ivFav.setImageResource(R.drawable.ic_heart)
+                    favListener.onFavClick(model)
+                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                        isFav = "1"
+                    }
+                    else {ivFav.setImageResource(R.drawable.ic_heart)
+                        isFav ="0"
+                    }
                 }
+
 
                 tvPrice.text =
                     itemView.context.getString(R.string.s_currency, model.salePrice?.let { formatPrice(it.toDouble()) }, model.currency)
@@ -120,16 +122,15 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                     .load(model.primaryImage)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
-
-                Glide.with(itemView)
-                    .load(model.brokerDetails?.get(0)?.logo)
-                    .into(ivBroker)
-
-                if (model.isFav == "0") {
+                if (isFav == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
+
+                Glide.with(itemView)
+                    .load(model.brokerDetails?.get(0)?.logo)
+                    .into(ivBroker)
 
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
@@ -151,15 +152,17 @@ class RvNormalPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener) {
+    fun setListener(listener: OnItemClickListener, favListener: OnFavClickListener) {
         this.listener = listener
-        //   this.favListener = listener as RvSimilarPropertiesAdapter.OnFavClickListener
+           this.favListener = favListener
     }
 
     interface OnItemClickListener {
         fun onPropertyClick(model: DataX)
     }
-
+    interface OnFavClickListener{
+        fun onFavClick(model: DataX)
+    }
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
             override fun areItemsTheSame(oldItem: DataX, newItem: DataX) = oldItem.id == newItem.id
