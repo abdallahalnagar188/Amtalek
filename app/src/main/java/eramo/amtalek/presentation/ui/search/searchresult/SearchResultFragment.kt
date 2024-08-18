@@ -182,6 +182,13 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         binding.apply {
             carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
             carouselSliderBetween.setData(data)
+            if (data.size == 1) {
+                carouselSliderBetween. infiniteCarousel= false
+                carouselSliderBetween.autoPlay = false
+            } else {
+                carouselSliderBetween.infiniteCarousel = true
+                carouselSliderBetween.autoPlay = true
+            }
           //  carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
             carouselSliderBetween.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(

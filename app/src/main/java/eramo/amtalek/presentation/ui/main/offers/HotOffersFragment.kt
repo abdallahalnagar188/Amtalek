@@ -81,10 +81,10 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
-        binding.carouselSlider.visibility = View.GONE
-        setUpObservers()
         setupViews()
+        fetchHotOffers()
+        hotOffersViewModel.getSearchResultSlider()
+        setUpObservers()
         listeners()
         bindTabs()
         tabsClickListeners()
@@ -92,9 +92,13 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
     override fun onResume() {
         super.onResume()
-        hotOffersViewModel.getSearchResultSlider()
+//        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+//        hotOffersViewModel.getSearchResultSlider()
     }
 
+    private fun fetchHotOffers() {
+        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+    }
     private fun handleRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
 
@@ -204,7 +208,6 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                         is UiState.Success -> {
                             val data = state.data
                             if (!data.isNullOrEmpty()) {
-                                binding.carouselSlider.visibility = View.VISIBLE
                                 setupSliderBetween(parseBetweenCarouselSliderList(data))
                             } else {
                                 binding.carouselSlider.visibility = View.GONE
@@ -216,6 +219,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                             showToast(errorMessage)
                         }
                         is UiState.Loading -> {
+                            showShimmerEffect()
                             // Optional: Keep the carouselSlider GONE during loading
                             binding.carouselSlider.visibility = View.GONE
                         }
@@ -230,6 +234,13 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         binding.apply {
             carouselSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             carouselSlider.setData(data)
+            if (data.size == 1) {
+                carouselSlider. infiniteCarousel= false
+                carouselSlider.autoPlay = false
+            } else {
+                carouselSlider.infiniteCarousel = true
+                carouselSlider.autoPlay = true
+            }
           //  carouselSlider.setIndicator(carouselSliderBetweenDots)
             carouselSlider.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
@@ -268,7 +279,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                 hotOffersViewModel.hotOffers.collect(){
                     when(it){
                         is UiState.Success->{
-                            binding.carouselSlider.visibility = View.GONE
+                            dismissShimmerEffect()
                             forSellPropertyList.clear()
                             forRentPropertyList.clear()
                             forBothPropertyList.clear()
@@ -281,6 +292,8 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                         }
                         is UiState.Loading->{
                             showShimmerEffect()
+                            // Optional: Keep the carouselSlider GONE during loading
+                            binding.carouselSlider.visibility = View.GONE
                         }
                         else -> {}
                     }

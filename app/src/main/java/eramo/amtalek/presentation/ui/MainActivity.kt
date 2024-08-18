@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity(),
         WarningDialog.init(this)
         LocalUtil.init(this)
         LocalUtil.loadLocal(this)
+        LocalUtil.setLocal(this, LocalUtil.getLang()?:"ar")
         WebViewLocaleHelper(this).implementWorkaround()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -138,7 +139,7 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    var hasNotificationPermissionGranted = false
+    private var hasNotificationPermissionGranted = false
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             hasNotificationPermissionGranted = isGranted

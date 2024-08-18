@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="@dimen/_230sdp"
+        android:layout_width="match_parent"
         android:textSize="@dimen/_12ssp"
         android:maxLines="1"
         android:ellipsize="end"
@@ -25,7 +25,7 @@
         android:id="@+id/tv_see_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/see_more"
+        tools:text="@string/see_more"
         android:fontFamily="@font/font"
         android:layout_marginEnd="@dimen/_11sdp"
         android:textColor="@color/text_gray"

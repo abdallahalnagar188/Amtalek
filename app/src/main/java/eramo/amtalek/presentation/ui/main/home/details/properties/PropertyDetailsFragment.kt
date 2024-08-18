@@ -3,7 +3,9 @@ package eramo.amtalek.presentation.ui.main.home.details.properties
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
@@ -312,6 +314,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         binding.apply {
             adsSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             adsSlider.setData(data)
+            if (data.size == 1) {
+                adsSlider. infiniteCarousel= false
+                adsSlider.autoPlay = false
+            } else {
+                adsSlider.infiniteCarousel = true
+                adsSlider.autoPlay = true
+            }
             //  carouselSlider.setIndicator(carouselSliderBetweenDots)
             adsSlider.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
@@ -656,8 +665,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 propertyDetailsLayout.tvFloorsValue.text = model.floors.joinToString(", ")
                 propertyDetailsLayout.tvFloorValue.text = model.landType
 
-                tvDescriptionValue.text = model.description
-
+                val htmlContent =  model.description ?: ""
+                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(htmlContent)
+                }
+               tvDescriptionValue.text = spannedText
                 initPropertyFeaturesRv(model.propertyAmenities)
 
                 if (model.videoUrl.isNullOrEmpty()) {

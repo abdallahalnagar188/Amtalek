@@ -2,7 +2,10 @@ package eramo.amtalek.presentation.ui.main.home
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -11,6 +14,9 @@ import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
@@ -137,6 +143,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 //        if (UserUtil.isUserLogin()) {
 //            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
 //        }
+
+
+
     }
 
     private fun handleRefresh() {
@@ -199,6 +208,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun requestApis() {
         viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId(), UserUtil.getUserCityFiltrationTitleId())
+        setupListeners(viewModel.homeSliderState.value.data?.get(0)?.url.toString())
     }
 
     private fun fetchData() {
@@ -365,19 +375,22 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeSliderState.collect() { state ->
+                viewModel.homeSliderState.collect { state ->
                     when (state) {
-
                         is UiState.Success -> {
-                            val data = state.data
-                            if (!data.isNullOrEmpty()) {
+                            val dataState = state.data
+                            if (!dataState.isNullOrEmpty()) {
                                 binding.carouselSliderBetween.visibility = View.VISIBLE
                                 binding.carouselSliderBetweenDots.visibility = View.VISIBLE
-                                setupSliderBetween(parseBetweenCarouselSliderList(data))
+                                setupSliderBetween(parseBetweenCarouselSliderList(dataState))
+                                setupListeners(dataState[0].url)
+
+                                Log.e("images ", dataState.toString())
+                                Log.e("url ", dataState[0].url)
+
                             } else {
                                 binding.carouselSliderBetween.visibility = View.GONE
                                 binding.carouselSliderBetweenDots.visibility = View.GONE
-
                             }
                         }
 
@@ -391,11 +404,20 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
                         else -> {}
                     }
-
                 }
             }
         }
     }
+
+    private fun setupListeners(url: String) {
+        binding.carouselSliderBetween.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(url)
+            }
+            startActivity(intent)
+        }
+    }
+
 
     private fun fetchHomeNormalProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -528,7 +550,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                                binding.inToolbar.tvSpinnerText.text = state.data?.cityName
+                            binding.inToolbar.tvSpinnerText.text = state.data?.cityName
                         }
 
                         is UiState.Error -> {
@@ -562,21 +584,33 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 )
             )
         }
-
         return list
     }
 
-    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+    private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
         binding.apply {
             carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderBetween.setData(data)
+            carouselSliderBetween.setData(dataState)
+
             carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
+
+            // Disable sliding if there's only one item
+            if (dataState.size == 1) {
+                carouselSliderBetween.infiniteCarousel = false
+                carouselSliderBetween.autoPlay = false
+                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
+            } else {
+                carouselSliderBetween.infiniteCarousel = true
+                carouselSliderBetween.autoPlay = true
+                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
+
+            }
+
             carouselSliderBetween.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
                 ): ViewBinding {
-//                    return ItemAdsBinding.inflate(
                     return ItemSliderTopBinding.inflate(
                         layoutInflater,
                         parent,
@@ -589,10 +623,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     item: CarouselItem,
                     position: Int
                 ) {
-//                    val currentBinding = binding as ItemAdsBinding
+
                     val currentBinding = binding as ItemSliderTopBinding
                     currentBinding.apply {
                         imageView13.setImage(item)
+                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP // Set scaleType here
+
                         this.root.setOnClickListener {
                             this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
                         }
@@ -601,6 +637,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             }
         }
     }
+
 
     private fun initToolbar() {
         binding.inToolbar.apply {
@@ -807,7 +844,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 currencyId = currencyId,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
-                propertyTypeId =typeId.toString(),
+                propertyTypeId = typeId.toString(),
                 propertyFinishingId = finishingId,
                 minPrice = minPrice,
                 maxPrice = maxPrice,

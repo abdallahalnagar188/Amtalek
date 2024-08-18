@@ -111,11 +111,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/props_constaraint"
-                app:showBottomShadow="false"
-                app:showCaption="false"
-                app:showIndicator="false"
-                app:showNavigationButtons="true"
+                android:scaleType="centerInside"
                 app:showTopShadow="false"
+                app:showNavigationButtons="false"
                 />
             <TextView
                 android:id="@+id/tv_projects"

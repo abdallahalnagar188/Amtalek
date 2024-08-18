@@ -44,6 +44,8 @@
                     app:itemTextColor="@color/selector_bottom_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:menu="@menu/menu_bottom"
+                    app:itemTextAppearanceActive="@style/BottomNavigationTextAppearance"
+                    app:itemTextAppearanceInactive="@style/BottomNavigationTextAppearance"
                     app:itemRippleColor="@color/transparent"
                     app:itemBackground="@null"
                     />

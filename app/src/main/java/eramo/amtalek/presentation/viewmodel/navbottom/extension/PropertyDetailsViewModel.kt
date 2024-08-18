@@ -78,7 +78,6 @@ class PropertyDetailsViewModel @Inject constructor(
 
     fun getPropertySlider(){
         viewModelScope.launch(Dispatchers.IO) {
-
             propertyRepository.getPropertySlider().collect(){result->
                 when(result){
                     is Resource.Success ->{

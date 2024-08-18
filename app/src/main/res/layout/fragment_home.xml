@@ -99,11 +99,10 @@
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                     android:id="@+id/carousel_sliderBetween"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_160sdp"
+                    android:layout_height="@dimen/_200sdp"
                     android:layout_marginVertical="@dimen/home_margin_top"
-                    android:translationZ="8dp"
+                    android:focusable="true"
                     app:autoPlayDelay="2000"
-                    app:carouselType="BLOCK"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/in_most_viewed_properties_layout"
@@ -114,8 +113,9 @@
                     app:showBottomShadow="false"
                     app:showCaption="false"
                     app:showIndicator="false"
-                    app:showNavigationButtons="true"
+                    app:showNavigationButtons="false"
                     app:showTopShadow="false"
+                    android:scaleType="centerInside"
                     android:visibility="gone"/>
 
                 <me.relex.circleindicator.CircleIndicator2

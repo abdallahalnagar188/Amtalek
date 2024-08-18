@@ -51,9 +51,9 @@ object LocalUtil {
 
 
     fun loadLocal(activity: Activity) =
-        setLocal(activity, sharedPreferences.getString(LANGUAGE, "ar")!!)
+        setLocal(activity, sharedPreferences.getString(LANGUAGE, "ar")?:"ar")
 
-    fun getLang() = sharedPreferences.getString(LANGUAGE, "en")
+    fun getLang() = sharedPreferences.getString(LANGUAGE, "ar"?:"ar")
 
     fun isEnglish() = sharedPreferences.getString(LANGUAGE, "en").equals("en")
 }

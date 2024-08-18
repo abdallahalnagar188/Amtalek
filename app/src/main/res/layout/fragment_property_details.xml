@@ -590,6 +590,7 @@
                     android:translationZ="8dp"
                     app:autoPlayDelay="2000"
                     app:carouselType="BLOCK"
+                    app:imageScaleType="centerCrop"
                     app:nextButtonId="@id/btn_next_carousel"
                     app:layout_constraintTop_toBottomOf="@id/tv_description_value"
                     app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
@@ -598,7 +599,8 @@
                     app:showBottomShadow="false"
                     app:showCaption="false"
                     app:showIndicator="false"
-                    app:showNavigationButtons="true"
+                    android:scaleType="centerInside"
+                    app:showNavigationButtons="false"
                     app:showTopShadow="false" />
 
                 <include

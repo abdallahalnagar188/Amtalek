@@ -82,7 +82,7 @@
             android:maxLines="1"
             android:textAlignment="viewStart"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
@@ -151,11 +151,13 @@
             >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_6sdp">
                 <ImageView
                     android:id="@+id/iv_broker"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_2sdp"
                     android:scaleType="fitXY"
                     tools:src="@drawable/gold_sqare" />
 
@@ -169,8 +171,11 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/font"
             android:text="@string/agency"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
             android:textColor="@color/black"
             android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toTopOf="@id/iv_broker_card_view"
             app:layout_constraintEnd_toEndOf="@id/iv_broker_card_view"

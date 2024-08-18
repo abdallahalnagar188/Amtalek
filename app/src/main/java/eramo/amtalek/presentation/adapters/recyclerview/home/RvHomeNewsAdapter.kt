@@ -1,5 +1,7 @@
 package eramo.amtalek.presentation.adapters.recyclerview.home
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -41,7 +43,13 @@ class RvHomeNewsAdapter @Inject constructor() :
         fun bind(model: NewsModel) {
             binding.apply {
                 tvTitle.text = model.title
-                tvBody.text = model.summary
+                val htmlContent =  model.description ?: ""
+                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(htmlContent)
+                }
+                tvBody.text = spannedText
 
                 Glide.with(itemView).load(model.image).placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
