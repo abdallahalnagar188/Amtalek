@@ -202,6 +202,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:background="#FFFFFF"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line_three_view" />
@@ -212,6 +213,7 @@
             android:layout_height="@dimen/_18sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/ic_right_mark"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/line_four_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/line_four_view" />
@@ -223,6 +225,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/line_four_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark4"
             app:layout_constraintTop_toTopOf="@id/line_four_view"

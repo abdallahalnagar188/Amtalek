@@ -479,7 +479,7 @@
     <string name="property_detail">تفاصيل الخاصية</string>
     <string name="gold_square">جولد اسكوير</string>
     <string name="telephone">هاتف :</string>
-    <string name="phone">محمول :</string>
+    <string name="phone">هاتف :</string>
     <string name="send_message">أرسل رسالة</string>
     <string name="present_your_offer">قدم عرضك</string>
     <string name="your_offer">عرضك</string>
@@ -717,7 +717,7 @@
 
     <string name="packages">باقات مميزة</string>
     <string name="packages_details">تفاصيل الباقة</string>
-    <string name="free">Free</string>
+    <string name="free">مجاني</string>
 
     <string name="s_normal_listing">عادى : %S</string>
     <string name="s_monthly_listing">عادى : %S</string>
@@ -1041,6 +1041,9 @@
     <string name="duration_value">duration value</string>
     <string name="way_to_bay">طريقة الدفع</string>
     <string name="payment_card">فيزا</string>
+    <string name="you">انت</string>
+    <string name="normal_">عادي</string>
+    <string name="visa">فيزا</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

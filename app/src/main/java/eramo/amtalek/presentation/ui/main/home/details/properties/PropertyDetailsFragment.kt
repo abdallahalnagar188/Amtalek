@@ -655,6 +655,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 } else {
                     mapSetup(model.mapUrl)
                 }
+                if (model.videoUrl.isNullOrEmpty()) {
+                    tvVideo.visibility = View.GONE
+                    youtubePlayerView.visibility = View.GONE
+                } else {
+                    getYoutubeUrlId(model.videoUrl)?.let {
+                        setupVideo(it)
+                }
+                }
 
                 propertyDetailsLayout.tvPropertyCodeValue.text = model.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = model.propertyType

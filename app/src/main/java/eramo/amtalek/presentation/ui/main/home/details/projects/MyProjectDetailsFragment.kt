@@ -17,10 +17,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,10 +28,8 @@ import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.project.Slider
 import eramo.amtalek.databinding.FragmentMyProjectDetailsBinding
 import eramo.amtalek.domain.model.project.AmenityModel
-import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.getYoutubeUrlId
@@ -46,7 +40,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import javax.inject.Inject
-import kotlin.math.log
 
 @AndroidEntryPoint
 class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding>() {
@@ -185,12 +178,12 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         setupImageSliderTop(topSliderImages)
 
         if (data?.data?.get(0)?.autocad.isNullOrEmpty()){
-            val autocadImages = handleAutocadImages(data?.data?.get(0)?.autocad)
-            setupAutocadImagesSlider(autocadImages)
-        }else{
             binding.autocadDrawingsSlider.visibility = View.GONE
             binding.autocadDrawingsSliderDots.visibility = View.GONE
             binding.tvAutocadDrawings.visibility = View.GONE
+        }else{
+            val autocadImages = handleAutocadImages(data?.data?.get(0)?.autocad)
+            setupAutocadImagesSlider(autocadImages)
         }
 
 
@@ -198,12 +191,21 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         binding.projectFeaturesLayout.recyclerView.adapter = amenitiesAdapter
         amenitiesAdapter.saveData(amenities)
 
-        mapSetup(data?.data?.get(0)?.location)
-
-
-        getYoutubeUrlId(data?.data?.get(0)?.video!!)?.let {
-            setupVideo(it)
+        if (data?.data?.get(0)?.location.isNullOrEmpty()) {
+            binding.webView.visibility = View.GONE
+        } else {
+            mapSetup(data?.data?.get(0)?.location)
         }
+
+
+        if (data?.data?.get(0)?.video.isNullOrEmpty()) {
+            binding.webView.visibility = View.GONE
+        } else {
+            getYoutubeUrlId(data?.data?.get(0)?.video!!)?.let {
+                setupVideo(it)
+            }
+        }
+
 
 
         injectData(data?.data?.get(0))

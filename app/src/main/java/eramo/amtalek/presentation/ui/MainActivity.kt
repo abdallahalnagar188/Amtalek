@@ -24,6 +24,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -51,7 +52,7 @@ import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),
+class MainActivity : LocalizationActivity(),
     DeeplinkHandler by DeeplinkHandlerImpl() {
 
     private lateinit var binding: ActivityMainBinding
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity(),
         WarningDialog.init(this)
         LocalUtil.init(this)
         LocalUtil.loadLocal(this)
-        LocalUtil.setLocal(this, LocalUtil.getLang()?:"ar")
+      //  LocalUtil.setLocal(this, LocalUtil.getLang()?:"ar")
         WebViewLocaleHelper(this).implementWorkaround()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

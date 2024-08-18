@@ -48,14 +48,15 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
                 rvMessagingChatAdapter.submitList(it?.data)
             }
         }
-        if (UserUtil.getHasPackage() == "yes") {
-            binding.addAdoms.visibility = View.VISIBLE
-        }
+//        if (UserUtil.getHasPackage() == "yes") {
+//            binding.addAdoms.visibility = View.VISIBLE
+//        }
 
     }
 
     private fun setupViews() {
 
+        binding.addAdoms.visibility = View.GONE
         binding.inToolbar.tvTitle.text = getString(R.string.messagings)
         binding.inToolbar.ivBack.setOnClickListener {
             findNavController().popBackStack()

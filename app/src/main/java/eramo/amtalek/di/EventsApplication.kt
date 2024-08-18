@@ -1,14 +1,20 @@
 package eramo.amtalek.di
 
-import android.app.Application
+import android.content.Context
+import com.akexorcist.localizationactivity.ui.LocalizationApplication
 import dagger.hilt.android.HiltAndroidApp
+import java.util.Locale
 
 @HiltAndroidApp
-class EventsApplication : Application(){
+class EventsApplication : LocalizationApplication(){
 
-//    init {
+
+    //    init {
 //
 //    LocalUtil.setLocal(r, "ar")
 //    }
+    override fun getDefaultLanguage(context: Context): Locale {
+        return Locale("ar")
+    }
 
 }

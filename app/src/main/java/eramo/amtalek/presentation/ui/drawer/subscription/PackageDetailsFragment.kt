@@ -97,20 +97,32 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
 //            tvDescription.text = model.currentPackage?.packageInfo?.get(0)?.title
             tvPrice.text = model.currentPackage?.actualPayment
             tvExpirationDate.text = model.currentPackage?.expirationDate?.expirationDate
-            tvPayment.text = model.currentPackage?.expirationDate?.paymentMethod
+
+            when(model.currentPackage?.expirationDate?.paymentMethod){
+                "visa" -> {
+                    tvPayment.text = getString(R.string.visa)
+                }
+                else -> {
+                    tvPayment.text = getString(R.string.payment_cash)
+                }
+
+
+            }
+
+           // tvPayment.text = model.currentPackage?.expirationDate?.paymentMethod
 
             tvNormalListing.text = getString(R.string.normal_listings)
-            basedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.base.toString()
-            usedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.used.toString()
+            basedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.used.toString()
+            usedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.base.toString()
             tvFeaturedListing.text = getString(R.string.featured_listings)
-            basedNumberOfFeaturedListing.text = model.currentPackage?.packageInfo?.get(0)?.base.toString()
-            usedNumberOfFeaturedListing.text = model.currentPackage?.packageInfo?.get(0)?.used.toString()
+            basedNumberOfFeaturedListing.text = model.currentPackage?.packageInfo?.get(0)?.used.toString()
+            usedNumberOfFeaturedListing.text = model.currentPackage?.packageInfo?.get(0)?.base.toString()
             tvProjects.text = getString(R.string.projects)
-            basedNumberOfProjects.text = model.currentPackage?.packageInfo?.get(2)?.base.toString()
-            usedNumberOfProjects.text = model.currentPackage?.packageInfo?.get(2)?.used.toString()
+            basedNumberOfProjects.text = model.currentPackage?.packageInfo?.get(2)?.used.toString()
+            usedNumberOfProjects.text = model.currentPackage?.packageInfo?.get(2)?.base.toString()
             tvLeadsManagement.text = getString(R.string.messages)
-            basedNumberOfMessages.text = model.currentPackage?.packageInfo?.get(3)?.base.toString()
-            usedNumberOfMessages.text = model.currentPackage?.packageInfo?.get(3)?.used.toString()
+            basedNumberOfMessages.text = model.currentPackage?.packageInfo?.get(3)?.used.toString()
+            usedNumberOfMessages.text = model.currentPackage?.packageInfo?.get(3)?.base.toString()
 //            tvExtraLeads.text = getString(R.string.s_extra_lead, "25")
 
             cover.setBackgroundColor(Color.parseColor("#1E617A"))

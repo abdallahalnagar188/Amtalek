@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.adapters.recyclerview.profile
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,7 @@ class RvSubmittedOffersAdapter @Inject constructor() :
             }
         }
 
+        @SuppressLint("StringFormatMatches")
         fun bind(model: PropertyModel) {
             var isFav = model.isFavourite
             binding.apply {
@@ -75,6 +77,9 @@ class RvSubmittedOffersAdapter @Inject constructor() :
                 }
                 tvStatusValue.text = " "+model.offerData?.status
                 tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
+                if (model.sellPrice ==0 ){
+                    tvPrice.visibility = View.GONE
+                }
                 tvTitle.text = model.title
                 tvLabel.text = when (model.type) {
                     PropertyType.FOR_SELL.key -> itemView.context.getString(R.string.for_sell)
@@ -86,22 +91,22 @@ class RvSubmittedOffersAdapter @Inject constructor() :
                 }
                 when (model.rentDuration) {
                     "daily" -> {
-                        tvDurationRent.text =   "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
+                        tvDurationRent.text =   getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
                     }
                     "monthly" -> {
-                        tvDurationRent.text = "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.monthly)}"
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
                     }
                     "3_months" -> {
-                        tvDurationRent.text =   "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_3_month)}"
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
                     }
                     "6_months" -> {
-                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_6_month)}"
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
                     }
                     "9_months" -> {
-                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_9_month)}"
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
                     }
                     "yearly" -> {
-                        tvDurationRent.text =  "${formatPrice(model.rentPrice.toDouble())} ${itemView.context.getString(R.string.egp_daily)}"
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
                     }
                     ""->{
                         tvDurationRent.visibility = View.GONE

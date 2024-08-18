@@ -77,9 +77,23 @@ class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
 
     fun fetchData() {
         viewModel.buyAddons(
-           itemCard,
+            CardRecoest(
+                itemCard.card.map {
+                    AddreesItem(it.quantity ?: 0, it.id ?: 0)
+                }, itemCard.deuration
+
+            )
         )
-        Log.e("Addons", "fetchData: ${itemCard.card[0].quantity}")
+        Log.e(
+            "Addons", "fetchData: ${
+                CardRecoest(
+                    itemCard.card.map {
+                        AddreesItem(it.quantity ?: 0, it.id ?: 0)
+                    }, itemCard.deuration
+
+                )
+            }"
+        )
     }
     private fun setupViews(){
         binding.apply {

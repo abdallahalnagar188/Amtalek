@@ -38,13 +38,6 @@ object LocalUtil {
     }
 
     fun setLocal(activity: Activity, language: String) {
-        val configuration = Configuration()
-        val locale = Locale(language)
-        Locale.setDefault(locale)
-        configuration.locale = locale
-        configuration.setLayoutDirection(locale)
-        activity.resources.updateConfiguration(configuration, activity.resources.displayMetrics)
-        activity.createConfigurationContext(configuration)
 
         sharedPreferences.edit().putString(LANGUAGE, language).apply()
     }
@@ -53,7 +46,7 @@ object LocalUtil {
     fun loadLocal(activity: Activity) =
         setLocal(activity, sharedPreferences.getString(LANGUAGE, "ar")?:"ar")
 
-    fun getLang() = sharedPreferences.getString(LANGUAGE, "ar"?:"ar")
+    fun getLang() = sharedPreferences.getString(LANGUAGE, "ar")
 
     fun isEnglish() = sharedPreferences.getString(LANGUAGE, "en").equals("en")
 }

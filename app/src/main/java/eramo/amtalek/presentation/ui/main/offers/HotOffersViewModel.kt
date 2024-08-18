@@ -1,25 +1,21 @@
 package eramo.amtalek.presentation.ui.main.offers
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.hotoffers.HotOffersResponse
-import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.repository.AddOrRemoveFavRepository
 import eramo.amtalek.domain.repository.HotOffersRepository
-import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -31,8 +27,8 @@ class HotOffersViewModel @Inject constructor(
 
 ):ViewModel(){
     //////////////////////////////////////////
-    private var _hotOffers = MutableStateFlow<UiState<HotOffersResponse>>(UiState.Empty())
-    var hotOffers: StateFlow<UiState<HotOffersResponse>> = _hotOffers
+    private var _hotOffers = MutableStateFlow<Resource<HotOffersResponse>>(Resource.Loading())
+    var hotOffers: StateFlow<Resource<HotOffersResponse>> = _hotOffers
     /////////////////////////////////////////
 
     private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
@@ -47,9 +43,7 @@ class HotOffersViewModel @Inject constructor(
     //////////////////////////////////////////
 
     fun getSearchResultSlider(){
-        getHotOffersJob?.cancel()
-        getHotOffersJob = viewModelScope.launch(Dispatchers.IO) {
-
+        viewModelScope.launch(Dispatchers.IO) {
             repository.getHotOffersSlider().collect(){result->
                 when(result){
                     is Resource.Success ->{
@@ -77,24 +71,8 @@ class HotOffersViewModel @Inject constructor(
         getHotOffersJob?.cancel()
         getHotOffersJob = viewModelScope.launch {
             withContext(coroutineContext){
-                repository.getHotOffers(countryId).collect(){
-                    when (it){
-                        is Resource.Success -> {
-
-                            _hotOffers.value = UiState.Success(it.data)
-
-                            val data = it.data
-                            filterProperties(data)
-
-
-                        }
-                        is Resource.Error -> {
-                            _hotOffers.value = UiState.Error(it.message!!)
-                        }
-                        is Resource.Loading ->{
-                            _hotOffers.value = UiState.Loading()
-                        }
-                    }
+                repository.getHotOffers(countryId).collectLatest{
+                  _hotOffers.value = it
                 }
             }
         }

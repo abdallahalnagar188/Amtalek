@@ -39,7 +39,7 @@ class AddonsViewModel @Inject constructor(
         }
     }
 
-    fun buyAddons(list: ItemCard) {
+    fun buyAddons(list: CardRecoest) {
         buyAddonsJob?.cancel()
         buyAddonsJob = viewModelScope.launch {
             buyAddonsUseCase.buyAddons(list = list).collect { resource ->

@@ -35,6 +35,7 @@ import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
@@ -72,32 +73,41 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     @Inject
     lateinit var rvHotOffersSellPropertiesAdapter: RvHotOffersSellPropertiesAdapter
 
-
-
     @Inject
     lateinit var rvHotOffersRentPropertiesAdapter: RvHotOffersRentPropertiesAdapter
 
-
-
+    //
+//  override fun onCreate(savedInstanceState: Bundle?) {
+//      super.onCreate(savedInstanceState)
+//      hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+//      hotOffersViewModel.getSearchResultSlider()
+//
+//  }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews()
-        fetchHotOffers()
+        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
         hotOffersViewModel.getSearchResultSlider()
         setUpObservers()
-        listeners()
+        setupViews()
         bindTabs()
         tabsClickListeners()
         handleRefresh()
+        listeners()
     }
     override fun onResume() {
         super.onResume()
-//        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
-//        hotOffersViewModel.getSearchResultSlider()
+        hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+        hotOffersViewModel.getSearchResultSlider()
+
+
     }
 
     private fun fetchHotOffers() {
         hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId())
+        Log.e(
+            "fetchHotOffers: ",
+            hotOffersViewModel.getHotOffers(UserUtil.getUserCountryFiltrationTitleId()).toString()
+        )
     }
     private fun handleRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -122,6 +132,25 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         binding.inToolbar.spinnerLayout.setOnClickListener {
             findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
         }
+        binding.inToolbar.toolbarIvMenu.setOnClickListener {
+            viewModelShared.openDrawer.value = true
+        }
+        binding.inToolbar.inMessaging.root.setOnClickListener {
+            if (UserUtil.isUserLogin())
+                findNavController().navigate(R.id.messagingChatFragment)
+            else
+                findNavController().navigate(
+                    R.id.loginDialog, null, navOptionsFromTopAnimation()
+                )
+        }
+        binding.inToolbar.inNotification.root.setOnClickListener {
+            if (UserUtil.isUserLogin())
+                findNavController().navigate(R.id.notificationFragment)
+            else
+                findNavController().navigate(
+                    R.id.loginDialog, null, navOptionsFromTopAnimation())
+        }
+
     }
 
     private fun initToolbar() {
@@ -129,23 +158,6 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
             FHomeEtSearch.visibility = View.GONE
             ivSearch.visibility =  View.GONE
-            toolbarIvMenu.setOnClickListener { viewModelShared.openDrawer.value = true }
-            inNotification.root.setOnClickListener {
-                if (UserUtil.isUserLogin())
-                findNavController().navigate(R.id.notificationFragment)
-                else
-                    findNavController().navigate(
-                        R.id.loginDialog, null, navOptionsFromTopAnimation()
-                    )
-            }
-            inMessaging.root.setOnClickListener{
-                if (UserUtil.isUserLogin())
-                    findNavController().navigate(R.id.messagingChatFragment)
-                else
-                    findNavController().navigate(
-                    R.id.loginDialog, null, navOptionsFromTopAnimation()
-                )
-            }
         }
         if (LocalUtil.isEnglish()){
             binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
@@ -181,7 +193,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     }
     private fun setUpObservers() {
-        hotOffersViewModel.getSearchResultSlider()
+
         fetchGetHotOffers()
         fetchGetHomeSlider()
     }
@@ -274,11 +286,10 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
 
     private fun fetchGetHotOffers() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+        lifecycleScope.launch {
                 hotOffersViewModel.hotOffers.collect(){
                     when(it){
-                        is UiState.Success->{
+                        is Resource.Success -> {
                             dismissShimmerEffect()
                             forSellPropertyList.clear()
                             forRentPropertyList.clear()
@@ -287,18 +298,20 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
                             filterProperties(it.data)
                         }
-                        is UiState.Error->{
+
+                        is Resource.Error -> {
                             dismissShimmerEffect()
                         }
-                        is UiState.Loading->{
+
+                        is Resource.Loading -> {
                             showShimmerEffect()
                             // Optional: Keep the carouselSlider GONE during loading
                             binding.carouselSlider.visibility = View.GONE
                         }
                         else -> {}
                     }
+
                 }
-            }
         }
     }
 
@@ -407,7 +420,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         rvHotOffersRentPropertiesAdapter.submitList(forRentPropertyList)
 
         rvHotOffersForBothProjectsAdapter.submitList(projectsList)
-        dismissShimmerEffect()
+        // dismissShimmerEffect()
 
 //        binding.rvProjectsForBoth.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe))
     }

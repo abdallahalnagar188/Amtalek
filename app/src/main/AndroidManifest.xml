@@ -30,7 +30,7 @@
         android:theme="@style/Theme.Events"
         tools:replace="android:supportsRtl"
 
-        >
+        tools:ignore="Instantiatable">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

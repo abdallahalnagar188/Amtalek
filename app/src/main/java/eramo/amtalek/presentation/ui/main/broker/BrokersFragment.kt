@@ -93,15 +93,26 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
                 }
                 }
 
+                if (LocalUtil.isEnglish()){
+                    binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
 
+                }else{
+                    binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
+                }
+                if (UserUtil.getCityFiltrationTitleAr().isEmpty()&&UserUtil.getCityFiltrationTitleEn().isEmpty()){
+                    binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.egypt)
+
+                }
+                if (LocalUtil.isEnglish()){
+                    binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+
+                }else{
+                    binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+                }
         }
 
 
-        if (LocalUtil.isEnglish()) {
-            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
-        } else {
-            binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
-        }
+
     }
 
     override fun onBrokerClick(model: DataX) {

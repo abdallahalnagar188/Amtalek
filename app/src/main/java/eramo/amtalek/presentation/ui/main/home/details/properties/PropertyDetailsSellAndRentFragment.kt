@@ -165,6 +165,17 @@ class PropertyDetailsSellAndRentFragment : BindingFragment<FragmentPropertyDetai
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivUserImage)
 
+
+                if (data.videoUrl.isNullOrEmpty()) {
+                    tvVideo.visibility = View.GONE
+                    youtubePlayerView.visibility = View.GONE
+                } else {
+                    data.videoUrl?.let {
+                        getYoutubeUrlId(it)?.let {
+                            setupVideo(it)
+                        }
+                    }
+                }
                 propertyDetailsLayout.tvPropertyCodeValue.text = data.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = data.propertyType
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(data.area))

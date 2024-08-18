@@ -184,6 +184,15 @@ class PropertyDetailsSellFragment : BindingFragment<FragmentPropertyDetailsSellB
                 tvLocation.text = data.location
                 tvDate.text = data.datePosted
 
+                if (data.videoUrl.isNullOrEmpty()) {
+                    tvVideo.visibility = View.GONE
+                    youtubePlayerView.visibility = View.GONE
+                } else {
+                    getYoutubeUrlId(data.videoUrl)?.let {
+                        setupVideo(it)
+                    }
+                }
+
                 // header layout
                 tvFinishing.text = data.finishingAvailability
                 tvLocation2.text = data.areaLocation

@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import eramo.amtalek.R
+import eramo.amtalek.presentation.ui.MainActivity
 
 //object Constants {
 
@@ -100,13 +101,13 @@ import eramo.amtalek.R
         linChoiceEn.setOnClickListener {
             closeChooser(body, iconArrow)
             LocalUtil.setLocal(activity, "en")
-            ActivityCompat.recreate(activity)
+            (activity as MainActivity).setLanguage("en")
         }
 
         linChoiceAr.setOnClickListener {
             closeChooser(body, iconArrow)
             LocalUtil.setLocal(activity, "ar")
-            ActivityCompat.recreate(activity)
+            (activity as MainActivity).setLanguage("ar")
         }
     }
 
