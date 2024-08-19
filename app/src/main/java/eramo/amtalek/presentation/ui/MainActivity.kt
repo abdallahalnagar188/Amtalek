@@ -67,7 +67,7 @@ class MainActivity : LocalizationActivity(),
         WarningDialog.init(this)
         LocalUtil.init(this)
         LocalUtil.loadLocal(this)
-      //  LocalUtil.setLocal(this, LocalUtil.getLang()?:"ar")
+        //  LocalUtil.setLocal(this, LocalUtil.getLang()?:"ar")
         WebViewLocaleHelper(this).implementWorkaround()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -437,7 +437,8 @@ class MainActivity : LocalizationActivity(),
                 R.id.searchFormFragment,
                 R.id.searchResultFragment,
                 R.id.seeMoreNewsFragment,
-                R.id.addAdomsFragment
+                R.id.addAdomsFragment,
+                R.id.newsDetailsFragmentInSeeMore
 
                 -> {
                     binding.apply {

@@ -585,7 +585,7 @@
     <string name="favourite">عقاراتى المفضلة</string>
     <string name="chat">الدردشة</string>
     <string name="chat_messaging">المحادثة</string>
-    <string name="chat_messaging_">محادثة</string>
+    <string name="chat_messaging_">البريد</string>
     <string name="buy_packages">تابع باقتك</string>
     <string name="new_projects">أحدث المشاريع</string>
     <string name="help">مركز المساعده</string>
@@ -910,7 +910,7 @@
     <string name="social_network">التواصل الاجتماعي</string>
     <string name="user_packages">باقات المستخدمين</string>
     <string name="agencies_packages">باقات الشركات العقارية</string>
-    <string name="pricing">الاسعار</string>
+    <string name="pricing">الباقات</string>
     <string name="submitted_offers">عروضي</string>
     <string name="favorite">المفضلة</string>
     <string name="my_properties">عقاراتي</string>

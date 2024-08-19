@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBuyAddonsBinding
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 
 @AndroidEntryPoint
 class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
@@ -123,6 +124,7 @@ class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
 
             btnBuy.setOnClickListener {
                 fetchData()
+                findNavController().navigate(R.id.animation_lottie)
             }
         }
     }

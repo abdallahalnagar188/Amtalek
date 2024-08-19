@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -18,14 +17,10 @@ import eramo.amtalek.data.remote.dto.splash.splashV2.OnBordingResponse
 import eramo.amtalek.databinding.FragmentOnBoardingBinding
 import eramo.amtalek.presentation.adapters.viewpager.OnBoardingAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.auth.OnBoardingViewModel
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
-import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
-import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 

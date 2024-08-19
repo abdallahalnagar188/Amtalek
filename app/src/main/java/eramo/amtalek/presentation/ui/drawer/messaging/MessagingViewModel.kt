@@ -12,21 +12,24 @@ import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.ContactAgentsMessageResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.domain.repository.AddonsRepo
+import eramo.amtalek.domain.repository.ContactedAgentRepo
 import eramo.amtalek.domain.repository.ContactedAgentsMessageRepo
 import eramo.amtalek.domain.repository.SentToBrokerMessageRepo
 import eramo.amtalek.domain.usecase.contactedAgents.GetContactedAgents
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MessagingViewModel @Inject constructor(
-    private val getContactedAgentsUseCase: GetContactedAgents,
+    private val getContactedAgentsUseCase: ContactedAgentRepo,
     private val contactedAgentsMessage: ContactedAgentsMessageRepo,
     private val sendToBrokerRepository: SentToBrokerMessageRepo,
     private val getAddonsUseCase: AddonsRepo
@@ -38,8 +41,8 @@ class MessagingViewModel @Inject constructor(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
-    private val _contactedAgents: MutableStateFlow<ContactedAgentResponse?> = MutableStateFlow(null)
-    val contactedAgents: StateFlow<ContactedAgentResponse?> get() = _contactedAgents
+    private val _contactedAgents= MutableStateFlow<Resource<ContactedAgentResponse?>>(Resource.Loading())
+    val contactedAgents: MutableStateFlow<Resource<ContactedAgentResponse?>> get() = _contactedAgents
 
 
     private val _contactedAgentsMessageResult = MutableStateFlow<Resource<ContactAgentsMessageResponse>>(Resource.Loading())
@@ -54,35 +57,21 @@ class MessagingViewModel @Inject constructor(
 
     fun getContactedAgents() {
         viewModelScope.launch {
-            try {
-                _contactedAgents.value = getContactedAgentsUseCase()
-                Log.e("success", _contactedAgents.value.toString())
-            } catch (e: Exception) {
-                Log.e("failed", e.message.toString())
-            }
-        }
-    }
-
-    fun getAddons() {
-        getAddonsJob?.cancel()
-        getAddonsJob = viewModelScope.launch {
-            withContext(coroutineContext) {
-                getAddonsUseCase.getAddons().collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _addons.value = Resource.Success(it.data)
-                        }
-
-                        is Resource.Error -> {
-                            _addons.value = Resource.Error(it.message!!)
-                        }
-
-                        is Resource.Loading -> {
-                            _addons.value = Resource.Loading()
-                        }
+            getContactedAgentsUseCase.getContactedAgents().collect(){
+                when(it){
+                    is Resource.Success -> {
+                        _contactedAgents.value = Resource.Success(it.data)
+                    }
+                    is Resource.Error -> {
+                        _contactedAgents.value = Resource.Error(it.message!!)
+                        Log.e("getContactedAgents", "getContactedAgents: ${it.message}")
+                    }
+                    is Resource.Loading -> {
+                        _contactedAgents.value = Resource.Loading()
                     }
                 }
             }
+
         }
     }
 
@@ -102,6 +91,7 @@ class MessagingViewModel @Inject constructor(
                     }
 
                     is Resource.Loading -> {
+                        LoadingDialog.showDialog()
                         _contactedAgentsMessageResult.value = Resource.Loading()
                     }
                 }

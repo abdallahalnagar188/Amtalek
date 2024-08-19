@@ -34,11 +34,14 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
+import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.Autocad
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.project.AutocadModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -557,6 +560,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             propertyId = state.data.id.toString()
                             vendorId = state.data.brokerId.toString()
                             vendorType = state.data.vendorType
+                            handleSuccessState(state.data)
+
                         }
 
                         is UiState.Error -> {
@@ -662,6 +667,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     getYoutubeUrlId(model.videoUrl)?.let {
                         setupVideo(it)
                 }
+                }
+
+                if (model.autocad.isEmpty()){
+                    binding.autocadDrawingsSlider.visibility = View.GONE
+                    binding.tvAutocadDrawings.visibility = View.GONE
+                }else{
+                    val autocadImages = handleAutocadImages(model.autocad)
+                    setupAutocadImagesSlider(autocadImages)
                 }
 
                 propertyDetailsLayout.tvPropertyCodeValue.text = model.propertyCode
@@ -788,6 +801,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
+    private fun handleAutocadImages(autocad: List<AutocadModel?>?): List<CarouselItem> {
+        val imageList = mutableListOf<CarouselItem>()
+        for (image in autocad!!){
+            imageList.add(CarouselItem(imageUrl = image?.src))
+        }
+        return imageList
+    }
 
     private fun makeCall(phoneNumber: String) {
         val callIntent = Intent(Intent.ACTION_DIAL).apply {
@@ -818,6 +838,15 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         startActivity(emailIntent)
     }
 
+    private fun handleSuccessState(data: PropertyDetailsModel?) {
+        if (data?.autocad.isNullOrEmpty()){
+            binding.autocadDrawingsSlider.visibility = View.GONE
+            binding.tvAutocadDrawings.visibility = View.GONE
+        }else{
+            val autocadImages = handleAutocadImages(data?.autocad)
+            setupAutocadImagesSlider(autocadImages)
+        }
+    }
     private fun checkRentDuration(rentDuration: String) {
         binding.apply {
             var result: String = ""
@@ -892,6 +921,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
         }
 
+
 //        data?.let {
 //            val webSettings: WebSettings = binding.webView.settings
 //            webSettings.javaScriptEnabled = true
@@ -905,6 +935,12 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //        }
     }
 
+    private fun setupAutocadImagesSlider(data: List<CarouselItem>) {
+        binding.apply {
+            autocadDrawingsSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
+            autocadDrawingsSlider.setData(data)
+        }
+    }
     private fun setupVideo(videoId: String) {
         binding.apply {
             lifecycle.addObserver(youtubePlayerView)

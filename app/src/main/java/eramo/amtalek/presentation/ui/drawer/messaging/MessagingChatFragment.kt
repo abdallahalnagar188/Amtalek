@@ -13,8 +13,10 @@ import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.FragmentMessagingChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.RvMessagingChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,7 +47,22 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
         viewModel.getContactedAgents()
         lifecycleScope.launch {
             viewModel.contactedAgents.collect {
-                rvMessagingChatAdapter.submitList(it?.data)
+                when (it) {
+                    is Resource.Success -> {
+                        rvMessagingChatAdapter.submitList(it.data?.data)
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Error -> {
+                        showToast(it.message.toString())
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Loading -> {
+                        LoadingDialog.showDialog()
+                    }
+                }
+
             }
         }
 //        if (UserUtil.getHasPackage() == "yes") {
@@ -62,10 +79,9 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
             findNavController().popBackStack()
         }
         binding.addAdoms.setOnClickListener {
-            if (UserUtil.getHasPackage() == "yes"){
+            if (UserUtil.getHasPackage() == "yes") {
                 findNavController().navigate(R.id.addAdomsFragment)
-            }
-            else{
+            } else {
                 showToast(getString(R.string.no_package))
             }
         }
@@ -76,7 +92,21 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
     private fun fetchContactedAgents() {
         lifecycleScope.launch {
             viewModel.contactedAgents.collectLatest {
-                rvMessagingChatAdapter.submitList(it?.data)
+                when (it) {
+                    is Resource.Success -> {
+                        rvMessagingChatAdapter.submitList(it.data?.data)
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Error -> {
+                        showToast(it.message.toString())
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Loading -> {
+                        LoadingDialog.showDialog()
+                    }
+                }
             }
         }
     }

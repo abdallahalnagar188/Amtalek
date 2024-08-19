@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX
+import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse.Data.News.Data
 import eramo.amtalek.databinding.ItemProjectBinding
 import javax.inject.Inject
 
-class RvNewsAdapter @Inject constructor() :
-    PagingDataAdapter<DataX, RvNewsAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvNewsCategoryAdapter @Inject constructor() :
+    ListAdapter<Data, RvNewsCategoryAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
 
@@ -38,7 +39,7 @@ class RvNewsAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: DataX) {
+        fun bind(model: Data) {
             binding.apply {
                 tvTitle.text = model.title
                 tvDesc.text = model.description
@@ -60,19 +61,19 @@ class RvNewsAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNewsClick(model: DataX)
+        fun onNewsClick(model: Data)
     }
 
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
             override fun areItemsTheSame(
-                oldItem: DataX,
-                newItem: DataX
+                oldItem: Data,
+                newItem: Data
             ) = oldItem.id == newItem.id  // Assuming each NewsModel has a unique ID
 
             override fun areContentsTheSame(
-                oldItem: DataX,
-                newItem: DataX
+                oldItem: Data,
+                newItem: Data
             ) = oldItem == newItem
         }
     }

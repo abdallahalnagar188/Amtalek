@@ -1,8 +1,8 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
-import eramo.amtalek.domain.repository.ContactedAgentRepo
+import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse
+import eramo.amtalek.domain.repository.NewsCategoryRepo
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
@@ -10,11 +10,11 @@ import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class ContactedAgentsRepoImpl(private val amtalekApi: AmtalekApi) : ContactedAgentRepo {
-    override suspend fun getContactedAgents(): Flow<Resource<ContactedAgentResponse>> {
+class NewsCategoryRepoImpl(private val api: AmtalekApi): NewsCategoryRepo {
+    override suspend fun getAllNewsCategories(id: Int): Flow<Resource<NewsCategoryResponse>> {
         return flow {
             val result = toResultFlow {
-                amtalekApi.getContactedAgents(UserUtil.getUserToken())
+                api.getAllNewsCategories(id)
             }
             result.collect {
                 when (it) {

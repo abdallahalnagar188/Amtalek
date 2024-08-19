@@ -43,7 +43,20 @@
         android:id="@+id/editPersonalDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.myaccount.EditPersonalDetailsFragment"
         tools:layout="@layout/fragment_edit_personal_details">
+    </fragment>
 
+    <fragment
+        android:id="@+id/newsCategoryFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.newsCategory.NewsCategoryFragment"
+        tools:layout="@layout/fragment_news_category">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/animation_lottie"
+        android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.LottieAnimationFragment"
+        tools:layout="@layout/fragment_lottie_animation">
     </fragment>
 
     <fragment
@@ -362,6 +375,11 @@
         android:name="eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details">
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0"/>
+
         <argument
             android:name="news"
             app:argType="eramo.amtalek.domain.model.home.news.NewsModel" />

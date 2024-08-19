@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.project.AutocadModel
 import eramo.amtalek.domain.model.property.ChartModel
 import eramo.amtalek.domain.model.property.PropertyDetailsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -62,6 +63,7 @@ data class MyPropertyDetailsResponse(
             brokerEmail = data?.get(0)?.brokerDetails?.get(0)?.email ?: "",
             brokerPhone = data?.get(0)?.brokerDetails?.get(0)?.phone ?: "",
             vendorType = data?.get(0)?.brokerDetails?.get(0)?.brokerType ?: "",
+            autocad = propertyAutocadList()
             )
     }
 
@@ -76,7 +78,14 @@ data class MyPropertyDetailsResponse(
     private fun propertyFeaturesList(): List<AmenityModel> {
         val list = mutableListOf<AmenityModel>()
         for (i in data?.get(0)?.aminities!!) {
-            list.add(AmenityModel(name = i?.title ?: "", id = i?.id ?: -1))
+            list.add(AmenityModel(name = i.title ?: "", id = i.id ?: -1))
+        }
+        return list
+    }
+    private fun propertyAutocadList(): List<AutocadModel> {
+        val list = mutableListOf<AutocadModel>()
+        for (i in data?.get(0)?.autocad!!) {
+            list.add(AutocadModel(id = i?.id ?: -1, src = i?.src ?: "", type = i?.type ?: ""))
         }
         return list
     }
@@ -451,7 +460,11 @@ data class Autocad(
     var src: String?,
     @SerializedName("type")
     var type: String?
-) : Parcelable
+) : Parcelable{
+    fun toAutocadModel():AutocadModel{
+        return AutocadModel(id = id?:-1, src = src?:"", type = type?:"")
+    }
+}
 
 @Parcelize
 data class summaryItem(

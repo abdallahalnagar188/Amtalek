@@ -114,17 +114,16 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         selectedCountryId = -1
         selectedCityId = -1
         selectedRegionId = -1
-        fetchData()
     }
-
-    override fun onPause() {
-        super.onPause()
-        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
-        selectedCountryId = -1
-        selectedCityId = -1
-        selectedRegionId = -1
-        fetchData()
-    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
+//        selectedCountryId = -1
+//        selectedCityId = -1
+//        selectedRegionId = -1
+//        fetchData()
+//    }
 
 
     private fun setupViews() {

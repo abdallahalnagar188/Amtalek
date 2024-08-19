@@ -8,6 +8,7 @@
     android:layoutDirection="locale"
     tools:context=".presentation.ui.main.home.details.properties.PropertyDetailsFragment">
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -585,7 +586,7 @@
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                     android:id="@+id/ads_slider"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_140sdp"
+                    android:layout_height="@dimen/_200sdp"
                     android:layout_marginVertical="@dimen/home_margin_top"
                     android:translationZ="8dp"
                     app:autoPlayDelay="2000"
@@ -602,6 +603,35 @@
                     android:scaleType="centerInside"
                     app:showNavigationButtons="false"
                     app:showTopShadow="false" />
+                <TextView
+                    android:id="@+id/tv_autocad_drawings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:fontFamily="@font/font"
+                    android:paddingHorizontal="@dimen/screen_margin_sides"
+                    android:text="@string/autocad_drawings"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ads_slider" />
+
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                    android:id="@+id/autocad_drawings_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    app:autoPlay="false"
+                    app:autoPlayDelay="2000"
+                    app:carouselType="BLOCK"
+                    app:imageScaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_autocad_drawings"
+                    app:showNavigationButtons="false"
+                    app:showTopShadow="false" />
 
                 <include
                     android:id="@+id/property_features_layout"
@@ -611,7 +641,7 @@
                     android:layout_marginTop="@dimen/_50sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ads_slider" />
+                    app:layout_constraintTop_toBottomOf="@id/autocad_drawings_slider" />
 
                 <TextView
                     android:id="@+id/tv_video"

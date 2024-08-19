@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
+import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse
 import eramo.amtalek.data.remote.dto.project.allProjects.AllProjectsResponse
 import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
 import eramo.amtalek.data.remote.dto.property.allproperty.DataX
@@ -26,6 +27,7 @@ import eramo.amtalek.domain.repository.AllNewsRepo
 import eramo.amtalek.domain.repository.AllNormalPropertiesRepo
 import eramo.amtalek.domain.repository.AllPropertyRepo
 import eramo.amtalek.domain.repository.MyHomeRepository
+import eramo.amtalek.domain.repository.NewsCategoryRepo
 import eramo.amtalek.domain.usecase.allcitys.GetAllCities
 import eramo.amtalek.domain.usecase.allprojects.GetAllProjects
 import eramo.amtalek.domain.usecase.allpropety.GetAllNormalProperty
@@ -40,6 +42,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -58,6 +61,7 @@ class HomeMyViewModel @Inject constructor(
     private val allNormalProperty: AllNormalPropertiesRepo,
     private val api: AmtalekApi,// Inject BrokerApi for PagingSource
     private val newsRepo: AllNewsRepo,
+    private val newsCategoryUseCase:NewsCategoryRepo
 
     ) : ViewModel() {
 
@@ -108,6 +112,9 @@ class HomeMyViewModel @Inject constructor(
     private val _favState = MutableStateFlow<UiState<AddOrRemoveFavResponse>>(UiState.Empty())
     val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
 
+    private val _newsCategory = MutableStateFlow<Resource<NewsCategoryResponse>>(Resource.Loading())
+    val newsCategory: StateFlow<Resource<NewsCategoryResponse>> = _newsCategory
+
     //---------------------------------------------------------------------------------//
     private var initScreenJob: Job? = null
     private var getHomeFeaturedPropertiesJob: Job? = null
@@ -134,12 +141,13 @@ class HomeMyViewModel @Inject constructor(
     }
 
 
+
     val allPropertiesPagingData: Flow<PagingData<DataX>> = Pager(
         config = PagingConfig(
             pageSize = 1,
             enablePlaceholders = false
         ),
-        pagingSourceFactory = {AllPropertiesPagingSource(api) }
+        pagingSourceFactory = { AllPropertiesPagingSource(api) }
     ).flow
         .cachedIn(viewModelScope)
 
@@ -218,6 +226,25 @@ class HomeMyViewModel @Inject constructor(
         }
     }
 
+    fun getNewsCategory(id:Int){
+        viewModelScope.launch {
+            newsCategoryUseCase.getAllNewsCategories(id).collectLatest {
+                when (it) {
+                    is Resource.Success -> {
+                        _newsCategory.value = Resource.Success(it.data)
+                    }
+
+                    is Resource.Error -> {
+                        _newsCategory.emit(Resource.Error(it.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _newsCategory.emit(Resource.Loading())
+                    }
+                }
+            }
+        }
+    }
     private fun getHomeFilterByCity(countryId: String) {
         getHomeFilterByCityJob?.cancel()
         getHomeFilterByCityJob = viewModelScope.launch(Dispatchers.IO) {
@@ -298,8 +325,6 @@ class HomeMyViewModel @Inject constructor(
                         _homeNormalPropertiesState.emit(UiState.Loading())
                     }
                 }
-
-
             }
         }
     }
@@ -536,5 +561,6 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
+
 
 }

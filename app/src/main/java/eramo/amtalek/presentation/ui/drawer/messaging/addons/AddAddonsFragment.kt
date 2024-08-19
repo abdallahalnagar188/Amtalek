@@ -15,7 +15,9 @@ import eramo.amtalek.databinding.FragmentAddAdomsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsMonthlyPriceAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.messaging.addons.RvAddonsYearlyPriceAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -71,8 +73,22 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                             viewModel.getAddons()
                             lifecycleScope.launch {
                                 viewModel.addons.collect { it ->
-                                    viewModel.addons.value.data?.data?.let { initMonthlyRv(it) }
-                                    setupListeners(it.data?.data ?: emptyList(),"monthly")
+                                    when (it) {
+                                        is Resource.Success -> {
+                                            viewModel.addons.value.data?.data?.let { initMonthlyRv(it) }
+                                            setupListeners(it.data?.data ?: emptyList(), "yearly")
+                                            LoadingDialog.dismissDialog()
+                                        }
+
+                                        is Resource.Loading -> {
+                                            LoadingDialog.showDialog()
+                                        }
+
+                                        is Resource.Error -> {
+                                            LoadingDialog.dismissDialog()
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -87,15 +103,28 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                             // Update Monthly Button Styles
                             monthlyBtnAddon.setBackgroundColor(context?.getColor(R.color.white)!!)
                             monthlyBtnAddon.setTextColor(context?.getColor(R.color.amtalek_blue_dark)!!)
-
                             viewModel.getAddons()
                             lifecycleScope.launch {
                                 viewModel.addons.collect { it ->
-                                    viewModel.addons.value.data?.data?.let { initYearlyRv(it) }
-                                    setupListeners(it.data?.data ?: emptyList(),"yearly")
+                                    when (it) {
+                                        is Resource.Success -> {
+                                            viewModel.addons.value.data?.data?.let { initYearlyRv(it) }
+                                            setupListeners(it.data?.data ?: emptyList(), "yearly")
+                                            LoadingDialog.dismissDialog()
+                                        }
+
+                                        is Resource.Loading -> {
+                                            LoadingDialog.showDialog()
+                                        }
+
+                                        is Resource.Error -> {
+                                            LoadingDialog.dismissDialog()
+                                        }
+                                    }
 
                                 }
                             }
+
                         }
                     }
                 }
@@ -130,7 +159,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
     }
 
 
-    private fun setupListeners(data: List<Data?>,durations:String) {
+    private fun setupListeners(data: List<Data?>, durations: String) {
 
         binding.btnTotalPrice.setOnClickListener {
             if (binding.tvTotalPriceAmount.text != getString(R.string.s_egp, "0.0")) {

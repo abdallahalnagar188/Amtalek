@@ -3,7 +3,7 @@
     <string name="map_api_key" translatable="false">AIzaSyAsJmPNAuOje9uNhxDDso5vR2nhLwWDJo8</string>
 
     <string name="cancel">Cancel</string>
-    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.4</string>
+    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.5</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">Warning!</string>
@@ -874,7 +874,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="user_packages">User Packages</string>
     <string name="agencies_packages">Agencies Packages</string>
     <string name="pricing">Packages</string>
-    <string name="submitted_offers">Submitted Offers</string>
+    <string name="submitted_offers">My Offers</string>
     <string name="favorite">Favorites</string>
     <string name="my_properties">My Properties</string>
     <string name="my_offer">My offer : </string>

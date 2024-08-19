@@ -83,6 +83,12 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideAllNewsCategoryRepo(apiService: AmtalekApi):NewsCategoryRepo{
+        return NewsCategoryRepoImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
     fun provideAddonsRepo(apiService: AmtalekApi):AddonsRepo{
         return AddonsRepoImpl(apiService)
     }

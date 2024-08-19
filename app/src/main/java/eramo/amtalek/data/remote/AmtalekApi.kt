@@ -33,6 +33,7 @@ import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
 import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.allnews.AllNewsResponse
+import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse
 import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
 import eramo.amtalek.data.remote.dto.myHome.project.HomeProjectsResponse
 import eramo.amtalek.data.remote.dto.myHome.sliders.HomeSlidersResponse
@@ -306,7 +307,7 @@ interface AmtalekApi {
     @GET("web/get-contacted-agents")
     suspend fun getContactedAgents(
         @Header("Authorization") userToken: String?
-    ): ContactedAgentResponse
+    ): Response<ContactedAgentResponse>
 
     @FormUrlEncoded
     @POST("mobile/cities-filter")
@@ -314,6 +315,7 @@ interface AmtalekApi {
         @Header("Authorization") userToken: String?,
         @Field("city_id") cityId: String
     ): Response<HomeResponse>
+
 
 
 
@@ -573,6 +575,11 @@ interface AmtalekApi {
         @Query("page") page: Int,
         @Query("size") size: Int = 1,
     ): Response<AllNewsResponse>
+
+    @GET("mobile/news-categories/{id}")
+    suspend fun getAllNewsCategories(
+        @Path("id") id: Int
+    ): Response<NewsCategoryResponse>
 
     @GET("mobile/broker/{id}/broker")
     suspend fun getBrokersDetails(

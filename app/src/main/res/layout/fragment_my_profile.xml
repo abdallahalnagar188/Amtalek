@@ -263,8 +263,10 @@
                     android:layout_height="@dimen/_40sdp"
                     android:fontFamily="@font/font"
                     android:text="@string/favorite"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/amtalek_blue_dark"
-                    android:textSize="@dimen/_6ssp"
+                    android:textSize="@dimen/_7ssp"
+                    android:textAllCaps="false"
                     app:cornerRadius="@dimen/_10sdp"
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark" />
@@ -272,12 +274,13 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/submited_offer_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_75sdp"
+                    android:layout_width="@dimen/_78sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:fontFamily="@font/font"
+                    android:textAlignment="viewStart"
                     android:text="@string/submitted_offers"
                     android:textColor="@color/amtalek_blue_dark"
-                    android:textSize="@dimen/_6ssp"
+                    android:textSize="@dimen/_7ssp"
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark" />
 
@@ -289,20 +292,22 @@
                     android:fontFamily="@font/font"
                     android:text="@string/my_properties"
                     android:textColor="@color/amtalek_blue_dark"
-                    android:textSize="@dimen/_6ssp"
+                    android:textSize="@dimen/_7ssp"
                     app:cornerRadius="@dimen/_10sdp"
+                    android:textAlignment="viewStart"
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/reseived_offer_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_75sdp"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:fontFamily="@font/font"
                     android:text="@string/received_offers"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/amtalek_blue_dark"
-                    android:textSize="@dimen/_6ssp"
+                    android:textSize="@dimen/_7ssp"
                     app:cornerRadius="@dimen/_10sdp"
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark" />
@@ -319,7 +324,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_toggle_group"
                 tools:listitem="@layout/item_property_preview"
-
                 />
 
             <androidx.recyclerview.widget.RecyclerView

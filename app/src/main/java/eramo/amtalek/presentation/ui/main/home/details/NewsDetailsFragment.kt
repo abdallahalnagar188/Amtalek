@@ -19,8 +19,10 @@ import eramo.amtalek.domain.model.social.RatingCommentsModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvNewsDetailsCommentsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
+import eramo.amtalek.presentation.ui.main.home.details.newsCategory.NewsCategoryFragmentArgs
 import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
+import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
@@ -33,6 +35,7 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         get() = FragmentNewsDetailsBinding::inflate
     val args: NewsDetailsFragmentArgs by navArgs()
     val news get() = args.news
+
     @Inject
     lateinit var rvNewsDetailsCommentsAdapter: RvNewsDetailsCommentsAdapter
 
@@ -41,6 +44,7 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        setupListener(news)
 
     }
 
@@ -56,7 +60,6 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         binding.tvTitle.text = news.title
         binding.tvBody.text = news.description
         binding.tvCategory.text = news.newsCategory.mainTitle
-
         val htmlContent = news?.description ?: ""
         val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
@@ -66,6 +69,18 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         binding.tvBody.text = spannedText
 //        setupImageSliderTop()
 //        initRvComments(Dummy.dummyRatingCommentsList())
+    }
+
+    fun setupListener(model: NewsModel) {
+        binding.apply {
+            tvCategory.setOnClickListener {
+                findNavController().navigate(
+                    R.id.newsCategoryFragment,
+                    NewsCategoryFragmentArgs(model.newsCategory.id.toString() ?: "").toBundle(), navOptionsAnimation()
+                )
+
+            }
+        }
     }
 
     private fun setupToolbar() {

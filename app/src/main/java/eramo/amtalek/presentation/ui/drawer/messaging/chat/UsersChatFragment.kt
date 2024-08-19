@@ -16,6 +16,7 @@ import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.FragmentUsersChatBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvUsersChatAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.drawer.messaging.MessagingViewModel
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
@@ -128,13 +129,16 @@ class UsersChatFragment : BindingFragment<FragmentUsersChatBinding>() {
                                 binding.rv.smoothScrollToPosition(rvUsersChatAdapter.itemCount - 1)
                             }
                         }
+                        LoadingDialog.dismissDialog()
                     }
 
                     is Resource.Error -> {
+                        LoadingDialog.dismissDialog()
                         Log.e("Error", (resource.message ?: "Unknown error").toString())
                     }
 
                     is Resource.Loading -> {
+                        LoadingDialog.showDialog()
                         Log.e("Loading", "Loading")
                     }
 

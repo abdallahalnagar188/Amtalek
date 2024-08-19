@@ -1,7 +1,9 @@
 package eramo.amtalek.domain.model.property
 
+import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.Autocad
 import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.BrokerDetail
 import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.project.AutocadModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
 
 data class PropertyDetailsModel(
@@ -36,7 +38,7 @@ data class PropertyDetailsModel(
     val comments:List<RatingCommentsModel>,
     val similarProperties:List<eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel>,
     val chartList:List<ChartModel>,
-    val mapUrl:String   ,
+    val mapUrl:String,
     val id:Int,
     val isFavourite:String,
     val sold:Boolean,
@@ -45,4 +47,5 @@ data class PropertyDetailsModel(
     val brokerPhone: String,
     val brokerEmail:String,
     val vendorType:String,
+    val autocad:List<AutocadModel>,
     )

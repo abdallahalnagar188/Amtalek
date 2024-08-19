@@ -13,14 +13,22 @@ plugins {
 android {
     compileSdk 34
 
+    bundle {
+        language {
+            // Specifies that the app bundle should not support
+            // configuration APKs for language resources. These
+            // resources are instead packaged with each base and
+            // dynamic feature APK.
+            enableSplit = false
+        }
+    }
     defaultConfig {
-        resConfigs "ar"
         applicationId "eramo.amtalek"
         minSdk 24
         //noinspection OldTargetApi
         targetSdk 34
-        versionCode 6
-        versionName "1.6"
+        versionCode 7
+        versionName "1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -90,6 +98,9 @@ dependencies {
     implementation 'com.akexorcist:localization:1.2.11'
     // Paging
     implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
+
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     // For multi-screens
     implementation 'com.intuit.sdp:sdp-android:1.0.6'

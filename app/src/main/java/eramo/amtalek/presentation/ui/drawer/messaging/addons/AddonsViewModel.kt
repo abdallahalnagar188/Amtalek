@@ -8,6 +8,7 @@ import eramo.amtalek.data.remote.dto.adons.BuyAddonsRequest
 import eramo.amtalek.data.remote.dto.adons.BuyAddonsResponse
 import eramo.amtalek.domain.repository.AddonsRepo
 import eramo.amtalek.domain.repository.BuyAddonsRepo
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +35,17 @@ class AddonsViewModel @Inject constructor(
         getAddonsJob?.cancel()
         getAddonsJob = viewModelScope.launch {
             getAddonsUseCase.getAddons().collect { resource ->
-                _addons.value = resource
+                when (resource){
+                    is Resource.Success ->{
+                        _addons.value = resource
+                    }
+                    is Resource.Loading ->{
+                        LoadingDialog.showDialog()
+                    } is Resource.Error->{
+                    LoadingDialog.dismissDialog()
+                }
+                }
+
             }
         }
     }
