@@ -120,8 +120,6 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private fun assignData(model: Data) {
         binding.apply {
 
-            tvPropertyForRent.visibility = View.GONE
-            tvPropertyForSeal.visibility = View.GONE
             rvForRent.visibility = View.GONE
 
             tvAllProjectsCount.text =
@@ -255,8 +253,6 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                 }
             }
         }
-
-
     }
     override fun onFavClick(model: OriginalItem) {
           homeViewModel.addOrRemoveFav(model.id?:0)

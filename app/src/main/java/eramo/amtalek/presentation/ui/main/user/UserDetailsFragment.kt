@@ -75,6 +75,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             viewModel.userDetails.collectLatest { state ->
                 state?.data?.get(0)?.let { assignData(it) }
                 state?.data?.get(0)?.let { initRv(it) }
+                Log.e("prop", state?.data?.get(0)?.getAllSubmittedProps().toString())
                // initRvForRent(state?.data?.get(0)?.submitted_props_for_rent ?: emptyList())
             }
         }
@@ -112,8 +113,13 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             tvDescription.text = model.description
             tvLocation.visibility = View.GONE
 
+            tvAllProjectsCount.text = getString(R.string.s_all_properties,model.submitted_props_for_sale?.plus(model.submitted_props_for_rent) )
             btnProjects.visibility = View.GONE
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
+            initRv(model)
+
+            // Set the listeners as before
+
 
             // Show the "for sale" properties first
 //            if (!model.submitted_props_for_sale.isNullOrEmpty()) {
@@ -137,15 +143,15 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 //                }
 //            }
 
-            tvPropertyForRent.setOnClickListener {
-                if (model.submitted_props_for_rent != null) {
-                    initRvForRent(model.submitted_props_for_rent)
-                    rvForRent.visibility = View.VISIBLE
-                    rv.visibility = View.GONE
-                } else {
-                    rvForRent.visibility = View.GONE
-                }
-            }
+//            tvPropertyForRent.setOnClickListener {
+//                if (model.submitted_props_for_rent != null) {
+//                    initRvForRent(model.submitted_props_for_rent)
+//                    rvForRent.visibility = View.VISIBLE
+//                    rv.visibility = View.GONE
+//                } else {
+//                    rvForRent.visibility = View.GONE
+//                }
+//            }
 
             binding.shareView.btnCall.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
@@ -210,17 +216,18 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         // Combine the lists and submit the combined list to the adapter
         val combinedList = data.getAllSubmittedProps()
         rvBrokerDetailsPropertiesAdapter.submitList(combinedList)
+
     }
 
 
-    private fun initRvForRent(data: List<SubmittedPropsForRent>) {
-        rvBrokerDetailsPropertiesForRentAdapter.setListener(
-            this@UserDetailsFragment,
-            this@UserDetailsFragment
-        )
-        binding.rv.adapter = rvBrokerDetailsPropertiesForRentAdapter
-        rvBrokerDetailsPropertiesForRentAdapter.submitList(data)
-    }
+//    private fun initRvForRent(data: List<SubmittedPropsForRent>) {
+//        rvBrokerDetailsPropertiesForRentAdapter.setListener(
+//            this@UserDetailsFragment,
+//            this@UserDetailsFragment
+//        )
+//        binding.rv.adapter = rvBrokerDetailsPropertiesForRentAdapter
+//        rvBrokerDetailsPropertiesForRentAdapter.submitList(data)
+//    }
     override fun onPause() {
         super.onPause()
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)

@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,12 +77,23 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                     R.string.s_egp,
                     model.sale_price?.let { formatPrice(it.toDouble()) }
                 )
+              if(model.rent_price==0){
+                  tvDurationRent.visibility = View.GONE
+              }
+                tvPrice.visibility = View.VISIBLE
                 tvDurationRent.text = itemView.context.getString(
                     R.string.s_egp,
                     formatPrice(model.rent_price?.toDouble() ?: 0.0)
                 )
+                if(model.for_what == "for_sale"){
+                    tvLabel.text = itemView.context.getString(R.string.for_sell)
+                }else if(model.for_what == "for_frrent"){
+                    tvLabel.text = itemView.context.getString(R.string.for_rent)
+                }else{
+                    tvLabel.text = itemView.context.getString(R.string.forBoth)
+                }
                 tvTitle.text = model.title
-                tvLabel.text = itemView.context.getString(R.string.for_sell)
+              //  tvLabel.text = itemView.context.getString(R.string.for_sell)
                 tvArea.text = itemView.context.getString(
                     R.string.s_meter_square,
                     model.land_area?.let { formatNumber(it) }
@@ -96,7 +108,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                     .into(ivImage)
                 Glide.with(itemView).load(model.broker_details?.get(0)?.logo).into(ivBroker)
 
-                if (model.property_type == "featured") {
+                if (model.normal_featured == "featured") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
@@ -129,17 +141,28 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
+                if(model.for_what == "for_sale"){
+                    tvLabel.text = itemView.context.getString(R.string.for_sell)
+                }else if(model.for_what == "for_rent"){
+                    tvLabel.text = itemView.context.getString(R.string.for_rent)
+                }else{
+                    tvLabel.text = itemView.context.getString(R.string.forBoth)
+                }
 
+                tvDurationRent.visibility = View.VISIBLE
                 tvPrice.text = itemView.context.getString(
                     R.string.s_egp,
                     model.sale_price?.let { formatPrice(it.toDouble()) }
                 )
+                if(model.sale_price =="0.0"){
+                    tvPrice.visibility = View.GONE
+                }
                 tvDurationRent.text = itemView.context.getString(
                     R.string.s_egp,
                     formatPrice(model.rent_price?.toDouble() ?: 0.0)
                 )
                 tvTitle.text = model.title
-                tvLabel.text = itemView.context.getString(R.string.for_sell)
+               // tvLabel.text = itemView.context.getString(R.string.for_rent)
                 tvArea.text = itemView.context.getString(
                     R.string.s_meter_square,
                     model.land_area?.let { formatNumber(it) }
@@ -154,7 +177,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                     .into(ivImage)
                 Glide.with(itemView).load(model.broker_details?.get(0)?.logo).into(ivBroker)
 
-                if (model.property_type == "featured") {
+                if (model.normal_featured == "featured") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
@@ -189,6 +212,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 return oldItem == newItem
             }
 
+            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
                 return oldItem == newItem
             }
