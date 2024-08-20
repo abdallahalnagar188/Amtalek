@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -49,6 +50,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
@@ -81,6 +83,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private val viewModel: PropertyDetailsViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
+    private val homeViewModel:HomeMyViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
 
@@ -264,23 +267,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 
     }
-
-
-    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
-        val list = ArrayList<CarouselItem>()
-        val headers = mutableMapOf<String, String>()
-        headers["header_key"] = "header_value"
-
-        for (i in data!!) {
-            list.add(
-                CarouselItem(
-                    imageUrl = i.image,
-                )
-            )
-        }
-
-        return list
-    }
     private fun fetchGetPropertySlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -313,24 +299,48 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
     }
-    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+
+    private lateinit var sliderModels: List<SliderModel>
+    private lateinit var carouselItems: List<CarouselItem>
+
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        sliderModels = data ?: emptyList()
+
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
+
+        for (i in sliderModels) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i.image,
+                    headers = headers
+                )
+            )
+        }
+        carouselItems = list
+        return list
+    }
+    private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
         binding.apply {
             adsSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
-            adsSlider.setData(data)
-            if (data.size == 1) {
-                adsSlider. infiniteCarousel= false
+            adsSlider.setData(dataState)
+
+            if (dataState.size == 1) {
+                adsSlider.infiniteCarousel = false
                 adsSlider.autoPlay = false
+                adsSlider.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
             } else {
                 adsSlider.infiniteCarousel = true
                 adsSlider.autoPlay = true
+                adsSlider.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
             }
-            //  carouselSlider.setIndicator(carouselSliderBetweenDots)
+
             adsSlider.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
                 ): ViewBinding {
-//                    return ItemAdsBinding.inflate(
                     return ItemSliderTopBinding.inflate(
                         layoutInflater,
                         parent,
@@ -343,17 +353,39 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     item: CarouselItem,
                     position: Int
                 ) {
-//                    val currentBinding = binding as ItemAdsBinding
                     val currentBinding = binding as ItemSliderTopBinding
+                    val sliderModel = sliderModels[position]
+
                     currentBinding.apply {
                         imageView13.setImage(item)
+                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP
+
+                        // Access the SliderModel variables here
+                        val id = sliderModel.id
+                        val imageUrl = sliderModel.image
+                        val type = sliderModel.type
+                        val inFrame = sliderModel.inFrame
+                        val url = sliderModel.url
+
+                        // Use these variables as needed
                         this.root.setOnClickListener {
-                            this@PropertyDetailsFragment.binding.adsSlider
+                            if (url.isNotEmpty()) {
+                                setupListeners(url)
+                                homeViewModel.clickedOnAd(id.toString())
+                            }
                         }
+
+                        this@PropertyDetailsFragment  .binding
                     }
                 }
             }
         }
+    }
+    private fun setupListeners(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
     }
 
 //    private fun handleContactAction(propertyId: Int, brokerId: Int, brokerType: String, transactionType: String) {

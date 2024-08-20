@@ -61,9 +61,9 @@ class HomeMyViewModel @Inject constructor(
     private val allNormalProperty: AllNormalPropertiesRepo,
     private val api: AmtalekApi,// Inject BrokerApi for PagingSource
     private val newsRepo: AllNewsRepo,
-    private val newsCategoryUseCase:NewsCategoryRepo
+    private val newsCategoryUseCase: NewsCategoryRepo
 
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _allProperty: MutableStateFlow<AllPropertyResponse?> = MutableStateFlow(null)
     val allProperty: StateFlow<AllPropertyResponse?> get() = _allProperty
@@ -88,6 +88,9 @@ class HomeMyViewModel @Inject constructor(
 
     private val _homeSliderState = MutableStateFlow<UiState<List<SliderModel>>>(UiState.Empty())
     val homeSliderState: StateFlow<UiState<List<SliderModel>>> = _homeSliderState
+
+    private val _clickOnAd = MutableStateFlow<UiState<List<SliderModel>>>(UiState.Empty())
+    val clickOnAd: StateFlow<UiState<List<SliderModel>>> = _clickOnAd
 
     private val _homeMostViewedPropertiesState = MutableStateFlow<UiState<List<HomePropertySectionModel>>>(UiState.Empty())
     val homeMostViewedPropertiesState: StateFlow<UiState<List<HomePropertySectionModel>>> = _homeMostViewedPropertiesState
@@ -139,7 +142,6 @@ class HomeMyViewModel @Inject constructor(
         getHomeExtraSectionsJob?.cancel()
         getProfileJob?.cancel()
     }
-
 
 
     val allPropertiesPagingData: Flow<PagingData<DataX>> = Pager(
@@ -226,7 +228,7 @@ class HomeMyViewModel @Inject constructor(
         }
     }
 
-    fun getNewsCategory(id:Int){
+    fun getNewsCategory(id: Int) {
         viewModelScope.launch {
             newsCategoryUseCase.getAllNewsCategories(id).collectLatest {
                 when (it) {
@@ -245,6 +247,7 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
+
     private fun getHomeFilterByCity(countryId: String) {
         getHomeFilterByCityJob?.cancel()
         getHomeFilterByCityJob = viewModelScope.launch(Dispatchers.IO) {
@@ -295,6 +298,34 @@ class HomeMyViewModel @Inject constructor(
 
                     is Resource.Loading -> {
                         _homeSliderState.emit(UiState.Loading())
+                    }
+                }
+
+
+            }
+        }
+    }
+
+    fun clickedOnAd(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            homeRepository.clickedOnAds(id).collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val list = mutableListOf<SliderModel>()
+                        for (item in result.data?.data!!) {
+                            if (item != null) {
+                                list.add(item.toSliderModel())
+                            }
+                        }
+                        _clickOnAd.emit(UiState.Success(list))
+                    }
+
+                    is Resource.Error -> {
+                        _clickOnAd.emit(UiState.Error(result.message!!))
+                    }
+
+                    is Resource.Loading -> {
+                        _clickOnAd.emit(UiState.Loading())
                     }
                 }
 

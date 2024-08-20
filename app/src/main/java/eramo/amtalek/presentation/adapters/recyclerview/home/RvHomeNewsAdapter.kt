@@ -53,6 +53,8 @@ class RvHomeNewsAdapter @Inject constructor() :
 
                 Glide.with(itemView).load(model.image).placeholder(R.drawable.ic_no_image)
                     .into(ivImage)
+                tvDate.text = model.createdAt
+
             }
         }
     }

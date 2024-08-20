@@ -1,5 +1,7 @@
 package eramo.amtalek.presentation.ui.search.searchresult
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -8,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +32,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.drawer.addproperty.fifth.SelectAmenitiesAdapter
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
+import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
 import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocationsPopUp
@@ -61,6 +65,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     val viewModel by viewModels<SearchFormViewModel>()
     private val searchResultViewModel by viewModels<SearchResultViewModel>()
+    private val homeMyViewModel:HomeMyViewModel by viewModels()
 
     private var selectedPurposeId: Int? = null
     private var selectedFinishingId: Int? = null
@@ -128,22 +133,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
         }
     }
-
-    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
-        val list = ArrayList<CarouselItem>()
-        val headers = mutableMapOf<String, String>()
-        headers["header_key"] = "header_value"
-
-        for (i in data!!) {
-            list.add(
-                CarouselItem(
-                    imageUrl = i.image,
-                )
-            )
-        }
-
-        return list
-    }
     private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -154,11 +143,11 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                             val data = state.data
                             if (!data.isNullOrEmpty()) {
                                 binding.carouselSliderBetween.visibility = View.VISIBLE
-                             //   binding.carouselSliderBetweenDots.visibility = View.VISIBLE
+                                //   binding.carouselSliderBetweenDots.visibility = View.VISIBLE
                                 setupSliderBetween(parseBetweenCarouselSliderList(data))
                             } else {
                                 binding.carouselSliderBetween.visibility = View.GONE
-                             //   binding.carouselSliderBetweenDots.visibility = View.GONE
+                                //   binding.carouselSliderBetweenDots.visibility = View.GONE
 
                             }
                         }
@@ -178,24 +167,50 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             }
         }
     }
-    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+
+    private lateinit var sliderModels: List<SliderModel>
+    private lateinit var carouselItems: List<CarouselItem>
+
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        sliderModels = data ?: emptyList()
+
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
+
+        for (i in sliderModels) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i.image,
+                    headers = headers
+                )
+            )
+        }
+        carouselItems = list
+        return list
+    }
+
+
+    private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
         binding.apply {
             carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderBetween.setData(data)
-            if (data.size == 1) {
-                carouselSliderBetween. infiniteCarousel= false
+            carouselSliderBetween.setData(dataState)
+
+            if (dataState.size == 1) {
+                carouselSliderBetween.infiniteCarousel = false
                 carouselSliderBetween.autoPlay = false
+                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
             } else {
                 carouselSliderBetween.infiniteCarousel = true
                 carouselSliderBetween.autoPlay = true
+                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
             }
-          //  carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
+
             carouselSliderBetween.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
                 ): ViewBinding {
-//                    return ItemAdsBinding.inflate(
                     return ItemSliderTopBinding.inflate(
                         layoutInflater,
                         parent,
@@ -208,18 +223,42 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                     item: CarouselItem,
                     position: Int
                 ) {
-//                    val currentBinding = binding as ItemAdsBinding
                     val currentBinding = binding as ItemSliderTopBinding
+                    val sliderModel = sliderModels[position]
+
                     currentBinding.apply {
                         imageView13.setImage(item)
+                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP
+
+                        // Access the SliderModel variables here
+                        val id = sliderModel.id
+                        val imageUrl = sliderModel.image
+                        val type = sliderModel.type
+                        val inFrame = sliderModel.inFrame
+                        val url = sliderModel.url
+
+                        // Use these variables as needed
                         this.root.setOnClickListener {
-                            this@SearchResultFragment.binding.inToolbar
+                            if (url.isNotEmpty()) {
+                                setupListeners(url)
+                                homeMyViewModel.clickedOnAd(id.toString())
+                            }
                         }
+
+                        this@SearchResultFragment .binding.inToolbar
                     }
                 }
             }
         }
     }
+
+    private fun setupListeners(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
+    }
+
     private fun setupSpinners(data: SearchDataListsModel) {
 
         val finishingList = data.listOfFinishingItems.toMutableList()

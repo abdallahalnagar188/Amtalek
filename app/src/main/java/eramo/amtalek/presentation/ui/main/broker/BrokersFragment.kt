@@ -48,15 +48,12 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
         binding.rvBrokers.adapter = rvBrokersAdapter
 
         lifecycleScope.launch {
-
-            // Collect data from PagingData flow
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.brokersPaging.collect { pagingData ->
                     rvBrokersAdapter.submitData(pagingData)
                 }
             }
         }
-
         setupViews()
     }
 

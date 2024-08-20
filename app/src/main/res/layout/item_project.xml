@@ -33,11 +33,12 @@
             android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:paddingHorizontal="@dimen/_8sdp"
+            android:fontFamily="@font/font"
             android:maxLines="1"
             android:text="@string/egy_market_egy_market"
             android:textColor="@color/amtalek_blue"
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_desc"
             app:layout_constraintTop_toBottomOf="@+id/iv_news" />
 
         <TextView
@@ -47,16 +48,27 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
             android:paddingHorizontal="@dimen/_8sdp"
             android:paddingVertical="@dimen/_8sdp"
+            android:fontFamily="@font/font"
             android:text="@string/l_rem_ipsum_beh_resk_stafettl_kare_exod_ling_l_ngar_prel_anabelt_och_intrassa_b_lig_er_dek_antiskop_och_semipyse_oling_plan_nera_p_asar_megaden_unesk"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_desc"
+            app:layout_constraintStart_toStartOf="@id/tv_desc"
+            android:text="@string/date"
+            android:textSize="@dimen/_8ssp"
+            android:fontFamily="@font/font"
+            android:layout_marginVertical="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

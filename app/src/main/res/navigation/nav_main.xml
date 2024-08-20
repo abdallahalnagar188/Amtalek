@@ -45,14 +45,7 @@
         tools:layout="@layout/fragment_edit_personal_details">
     </fragment>
 
-    <fragment
-        android:id="@+id/newsCategoryFragment"
-        android:name="eramo.amtalek.presentation.ui.main.home.details.newsCategory.NewsCategoryFragment"
-        tools:layout="@layout/fragment_news_category">
-        <argument
-            android:name="categoryId"
-            app:argType="string" />
-    </fragment>
+
     <fragment
         android:id="@+id/animation_lottie"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.LottieAnimationFragment"
@@ -379,10 +372,29 @@
             android:name="id"
             app:argType="string"
             android:defaultValue="0"/>
-
+        <argument
+            android:name="titleName"
+            app:argType="string" />
         <argument
             android:name="news"
             app:argType="eramo.amtalek.domain.model.home.news.NewsModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailsInCategoryFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.newsCategory.NewsDetailsInCategoryFragment"
+        android:label="fragment_news_details_in_category"
+        tools:layout="@layout/fragment_news_details_in_category">
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0"/>
+        <argument
+            android:name="titleName"
+            app:argType="string"
+            android:defaultValue=" "/>
+        <argument
+            android:name="newsCat"
+            app:argType="eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsData" />
     </fragment>
 
     <fragment
@@ -391,9 +403,30 @@
         android:label="fragment_news_details_in_see_more"
         tools:layout="@layout/fragment_news_details_in_see_more">
         <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="0"/>
+        <argument
+            android:name="titleName"
+            app:argType="string" />
+        <argument
             android:name="news"
             app:argType="eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX" />
     </fragment>
+
+    <fragment
+        android:id="@+id/newsCategoryFragment"
+        android:name="eramo.amtalek.presentation.ui.main.home.details.newsCategory.NewsCategoryFragment"
+        tools:layout="@layout/fragment_news_category">
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+
+        <argument
+            android:name="titleName"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/offersChatFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.chat.OffersChatFragment"

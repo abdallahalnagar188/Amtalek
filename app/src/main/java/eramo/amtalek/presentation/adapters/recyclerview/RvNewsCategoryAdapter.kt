@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse.Data.News.Data
+import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsData
 import eramo.amtalek.databinding.ItemProjectBinding
 import javax.inject.Inject
 
 class RvNewsCategoryAdapter @Inject constructor() :
-    ListAdapter<Data, RvNewsCategoryAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+    ListAdapter<NewsData, RvNewsCategoryAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
 
@@ -39,7 +39,7 @@ class RvNewsCategoryAdapter @Inject constructor() :
             }
         }
 
-        fun bind(model: Data) {
+        fun bind(model: NewsData) {
             binding.apply {
                 tvTitle.text = model.title
                 tvDesc.text = model.description
@@ -52,6 +52,8 @@ class RvNewsCategoryAdapter @Inject constructor() :
                     .load(model.image)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivNews)
+
+                tvDate.text = model.createdAt
             }
         }
     }
@@ -61,19 +63,19 @@ class RvNewsCategoryAdapter @Inject constructor() :
     }
 
     interface OnItemClickListener {
-        fun onNewsClick(model: Data)
+        fun onNewsClick(model: NewsData)
     }
 
     companion object {
-        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<Data>() {
+        private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<NewsData>() {
             override fun areItemsTheSame(
-                oldItem: Data,
-                newItem: Data
+                oldItem: NewsData,
+                newItem: NewsData
             ) = oldItem.id == newItem.id  // Assuming each NewsModel has a unique ID
 
             override fun areContentsTheSame(
-                oldItem: Data,
-                newItem: Data
+                oldItem: NewsData,
+                newItem: NewsData
             ) = oldItem == newItem
         }
     }

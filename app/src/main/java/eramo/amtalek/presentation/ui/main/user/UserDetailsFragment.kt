@@ -74,8 +74,8 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         lifecycleScope.launch {
             viewModel.userDetails.collectLatest { state ->
                 state?.data?.get(0)?.let { assignData(it) }
-                initRv(state?.data?.get(0)?.submitted_props_for_sale ?: emptyList())
-                initRvForRent(state?.data?.get(0)?.submitted_props_for_rent ?: emptyList())
+                state?.data?.get(0)?.let { initRv(it) }
+               // initRvForRent(state?.data?.get(0)?.submitted_props_for_rent ?: emptyList())
             }
         }
     }
@@ -116,26 +116,26 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
 
             // Show the "for sale" properties first
-            if (!model.submitted_props_for_sale.isNullOrEmpty()) {
-                initRv(model.submitted_props_for_sale)
-                rv.visibility = View.VISIBLE
-                rvForRent.visibility = View.GONE
-            } else {
-                // If there are no "for sale" properties, show the "for rent" properties instead
-                initRvForRent(model.submitted_props_for_rent ?: emptyList())
-                rv.visibility = View.GONE
-                rvForRent.visibility = View.VISIBLE
-            }
+//            if (!model.submitted_props_for_sale.isNullOrEmpty()) {
+//                initRv(model.submitted_props_for_sale)
+//                rv.visibility = View.VISIBLE
+//                rvForRent.visibility = View.GONE
+//            } else {
+//                // If there are no "for sale" properties, show the "for rent" properties instead
+//                initRvForRent(model.submitted_props_for_rent ?: emptyList())
+//                rv.visibility = View.GONE
+//                rvForRent.visibility = View.VISIBLE
+//            }
 
-            tvPropertyForSeal.setOnClickListener {
-                if (model.submitted_props_for_sale != null) {
-                    initRv(model.submitted_props_for_sale)
-                    rv.visibility = View.VISIBLE
-                    rvForRent.visibility = View.GONE
-                } else {
-                    rv.visibility = View.GONE
-                }
-            }
+//            tvPropertyForSeal.setOnClickListener {
+//                if (model.submitted_props_for_sale != null) {
+//                    initRv(model.submitted_props_for_sale)
+//                    rv.visibility = View.VISIBLE
+//                    rvForRent.visibility = View.GONE
+//                } else {
+//                    rv.visibility = View.GONE
+//                }
+//            }
 
             tvPropertyForRent.setOnClickListener {
                 if (model.submitted_props_for_rent != null) {
@@ -197,14 +197,21 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     }
 
 
-    private fun initRv(data: List<SubmittedPropsForSale>) {
+    private fun initRv(data: Data) {
+        // Set the listeners as before
         rvBrokerDetailsPropertiesAdapter.setListener(
             this@UserDetailsFragment,
             this@UserDetailsFragment
         )
+
+        // Set the adapter to your RecyclerView
         binding.rv.adapter = rvBrokerDetailsPropertiesAdapter
-        rvBrokerDetailsPropertiesAdapter.submitList(data)
+
+        // Combine the lists and submit the combined list to the adapter
+        val combinedList = data.getAllSubmittedProps()
+        rvBrokerDetailsPropertiesAdapter.submitList(combinedList)
     }
+
 
     private fun initRvForRent(data: List<SubmittedPropsForRent>) {
         rvBrokerDetailsPropertiesForRentAdapter.setListener(
@@ -219,44 +226,36 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
-    override fun onPropertyClick(model: SubmittedPropsForSale) {
-        //findNavController().navigate(R.id.propertyDetailsSellFragment, bundleOf("id" to model.id))
-
-        when (model.for_what) {
-            PropertyType.FOR_SELL.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listing_number?.let {
-                        PropertyDetailsFragmentArgs(
-                            it
-                        ).toBundle()
+    override fun onPropertyClick(model: Any) {
+        when (model) {
+            is SubmittedPropsForSale -> {
+                when (model.for_what) {
+                    PropertyType.FOR_SELL.key, PropertyType.FOR_BOTH.key -> {
+                        findNavController().navigate(
+                            R.id.propertyDetailsFragment,
+                            model.listing_number?.let {
+                                PropertyDetailsFragmentArgs(it).toBundle()
+                            }
+                        )
                     }
-                )
+                }
             }
 
-            PropertyType.FOR_RENT.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listing_number?.let {
-                        PropertyDetailsFragmentArgs(
-                            it
-                        ).toBundle()
+            is SubmittedPropsForRent -> {
+                when (model.for_what) {
+                    PropertyType.FOR_RENT.key, PropertyType.FOR_BOTH.key -> {
+                        findNavController().navigate(
+                            R.id.propertyDetailsFragment,
+                            model.listing_number?.let {
+                                PropertyDetailsFragmentArgs(it).toBundle()
+                            }
+                        )
                     }
-                )
-            }
-
-            PropertyType.FOR_BOTH.key -> {
-                findNavController().navigate(
-                    R.id.propertyDetailsFragment,
-                    model.listing_number?.let {
-                        PropertyDetailsFragmentArgs(
-                            it
-                        ).toBundle()
-                    }
-                )
+                }
             }
         }
     }
+
 
     override fun onFavClick(model: OriginalItem) {
         model.id?.let { homeViewModel.addOrRemoveFav(it) }

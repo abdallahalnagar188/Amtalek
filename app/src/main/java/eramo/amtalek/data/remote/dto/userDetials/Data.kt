@@ -17,4 +17,13 @@ data class Data(
     val src: String?,
     val submitted_props_for_rent: List<SubmittedPropsForRent>?,
     val submitted_props_for_sale: List<SubmittedPropsForSale>?,
-)
+) {
+    // Method to sum the two lists into one list
+    fun getAllSubmittedProps(): List<Any> {
+        // Handle null lists and combine them into one
+        val rentList = submitted_props_for_rent ?: emptyList()
+        val saleList = submitted_props_for_sale ?: emptyList()
+
+        return rentList + saleList
+    }
+}

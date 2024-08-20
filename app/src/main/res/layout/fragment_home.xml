@@ -2,209 +2,213 @@
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/swipe_refresh_layout"
     android:layoutDirection="locale"
     tools:context=".presentation.ui.main.home.HomeFragment">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    android:focusable="true"
-    >
-    <include
-        android:id="@+id/in_toolbar"
-        layout="@layout/layout_toolbar_main"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_toolbar">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <include
+            android:id="@+id/in_toolbar"
+            layout="@layout/layout_toolbar_main"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_86sdp"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/in_toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_86sdp">
 
-
-                <include
-                    android:id="@+id/in_featured_real_estate"
-                    layout="@layout/featured_real_estate_home_layout"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/view_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
+                    android:layout_height="match_parent">
+
+
+                    <include
+                        android:id="@+id/in_featured_real_estate"
+                        layout="@layout/featured_real_estate_home_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include
+                        android:id="@+id/in_featured_projects"
+                        layout="@layout/featured_projects_home_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_featured_real_estate" />
+
+                    <include
+                        android:id="@+id/in_properties_by_city"
+                        layout="@layout/find_properties_by_city_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_featured_projects" />
+
+                    <include
+                        android:id="@+id/in_normal_properties_layout"
+                        layout="@layout/home_normal_property_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_properties_by_city" />
+
+                    <include
+                        android:id="@+id/in_most_viewed_properties_layout"
+                        layout="@layout/home_most_viewed_property_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_normal_properties_layout" />
+
+                    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                        android:id="@+id/carousel_sliderBetween"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_200sdp"
+                        android:layout_marginVertical="@dimen/home_margin_top"
+                        android:focusable="true"
+                        android:scaleType="centerInside"
+                        android:visibility="gone"
+                        app:autoPlayDelay="2000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_most_viewed_properties_layout"
+                        app:nextButtonId="@id/btn_next_carousel"
+                        app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
+                        app:previousButtonId="@id/btn_previous_carousel"
+                        app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
+                        app:showBottomShadow="false"
+                        app:showCaption="false"
+                        app:showIndicator="false"
+                        android:clickable="true"
+                        app:showNavigationButtons="false"
+                        app:showTopShadow="false" />
+
+                    <me.relex.circleindicator.CircleIndicator2
+                        android:id="@+id/carousel_sliderBetween_dots"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:visibility="gone"
+                        app:ci_animator="@animator/scale_with_alpha"
+                        app:ci_drawable="@drawable/ic_dot_selected"
+                        app:ci_drawable_unselected="@drawable/ic_dot_unselected"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween" />
+
+                    <include
+                        android:id="@+id/in_first_extra_section_layout"
+                        layout="@layout/home_first_extra_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween_dots" />
+
+                    <include
+                        android:id="@+id/in_second_extra_section_layout"
+                        layout="@layout/home_second_extra_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_first_extra_section_layout" />
+
+                    <include
+                        android:id="@+id/in_third_extra_section_layout"
+                        layout="@layout/home_third_extra_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_second_extra_section_layout" />
+
+                    <include
+                        android:id="@+id/in_fourth_extra_section_layout"
+                        layout="@layout/home_fourth_extra_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_third_extra_section_layout" />
+
+                    <include
+                        android:id="@+id/in_fifth_extra_section_layout"
+                        layout="@layout/home_fifth_extra_section_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_fourth_extra_section_layout" />
+
+                    <include
+                        android:id="@+id/in_news_layout"
+                        layout="@layout/news_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/home_margin_top"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/in_fifth_extra_section_layout" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:shimmer_duration="4000">
 
-                <include
-                    android:id="@+id/in_featured_projects"
-                    layout="@layout/featured_projects_home_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_featured_real_estate" />
-
-                <include
-                    android:id="@+id/in_properties_by_city"
-                    layout="@layout/find_properties_by_city_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_featured_projects" />
-                <include
-                    android:id="@+id/in_normal_properties_layout"
-                    layout="@layout/home_normal_property_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_properties_by_city" />
-
-                <include
-                    android:id="@+id/in_most_viewed_properties_layout"
-                    layout="@layout/home_most_viewed_property_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_normal_properties_layout" />
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                    android:id="@+id/carousel_sliderBetween"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:layout_marginVertical="@dimen/home_margin_top"
-                    android:focusable="true"
-                    app:autoPlayDelay="2000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_most_viewed_properties_layout"
-                    app:nextButtonId="@id/btn_next_carousel"
-                    app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
-                    app:previousButtonId="@id/btn_previous_carousel"
-                    app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
-                    app:showBottomShadow="false"
-                    app:showCaption="false"
-                    app:showIndicator="false"
-                    app:showNavigationButtons="false"
-                    app:showTopShadow="false"
-                    android:scaleType="centerInside"
-                    android:visibility="gone"/>
-
-                <me.relex.circleindicator.CircleIndicator2
-                    android:id="@+id/carousel_sliderBetween_dots"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    app:ci_animator="@animator/scale_with_alpha"
-                    app:ci_drawable="@drawable/ic_dot_selected"
-                    app:ci_drawable_unselected="@drawable/ic_dot_unselected"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween"
-                    android:visibility="gone"
-                    />
-
-                <include
-                    android:id="@+id/in_first_extra_section_layout"
-                    layout="@layout/home_first_extra_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/carousel_sliderBetween_dots" />
-
-                <include
-                    android:id="@+id/in_second_extra_section_layout"
-                    layout="@layout/home_second_extra_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_first_extra_section_layout" />
-
-                <include
-                    android:id="@+id/in_third_extra_section_layout"
-                    layout="@layout/home_third_extra_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_second_extra_section_layout" />
-                <include
-                    android:id="@+id/in_fourth_extra_section_layout"
-                    layout="@layout/home_fourth_extra_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_third_extra_section_layout" />
-                <include
-                    android:id="@+id/in_fifth_extra_section_layout"
-                    layout="@layout/home_fifth_extra_section_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_fourth_extra_section_layout" />
-                <include
-                    android:id="@+id/in_news_layout"
-                    layout="@layout/news_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margin_top"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/in_fifth_extra_section_layout" />
+                    <include layout="@layout/fragment_home_shimmer" />
+                </com.facebook.shimmer.ShimmerFrameLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"
-                app:shimmer_duration="4000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <include layout="@layout/fragment_home_shimmer" />
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

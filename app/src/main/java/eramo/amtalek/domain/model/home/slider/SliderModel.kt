@@ -6,5 +6,4 @@ data class SliderModel (
     var type: String,
     var inFrame: String,
     var url: String
-
 )

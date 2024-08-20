@@ -51,6 +51,7 @@ class RvNewsAdapter @Inject constructor() :
                     .load(model.image)
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivNews)
+                tvDate.text = model.createdAt
             }
         }
     }

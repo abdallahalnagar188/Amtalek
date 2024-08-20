@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.main.home.details
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -33,11 +34,11 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentNewsDetailsBinding::inflate
+
     val args: NewsDetailsFragmentArgs by navArgs()
     val news get() = args.news
 
-    @Inject
-    lateinit var rvNewsDetailsCommentsAdapter: RvNewsDetailsCommentsAdapter
+
 
     val viewModel: HomeMyViewModel by viewModels()
 
@@ -53,20 +54,21 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
-    private fun setupViews() {
+    fun setupViews() {
         setupToolbar()
         val image = news.image
         Glide.with(requireContext()).load(image).into(binding.ivNewsImage)
         binding.tvTitle.text = news.title
         binding.tvBody.text = news.description
         binding.tvCategory.text = news.newsCategory.mainTitle
-        val htmlContent = news?.description ?: ""
+        val htmlContent = news.description ?: ""
         val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
         } else {
             Html.fromHtml(htmlContent)
         }
         binding.tvBody.text = spannedText
+
 //        setupImageSliderTop()
 //        initRvComments(Dummy.dummyRatingCommentsList())
     }
@@ -76,7 +78,10 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
             tvCategory.setOnClickListener {
                 findNavController().navigate(
                     R.id.newsCategoryFragment,
-                    NewsCategoryFragmentArgs(model.newsCategory.id.toString() ?: "").toBundle(), navOptionsAnimation()
+                    NewsCategoryFragmentArgs(
+                        categoryId = model.newsCategory.id.toString() ?: "",
+                        titleName = model.newsCategory.mainTitle ?: ""
+                    ).toBundle(), navOptionsAnimation()
                 )
 
             }
@@ -86,10 +91,34 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
     private fun setupToolbar() {
         StatusBarUtil.transparent()
         binding.apply {
-            ivShare.visibility = View.GONE
-            ivShare.setOnClickListener { showToast("share") }
+            ivShare.setOnClickListener {
+                shareContent()
+            }
+
+            //  ivShare.setOnClickListener { showToast("share") }
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
+    }
+
+    private fun shareContent() {
+        val htmlContent = news?.description ?: ""
+        val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(htmlContent)
+        }
+        // The content you want to share
+        val shareText = news.title + " " + spannedText
+
+        // Create the share intent
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, shareText)
+            type = "text/plain"// MIME type for sharing text
+        }
+
+        // Start the share intent
+        startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
     private fun setupImageSliderTop(data: List<CarouselItem>) {

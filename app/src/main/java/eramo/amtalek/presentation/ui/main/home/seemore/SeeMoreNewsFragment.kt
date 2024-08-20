@@ -76,6 +76,7 @@ class SeeMoreNewsFragment : BindingFragment<FragmentSeeMoreNewsBinding>(),
         rvNewsAdapter.setListener(this@SeeMoreNewsFragment)
         binding.rv.adapter = rvNewsAdapter
     }
+
     private fun fetchNews() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -89,7 +90,12 @@ class SeeMoreNewsFragment : BindingFragment<FragmentSeeMoreNewsBinding>(),
     override fun onNewsClick(model: DataX) {
         findNavController().navigate(
             R.id.newsDetailsFragmentInSeeMore,
-            model.let { NewsDetailsInSeeMoreFragmentArgs(model).toBundle() }
+            model.let {
+                NewsDetailsInSeeMoreFragmentArgs(
+                    news = model,
+                    titleName = model.newsCategory?.mainTitle ?: ""
+                ).toBundle()
+            }
         )
     }
 }

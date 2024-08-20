@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_200sdp"
-    android:layout_height="@dimen/_200sdp"
+    android:layout_height="@dimen/_210sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
     app:cardCornerRadius="@dimen/_15sdp"
@@ -64,6 +64,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="Latest igy market Latest igy market Latest igy market Latest igy market Latest igy market Latest igy market Latest Latest Latest " />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/font"
+            android:text="@string/date"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_body"
+            app:layout_constraintTop_toBottomOf="@id/tv_body"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

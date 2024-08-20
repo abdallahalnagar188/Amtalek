@@ -1,10 +1,13 @@
 package eramo.amtalek.presentation.ui.main.offers
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,6 +30,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPr
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
+import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -57,6 +61,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
 
     private val viewModelShared: SharedViewModel by activityViewModels()
+    private val homeViewModel:HomeMyViewModel by activityViewModels()
 
     private val hotOffersViewModel: HotOffersViewModel by viewModels()
     private val forSellPropertyList = ArrayList<PropertyModel>()
@@ -197,21 +202,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
         fetchGetHotOffers()
         fetchGetHomeSlider()
     }
-    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
-        val list = ArrayList<CarouselItem>()
-        val headers = mutableMapOf<String, String>()
-        headers["header_key"] = "header_value"
 
-        for (i in data!!) {
-            list.add(
-                CarouselItem(
-                    imageUrl = i.image,
-                )
-            )
-        }
-
-        return list
-    }
     private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -241,25 +232,47 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
             }
         }
     }
+    private lateinit var sliderModels: List<SliderModel>
+    private lateinit var carouselItems: List<CarouselItem>
 
-    private fun setupSliderBetween(data: ArrayList<CarouselItem>) {
+    private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
+        val list = ArrayList<CarouselItem>()
+        sliderModels = data ?: emptyList()
+
+        val headers = mutableMapOf<String, String>()
+        headers["header_key"] = "header_value"
+
+        for (i in sliderModels) {
+            list.add(
+                CarouselItem(
+                    imageUrl = i.image,
+                    headers = headers
+                )
+            )
+        }
+        carouselItems = list
+        return list
+    }
+    private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
         binding.apply {
             carouselSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSlider.setData(data)
-            if (data.size == 1) {
-                carouselSlider. infiniteCarousel= false
+            carouselSlider.setData(dataState)
+
+            if (dataState.size == 1) {
+                carouselSlider.infiniteCarousel = false
                 carouselSlider.autoPlay = false
+                carouselSlider.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
             } else {
                 carouselSlider.infiniteCarousel = true
                 carouselSlider.autoPlay = true
+                carouselSlider.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
             }
-          //  carouselSlider.setIndicator(carouselSliderBetweenDots)
+
             carouselSlider.carouselListener = object : CarouselListener {
                 override fun onCreateViewHolder(
                     layoutInflater: LayoutInflater,
                     parent: ViewGroup
                 ): ViewBinding {
-//                    return ItemAdsBinding.inflate(
                     return ItemSliderTopBinding.inflate(
                         layoutInflater,
                         parent,
@@ -272,18 +285,41 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                     item: CarouselItem,
                     position: Int
                 ) {
-//                    val currentBinding = binding as ItemAdsBinding
                     val currentBinding = binding as ItemSliderTopBinding
+                    val sliderModel = sliderModels[position]
+
                     currentBinding.apply {
                         imageView13.setImage(item)
+                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP
+
+                        // Access the SliderModel variables here
+                        val id = sliderModel.id
+                        val imageUrl = sliderModel.image
+                        val type = sliderModel.type
+                        val inFrame = sliderModel.inFrame
+                        val url = sliderModel.url
+
+                        // Use these variables as needed
                         this.root.setOnClickListener {
-                            this@HotOffersFragment.binding.inToolbar
+                            if (url.isNotEmpty()) {
+                                setupListeners(url)
+                                homeViewModel.clickedOnAd(id.toString())
+                            }
                         }
+
+                        this@HotOffersFragment .binding.inToolbar.FHomeEtSearch.clearFocus()
                     }
                 }
             }
         }
     }
+    private fun setupListeners(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
+    }
+
 
     private fun fetchGetHotOffers() {
         lifecycleScope.launch {

@@ -215,6 +215,11 @@ interface AmtalekApi {
     suspend fun getHomeSlider(
     ): Response<HomeSlidersResponse>
 
+    @GET("click-on-ad/{id}")
+    suspend fun clickOnAds(
+        @Path ("id") id:String
+    ): Response<HomeSlidersResponse>
+
 
     @GET("mobile/splashes")
     suspend fun getOnBoardingSlider()

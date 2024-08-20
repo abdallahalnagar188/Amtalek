@@ -145,7 +145,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 //        }
 
 
-
     }
 
     private fun handleRefresh() {
@@ -176,6 +175,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @SuppressLint("ClickableViewAccessibility")
     private fun listeners() {
+        //  setupListeners(viewModel.homeSliderState.value.data?.get(0)?.url.toString())
+
         binding.apply {
             inToolbar.spinnerLayout.setOnClickListener {
                 findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
@@ -208,7 +209,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     private fun requestApis() {
         viewModel.getHomeApis(UserUtil.getUserCountryFiltrationTitleId(), UserUtil.getUserCityFiltrationTitleId())
-        setupListeners(viewModel.homeSliderState.value.data?.get(0)?.url.toString())
     }
 
     private fun fetchData() {
@@ -218,6 +218,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         fetchGetHomeProjects()
         fetchGetHomeFilterByCity()
         fetchGetHomeSlider()
+        fetchClickedAds()
         fetchGetHomeMostViewedProperties()
         fetchHomeNormalProperties()
         fetchGetHomeExtraSections()
@@ -372,6 +373,31 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
+    private fun fetchClickedAds() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.clickOnAd.collect() { state ->
+                    when (state) {
+                        is UiState.Success -> {
+                            val data = state.data
+                            Log.e("ads", data.toString())
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+    }
+
     private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -383,7 +409,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                                 binding.carouselSliderBetween.visibility = View.VISIBLE
                                 binding.carouselSliderBetweenDots.visibility = View.VISIBLE
                                 setupSliderBetween(parseBetweenCarouselSliderList(dataState))
-                                setupListeners(dataState[0].url)
+                                // setupListeners(dataState[0].url)
 
                                 Log.e("images ", dataState.toString())
                                 Log.e("url ", dataState[0].url)
@@ -406,15 +432,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     }
                 }
             }
-        }
-    }
-
-    private fun setupListeners(url: String) {
-        binding.carouselSliderBetween.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(url)
-            }
-            startActivity(intent)
         }
     }
 
@@ -572,29 +589,34 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     //------------------------------------------------------------------------------------------//
+    private lateinit var sliderModels: List<SliderModel>
+    private lateinit var carouselItems: List<CarouselItem>
+
     private fun parseBetweenCarouselSliderList(data: List<SliderModel>?): ArrayList<CarouselItem> {
         val list = ArrayList<CarouselItem>()
+        sliderModels = data ?: emptyList()
+
         val headers = mutableMapOf<String, String>()
         headers["header_key"] = "header_value"
 
-        for (i in data!!) {
+        for (i in sliderModels) {
             list.add(
                 CarouselItem(
                     imageUrl = i.image,
+                    headers = headers
                 )
             )
         }
+        carouselItems = list
         return list
     }
+
 
     private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
         binding.apply {
             carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
             carouselSliderBetween.setData(dataState)
 
-            carouselSliderBetween.setIndicator(carouselSliderBetweenDots)
-
-            // Disable sliding if there's only one item
             if (dataState.size == 1) {
                 carouselSliderBetween.infiniteCarousel = false
                 carouselSliderBetween.autoPlay = false
@@ -603,7 +625,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 carouselSliderBetween.infiniteCarousel = true
                 carouselSliderBetween.autoPlay = true
                 carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
-
             }
 
             carouselSliderBetween.carouselListener = object : CarouselListener {
@@ -623,20 +644,58 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     item: CarouselItem,
                     position: Int
                 ) {
-
                     val currentBinding = binding as ItemSliderTopBinding
+                    val sliderModel = sliderModels[position]
+
                     currentBinding.apply {
                         imageView13.setImage(item)
-                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP // Set scaleType here
+                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP
 
+                        // Access the SliderModel variables here
+                        val id = sliderModel.id
+                        val imageUrl = sliderModel.image
+                        val type = sliderModel.type
+                        val inFrame = sliderModel.inFrame
+                        val url = sliderModel.url
+
+                        // Use these variables as needed
                         this.root.setOnClickListener {
-                            this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
+                            if (url.isNotEmpty()) {
+                                setupListeners(url)
+                                viewModel.clickedOnAd(id.toString())
+                            }
                         }
+
+                        this@HomeFragment.binding.inToolbar.FHomeEtSearch.clearFocus()
                     }
                 }
             }
         }
     }
+
+    private fun setupListeners(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse(url)
+        }
+        startActivity(intent)
+    }
+
+
+//    private fun setupListeners(url: String) {
+//        binding.carouselSliderBetween.setOnClickListener {
+//            // The URL you want to open
+//            val urls = url
+//
+//            // Create an Intent to open the web browser
+//            val intent = Intent(Intent.ACTION_VIEW).apply {
+//                data = Uri.parse(urls)
+//            }
+//
+//            // Start the Intent
+//            startActivity(intent)
+//        }
+//
+//    }
 
 
     private fun initToolbar() {
@@ -1144,7 +1203,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     override fun onNewsClick(model: NewsModel) {
         findNavController().navigate(
             R.id.newsDetailsFragment,
-            NewsDetailsFragmentArgs(model).toBundle()
+            NewsDetailsFragmentArgs(titleName = model.newsCategory.mainTitle ?: "", news = model).toBundle()
         )
     }
 

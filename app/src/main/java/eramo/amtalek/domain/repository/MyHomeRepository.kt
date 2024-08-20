@@ -16,6 +16,7 @@ interface MyHomeRepository {
     suspend fun getHomeProjects(cityId: String):Flow<Resource<HomeProjectsResponse>>
     suspend fun getFilterByCity(countryId: String):Flow<Resource<HomeCitiesResponse>>
     suspend fun getHomeSlider():Flow<Resource<HomeSlidersResponse>>
+    suspend fun clickedOnAds(id:String):Flow<Resource<HomeSlidersResponse>>
     suspend fun getHomeMostViewedProperties(countryId: String):Flow<Resource<HomeMostViewsResponse>>
     suspend fun getHomeNormalProperties(cityId: String):Flow<Resource<HomeNormalPropertiesResponse>>
     suspend fun getHomeNews():Flow<Resource<HomeNewsResponse>>

@@ -106,6 +106,24 @@ class MyHomeRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun clickedOnAds(id:String): Flow<Resource<HomeSlidersResponse>> {
+        return flow {
+            val result =
+                toResultFlow { amtalekApi.clickOnAds(id) }
+            result.collect() {
+                when (it) {
+                    is ApiState.Loading -> emit(Resource.Loading())
+                    is ApiState.Error -> emit(Resource.Error(it.message!!))
+                    is ApiState.Success -> {
+                        val model = it.data
+                        emit(Resource.Success(model))
+                    }
+                }
+
+            }
+        }
+    }
+
     override suspend fun getHomeMostViewedProperties(countryId: String): Flow<Resource<HomeMostViewsResponse>> {
         return flow {
             val result = toResultFlow {
