@@ -69,7 +69,6 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
     }
 
     private fun setupViews() {
-
         binding.addAdoms.visibility = View.GONE
         binding.inToolbar.tvTitle.text = getString(R.string.messagings)
         binding.inToolbar.ivBack.setOnClickListener {
@@ -82,8 +81,6 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
                 showToast(getString(R.string.no_package))
             }
         }
-
-
     }
 
     private fun fetchContactedAgents() {
@@ -96,7 +93,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
                     }
 
                     is Resource.Error -> {
-                       // showToast(it.message.toString())
+                        // showToast(it.message.toString())
                         LoadingDialog.dismissDialog()
                     }
 
