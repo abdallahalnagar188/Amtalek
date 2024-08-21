@@ -479,7 +479,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/amtalek_blue"
                         tools:ignore="ContentDescription"
-                        android:src="@drawable/ic_add_adom" />
+                        android:src="@drawable/ic_add_addon" />
 
                     <TextView
                         android:id="@+id/navHeader_tv_add_addons"

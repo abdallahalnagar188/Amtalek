@@ -214,58 +214,60 @@
             android:textSize="@dimen/_8ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nestedScrollView"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filter_spinner">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/filter_spinner">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <!-- Image Carousel -->
+            <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                android:id="@+id/carousel_sliderBetween"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:translationZ="8dp"
+                app:autoPlayDelay="2000"
+                app:carouselType="BLOCK"
+                app:nextButtonId="@id/btn_next_carousel"
+                app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
+                app:previousButtonId="@id/btn_previous_carousel"
+                app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
+                app:showBottomShadow="false"
+                app:showCaption="false"
+                app:showIndicator="false"
+                android:scaleType="centerInside"
+                app:showNavigationButtons="false"
+                app:showTopShadow="false" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_properties"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="vertical"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_property_preview" />
 
-                <!-- Image Carousel -->
-                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-                    android:id="@+id/carousel_sliderBetween"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_200sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:translationZ="8dp"
-                    app:autoPlayDelay="2000"
-                    app:carouselType="BLOCK"
-                    app:nextButtonId="@id/btn_next_carousel"
-                    app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
-                    app:previousButtonId="@id/btn_previous_carousel"
-                    app:previousButtonLayout="@layout/ic_carousel_left_arrow_layout"
-                    app:showBottomShadow="false"
-                    app:showCaption="false"
-                    app:showIndicator="false"
-                    android:scaleType="centerInside"
-                    app:showNavigationButtons="false"
-                    app:showTopShadow="false" />
+        </LinearLayout>
+    </ScrollView>
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_properties"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:clipToPadding="false"
-                    android:orientation="vertical"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_property_preview" />
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
 
 
 

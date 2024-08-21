@@ -55,7 +55,7 @@
         android:drawableTint="@color/white"
         android:visibility="gone"
         android:drawablePadding="@dimen/_8sdp"
-        android:drawableStart="@drawable/ic_add_adom"
+        android:drawableStart="@drawable/ic_add_addon"
         android:backgroundTint="@color/amtalek_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

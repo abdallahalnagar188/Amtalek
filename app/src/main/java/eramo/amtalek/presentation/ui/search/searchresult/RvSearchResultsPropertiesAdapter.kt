@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
@@ -95,7 +94,12 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                 }
                 when (model.type) {
                     "for_sale" -> {
-                        tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
+                        tvPrice.text = itemView.context.getString(
+                            R.string.s_currency,
+                            formatPrice(model.sellPrice.toDouble()),
+                            model.currency
+                        )
+
                         tvTitle.text = model.title
                         tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                         tvBathroom.text = model.bathroomsCount.toString()
@@ -106,7 +110,11 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                     }
                     "for_rent" -> {
                         tvLabel.text = itemView.context.getString(R.string.for_rent)
-                        tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.rentPrice.toDouble()))
+                        tvPrice.text = itemView.context.getString(
+                            R.string.s_currency,
+                            formatPrice(model.rentPrice.toDouble()),
+                            model.currency
+                        )
                         tvTitle.text = model.title
                         tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                         tvBathroom.text = model.bathroomsCount.toString()
@@ -116,7 +124,17 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                     }
                     else -> {
                         tvLabel.text = itemView.context.getString(R.string.forBoth)
-                        tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
+                        tvPrice.text = itemView.context.getString(
+                            R.string.s_currency,
+                            formatPrice(model.sellPrice.toDouble()),
+                            model.currency
+                        )
+                        tvDurationRent.text =
+                            itemView.context.getString(
+                                R.string.s_currency,
+                                formatPrice(model.rentPrice.toDouble()),
+                                model.currency
+                            )
                         tvTitle.text = model.title
                         tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                         tvBathroom.text = model.bathroomsCount.toString()
@@ -125,6 +143,8 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                         tvDatePosted.text = model.datePosted
                     }
                 }
+
+
                 Glide.with(itemView)
                     .load(model.imageUrl)
                     .into(ivImage)
