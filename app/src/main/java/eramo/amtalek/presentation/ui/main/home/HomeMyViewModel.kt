@@ -516,7 +516,8 @@ class HomeMyViewModel @Inject constructor(
             userType = user.actorType,
             hasPackage = user.hasPackage,
             brokerName = user.name ?: "",
-            dashboardLink = user.dashboardLink ?: ""
+            dashboardLink = user.dashboardLink ?: "",
+            packageId = ""
 
         )
     }

@@ -83,7 +83,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private val viewModel: PropertyDetailsViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by viewModels()
-    private val homeViewModel:HomeMyViewModel by viewModels()
+    private val homeViewModel: HomeMyViewModel by viewModels()
 
     private val args by navArgs<PropertyDetailsFragmentArgs>()
 
@@ -267,6 +267,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 
     }
+
     private fun fetchGetPropertySlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -321,6 +322,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         carouselItems = list
         return list
     }
+
     private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
         binding.apply {
             adsSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
@@ -375,12 +377,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             }
                         }
 
-                        this@PropertyDetailsFragment  .binding
+                        this@PropertyDetailsFragment.binding
                     }
                 }
             }
         }
     }
+
     private fun setupListeners(url: String) {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             data = Uri.parse(url)
@@ -475,9 +478,34 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
         if (UserUtil.getUserType() == "broker") {
             binding.ivFavourite.visibility = View.GONE
+            binding.etMail.visibility = View.GONE
+            binding.etPhone.visibility = View.GONE
+            binding.etName.visibility = View.GONE
+            binding.etOfferMail.visibility = View.GONE
+            binding.etOfferName.visibility = View.GONE
+            binding.etOfferPhone.visibility = View.GONE
+            binding.etOfferValue.visibility = View.GONE
+            binding.etMessageMail.visibility = View.GONE
+            binding.etMessageName.visibility = View.GONE
+            binding.etMessagePhone.visibility = View.GONE
+            binding.etMessageValue.visibility = View.GONE
+            binding.autoCompleteOfferType.visibility = View.GONE
+            binding.btnOfferSend.visibility = View.GONE
+            binding.btnMessageSend.visibility = View.GONE
+            binding.btnSendRate.visibility = View.GONE
+            binding.rateBar.visibility = View.GONE
+            binding.etYourRate.visibility = View.GONE
+            binding.tvRatings.visibility = View.GONE
+            binding.ivArrowBroker.visibility = View.GONE
+            binding.toggleGroup.visibility = View.GONE
+            binding.tvRegisterWithUs.visibility = View.GONE
+            binding.offerSpinner.visibility = View.GONE
+
+
         } else {
             binding.ivFavourite.visibility = View.VISIBLE
         }
+
     }
 
     private fun requestData() {
@@ -698,13 +726,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 } else {
                     getYoutubeUrlId(model.videoUrl)?.let {
                         setupVideo(it)
-                }
+                    }
                 }
 
-                if (model.autocad.isEmpty()){
+                if (model.autocad.isEmpty()) {
                     binding.autocadDrawingsSlider.visibility = View.GONE
                     binding.tvAutocadDrawings.visibility = View.GONE
-                }else{
+                } else {
                     val autocadImages = handleAutocadImages(model.autocad)
                     setupAutocadImagesSlider(autocadImages)
                 }
@@ -718,13 +746,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 propertyDetailsLayout.tvFloorsValue.text = model.floors.joinToString(", ")
                 propertyDetailsLayout.tvFloorValue.text = model.landType
 
-                val htmlContent =  model.description ?: ""
+                val htmlContent = model.description ?: ""
                 val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
                 } else {
                     Html.fromHtml(htmlContent)
                 }
-               tvDescriptionValue.text = spannedText
+                tvDescriptionValue.text = spannedText
                 initPropertyFeaturesRv(model.propertyAmenities)
 
                 if (model.videoUrl.isNullOrEmpty()) {
@@ -835,7 +863,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private fun handleAutocadImages(autocad: List<AutocadModel?>?): List<CarouselItem> {
         val imageList = mutableListOf<CarouselItem>()
-        for (image in autocad!!){
+        for (image in autocad!!) {
             imageList.add(CarouselItem(imageUrl = image?.src))
         }
         return imageList
@@ -871,14 +899,15 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     private fun handleSuccessState(data: PropertyDetailsModel?) {
-        if (data?.autocad.isNullOrEmpty()){
+        if (data?.autocad.isNullOrEmpty()) {
             binding.autocadDrawingsSlider.visibility = View.GONE
             binding.tvAutocadDrawings.visibility = View.GONE
-        }else{
+        } else {
             val autocadImages = handleAutocadImages(data?.autocad)
             setupAutocadImagesSlider(autocadImages)
         }
     }
+
     private fun checkRentDuration(rentDuration: String) {
         binding.apply {
             var result: String = ""
@@ -947,9 +976,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun mapSetup(data: String?) {
         val video = data
         video?.let {
-            binding.webView.settings.javaScriptEnabled =true
+            binding.webView.settings.javaScriptEnabled = true
             binding.webView.webChromeClient = WebChromeClient()
-            binding.webView.loadData(video,"text/html","utf-8")
+            binding.webView.loadData(video, "text/html", "utf-8")
 
         }
 
@@ -973,6 +1002,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             autocadDrawingsSlider.setData(data)
         }
     }
+
     private fun setupVideo(videoId: String) {
         binding.apply {
             lifecycle.addObserver(youtubePlayerView)

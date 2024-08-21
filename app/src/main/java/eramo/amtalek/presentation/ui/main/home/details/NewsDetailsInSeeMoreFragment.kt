@@ -36,11 +36,15 @@ class NewsDetailsInSeeMoreFragment : BindingFragment<FragmentNewsDetailsInSeeMor
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+        setupListener()
+    }
+    override fun onPause() {
+        super.onPause()
+        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
     private fun setupViews() {
         setupToolbar()
-        setupListener()
         val htmlContent = news?.description ?: ""
         val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)

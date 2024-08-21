@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -258,6 +259,7 @@
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:clipToPadding="false"
+                    android:orientation="vertical"
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_property_preview" />
@@ -302,7 +304,7 @@
                 android:layout_marginTop="@dimen/home_margin_top"
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/button_background_long"
-                android:fontFamily="@font/montserratregular"
+                android:fontFamily="@font/font"
                 android:text="@string/confirm"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -319,7 +321,7 @@
                 android:layout_marginTop="@dimen/home_margin_top"
                 android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/button_background_long_faded"
-                android:fontFamily="@font/montserratregular"
+                android:fontFamily="@font/font"
                 android:text="@string/cancel"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

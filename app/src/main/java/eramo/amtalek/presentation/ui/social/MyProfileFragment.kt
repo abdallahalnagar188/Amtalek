@@ -92,6 +92,8 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
             binding.favRv.visibility = View.GONE
             binding.submittedOfferRv.visibility = View.GONE
             binding.myPropertiesRv.visibility = View.GONE
+            binding.myReceivedOffersRv.visibility = View.GONE
+            binding.tvBio.visibility = View.GONE
         }
     }
 

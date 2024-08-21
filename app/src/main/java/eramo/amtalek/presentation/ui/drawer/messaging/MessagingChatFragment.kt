@@ -65,9 +65,6 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
 
             }
         }
-//        if (UserUtil.getHasPackage() == "yes") {
-//            binding.addAdoms.visibility = View.VISIBLE
-//        }
 
     }
 
@@ -99,7 +96,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
                     }
 
                     is Resource.Error -> {
-                        showToast(it.message.toString())
+                       // showToast(it.message.toString())
                         LoadingDialog.dismissDialog()
                     }
 

@@ -66,4 +66,5 @@ data class UserModel(
     val salary: String?,
     val sickVacations: Int?,
     val yearlyVacations: Int?,
+    val packageId: String?,
 )

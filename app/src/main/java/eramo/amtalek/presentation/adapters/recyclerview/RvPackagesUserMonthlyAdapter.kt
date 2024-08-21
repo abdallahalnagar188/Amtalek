@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPackagesUserBinding
 import eramo.amtalek.domain.model.drawer.PackageModel
+import eramo.amtalek.util.UserUtil
 import javax.inject.Inject
 
 
@@ -30,7 +31,7 @@ class RvPackagesUserMonthlyAdapter @Inject constructor() :
             binding.btnSelect.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onSelectClick(it)
+                       listener.onUserMonthlyClick(it)
                     }
                 }
             }
@@ -53,6 +54,9 @@ class RvPackagesUserMonthlyAdapter @Inject constructor() :
                         tvTitle.text = itemView.context.getString(R.string.free)
                     }
 
+                }
+                if (model.id.equals(UserUtil.packageIdForUser()?.toInt()) ){
+                    tvAddProperty.text = itemView.context.getString(R.string.my_plan)
                 }
                 tvDescription.text = model.subTitle
                 tvPrice.text = model.priceMonthly

@@ -27,17 +27,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PackagesFragment : BindingFragment<FragmentPackagesBinding>(),RvPackagesUserMonthlyAdapter.UserMonthlyClickListener,RvPackagesUserYearlyAdapter.UserYearlyClickListener,
-RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyAdapter.AgencyMonthlyClickListener{
+class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesUserMonthlyAdapter.UserMonthlyClickListener,
+    RvPackagesUserYearlyAdapter.UserYearlyClickListener,
+    RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,
+    RvPackagesAgencyMonthlyAdapter.AgencyMonthlyClickListener {
+
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentPackagesBinding::inflate
-   private val viewModel by viewModels<PackagesViewModel>()
+
+    private val viewModel by viewModels<PackagesViewModel>()
 
     @Inject
     lateinit var rvUserPackagesMonthlyAdapter: RvPackagesUserMonthlyAdapter
 
+
     @Inject
     lateinit var rvUserPackagesYearlyAdapter: RvPackagesUserYearlyAdapter
+
     ////////////////////////////----------------------------------------////////////////////////////
     @Inject
     lateinit var rvAgencyPackagesMonthlyAdapter: RvPackagesAgencyMonthlyAdapter
@@ -62,16 +68,18 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     private fun fetchSubscribeToPackage() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.subscribeToPackagesState.collect(){state->
-                    when (state){
-                        is UiState.Success->{
+                viewModel.subscribeToPackagesState.collect() { state ->
+                    when (state) {
+                        is UiState.Success -> {
                             LoadingDialog.dismissDialog()
                             Toast.makeText(requireContext(), state.data?.message, Toast.LENGTH_SHORT).show()
                         }
-                        is UiState.Loading->{
+
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -87,17 +95,19 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     private fun fetchUserAndAgencyPackages() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.initScreenState.collect(){state->
-                    when (state){
-                        is UiState.Success->{
+                viewModel.initScreenState.collect() { state ->
+                    when (state) {
+                        is UiState.Success -> {
 
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Loading->{
+
+                        is UiState.Loading -> {
 
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -114,19 +124,21 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     private fun fetchAgencyPackages() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getAgencyPackageState.collect(){state->
-                    when (state){
-                        is UiState.Success->{
+                viewModel.getAgencyPackageState.collect() { state ->
+                    when (state) {
+                        is UiState.Success -> {
                             val data = state.data
                             initAgencyYearlyRv(data)
                             initAgencyMonthlyRv(data)
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Loading->{
+
+                        is UiState.Loading -> {
 
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -142,19 +154,21 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     private fun fetchUserPackages() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getUserPackageState.collect(){state->
-                    when (state){
-                        is UiState.Success->{
+                viewModel.getUserPackageState.collect() { state ->
+                    when (state) {
+                        is UiState.Success -> {
                             LoadingDialog.dismissDialog()
 
                             val data = state.data
                             initUserYearlyRv(data)
                             initUserMonthlyRv(data)
                         }
-                        is UiState.Loading->{
+
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
@@ -168,10 +182,10 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     }
 
     private fun makeRequests() {
-        if (!UserUtil.isUserLogin()){
+        if (!UserUtil.isUserLogin()) {
             viewModel.getUserAndAgencyPackages()
         }
-        if (UserUtil.getUserType()=="user"){
+        if (UserUtil.getUserType() == "user") {
             viewModel.getUserPackages()
             binding.placeHolder.visibility = View.GONE
             binding.agencyToggleGroup.visibility = View.GONE
@@ -180,7 +194,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
             binding.agenciesYearlyRv.visibility = View.GONE
 
         }
-        if (UserUtil.getUserType()=="broker"){
+        if (UserUtil.getUserType() == "broker") {
             viewModel.getAgencyPackages()
             binding.placeHolder.visibility = View.GONE
             binding.userToggleGroup.visibility = View.GONE
@@ -197,9 +211,9 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
 
     private fun toggleSetup() {
         binding.userToggleGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
-            if (isChecked){
-                when(checkedId){
-                     R.id.monthly_btn -> {
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.monthly_btn -> {
                         binding.apply {
                             monthlyBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
                             monthlyBtn.setTextColor(context?.getColor(R.color.white)!!)
@@ -209,6 +223,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
                             usersMonthlyRv.visibility = View.VISIBLE
                         }
                     }
+
                     R.id.yearly_btn -> {
                         binding.apply {
                             yearlyBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
@@ -224,10 +239,10 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
         }
         binding.monthlyBtn.isChecked = true
 
-        binding.agencyToggleGroup.addOnButtonCheckedListener{ toggleButtonGroup, checkedId, isChecked ->
+        binding.agencyToggleGroup.addOnButtonCheckedListener { toggleButtonGroup, checkedId, isChecked ->
 
-            if (isChecked){
-                when(checkedId){
+            if (isChecked) {
+                when (checkedId) {
                     R.id.monthly_agency_btn -> {
                         binding.apply {
                             monthlyAgencyBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
@@ -238,6 +253,7 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
                             agenciesMonthlyRv.visibility = View.VISIBLE
                         }
                     }
+
                     R.id.yearly_agency_btn -> {
                         binding.apply {
                             yearlyAgencyBtn.setBackgroundColor(context?.getColor(R.color.amtalek_blue_dark)!!)
@@ -263,23 +279,27 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
+
     private fun initAgencyMonthlyRv(data: List<PackageModel?>?) {
         binding.agenciesMonthlyRv.adapter = rvAgencyPackagesMonthlyAdapter
         rvAgencyPackagesMonthlyAdapter.submitList(data)
         rvAgencyPackagesMonthlyAdapter.setListener(this)
     }
+
     private fun initAgencyYearlyRv(data: List<PackageModel?>?) {
         binding.agenciesYearlyRv.adapter = rvAgencyPackagesYearlyAdapter
         rvAgencyPackagesYearlyAdapter.submitList(data)
         rvAgencyPackagesYearlyAdapter.setListener(this)
 
     }
+
     private fun initUserMonthlyRv(data: List<PackageModel?>?) {
         binding.usersMonthlyRv.adapter = rvUserPackagesMonthlyAdapter
         rvUserPackagesMonthlyAdapter.submitList(data)
         rvUserPackagesMonthlyAdapter.setListener(this)
 
     }
+
     private fun initUserYearlyRv(data: List<PackageModel?>?) {
         binding.usersYearlyRv.adapter = rvUserPackagesYearlyAdapter
         rvUserPackagesYearlyAdapter.submitList(data)
@@ -288,35 +308,35 @@ RvPackagesAgencyYearlyAdapter.AgencyYearlyClickListener,RvPackagesAgencyMonthlyA
     }
 
     override fun onAgencyMonthlyClick(model: PackageModel) {
-        if (UserUtil.isUserLogin()){
+        if (UserUtil.isUserLogin()) {
             viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
-        }else{
-            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
+        } else {
+            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
 
     }
 
     override fun onAgencyYearlyPlanClick(model: PackageModel) {
-        if (UserUtil.isUserLogin()){
+        if (UserUtil.isUserLogin()) {
             viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
-        }else{
-            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
+        } else {
+            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
     }
 
     override fun onUserMonthlyClick(model: PackageModel) {
-        if (UserUtil.isUserLogin()){
+        if (UserUtil.isUserLogin()) {
             viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "user")
-        }else{
-            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
+        } else {
+            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
     }
 
     override fun onUserYearlyClick(model: PackageModel) {
-        if (UserUtil.isUserLogin()){
+        if (UserUtil.isUserLogin()) {
             viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "user")
-        }else{
-            findNavController().navigate(R.id.loginDialog, null,navOptionsAnimation())
+        } else {
+            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
     }
 }

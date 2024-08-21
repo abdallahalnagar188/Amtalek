@@ -12,7 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentBuyAddonsBinding
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 
 @AndroidEntryPoint
 class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
@@ -78,7 +77,7 @@ class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
 
     fun fetchData() {
         viewModel.buyAddons(
-            CardRecoest(
+            CardReqoest(
                 itemCard.card.map {
                     AddreesItem(it.quantity ?: 0, it.id ?: 0)
                 }, itemCard.deuration
@@ -87,7 +86,7 @@ class BuyAddonsFragment : BindingFragment<FragmentBuyAddonsBinding>() {
         )
         Log.e(
             "Addons", "fetchData: ${
-                CardRecoest(
+                CardReqoest(
                     itemCard.card.map {
                         AddreesItem(it.quantity ?: 0, it.id ?: 0)
                     }, itemCard.deuration

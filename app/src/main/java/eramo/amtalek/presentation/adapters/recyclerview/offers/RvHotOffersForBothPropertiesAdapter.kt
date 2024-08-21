@@ -96,6 +96,11 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
                     }
                 }
 
+                if (model.vendorType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
                 tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))

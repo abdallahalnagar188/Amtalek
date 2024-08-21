@@ -160,7 +160,14 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
     private fun initToolbar() {
         binding.inToolbar.apply {
+            if (UserUtil.getUserType() == "broker") {
+                inMessaging.root.visibility = View.GONE
+                inNotification.root.visibility = View.GONE
 
+            } else {
+                inMessaging.root.visibility = View.VISIBLE
+                inNotification.root.visibility = View.VISIBLE
+            }
             FHomeEtSearch.visibility = View.GONE
             ivSearch.visibility =  View.GONE
         }

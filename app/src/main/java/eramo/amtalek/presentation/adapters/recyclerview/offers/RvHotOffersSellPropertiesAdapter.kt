@@ -12,7 +12,6 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
-import eramo.amtalek.util.TRUE
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
@@ -63,6 +62,11 @@ class RvHotOffersSellPropertiesAdapter @Inject constructor() :
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
+                if (model.vendorType == "broker"){
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
                 tvLabel.text = model.type

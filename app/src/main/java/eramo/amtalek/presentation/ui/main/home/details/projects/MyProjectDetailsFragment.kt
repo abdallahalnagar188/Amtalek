@@ -259,6 +259,21 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvUserId.text = data?.brokerDetails?.get(0)?.description
             Glide.with(requireContext()).load(data?.brokerDetails?.get(0)?.logo)
                 .into(ivUserImage)
+            if (UserUtil.getUserType() == "broker"){
+                tvRegisterWithUs.visibility = View.GONE
+                etNotes.visibility = View.GONE
+                etPhone.visibility = View.GONE
+                etMail.visibility =View.GONE
+                etName.visibility = View.GONE
+                btnSend.visibility = View.GONE
+
+            }else{
+                tvRegisterWithUs.visibility = View.VISIBLE
+                etNotes.visibility = View.VISIBLE
+                etPhone.visibility = View.VISIBLE
+                etMail.visibility =View.VISIBLE
+                etName.visibility = View.VISIBLE
+            }
 
         }
         navigateToProfile(model = data)

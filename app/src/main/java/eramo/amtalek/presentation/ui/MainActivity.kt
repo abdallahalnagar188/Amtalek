@@ -195,6 +195,17 @@ class MainActivity : LocalizationActivity(),
     private fun setupDrawer() {
         binding.inDrawerHeader.apply {
 
+            if (UserUtil.getUserType() == "broker") {
+                navHeaderTerms.visibility = View.GONE
+                navHeaderPricing.visibility = View.GONE
+                navHeaderCurrentPackage.visibility = View.GONE
+                navHeaderIvAddAddons.visibility = View.GONE
+                navHeaderMyFavourite.visibility = View.GONE
+                navHeaderIvNotifications.visibility = View.GONE
+                navHeaderAddYourProperty.visibility = View.GONE
+                navHeaderAddAddons.visibility = View.GONE
+                navHeaderNotifications.visibility = View.GONE
+            }
             setupLangChooser(
                 this@MainActivity,
                 layoutLangIvFlag,
@@ -438,7 +449,8 @@ class MainActivity : LocalizationActivity(),
                 R.id.searchResultFragment,
                 R.id.seeMoreNewsFragment,
                 R.id.addAdomsFragment,
-                R.id.newsDetailsFragmentInSeeMore
+                R.id.newsDetailsFragmentInSeeMore,
+                R.id.newsDetailsInCategoryFragment
 
                 -> {
                     binding.apply {

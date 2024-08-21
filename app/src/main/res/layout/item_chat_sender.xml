@@ -3,36 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_30sdp">
 
     <TextView
         android:id="@+id/tv_you"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/font"
         android:paddingEnd="@dimen/_2sdp"
         android:text="@string/you"
-        android:fontFamily="@font/font"
-        android:textSize="@dimen/_10ssp"
         android:textAlignment="viewStart"
-
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tv_message"
-        app:layout_constraintBottom_toTopOf="@id/tv_message"
-         />
-    <TextView
-        android:id="@+id/tv_message"
+        app:layout_constraintBottom_toTopOf="@id/linear_message"
+        app:layout_constraintEnd_toEndOf="@+id/linear_message" />
+
+    <LinearLayout
+        android:id="@+id/linear_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/chat_sender_background"
-        android:fontFamily="@font/font"
-        android:padding="@dimen/_10ssp"
-        android:textColor="@color/white"
-        android:textAlignment="viewStart"
-        android:textSize="@dimen/_10ssp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="How much does the property cost" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chat_sender_background"
+            android:fontFamily="@font/font"
+            android:padding="@dimen/_8sdp"
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_my_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="How much does the property cost" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_my_profile"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:src="@drawable/ic_profile"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_data_sender"
@@ -40,8 +59,10 @@
         android:layout_height="wrap_content"
         android:paddingEnd="@dimen/_2sdp"
         android:text="12:00 PM"
+        app:layout_constraintStart_toStartOf="@id/linear_message"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tv_message"
-        app:layout_constraintTop_toBottomOf="@id/tv_message" />
+        app:layout_constraintTop_toBottomOf="@id/linear_message" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

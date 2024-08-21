@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.data.remote.dto.contactedAgent.message.Message
 import eramo.amtalek.databinding.ItemChatReceiverBinding
 import eramo.amtalek.databinding.ItemChatSenderBinding
+import eramo.amtalek.util.UserUtil
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -74,12 +75,17 @@ class RvUsersChatAdapter @Inject constructor() :
             val formattedTime = date?.let { outputFormat.format(it) } ?: ""
 
             binding.apply {
+
+                    Glide.with(binding.root.context)
+                        .load(UserUtil.getUserProfileImageUrl())
+                        .into(ivMyProfile)
                 tvMessage.text = model.message
                 tvDataSender.text = formattedTime // Set the formatted time
                 root.setOnClickListener {
                     if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                         listener?.onItemClick(model)
                     }
+
                 }
             }
         }

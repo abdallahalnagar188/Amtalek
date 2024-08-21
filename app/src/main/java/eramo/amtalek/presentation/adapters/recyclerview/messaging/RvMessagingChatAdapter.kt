@@ -96,8 +96,8 @@ class RvMessagingChatAdapter @Inject constructor() :
                     visibility = View.VISIBLE
                     setupWith(binding.root)
                         .setBlurAlgorithm(RenderScriptBlur(itemView.context))
-                        .setBlurRadius(10f)
-                        .setOverlayColor(Color.parseColor("#99000000"))
+                        .setBlurRadius(14f)
+                        .setOverlayColor(Color.parseColor("#80989696"))
                         .setHasFixedTransformationMatrix(true)
                 }
             }

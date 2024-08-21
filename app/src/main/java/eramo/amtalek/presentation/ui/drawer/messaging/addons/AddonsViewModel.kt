@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.adons.AddonsResponse
-import eramo.amtalek.data.remote.dto.adons.BuyAddonsRequest
 import eramo.amtalek.data.remote.dto.adons.BuyAddonsResponse
 import eramo.amtalek.domain.repository.AddonsRepo
 import eramo.amtalek.domain.repository.BuyAddonsRepo
@@ -50,7 +49,7 @@ class AddonsViewModel @Inject constructor(
         }
     }
 
-    fun buyAddons(list: CardRecoest) {
+    fun buyAddons(list: CardReqoest) {
         buyAddonsJob?.cancel()
         buyAddonsJob = viewModelScope.launch {
             buyAddonsUseCase.buyAddons(list = list).collect { resource ->

@@ -30,7 +30,7 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
             binding.btnSelect.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onSelectClick(it)
+                        listener.onAgencyMonthlyClick(it)
                     }
                 }
             }

@@ -7,7 +7,7 @@ data class Data(
     @SerializedName("actor_type")
     var actorType: String?,
     @SerializedName("id")
-    var id: Int?,
+    var id: Any?,
     @SerializedName("image")
     var image: String?,
     @SerializedName("message_type")

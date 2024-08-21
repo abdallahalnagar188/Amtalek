@@ -704,6 +704,16 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             inNotification.root.setOnClickListener {
                 findNavController().navigate(R.id.notificationFragment)
             }
+
+            if (UserUtil.getUserType() == "broker") {
+                inMessaging.root.visibility = View.GONE
+                inNotification.root.visibility = View.GONE
+
+            } else {
+                inMessaging.root.visibility = View.VISIBLE
+                inNotification.root.visibility = View.VISIBLE
+            }
+
         }
 
 

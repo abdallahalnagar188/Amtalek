@@ -18,17 +18,18 @@ data class DataX(
 )
 data class AgentData(
     @SerializedName("id")
-    var id: Int?,
+    var id: Any?,
     @SerializedName("image")
     var image: Any?,
     @SerializedName("messages")
     var messages: MutableList<Message>,
     @SerializedName("name")
-    var name: String?
+    var name: Any?
 )
+
 data class Message(
     @SerializedName("id")
-    var id: Int?,
+    var id: Any?,
     @SerializedName("link")
     var link: String?,
     @SerializedName("message")

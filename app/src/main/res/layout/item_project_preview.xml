@@ -82,7 +82,7 @@
             android:maxLines="1"
             android:textAlignment="viewStart"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
@@ -99,16 +99,15 @@
 
         <TextView
             android:id="@+id/tv_location"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/_200sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/font"
-            android:textSize="@dimen/_9ssp"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/iv_location"
             app:layout_constraintStart_toEndOf="@id/iv_location"
             app:layout_constraintTop_toTopOf="@id/iv_location"
             tools:text="Sheikh Zayed Giza"
-            app:layout_constraintEnd_toStartOf="@id/tv_broker"
             android:textAlignment="viewStart"
             android:maxLines="1"
             android:ellipsize="end"
@@ -133,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_2sdp"
             android:fontFamily="@font/font"
-            android:textSize="@dimen/_9ssp"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/iv_clock"
             app:layout_constraintStart_toEndOf="@id/iv_clock"
             app:layout_constraintTop_toTopOf="@id/iv_clock"
@@ -151,8 +150,7 @@
             >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_6sdp">
+                android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/iv_broker"
                     android:layout_width="match_parent"

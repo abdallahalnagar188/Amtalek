@@ -70,7 +70,9 @@ data class GeneralLoginResponse(
             password = data?.password?:"",
             idNumber = data?.idNumber?:"",
             image = data?.image?:"",
-            prefix = data?.prefix?:"" )
+            prefix = data?.prefix?:"",
+            packageId = ""
+            )
     }
 }
 data class Data(

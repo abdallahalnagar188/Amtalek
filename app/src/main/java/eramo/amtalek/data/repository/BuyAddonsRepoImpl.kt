@@ -1,11 +1,9 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.adons.BuyAddonsRequest
 import eramo.amtalek.data.remote.dto.adons.BuyAddonsResponse
 import eramo.amtalek.domain.repository.BuyAddonsRepo
-import eramo.amtalek.presentation.ui.drawer.messaging.addons.CardRecoest
-import eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard
+import eramo.amtalek.presentation.ui.drawer.messaging.addons.CardReqoest
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
@@ -15,7 +13,7 @@ import kotlinx.coroutines.flow.flow
 
 class BuyAddonsRepoImpl(private val apiService: AmtalekApi): BuyAddonsRepo {
     override suspend fun buyAddons(
-        list: CardRecoest,
+        list: CardReqoest,
     ): Flow<Resource<BuyAddonsResponse>> {
         return flow {
             val result = toResultFlow {

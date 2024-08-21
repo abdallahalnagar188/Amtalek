@@ -488,7 +488,7 @@
     <string name="gold_square_published_on_our_system">تم نشر Gold Square على نظامنا</string>
     <string name="advanced_search">البحث المتطور</string>
     <string name="favourite_properties_4">العقارات المفضلة (4)</string>
-    <string name="featured_properties_in_egypt">عقارات مميزة في مصر</string>
+    <string name="featured_properties_in_egypt"> كل العقارات المميزه</string>
     <string name="latest_properties_in_egypt">أحدث العقارات في مصر</string>
     <string name="see_all_properties">مشاهدة جميع العقارات</string>
     <string name="latest_news">أحدث الأخبار</string>
@@ -1044,6 +1044,9 @@
     <string name="you">انت</string>
     <string name="normal_">عادي</string>
     <string name="visa">فيزا</string>
+    <string name="all_properties">كل العقارات</string>
+    <string name="all_normal_propertties">كل العقارات العادية</string>
+    <string name="my_plan">Your Plane</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

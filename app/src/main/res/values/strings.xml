@@ -1007,6 +1007,9 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="you">you</string>
     <string name="normal_">Normal</string>
     <string name="visa">Visa</string>
+    <string name="all_properties">Properties</string>
+    <string name="all_normal_propertties">All Normal Properties</string>
+    <string name="my_plan">Your Plane</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

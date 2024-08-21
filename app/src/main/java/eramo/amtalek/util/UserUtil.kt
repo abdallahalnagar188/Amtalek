@@ -23,6 +23,7 @@ object UserUtil {
     private const val PHONE = "user_phone"
     private const val EMAIL = "user_email"
     private const val HAS_PACKAGE = "has_package"
+    private const val PACKAGE_ID = "package_id"
 
     private const val BROKER_NAME = "broker_name"
     private const val BROKER_DASHBOARD_LINK = "broker_dashboard_link"
@@ -82,8 +83,10 @@ object UserUtil {
         hasPackage:String,
         brokerName:String,
         dashboardLink:String,
+        packageId:String
     ) {
         sharedPreferences.edit().putBoolean(REMEMBER, isRemember).apply()
+        sharedPreferences.edit().putString(PACKAGE_ID,packageId).apply()
 
 //        sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
         sharedPreferences.edit().putString(USER_TOKEN, userToken).apply()
@@ -112,6 +115,7 @@ object UserUtil {
 
 //        sharedPreferences.edit().putString(USER_TOKEN, "").apply()
         sharedPreferences.edit().putString(USER_TOKEN, "").apply()
+        sharedPreferences.edit().putString(PACKAGE_ID, "").apply()
 
         sharedPreferences.edit().putString(USER_ID, "").apply()
         sharedPreferences.edit().putString(USER_TYPE,"").apply()
@@ -142,6 +146,7 @@ object UserUtil {
 
     fun saveFirstTime() = sharedPreferences.edit().putBoolean(IS_FIRST_TIME, false).apply()
     fun isFirstTime() = sharedPreferences.getBoolean(IS_FIRST_TIME, true)
+    fun packageIdForUser()= sharedPreferences.getString(PACKAGE_ID,"0")
 
     fun isUserLogin() = getUserToken().isNotEmpty()
     fun isRememberUser() = sharedPreferences.getBoolean(REMEMBER, false)

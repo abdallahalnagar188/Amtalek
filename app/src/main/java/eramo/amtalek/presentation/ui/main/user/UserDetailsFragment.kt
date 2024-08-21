@@ -113,7 +113,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             tvDescription.text = model.description
             tvLocation.visibility = View.GONE
 
-            tvAllProjectsCount.text = getString(R.string.s_all_properties,model.submitted_props_for_sale?.plus(model.submitted_props_for_rent) )
+            tvAllProjectsCount.text = getString(R.string.all_properties)
             btnProjects.visibility = View.GONE
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
             initRv(model)

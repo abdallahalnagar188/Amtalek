@@ -64,6 +64,14 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
     private fun setupToolbar() {
 
             binding.inToolbar.apply {
+                if (UserUtil.getUserType() == "broker") {
+                    inMessaging.root.visibility = View.GONE
+                    inNotification.root.visibility = View.GONE
+
+                } else {
+                    inMessaging.root.visibility = View.VISIBLE
+                    inNotification.root.visibility = View.VISIBLE
+                }
                 toolbarIvMenu.setOnClickListener {
                     viewModelShared.openDrawer.value = true
                 }

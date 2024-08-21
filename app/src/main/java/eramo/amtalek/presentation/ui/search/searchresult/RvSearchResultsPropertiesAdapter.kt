@@ -68,6 +68,11 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
+                if (model.vendorType == "broker") {
+                    tvBroker.text = itemView.context.getString(R.string.agency)
+                }else{
+                    tvBroker.text = itemView.context.getString(R.string.user)
+                }
                 when (model.rentDuration) {
                     "daily" -> {
                         tvDurationRent.text =  itemView.context.getString(R.string.daily)

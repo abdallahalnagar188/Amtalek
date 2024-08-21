@@ -10,7 +10,7 @@ data class ItemCard(
     val deuration: String = "",
 ): Serializable
 
-data class CardRecoest(
+data class CardReqoest(
     @SerializedName("addons")
     val card: List<AddreesItem>,
     @SerializedName("duration")

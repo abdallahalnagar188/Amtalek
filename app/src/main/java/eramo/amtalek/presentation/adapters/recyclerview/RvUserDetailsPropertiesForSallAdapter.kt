@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForRent
 import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForSale
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
+import eramo.amtalek.util.enum.PropertyType
+import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
@@ -87,7 +90,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 )
                 if(model.for_what == "for_sale"){
                     tvLabel.text = itemView.context.getString(R.string.for_sell)
-                }else if(model.for_what == "for_frrent"){
+                }else if(model.for_what == "for_rent"){
                     tvLabel.text = itemView.context.getString(R.string.for_rent)
                 }else{
                     tvLabel.text = itemView.context.getString(R.string.forBoth)
@@ -102,6 +105,40 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 tvBed.text = model.bed_rooms_no.toString()
                 tvLocation.text = model.address
                 tvDatePosted.text = model.created_at
+
+                tvBroker.text = itemView.context.getString(R.string.user)
+                when (model.for_what) {
+                    PropertyType.FOR_SELL.key -> {
+                        tvPrice.visibility = View.VISIBLE
+                        tvDurationRent.visibility = View.GONE
+                    }
+
+                    PropertyType.FOR_RENT.key -> {
+                        tvPrice.visibility = View.GONE
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = model.rent_duration?.let {
+                            model.currency?.let { it1 ->
+                                model.rent_price?.toDouble()?.let { it2 ->
+                                    getRentPrice(itemView.context, it, it2, it1)
+                                }
+                            }
+                        }
+                    }
+
+                    PropertyType.FOR_BOTH.key -> {
+                        tvPrice.visibility = View.VISIBLE
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = model.rent_duration?.let {
+                            model.currency?.let { it1 ->
+                                model.rent_price?.let { it2 ->
+                                    getRentPrice(itemView.context, it, it2.toDouble(), it1)
+                                }
+                            }
+                        }
+                    }
+
+                    else -> {}
+                }
 
                 Glide.with(itemView)
                     .load(model.primary_image)
@@ -149,18 +186,51 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                     tvLabel.text = itemView.context.getString(R.string.forBoth)
                 }
 
-                tvDurationRent.visibility = View.VISIBLE
-                tvPrice.text = itemView.context.getString(
-                    R.string.s_egp,
-                    model.sale_price?.let { formatPrice(it.toDouble()) }
-                )
-                if(model.sale_price =="0.0"){
-                    tvPrice.visibility = View.GONE
+                when (model.for_what) {
+                    PropertyType.FOR_SELL.key -> {
+                        tvPrice.visibility = View.VISIBLE
+                        tvDurationRent.visibility = View.GONE
+                    }
+
+                    PropertyType.FOR_RENT.key -> {
+                        tvPrice.visibility = View.GONE
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = model.rent_duration?.let {
+                            model.currency?.let { it1 ->
+                                model.rent_price?.toDouble()?.let { it2 ->
+                                    getRentPrice(itemView.context, it, it2, it1)
+                                }
+                            }
+                        }
+                    }
+
+                    PropertyType.FOR_BOTH.key -> {
+                        tvPrice.visibility = View.VISIBLE
+                        tvDurationRent.visibility = View.VISIBLE
+                        tvDurationRent.text = model.rent_duration?.let {
+                            model.currency?.let { it1 ->
+                                model.rent_price?.let { it2 ->
+                                    getRentPrice(itemView.context, it, it2.toDouble(), it1)
+                                }
+                            }
+                        }
+                    }
+
+                    else -> {}
                 }
-                tvDurationRent.text = itemView.context.getString(
-                    R.string.s_egp,
-                    formatPrice(model.rent_price?.toDouble() ?: 0.0)
-                )
+                tvPrice.visibility = View.GONE
+                tvDurationRent.visibility = View.VISIBLE
+//                tvPrice.text = itemView.context.getString(
+//                    R.string.s_egp,
+//                    model.sale_price?.let { formatPrice(it.toDouble()) }
+//                )
+//                if(model.sale_price =="0.0"){
+//                    tvPrice.visibility = View.GONE
+//                }
+//                tvDurationRent.text = itemView.context.getString(
+//                    R.string.s_egp,
+//                    formatPrice(model.rent_price?.toDouble() ?: 0.0)
+//                )
                 tvTitle.text = model.title
                // tvLabel.text = itemView.context.getString(R.string.for_rent)
                 tvArea.text = itemView.context.getString(
@@ -171,6 +241,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 tvBed.text = model.bed_rooms_no.toString()
                 tvLocation.text = model.address
                 tvDatePosted.text = model.created_at
+                tvBroker.text = itemView.context.getString(R.string.user)
 
                 Glide.with(itemView)
                     .load(model.primary_image)
@@ -192,6 +263,18 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
             // Similar bind logic for SubmittedPropsForRent
             // Adjust this method based on your UI needs
 
+    }
+
+    private fun getRentPrice(context: Context, duration: String, price: Double, currency: String): String {
+        return when (duration) {
+            RentDuration.DAILY.key -> context.getString(R.string.s_daily_price, formatPrice(price), currency)
+            RentDuration.MONTHLY.key -> context.getString(R.string.s_monthly_price, formatPrice(price), currency)
+            RentDuration.THREE_MONTHS.key -> context.getString(R.string.s_3_months_price, formatPrice(price), currency)
+            RentDuration.SIX_MONTHS.key -> context.getString(R.string.s_6_months_price, formatPrice(price), currency)
+            RentDuration.NINE_MONTHS.key -> context.getString(R.string.s_9_months_price, formatPrice(price), currency)
+            RentDuration.YEARLY.key -> context.getString(R.string.s_yearly_price, formatPrice(price), currency)
+            else -> ""
+        }
     }
 
     fun setListener(

@@ -2,7 +2,6 @@ package eramo.amtalek.data.remote
 
 import eramo.amtalek.data.remote.dto.SuccessfulResponse
 import eramo.amtalek.data.remote.dto.adons.AddonsResponse
-import eramo.amtalek.data.remote.dto.adons.BuyAddonsRequest
 import eramo.amtalek.data.remote.dto.adons.BuyAddonsResponse
 import eramo.amtalek.data.remote.dto.auth.CitiesResponse
 import eramo.amtalek.data.remote.dto.auth.ContactUsResponse
@@ -58,8 +57,7 @@ import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
 import eramo.amtalek.data.remote.dto.splash.splashV2.OnBordingResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
-import eramo.amtalek.presentation.ui.drawer.messaging.addons.CardRecoest
-import eramo.amtalek.presentation.ui.drawer.messaging.addons.ItemCard
+import eramo.amtalek.presentation.ui.drawer.messaging.addons.CardReqoest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -662,6 +660,6 @@ interface AmtalekApi {
     @POST("subscribe-addons")
     suspend fun buyAddons(
         @Header("Authorization") userToken: String?,
-        @Body requestBody: CardRecoest,
+        @Body requestBody: CardReqoest,
     ): Response<BuyAddonsResponse>
 }
