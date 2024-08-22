@@ -39,7 +39,7 @@ class RvPackagesUserMonthlyAdapter @Inject constructor() :
 
         fun bind(model: PackageModel) {
             binding.apply {
-                tvTitle.text = model.packageType
+            //    tvTitle.text = model.packageType
                 when (model.packageType) {
                     "normal" -> {
                         tvTitle.text = itemView.context.getString(R.string.normal_)

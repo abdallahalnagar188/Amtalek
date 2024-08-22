@@ -129,6 +129,7 @@ class SearchFormViewModel @Inject constructor(
                     }
         }
     }
+
     fun convertToRequestBody(part: String?): RequestBody? {
         return try {
             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part!!)

@@ -55,14 +55,14 @@
             android:layout_width="@dimen/_110sdp"
             android:layout_height="@dimen/_110sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            tools:backgroundTint="@color/packages_blue"
             app:cardCornerRadius="@dimen/_60sdp"
             app:cardElevation="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_description"
             app:strokeColor="@color/white"
-            app:strokeWidth="@dimen/_5sdp">
+            app:strokeWidth="@dimen/_5sdp"
+            tools:backgroundTint="@color/packages_blue">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:layout_marginBottom="@dimen/_14sdp"
                     android:fontFamily="@font/font"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_21ssp"
+                    android:textSize="@dimen/_18ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -88,13 +88,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:fontFamily="@font/font"
+                    android:text="@string/egp_month"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_8ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_price"
-                    android:text="@string/egp_month" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_price" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -125,9 +125,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/font"
             android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/line_one_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark"
             app:layout_constraintTop_toTopOf="@id/line_one_view"
@@ -158,8 +158,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/font"
             android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/line_two_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark2"
             app:layout_constraintTop_toTopOf="@id/line_two_view"
@@ -190,7 +191,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/font"
+            android:textSize="@dimen/_8ssp"
             app:layout_constraintBottom_toBottomOf="@id/line_three_view"
             app:layout_constraintStart_toEndOf="@id/iv_right_mark3"
             app:layout_constraintTop_toTopOf="@id/line_three_view"
@@ -230,6 +232,7 @@
             app:layout_constraintStart_toEndOf="@id/iv_right_mark4"
             app:layout_constraintTop_toTopOf="@id/line_four_view"
             tools:text="@string/e_money_s" />
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_select"
             android:layout_width="0dp"
@@ -241,13 +244,12 @@
             android:focusable="true"
             app:cardCornerRadius="@dimen/_40sdp"
             app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line_four_view"
             app:strokeColor="@color/amtalek_blue"
-            app:strokeWidth="@dimen/_1sdp"
-            >
+            app:strokeWidth="@dimen/_1sdp">
 
             <TextView
                 android:id="@+id/tv_add_property"

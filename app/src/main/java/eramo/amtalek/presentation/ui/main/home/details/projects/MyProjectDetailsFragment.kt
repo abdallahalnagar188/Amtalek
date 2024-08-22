@@ -257,6 +257,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvDescriptionValue.text = data?.description
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description
+
             Glide.with(requireContext()).load(data?.brokerDetails?.get(0)?.logo)
                 .into(ivUserImage)
             if (UserUtil.getUserType() == "broker"){

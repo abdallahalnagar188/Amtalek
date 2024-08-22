@@ -26,8 +26,6 @@ data class Project(
     var city: String?,
     @SerializedName("country")
     var country: String?,
-    @SerializedName("created_at")
-    var createdAt: String?,
     @SerializedName("delivery_date")
     var deliveryDate: String?,
     @SerializedName("description")
@@ -70,6 +68,8 @@ data class Data(
     var currency: String?,
     @SerializedName("delivery_date")
     var deliveryDate: String?,
+    @SerializedName("created_at")
+    var createdAt: String?,
     @SerializedName("description")
     var description: String?,
     @SerializedName("facebook")

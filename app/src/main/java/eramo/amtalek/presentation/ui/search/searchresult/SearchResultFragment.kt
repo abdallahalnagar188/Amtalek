@@ -11,12 +11,14 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.paging.LoadState
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -89,6 +91,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         setupObservers()
         val data = dataLists
         setupSpinners(data)
+        setupScrollListener()
     }
 
     override fun onResume() {
@@ -329,17 +332,56 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
                     }
                 }
-
             }
         }
     }
+
 
     private fun initViews() {
         binding.rvProperties.adapter = propertiesAdapter
         propertiesAdapter.setListener(this@SearchResultFragment, this@SearchResultFragment)
 
-    }
+        // Listen to the load states to handle loading and error states
+        propertiesAdapter.addLoadStateListener { loadStates ->
+            when (loadStates.refresh) {
+                is LoadState.Loading -> {
+                    // Optionally show a loading dialog or spinner
+                    LoadingDialog.showDialog()
+                }
 
+                is LoadState.NotLoading -> {
+                    LoadingDialog.dismissDialog()
+                }
+
+                is LoadState.Error -> {
+                    // Handle error, e.g., show a message
+                    LoadingDialog.dismissDialog()
+                }
+            }
+        }
+    }
+    private fun setupScrollListener() {
+        binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            val lastChild = binding.nestedScrollView.getChildAt(binding.nestedScrollView.childCount - 1)
+            val diff = lastChild.bottom - (binding.nestedScrollView.height + scrollY)
+
+            if (diff <= 200) {
+                // Trigger loading more data when near the bottom
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.searchState.collect() { data ->
+                            data?.let {
+                                propertiesAdapter.submitData(viewLifecycleOwner.lifecycle, data)
+                                delay(1000)
+                                binding.rvProperties.scrollToPosition(0)
+                                LoadingDialog.dismissDialog()
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
     private fun setupToolBar() {
         binding.inToolbar.apply {
             tvTitle.text = getString(R.string.find_your_property)

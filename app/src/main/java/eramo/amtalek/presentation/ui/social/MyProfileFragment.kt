@@ -36,6 +36,7 @@ import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.navOptionsFromTopAnimation
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -242,18 +243,18 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                 viewModel.getProfileState.collect { state ->
                     when (state) {
 
-                        is UiState.Success -> {
+                        is Resource.Success -> {
                             assignUserData(state.data!!)
                             assignViewsData(state.data)
                         }
 
-                        is UiState.Error -> {
+                        is Resource.Error -> {
                             dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
-                        is UiState.Loading -> {
+                        is Resource.Loading -> {
                             if (LIKEFLAG ==1){
                                 // show no shimmer effect but loading one
                             }else{

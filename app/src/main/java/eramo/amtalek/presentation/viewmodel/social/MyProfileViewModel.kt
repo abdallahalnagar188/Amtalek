@@ -20,8 +20,8 @@ class MyProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<UiState<ProfileModel>>(UiState.Empty())
-    val getProfileState: StateFlow<UiState<ProfileModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<Resource<ProfileModel>>(Resource.Loading())
+    val getProfileState: StateFlow<Resource<ProfileModel>> = _getProfileState
 
     private var getProfileJob: Job? = null
 
@@ -37,16 +37,16 @@ class MyProfileViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             saveUserInfo(result.data?.data?.data?.toProfile()!!)
-                            _getProfileState.value = UiState.Success(result.data?.data?.data?.toProfile())
+                            _getProfileState.value = Resource.Success(result.data?.data?.data?.toProfile())
                         }
 
                         is Resource.Error -> {
                             _getProfileState.value =
-                                UiState.Error(result.message!!)
+                                Resource.Error(result.message!!)
                         }
 
                         is Resource.Loading -> {
-                            _getProfileState.value = UiState.Loading()
+                            _getProfileState.value = Resource.Loading()
                         }
                     }
                 }

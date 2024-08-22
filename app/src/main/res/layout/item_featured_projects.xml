@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_185sdp"
-    android:layout_height="@dimen/_240sdp"
+    android:layout_height="@dimen/_245sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
     app:cardCornerRadius="@dimen/_30sdp"
@@ -144,12 +144,13 @@
             app:layout_constraintStart_toStartOf="@id/tv_broker"
             app:layout_constraintTop_toBottomOf="@id/tv_broker"
             app:cardCornerRadius="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
 
             >
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <ImageView
                     android:id="@+id/iv_broker"
                     android:layout_width="match_parent"

@@ -917,16 +917,16 @@
     <string name="submitted_offers">عروضي</string>
     <string name="favorite">المفضلة</string>
     <string name="my_properties">عقاراتي</string>
-    <string name="my_offer">العرض : </string>
+    <string name="my_offer">اكتب عرض : </string>
     <string name="status_">الحالة : </string>
     <string name="sold">تم البيع</string>
     <string name="roi">العائد علي الاستثمار</string>
     <string name="visit_your_dashboard">أذهب للوحة التحكم</string>
-    <string name="make_your_offer">قدم عرض</string>
-    <string name="offer_with_dots">العرض:</string>
-    <string name="offer_type_with_dots">نوع العرض:</string>
+    <string name="make_your_offer">عرضك هنا </string>
+    <string name="offer_with_dots">اكتب عرض : </string>
+    <string name="offer_type_with_dots">نوع العرض : </string>
     <string name="please_provide_your_offer_type">من فضلك ادخل نوع العرض</string>
-    <string name="message_with_dots">رسالتك: </string>
+    <string name="message_with_dots">رسالتك : </string>
     <string name="rent">ايجار</string>
     <string name="buy">شراء الان</string>
     <string name="choose_a_valid_offer_type">اختر نوع عرض صحيح</string>
@@ -1000,7 +1000,7 @@
     <string name="please_enter_a_rent_price">من فضلك ادخل سعر ايجار</string>
     <string name="please_enter_a_rent_duration">من فضلك ادخل مدة ايجار</string>
     <string name="search_keyword">كلمة البحث</string>
-    <string name="keyword_ex_flat_for_rent">الكلمة الرئيسية (مثال \'شقة للإيجار\'</string>
+    <string name="keyword_ex_flat_for_rent">الكلمة الرئيسية (مثال \'شقة للإيجار\')</string>
     <string name="minimum_price">اقل سعر</string>
     <string name="minimum_area">اقل مساحه</string>
     <string name="maximum_area">اعلي مساحه</string>
@@ -1049,7 +1049,9 @@
     <string name="visa">فيزا</string>
     <string name="all_properties">كل العقارات</string>
     <string name="all_normal_propertties">كل العقارات العادية</string>
-    <string name="my_plan">Your Plane</string>
+    <string name="my_plan">باقتك الحاليه</string>
+    <string name="offer_sent_successfully">تم ارسال العرض بنجاح</string>
+    <string name="sending_offer_before">تم ارسال العرض من قبل</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

@@ -15,6 +15,7 @@ import eramo.amtalek.databinding.FragmentPackageDetailsBinding
 import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.drawer.myaccount.MyAccountFragment
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.seemore.SeeMoreProjectsFragmentArgs
@@ -23,6 +24,7 @@ import eramo.amtalek.presentation.viewmodel.drawer.myaccount.MyAccountViewModel
 import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -62,7 +64,22 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
     private fun getCurrentPackage() {
         lifecycleScope.launch {
             viewModel.getProfileState.collectLatest {
-                it.data?.let { it1 -> setupData(it1) }
+                when (it) {
+                    is Resource.Success -> {
+                        it.data?.let { it1 -> setupData(it1) }
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Error -> {
+                        LoadingDialog.dismissDialog()
+
+                    }
+
+                    is Resource.Loading -> {
+                        LoadingDialog.showDialog()
+                    }
+                }
+
             }
         }
     }
@@ -98,10 +115,11 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
             tvPrice.text = model.currentPackage?.actualPayment
             tvExpirationDate.text = model.currentPackage?.expirationDate?.expirationDate
 
-            when(model.currentPackage?.expirationDate?.paymentMethod){
+            when (model.currentPackage?.expirationDate?.paymentMethod) {
                 "visa" -> {
                     tvPayment.text = getString(R.string.visa)
                 }
+
                 else -> {
                     tvPayment.text = getString(R.string.payment_cash)
                 }
@@ -109,7 +127,7 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
 
             }
 
-           // tvPayment.text = model.currentPackage?.expirationDate?.paymentMethod
+            // tvPayment.text = model.currentPackage?.expirationDate?.paymentMethod
 
             tvNormalListing.text = getString(R.string.normal_listings)
             basedNumberOfNormal.text = model.currentPackage?.packageInfo?.get(1)?.used.toString()

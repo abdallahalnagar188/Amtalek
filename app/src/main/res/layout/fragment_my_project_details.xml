@@ -102,7 +102,7 @@
                 android:fontFamily="@font/font"
                 android:maxLines="1"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/_12ssp"
+                android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_price"
@@ -120,14 +120,13 @@
 
             <TextView
                 android:id="@id/tv_location"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_200sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:fontFamily="@font/font"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_9ssp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_location"
-                app:layout_constraintEnd_toEndOf="@+id/iv_clock"
                 app:layout_constraintStart_toEndOf="@id/iv_location"
                 app:layout_constraintTop_toTopOf="@id/iv_location"
                 tools:text="Sheikh Zayed , Giza"
@@ -142,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"
+
                 android:src="@drawable/ic_clock"
                 app:layout_constraintBottom_toBottomOf="@id/tv_date"
                 app:layout_constraintEnd_toStartOf="@id/tv_date"
@@ -160,6 +160,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/iv_location"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
                 tools:text="8/7/2023" />
 
@@ -336,7 +337,7 @@
                 android:id="@+id/project_features_layout"
                 layout="@layout/project_features_layout"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_40sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

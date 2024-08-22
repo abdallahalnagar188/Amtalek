@@ -91,6 +91,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     lateinit var propertyId: String
     private lateinit var vendorId: String
     private lateinit var vendorType: String
+    private lateinit var forWhat: String
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
@@ -163,7 +164,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
                         }
                     }
-
                 }
             }
         }
@@ -205,24 +205,25 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     val email = etOfferMail.text.toString()
                     val phone = etOfferPhone.text.toString()
                     val offer = etOfferValue.text.toString()
-                    var offerType = ""
-                    if (autoCompleteOfferType.text.toString() == getString(R.string.rent)) {
-                        offerType = "for_rent"
-                    } else if (autoCompleteOfferType.text.toString() == getString(R.string.buy)) {
-                        offerType = "for_sale"
-
-                    } else {
-                        Toast.makeText(requireContext(), getString(R.string.choose_a_valid_offer_type), Toast.LENGTH_SHORT).show()
-                    }
+//                    var offerType = ""
+//                    if (autoCompleteOfferType.text.toString() == getString(R.string.rent)) {
+//                        offerType = "for_rent"
+//                    } else if (autoCompleteOfferType.text.toString() == getString(R.string.buy)) {
+//                        offerType = "for_sale"
+//
+//                    } else {
+//                        Toast.makeText(requireContext(), getString(R.string.choose_a_valid_offer_type), Toast.LENGTH_SHORT).show()
+//                    }
                     val vendorId = vendorId
                     val propertyId = propertyId
+                    val forWhat = forWhat
 
                     viewModel.sendPropertyOffer(
                         name = name,
                         email = email,
                         phone = phone,
                         offer = offer,
-                        offerType = offerType,
+                        offerType = forWhat,
                         vendorId = vendorId,
                         propertyId = propertyId,
                     )
@@ -449,6 +450,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     private fun setupViews() {
         setupToolbar()
+        binding.autoCompleteOfferType.visibility = View.GONE
     }
 
     private fun setPriceValue(number: String) {
@@ -531,13 +533,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     when (state) {
                         is UiState.Success -> {
                             dismissShimmerEffect()
-                            showToast(state.data?.message!!)
+                           showToast(getString(R.string.offer_sent_successfully))
                         }
 
                         is UiState.Error -> {
                             dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
+                            showToast(getString(R.string.sending_offer_before))
                         }
 
                         is UiState.Loading -> {
@@ -616,10 +618,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     when (state) {
                         is UiState.Success -> {
                             assignData(state.data!!)
-                            loadOfferTypes(state.data.forWhat!!)
+                            if (state.data.forWhat == "for_both") {
+                                binding.offerSpinner.visibility = View.VISIBLE
+                                binding.autoCompleteOfferType.visibility = View.VISIBLE
+                                loadOfferTypes(state.data.forWhat!!)
+                            }
+
                             propertyId = state.data.id.toString()
                             vendorId = state.data.brokerId.toString()
                             vendorType = state.data.vendorType
+                            forWhat = state.data.forWhat
                             handleSuccessState(state.data)
 
                         }
@@ -706,6 +714,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 tvBathrooms.text = getString(R.string.s_bathroom_count_n, model.bathroomsCount.toString())
 
 
+                offerSpinner.visibility = View.GONE
                 tvUserName.text = model.brokerName
                 tvUserId.text = model.brokerDescription
 
@@ -1180,13 +1189,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 etOfferValue.error = getString(R.string.please_enter_a_phone_number)
                 isValid = false
             }
-            if (autoCompleteOfferType.text.toString().isEmpty()) {
-                autoCompleteOfferType.error = getString(R.string.please_provide_your_offer_type)
-                isValid = false
-            }
-            binding.autoCompleteOfferType.setOnItemClickListener { parent, view, position, id ->
-                autoCompleteOfferType.error = null
-            }
+//            if (autoCompleteOfferType.text.toString().isEmpty()) {
+//                autoCompleteOfferType.error = getString(R.string.please_provide_your_offer_type)
+//                isValid = false
+//            }
+//            binding.autoCompleteOfferType.setOnItemClickListener { parent, view, position, id ->
+//                autoCompleteOfferType.error = null
+//            }
         }
         return isValid
     }

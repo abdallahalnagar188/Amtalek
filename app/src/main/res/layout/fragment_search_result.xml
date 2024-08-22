@@ -214,13 +214,11 @@
             android:textSize="@dimen/_8ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:fillViewport="true"
-        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -259,18 +257,13 @@
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:clipToPadding="false"
-                android:nestedScrollingEnabled="true"
-                android:scrollbars="vertical"
+                android:nestedScrollingEnabled="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_property_preview" />
 
         </LinearLayout>
-    </ScrollView>
-
-
-
-
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/aminities_card_view"

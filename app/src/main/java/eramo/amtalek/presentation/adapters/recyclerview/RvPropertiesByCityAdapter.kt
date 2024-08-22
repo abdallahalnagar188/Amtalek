@@ -11,6 +11,7 @@ import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
 import eramo.amtalek.data.remote.dto.myHome.allCitys.Data
 import eramo.amtalek.databinding.ItemSeeMorePropertiesByCityBinding
 import eramo.amtalek.domain.model.main.home.PropertiesByCityModel
+import eramo.amtalek.util.LocalUtil
 import javax.inject.Inject
 
 
@@ -41,7 +42,12 @@ class RvPropertiesByCityAdapter @Inject constructor() :
 
         fun bind(model: Data) {
             binding.apply {
-                tvCityName.text = model.titleEn
+                if (LocalUtil.isEnglish()){
+                    tvCityName.text = model.titleEn
+                }else{
+                    tvCityName.text = model.titleAr
+                }
+
                 tvPropertiesForRent.text =
                     itemView.context.getString(R.string.s_properties_for_rent, model.rentProperties.toString())
                 tvPropertiesForSell.text =

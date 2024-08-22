@@ -42,7 +42,14 @@ class RvHomeNewsAdapter @Inject constructor() :
 
         fun bind(model: NewsModel) {
             binding.apply {
-                tvTitle.text = model.title
+                val htmlContentTitle = model.title ?: ""
+                val spannedTextTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(htmlContentTitle, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(htmlContentTitle)
+                }
+                binding.tvTitle.text = spannedTextTitle
+
                 val htmlContent =  model.description ?: ""
                 val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)

@@ -1,5 +1,7 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -42,7 +44,13 @@ class RvNewsCategoryAdapter @Inject constructor() :
         fun bind(model: NewsData) {
             binding.apply {
                 tvTitle.text = model.title
-                tvDesc.text = model.description
+                val htmlContent = model.description ?: ""
+                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(htmlContent)
+                }
+                binding.tvDesc.text = spannedText
 
                 // Optionally handle additional data fields if needed
                 // tvLocation.text = model.country

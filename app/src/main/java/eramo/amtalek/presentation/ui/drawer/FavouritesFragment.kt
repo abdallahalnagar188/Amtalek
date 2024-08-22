@@ -19,6 +19,7 @@ import eramo.amtalek.domain.model.profile.ProfileModel
 import eramo.amtalek.presentation.adapters.recyclerview.RvMyFavouritesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.offers.HotOffersViewModel
@@ -28,6 +29,7 @@ import eramo.amtalek.util.Dummy.dummyMyFavouritesList
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import javax.inject.Inject
 
@@ -65,16 +67,19 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(),
                 viewModel.getProfileState.collect { state ->
                     when (state) {
 
-                        is UiState.Success -> {
+                        is Resource.Success -> {
                             state.data?.let { assignViewsData(it) }
+                            LoadingDialog.dismissDialog()
                         }
 
-                        is UiState.Error -> {
+                        is Resource.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
+                            LoadingDialog.dismissDialog()
                         }
 
-                        is UiState.Loading -> {
+                        is Resource.Loading -> {
+                            LoadingDialog.showDialog()
                         }
 
                         else -> {}
