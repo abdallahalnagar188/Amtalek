@@ -576,6 +576,9 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="fake_date">3 Days ago</string>
 
     <string name="s_egp">%s EGP</string>
+    <string name="s_usd">%s USD</string>
+    <string name="s_aed">%s AED</string>
+    <string name="s_sar">%s SAR</string>
     <string name="s_currency">%s %s</string>
     <string name="s_meter_square">%s sqft</string>
     <string name="s_meter_square_me">%s m&#xB2;</string>

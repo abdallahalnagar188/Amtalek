@@ -52,10 +52,12 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSecondExtraSe
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNormalPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.details.NewsDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
+import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
@@ -94,6 +96,53 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private val viewModel by viewModels<HomeMyViewModel>()
 
     private val viewModelShared: SharedViewModel by activityViewModels()
+
+    private val searchViewModel by viewModels<SearchFormViewModel>()
+    private fun createModel(model: CitiesModel): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = ""
+            val currencyId = 0
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = typeId,
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = "",
+                city = model.id,
+            )
+            return myModel
+        }
+    }
+
+    private var listOfPurposeItems = ArrayList<CriteriaModel>()
+    private var listOfFinishingItems = ArrayList<CriteriaModel>()
+    private var listOfTypeItems = ArrayList<CriteriaModel>()
+    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
+    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
+
+
 
     private var backPressedTime: Long = 0
     // ---------------------------------------------------------------------------
@@ -143,10 +192,59 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 //        if (UserUtil.isUserLogin()) {
 //            viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
 //        }
+        searchViewModel.getInitApis()
 
 
     }
 
+    private fun createListsModel(): SearchDataListsModel {
+        val data = SearchDataListsModel(
+            listOfTypesItems = listOfTypeItems,
+            listOfCurrencyItems = listOfCurrencyItems,
+            listOfFinishingItems = listOfFinishingItems,
+            listOfPurposeItems = listOfPurposeItems,
+            listOfAmenitiesItems = listOfAmenitiesItems
+        )
+        return data
+    }
+
+    private fun createModelForSections(model: HomeExtraSectionsModel): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = model.propertyTypeId
+            val currencyId = 0
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = typeId.toString(),
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = "",
+                city = 0,
+            )
+            return myModel
+        }
+    }
     private fun handleRefresh() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             requestApis()
@@ -224,10 +322,160 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         fetchGetHomeExtraSections()
         fetchGetNews()
         fetchAddRemoveToFavState()
+        fetchInitApis()
+        fetchGetPropertyTypes()
+        fetchGetPropertyFinishing()
+        fetchGetAmenitiesState()
+        fetchGetPropertyPurpose()
+        fetchCurrencies()
     }
 
 
     // -------------------------------------- fetchData -------------------------------------- //
+
+    private fun fetchInitApis(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                searchViewModel.initScreenState.collect(){state->
+                    when(state){
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Success->{
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyFinishing(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                searchViewModel.propertyFinishingState.collect(){
+                    when(it){
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Success->{
+                            val types = it.data
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchCurrencies() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                searchViewModel.currenciesState.collect(){
+                    when(it){
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Success->{
+                            val currencies = it.data
+                            Log.e("ahh", currencies.toString(), )
+                            if (currencies != null) {
+                               // setupCurrenciesSpinner(currencies.toMutableList())
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyTypes(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                searchViewModel.propertyTypesState.collect(){
+                    when(it){
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Success->{
+                            val types = it.data
+                            if (types != null) {
+                               // setupTypesSpinner(types.toMutableList())
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+
+    }
+    private fun fetchGetAmenitiesState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyAmenitiesState.collect(){
+                    when (it){
+                        is UiState.Success->{
+                          //  amenitiesAdapter.saveData(it.data!!)
+
+                            listOfAmenitiesItems = it.data as ArrayList<AmenityModel>
+
+//                            binding.amenitiesRv.setHasFixedSize(true)
+//                            binding.amenitiesRv.adapter = amenitiesAdapter
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+                            Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyPurpose(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                searchViewModel.propertyPurposeState.collect(){
+                    when(it){
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Success->{
+                            val types = it.data
+                           // setupPurposeSpinner(types!!.toMutableList())
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
     private fun fetchGetHomeApis() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -890,43 +1138,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
     }
 
-    private fun createModelForSections(model: HomeExtraSectionsModel): SearchModelDto {
-        binding.apply {
-            val searchKeyWords = ""
-            val bedrooms = ""
-            val bathrooms = ""
-            val minPrice = ""
-            val maxPrice = ""
-            val minArea = ""
-            val maxArea = ""
-            val locationId = ""
-            val locationName = ""
-            val purposeId = ""
-            val finishingId = ""
-            val typeId = model.propertyTypeId
-            val currencyId = 0
-
-            val myModel = SearchModelDto(
-                searchKeyWords = searchKeyWords,
-                locationId = locationId,
-                locationName = locationName,
-                currencyId = currencyId,
-                bathroomsNumber = bathrooms,
-                bedroomsNumber = bedrooms,
-                propertyTypeId = typeId.toString(),
-                propertyFinishingId = finishingId,
-                minPrice = minPrice,
-                maxPrice = maxPrice,
-                minArea = minArea,
-                maxArea = maxArea,
-                purposeId = purposeId,
-                priceArrangeKeys = "asc",
-                amenitiesListIds = "",
-                city = 0,
-            )
-            return myModel
-        }
-    }
 
     // -------------------------------------------------------------------------------------------------------------- //
     private fun setupHomeFirstExtraSectionRv(data: List<PropertyModel>) {
@@ -1110,59 +1321,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         )
     }
 
-    private fun createModel(model: CitiesModel): SearchModelDto {
-        binding.apply {
-            val searchKeyWords = ""
-            val bedrooms = ""
-            val bathrooms = ""
-            val minPrice = ""
-            val maxPrice = ""
-            val minArea = ""
-            val maxArea = ""
-            val locationId = ""
-            val locationName = ""
-            val purposeId = ""
-            val finishingId = ""
-            val typeId = ""
-            val currencyId = 0
 
-            val myModel = SearchModelDto(
-                searchKeyWords = searchKeyWords,
-                locationId = locationId,
-                locationName = locationName,
-                currencyId = currencyId,
-                bathroomsNumber = bathrooms,
-                bedroomsNumber = bedrooms,
-                propertyTypeId = typeId,
-                propertyFinishingId = finishingId,
-                minPrice = minPrice,
-                maxPrice = maxPrice,
-                minArea = minArea,
-                maxArea = maxArea,
-                purposeId = purposeId,
-                priceArrangeKeys = "asc",
-                amenitiesListIds = "",
-                city = model.id,
-            )
-            return myModel
-        }
-    }
-
-    private var listOfPurposeItems = ArrayList<CriteriaModel>()
-    private var listOfFinishingItems = ArrayList<CriteriaModel>()
-    private var listOfTypeItems = ArrayList<CriteriaModel>()
-    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
-    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
-    private fun createListsModel(): SearchDataListsModel {
-        val data = SearchDataListsModel(
-            listOfTypesItems = listOfTypeItems,
-            listOfCurrencyItems = listOfCurrencyItems,
-            listOfFinishingItems = listOfFinishingItems,
-            listOfPurposeItems = listOfPurposeItems,
-            listOfAmenitiesItems = listOfAmenitiesItems
-        )
-        return data
-    }
 
     override fun onPropertyByCityClick(model: CitiesModel) {
         findNavController().navigate(

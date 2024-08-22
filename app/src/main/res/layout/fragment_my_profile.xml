@@ -254,13 +254,11 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_bio"
                 app:singleSelection="true">
 
-
-
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/fav_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_75sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/font"
                     android:text="@string/favorite"
                     android:textAlignment="viewStart"
@@ -274,8 +272,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/submited_offer_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_78sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/font"
                     android:textAlignment="viewStart"
                     android:text="@string/submitted_offers"
@@ -287,8 +285,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/my_prop_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_75sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/font"
                     android:text="@string/my_properties"
                     android:textColor="@color/amtalek_blue_dark"
@@ -301,8 +299,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/reseived_offer_btn"
                     style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/font"
                     android:text="@string/received_offers"
                     android:textAlignment="viewStart"
@@ -312,6 +310,7 @@
                     app:rippleColor="@color/transparent"
                     app:strokeColor="@color/amtalek_blue_dark" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fav_Rv"

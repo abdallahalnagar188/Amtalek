@@ -3,7 +3,6 @@ package eramo.amtalek.presentation.ui.search.searchform
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -31,7 +30,6 @@ import eramo.amtalek.util.selectedLocation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @AndroidEntryPoint
 class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
@@ -55,6 +53,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private var isAmenityOpen = false
 
     private val viewModel by viewModels<SearchFormViewModel>()
+
     private var selectedLocationId:Int? = null
     private var selectedLocationName:String? = null
 
