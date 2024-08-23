@@ -322,7 +322,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         fetchGetHomeExtraSections()
         fetchGetNews()
         fetchAddRemoveToFavState()
-        fetchInitApis()
         fetchGetPropertyTypes()
         fetchGetPropertyFinishing()
         fetchGetAmenitiesState()
@@ -333,126 +332,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     // -------------------------------------- fetchData -------------------------------------- //
 
-    private fun fetchInitApis(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                searchViewModel.initScreenState.collect(){state->
-                    when(state){
-                        is UiState.Loading->{
-                            LoadingDialog.showDialog()
-                        }
-                        is UiState.Success->{
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Error->{
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Empty->Unit
-                    }
-                }
-            }
-        }
-    }
-    private fun fetchGetPropertyFinishing(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                searchViewModel.propertyFinishingState.collect(){
-                    when(it){
-                        is UiState.Loading->{
-                            LoadingDialog.showDialog()
-                        }
-                        is UiState.Success->{
-                            val types = it.data
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Error->{
-
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Empty->Unit
-                    }
-                }
-            }
-        }
-    }
-    private fun fetchCurrencies() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                searchViewModel.currenciesState.collect(){
-                    when(it){
-                        is UiState.Loading->{
-                            LoadingDialog.showDialog()
-                        }
-                        is UiState.Success->{
-                            val currencies = it.data
-                            Log.e("ahh", currencies.toString(), )
-                            if (currencies != null) {
-                               // setupCurrenciesSpinner(currencies.toMutableList())
-                            }
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Error->{
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Empty->Unit
-                    }
-                }
-            }
-        }
-    }
-    private fun fetchGetPropertyTypes(){
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                searchViewModel.propertyTypesState.collect(){
-                    when(it){
-                        is UiState.Loading->{
-                            LoadingDialog.showDialog()
-                        }
-                        is UiState.Success->{
-                            val types = it.data
-                            if (types != null) {
-                               // setupTypesSpinner(types.toMutableList())
-                            }
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Error->{
-
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Empty->Unit
-                    }
-                }
-            }
-        }
-
-    }
-    private fun fetchGetAmenitiesState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchViewModel.propertyAmenitiesState.collect(){
-                    when (it){
-                        is UiState.Success->{
-                          //  amenitiesAdapter.saveData(it.data!!)
-
-                            listOfAmenitiesItems = it.data as ArrayList<AmenityModel>
-
-//                            binding.amenitiesRv.setHasFixedSize(true)
-//                            binding.amenitiesRv.adapter = amenitiesAdapter
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Error->{
-                            Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-                            LoadingDialog.dismissDialog()
-                        }
-                        is UiState.Loading->{
-                            LoadingDialog.showDialog()
-                        }
-                        is UiState.Empty->Unit
-                    }
-                }
-            }
-        }
-    }
     private fun fetchGetPropertyPurpose(){
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
@@ -463,7 +342,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                         }
                         is UiState.Success->{
                             val types = it.data
-                           // setupPurposeSpinner(types!!.toMutableList())
+                            if (types != null) {
+                                listOfPurposeItems.clear()
+                                listOfPurposeItems.add(0, CriteriaModel(-1, -1, getString(R.string.purpose)))
+                                for (item in types) {
+                                    listOfPurposeItems.add(item as CriteriaModel)
+                                }
+//                                listOfPurposeItems = types as ArrayList<CriteriaModel>
+                            }
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Error->{
@@ -471,6 +357,148 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                             LoadingDialog.dismissDialog()
                         }
                         is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyFinishing() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyFinishingState.collect { it ->
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            val types = it.data
+                            if (types != null) {
+                                // Clear the existing list
+                                listOfFinishingItems.clear()
+
+                                // Add a default item at the beginning
+                                listOfFinishingItems.add(0, CriteriaModel(-1, -1, getString(R.string.finishing)))
+
+                                // Add the retrieved items to the list
+                                for (item in types) {
+                                    listOfFinishingItems.add(item as CriteriaModel)
+                                }
+
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun fetchCurrencies() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.currenciesState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            val currencies = it.data
+                            Log.e("ahh", currencies.toString())
+                            if (currencies != null) {
+                                listOfCurrencyItems.clear()
+                                listOfCurrencyItems.add(0, CriteriaModel(-1, -1, getString(R.string.currency)))
+                                for (item in currencies) {
+                                    listOfCurrencyItems.add(item as CriteriaModel)
+                                }
+                                //  listOfCurrencyItems = it.data as ArrayList<CriteriaModel>
+
+                                // setupCurrenciesSpinner(currencies.toMutableList())
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyTypes() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyTypesState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            val types = it.data
+                            if (types != null) {
+                                listOfTypeItems.clear()
+                                listOfTypeItems.add(0, CriteriaModel(-1, -1, getString(R.string.typee)))
+                                for (item in types) {
+                                    listOfTypeItems.add(item as CriteriaModel)
+                                }
+                                // listOfTypeItems = it.data as ArrayList<CriteriaModel>
+                                // setupTypesSpinner(types.toMutableList())
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+
+    }
+    private fun fetchGetAmenitiesState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyAmenitiesState.collect() {
+                    when (it) {
+                        is UiState.Success -> {
+                            //  amenitiesAdapter.saveData(it.data!!)
+
+                            listOfAmenitiesItems = it.data as ArrayList<AmenityModel>
+
+//                            binding.amenitiesRv.setHasFixedSize(true)
+//                            binding.amenitiesRv.adapter = amenitiesAdapter
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                it.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }

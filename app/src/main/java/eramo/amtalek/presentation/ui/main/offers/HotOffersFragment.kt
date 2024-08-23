@@ -29,6 +29,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersForBot
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersRentPropertiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.offers.RvHotOffersSellPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
@@ -165,8 +166,8 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                 inNotification.root.visibility = View.GONE
 
             } else {
-                inMessaging.root.visibility = View.VISIBLE
-                inNotification.root.visibility = View.VISIBLE
+                inMessaging.root.visibility = View.GONE
+                inNotification.root.visibility = View.GONE
             }
             FHomeEtSearch.visibility = View.GONE
             ivSearch.visibility =  View.GONE
@@ -340,16 +341,21 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
                             projectsList.clear()
 
                             filterProperties(it.data)
+                            LoadingDialog.dismissDialog()
                         }
 
                         is Resource.Error -> {
                             dismissShimmerEffect()
+//                            val errorMessage = it.message!!.asString(requireContext())
+//                            showToast(errorMessage)
+                            LoadingDialog.dismissDialog()
                         }
 
                         is Resource.Loading -> {
                             showShimmerEffect()
                             // Optional: Keep the carouselSlider GONE during loading
                             binding.carouselSlider.visibility = View.GONE
+                            LoadingDialog.showDialog()
                         }
                         else -> {}
                     }

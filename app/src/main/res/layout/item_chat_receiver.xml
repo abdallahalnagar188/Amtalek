@@ -44,7 +44,7 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:background="@drawable/chat_receiver_background"
             android:fontFamily="@font/font"
-            android:padding="@dimen/_8ssp"
+            android:padding="@dimen/_8sdp"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"

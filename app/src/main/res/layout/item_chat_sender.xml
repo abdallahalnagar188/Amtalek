@@ -35,6 +35,7 @@
             android:fontFamily="@font/font"
             android:padding="@dimen/_8sdp"
             android:textAlignment="viewStart"
+            android:layout_marginEnd="@dimen/_2sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"

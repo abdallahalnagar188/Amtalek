@@ -11,7 +11,6 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.general.Member
 import eramo.amtalek.databinding.FragmentMyAccountBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
@@ -104,7 +103,7 @@ class MyAccountFragment : BindingFragment<FragmentMyAccountBinding>(), View.OnCl
 
             R.id.FMyAccount_tv_add_addons -> {
                 findNavController().navigate(
-                    R.id.addAdomsFragment
+                    R.id.addAddonsFragment
                 )
             }
 

@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -20,10 +22,12 @@ import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.domain.search.SearchModelDto
 import eramo.amtalek.presentation.adapters.recyclerview.RvPropertiesByCityAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
+import eramo.amtalek.presentation.ui.search.searchform.SearchFormViewModel
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
-import eramo.amtalek.util.selectedLocation
+import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,33 +38,213 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         get() = FragmentSeeMorePropertiesByCityBinding::inflate
 
     val viewModel: HomeMyViewModel by viewModels()
+    private val searchViewModel: SearchFormViewModel by viewModels()
 
     @Inject
     lateinit var rvPropertiesByCityAdapter: RvPropertiesByCityAdapter
+
+    private var listOfPurposeItems = ArrayList<CriteriaModel>()
+    private var listOfFinishingItems = ArrayList<CriteriaModel>()
+    private var listOfTypeItems = ArrayList<CriteriaModel>()
+    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
+    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         viewModel.getAllCities()
+        searchViewModel.getInitApis()
         lifecycleScope.launch {
             viewModel.allCities.collect { state ->
                 Log.e("details in fragment", state?.data.toString())
                 initRv(state?.data?: emptyList())
             }
         }
-            //   fetchData(countryId)
+        fetchData()
     }
 
-//    private fun setupViews() {
-//
-//
-//        initRv(citiesList.toList())
-//    }
+    private fun fetchData() {
 
-    private fun fetchData(countryId: String) {
-
+        fetchCurrencies()
+        fetchGetPropertyTypes()
+        fetchGetPropertyFinishing()
+        fetchGetAmenitiesState()
+        fetchGetPropertyPurpose()
+      //  fetchInitApis()
     }
 
+    private fun fetchGetPropertyPurpose(){
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
+                searchViewModel.propertyPurposeState.collect(){
+                    when(it){
+                        is UiState.Loading->{
+                            LoadingDialog.showDialog()
+                        }
+                        is UiState.Success->{
+                            val types = it.data
+                            if (types != null) {
+                                listOfPurposeItems.clear()
+                                listOfPurposeItems.add(0, CriteriaModel(-1, -1, getString(R.string.purpose)))
+                                for (item in types) {
+                                    listOfPurposeItems.add(item as CriteriaModel)
+                                }
+//                                listOfPurposeItems = types as ArrayList<CriteriaModel>
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Error->{
+
+                            LoadingDialog.dismissDialog()
+                        }
+                        is UiState.Empty->Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyFinishing() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyFinishingState.collect { it ->
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            val types = it.data
+                            if (types != null) {
+                                // Clear the existing list
+                                listOfFinishingItems.clear()
+
+                                // Add a default item at the beginning
+                                listOfFinishingItems.add(0, CriteriaModel(-1, -1, getString(R.string.finishing)))
+
+                                // Add the retrieved items to the list
+                                for (item in types) {
+                                    listOfFinishingItems.add(item as CriteriaModel)
+                                }
+
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun fetchCurrencies() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.currenciesState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            val currencies = it.data
+                            Log.e("ahh", currencies.toString())
+                            if (currencies != null) {
+                                listOfCurrencyItems.clear()
+                                listOfCurrencyItems.add(0, CriteriaModel(-1, -1, getString(R.string.currency)))
+                                for (item in currencies) {
+                                    listOfCurrencyItems.add(item as CriteriaModel)
+                                }
+                              //  listOfCurrencyItems = it.data as ArrayList<CriteriaModel>
+
+                                // setupCurrenciesSpinner(currencies.toMutableList())
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+    }
+    private fun fetchGetPropertyTypes() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyTypesState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Success -> {
+                            val types = it.data
+                            if (types != null) {
+                                listOfTypeItems.clear()
+                                listOfTypeItems.add(0, CriteriaModel(-1, -1, getString(R.string.type)))
+                                for (item in types) {
+                                    listOfTypeItems.add(item as CriteriaModel)
+                                }
+                               // listOfTypeItems = it.data as ArrayList<CriteriaModel>
+                                // setupTypesSpinner(types.toMutableList())
+                            }
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+
+    }
+    private fun fetchGetAmenitiesState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                searchViewModel.propertyAmenitiesState.collect() {
+                    when (it) {
+                        is UiState.Success -> {
+                            //  amenitiesAdapter.saveData(it.data!!)
+
+                            listOfAmenitiesItems = it.data as ArrayList<AmenityModel>
+
+//                            binding.amenitiesRv.setHasFixedSize(true)
+//                            binding.amenitiesRv.adapter = amenitiesAdapter
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Error -> {
+                            Toast.makeText(
+                                requireContext(),
+                                it.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        is UiState.Empty -> Unit
+                    }
+                }
+            }
+        }
+    }
 
     private fun setupToolbar() {
         binding.inToolbar.apply {
@@ -129,11 +313,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
         }
     }
 
-    private var listOfPurposeItems = ArrayList<CriteriaModel>()
-    private var listOfFinishingItems = ArrayList<CriteriaModel>()
-    private var listOfTypeItems = ArrayList<CriteriaModel>()
-    private var listOfCurrencyItems = ArrayList<CriteriaModel>()
-    private var listOfAmenitiesItems = ArrayList<AmenityModel>()
+
     private fun createListsModel(): SearchDataListsModel {
         val data = SearchDataListsModel(
             listOfTypesItems = listOfTypeItems,

@@ -53,7 +53,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/addAdomsFragment"
+        android:id="@+id/addAddonsFragment"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.AddAddonsFragment"
         tools:layout="@layout/fragment_add_adoms">
 <!--        <action-->

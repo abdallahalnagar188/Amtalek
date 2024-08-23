@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.search.searchresult
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -404,6 +405,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setupFinishingSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
 

@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -20,13 +19,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.akexorcist.localizationactivity.ui.LocalizationActivity
 import com.bumptech.glide.Glide
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
@@ -300,7 +297,12 @@ class MainActivity : LocalizationActivity(),
 
             navHeaderAddAddons.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
-                    navController.navigate(R.id.addAdomsFragment)
+                    if (UserUtil.getHasPackage() == "yes") {
+                        navController.navigate(R.id.addAddonsFragment)
+                    } else {
+
+                        navController.navigate(R.id.packagesFragment)
+                    }
                 } else {
                     navController.navigate(R.id.loginDialog)
                 }
@@ -309,7 +311,12 @@ class MainActivity : LocalizationActivity(),
 
             navHeaderCurrentPackage.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
-                    navController.navigate(R.id.packageDetailsFragment)
+                    if (UserUtil.getHasPackage() == "yes") {
+                        navController.navigate(R.id.packageDetailsFragment)
+                    } else {
+                        navController.navigate(R.id.packagesFragment)
+                    }
+
                 } else {
                     navController.navigate(R.id.loginDialog)
                 }
@@ -448,7 +455,7 @@ class MainActivity : LocalizationActivity(),
                 R.id.searchFormFragment,
                 R.id.searchResultFragment,
                 R.id.seeMoreNewsFragment,
-                R.id.addAdomsFragment,
+                R.id.addAddonsFragment,
                 R.id.newsDetailsFragmentInSeeMore,
                 R.id.newsDetailsInCategoryFragment
 

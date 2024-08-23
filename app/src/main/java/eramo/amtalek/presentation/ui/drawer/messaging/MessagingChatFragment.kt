@@ -76,7 +76,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
         }
         binding.addAdoms.setOnClickListener {
             if (UserUtil.getHasPackage() == "yes") {
-                findNavController().navigate(R.id.addAdomsFragment)
+                findNavController().navigate(R.id.addAddonsFragment)
             } else {
                 showToast(getString(R.string.no_package))
             }
