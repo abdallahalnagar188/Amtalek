@@ -26,15 +26,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_53sdp"
-
         app:layout_constraintTop_toBottomOf="@id/in_toolbar">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/root"
 
-
+            android:paddingBottom="@dimen/_53sdp"
             >
 
 
