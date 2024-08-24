@@ -38,22 +38,8 @@ class RvPackagesUserYearlyAdapter @Inject constructor() :
 
         fun bind(model: PackageModel) {
             binding.apply {
-                tvTitle.text = model.packageType
-                when (model.packageType) {
-                    "normal" -> {
-                        tvTitle.text = itemView.context.getString(R.string.normal_)
+                tvTitle.text = model.name
 
-                    }
-
-                    "featured" -> {
-                        tvTitle.text = itemView.context.getString(R.string.featured)
-                    }
-
-                    "free" -> {
-                        tvTitle.text = itemView.context.getString(R.string.free)
-                    }
-
-                }
                 tvDescription.text = model.subTitle
                 tvPrice.text = model.priceYearly
                 tvDuration.text = itemView.context.getString(R.string.egp_yearly)

@@ -29,11 +29,11 @@ class RvSelectCountryAdapter @Inject constructor() :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-//            selectedPosition = 0
+            selectedPosition = 0
             binding.root.setOnClickListener {
                 if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
                     getItem(bindingAdapterPosition).let {
-//                        listener.onCountryClick(it)
+                        listener.onCountryClick(it)
 
                     }
                 }

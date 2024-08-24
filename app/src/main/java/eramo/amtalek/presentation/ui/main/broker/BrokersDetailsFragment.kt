@@ -237,7 +237,8 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                         is UiState.Success -> {
                             viewModel.getBrokersDetails(id)
 
-                           // homeViewModel.getHomeApis("1","1")
+                           // homeViewModel.getHomeApis("1","1"
+
                         }
 
                         is UiState.Error -> {

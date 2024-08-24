@@ -71,12 +71,13 @@
 
         <ImageView
             android:id="@+id/iv_property"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_margin="@dimen/_16sdp"
-            android:src="@drawable/ic_proerty"
+            android:src="@drawable/ic_for_rent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tv_property"
@@ -86,7 +87,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_8ssp"
             android:fontFamily="@font/font"
-
             app:layout_constraintBottom_toBottomOf="@id/iv_property"
             app:layout_constraintStart_toEndOf="@id/iv_property"
             app:layout_constraintTop_toTopOf="@id/iv_property"
@@ -94,13 +94,14 @@
 
         <ImageView
             android:id="@+id/iv_residential_projects"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            android:src="@drawable/ic_residential_projects"
+            android:src="@drawable/ic_for_sale"
             app:layout_constraintBottom_toTopOf="@id/iv_property"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tv_residential_projects"

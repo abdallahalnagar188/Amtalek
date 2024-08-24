@@ -283,7 +283,7 @@ class EditPersonalDetailsViewModel @Inject constructor(
            firstName =  user.firstName?:"", lastName =  user.lastName?:"", phone =  user.phone?:"",
            email =  user.email?:"", countryId =  user.countryId.toString()?:"",
            countryName =  user.countryName?:"", cityId = user.cityId.toString(), cityName = user.cityName?:"", userBio =  user.bio?:"", profileImageUrl = user.image?:"",
-            userType = user.actorType?:"", hasPackage = user.hasPackage,brokerName = "", dashboardLink = "", packageId = (user.currentPackage?.packageId?:"").toString()
+            userType = user.actorType?:"", hasPackage = user.hasPackage,brokerName = "", dashboardLink = "", packageId = (user.currentPackage?.packageId?: "").toString()
         )
     }
 

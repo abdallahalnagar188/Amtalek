@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.ui.main.home.seemore
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -74,7 +75,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                     when (state) {
                         is UiState.Success -> {
                             // Refresh the PagingData if necessary
-//                            rvPropertiesPagingAdapter.refresh()
+                            //rvPropertiesPagingAdapter.refresh()
                         }
                         is UiState.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
@@ -104,6 +105,7 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
     }
 
     override fun onFavClick(model: DataX) {
-        viewModel.addOrRemoveFav(model.id?:0)
+        model.id?.let { viewModel.addOrRemoveFav(it) }
+
     }
 }

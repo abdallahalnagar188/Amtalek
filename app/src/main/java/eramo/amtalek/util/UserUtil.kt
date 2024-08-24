@@ -2,9 +2,6 @@ package eramo.amtalek.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKeys
-import eramo.amtalek.data.remote.dto.bases.HasCity
 
 object UserUtil {
 

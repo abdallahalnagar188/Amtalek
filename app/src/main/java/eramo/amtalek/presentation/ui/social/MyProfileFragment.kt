@@ -76,7 +76,9 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
         listeners()
         fetchData()
         setupToggle()
-        Log.e("dash", UserUtil.getDashboardLink()!! )
+        Log.e("name", UserUtil.getBrokerName().toString())
+        Log.e("email", UserUtil.getUserEmail().toString())
+        Log.e("dash", UserUtil.getDashboardLink().toString())
 
     }
 
@@ -84,7 +86,8 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
         if (UserUtil.getUserType()=="user"){
             binding.btnDashboard.visibility = View.GONE
             requestData()
-        }else if (UserUtil.getUserType()=="broker"){
+        } else if (UserUtil.getUserType() == "broker") {
+
             binding.tvUserName.text = UserUtil.getBrokerName()
             binding.tvLocation.text = UserUtil.getUserEmail()
             binding.btnDashboard.visibility = View.VISIBLE
@@ -92,9 +95,14 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
             binding.userToggleGroup.visibility = View.GONE
             binding.favRv.visibility = View.GONE
             binding.submittedOfferRv.visibility = View.GONE
-            binding.myPropertiesRv.visibility = View.GONE
             binding.myReceivedOffersRv.visibility = View.GONE
+            binding.myPropertiesRv.visibility = View.GONE
+            binding.tvLeads.visibility = View.GONE
+            binding.tvTotalImpressions.visibility = View.GONE
+            binding.tvTotalPageView.visibility = View.GONE
             binding.tvBio.visibility = View.GONE
+
+            requestData()
         }
     }
 
@@ -243,18 +251,18 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                 viewModel.getProfileState.collect { state ->
                     when (state) {
 
-                        is Resource.Success -> {
+                        is UiState.Success -> {
                             assignUserData(state.data!!)
                             assignViewsData(state.data)
                         }
 
-                        is Resource.Error -> {
+                        is UiState.Error -> {
                             dismissShimmerEffect()
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                         }
 
-                        is Resource.Loading -> {
+                        is UiState.Loading -> {
                             if (LIKEFLAG ==1){
                                 // show no shimmer effect but loading one
                             }else{
@@ -321,8 +329,15 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
     private fun assignUserData(user: ProfileModel) {
         try {
             binding.apply {
-                tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
-                tvLocation.text = user.cityName
+                if(UserUtil.getUserType()=="user"){
+                    tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
+                    tvLocation.text = user.cityName
+                }else{
+                    tvUserName.text = UserUtil.getBrokerName()
+                    tvLocation.text = UserUtil.getUserEmail()
+                }
+//                tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
+//                tvLocation.text = user.cityName
                 tvLeads.text = user.leadsNumber.toString()
                 tvTotalImpressions.text = user.totalImpressions.toString()
                 tvTotalPageView.text = user.totalViews.toString()

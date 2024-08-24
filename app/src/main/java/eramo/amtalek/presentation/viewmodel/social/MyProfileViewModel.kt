@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.viewmodel.social
 
+import android.provider.Contacts.Intents.UI
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +21,8 @@ class MyProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase
 ) : ViewModel() {
 
-    private val _getProfileState = MutableStateFlow<Resource<ProfileModel>>(Resource.Loading())
-    val getProfileState: StateFlow<Resource<ProfileModel>> = _getProfileState
+    private val _getProfileState = MutableStateFlow<UiState<ProfileModel>>(UiState.Loading())
+    val getProfileState: StateFlow<UiState<ProfileModel>> = _getProfileState
 
     private var getProfileJob: Job? = null
 
@@ -37,16 +38,16 @@ class MyProfileViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> {
                             saveUserInfo(result.data?.data?.data?.toProfile()!!)
-                            _getProfileState.value = Resource.Success(result.data?.data?.data?.toProfile())
+                            _getProfileState.value = UiState.Success(result.data?.data?.data?.toProfile())
                         }
 
                         is Resource.Error -> {
                             _getProfileState.value =
-                                Resource.Error(result.message!!)
+                                UiState.Error(result.message!!)
                         }
 
                         is Resource.Loading -> {
-                            _getProfileState.value = Resource.Loading()
+                            _getProfileState.value = UiState.Loading()
                         }
                     }
                 }
@@ -73,7 +74,7 @@ class MyProfileViewModel @Inject constructor(
             hasPackage = user.hasPackage,
             brokerName = "",
             dashboardLink = user.dashboardLink ?: "",
-            packageId = (user.currentPackage?.packageId?:"0").toString()
+            packageId = (user.currentPackage?.packageId?:"").toString()
         )
     }
 }

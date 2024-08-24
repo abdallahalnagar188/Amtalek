@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.property.allproperty.DataX
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
-import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -50,6 +49,7 @@ class RvNormalPropertiesAdapter @Inject constructor() :
 
         fun bind(model: DataX) {
             var isFav = model.isFav
+
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)

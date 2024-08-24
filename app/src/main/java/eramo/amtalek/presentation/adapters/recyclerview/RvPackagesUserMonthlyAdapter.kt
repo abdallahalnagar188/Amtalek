@@ -39,24 +39,20 @@ class RvPackagesUserMonthlyAdapter @Inject constructor() :
 
         fun bind(model: PackageModel) {
             binding.apply {
-            //    tvTitle.text = model.packageType
-                when (model.packageType) {
-                    "normal" -> {
-                        tvTitle.text = itemView.context.getString(R.string.normal_)
+                tvTitle.text = model.name
+                val userPackageId = UserUtil.packageIdForUser()
 
+                if (!userPackageId.isNullOrBlank()) {
+                    val parsedPackageId = userPackageId.toIntOrNull()
+
+                    if (parsedPackageId != null && model.id == parsedPackageId) {
+                        tvAddProperty.text = itemView.context.getString(R.string.my_plan)
+                    } else {
+                        tvAddProperty.text = itemView.context.getString(R.string.select_this_plan)
                     }
-
-                    "featured" -> {
-                        tvTitle.text = itemView.context.getString(R.string.featured)
-                    }
-
-                    "free" -> {
-                        tvTitle.text = itemView.context.getString(R.string.free)
-                    }
-
-                }
-                if (model.id.equals(UserUtil.packageIdForUser()?.toInt()) ){
-                    tvAddProperty.text = itemView.context.getString(R.string.my_plan)
+                } else {
+                    // Handle case where the package ID is invalid or not set
+                    tvAddProperty.text = itemView.context.getString(R.string.select_this_plan)
                 }
                 tvDescription.text = model.subTitle
                 tvPrice.text = model.priceMonthly

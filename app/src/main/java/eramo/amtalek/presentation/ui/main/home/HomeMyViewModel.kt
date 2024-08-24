@@ -593,6 +593,4 @@ class HomeMyViewModel @Inject constructor(
             }
         }
     }
-
-
 }

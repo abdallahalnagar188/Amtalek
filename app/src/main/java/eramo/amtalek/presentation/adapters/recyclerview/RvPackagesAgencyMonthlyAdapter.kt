@@ -38,7 +38,7 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
 
         fun bind(model: PackageModel) {
             binding.apply {
-                tvTitle.text = model.packageType
+                tvTitle.text = model.name
                 tvDescription.text = model.subTitle
                 tvPrice.text = model.priceMonthly
                 tvDuration.text = itemView.context.getString(R.string.egp_month)

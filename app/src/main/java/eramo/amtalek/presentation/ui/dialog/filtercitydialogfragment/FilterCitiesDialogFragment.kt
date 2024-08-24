@@ -199,5 +199,10 @@ class FilterCitiesDialogFragment : BottomSheetDialogFragment(), RvSelectCountryA
         viewModel.getCities(model.id.toString())
         countryId = model.id
 
+        binding.btnIvCountryFlag.let {
+            Glide.with(requireContext()).load(model.imageUrl).into(it)
+        }
+        binding.btnContinue.isEnabled = true
+
     }
 }

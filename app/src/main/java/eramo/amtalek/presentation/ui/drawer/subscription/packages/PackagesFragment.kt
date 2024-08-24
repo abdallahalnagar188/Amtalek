@@ -1,6 +1,7 @@
 package eramo.amtalek.presentation.ui.drawer.subscription.packages
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -56,6 +57,7 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
         setupViews()
         makeRequests()
         fetchData()
+
     }
 
     private fun fetchData() {
@@ -162,6 +164,7 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
                             val data = state.data
                             initUserYearlyRv(data)
                             initUserMonthlyRv(data)
+                            Log.e("packagesFragment",  data?.get(0)?.packageType.toString())
                         }
 
                         is UiState.Loading -> {

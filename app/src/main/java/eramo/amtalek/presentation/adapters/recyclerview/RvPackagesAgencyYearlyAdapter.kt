@@ -39,12 +39,12 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
 
         fun bind(model: PackageModel) {
             binding.apply {
-                tvTitle.text = model.packageType
+                tvTitle.text = model.name
                 tvDescription.text = model.subTitle
                 tvPrice.text = model.priceYearly
                 tvDuration.text = itemView.context.getString(R.string.egp_yearly)
 
-                UserUtil
+
 
 
                 if(model.leadsManagement == "0"){

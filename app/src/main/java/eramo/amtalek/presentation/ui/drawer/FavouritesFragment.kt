@@ -67,18 +67,18 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(),
                 viewModel.getProfileState.collect { state ->
                     when (state) {
 
-                        is Resource.Success -> {
+                        is UiState.Success -> {
                             state.data?.let { assignViewsData(it) }
                             LoadingDialog.dismissDialog()
                         }
 
-                        is Resource.Error -> {
+                        is UiState.Error -> {
                             val errorMessage = state.message!!.asString(requireContext())
                             showToast(errorMessage)
                             LoadingDialog.dismissDialog()
                         }
 
-                        is Resource.Loading -> {
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
 

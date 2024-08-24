@@ -25,6 +25,7 @@ import eramo.amtalek.presentation.viewmodel.social.MyProfileViewModel
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.state.Resource
+import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -65,19 +66,21 @@ class PackageDetailsFragment : BindingFragment<FragmentPackageDetailsBinding>() 
         lifecycleScope.launch {
             viewModel.getProfileState.collectLatest {
                 when (it) {
-                    is Resource.Success -> {
+                    is UiState.Success -> {
                         it.data?.let { it1 -> setupData(it1) }
                         LoadingDialog.dismissDialog()
                     }
 
-                    is Resource.Error -> {
+                    is UiState.Error -> {
                         LoadingDialog.dismissDialog()
 
                     }
 
-                    is Resource.Loading -> {
+                    is UiState.Loading -> {
                         LoadingDialog.showDialog()
                     }
+
+                    is UiState.Empty -> {}
                 }
 
             }

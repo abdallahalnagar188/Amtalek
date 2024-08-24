@@ -50,7 +50,7 @@ class RvPropertiesAdapter @Inject constructor() :
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                    if (isFav =="") {ivFav.setImageResource(R.drawable.ic_heart_fill)
                         isFav = "1"
                     }
                     else {ivFav.setImageResource(R.drawable.ic_heart)
@@ -128,7 +128,11 @@ class RvPropertiesAdapter @Inject constructor() :
                 Glide.with(itemView)
                     .load(model.brokerDetails?.get(0)?.logo)
                     .into(ivBroker)
-
+                if (model.isFav == "1"){
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                }else{
+                    ivFav.setImageResource(R.drawable.ic_heart)
+                }
                 if (model.normalFeatured == "featured") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
