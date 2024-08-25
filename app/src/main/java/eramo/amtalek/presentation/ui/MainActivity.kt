@@ -47,10 +47,13 @@ import eramo.amtalek.util.hideSoftKeyboard
 import eramo.amtalek.util.setupLangChooser
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 
 @AndroidEntryPoint
 class MainActivity : LocalizationActivity(),
-    DeeplinkHandler by DeeplinkHandlerImpl() {
+    DeeplinkHandler by DeeplinkHandlerImpl()
+{
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -68,6 +71,10 @@ class MainActivity : LocalizationActivity(),
         WebViewLocaleHelper(this).implementWorkaround()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val logger = AppEventsLogger.newLogger(applicationContext)
+        logSentFriendRequestEvent(logger)
 
         FirebaseApp.initializeApp(this)
         // Obtain the FirebaseAnalytics instance.
@@ -135,8 +142,33 @@ class MainActivity : LocalizationActivity(),
             hasNotificationPermissionGranted = true
         }
 
+        if (UserUtil.getUserType() == "broker") {
+            binding.inDrawerHeader.navHeaderTerms.visibility = View.GONE
+            binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
+            binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.GONE
+            binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.GONE
+            binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.GONE
+            binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.GONE
+            binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.GONE
+            binding.inDrawerHeader. navHeaderNotifications.visibility = View.GONE
+        }else{
+            binding.inDrawerHeader.navHeaderTerms.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.VISIBLE
+            binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderNotifications.visibility = View.VISIBLE
+        }
+
     }
 
+    private fun logSentFriendRequestEvent(logger: AppEventsLogger) {
+        logger.logEvent("sentFriendRequest")
+    }
     private var hasNotificationPermissionGranted = false
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -192,17 +224,6 @@ class MainActivity : LocalizationActivity(),
     private fun setupDrawer() {
         binding.inDrawerHeader.apply {
 
-            if (UserUtil.getUserType() == "broker") {
-                navHeaderTerms.visibility = View.GONE
-                navHeaderPricing.visibility = View.GONE
-                navHeaderCurrentPackage.visibility = View.GONE
-                navHeaderIvAddAddons.visibility = View.GONE
-                navHeaderMyFavourite.visibility = View.GONE
-                navHeaderIvNotifications.visibility = View.GONE
-                navHeaderAddYourProperty.visibility = View.GONE
-                navHeaderAddAddons.visibility = View.GONE
-                navHeaderNotifications.visibility = View.GONE
-            }
             setupLangChooser(
                 this@MainActivity,
                 layoutLangIvFlag,

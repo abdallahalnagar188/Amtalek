@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/search_view_bg"
-            android:queryHint="Search"
+            android:queryHint="@string/search"
             android:iconifiedByDefault="false"
             />
         <androidx.recyclerview.widget.RecyclerView

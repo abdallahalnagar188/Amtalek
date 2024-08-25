@@ -395,6 +395,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     override fun onFavClick(model: PropertyModel) {
         viewModel.addOrRemoveFav(model.id)
+
     }
 
     override fun onPropertyClicks(model: PropertyModel) {
@@ -531,6 +532,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
+
                 }
             }
 

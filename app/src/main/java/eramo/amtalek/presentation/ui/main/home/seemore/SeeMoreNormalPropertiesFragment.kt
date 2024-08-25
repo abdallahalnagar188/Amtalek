@@ -120,7 +120,9 @@ class SeeMoreNormalPropertiesFragment : BindingFragment<FragmentSeeMorePropertie
                     when (state) {
 
                         is UiState.Success -> {
-                          // viewModel.getAllProperty()
+                            showToast(state.data?.message.toString())
+
+                            // viewModel.getAllProperty()
                         }
 
                         is UiState.Error -> {

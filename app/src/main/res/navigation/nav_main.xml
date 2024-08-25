@@ -9,9 +9,9 @@
         android:id="@+id/homeFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.HomeFragment"
         tools:layout="@layout/fragment_home">
-        <deepLink
-            android:id="@+id/deepLink5"
-            app:uri="https://Events.shop/Api/home" />
+<!--        <deepLink-->
+<!--            android:id="@+id/deepLink5"-->
+<!--            app:uri="https://Events.shop/Api/home" />-->
     </fragment>
     <fragment
         android:id="@+id/marketFragment"

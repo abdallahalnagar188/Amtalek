@@ -214,7 +214,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //                    } else {
 //                        Toast.makeText(requireContext(), getString(R.string.choose_a_valid_offer_type), Toast.LENGTH_SHORT).show()
 //                    }
-                    val vendorId = vendorId
+                   // val vendorId = vendorId
                     val propertyId = propertyId
                     val forWhat = forWhat
 

@@ -24,6 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,6 +93,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
+    private lateinit var navController: NavController
 
     private val viewModel by viewModels<HomeMyViewModel>()
 
@@ -181,6 +183,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var rvHomeNewsAdapter: RvHomeNewsAdapter
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -536,6 +539,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
+                            showToast(state.data?.message.toString())
                             viewModel.getHomeApis("1", "1")
                         }
 
@@ -1419,7 +1423,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     }
 
     override fun onFavClick(model: PropertyModel) {
-        viewModel.addOrRemoveFav(model.id)
+        if (UserUtil.isUserLogin()){
+            viewModel.addOrRemoveFav(model.id)
+
+        }else{
+            findNavController().navigate(R.id.loginDialog)
+        }
+
 
     }
     // ------------------------------------------------------------------------------------------------------------------------------------ //

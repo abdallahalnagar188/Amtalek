@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -39,13 +40,19 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     @Inject
     lateinit var rvBrokersAdapter: RvBrokersAdapter
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvBrokersAdapter.setListener(this)
-
         binding.rvBrokers.adapter = rvBrokersAdapter
+        rvBrokersAdapter.setListener(this)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -63,59 +70,58 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     private fun setupToolbar() {
 
-            binding.inToolbar.apply {
-                if (UserUtil.getUserType() == "broker") {
-                    inMessaging.root.visibility = View.GONE
-                    inNotification.root.visibility = View.GONE
+        binding.inToolbar.apply {
+            if (UserUtil.getUserType() == "broker") {
+                inMessaging.root.visibility = View.GONE
+                inNotification.root.visibility = View.GONE
 
+            } else {
+                inMessaging.root.visibility = View.VISIBLE
+                inNotification.root.visibility = View.VISIBLE
+            }
+            toolbarIvMenu.setOnClickListener {
+                viewModelShared.openDrawer.value = true
+            }
+            spinnerLayout.setOnClickListener {
+                findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
+
+
+            }
+            FHomeEtSearch.setOnClickListener() {
+                findNavController().navigate(R.id.searchFormFragment, null, navOptionsFromTopAnimation())
+            }
+            inMessaging.ivMessaging.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
                 } else {
-                    inMessaging.root.visibility = View.VISIBLE
-                    inNotification.root.visibility = View.VISIBLE
-                }
-                toolbarIvMenu.setOnClickListener {
-                    viewModelShared.openDrawer.value = true
-                }
-                spinnerLayout.setOnClickListener {
-                        findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
-
-
-                }
-                FHomeEtSearch.setOnClickListener() {
-                    findNavController().navigate(R.id.searchFormFragment, null, navOptionsFromTopAnimation())
-                }
-                inMessaging.ivMessaging.setOnClickListener {
-                    if (UserUtil.isUserLogin()) {
-                        findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
-                    }else{
-                        findNavController().navigate(R.id.loginDialog)
-                    }
-                }
-                inNotification.ivNotification.setOnClickListener {
-                    if (UserUtil.isUserLogin()) {
-                    findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
-                }else{
                     findNavController().navigate(R.id.loginDialog)
                 }
+            }
+            inNotification.ivNotification.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+                } else {
+                    findNavController().navigate(R.id.loginDialog)
                 }
+            }
 
-                if (LocalUtil.isEnglish()){
-                    binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
+            if (LocalUtil.isEnglish()) {
+                binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
 
-                }else{
-                    binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
-                }
-                if (UserUtil.getCityFiltrationTitleAr().isEmpty()&&UserUtil.getCityFiltrationTitleEn().isEmpty()){
-                    binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.egypt)
+            } else {
+                binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
+            }
+            if (UserUtil.getCityFiltrationTitleAr().isEmpty() && UserUtil.getCityFiltrationTitleEn().isEmpty()) {
+                binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.egypt)
 
-                }
-                if (LocalUtil.isEnglish()){
-                    binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
+            }
+            if (LocalUtil.isEnglish()) {
+                binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
-                }else{
-                    binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
-                }
+            } else {
+                binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
+            }
         }
-
 
 
     }

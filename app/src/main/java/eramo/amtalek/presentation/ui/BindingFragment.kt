@@ -17,6 +17,8 @@ abstract class BindingFragment<out T : ViewBinding> : Fragment() {
     @Suppress("UNCHECKED_CAST")
     protected open val binding: T
         get() = _binding as T
+
+
     protected abstract val bindingInflater: (LayoutInflater) -> ViewBinding
     private var isInitializeScreen = true
 

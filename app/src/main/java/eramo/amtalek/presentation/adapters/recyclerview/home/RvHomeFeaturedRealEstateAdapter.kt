@@ -54,21 +54,25 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
             var isFav = model.isFavourite
             binding.apply {
                 ivFav.setOnClickListener {
-                    favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
-                    }
-                    else {ivFav.setImageResource(R.drawable.ic_heart)
-                        isFav ="0"
+                    if (UserUtil.isUserLogin()) {
+                        favListener.onFavClick(model)
+                        if (isFav == "0") {
+                            ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        } else {
+                            ivFav.setImageResource(R.drawable.ic_heart)
+                            isFav = "0"
+                        }
                     }
                 }
+
                 if (isFav == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
+                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()), model.currency)
                 tvTitle.text = model.title
 
                 tvLabel.text = when (model.type) {
@@ -90,14 +94,14 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
                         tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(), model.currency)
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
+                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(), model.currency)
 
                     }
 
@@ -111,9 +115,9 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
                 tvDatePosted.text = model.datePosted
-                if (model.vendorType == "broker"){
+                if (model.vendorType == "broker") {
                     tvBroker.text = itemView.context.getString(R.string.agency)
-                }else{
+                } else {
                     tvBroker.text = itemView.context.getString(R.string.user)
                 }
 
@@ -132,10 +136,9 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-                if (UserUtil.getUserType()=="broker"){
+                if (UserUtil.getUserType() == "broker") {
                     ivFav.visibility = View.GONE
-                }
-                else {
+                } else {
                     ivFav.visibility = View.VISIBLE
                 }
             }
@@ -143,37 +146,37 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
         }
     }
 
-    private fun getRentPrice(context: Context, duration: String, price: Double,currency:String): String {
+    private fun getRentPrice(context: Context, duration: String, price: Double, currency: String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                context.getString(R.string.s_daily_price, formatPrice(price),currency)
+                context.getString(R.string.s_daily_price, formatPrice(price), currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                context.getString(R.string.s_monthly_price, formatPrice(price),currency)
+                context.getString(R.string.s_monthly_price, formatPrice(price), currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                context.getString(R.string.s_3_months_price, formatPrice(price),currency)
+                context.getString(R.string.s_3_months_price, formatPrice(price), currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                context.getString(R.string.s_6_months_price, formatPrice(price),currency)
+                context.getString(R.string.s_6_months_price, formatPrice(price), currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                context.getString(R.string.s_9_months_price, formatPrice(price),currency)
+                context.getString(R.string.s_9_months_price, formatPrice(price), currency)
             }
 
             RentDuration.YEARLY.key -> {
-                context.getString(R.string.s_yearly_price, formatPrice(price),currency)
+                context.getString(R.string.s_yearly_price, formatPrice(price), currency)
             }
 
             else -> ""
         }
     }
 
-    fun setListener(listener: OnItemClickListener,favListener: FavClickListener) {
+    fun setListener(listener: OnItemClickListener, favListener: FavClickListener) {
         this.listener = listener
         this.favListener = favListener
 

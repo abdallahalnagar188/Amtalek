@@ -74,6 +74,10 @@ class SeeMorePropertiesFragment : BindingFragment<FragmentSeeMorePropertiesBindi
                 viewModel.favState.collect { state ->
                     when (state) {
                         is UiState.Success -> {
+                            showToast(state.data?.message.toString())
+                            viewModel.allPropertiesPagingData.collect{
+                                rvPropertiesPagingAdapter.submitData(it)
+                            }
                             // Refresh the PagingData if necessary
                             //rvPropertiesPagingAdapter.refresh()
                         }

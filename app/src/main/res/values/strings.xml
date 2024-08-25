@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">Amtalek</string>
     <string name="map_api_key" translatable="false">AIzaSyAsJmPNAuOje9uNhxDDso5vR2nhLwWDJo8</string>
+    <!-- Add the Facebook App ID here -->
+    <!-- Your actual Facebook App ID -->
+    <string name="facebook_app_id" translatable="false">859549992423067</string>
+
+    <!-- Your actual Facebook App ID used in the login protocol scheme -->
+    <string name="fb_login_protocol_scheme" translatable="false">fb859549992423067</string>
+
 
     <string name="cancel">Cancel</string>
-    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.6</string>
+    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.7</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">Warning!</string>
@@ -46,7 +53,7 @@
     <string name="price_dirham">Price (DIRHAM)</string>
     <string name="submit">Submit</string>
     <string name="if_you_forgot_your_password_enter_your_email_and_check_your_email">If you forgot your password enter your email and check your email</string>
-    <string name="search">Search…</string>
+    <string name="search">Search</string>
     <string name="latest_deals">LATEST DEALS</string>
     <string name="latest_products">LATEST PRODUCTS</string>
     <string name="all_products">All PRODUCTS</string>
@@ -1015,6 +1022,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="my_plan">Your Plane</string>
     <string name="offer_sent_successfully">Offer sent successfully</string>
     <string name="sending_offer_before">you sending offer before</string>
+    <string name="acceptance">Acceptance</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

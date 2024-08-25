@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_200sdp"
+    android:layout_margin="@dimen/_8sdp"
+    android:background="@color/gray_background"
+    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/amtalek_blue"
+    app:strokeWidth="@dimen/_1sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_featured"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_26sdp"
+            android:background="@drawable/featured_label_background"
+            android:fontFamily="@font/font"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            tools:text="@string/featured"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_tv_title" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:background="@color/gray_background"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_2sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/amtalek_blue"
+            app:strokeWidth="@dimen/_1sdp"
+
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/font"
+                android:maxLines="1"
+                android:padding="@dimen/_8sdp"
+                android:text="ivo title one"
+                android:textColor="@color/amtalek_blue"
+                android:textDirection="locale"
+                android:textSize="@dimen/_12ssp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/status"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="@id/card_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/card_tv_title" />
+
+        <TextView
+            android:id="@+id/tv_at_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_status"
+            app:layout_constraintEnd_toStartOf="@id/tv_status_value"
+            app:layout_constraintTop_toTopOf="@id/tv_status"
+            tools:text="at_to : " />
+
+        <TextView
+            android:id="@+id/tv_status_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_status"
+            tools:text="status_value" />
+
+        <TextView
+            android:id="@+id/tv_acceptance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/acceptance"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="@id/card_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_status" />
+
+        <TextView
+            android:id="@+id/tv_acceptance_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            tools:text="@string/acceptance"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_acceptance"
+            app:layout_constraintEnd_toEndOf="@id/tv_status_value"
+            app:layout_constraintTop_toTopOf="@id/tv_acceptance" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/price"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toStartOf="@id/card_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_acceptance" />
+
+
+        <TextView
+            android:id="@+id/tv_price_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            tools:text="@string/price"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="@id/tv_status_value"
+            app:layout_constraintTop_toTopOf="@id/tv_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_price"
+
+            />
+        <ImageView
+            android:id="@+id/iv_date"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:src="@drawable/ic_clock"
+            app:layout_constraintStart_toStartOf="@id/card_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_price" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font"
+            android:paddingVertical="@dimen/_6sdp"
+            android:text="@string/date"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_date"
+            app:layout_constraintStart_toEndOf="@id/iv_date"
+            app:layout_constraintTop_toTopOf="@id/iv_date" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

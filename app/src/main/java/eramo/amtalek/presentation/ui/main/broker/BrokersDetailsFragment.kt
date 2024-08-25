@@ -235,6 +235,7 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
+                            showToast(state.data?.message.toString())
                             viewModel.getBrokersDetails(id)
 
                            // homeViewModel.getHomeApis("1","1"
