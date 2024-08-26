@@ -787,6 +787,8 @@
     <string name="project_video">فيديو للمشروع</string>
     <string name="similar_properties">عقارات مشابهة</string>
     <string name="s_ratings">التقييمات (%S)</string>
+    <string name="s_invoices">فاتوره رقم : %S</string>
+
 
     <string name="autocad_drawings">رسومات الأوتوكاد</string>
     <string name="register_with_us">سجل معنا</string>
@@ -1052,7 +1054,15 @@
     <string name="my_plan">باقتك الحاليه</string>
     <string name="offer_sent_successfully">تم ارسال العرض بنجاح</string>
     <string name="sending_offer_before">تم ارسال العرض من قبل</string>
-    <string name="acceptance">Acceptance</string>
+    <string name="acceptance">الموافقه</string>
+    <string name="accepted">تم القبول</string>
+    <string name="holding">قيد التنفيذ</string>
+    <string name="at_to">صالحه حتي : </string>
+    <string name="used">مستهلك</string>
+    <string name="based">من</string>
+    <string name="remain">متبقي</string>
+    <string name="from">من</string>
+    <string name="to">الي</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.main.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -93,7 +94,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentHomeBinding::inflate
-    private lateinit var navController: NavController
 
     private val viewModel by viewModels<HomeMyViewModel>()
 
@@ -1025,6 +1025,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inFeaturedRealEstate.rv.adapter = rvHomeFeaturedRealEstateAdapter
         rvHomeFeaturedRealEstateAdapter.submitList(data)
+        binding.inFeaturedRealEstate.tvTitle.setTypeface(binding.inFeaturedRealEstate.tvTitle.typeface, Typeface.BOLD)
+
+
         //       binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inFeaturedRealEstate.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMorePropertiesFragment)
@@ -1037,6 +1040,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFeaturedProjectsAdapter.setListener(this@HomeFragment)
         binding.inFeaturedProjects.rv.adapter = rvHomeFeaturedProjectsAdapter
         rvHomeFeaturedProjectsAdapter.submitList(data)
+        binding.inFeaturedProjects.tvTitle.setTypeface(binding.inFeaturedProjects.tvTitle.typeface, Typeface.BOLD)
 
 //        binding.inFeaturedProjects.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inFeaturedProjects.tvSeeMore.setOnClickListener {
@@ -1050,6 +1054,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.inPropertiesByCity.rv.adapter = rvHomeFindPropertyByCityAdapter
         rvHomeFindPropertyByCityAdapter.submitList(data)
         binding.inPropertiesByCity.tvTitle.text = getString(R.string.find_your_property_in_the_city)
+        binding.inPropertiesByCity.tvTitle.setTypeface(binding.inPropertiesByCity.tvTitle.typeface, Typeface.BOLD)
 
 //        binding.inPropertiesByCity.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inPropertiesByCity.tvSeeMore.setOnClickListener {
@@ -1061,6 +1066,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeNormalPropertiesAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inNormalPropertiesLayout.rv.adapter = rvHomeNormalPropertiesAdapter
         rvHomeNormalPropertiesAdapter.submitList(data)
+        binding.inNormalPropertiesLayout.tvTitle.setTypeface(binding.inNormalPropertiesLayout.tvTitle.typeface, Typeface.BOLD)
+
         binding.inNormalPropertiesLayout.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMoreNormalPropertiesFragment)
         }
@@ -1073,6 +1080,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeMostViewedPropertiesAdapter.setListener(this@HomeFragment, this@HomeFragment)
         binding.inMostViewedPropertiesLayout.rv.adapter = rvHomeMostViewedPropertiesAdapter
         rvHomeMostViewedPropertiesAdapter.submitList(data)
+        binding.inMostViewedPropertiesLayout.tvTitle.setTypeface(binding.inMostViewedPropertiesLayout.tvTitle.typeface, Typeface.BOLD)
 //        binding.inMostViewedPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
@@ -1176,6 +1184,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFirstExtraSectionAdapter.setListener(this, this)
         binding.inFirstExtraSectionLayout.rv.adapter = rvHomeFirstExtraSectionAdapter
         rvHomeFirstExtraSectionAdapter.submitList(data)
+        binding.inFirstExtraSectionLayout.tvTitle.setTypeface(binding.inFirstExtraSectionLayout.tvTitle.typeface, Typeface.BOLD)
 //        binding.inFirstExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
@@ -1185,6 +1194,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeSecondExtraSectionAdapter.setListener(this, this)
         binding.inSecondExtraSectionLayout.rv.adapter = rvHomeSecondExtraSectionAdapter
         rvHomeSecondExtraSectionAdapter.submitList(data)
+        binding.inSecondExtraSectionLayout.tvTitle.setTypeface(binding.inSecondExtraSectionLayout.tvTitle.typeface, Typeface.BOLD)
 //        binding.inSecondExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
@@ -1202,6 +1212,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFourthExtraSectionAdapter.setListener(this, this)
         binding.inFourthExtraSectionLayout.rv.adapter = rvHomeFourthExtraSectionAdapter
         rvHomeFourthExtraSectionAdapter.submitList(data)
+        binding.inFourthExtraSectionLayout.tvTitle.setTypeface(binding.inFourthExtraSectionLayout.tvTitle.typeface, Typeface.BOLD)
 //        binding.inFourthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
@@ -1210,6 +1221,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeFifthExtraSectionAdapter.setListener(this, this)
         binding.inFifthExtraSectionLayout.rv.adapter = rvHomeFifthExtraSectionAdapter
         rvHomeFifthExtraSectionAdapter.submitList(data)
+        binding.inFifthExtraSectionLayout.tvTitle.setTypeface(binding.inFifthExtraSectionLayout.tvTitle.typeface, Typeface.BOLD)
 //        binding.inFifthExtraSectionLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
 
     }
@@ -1219,6 +1231,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         rvHomeNewsAdapter.setListener(this@HomeFragment)
         binding.inNewsLayout.rv.adapter = rvHomeNewsAdapter
         rvHomeNewsAdapter.submitList(data)
+        binding.inNewsLayout.tvTitle.setTypeface(binding.inNewsLayout.tvTitle.typeface, Typeface.BOLD)
 //        binding.inNewsLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inNewsLayout.tvSeeMore.setOnClickListener {
             findNavController().navigate(R.id.seeMoreNewsFragment)

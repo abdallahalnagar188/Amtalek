@@ -13,9 +13,10 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:ellipsize="end"
         android:fontFamily="@font/font"
+        android:textStyle="bold"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/the_newest_apartments_in_egypt" />

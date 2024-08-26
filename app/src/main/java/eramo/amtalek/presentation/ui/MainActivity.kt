@@ -143,7 +143,6 @@ class MainActivity : LocalizationActivity(),
         }
 
         if (UserUtil.getUserType() == "broker") {
-            binding.inDrawerHeader.navHeaderTerms.visibility = View.GONE
             binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
             binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
             binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.GONE
@@ -153,7 +152,7 @@ class MainActivity : LocalizationActivity(),
             binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.GONE
             binding.inDrawerHeader. navHeaderNotifications.visibility = View.GONE
         }else{
-            binding.inDrawerHeader.navHeaderTerms.visibility = View.VISIBLE
+
             binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
             binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
             binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.VISIBLE
@@ -269,8 +268,15 @@ class MainActivity : LocalizationActivity(),
 
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
-            navHeaderTerms.visibility = View.GONE
 
+            navHeaderMyInvoices.setOnClickListener {
+                if (UserUtil.isUserLogin()) {
+                    navController.navigate(R.id.myInvoicesFragment)
+                } else {
+                    navController.navigate(R.id.loginDialog)
+                }
+                binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
+            }
 //            navHeaderNewProjects.setOnClickListener {
 ////                navController.navigate(R.id.latestProjectsFragment)
 //
@@ -478,7 +484,8 @@ class MainActivity : LocalizationActivity(),
                 R.id.seeMoreNewsFragment,
                 R.id.addAddonsFragment,
                 R.id.newsDetailsFragmentInSeeMore,
-                R.id.newsDetailsInCategoryFragment
+                R.id.newsDetailsInCategoryFragment,
+               // R.id.myInvoicesFragment
 
                 -> {
                     binding.apply {

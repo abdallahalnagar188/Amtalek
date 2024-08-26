@@ -74,7 +74,9 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
                     when (state) {
                         is UiState.Success -> {
                             LoadingDialog.dismissDialog()
-                            Toast.makeText(requireContext(), state.data?.message, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),
+                                state.data?.message,
+                                Toast.LENGTH_SHORT).show()
                         }
 
                         is UiState.Loading -> {

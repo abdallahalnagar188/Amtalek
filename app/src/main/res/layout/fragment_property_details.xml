@@ -799,7 +799,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_register_with_us">
@@ -826,7 +826,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_offer_name">
@@ -853,7 +853,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_offer_phone">
@@ -880,7 +880,7 @@
                             android:layout_marginTop="@dimen/_11sdp"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/til_offer_mail">
@@ -908,7 +908,7 @@
                             android:layout_marginTop="@dimen/_11sdp"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/til_offer_value">
@@ -938,7 +938,7 @@
                             android:background="@drawable/button_background_long"
                             android:fontFamily="@font/font"
                             android:text="@string/send"
-                            android:textAllCaps="true"
+                            android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_13ssp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -979,7 +979,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_message">
@@ -1006,7 +1006,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_message_name">
@@ -1033,7 +1033,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_message_phone">
@@ -1060,7 +1060,7 @@
                             android:layout_marginTop="@dimen/_11sdp"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/til_message_mail">
@@ -1089,7 +1089,7 @@
                             android:background="@drawable/button_background_long"
                             android:fontFamily="@font/font"
                             android:text="@string/send"
-                            android:textAllCaps="true"
+                            android:textAllCaps="false"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_13ssp"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -1126,7 +1126,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_14sdp"
                             android:layout_marginTop="@dimen/_10sdp"
-                            android:isIndicator="true"
+                            android:isIndicator="false"
                             android:progressTint="@color/gold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_rate" />
@@ -1137,14 +1137,14 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/edit_text_height"
                             android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
+                            android:hint="@string/name"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/rate_bar"
-                            android:hint="@string/name"> <!-- Set the hint here in the TextInputLayout -->
+                            app:layout_constraintTop_toBottomOf="@id/rate_bar">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_name"
@@ -1152,11 +1152,13 @@
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edittext_background"
                                 android:fontFamily="@font/font"
+                                android:hint="@string/name"
                                 android:inputType="textPersonName"
                                 android:textColor="@color/black"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/_12ssp" />
                         </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/til_phone"
@@ -1167,7 +1169,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_name">
@@ -1194,7 +1196,7 @@
                             android:layout_marginTop="@dimen/edit_text_margin_top"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/text_gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/til_phone">
@@ -1221,7 +1223,7 @@
                             android:layout_marginTop="@dimen/_11sdp"
                             android:fontFamily="@font/font"
                             android:textColorHint="@color/gray"
-                            app:hintEnabled="true"
+                            app:hintEnabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/til_mail">

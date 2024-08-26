@@ -47,6 +47,13 @@
 
 
     <fragment
+        android:id="@+id/myInvoicesFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.invoices.InvoiceFragment"
+        android:label="fragment_invoices"
+        tools:layout="@layout/fragment_invoice">
+    </fragment>
+
+    <fragment
         android:id="@+id/animation_lottie"
         android:name="eramo.amtalek.presentation.ui.drawer.messaging.addons.LottieAnimationFragment"
         tools:layout="@layout/fragment_lottie_animation">

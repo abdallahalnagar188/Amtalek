@@ -3,6 +3,7 @@ package eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.profile.ProfileModel
 import kotlinx.parcelize.Parcelize
@@ -93,7 +94,11 @@ data class DataX(
     var receivedOffers: List<ReceivedOffer>?,
     @SerializedName("current_package_info")
     var currentPackageInfo: CurrentPackageInfo?,
-) : Parcelable {
+    @SerializedName("history_packages")
+    var historyPackages: List<HistoryPackage>?,
+    @SerializedName("history_packages_info")
+    var historyPackagesInfo: List<HistoryPackagesInfo>?,
+    ) : Parcelable {
     fun toProfile(): ProfileModel {
         return ProfileModel(
             id = id ?: -1,
@@ -118,8 +123,9 @@ data class DataX(
             totalImpressions = totalImpressions ?: 0,
             totalViews = totalViews ?: 0,
             receivedOffer = receivedOffers ?: emptyList(),
-            currentPackage = currentPackageInfo
-            )
+            currentPackage = currentPackageInfo,
+            historyPackages = historyPackagesInfo?: emptyList()
+        )
     }
 }
 
@@ -133,7 +139,7 @@ data class CurrentPackageInfo(
     var packageId: Int?,
     @SerializedName("package_info")
     var packageInfo: List<PackageInfo?>?
-) :Parcelable {
+) : Parcelable {
     @Parcelize
     data class ExpirationDate(
         @SerializedName("duration")
@@ -142,8 +148,9 @@ data class CurrentPackageInfo(
         var expirationDate: String?,
         @SerializedName("payment_method")
         var paymentMethod: String?
-    ):Parcelable
-@Parcelize
+    ) : Parcelable
+
+    @Parcelize
     data class PackageInfo(
         @SerializedName("base")
         var base: Int?,
@@ -153,8 +160,9 @@ data class CurrentPackageInfo(
         var title: String?,
         @SerializedName("used")
         var used: Int?
-    ):Parcelable
+    ) : Parcelable
 }
+
 data class CurrentPackage(
     @SerializedName("accounting_action")
     var accountingAction: String?,
@@ -243,6 +251,7 @@ data class CurrentPackage(
     @SerializedName("updated_at")
     var updatedAt: String?
 )
+
 @Parcelize
 data class Data(
     @SerializedName("data")
@@ -574,7 +583,7 @@ data class ReceivedOffer(
     var senderOfferType: String?,
     @SerializedName("sender_phone")
     var senderPhone: String?
-) : Parcelable{
+) : Parcelable {
     fun toProperty(): PropertyModel {
         return PropertyModel(
             id = property?.get(0)?.id ?: 0,
@@ -601,8 +610,8 @@ data class ReceivedOffer(
             subRegion = property?.get(0)?.subRegion ?: "",
             vendorType = property?.get(0)?.brokerDetails?.brokerType ?: "",
             offerData = null,
-            senderName = senderName?:"",
-            senderPhone = senderPhone?: "",
+            senderName = senderName ?: "",
+            senderPhone = senderPhone ?: "",
             offerPrice = senderOffer ?: "",
             offerDate = offerTime ?: ""
         )
@@ -697,6 +706,129 @@ data class Property(
         )
     }
 
+}
+@Parcelize
+data class HistoryPackage(
+    @SerializedName("accounting_action")
+    var accountingAction: String?,
+    @SerializedName("accounting_id")
+    var accountingId: Int?,
+    @SerializedName("accounting_module")
+    var accountingModule: String?,
+    @SerializedName("actual_payment")
+    var actualPayment: Int?,
+    @SerializedName("added_crm_agents")
+    var addedCrmAgents: Int?,
+    @SerializedName("added_emoney")
+    var addedEmoney: String?,
+    @SerializedName("added_featured_listings")
+    var addedFeaturedListings: Int?,
+    @SerializedName("added_leads_management")
+    var addedLeadsManagement: Int?,
+    @SerializedName("added_messages")
+    var addedMessages: Int?,
+    @SerializedName("added_normal_listings")
+    var addedNormalListings: Int?,
+    @SerializedName("added_projects")
+    var addedProjects: Int?,
+    @SerializedName("added_supervisors")
+    var addedSupervisors: Int?,
+    @SerializedName("assigned_to")
+    var assignedTo: String?,
+    @SerializedName("client_id")
+    var clientId: Int?,
+    @SerializedName("client_type")
+    var clientType: String?,
+    @SerializedName("created_at")
+    var createdAt: String?,
+    @SerializedName("crm_agents")
+    var crmAgents: Int?,
+    @SerializedName("duration_from")
+    var durationFrom: String?,
+    @SerializedName("duration_to")
+    var durationTo: String?,
+    @SerializedName("emoney")
+    var emoney: String?,
+    @SerializedName("featured_listings")
+    var featuredListings: Int?,
+    @SerializedName("hr_module")
+    var hrModule: String?,
+    @SerializedName("id")
+    var id: Int?,
+    @SerializedName("lead_id")
+    var leadId: Int?,
+    @SerializedName("leads_management")
+    var leadsManagement: Int?,
+    @SerializedName("manual_payment_creator")
+    var manualPaymentCreator: String?,
+    @SerializedName("messages")
+    var messages: Int?,
+    @SerializedName("normal_listings")
+    var normalListings: Int?,
+    @SerializedName("package_duration")
+    var packageDuration: String?,
+    @SerializedName("package_id")
+    var packageId: Int?,
+    @SerializedName("package_price")
+    var packagePrice: Int?,
+    @SerializedName("pass_assign_to_accounting")
+    var passAssignToAccounting: Int?,
+    @SerializedName("payment_by")
+    var paymentBy: String?,
+    @SerializedName("price_monthly")
+    var priceMonthly: Int?,
+    @SerializedName("price_yearly")
+    var priceYearly: Int?,
+    @SerializedName("projects")
+    var projects: Int?,
+    @SerializedName("status")
+    var status: String?,
+    @SerializedName("supervisor_action")
+    var supervisorAction: String?,
+    @SerializedName("supervisor_id")
+    var supervisorId: Int?,
+    @SerializedName("supervisors")
+    var supervisors: Int?,
+    @SerializedName("updated_at")
+    var updatedAt: String?
+):Parcelable
+@Parcelize
+data class HistoryPackagesInfo(
+    @SerializedName("actual_payment")
+    var actualPayment: String?,
+    @SerializedName("expiration_date")
+    var expirationDate: ExpirationDate?,
+    @SerializedName("package_details")
+    var packageDetails: List<PackageDetail?>?
+) :Parcelable{
+    @Parcelize
+    data class ExpirationDate(
+        @SerializedName("date_of_package")
+        var dateOfPackage: String?,
+        @SerializedName("duration")
+        var duration: String?,
+        @SerializedName("expiration_date")
+        var expirationDate: String?,
+        @SerializedName("package_id")
+        var packageId: Int?,
+        @SerializedName("package_type")
+        var packageType: String?,
+        @SerializedName("payment_method")
+        var paymentMethod: String?,
+        @SerializedName("status")
+        var status: String?
+    ):Parcelable
+@Parcelize
+    data class PackageDetail(
+        @SerializedName("base")
+        var base: Int?,
+        @SerializedName("reminder")
+        var reminder: Int?,
+        @SerializedName("title")
+        var title: String?,
+        @SerializedName("used")
+        var used: Int?
+    ):Parcelable
 }
 
 @Parcelize

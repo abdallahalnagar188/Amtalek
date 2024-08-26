@@ -40,13 +40,6 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     @Inject
     lateinit var rvBrokersAdapter: RvBrokersAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -124,6 +117,12 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.inToolbar.FHomeEtSearch.text.clear()
+        binding.inToolbar.FHomeEtSearch.clearFocus()
     }
 
     override fun onBrokerClick(model: DataX) {

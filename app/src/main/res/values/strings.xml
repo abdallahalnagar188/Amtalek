@@ -755,6 +755,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="project_video">Project video</string>
     <string name="similar_properties">Similar properties</string>
     <string name="s_ratings">Ratings (%s)</string>
+    <string name="s_invoices">INVOICE ( %s )</string>
 
     <string name="autocad_drawings">Autocad drawings</string>
     <string name="register_with_us">Register with us</string>
@@ -1023,6 +1024,14 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="offer_sent_successfully">Offer sent successfully</string>
     <string name="sending_offer_before">you sending offer before</string>
     <string name="acceptance">Acceptance</string>
+    <string name="accepted">Accepted</string>
+    <string name="holding">Holding</string>
+    <string name="at_to">Valid until : </string>
+    <string name="used">Used</string>
+    <string name="based">Based</string>
+    <string name="remain">Remain</string>
+    <string name="from">From</string>
+    <string name="to">to</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

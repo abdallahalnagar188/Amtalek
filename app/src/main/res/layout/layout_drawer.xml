@@ -535,7 +535,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/navHeader_terms"
+                    android:id="@+id/navHeader_my_invoices"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_marginTop="@dimen/_8sdp"
@@ -545,7 +545,7 @@
                     app:layout_constraintTop_toBottomOf="@id/navHeader_current_package">
 
                     <ImageView
-                        android:id="@+id/navHeader_iv_terms"
+                        android:id="@+id/navHeader_iv_my_invoices"
                         android:layout_width="@dimen/_16sdp"
                         android:layout_height="@dimen/_16sdp"
                         android:layout_marginStart="@dimen/_10sdp"
@@ -555,19 +555,19 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/amtalek_blue"
                         tools:ignore="ContentDescription"
-                        android:src="@drawable/ic_terms" />
+                        android:src="@drawable/ic_invoices" />
 
                     <TextView
-                        android:id="@+id/navHeader_tv_terms"
+                        android:id="@+id/navHeader_tv_my_invoices"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:fontFamily="@font/font"
-                        android:text="@string/terms_and_conditions"
+                        android:text="@string/my_invoices"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_terms"
+                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_my_invoices"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -579,7 +579,7 @@
                     android:background="@drawable/nav_headder_cell_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/navHeader_terms">
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_my_invoices">
 
                     <ImageView
                         android:id="@+id/navHeader_iv_sign_out"
