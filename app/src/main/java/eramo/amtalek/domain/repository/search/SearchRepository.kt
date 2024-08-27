@@ -27,6 +27,7 @@ interface SearchRepository {
         region: RequestBody?,
         subRegion: RequestBody?,
         amenities: RequestBody?,
+        priority_keys : RequestBody?
     ): Flow<PagingData<PropertyModel>>
 
     suspend fun getSearchResultSlider():Flow<Resource<HomeSlidersResponse>>

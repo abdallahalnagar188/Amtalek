@@ -1032,6 +1032,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="remain">Remain</string>
     <string name="from">From</string>
     <string name="to">to</string>
+    <string name="you_can_not_offer_to_yourself">you can\'t make offer to yourself</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

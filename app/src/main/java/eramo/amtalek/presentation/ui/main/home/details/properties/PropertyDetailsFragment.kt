@@ -35,6 +35,7 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.project.Data
 import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.Autocad
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
@@ -199,6 +200,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         binding.etOfferMail.setText(UserUtil.getUserEmail())
         binding.etOfferPhone.setText(UserUtil.getUserPhone())
         binding.btnOfferSend.setOnClickListener() {
+
             if (validOfferForm()) {
                 binding.apply {
                     val name = etOfferName.text.toString()
@@ -214,7 +216,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //                    } else {
 //                        Toast.makeText(requireContext(), getString(R.string.choose_a_valid_offer_type), Toast.LENGTH_SHORT).show()
 //                    }
-                   // val vendorId = vendorId
+                    // val vendorId = vendorId
                     val propertyId = propertyId
                     val forWhat = forWhat
 
@@ -230,6 +232,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
                 }
             }
+
+
         }
 
         binding.etMessageName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
@@ -475,7 +479,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun setupToolbar() {
         StatusBarUtil.transparent()
         binding.apply {
-            ivShare.setOnClickListener { showToast("share") }
+            ivShare.setOnClickListener { shareContent() }
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
         if (UserUtil.getUserType() == "broker") {
@@ -533,7 +537,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     when (state) {
                         is UiState.Success -> {
                             dismissShimmerEffect()
-                           showToast(getString(R.string.offer_sent_successfully))
+                            showToast(getString(R.string.offer_sent_successfully))
                         }
 
                         is UiState.Error -> {
@@ -650,25 +654,44 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
+    private fun shareContent() {
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=eramo.amtalek")
+            type = "text/plain"// MIME type for sharing text
+        }
+
+        // Start the share intent
+        startActivity(Intent.createChooser(shareIntent, "Share via"))
+    }
+
     private fun assignData(model: PropertyDetailsModel) {
         try {
             binding.apply {
                 var isFav = model.isFavourite
                 ivFavourite.setOnClickListener {
                     viewModel.addOrRemoveFav(model.id)
-                    if (isFav == "0") {
-                        ivFavourite.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
+                    if (UserUtil.isUserLogin()) {
+                        if (isFav == "0") {
+                            ivFavourite.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        } else {
+                            ivFavourite.setImageResource(R.drawable.ic_heart)
+                            isFav = "0"
+                        }
                     } else {
-                        ivFavourite.setImageResource(R.drawable.ic_heart)
-                        isFav = "0"
+                        findNavController().navigate(R.id.loginDialog)
                     }
                 }
+
                 if (isFav == "1") {
                     ivFavourite.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFavourite.setImageResource(R.drawable.ic_heart)
                 }
+
+
                 propertyId = model.id.toString()
                 vendorId = model.brokerId.toString()
                 setupImageSliderTop(model.sliderImages)
@@ -700,6 +723,65 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     }
                 }
 
+                if (UserUtil.getUserId() == model.brokerId.toString()) {
+                    btnSendRate.visibility = View.GONE
+                    btnMessageSend.visibility = View.GONE
+                    btnOfferSend.visibility = View.GONE
+                    etYourRate.visibility = View.GONE
+                    rateBar.visibility = View.GONE
+                    tvRatings.visibility = View.GONE
+                    etMail.visibility = View.GONE
+                    etPhone.visibility = View.GONE
+                    etName.visibility = View.GONE
+                    offerSpinner.visibility = View.GONE
+                    tilOfferValue.visibility = View.GONE
+                    tilMessageValue.visibility = View.GONE
+                    tilYourRate.visibility = View.GONE
+                    tilMessageName.visibility = View.GONE
+                    tilMessageMail.visibility = View.GONE
+                    tilMessagePhone.visibility = View.GONE
+                    tilOfferName.visibility = View.GONE
+                    tilOfferMail.visibility = View.GONE
+                    tilOfferPhone.visibility = View.GONE
+                    toggleGroup.visibility = View.GONE
+                    tvRegisterWithUs.visibility = View.GONE
+                    tilMail.visibility = View.GONE
+                    tilPhone.visibility = View.GONE
+                    tilName.visibility = View.GONE
+                    autoCompleteOfferType.visibility = View.GONE
+                    tvVisitProfile.visibility = View.GONE
+                    ivArrowBroker.visibility = View.GONE
+
+
+                } else {
+                    btnSendRate.visibility = View.VISIBLE
+                    btnMessageSend.visibility = View.VISIBLE
+                    btnOfferSend.visibility = View.VISIBLE
+                    etYourRate.visibility = View.VISIBLE
+                    rateBar.visibility = View.VISIBLE
+                    tvRatings.visibility = View.VISIBLE
+                    etMail.visibility = View.VISIBLE
+                    etPhone.visibility = View.VISIBLE
+                    etName.visibility = View.VISIBLE
+                    offerSpinner.visibility = View.VISIBLE
+                    tilOfferValue.visibility = View.VISIBLE
+                    tilMessageValue.visibility = View.VISIBLE
+                    tilYourRate.visibility = View.VISIBLE
+                    tilMessageName.visibility = View.VISIBLE
+                    tilMessageMail.visibility = View.VISIBLE
+                    tilMessagePhone.visibility = View.VISIBLE
+                    tilOfferName.visibility = View.VISIBLE
+                    tilOfferMail.visibility = View.VISIBLE
+                    tilOfferPhone.visibility = View.VISIBLE
+                    toggleGroup.visibility = View.VISIBLE
+                    tvRegisterWithUs.visibility = View.VISIBLE
+                    tilMail.visibility = View.VISIBLE
+                    tilPhone.visibility = View.VISIBLE
+                    tilName.visibility = View.VISIBLE
+                    autoCompleteOfferType.visibility = View.VISIBLE
+                    tvVisitProfile.visibility = View.VISIBLE
+                    ivArrowBroker.visibility = View.VISIBLE
+                }
 
 //                tvCurrency.text = " " + getRentPrice(requireContext(), data.rentDuration, data.currency) + " "
 
@@ -811,7 +893,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
                 binding.contactUs.btnCall.setOnClickListener {
                     if (UserUtil.isUserLogin()) {
-
                         sharedViewModel.sendContactRequest(
                             propertyId = model.id,
                             brokerId = model.brokerId,
@@ -983,13 +1064,41 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     private fun mapSetup(data: String?) {
-        val video = data
-        video?.let {
-            binding.webView.settings.javaScriptEnabled = true
-            binding.webView.webChromeClient = WebChromeClient()
-            binding.webView.loadData(video, "text/html", "utf-8")
+        data?.let {
+            val adjustedData = """
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    iframe, img, video {
+                        max-width: 100%;
+                        width: 100%;
+                        height: 24rem;
+                    }
+                </style>
+            </head>
+            <body>
+                $data
+            </body>
+            </html>
+        """.trimIndent()
 
+            binding.webView.settings.apply {
+                javaScriptEnabled = true
+                loadWithOverviewMode = true
+                useWideViewPort = true
+            }
+
+            binding.webView.webChromeClient = WebChromeClient()
+            binding.webView.loadData(adjustedData, "text/html", "utf-8")
         }
+
+
+
 
 
 //        data?.let {
@@ -1302,6 +1411,10 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     override fun onFavClick(model: PropertyModel) {
-        viewModel.addOrRemoveFav(model.id)
+        if (UserUtil.isUserLogin()) {
+            viewModel.addOrRemoveFav(model.id)
+        } else {
+            findNavController().navigate(R.id.loginDialog)
+        }
     }
 }

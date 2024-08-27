@@ -2,6 +2,7 @@ package eramo.amtalek.data.remote.dto.bases
 
 
 import com.google.gson.annotations.SerializedName
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.CurrentPackageInfo
 import eramo.amtalek.domain.model.auth.UserModel
 
 
@@ -9,7 +10,9 @@ data class GeneralLoginResponse(
     @SerializedName("data")
     val `data`: Data?,
     @SerializedName("token")
-    val token: String?
+    val token: String?,
+    @SerializedName("current_package_info")
+    val currentPackageInfo: CurrentPackageInfo?,
 ){
     fun toUserModel():UserModel{
         return UserModel(
@@ -71,7 +74,7 @@ data class GeneralLoginResponse(
             idNumber = data?.idNumber?:"",
             image = data?.image?:"",
             prefix = data?.prefix?:"",
-            packageId = ""
+            packageInfo = currentPackageInfo
             )
     }
 }
@@ -191,6 +194,7 @@ data class Data(
     val sickVacations: Int?,
     @SerializedName("yearly_vacations")
     val yearlyVacations: Int?,
+
 )
 data class HasCity(
     @SerializedName("country_id")

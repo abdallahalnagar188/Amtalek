@@ -49,11 +49,13 @@ class RvHotOffersForBothPropertiesAdapter @Inject constructor() :
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
-                    }
-                    else {ivFav.setImageResource(R.drawable.ic_heart)
-                        isFav ="0"
+                    if (UserUtil.isUserLogin()){
+                        if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        }
+                        else {ivFav.setImageResource(R.drawable.ic_heart)
+                            isFav ="0"
+                        }
                     }
                 }
                 if (isFav == "1") {

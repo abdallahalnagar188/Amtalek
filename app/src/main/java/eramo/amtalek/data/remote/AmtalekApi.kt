@@ -481,7 +481,8 @@ interface AmtalekApi {
         @Part("purpose") purpose: RequestBody?,
         @Part("region") region: RequestBody?,
         @Part("sub_region") subRegion: RequestBody?,
-        @Part("amenities") amenities: RequestBody?
+        @Part("amenities") amenities: RequestBody?,
+        @Part("priority_keys") priority_keys: RequestBody?,
     ): Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
     ////------------------------------------------------------------------------------------------------//
 

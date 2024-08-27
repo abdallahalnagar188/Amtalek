@@ -44,6 +44,11 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
                 tvDuration.text = itemView.context.getString(R.string.egp_month)
 
 
+                when(model.name){
+                    "FREE" -> {
+                        tvTitle.text = itemView.context.getString(R.string.free)
+                    }
+                }
                 tvNormalListing.text = itemView.context.getString(R.string.s_normal_listing, model.normalListings)
                 tvFeaturedListing.text = itemView.context.getString(R.string.s_featured_listings, model.featuredListings)
                 tvMoney.text = itemView.context.getString(R.string.e_money_s, model.emoney)

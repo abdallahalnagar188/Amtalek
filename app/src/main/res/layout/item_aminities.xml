@@ -21,6 +21,7 @@
         app:layout_constraintBottom_toBottomOf="@id/icon"
         app:layout_constraintStart_toEndOf="@id/icon"
         tools:text="Aminities"
+        android:maxLines="1"
         android:textSize="@dimen/_9ssp"
         android:layout_marginStart="@dimen/_4sdp"
         android:fontFamily="@font/font"

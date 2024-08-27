@@ -209,8 +209,35 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
 
         fetchGetHotOffers()
         fetchGetHomeSlider()
+        fetchAddRemoveToFavState()
     }
 
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                hotOffersViewModel.favState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            showToast(state.data?.message.toString())
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
     private fun fetchGetHomeSlider() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -512,6 +539,10 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     }
 
     override fun onFavClick(model: PropertyModel) {
-        hotOffersViewModel.addOrRemoveFav(model.id)
+        if (UserUtil.isUserLogin()) {
+            hotOffersViewModel.addOrRemoveFav(model.id)
+        }else{
+            findNavController().navigate(R.id.loginDialog)
+        }
     }
 }

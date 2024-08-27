@@ -54,8 +54,8 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
             var isFav = model.isFavourite
             binding.apply {
                 ivFav.setOnClickListener {
-                    if (UserUtil.isUserLogin()) {
-                        favListener.onFavClick(model)
+                    favListener.onFavClick(model)
+                    if (UserUtil.isUserLogin()){
                         if (isFav == "0") {
                             ivFav.setImageResource(R.drawable.ic_heart_fill)
                             isFav = "1"
@@ -65,12 +65,14 @@ class RvHomeFeaturedRealEstateAdapter @Inject constructor() :
                         }
                     }
                 }
-
-                if (isFav == "1") {
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-                } else {
-                    ivFav.setImageResource(R.drawable.ic_heart)
+                if (UserUtil.isUserLogin()) {
+                    if (isFav == "1") {
+                        ivFav.setImageResource(R.drawable.ic_heart_fill)
+                    } else {
+                        ivFav.setImageResource(R.drawable.ic_heart)
+                    }
                 }
+
 
                 tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()), model.currency)
                 tvTitle.text = model.title

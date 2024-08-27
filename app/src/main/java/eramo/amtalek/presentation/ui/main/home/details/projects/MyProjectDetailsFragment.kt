@@ -1,6 +1,9 @@
 package eramo.amtalek.presentation.ui.main.home.details.projects
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
@@ -215,13 +218,54 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         
     }
     private fun mapSetup(data: String?) {
-        val video = data
-        video?.let {
-            binding.webView.settings.javaScriptEnabled =true
-            binding.webView.webChromeClient = WebChromeClient()
-            binding.webView.loadData(video,"text/html","utf-8")
+        data?.let {
+            val adjustedData = """
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    iframe, img, video {
+                        max-width: 100%;
+                        width: 100%;
+                        height: 22rem;
+                    }
+                </style>
+            </head>
+            <body>
+                $data
+            </body>
+            </html>
+        """.trimIndent()
 
+            binding.webView.settings.apply {
+                javaScriptEnabled = true
+                loadWithOverviewMode = true
+                useWideViewPort = true
+            }
+
+            binding.webView.webChromeClient = WebChromeClient()
+            binding.webView.loadData(adjustedData, "text/html", "utf-8")
         }
+
+
+
+
+
+//        data?.let {
+//            val webSettings: WebSettings = binding.webView.settings
+//            webSettings.javaScriptEnabled = true
+//            webSettings.loadWithOverviewMode = true
+//            webSettings.useWideViewPort = true
+//            webSettings.setSupportZoom(false)
+//            webSettings.builtInZoomControls = false
+//            webSettings.displayZoomControls = true
+//            binding.webView.webViewClient = WebViewClient()
+//            binding.webView.loadData(data, "text/html", "utf-8")
+//        }
     }
     private fun setupVideo(videoId: String) {
         binding.apply {
@@ -246,6 +290,18 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         }
         return amenityModelList
     }
+
+    private fun shareContent() {
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=eramo.amtalek")
+            type = "text/plain"// MIME type for sharing text
+        }
+
+        // Start the share intent
+        startActivity(Intent.createChooser(shareIntent, "Share via"))
+    }
     private fun injectData(data: Data?) {
         binding.apply {
             autocadDrawingsSlider
@@ -257,6 +313,9 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvDescriptionValue.text = data?.description
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description
+            ivShare.setOnClickListener {
+                shareContent()
+            }
 
             Glide.with(requireContext()).load(data?.brokerDetails?.get(0)?.logo)
                 .into(ivUserImage)

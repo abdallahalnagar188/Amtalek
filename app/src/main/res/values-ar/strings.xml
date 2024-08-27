@@ -1063,6 +1063,7 @@
     <string name="remain">متبقي</string>
     <string name="from">من</string>
     <string name="to">الي</string>
+    <string name="you_can_not_offer_to_yourself">you can\'t make offer to yourself</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

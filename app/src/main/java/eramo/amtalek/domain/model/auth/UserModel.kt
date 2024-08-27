@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import eramo.amtalek.data.remote.dto.bases.HasCity
 import eramo.amtalek.data.remote.dto.bases.HasCountry
 import eramo.amtalek.data.remote.dto.bases.HasRegion
+import eramo.amtalek.data.remote.dto.drawer.myaccount.myprofile.CurrentPackageInfo
 
 
 data class UserModel(
@@ -66,5 +67,5 @@ data class UserModel(
     val salary: String?,
     val sickVacations: Int?,
     val yearlyVacations: Int?,
-    val packageId: String?,
+    val packageInfo: CurrentPackageInfo?,
 )

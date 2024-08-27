@@ -22,5 +22,5 @@ data class SearchModelDto(
     val city:Int? = 0 ,
     var amenitiesListIds:String?,
     var priceArrangeKeys:String?,
-
+    var priority_keys:String?,
 ) : Parcelable

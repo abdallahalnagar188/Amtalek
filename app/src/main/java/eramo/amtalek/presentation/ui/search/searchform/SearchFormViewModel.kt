@@ -101,7 +101,8 @@ class SearchFormViewModel @Inject constructor(
         purpose: String?,
         region: String?,
         subRegion: String?,
-        amenitiesListIds:String?
+        amenitiesListIds:String?,
+        priority_keys:String?
     ){
         searchJob?.cancel()
         searchJob = viewModelScope.launch(Dispatchers.IO) {
@@ -122,7 +123,9 @@ class SearchFormViewModel @Inject constructor(
                         purpose = convertToRequestBody(purpose),
                         region = convertToRequestBody(region),
                         subRegion = convertToRequestBody(subRegion),
-                        amenities = convertToRequestBody(amenitiesListIds)
+                        amenities = convertToRequestBody(amenitiesListIds),
+                        priority_keys = convertToRequestBody(priority_keys)
+
 
                     ).cachedIn(viewModelScope).collect(){
                         _searchState.value = it

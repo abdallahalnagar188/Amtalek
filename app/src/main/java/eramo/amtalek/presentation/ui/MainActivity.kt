@@ -151,7 +151,9 @@ class MainActivity : LocalizationActivity(),
             binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.GONE
             binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.GONE
             binding.inDrawerHeader. navHeaderNotifications.visibility = View.GONE
-        }else{
+            binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.GONE
+        }
+        else{
 
             binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
             binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
@@ -161,6 +163,7 @@ class MainActivity : LocalizationActivity(),
             binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.VISIBLE
             binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.VISIBLE
             binding.inDrawerHeader. navHeaderNotifications.visibility = View.VISIBLE
+            binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.VISIBLE
         }
 
     }
@@ -234,6 +237,29 @@ class MainActivity : LocalizationActivity(),
                 layoutLangLinChoiceEn,
                 layoutLangLinChoiceAr
             )
+            if (UserUtil.getUserType() == "broker") {
+                binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderAddAddons.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderNotifications.visibility = View.GONE
+                binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.GONE
+            }
+            else{
+
+                binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderAddAddons.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderNotifications.visibility = View.VISIBLE
+                binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.VISIBLE
+            }
 
             navHeaderIvBack.setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)

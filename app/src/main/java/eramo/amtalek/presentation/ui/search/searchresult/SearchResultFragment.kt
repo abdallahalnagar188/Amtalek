@@ -299,7 +299,8 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             purpose =if(searchQuery.purposeId=="-1"|| searchQuery.purposeId=="") "" else searchQuery.purposeId,
             region = searchQuery.locationId,
             subRegion = null,
-            amenitiesListIds = amenitiesAdapter.selectionList.toString()
+            amenitiesListIds = amenitiesAdapter.selectionList.toString(),
+            priority_keys = searchQuery.priority_keys,
 
         )
         LoadingDialog.showDialog()
@@ -320,6 +321,33 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         }
     }
 
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            showToast(state.data?.message.toString())
+
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
     private fun fetchData() {
         fetchGetHomeSlider()
         viewLifecycleOwner.lifecycleScope.launch {
@@ -335,6 +363,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 }
             }
         }
+        fetchAddRemoveToFavState()
     }
 
 
@@ -394,7 +423,12 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
 
     override fun onFavClick(model: PropertyModel) {
-        viewModel.addOrRemoveFav(model.id)
+        if (UserUtil.isUserLogin()){
+            viewModel.addOrRemoveFav(model.id)
+
+        }else{
+            findNavController().navigate(R.id.loginDialog)
+        }
 
     }
 

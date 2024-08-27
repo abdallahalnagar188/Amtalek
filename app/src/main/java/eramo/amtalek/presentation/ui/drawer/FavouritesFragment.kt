@@ -61,6 +61,11 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(),
         setupToolbar()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProfile(UserUtil.getUserType(), UserUtil.getUserId())
+    }
+
     private fun fetchGetProfileState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
@@ -120,7 +125,6 @@ class FavouritesFragment : BindingFragment<FragmentFavouritesBinding>(),
 
     override fun onFavClick(model: PropertyModel) {
         hotOffersViewModel.addOrRemoveFav(model.id)
-
     }
 
 }

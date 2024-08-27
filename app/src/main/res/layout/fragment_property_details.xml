@@ -73,7 +73,6 @@
                     android:layout_marginTop="@dimen/_45sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:src="@drawable/ic_share"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -700,7 +699,7 @@
 
                         <WebView
                             android:id="@+id/webView"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -811,7 +810,7 @@
                                 android:background="@drawable/edittext_background"
                                 android:fontFamily="@font/font"
                                 android:hint="@string/name"
-                                android:inputType="text"
+                                android:inputType="textPersonName"
                                 android:textColor="@color/black"
                                 android:textCursorDrawable="@null"
                                 android:textSize="@dimen/_12ssp" />

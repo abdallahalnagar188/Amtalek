@@ -308,6 +308,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
                 city = data.id,
+                priority_keys = ""
             )
             return myModel
         }

@@ -37,7 +37,8 @@ class SearchRepositoryImpl @Inject constructor(
         purpose: RequestBody?,
         region: RequestBody?,
         subRegion: RequestBody?,
-        amenities:RequestBody?
+        amenities:RequestBody?,
+        priority_keys:RequestBody?
     ): Flow<PagingData<PropertyModel>> {
         return Pager(
             config = pagingConfig(),
@@ -60,7 +61,8 @@ class SearchRepositoryImpl @Inject constructor(
                     purpose = purpose,
                     region = region,
                     subRegion = subRegion,
-                    amenities = amenities
+                    amenities = amenities,
+                    priority_keys = priority_keys
                     )
             }
         ).flow

@@ -61,8 +61,8 @@ class AddPropertyFirstFragment :BindingFragment<FragmentAddPropertyFirstBinding>
                 etPropertyAddressArabic.error =  getString(R.string.please_enter_a_address)
             }
             if (etPropertyLocation.text.isNullOrEmpty()){
-                etPropertyLocation.error = getString(R.string.please_enter_a_property_location)
-                isValid = false
+                //etPropertyLocation.error = getString(R.string.please_enter_a_property_location)
+                isValid = true
             }
 
         }

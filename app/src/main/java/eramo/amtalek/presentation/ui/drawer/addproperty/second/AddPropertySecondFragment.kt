@@ -33,7 +33,7 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
         clickListeners()
         loadPropertyTypes()
         loadRentDurations()
-        Log.e("ARGGG", firstModel.toString(), )
+        Log.e("ARGGG", firstModel.toString())
     }
 
 
@@ -42,11 +42,9 @@ class AddPropertySecondFragment : BindingFragment<FragmentAddPropertySecondBindi
             sellPriceTv.visibility = View.GONE
             etSellPrice.visibility = View.GONE
             tilSellPriceTv.visibility = View.GONE
-
             rentPriceTv.visibility = View.GONE
             etRentPrice.visibility = View.GONE
             tilRentPriceTv.visibility = View.GONE
-
             rentDurationTv.visibility = View.GONE
             autoCompleteEtRentDuration.visibility = View.GONE
             tilRentDurationTv.visibility = View.GONE

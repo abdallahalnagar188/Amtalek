@@ -493,7 +493,7 @@
                     android:background="@drawable/edittext_background"
                     android:fontFamily="@font/font"
                     android:hint="@string/phone"
-                    android:inputType="phone"
+                    android:inputType="number"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/_12ssp" />

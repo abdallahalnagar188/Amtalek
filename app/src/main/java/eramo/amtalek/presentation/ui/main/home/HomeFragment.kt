@@ -116,6 +116,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             val typeId = ""
             val currencyId = 0
 
+
             val myModel = SearchModelDto(
                 searchKeyWords = searchKeyWords,
                 locationId = locationId,
@@ -133,6 +134,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
                 city = model.id,
+                priority_keys = ""
             )
             return myModel
         }
@@ -210,6 +212,86 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         )
         return data
     }
+    private fun createModelForNormalProperties(): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = ""
+            val currencyId = 0
+
+
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = "",
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = "",
+                city = 0,
+                priority_keys = "normal"
+            )
+            return myModel
+        }
+    }
+    private fun createModelForFeaturedProperties(): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId =""
+            val currencyId = 0
+
+
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = "",
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = "",
+                city = 0,
+                priority_keys = "featured"
+            )
+            return myModel
+        }
+    }
 
     private fun createModelForSections(model: HomeExtraSectionsModel): SearchModelDto {
         binding.apply {
@@ -244,6 +326,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
                 city = 0,
+                priority_keys = ""
             )
             return myModel
         }
@@ -539,8 +622,41 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                     when (state) {
 
                         is UiState.Success -> {
-                            showToast(state.data?.message.toString())
                             viewModel.getHomeApis("1", "1")
+                            showToast(state.data?.message.toString())
+                            LoadingDialog.dismissDialog()
+
+                            //showToast(state.data?.message.toString())
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                            LoadingDialog.dismissDialog()
+                        }
+
+                        is UiState.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private fun fetchAddRemoveToFavStateTwo() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            showToast(state.data?.message.toString())
+
                         }
 
                         is UiState.Error -> {
@@ -559,7 +675,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
 
     }
-
     private fun fetchGetHomeFeaturedProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -1030,7 +1145,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         //       binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inFeaturedRealEstate.tvSeeMore.setOnClickListener {
-            findNavController().navigate(R.id.seeMorePropertiesFragment)
+            Log.e("a7a", createModelForFeaturedProperties().toString())
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(0)?.let { createModelForFeaturedProperties() }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
         }
 
     }
@@ -1069,7 +1192,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         binding.inNormalPropertiesLayout.tvTitle.setTypeface(binding.inNormalPropertiesLayout.tvTitle.typeface, Typeface.BOLD)
 
         binding.inNormalPropertiesLayout.tvSeeMore.setOnClickListener {
-            findNavController().navigate(R.id.seeMoreNormalPropertiesFragment)
+
+            findNavController().navigate(
+                R.id.searchResultFragment,
+                data?.get(0)?.let { createModelForNormalProperties() }?.let { it2 ->
+                    SearchResultFragmentArgs(
+                        it2, createListsModel()
+                    ).toBundle()
+                }, navOptionsAnimation()
+            )
         }
 
 //        binding.inNormalPropertiesLayout.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))

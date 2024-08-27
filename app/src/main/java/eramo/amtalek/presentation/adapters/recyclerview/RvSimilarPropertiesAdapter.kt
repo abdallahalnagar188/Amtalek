@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemFeaturedRealEstateBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -50,18 +51,23 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
-                    }
-                    else {ivFav.setImageResource(R.drawable.ic_heart)
-                        isFav ="0"
+                    if (UserUtil.isUserLogin()) {
+                        if (isFav == "0") {
+                            ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        } else {
+                            ivFav.setImageResource(R.drawable.ic_heart)
+                            isFav = "0"
+                        }
                     }
                 }
-                if (isFav == "1") {
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-                } else {
-                    ivFav.setImageResource(R.drawable.ic_heart)
-                }
+
+                    if (isFav == "1") {
+                        ivFav.setImageResource(R.drawable.ic_heart_fill)
+                    } else {
+                        ivFav.setImageResource(R.drawable.ic_heart)
+                    }
+
                 tvPrice.text = itemView.context.getString(R.string.s_egp, formatPrice(model.sellPrice.toDouble()))
                 tvTitle.text = model.title
 
@@ -114,11 +120,11 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                 Glide.with(itemView)
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
-                if (model.isFeatured == "featured"){
+                if (model.isFeatured == "featured") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
-                }else{
+                } else {
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
@@ -132,7 +138,7 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
     private fun getRentPrice(context: Context, duration: String, price: Double): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-               " ${formatPrice(price)} ${context.getString(R.string.egp_daily)}"
+                " ${formatPrice(price)} ${context.getString(R.string.egp_daily)}"
             }
 
             RentDuration.MONTHLY.key -> {
@@ -159,14 +165,16 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
         }
     }
 
-    fun setListener(listener: OnItemClickListener,favListener: OnFavClickListener) {
+    fun setListener(listener: OnItemClickListener, favListener: OnFavClickListener) {
         this.listener = listener
         this.favListener = favListener
     }
+
     interface OnItemClickListener {
         fun onFeaturedRealEstateClick(model: PropertyModel)
     }
-    interface OnFavClickListener{
+
+    interface OnFavClickListener {
         fun onFavClick(model: PropertyModel)
     }
 

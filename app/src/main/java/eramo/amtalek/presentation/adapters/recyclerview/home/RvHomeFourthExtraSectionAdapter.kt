@@ -55,24 +55,29 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
-                    }
-                    else {ivFav.setImageResource(R.drawable.ic_heart)
-                        isFav ="0"
+                    if (UserUtil.isUserLogin()) {
+                        if (isFav == "0") {
+                            ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        } else {
+                            ivFav.setImageResource(R.drawable.ic_heart)
+                            isFav = "0"
+                        }
                     }
                 }
-                if (isFav == "1") {
-                    ivFav.setImageResource(R.drawable.ic_heart_fill)
-                } else {
-                    ivFav.setImageResource(R.drawable.ic_heart)
+                if (UserUtil.isUserLogin()) {
+                    if (isFav == "1") {
+                        ivFav.setImageResource(R.drawable.ic_heart_fill)
+                    } else {
+                        ivFav.setImageResource(R.drawable.ic_heart)
+                    }
                 }
-                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
+                tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()), model.currency)
                 tvTitle.text = model.title
 
-                if (model.vendorType == "broker"){
+                if (model.vendorType == "broker") {
                     tvBroker.text = itemView.context.getString(R.string.agency)
-                }else{
+                } else {
                     tvBroker.text = itemView.context.getString(R.string.user)
                 }
                 tvLabel.text = when (model.type) {
@@ -94,14 +99,14 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                     PropertyType.FOR_RENT.key -> {
                         tvPrice.visibility = View.GONE
                         tvDurationRent.visibility = View.VISIBLE
-                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(), model.currency)
 
                     }
 
                     PropertyType.FOR_BOTH.key -> {
                         tvPrice.visibility = View.VISIBLE
                         tvDurationRent.visibility = View.VISIBLE
-                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(),model.currency)
+                        tvDurationRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble(), model.currency)
 
                     }
 
@@ -125,62 +130,61 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFavourite == "1"){
+                if (model.isFavourite == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
-                }else{
+                } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
-                if (model.isFeatured == "featured"){
+                if (model.isFeatured == "featured") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
-                }else{
+                } else {
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
                 }
-                if (UserUtil.getUserType()=="broker"){
+                if (UserUtil.getUserType() == "broker") {
                     ivFav.visibility = View.GONE
-                }
-                else {
+                } else {
                     ivFav.visibility = View.VISIBLE
                 }
             }
         }
     }
 
-    private fun getRentPrice(context: Context, duration: String, price: Double,currency:String): String {
+    private fun getRentPrice(context: Context, duration: String, price: Double, currency: String): String {
         return when (duration) {
             RentDuration.DAILY.key -> {
-                context.getString(R.string.s_daily_price, formatPrice(price),currency)
+                context.getString(R.string.s_daily_price, formatPrice(price), currency)
             }
 
             RentDuration.MONTHLY.key -> {
-                context.getString(R.string.s_monthly_price, formatPrice(price),currency)
+                context.getString(R.string.s_monthly_price, formatPrice(price), currency)
             }
 
             RentDuration.THREE_MONTHS.key -> {
-                context.getString(R.string.s_3_months_price, formatPrice(price),currency)
+                context.getString(R.string.s_3_months_price, formatPrice(price), currency)
             }
 
             RentDuration.SIX_MONTHS.key -> {
-                context.getString(R.string.s_6_months_price, formatPrice(price),currency)
+                context.getString(R.string.s_6_months_price, formatPrice(price), currency)
             }
 
             RentDuration.NINE_MONTHS.key -> {
-                context.getString(R.string.s_9_months_price, formatPrice(price),currency)
+                context.getString(R.string.s_9_months_price, formatPrice(price), currency)
             }
 
             RentDuration.YEARLY.key -> {
-                context.getString(R.string.s_yearly_price, formatPrice(price),currency)
+                context.getString(R.string.s_yearly_price, formatPrice(price), currency)
             }
 
             else -> ""
         }
     }
 
-    fun setListener(listener: OnItemClickListenerFourthSection,favListener: FavClickListener) {
+    fun setListener(listener: OnItemClickListenerFourthSection, favListener: FavClickListener) {
         this.listener = listener
         this.favListener = favListener
     }
@@ -188,6 +192,7 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
     interface OnItemClickListenerFourthSection {
         fun onItemClicked4(model: PropertyModel)
     }
+
     //check difference
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<PropertyModel>() {

@@ -257,7 +257,12 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         }
     }
     override fun onFavClick(model: OriginalItem) {
-          homeViewModel.addOrRemoveFav(model.id?:0)
+        if (UserUtil.isUserLogin()){
+            homeViewModel.addOrRemoveFav(model.id?:0)
+        }else{
+            findNavController().navigate(R.id.loginDialog)
+        }
+
     }
 
 }

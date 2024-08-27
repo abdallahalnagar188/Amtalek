@@ -119,7 +119,7 @@ class LoginViewModel @Inject constructor(
             hasPackage = userModel.hasPackage,
             brokerName = userModel.name?:"",
             dashboardLink = userModel.dashboardLink?:"",
-            packageId =userModel.packageId?:""
+            packageId = userModel.packageInfo?.packageId.toString()
         )
     }
 }

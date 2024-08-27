@@ -33,6 +33,7 @@ class PagingSearch(
     private val propertyType: RequestBody?,
     private val priceArrangeKeys: RequestBody?,
     private val amenities: RequestBody?,
+    private val priority_keys: RequestBody?,
 ) : PagingSource<Int, PropertyModel>() {
     override fun getRefreshKey(state: PagingState<Int, PropertyModel>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -63,7 +64,8 @@ class PagingSearch(
                 page = page,
                 propertyType = propertyType,
                 amenities = amenities,
-                priceArrangeKeys = priceArrangeKeys
+                priceArrangeKeys = priceArrangeKeys,
+                priority_keys = priority_keys
             ).body()
             // Check if response or data is null
             val responseData = response?.data?.getOrNull(0)

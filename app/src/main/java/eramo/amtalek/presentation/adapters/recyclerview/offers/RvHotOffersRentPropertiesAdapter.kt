@@ -22,7 +22,7 @@ import javax.inject.Inject
 class RvHotOffersRentPropertiesAdapter @Inject constructor() :
     ListAdapter<PropertyModel, RvHotOffersRentPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
     private lateinit var listener: OnItemClickListener
-    private lateinit var favListener:FavClickListener
+    private lateinit var favListener: FavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -50,40 +50,49 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
+                    if (UserUtil.isUserLogin()) {
+                        if (isFav == "0") {
+                            ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        } else {
+                            ivFav.setImageResource(R.drawable.ic_heart)
+                            isFav = "0"
+                        }
                     }
-                    else {ivFav.setImageResource(R.drawable.ic_heart)
-                        isFav ="0"
-                    }
+
                 }
                 if (isFav == "1") {
                     ivFav.setImageResource(R.drawable.ic_heart_fill)
                 } else {
                     ivFav.setImageResource(R.drawable.ic_heart)
                 }
-                if (model.vendorType == "broker"){
+                if (model.vendorType == "broker") {
                     tvBroker.text = itemView.context.getString(R.string.agency)
-                }else{
+                } else {
                     tvBroker.text = itemView.context.getString(R.string.user)
                 }
 
                 when (model.rentDuration) {
                     "daily" -> {
-                        tvDurationRent.text =  itemView.context.getString(R.string.daily)
+                        tvDurationRent.text = itemView.context.getString(R.string.daily)
                     }
+
                     "monthly" -> {
-                        tvDurationRent.text =  itemView.context.getString(R.string.monthly)
+                        tvDurationRent.text = itemView.context.getString(R.string.monthly)
                     }
+
                     "3_months" -> {
-                        tvDurationRent.text =  itemView.context.getString(R.string._3_months)
+                        tvDurationRent.text = itemView.context.getString(R.string._3_months)
                     }
+
                     "6_months" -> {
                         tvDurationRent.text = itemView.context.getString(R.string._6_months)
                     }
+
                     "9_months" -> {
                         tvDurationRent.text = itemView.context.getString(R.string._9_months)
                     }
+
                     "yearly" -> {
                         tvDurationRent.text = itemView.context.getString(R.string.yearly)
                     }
@@ -106,26 +115,25 @@ class RvHotOffersRentPropertiesAdapter @Inject constructor() :
                     .load(model.brokerLogoUrl)
                     .into(ivBroker)
 
-                if (model.isFeatured == "featured"){
+                if (model.isFeatured == "featured") {
                     tvFeatured.visibility = View.VISIBLE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
-                }else{
+                } else {
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
                 }
-                if (UserUtil.getUserType()=="broker"){
+                if (UserUtil.getUserType() == "broker") {
                     ivFav.visibility = View.GONE
-                }
-                else {
+                } else {
                     ivFav.visibility = View.VISIBLE
                 }
             }
         }
     }
 
-    fun setListener(listener: OnItemClickListener,favClickListener: FavClickListener) {
+    fun setListener(listener: OnItemClickListener, favClickListener: FavClickListener) {
         this.listener = listener
         this.favListener = favClickListener
     }

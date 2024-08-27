@@ -45,7 +45,11 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                 tvDuration.text = itemView.context.getString(R.string.egp_yearly)
 
 
-
+                when(model.name){
+                    "FREE" -> {
+                        tvTitle.text = itemView.context.getString(R.string.free)
+                    }
+                }
 
                 if(model.leadsManagement == "0"){
                     ivRightMark5.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
