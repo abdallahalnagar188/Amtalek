@@ -33,4 +33,5 @@ data class ProfileModel(
     val receivedOffer:List<ReceivedOffer>,
     val currentPackage: CurrentPackageInfo?,
     val historyPackages:List<HistoryPackagesInfo>,
+    val name:String,
     )

@@ -63,7 +63,10 @@ data class MyPropertyDetailsResponse(
             brokerEmail = data?.get(0)?.brokerDetails?.get(0)?.email ?: "",
             brokerPhone = data?.get(0)?.brokerDetails?.get(0)?.phone ?: "",
             vendorType = data?.get(0)?.brokerDetails?.get(0)?.brokerType ?: "",
-            autocad = propertyAutocadList()
+            autocad = propertyAutocadList(),
+            facebook = data?.get(0)?.facebook ?: "",
+            twitter = data?.get(0)?.twitter ?: "",
+            listingNumber = data?.get(0)?.listingNumber ?: ""
             )
     }
 

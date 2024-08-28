@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SubscribeToPackageResponse(
     @SerializedName("data")
-    var `data`: String?,
+    var `data`: Data?,
     @SerializedName("message")
     var message: String?,
     @SerializedName("status")

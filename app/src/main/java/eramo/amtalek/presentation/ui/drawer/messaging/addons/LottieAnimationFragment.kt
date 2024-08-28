@@ -13,8 +13,6 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.onBackPressed
 import kotlinx.coroutines.delay
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 @AndroidEntryPoint
 class LottieAnimationFragment: BindingFragment<FragmentLottieAnimationBinding>() {
@@ -25,8 +23,8 @@ class LottieAnimationFragment: BindingFragment<FragmentLottieAnimationBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launchWhenStarted {
-            delay(2500L)
-            findNavController().popBackStack(findNavController().graph.startDestinationId, false)
+            delay(2000L)
+           //findNavController().popBackStack(findNavController().graph.startDestinationId, false)
             findNavController().navigate(R.id.homeFragment, null, navOptionsAnimation())
         }
         this@LottieAnimationFragment.onBackPressed { }

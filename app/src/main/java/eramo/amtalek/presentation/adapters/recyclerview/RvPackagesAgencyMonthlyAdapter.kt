@@ -2,12 +2,14 @@ package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPackagesBinding
 import eramo.amtalek.domain.model.drawer.PackageModel
+import eramo.amtalek.util.UserUtil
 import javax.inject.Inject
 
 
@@ -42,7 +44,20 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
                 tvDescription.text = model.subTitle
                 tvPrice.text = model.priceMonthly
                 tvDuration.text = itemView.context.getString(R.string.egp_month)
+                val userPackageId = UserUtil.packageIdForUser()
 
+                if (!userPackageId.isNullOrBlank()) {
+                    val parsedPackageId = userPackageId.toIntOrNull()
+
+                    if (parsedPackageId != null && model.id == parsedPackageId) {
+                        tvAddProperty.text = itemView.context.getString(R.string.my_plan)
+                    } else {
+                        tvAddProperty.text = itemView.context.getString(R.string.select_this_plan)
+                    }
+                } else {
+                    // Handle case where the package ID is invalid or not set
+                    tvAddProperty.text = itemView.context.getString(R.string.select_this_plan)
+                }
 
                 when(model.name){
                     "FREE" -> {
@@ -112,13 +127,14 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
                     cover.setBackgroundColor(itemView.context.getColor(R.color.green))
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.green))
                 }
-
-
                 btnSelect.setOnClickListener {
-                    listener.onAgencyMonthlyClick(model)
+                    if(UserUtil.getHasPackage() == "no"){
+                        listener.onAgencyMonthlyClick(model)
+                    }else{
+                        Toast.makeText(itemView.context, R.string.you_already_have_a_package, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-
         }
     }
 

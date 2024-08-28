@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +45,20 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                 tvPrice.text = model.priceYearly
                 tvDuration.text = itemView.context.getString(R.string.egp_yearly)
 
+                val userPackageId = UserUtil.packageIdForUser()
 
+                if (!userPackageId.isNullOrBlank()) {
+                    val parsedPackageId = userPackageId.toIntOrNull()
+
+                    if (parsedPackageId != null && model.id == parsedPackageId) {
+                        tvAddProperty.text = itemView.context.getString(R.string.my_plan)
+                    } else {
+                        tvAddProperty.text = itemView.context.getString(R.string.select_this_plan)
+                    }
+                } else {
+                    // Handle case where the package ID is invalid or not set
+                    tvAddProperty.text = itemView.context.getString(R.string.select_this_plan)
+                }
                 when(model.name){
                     "FREE" -> {
                         tvTitle.text = itemView.context.getString(R.string.free)
@@ -91,9 +105,6 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                     ivRightMark4.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_wrong))
                 }
 
-
-
-
                 tvNormalListing.text = itemView.context.getString(R.string.s_normal_listing, model.normalListings)
                 tvFeaturedListing.text = itemView.context.getString(R.string.s_featured_listings, model.featuredListings)
                 tvMoney.text = itemView.context.getString(R.string.e_money_s, model.emoney)
@@ -118,7 +129,11 @@ class RvPackagesAgencyYearlyAdapter @Inject constructor() :
                     tvPrice.text = model.priceYearly
                 }
                 btnSelect.setOnClickListener {
-                    listener.onAgencyYearlyPlanClick(model)
+                    if(UserUtil.getHasPackage() == "no"){
+                        listener. onAgencyYearlyPlanClick(model)
+                    }else{
+                        Toast.makeText(itemView.context, R.string.you_already_have_a_package, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

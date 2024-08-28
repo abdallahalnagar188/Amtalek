@@ -239,6 +239,7 @@
             app:layout_constraintTop_toTopOf="@id/iv_clock"
             tools:text="4 Days ago" />
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_broker"
             android:layout_width="@dimen/_26sdp"
             android:layout_height="@dimen/_26sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -271,8 +272,8 @@
             android:text="@string/agency"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_location"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/card_broker"
             app:layout_constraintTop_toTopOf="@+id/tv_location"
             android:layout_marginEnd="@dimen/_14sdp"
             />

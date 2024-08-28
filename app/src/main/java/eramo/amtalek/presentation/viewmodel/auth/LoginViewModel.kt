@@ -117,7 +117,7 @@ class LoginViewModel @Inject constructor(
            profileImageUrl =  userModel.userImage,
             userType = userModel.actorType,
             hasPackage = userModel.hasPackage,
-            brokerName = userModel.name?:"",
+            brokerName = userModel.name,
             dashboardLink = userModel.dashboardLink?:"",
             packageId = userModel.packageInfo?.packageId.toString()
         )

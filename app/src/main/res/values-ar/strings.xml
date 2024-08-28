@@ -1063,7 +1063,10 @@
     <string name="remain">متبقي</string>
     <string name="from">من</string>
     <string name="to">الي</string>
-    <string name="you_can_not_offer_to_yourself">you can\'t make offer to yourself</string>
+    <string name="you_can_not_offer_to_yourself">لا يمكنك تقديم عرض لنفسك</string>
+    <string name="please_enter_a_offer_value">من فضلك ادخل قيمة العرض</string>
+    <string name="you_already_have_a_package">لديك باقه بالفعل</string>
+    <string name="i_found_this_property_on_amtalek_com">لقد وجدت هذا العقار في امتلك </string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

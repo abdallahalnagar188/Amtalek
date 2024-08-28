@@ -35,9 +35,6 @@ import com.yy.mobile.rollingtextview.strategy.Direction
 import com.yy.mobile.rollingtextview.strategy.Strategy
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.project.Data
-import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
-import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.Autocad
 import eramo.amtalek.databinding.FragmentPropertyDetailsBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
@@ -55,6 +52,7 @@ import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
+import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.ROLLING_TEXT_ANIMATION_DURATION
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
@@ -173,13 +171,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
 
     private fun clickListeners() {
-        binding.etName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etName.setText(UserUtil.getUserFirstName() + UserUtil.getUserLastName())
         binding.etMail.setText(UserUtil.getUserEmail())
         binding.etPhone.setText(UserUtil.getUserPhone())
         binding.btnSendRate.setOnClickListener() {
             if (validRateForm()) {
                 binding.apply {
-                    val name = etName.text.toString()
+                    val name = etName.text.toString().trim()
                     val email = etMail.text.toString()
                     val phone = etPhone.text.toString()
                     val message = etYourRate.text.toString()
@@ -196,14 +194,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
             }
         }
-        binding.etOfferName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etOfferName.setText(UserUtil.getUserFirstName() + UserUtil.getUserLastName())
         binding.etOfferMail.setText(UserUtil.getUserEmail())
         binding.etOfferPhone.setText(UserUtil.getUserPhone())
         binding.btnOfferSend.setOnClickListener() {
 
             if (validOfferForm()) {
                 binding.apply {
-                    val name = etOfferName.text.toString()
+                    val name = etOfferName.text.toString().trim()
                     val email = etOfferMail.text.toString()
                     val phone = etOfferPhone.text.toString()
                     val offer = etOfferValue.text.toString()
@@ -229,19 +227,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         vendorId = vendorId,
                         propertyId = propertyId,
                     )
-
                 }
             }
-
-
         }
 
-        binding.etMessageName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etMessageName.setText(getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName()))
         binding.etMessageMail.setText(UserUtil.getUserEmail())
         binding.etMessagePhone.setText(UserUtil.getUserPhone())
         binding.btnMessageSend.setOnClickListener() {
             if (validMessageForm()) {
-                val name = binding.etMessageName.text.toString()
+                val name = binding.etMessageName.text.toString().trim()
                 val email = binding.etMessageMail.text.toString()
                 val phone = binding.etMessagePhone.text.toString()
                 val message = binding.etMessageValue.text.toString().trim()
@@ -259,8 +254,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 )
             }
         }
-
-
     }
 
     private fun navigateToProfile(model: PropertyDetailsModel) {
@@ -479,7 +472,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     private fun setupToolbar() {
         StatusBarUtil.transparent()
         binding.apply {
-            ivShare.setOnClickListener { shareContent() }
+
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
         if (UserUtil.getUserType() == "broker") {
@@ -506,6 +499,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             binding.toggleGroup.visibility = View.GONE
             binding.tvRegisterWithUs.visibility = View.GONE
             binding.offerSpinner.visibility = View.GONE
+            binding.toggleGroup.visibility = View.GONE
+            binding.tilOfferValue.visibility = View.GONE
+            binding.tilMessageValue.visibility = View.GONE
+            binding.tilYourRate.visibility = View.GONE
+            binding.tilMessageName.visibility = View.GONE
+            binding.tilMessageMail.visibility = View.GONE
+            binding.tilMessagePhone.visibility = View.GONE
+            binding.tilOfferName.visibility = View.GONE
+            binding.tilOfferMail.visibility = View.GONE
+            binding.tilOfferPhone.visibility = View.GONE
 
 
         } else {
@@ -626,8 +629,14 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                                 binding.offerSpinner.visibility = View.VISIBLE
                                 binding.autoCompleteOfferType.visibility = View.VISIBLE
                                 loadOfferTypes(state.data.forWhat!!)
-                            }
 
+                            }
+                            binding.ivShare.setOnClickListener {
+                                shareContent(
+                                    listingNumber = state.data.listingNumber,
+                                    title = state.data.title.toString()
+                                )
+                            }
                             propertyId = state.data.id.toString()
                             vendorId = state.data.brokerId.toString()
                             vendorType = state.data.vendorType
@@ -654,15 +663,19 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
-    private fun shareContent() {
+    private fun shareContent(title: String, listingNumber: String) {
 
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=eramo.amtalek")
-            type = "text/plain"// MIME type for sharing text
+            putExtra(
+                Intent.EXTRA_TEXT, if (LocalUtil.isEnglish()) {
+                    "${getString(R.string.i_found_this_property_on_amtalek_com)}\nhttps://amtalek.com/properties/en/${listingNumber}/${title}"
+                } else {
+                    "${getString(R.string.i_found_this_property_on_amtalek_com)}\n https://amtalek.com/properties/${listingNumber}/${title}"
+                }
+            )
+            type = "text/plain"
         }
-
-        // Start the share intent
         startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
@@ -1098,9 +1111,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
 
 
-
-
-
 //        data?.let {
 //            val webSettings: WebSettings = binding.webView.settings
 //            webSettings.javaScriptEnabled = true
@@ -1283,6 +1293,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         var isValid = true
         binding.apply {
             if (etOfferName.text.toString().isEmpty()) {
+                etOfferName.setHint(R.string.name)
                 isValid = false
                 etOfferName.error = getString(R.string.please_enter_a_name)
             }
@@ -1295,7 +1306,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 isValid = false
             }
             if (etOfferValue.text.toString().isEmpty()) {
-                etOfferValue.error = getString(R.string.please_enter_a_phone_number)
+                etOfferValue.error = getString(R.string.please_enter_a_offer_value)
                 isValid = false
             }
 //            if (autoCompleteOfferType.text.toString().isEmpty()) {
@@ -1313,6 +1324,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         var isValid = true
         binding.apply {
             if (etMessageName.text.toString().isEmpty()) {
+
                 isValid = false
                 etMessageName.error = getString(R.string.please_enter_a_name)
             }

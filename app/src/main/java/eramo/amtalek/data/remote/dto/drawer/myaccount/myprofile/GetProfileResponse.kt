@@ -98,6 +98,8 @@ data class DataX(
     var historyPackages: List<HistoryPackage>?,
     @SerializedName("history_packages_info")
     var historyPackagesInfo: List<HistoryPackagesInfo>?,
+    @SerializedName("name")
+    var name: String?
     ) : Parcelable {
     fun toProfile(): ProfileModel {
         return ProfileModel(
@@ -124,7 +126,8 @@ data class DataX(
             totalViews = totalViews ?: 0,
             receivedOffer = receivedOffers ?: emptyList(),
             currentPackage = currentPackageInfo,
-            historyPackages = historyPackagesInfo?: emptyList()
+            historyPackages = historyPackagesInfo?: emptyList(),
+            name= name?:""
         )
     }
 }

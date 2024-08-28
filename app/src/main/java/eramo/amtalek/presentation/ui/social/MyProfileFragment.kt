@@ -332,7 +332,7 @@ class MyProfileFragment : BindingFragment<FragmentMyProfileBinding>(), RvHomeMos
                 if(UserUtil.getUserType()=="user"){
                     tvUserName.text = getString(R.string.S_user_name, user.firstName, user.lastName)
                     tvLocation.text = user.cityName
-                }else{
+                }else if(UserUtil.getUserType()=="broker"){
                     tvUserName.text = UserUtil.getBrokerName()
                     tvLocation.text = UserUtil.getUserEmail()
                 }

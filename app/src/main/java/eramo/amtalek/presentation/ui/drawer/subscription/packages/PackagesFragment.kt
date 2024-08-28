@@ -23,6 +23,7 @@ import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.navOptionsAnimation
+import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -74,9 +75,8 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
                     when (state) {
                         is UiState.Success -> {
                             LoadingDialog.dismissDialog()
-                            Toast.makeText(requireContext(),
-                                state.data?.message,
-                                Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), state.data?.message, Toast.LENGTH_SHORT).show()
+                            Log.e("subscribeToPackage", state.data?.message.toString())
                         }
 
                         is UiState.Loading -> {
@@ -87,6 +87,7 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
                             LoadingDialog.dismissDialog()
                             val errorMessage = state.message!!.asString(requireContext())
                             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+                            Log.e("subscribeToPackage", state.data?.message.toString())
                         }
 
                         is UiState.Empty -> Unit
@@ -166,7 +167,7 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
                             val data = state.data
                             initUserYearlyRv(data)
                             initUserMonthlyRv(data)
-                            Log.e("packagesFragment",  data?.get(0)?.packageType.toString())
+                            Log.e("packagesFragment", data?.get(0)?.packageType.toString())
                         }
 
                         is UiState.Loading -> {
@@ -314,7 +315,11 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
 
     override fun onAgencyMonthlyClick(model: PackageModel) {
         if (UserUtil.isUserLogin()) {
-            viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
+            if (UserUtil.getHasPackage() == "no") {
+                viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
+            } else {
+                showToast(getString(R.string.you_already_have_a_package))
+            }
         } else {
             findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
@@ -323,7 +328,11 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
 
     override fun onAgencyYearlyPlanClick(model: PackageModel) {
         if (UserUtil.isUserLogin()) {
-            viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
+            if (UserUtil.getHasPackage() == "no") {
+                viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
+            } else {
+                showToast(getString(R.string.you_already_have_a_package))
+            }
         } else {
             findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }

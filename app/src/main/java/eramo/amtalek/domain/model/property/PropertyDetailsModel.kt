@@ -48,4 +48,8 @@ data class PropertyDetailsModel(
     val brokerEmail:String,
     val vendorType:String,
     val autocad:List<AutocadModel>,
+    val facebook:String,
+    val twitter:String,
+    val listingNumber:String
+
     )

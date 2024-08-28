@@ -65,11 +65,10 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         setupViews()
         fetchData()
         clicks()
-
     }
 
     private fun clicks() {
-        binding.etName.setText(UserUtil.getUserFirstName() + " " + UserUtil.getUserLastName())
+        binding.etName.setText(UserUtil.getUserFirstName() +  UserUtil.getUserLastName())
         binding.etMail.setText(UserUtil.getUserEmail())
         binding.etPhone.setText(UserUtil.getUserPhone())
         binding.btnSend.setOnClickListener()    {
@@ -313,9 +312,9 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvDescriptionValue.text = data?.description
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description
-            ivShare.setOnClickListener {
-                shareContent()
-            }
+//            ivShare.setOnClickListener {
+//                shareContent()
+//            }
 
             Glide.with(requireContext()).load(data?.brokerDetails?.get(0)?.logo)
                 .into(ivUserImage)
@@ -369,6 +368,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     }
     private fun setupViews() {
         setupToolbar()
+        binding.ivShare.visibility = View.GONE
         binding.tvTitle.setOnClickListener {
             findNavController().navigate(R.id.mapFragment, null, navOptionsAnimation())
         }

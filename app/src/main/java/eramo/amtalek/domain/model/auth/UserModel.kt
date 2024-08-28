@@ -1,6 +1,5 @@
 package eramo.amtalek.domain.model.auth
 
-import com.google.gson.annotations.SerializedName
 import eramo.amtalek.data.remote.dto.bases.HasCity
 import eramo.amtalek.data.remote.dto.bases.HasCountry
 import eramo.amtalek.data.remote.dto.bases.HasRegion
@@ -60,7 +59,7 @@ data class UserModel(
     val leaderId: String?,
     val leads: Int?,
     val meetings: Int?,
-    val name: String?,
+    val name: String,
     val password: String?,
     val prefix: String?,
     val roleId: String?,

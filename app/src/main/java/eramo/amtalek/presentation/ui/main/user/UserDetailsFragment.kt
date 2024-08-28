@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -23,7 +25,6 @@ import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvUserDetailsPropertiesForRentAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvUserDetailsPropertiesForSallAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
-import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.presentation.ui.main.broker.BrokersViewModel
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
@@ -32,6 +33,7 @@ import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,7 +41,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     RvUserDetailsPropertiesForSallAdapter.OnItemClickListener,
-    FavClickListenerOriginalItem, RvUserDetailsPropertiesForRentAdapter.OnItemClickListener {
+    RvUserDetailsPropertiesForSallAdapter.FavClickListenerOriginalItem, RvUserDetailsPropertiesForRentAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentBrokerDetailsBinding::inflate
@@ -51,8 +53,6 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     @Inject
     lateinit var rvBrokerDetailsPropertiesAdapter: RvUserDetailsPropertiesForSallAdapter
 
-    @Inject
-    lateinit var rvBrokerDetailsPropertiesForRentAdapter: RvUserDetailsPropertiesForRentAdapter
 
     lateinit var id: String
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -79,6 +79,7 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                // initRvForRent(state?.data?.get(0)?.submitted_props_for_rent ?: emptyList())
             }
         }
+        fetchAddRemoveToFavState()
     }
 
     private fun handleContactAction(propertyId: Int?, brokerId: Int, transactionType: String, brokerType: String) {
@@ -112,46 +113,12 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             tvTitle.text = model.name
             tvDescription.text = model.description
             tvLocation.visibility = View.GONE
-
             tvAllProjectsCount.text = getString(R.string.all_properties)
             btnProjects.visibility = View.GONE
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
             initRv(model)
 
             // Set the listeners as before
-
-
-            // Show the "for sale" properties first
-//            if (!model.submitted_props_for_sale.isNullOrEmpty()) {
-//                initRv(model.submitted_props_for_sale)
-//                rv.visibility = View.VISIBLE
-//                rvForRent.visibility = View.GONE
-//            } else {
-//                // If there are no "for sale" properties, show the "for rent" properties instead
-//                initRvForRent(model.submitted_props_for_rent ?: emptyList())
-//                rv.visibility = View.GONE
-//                rvForRent.visibility = View.VISIBLE
-//            }
-
-//            tvPropertyForSeal.setOnClickListener {
-//                if (model.submitted_props_for_sale != null) {
-//                    initRv(model.submitted_props_for_sale)
-//                    rv.visibility = View.VISIBLE
-//                    rvForRent.visibility = View.GONE
-//                } else {
-//                    rv.visibility = View.GONE
-//                }
-//            }
-
-//            tvPropertyForRent.setOnClickListener {
-//                if (model.submitted_props_for_rent != null) {
-//                    initRvForRent(model.submitted_props_for_rent)
-//                    rvForRent.visibility = View.VISIBLE
-//                    rv.visibility = View.GONE
-//                } else {
-//                    rvForRent.visibility = View.GONE
-//                }
-//            }
 
             binding.shareView.btnCall.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
@@ -219,15 +186,6 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
     }
 
-
-//    private fun initRvForRent(data: List<SubmittedPropsForRent>) {
-//        rvBrokerDetailsPropertiesForRentAdapter.setListener(
-//            this@UserDetailsFragment,
-//            this@UserDetailsFragment
-//        )
-//        binding.rv.adapter = rvBrokerDetailsPropertiesForRentAdapter
-//        rvBrokerDetailsPropertiesForRentAdapter.submitList(data)
-//    }
     override fun onPause() {
         super.onPause()
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
@@ -262,10 +220,39 @@ class UserDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             }
         }
     }
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.favState.collect() { state ->
+                    when (state) {
 
+                        is UiState.Success -> {
+                            showToast(state.data?.message.toString())
 
-    override fun onFavClick(model: OriginalItem) {
-        model.id?.let { homeViewModel.addOrRemoveFav(it) }
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onFavClick(model: SubmittedPropsForSale) {
+        if (UserUtil.isUserLogin()){
+            homeViewModel.addOrRemoveFav(model.id?:0)
+        }else{
+            findNavController().navigate(R.id.loginDialog)
+        }
+
     }
 
     override fun onPropertyClick(model: SubmittedPropsForRent) {

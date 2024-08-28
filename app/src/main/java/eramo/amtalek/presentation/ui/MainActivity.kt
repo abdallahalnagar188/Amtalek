@@ -52,8 +52,7 @@ import com.facebook.appevents.AppEventsLogger;
 
 @AndroidEntryPoint
 class MainActivity : LocalizationActivity(),
-    DeeplinkHandler by DeeplinkHandlerImpl()
-{
+    DeeplinkHandler by DeeplinkHandlerImpl() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -71,6 +70,7 @@ class MainActivity : LocalizationActivity(),
         WebViewLocaleHelper(this).implementWorkaround()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        handelUserTypes()
 
 
         val logger = AppEventsLogger.newLogger(applicationContext)
@@ -86,6 +86,8 @@ class MainActivity : LocalizationActivity(),
             UserUtil.saveFireBaseToken(token)
             Log.e("alo", token)
         }
+
+
         //setup navStart
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_navHost) as NavHostFragment
@@ -142,35 +144,15 @@ class MainActivity : LocalizationActivity(),
             hasNotificationPermissionGranted = true
         }
 
-        if (UserUtil.getUserType() == "broker") {
-            binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
-            binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
-            binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.GONE
-            binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.GONE
-            binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.GONE
-            binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.GONE
-            binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.GONE
-            binding.inDrawerHeader. navHeaderNotifications.visibility = View.GONE
-            binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.GONE
-        }
-        else{
 
-            binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
-            binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
-            binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.VISIBLE
-            binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.VISIBLE
-            binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.VISIBLE
-            binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.VISIBLE
-            binding.inDrawerHeader.   navHeaderAddAddons.visibility = View.VISIBLE
-            binding.inDrawerHeader. navHeaderNotifications.visibility = View.VISIBLE
-            binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.VISIBLE
-        }
+
 
     }
 
     private fun logSentFriendRequestEvent(logger: AppEventsLogger) {
         logger.logEvent("sentFriendRequest")
     }
+
     private var hasNotificationPermissionGranted = false
     private val notificationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -196,6 +178,28 @@ class MainActivity : LocalizationActivity(),
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+    private fun handelUserTypes() {
+        if (UserUtil.getUserType() == "broker") {
+            binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderIvAddAddons.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderMyFavourite.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderIvNotifications.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderAddYourProperty.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderAddAddons.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderNotifications.visibility = View.GONE
+            binding.inDrawerHeader.navHeaderMyInvoices.visibility = View.GONE
+        } else {
+            binding.inDrawerHeader.navHeaderPricing.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderIvAddAddons.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderMyFavourite.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderIvNotifications.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderAddYourProperty.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderAddAddons.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderNotifications.visibility = View.VISIBLE
+            binding.inDrawerHeader.navHeaderMyInvoices.visibility = View.VISIBLE
+        }
     }
 
     override fun onResume() {
@@ -238,27 +242,26 @@ class MainActivity : LocalizationActivity(),
                 layoutLangLinChoiceAr
             )
             if (UserUtil.getUserType() == "broker") {
-                binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderPricing.visibility = View.VISIBLE
                 binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderAddAddons.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderNotifications.visibility = View.GONE
-                binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.GONE
-            }
-            else{
+                binding.inDrawerHeader.navHeaderIvAddAddons.visibility = View.GONE
+                binding.inDrawerHeader.navHeaderMyFavourite.visibility = View.GONE
+                binding.inDrawerHeader.navHeaderIvNotifications.visibility = View.GONE
+                binding.inDrawerHeader.navHeaderAddYourProperty.visibility = View.GONE
+                binding.inDrawerHeader.navHeaderAddAddons.visibility = View.GONE
+                binding.inDrawerHeader.navHeaderNotifications.visibility = View.GONE
+                binding.inDrawerHeader.navHeaderMyInvoices.visibility = View.GONE
+            } else {
 
-                binding.inDrawerHeader. navHeaderPricing.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderPricing.visibility = View.VISIBLE
                 binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderIvAddAddons.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderMyFavourite.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderIvNotifications.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderAddYourProperty.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderAddAddons.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderNotifications.visibility = View.VISIBLE
-                binding.inDrawerHeader. navHeaderMyInvoices.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderIvAddAddons.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderMyFavourite.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderIvNotifications.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderAddYourProperty.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderAddAddons.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderNotifications.visibility = View.VISIBLE
+                binding.inDrawerHeader.navHeaderMyInvoices.visibility = View.VISIBLE
             }
 
             navHeaderIvBack.setOnClickListener {
@@ -511,7 +514,7 @@ class MainActivity : LocalizationActivity(),
                 R.id.addAddonsFragment,
                 R.id.newsDetailsFragmentInSeeMore,
                 R.id.newsDetailsInCategoryFragment,
-               // R.id.myInvoicesFragment
+                    // R.id.myInvoicesFragment
 
                 -> {
                     binding.apply {

@@ -166,6 +166,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_20sdp"
             android:text="@string/agency"
+            android:textSize="@dimen/_9ssp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/tv_location"
             app:layout_constraintEnd_toEndOf="parent"

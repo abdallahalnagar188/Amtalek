@@ -72,7 +72,7 @@ class MyProfileViewModel @Inject constructor(
             profileImageUrl = user.image,
             userType = user.actorType ?: "",
             hasPackage = user.hasPackage,
-            brokerName = "",
+            brokerName = user.name,
             dashboardLink = user.dashboardLink ?: "",
             packageId = (user.currentPackage?.packageId?:"").toString()
         )

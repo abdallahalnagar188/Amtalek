@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForRent
 import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForSale
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -55,18 +57,19 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
         }
 
         fun bindSale(model: SubmittedPropsForSale) {
-            // Existing bind logic for SubmittedPropsForSale
-            var isFav = model.is_fav ?: "0"
-            val root = binding.root
-
+            var isFav = model.is_fav
             binding.apply {
                 ivFav.setOnClickListener {
-                    isFav = if (isFav == "0") {
-                        ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        "1"
-                    } else {
-                        ivFav.setImageResource(R.drawable.ic_heart)
-                        "0"
+                    favListener.onFavClick(model)
+
+                    if(UserUtil.isUserLogin()){
+                        isFav = if (isFav == "0") {
+                            ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            "1"
+                        } else {
+                            ivFav.setImageResource(R.drawable.ic_heart)
+                            "0"
+                        }
                     }
                 }
 
@@ -287,6 +290,9 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
 
     interface OnItemClickListener {
         fun onPropertyClick(model: Any)
+    }
+    interface FavClickListenerOriginalItem{
+        fun onFavClick(model:SubmittedPropsForSale)
     }
 
     companion object {
