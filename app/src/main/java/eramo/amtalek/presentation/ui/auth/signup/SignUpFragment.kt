@@ -72,33 +72,40 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private lateinit var rippleAnimatorTermsCheckbox: ValueAnimator
 
-    private var selectedCountryId = -1
-    private var selectedCityId = -1
-    private var selectedRegionId = -1
+    private var selectedCountryId: Int = -1
+    private var selectedCityId: Int = -1
+    private var selectedRegionId: Int = -1
     private lateinit var selectedGender: String
     private lateinit var selectType: String
     private var imageUri: Uri? = null
     val calender = Calendar.getInstance()
 
 
-
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        LocalUtil.loadLocal(requireActivity())
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    //    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        LocalUtil.loadLocal(requireActivity())
+//        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+//        return super.onCreateView(inflater, container, savedInstanceState)
+//    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        selectedCountryId = -1
-        selectedCityId = -1
-        selectedRegionId = -1
+        outState.putInt("selectedCountryPosition", binding.FSignUpCountriesSpinner.selectedItemPosition)
+        outState.putInt("selectedCityPosition", binding.FSignUpCitiesSpinner.selectedItemPosition)
+        outState.putInt("selectedRegionPosition", binding.FSignUpRegionsSpinner.selectedItemPosition)
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            binding.FSignUpCountriesSpinner.setSelection(it.getInt("selectedCountryPosition", 0))
+            binding.FSignUpCitiesSpinner.setSelection(it.getInt("selectedCityPosition", 0))
+            binding.FSignUpRegionsSpinner.setSelection(it.getInt("selectedRegionPosition", 0))
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
@@ -108,30 +115,28 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     }
 
-
     override fun onResume() {
         super.onResume()
         selectedCountryId = -1
         selectedCityId = -1
         selectedRegionId = -1
     }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
-//        selectedCountryId = -1
-//        selectedCityId = -1
-//        selectedRegionId = -1
-//        fetchData()
-//    }
+
+    //
+    override fun onPause() {
+        super.onPause()
+        binding.FSignUpCountriesSpinner.setSelection(0)
+        binding.FSignUpCitiesSpinner.setSelection(0)
+        binding.FSignUpRegionsSpinner.setSelection(0)
+    }
 
 
     private fun setupViews() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupAnimations()
-        binding.FSignUpTvTerms.setOnClickListener {
-            findNavController().navigate(R.id.termsAndConditionsFragment, null, navOptionsAnimation())
-        }
+        binding.FSignUpCountriesSpinner.isSaveEnabled = false
+        binding.FSignUpCitiesSpinner.isSaveEnabled = false
+        binding.FSignUpRegionsSpinner.isSaveEnabled = false
         if (LocalUtil.isEnglish()) {
             binding.FSignUpIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
@@ -148,7 +153,9 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         setupTermsAndConditionsCheckBox()
 
         binding.apply {
-
+            binding.FSignUpTvTerms.setOnClickListener {
+                findNavController().navigate(R.id.termsAndConditionsFragment, null, navOptionsAnimation())
+            }
             FSignUpBtnRegisterNow.setOnClickListener {
                 validateAndSignUp()
             }
@@ -257,8 +264,10 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
 
     // -------------------------------------- setupViews -------------------------------------- //
+
     private fun setupCountriesSpinner(data: List<CountryModel>) {
         binding.apply {
+            FSignUpCountriesSpinner.isSaveEnabled = false
             val countriesSpinnerAdapter = CountriesSpinnerAdapter(requireContext(), data)
             FSignUpCountriesSpinner.adapter = countriesSpinnerAdapter
             FSignUpCountriesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -292,6 +301,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun setupCitiesSpinner(data: List<CityModel>) {
         binding.apply {
+            FSignUpCitiesSpinner.isSaveEnabled = false
             val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
             FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
             FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -325,6 +335,7 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun setupRegionsSpinner(data: List<RegionModel>) {
         binding.apply {
+            FSignUpRegionsSpinner.isSaveEnabled = false
             val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
             FSignUpRegionsSpinner.adapter = regionsSpinnerAdapter
             FSignUpRegionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

@@ -68,7 +68,14 @@ class RvReceivedOfferAdapter @Inject constructor() :
                 tvNameValue.text = " "+model.senderName
                 tvPhoneValue.text = " "+model.senderPhone
                 tvDateValue.text = " "+model.offerDate
-                tvBroker.text = " "+model.vendorType
+                when(model.vendorType){
+                    "broker" -> {
+                        tvBroker.text = itemView.context.getString(R.string.agency)
+                    }
+                    "user" -> {
+                        tvBroker.text = itemView.context.getString(R.string.user)
+                    }
+                }
 //                if (model.offerData?.offerStatus =="yes"){
 //                    tvStatusValue.setTextColor(itemView.context.getColor(R.color.green))
 //                }

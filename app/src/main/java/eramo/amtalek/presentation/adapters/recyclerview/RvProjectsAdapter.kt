@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.project.allProjects.DataX
 import eramo.amtalek.databinding.ItemProjectPreviewBinding
+import eramo.amtalek.databinding.ItemProjectPreviewInSeeMoreBinding
 import eramo.amtalek.databinding.ItemSeeMoreProjectsBinding
 import eramo.amtalek.databinding.ItemSeeMorePropertiesByCityBinding
 import eramo.amtalek.util.formatPrice
@@ -20,14 +21,14 @@ class RvProjectsAdapter @Inject constructor() :
     private lateinit var listener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemSeeMoreProjectsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemProjectPreviewInSeeMoreBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         getItem(position).let { holder.bind(it) }
     }
 
-    inner class ProductViewHolder(private val binding: ItemSeeMoreProjectsBinding) :
+    inner class ProductViewHolder(private val binding: ItemProjectPreviewInSeeMoreBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -42,9 +43,10 @@ class RvProjectsAdapter @Inject constructor() :
 
         fun bind(model: DataX) {
             binding.apply {
-                tvProjectName.text = model.title
-                tvPropertiesForRent.text = model.priceFrom?.let { formatPrice(it.toDouble()) }
-                tvProjectLocation.text = model.region
+                tvTitle.text = model.title
+                tvDescription.text =model.city + " - " + model.region
+                val price = model.priceFrom?.toDouble()?.let { formatPrice(it) }
+                tvPrice.text = itemView.context.getString(R.string.s_egp,price)
 
 //                tvLocation.text = model.country
 //                tvDatePosted.text = model.createdAt
@@ -56,7 +58,7 @@ class RvProjectsAdapter @Inject constructor() :
 
                 Glide.with(itemView)
                     .load(model.agentData?.get(0)?.logo)
-                    .into(ivLogo)
+                    .into(ivBroker)
             }
         }
     }

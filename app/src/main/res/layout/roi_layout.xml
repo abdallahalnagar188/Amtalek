@@ -9,10 +9,10 @@
         android:id="@+id/tv_roi_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserratbold"
+        android:fontFamily="@font/font"
         android:text="@string/roi"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14ssp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,13 +21,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:fontFamily="@font/montserratsemibold"
+        android:fontFamily="@font/font"
         android:maxLines="1"
         android:textAlignment="viewEnd"
         android:textColor="@color/amtalek_blue_dark"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="@dimen/_11ssp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_property_code"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1525898" />
 

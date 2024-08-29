@@ -43,7 +43,7 @@
                 android:layout_marginHorizontal="@dimen/_44sdp"
                 android:layout_marginTop="@dimen/_6sdp"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:fontFamily="@font/font"
+                android:fontFamily="@font/font_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:tabBackground="@drawable/tablayout_indicator_selector"
                 app:tabGravity="fill"

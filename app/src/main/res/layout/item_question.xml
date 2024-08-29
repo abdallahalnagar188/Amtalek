@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserratsemibold"
+                android:fontFamily="@font/font_medium"
                 android:lineSpacingExtra="@dimen/_4sdp"
                 android:text="@string/do_you_want_to_ask"
                 android:textColor="@color/black"

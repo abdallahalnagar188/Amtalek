@@ -89,7 +89,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:gravity="center"
                         android:text="@string/english"
                         android:textAlignment="center"
@@ -129,7 +129,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_weight="1"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:gravity="center"
                         android:text="@string/arabic"
                         android:textAlignment="center"
@@ -222,7 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_16sdp"
-                android:fontFamily="@font/font"
+                android:fontFamily="@font/font_medium"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/navHeader_cv_profile"
                 app:layout_constraintStart_toEndOf="@id/navHeader_cv_profile"
@@ -285,7 +285,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/favourite"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -323,7 +323,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/notifications"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -337,7 +337,7 @@
                         android:layout_height="@dimen/_16sdp"
                         android:layout_marginEnd="@dimen/_14sdp"
                         android:background="@drawable/shape_red"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:gravity="center"
                         android:visibility="gone"
                         android:layoutDirection="locale"
@@ -379,7 +379,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/add_your_property"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -414,7 +414,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/pricing"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -453,7 +453,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/profile"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -493,7 +493,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/add_adoms"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -533,7 +533,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/my_subscriptions"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -573,7 +573,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/my_invoices"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -582,6 +582,46 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/navHeader_terms_conditions"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/nav_headder_cell_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_my_invoices">
+
+                    <ImageView
+                        android:id="@+id/navHeader_iv_terms_conditions"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="ContentDescription"
+                        android:tint="@color/amtalek_blue"
+                        android:src="@drawable/ic_terms" />
+
+                    <TextView
+                        android:id="@+id/navHeader_tv_terms_conditions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:fontFamily="@font/font_medium"
+                        android:text="@string/terms_and_conditions"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/navHeader_iv_terms_conditions"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/navHeader_sign_out"
                     android:layout_width="match_parent"
@@ -590,7 +630,7 @@
                     android:background="@drawable/nav_headder_cell_background"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/navHeader_my_invoices">
+                    app:layout_constraintTop_toBottomOf="@id/navHeader_terms_conditions">
 
                     <ImageView
                         android:id="@+id/navHeader_iv_sign_out"
@@ -609,7 +649,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/sign_out"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp"
@@ -618,9 +658,6 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
                 <ImageView
                     android:id="@+id/navHeader_iv_logo"
                     android:layout_width="@dimen/_90sdp"
@@ -636,7 +673,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:fontFamily="@font/font"
+                    android:fontFamily="@font/font_medium"
                     android:gravity="center"
                     android:text="@string/powered_by"
                     android:textSize="@dimen/_8ssp"

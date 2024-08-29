@@ -378,6 +378,9 @@ class MainActivity : LocalizationActivity(),
                 }
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
             }
+            navHeaderTermsConditions.setOnClickListener {
+                navController.navigate(R.id.termsAndConditionsFragmentInHome)
+            }
 
             navHeaderSignOut.setOnClickListener {
                 binding.mainDrawerLayout.closeDrawer(GravityCompat.START)
@@ -388,7 +391,6 @@ class MainActivity : LocalizationActivity(),
                         NavDeepLinkRequest.Builder.fromUri(DeeplinkUtil.toLogin()).build(),
                         NavOptions.Builder().setPopUpTo(R.id.nav_main, true).build()
                     )
-
                 }
             }
 

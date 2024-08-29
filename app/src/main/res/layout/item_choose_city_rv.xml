@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:ellipsize="end"
-            android:fontFamily="@font/montserratregular"
+            android:fontFamily="@font/font_medium"
             android:maxLines="1"
             android:textDirection="locale"
             android:textColor="@color/black"

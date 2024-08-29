@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layoutDirection="locale"
-    android:touchscreenBlocksFocus="true">
+    android:touchscreenBlocksFocus="true"
+    tools:context=".presentation.ui.auth.TermsAndConditionsFragment">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -72,7 +74,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_16sdp"
                 android:text="@string/l_rem_ipsum_beh_resk_stafettl_kare_exod_ling_l_ngar_prel_anabelt_och_intrassa_b_lig_er_dek_antiskop_och_semipyse_oling_plan_nera_p_asar_megaden_unesk"
-                android:fontFamily="@font/font"
+                android:fontFamily="@font/font_medium"
                 android:padding="@dimen/_8sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"

@@ -75,6 +75,14 @@ class RvSubmittedOffersAdapter @Inject constructor() :
                 if (model.offerData?.offerStatus =="yes"){
                     tvStatusValue.setTextColor(itemView.context.getColor(R.color.green))
                 }
+                when(model.vendorType){
+                    "broker" -> {
+                        tvBroker.text = itemView.context.getString(R.string.agency)
+                    }
+                    "user" -> {
+                        tvBroker.text = itemView.context.getString(R.string.user)
+                    }
+                }
                 tvStatusValue.text = " "+model.offerData?.status
                 tvPrice.text = itemView.context.getString(R.string.s_currency, formatPrice(model.sellPrice.toDouble()),model.currency)
                 if (model.sellPrice ==0 ){

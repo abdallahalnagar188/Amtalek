@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_coming_soon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:fontFamily="@font/montserratbold"
+                android:fontFamily="@font/font"
                 android:text="@string/coming_soon"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16ssp"

@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         tools:text="TextView"
         android:textColor="@color/gray"
-        android:fontFamily="@font/montserratsemibold"
+        android:fontFamily="@font/font_medium"
         android:textSize="@dimen/_12ssp"
         android:padding="@dimen/_12sdp"
         android:layoutDirection="locale"/>

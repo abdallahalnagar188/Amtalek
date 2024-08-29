@@ -100,7 +100,7 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:drawablePadding="@dimen/_4sdp"
-                android:fontFamily="@font/font"
+                android:fontFamily="@font/font_medium"
                 android:gravity="center"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/_12ssp"
@@ -155,7 +155,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/total_impressions"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textSize="@dimen/_8ssp" />
@@ -195,7 +195,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/total_page_view"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textSize="@dimen/_8ssp" />
@@ -234,7 +234,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/font"
+                        android:fontFamily="@font/font_medium"
                         android:text="@string/leads"
                         android:textAppearance="?attr/textAppearanceBody1"
                         android:textSize="@dimen/_8ssp" />

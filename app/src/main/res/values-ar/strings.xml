@@ -1067,6 +1067,7 @@
     <string name="please_enter_a_offer_value">من فضلك ادخل قيمة العرض</string>
     <string name="you_already_have_a_package">لديك باقه بالفعل</string>
     <string name="i_found_this_property_on_amtalek_com">لقد وجدت هذا العقار في امتلك </string>
+    <string name="started_from">يبدا من</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>
