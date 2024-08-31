@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.ui.search.searchform
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -30,6 +31,7 @@ import eramo.amtalek.util.selectedLocation
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 @AndroidEntryPoint
 class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
@@ -53,7 +55,6 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private var isAmenityOpen = false
 
     private val viewModel by viewModels<SearchFormViewModel>()
-
     private var selectedLocationId:Int? = null
     private var selectedLocationName:String? = null
 
@@ -117,21 +118,21 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
 
     private fun setupObservers() {
-      selectedLocation.observe(viewLifecycleOwner){
+        selectedLocation.observe(viewLifecycleOwner){
             binding.locationValue.text = it.title
             selectedLocationId = it.id
             selectedLocationName = it.title
-          Log.e("id", it.id.toString(), )
+            Log.e("id", it.id.toString() )
         }
     }
 
     private fun createListsModel(): SearchDataListsModel {
-       val data =  SearchDataListsModel(
+        val data =  SearchDataListsModel(
             listOfTypesItems = listOfTypeItems,
             listOfCurrencyItems = listOfCurrencyItems,
             listOfFinishingItems = listOfFinishingItems,
             listOfPurposeItems = listOfPurposeItems,
-           listOfAmenitiesItems = listOfAmenitiesItems
+            listOfAmenitiesItems = listOfAmenitiesItems
         )
         return data
     }
@@ -140,14 +141,15 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
         binding.btnConfirm.setOnClickListener(){
             if (isValidForm()){
                 binding.apply {
-                   val myModel = createModel()
+                    val myModel = createModel()
                     val listsModel = createListsModel()
                     findNavController().navigate(R.id.searchResultFragment,
                         SearchResultFragmentArgs(searchQuery = myModel,
-                                dataLists = listsModel
+                            dataLists = listsModel
                         ).toBundle(),
                         navOptionsAnimation()
                     )
+
                 }
             }
         }
@@ -204,7 +206,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 purposeId = purposeId.toString(),
                 priceArrangeKeys = "asc",
                 amenitiesListIds = if (amenitiesAdapter.selectionList.isEmpty()) null else "${amenitiesAdapter.selectionList}",
-                city = null,
+                city = 0,
                 priority_keys = ""
             )
             Log.e("Yarab", amenitiesAdapter.selectionList.toString(), )

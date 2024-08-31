@@ -231,7 +231,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             }
         }
 
-        binding.etMessageName.setText(getString(R.string.S_user_name, UserUtil.getUserFirstName(), UserUtil.getUserLastName()))
+        binding.etMessageName.setText(UserUtil.getUserFirstName() + UserUtil.getUserLastName())
         binding.etMessageMail.setText(UserUtil.getUserEmail())
         binding.etMessagePhone.setText(UserUtil.getUserPhone())
         binding.btnMessageSend.setOnClickListener() {

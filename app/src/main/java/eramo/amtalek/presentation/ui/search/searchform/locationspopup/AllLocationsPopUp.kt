@@ -58,15 +58,27 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
     private fun fetchLocations() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.allLocationState.collect() {
-                    when (it) {
+                viewModel.allLocationState.collect { uiState ->
+                    when (uiState) {
                         is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
 
                         is UiState.Success -> {
                             LoadingDialog.dismissDialog()
-                            val locations = it.data
+
+                            // Create a placeholder LocationModel
+                            val placeholderLocation = LocationModel(
+                                id = -1, // Unique ID for the placeholder
+                                propertiesCount = 0, // Placeholder value
+                                title = getText(R.string.location).toString(), // Placeholder text
+                            )
+
+                            // Add the placeholder location at index 0
+                            val locations = mutableListOf(placeholderLocation).apply {
+                                uiState.data?.let { addAll(it) }
+                            }
+
                             locationAdapter.submitList(locations)
                             handleLocations(locations)
                         }
@@ -74,12 +86,13 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
                         is UiState.Error -> {
                             dismiss()
                         }
-                        else ->Unit
+                        else -> Unit
                     }
                 }
             }
         }
     }
+
 
     private fun handleLocations(locations: List<LocationModel>?) {
         binding.apply {
@@ -91,16 +104,21 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    // Handle the query text change
-                    var filteredList = ArrayList<LocationModel>()
-                    for (item in locations!!) {
-                        if (item.title.lowercase().contains(newText!!.lowercase())){
+                    val filteredList = ArrayList<LocationModel>()
+
+                    for (item in locations ?: emptyList()) {
+                        // Skip the placeholder item in the search
+                        if (item.id == -1) continue
+
+                        // Check if the item's title contains the search text
+                        if (newText != null && item.title.lowercase().contains(newText.lowercase())) {
                             filteredList.add(item)
                         }
                     }
-                    if (filteredList.isEmpty()){
+
+                    if (filteredList.isEmpty()) {
                         Toast.makeText(requireContext(), getText(R.string.no_results_found), Toast.LENGTH_SHORT).show()
-                    }else{
+                    } else {
                         locationAdapter.submitList(filteredList)
                     }
 
@@ -109,6 +127,7 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
             })
         }
     }
+
 
 
 
