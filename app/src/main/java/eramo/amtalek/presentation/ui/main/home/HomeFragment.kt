@@ -678,12 +678,15 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     private fun fetchGetHomeFeaturedProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeFeaturedPropertiesState.collect() { state ->
+                viewModel.homeFeaturedPropertiesState.collect { state ->
                     when (state) {
-
                         is UiState.Success -> {
                             val data = state.data?.get(0)?.propertiesList
-                            binding.inFeaturedRealEstate.tvTitle.text = state.data?.get(0)?.title
+                            if (state.data?.get(0)?.title == "Featured Properties in in Egypt") {
+                                binding.inFeaturedRealEstate.tvTitle.text = "Featured Properties in Egypt"
+                            }else{
+                                binding.inFeaturedRealEstate.tvTitle.text = state.data?.get(0)?.title
+                            }
                             if (!data.isNullOrEmpty()) {
                                 setupFeaturedRealEstateRv(data)
                             } else {
@@ -697,14 +700,18 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                         }
 
                         is UiState.Loading -> {
+                            // You can show a loading indicator here if needed
                         }
 
-                        else -> {}
+                        else -> {
+                            // Handle any other unexpected states or do nothing
+                        }
                     }
                 }
             }
         }
     }
+
 
     private fun fetchGetHomeProjects() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -1145,7 +1152,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
         //       binding.inFeaturedRealEstate.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.anim_swipe_slow))
         binding.inFeaturedRealEstate.tvSeeMore.setOnClickListener {
-            Log.e("a7a", createModelForFeaturedProperties().toString())
+//            Log.e("a7a", createModelForFeaturedProperties().toString())
             findNavController().navigate(
                 R.id.searchResultFragment,
                 data?.get(0)?.let { createModelForFeaturedProperties() }?.let { it2 ->
