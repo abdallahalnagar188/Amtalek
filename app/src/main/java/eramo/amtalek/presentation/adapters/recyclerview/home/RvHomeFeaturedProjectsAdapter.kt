@@ -12,6 +12,7 @@ import eramo.amtalek.databinding.ItemFeaturedProjectsBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
 import eramo.amtalek.domain.model.main.home.ProjectModelx
 import eramo.amtalek.util.TRUE
+import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
@@ -44,10 +45,12 @@ class RvHomeFeaturedProjectsAdapter @Inject constructor() :
             binding.apply {
                 tvTitle.text = model.title
                 tvDescription.text = model.description
+                tvBroker.text = itemView.context.getString(R.string.agency)
 
                 tvLocation.text = model.location
                 Log.e("TAGgg", model.location, )
-                tvDatePosted.text = model.datePosted
+                val price = model.priceFrom?.toDouble()?.let { formatPrice(it) }
+                tvPrice.text = itemView.context.getString(R.string.s_baoind,price)
 
                 Glide.with(itemView)
                     .load(model.imageUrl)

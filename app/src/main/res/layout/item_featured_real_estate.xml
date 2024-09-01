@@ -2,18 +2,19 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_185sdp"
+    android:layout_width="@dimen/_240sdp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
-    app:cardCornerRadius="@dimen/_30sdp"
+    app:cardCornerRadius="@dimen/_12sdp"
     app:cardElevation="0dp"
     app:strokeColor="@color/gold"
     app:strokeWidth="@dimen/_1sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_8sdp">
 
         <ImageView
             android:id="@+id/iv_fav"
@@ -75,13 +76,13 @@
             android:layout_marginStart="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:ellipsize="end"
-            android:fontFamily="@font/font"
+            android:fontFamily="@font/font_extrabold"
             android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintEnd_toStartOf="@id/iv_fav"
+            android:textColor="@color/amtalek_blue"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@id/card_broker"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_image"
+            app:layout_constraintTop_toBottomOf="@id/iv_bed"
             tools:text="4,000,000 EGP" />
 
         <TextView
@@ -93,12 +94,11 @@
             android:ellipsize="end"
             android:fontFamily="@font/font"
             android:maxLines="1"
-            android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_price"
-            app:layout_constraintEnd_toStartOf="@id/iv_fav"
+            app:layout_constraintEnd_toStartOf="@id/card_broker"
             app:layout_goneMarginTop="@dimen/_12sdp"
             tools:text="4,000,000 EGP"
             tools:visibility="visible" />
@@ -109,13 +109,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_14sdp"
             android:layout_marginTop="@dimen/_6sdp"
-            android:ellipsize="end"
             android:fontFamily="@font/font"
             android:maxLines="1"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:ellipsize="end"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="@dimen/_14sdp"
+            app:layout_constraintEnd_toStartOf="@id/iv_fav"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_price_rent"
+            app:layout_constraintTop_toBottomOf="@id/iv_image"
             tools:text="Residential apartment for sale in manshetercity" />
 
         <ImageView
@@ -123,11 +125,11 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:src="@drawable/ic_area"
-            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/iv_location"
+            />
 
         <TextView
             android:id="@+id/tv_area"
@@ -146,10 +148,10 @@
             android:layout_width="@dimen/_14sdp"
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:src="@drawable/ic_bathroom"
-            app:layout_constraintBottom_toTopOf="@+id/iv_location"
             app:layout_constraintStart_toEndOf="@id/tv_area"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/iv_location" />
 
 
         <TextView
@@ -170,9 +172,9 @@
             android:layout_height="@dimen/_14sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:src="@drawable/ic_bed"
-            app:layout_constraintBottom_toTopOf="@+id/iv_location"
+            android:layout_marginTop="@dimen/_8sdp"
             app:layout_constraintStart_toEndOf="@id/tv_bathroom"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/iv_location" />
 
         <TextView
             android:id="@+id/tv_bed"
@@ -191,11 +193,12 @@
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
             android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:src="@drawable/ic_location_green"
-            app:layout_constraintBottom_toTopOf="@+id/iv_clock"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_area" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintBottom_toTopOf="@id/iv_bed"/>
 
         <TextView
             android:id="@+id/tv_location"
@@ -203,7 +206,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_1sdp"
             android:fontFamily="@font/font_medium"
-            android:textSize="@dimen/_8ssp"
+            android:textSize="@dimen/_9ssp"
             app:layout_constraintBottom_toBottomOf="@id/iv_location"
             app:layout_constraintStart_toEndOf="@id/iv_location"
             app:layout_constraintTop_toTopOf="@id/iv_location"
@@ -223,6 +226,7 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:src="@drawable/ic_clock"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_location" />
@@ -234,6 +238,7 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:fontFamily="@font/font_medium"
             android:textSize="@dimen/_8ssp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/iv_clock"
             app:layout_constraintStart_toEndOf="@id/iv_clock"
             app:layout_constraintTop_toTopOf="@id/iv_clock"
@@ -243,22 +248,23 @@
             android:layout_width="@dimen/_26sdp"
             android:layout_height="@dimen/_26sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/tv_broker"
-            app:layout_constraintStart_toStartOf="@id/tv_broker"
-            app:layout_constraintTop_toBottomOf="@id/tv_broker"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_14sdp"
             app:cardCornerRadius="@dimen/_10sdp"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <ImageView
                     android:id="@+id/iv_broker"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"
-                    tools:src="@drawable/gold_sqare"
-                    />
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="0dp"
+                    tools:src="@drawable/gold_sqare" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -267,16 +273,13 @@
             android:id="@+id/tv_broker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_4sdp"
             android:text="@string/agency"
             android:fontFamily="@font/font_medium"
             android:textColor="@color/black"
             android:textSize="@dimen/_9ssp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/card_broker"
+            app:layout_constraintStart_toStartOf="@id/card_broker"
             app:layout_constraintBottom_toTopOf="@id/card_broker"
-            app:layout_constraintTop_toTopOf="@+id/tv_location"
-            android:layout_marginEnd="@dimen/_14sdp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

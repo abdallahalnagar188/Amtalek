@@ -24,6 +24,6 @@ data class Data(
     var name: String?
 ) : Parcelable{
     fun toCriteriaModel(): CriteriaModel {
-        return CriteriaModel(id = id?:0, title = name?:"", propertyCount = 0)
+        return CriteriaModel(id = id?:0, title = name?:"", propertyCount = 0, image = "")
     }
 }

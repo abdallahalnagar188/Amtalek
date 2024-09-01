@@ -354,7 +354,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
     private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.finishing)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.finishing), image = ""))
             listOfFinishingItems.clear()
             for (item in data){
                 listOfFinishingItems.add(item)
@@ -379,7 +379,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
     private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.typee)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.typee), image = ""))
             listOfTypeItems.clear()
             for (item in data){
                 listOfTypeItems.add(item)
@@ -403,7 +403,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
     private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.purpose)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.purpose), image = ""))
             listOfPurposeItems.clear()
             for (item in data){
                 listOfPurposeItems.add(item)
@@ -426,7 +426,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
     private fun setupCurrenciesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.currency)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.currency), image = ""))
             listOfCurrencyItems.clear()
             for (item in data){
                 listOfCurrencyItems.add(item)

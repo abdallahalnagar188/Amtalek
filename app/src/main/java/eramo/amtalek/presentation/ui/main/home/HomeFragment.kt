@@ -30,6 +30,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.property.newResponse.poperty_types.Data
 import eramo.amtalek.databinding.FragmentHomeBinding
 import eramo.amtalek.databinding.ItemSliderTopBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.ProjectModel
@@ -53,6 +54,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeMostViewedPro
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSecondExtraSectionAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNewsAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeNormalPropertiesAdapter
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvHomeSearchByPropertyTypeAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
@@ -90,6 +92,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     RvHomeFourthExtraSectionAdapter.OnItemClickListenerFourthSection,
     RvHomeFifthExtraSectionAdapter.OnItemClickListenerFifthSection,
     RvHomeNewsAdapter.OnItemClickListener,
+    RvHomeSearchByPropertyTypeAdapter.OnItemClickListener,
     FavClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
@@ -153,6 +156,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     @Inject
     lateinit var rvHomeFeaturedRealEstateAdapter: RvHomeFeaturedRealEstateAdapter
+
+    @Inject
+    lateinit var rvHomeSearchByPropertyTypeAdapter: RvHomeSearchByPropertyTypeAdapter
 
     @Inject
     lateinit var rvHomeFeaturedProjectsAdapter: RvHomeFeaturedProjectsAdapter
@@ -265,7 +271,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
             val locationName = ""
             val purposeId = ""
             val finishingId = ""
-            val typeId =""
+            val typeId = ""
             val currencyId = 0
 
 
@@ -277,7 +283,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 currencyId = currencyId,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
-                propertyTypeId = "",
+                propertyTypeId = typeId.toString(),
                 propertyFinishingId = finishingId,
                 minPrice = minPrice,
                 maxPrice = maxPrice,
@@ -288,6 +294,46 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 amenitiesListIds = "",
                 city = 0,
                 priority_keys = "featured"
+            )
+            return myModel
+        }
+    }
+    private fun createModelSearchByTypeProperties(model: CriteriaModel): SearchModelDto {
+        binding.apply {
+            val searchKeyWords = ""
+            val bedrooms = ""
+            val bathrooms = ""
+            val minPrice = ""
+            val maxPrice = ""
+            val minArea = ""
+            val maxArea = ""
+            val locationId = ""
+            val locationName = ""
+            val purposeId = ""
+            val finishingId = ""
+            val typeId = model.id.toString()
+            val currencyId = 0
+
+
+
+            val myModel = SearchModelDto(
+                searchKeyWords = searchKeyWords,
+                locationId = locationId,
+                locationName = locationName,
+                currencyId = currencyId,
+                bathroomsNumber = bathrooms,
+                bedroomsNumber = bedrooms,
+                propertyTypeId = typeId,
+                propertyFinishingId = finishingId,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                purposeId = purposeId,
+                priceArrangeKeys = "asc",
+                amenitiesListIds = "",
+                city = UserUtil.getUserCityFiltrationTitleId().toInt(),
+                priority_keys = ""
             )
             return myModel
         }
@@ -325,7 +371,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
-                city = 0,
+                city = UserUtil.getUserCityFiltrationTitleId().toInt(),
                 priority_keys = ""
             )
             return myModel
@@ -430,10 +476,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                             val types = it.data
                             if (types != null) {
                                 listOfPurposeItems.clear()
-                                listOfPurposeItems.add(0, CriteriaModel(-1, -1, getString(R.string.purpose)))
+                                listOfPurposeItems.add(0, CriteriaModel(-1, -1, getString(R.string.purpose), image = ""))
                                 for (item in types) {
                                     listOfPurposeItems.add(item as CriteriaModel)
                                 }
+
 //                                listOfPurposeItems = types as ArrayList<CriteriaModel>
                             }
                             LoadingDialog.dismissDialog()
@@ -464,7 +511,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                                 listOfFinishingItems.clear()
 
                                 // Add a default item at the beginning
-                                listOfFinishingItems.add(0, CriteriaModel(-1, -1, getString(R.string.finishing)))
+                                listOfFinishingItems.add(0, CriteriaModel(-1, -1, getString(R.string.finishing), image = ""))
 
                                 // Add the retrieved items to the list
                                 for (item in types) {
@@ -500,7 +547,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                             Log.e("ahh", currencies.toString())
                             if (currencies != null) {
                                 listOfCurrencyItems.clear()
-                                listOfCurrencyItems.add(0, CriteriaModel(-1, -1, getString(R.string.currency)))
+                                listOfCurrencyItems.add(0, CriteriaModel(-1, -1, getString(R.string.currency), image = ""))
                                 for (item in currencies) {
                                     listOfCurrencyItems.add(item as CriteriaModel)
                                 }
@@ -534,10 +581,11 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                             val types = it.data
                             if (types != null) {
                                 listOfTypeItems.clear()
-                                listOfTypeItems.add(0, CriteriaModel(-1, -1, getString(R.string.typee)))
+                                listOfTypeItems.add(0, CriteriaModel(-1, -1, getString(R.string.typee), image = ""))
                                 for (item in types) {
                                     listOfTypeItems.add(item as CriteriaModel)
                                 }
+                                setupSearchFunctionality(data = it.data)
                                 // listOfTypeItems = it.data as ArrayList<CriteriaModel>
                                 // setupTypesSpinner(types.toMutableList())
                             }
@@ -1142,6 +1190,13 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
 
     }
+    private fun setupSearchFunctionality(data: List<CriteriaModel>) {
+        rvHomeSearchByPropertyTypeAdapter.setListener(this@HomeFragment)
+        binding.inSearchByPropertyType.rv.adapter = rvHomeSearchByPropertyTypeAdapter
+        rvHomeSearchByPropertyTypeAdapter.submitList(data)
+        binding.inSearchByPropertyType.tvTitle.text = getString(R.string.search_by_property_type)
+        binding.inSearchByPropertyType.tvTitle.setTypeface(binding.inSearchByPropertyType.tvTitle.typeface, Typeface.BOLD)
+    }
 
     private fun setupFeaturedRealEstateRv(data: List<PropertyModel>) {
         rvHomeFeaturedRealEstateAdapter.setListener(this@HomeFragment, this@HomeFragment)
@@ -1582,6 +1637,17 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         }
 
 
+    }
+
+    override fun onItemClick(model: CriteriaModel) {
+        findNavController().navigate(
+            R.id.searchResultFragment,
+            createModelSearchByTypeProperties(model).let { it2 ->
+                SearchResultFragmentArgs(
+                    it2, createListsModel()
+                ).toBundle()
+            }, navOptionsAnimation()
+        )
     }
     // ------------------------------------------------------------------------------------------------------------------------------------ //
 

@@ -10,7 +10,7 @@
 
 
     <string name="cancel">Cancel</string>
-    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.8</string>
+    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.9</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">Warning!</string>
@@ -583,6 +583,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="fake_date">3 Days ago</string>
 
     <string name="s_egp">%s EGP</string>
+    <string name="s_baoind">%s EGP</string>
     <string name="s_usd">%s USD</string>
     <string name="s_aed">%s AED</string>
     <string name="s_sar">%s SAR</string>
@@ -1037,6 +1038,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="you_already_have_a_package">You already have a package</string>
     <string name="i_found_this_property_on_amtalek_com">I found this property on Amtalek</string>
     <string name="started_from">Started from</string>
+    <string name="search_by_property_type">Search by Property Type</string>
+    <string name="no_messages">You must buy message</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

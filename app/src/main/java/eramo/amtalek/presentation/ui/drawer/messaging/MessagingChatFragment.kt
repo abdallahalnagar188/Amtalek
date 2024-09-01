@@ -122,7 +122,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
             )
             findNavController().navigate(action)
         } else {
-            showToast("Agent is not valid")
+            showToast(getString(R.string.no_messages))
         }
     }
 

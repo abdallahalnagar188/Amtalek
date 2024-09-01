@@ -69,7 +69,9 @@ class RvMessagingChatAdapter @Inject constructor() :
             binding.apply {
                 tvName.text = model.name
                 Glide.with(itemView).load(model.image).into(ivImage)
-                blurView.visibility = View.GONE  // Hide blur for valid messages
+                blurViewImage.visibility = View.GONE
+                blurViewName.visibility = View.GONE
+            // Hide blur for valid messages
             }
         }
     }
@@ -91,17 +93,29 @@ class RvMessagingChatAdapter @Inject constructor() :
                 tvName.text = model.name
                 Glide.with(itemView).load(model.image).into(ivImage)
 
-                // Apply blur effect
-                blurView.apply {
+                // Blur effect for the image
+                blurViewImage.apply {
                     visibility = View.VISIBLE
-                    setupWith(binding.root)
+                    setupWith(cvImage)
                         .setBlurAlgorithm(RenderScriptBlur(itemView.context))
-                        .setBlurRadius(14f)
-                        .setOverlayColor(Color.parseColor("#80989696"))
+                        .setBlurRadius(10f)
+                        .setOverlayColor(Color.parseColor("#6C6C6C"))
+                        .setHasFixedTransformationMatrix(true)
+                }
+
+                // Blur effect for the name
+                blurViewName.apply {
+                    visibility = View.VISIBLE
+                    setupWith(binding.frameName) // Using the FrameLayout that contains the TextView
+                        .setBlurAlgorithm(RenderScriptBlur(itemView.context))
+                        .setBlurRadius(10f)
+                        .setOverlayColor(Color.parseColor("#6C6C6C"))
                         .setHasFixedTransformationMatrix(true)
                 }
             }
         }
+
+
     }
 
     fun setListener(listener: OnItemClickListener) {

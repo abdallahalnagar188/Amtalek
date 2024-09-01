@@ -69,6 +69,8 @@ data class MyData(
             title = title?:"",
             isFeatured = "------",
             location = "$city, $region, $subRegion",
+            priceFrom = priceFrom?:""
+
 
         )
     }

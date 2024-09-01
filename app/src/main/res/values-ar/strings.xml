@@ -610,6 +610,7 @@
     <string name="fake_date">منذ 3 أيام</string>
 
     <string name="s_egp">%s ج.م</string>
+    <string name="s_baoind">%s جنيه مصرى</string>
     <string name="s_usd">%s دولار</string>
     <string name="s_aed">%s دينار اماراتي</string>
     <string name="s_sar">%s ريال سعودي</string>
@@ -1068,6 +1069,8 @@
     <string name="you_already_have_a_package">لديك باقه بالفعل</string>
     <string name="i_found_this_property_on_amtalek_com">لقد وجدت هذا العقار في امتلك </string>
     <string name="started_from">يبدا من</string>
+    <string name="search_by_property_type">البحث عن </string>
+    <string name="no_messages">يجب عليك شراء رسائل</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

@@ -23,9 +23,11 @@ data class Data(
     @SerializedName("properties_count")
     var propertiesCount: Int?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("image")
+    var image: String?
 ) : Parcelable{
     fun toCriteriaModel(): CriteriaModel {
-        return CriteriaModel(id = id?:0, title = title?:"", propertyCount = propertiesCount?:0)
+        return CriteriaModel(id = id?:0, title = title?:"", propertyCount = propertiesCount?:0, image = image?:"")
     }
 }

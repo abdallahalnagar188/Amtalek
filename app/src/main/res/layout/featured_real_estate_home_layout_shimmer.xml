@@ -38,33 +38,31 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_one"
-        android:layout_width="@dimen/_185sdp"
-        android:layout_height="@dimen/_278sdp"
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="@dimen/_220sdp"
         android:layout_marginStart="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_30sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_two"
-        android:layout_width="@dimen/_185sdp"
-        android:layout_height="@dimen/_278sdp"
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="@dimen/_220sdp"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:backgroundTint="@color/shimmer_gray"
-        app:cardCornerRadius="@dimen/_30sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
         app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/cv_one"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_three"
-        android:layout_width="@dimen/_185sdp"
+        android:layout_width="@dimen/_240sdp"
         android:layout_height="@dimen/_278sdp"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_12sdp"

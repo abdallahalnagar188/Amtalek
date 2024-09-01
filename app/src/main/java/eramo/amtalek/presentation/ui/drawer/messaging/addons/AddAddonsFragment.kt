@@ -19,7 +19,6 @@ import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {

@@ -494,7 +494,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
     private fun setupCategoriesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection),image = ""))
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             categorySpinner.adapter = criteriaSpinnerAdapter
             categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -524,7 +524,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
     private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection),image = ""))
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             finishingSpinner.adapter = criteriaSpinnerAdapter
 
@@ -556,7 +556,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
     private fun setupFloorFinishingSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection),image = ""))
 
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             floorFinishingTypeSpinner.adapter = criteriaSpinnerAdapter
@@ -588,7 +588,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
     private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection),image = ""))
 
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             purposeSpinner.adapter = criteriaSpinnerAdapter
@@ -620,7 +620,7 @@ class AddPropertyThirdFragment : BindingFragment<FragmentAddPropertyThirdBinding
     }
     private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection)))
+            data.add(0, CriteriaModel(-1,-1, getString(R.string.no_selection),image = ""))
 
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
             typeSpinner.adapter = criteriaSpinnerAdapter

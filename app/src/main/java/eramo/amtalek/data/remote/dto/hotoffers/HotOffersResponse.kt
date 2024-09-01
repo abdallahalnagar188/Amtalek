@@ -69,6 +69,7 @@ data class Project(
             brokerLogoUrl = agentData?.companyLogo?:"",
             isFavourite = "",
             listingNumber = listingNumber?:"",
+            priceFrom = priceFrom?:""
         )
     }
 }

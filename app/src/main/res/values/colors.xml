@@ -22,6 +22,7 @@
     <color name="yellow_low">#FFF6DB</color>
     <color name="yellow">#FFC700</color>
     <color name="blue_low">#E3F2FD</color>
+    <color name="blue_medium">#C4DFF2</color>
     <color name="amtalek_blue">#005879</color>
     <color name="amtalek_blue_dark">#01425A</color>
     <color name="packages_blue">#1E617A</color>

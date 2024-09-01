@@ -85,7 +85,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                             val types = it.data
                             if (types != null) {
                                 listOfPurposeItems.clear()
-                                listOfPurposeItems.add(0, CriteriaModel(-1, -1, getString(R.string.purpose)))
+                                listOfPurposeItems.add(0, CriteriaModel(-1, -1, getString(R.string.purpose), image = ""))
                                 for (item in types) {
                                     listOfPurposeItems.add(item as CriteriaModel)
                                 }
@@ -119,7 +119,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                                 listOfFinishingItems.clear()
 
                                 // Add a default item at the beginning
-                                listOfFinishingItems.add(0, CriteriaModel(-1, -1, getString(R.string.finishing)))
+                                listOfFinishingItems.add(0, CriteriaModel(-1, -1, getString(R.string.finishing), image = ""))
 
                                 // Add the retrieved items to the list
                                 for (item in types) {
@@ -155,7 +155,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                             Log.e("ahh", currencies.toString())
                             if (currencies != null) {
                                 listOfCurrencyItems.clear()
-                                listOfCurrencyItems.add(0, CriteriaModel(-1, -1, getString(R.string.currency)))
+                                listOfCurrencyItems.add(0, CriteriaModel(-1, -1, getString(R.string.currency),image = ""))
                                 for (item in currencies) {
                                     listOfCurrencyItems.add(item as CriteriaModel)
                                 }
@@ -189,7 +189,7 @@ class SeeMorePropertiesByCityFragment : BindingFragment<FragmentSeeMorePropertie
                             val types = it.data
                             if (types != null) {
                                 listOfTypeItems.clear()
-                                listOfTypeItems.add(0, CriteriaModel(-1, -1, getString(R.string.type)))
+                                listOfTypeItems.add(0, CriteriaModel(-1, -1, getString(R.string.type), image = ""))
                                 for (item in types) {
                                     listOfTypeItems.add(item as CriteriaModel)
                                 }

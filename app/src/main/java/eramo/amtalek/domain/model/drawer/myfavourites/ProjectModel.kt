@@ -12,4 +12,5 @@ data class ProjectModel (
     val brokerLogoUrl: String,
     val brokerId:Int,
     val listingNumber:String,
+    val priceFrom:String,
 )

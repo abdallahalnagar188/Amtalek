@@ -20,7 +20,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(),RvProjectsAdapter.OnItemClickListener {
+class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(),
+    RvProjectsAdapter.OnItemClickListener {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSeeMoreProjectsBinding::inflate

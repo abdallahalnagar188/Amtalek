@@ -106,7 +106,7 @@ class InvoiceFragment : BindingFragment<FragmentInvoiceBinding>(),
     private fun showInvoiceDetailsDialog(model: HistoryPackagesInfo) {
         val dialogBinding = DialogInvoiceDetailsBinding.inflate(LayoutInflater.from(requireContext()))
 
-        val dialog = AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext(), R.style.DialogStyle)
             .setView(dialogBinding.root)
             .create()
 
