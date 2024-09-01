@@ -332,7 +332,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
-                city = UserUtil.getUserCityFiltrationTitleId().toInt(),
+                city = 0,
                 priority_keys = ""
             )
             return myModel
@@ -371,7 +371,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 purposeId = purposeId,
                 priceArrangeKeys = "asc",
                 amenitiesListIds = "",
-                city = UserUtil.getUserCityFiltrationTitleId().toInt(),
+                city = 0,
                 priority_keys = ""
             )
             return myModel
