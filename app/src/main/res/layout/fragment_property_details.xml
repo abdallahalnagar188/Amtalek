@@ -388,8 +388,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font"
                         android:gravity="center"
-                        android:text="2\n bedroomdasdasdas"
                         android:maxLines="2"
+                        android:text="2\n bedroomdasdasdas"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_6ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -414,8 +414,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font"
                         android:gravity="center"
-                        android:text="2\n bedrooms"
                         android:maxLines="2"
+                        android:text="2\n bedrooms"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_6ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -467,11 +467,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_8sdp"
                         android:ellipsize="end"
-                        android:fontFamily="@font/font_medium"
+                        android:fontFamily="@font/font"
                         android:maxLines="1"
                         android:textAlignment="viewStart"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_12ssp"
                         app:layout_constraintBottom_toTopOf="@id/tv_user_id"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/iv_user_image"
@@ -489,6 +489,7 @@
                         android:textAlignment="viewStart"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10ssp"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/iv_user_image"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/iv_user_image"
@@ -521,6 +522,86 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <LinearLayout
+                    android:id="@+id/linear_layout_for_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/user_profile_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                   >
+
+                    <!-- First Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_map"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@drawable/blue_border_with_radius_background"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_map"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/location"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/font_medium"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Second Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_autocad_drawings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@drawable/blue_border_with_radius_background"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_autocad"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginEnd="8dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/autocad_drawings"
+                                android:fontFamily="@font/font_medium"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
                 <include
                     android:id="@+id/roi_layout"
                     layout="@layout/roi_layout"
@@ -528,9 +609,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/screen_margin_sides"
                     android:layout_marginTop="@dimen/_12sdp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user_profile_layout" />
+                    app:layout_constraintTop_toBottomOf="@id/linear_layout_for_map" />
 
                 <TextView
                     android:id="@+id/tv_details"
@@ -576,7 +658,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="#F9F9F9"
+                    android:ellipsize="end"
                     android:fontFamily="@font/font_medium"
+                    android:maxLines="3"
                     android:paddingHorizontal="@dimen/screen_margin_sides"
                     android:paddingVertical="@dimen/_14sdp"
                     android:textAlignment="viewStart"
@@ -586,6 +670,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_description"
                     tools:text="Descriptive Text is a text which says what a person or a thing is like. Its purpose is to describe and reveal a particular person, place, or thing." />
+
+                <TextView
+                    android:id="@+id/tv_show_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_more"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:fontFamily="@font/font_medium"
+                    app:layout_constraintTop_toBottomOf="@id/tv_description_value"
+                    app:layout_constraintStart_toStartOf="@id/tv_description"
+                    />
+
 
                 <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                     android:id="@+id/ads_slider"
@@ -597,7 +696,7 @@
                     app:autoPlayDelay="2000"
                     app:carouselType="BLOCK"
                     app:imageScaleType="centerCrop"
-                    app:layout_constraintTop_toBottomOf="@id/tv_description_value"
+                    app:layout_constraintTop_toBottomOf="@id/tv_show_more"
                     app:nextButtonId="@id/btn_next_carousel"
                     app:nextButtonLayout="@layout/ic_carousel_right_arrow_layout"
                     app:previousButtonId="@id/btn_previous_carousel"
@@ -652,7 +751,7 @@
                     android:id="@+id/tv_video"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:fontFamily="@font/font"
                     android:paddingHorizontal="@dimen/screen_margin_sides"
                     android:text="@string/real_estate_video"

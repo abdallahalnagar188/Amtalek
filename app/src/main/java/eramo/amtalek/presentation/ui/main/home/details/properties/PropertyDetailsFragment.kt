@@ -7,7 +7,12 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextUtils
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -65,6 +70,7 @@ import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.internal.format
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -100,6 +106,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     @Inject
     lateinit var rvSimilarPropertiesAdapter: RvSimilarPropertiesAdapter
+    var isTextExpanded = false
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -634,7 +641,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                             binding.ivShare.setOnClickListener {
                                 shareContent(
                                     listingNumber = state.data.listingNumber,
-                                    title = state.data.title.toString()
+                                    title = state.data.title
                                 )
                             }
                             propertyId = state.data.id.toString()
@@ -664,7 +671,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     }
 
     private fun shareContent(title: String, listingNumber: String) {
-
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
@@ -841,6 +847,13 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     setupAutocadImagesSlider(autocadImages)
                 }
 
+                if(model.roi == "0 %"){
+                    propertyDetailsLayout.linearRoi.visibility = View.GONE
+                }else{
+                    propertyDetailsLayout.linearRoi.visibility = View.VISIBLE
+                    propertyDetailsLayout.tvRoiValue.text = model.roi
+                }
+
                 propertyDetailsLayout.tvPropertyCodeValue.text = model.propertyCode
                 propertyDetailsLayout.tvTypeValue.text = model.propertyType
                 propertyDetailsLayout.tvAreaValue.text = getString(R.string.s_meter_square, formatNumber(model.area))
@@ -850,13 +863,26 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 propertyDetailsLayout.tvFloorsValue.text = model.floors.joinToString(", ")
                 propertyDetailsLayout.tvFloorValue.text = model.landType
 
-                val htmlContent = model.description ?: ""
-                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
-                } else {
-                    Html.fromHtml(htmlContent)
+
+//                val htmlContent = model.description
+//
+//                // Set initial content in tvDescriptionValue
+//                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+//                } else {
+//                    Html.fromHtml(htmlContent)
+//                }
+                tvDescriptionValue.text = SpannableString(model.description)
+                // Update the TextView based on the expanded state
+                updateTextView()
+
+                // Set a click listener on the TextView to toggle text expansion
+                tvShowMore.setOnClickListener {
+                    isTextExpanded = !isTextExpanded
+                    updateTextView()
                 }
-                tvDescriptionValue.text = spannedText
+
+
                 initPropertyFeaturesRv(model.propertyAmenities)
 
                 if (model.videoUrl.isNullOrEmpty()) {
@@ -867,6 +893,9 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         setupVideo(it)
                     }
                 }
+//                cardMap.setOnClickListener(){
+//                    findNavController().navigate(R.id.mapFragment, bundleOf("url" to model.mapUrl))
+//                }
 //                if (model.sold) {
 //                    contactUs.root.visibility = View.VISIBLE
 //                }else {
@@ -921,8 +950,6 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
                 binding.contactUs.btnMessaging.setOnClickListener {
                     if (UserUtil.isUserLogin()) {
-                        Log.e("id", model.brokerId.toString())
-                        Log.e("type", model.vendorType)
                         sharedViewModel.sendContactRequest(
                             propertyId = model.id,
                             brokerId = model.brokerId,
@@ -939,22 +966,25 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
                 binding.contactUs.btnWhatsApp.setOnClickListener {
                     if (UserUtil.isUserLogin()) {
-
                         sharedViewModel.sendContactRequest(
                             propertyId = model.id,
                             brokerId = model.brokerId,
                             brokerType = model.vendorType,
                             transactionType = "meeting"
                         )
-                        val phoneNumber =
-                            model.brokerPhone
+                        val phoneNumber = model.brokerPhone
                         openWhatsApp(phoneNumber)
                     } else {
-
+                        // Cache the listing number
+                        val sharedPref = requireContext().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+                        with(sharedPref.edit()) {
+                            putString("cached_listing_number", model.listingNumber)
+                            apply()
+                        }
                         findNavController().navigate(R.id.loginDialog)
                     }
-
                 }
+
             }
             dismissShimmerEffect()
 
@@ -963,6 +993,38 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             showToast(getString(R.string.invalid_data_parsing))
         }
     }
+
+    private fun createClickableSpan(htmlContent: String): SpannableString {
+        val linkText = if (isTextExpanded) getString(R.string.show_less) else getString(R.string.show_more)
+        val spannable = SpannableString("$htmlContent")
+
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                isTextExpanded = !isTextExpanded
+                updateTextView()
+            }
+        }
+
+        spannable.setSpan(clickableSpan, spannable.length - linkText.length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return spannable
+    }
+
+    private fun updateTextView() {
+        binding.apply {
+            if (isTextExpanded) {
+                // Expand the text and change tvShowMore to "Show Less"
+                tvDescriptionValue.maxLines = Integer.MAX_VALUE
+                tvDescriptionValue.ellipsize = null
+                tvShowMore.text = getString(R.string.show_less)
+            } else {
+                // Collapse the text and change tvShowMore to "Show More"
+                tvDescriptionValue.maxLines = 3
+                tvDescriptionValue.ellipsize = TextUtils.TruncateAt.END
+                tvShowMore.text = getString(R.string.show_more)
+            }
+        }
+    }
+
 
     private fun handleAutocadImages(autocad: List<AutocadModel?>?): List<CarouselItem> {
         val imageList = mutableListOf<CarouselItem>()

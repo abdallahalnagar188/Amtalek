@@ -247,7 +247,12 @@
         android:id="@+id/mapFragment"
         android:name="eramo.amtalek.presentation.ui.MapFragment"
         android:label="MapFragment"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="eramo.amtalek.presentation.ui.main.extension.notification.NotificationFragment"

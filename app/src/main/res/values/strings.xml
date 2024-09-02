@@ -552,7 +552,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
 
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="how_can_we_help_you">How can we help you ?</string>
+    <string name="how_can_we_help_you">What are you searching for ?</string>
 
     <string name="favourite">Favourite</string>
     <string name="chat">Chat</string>
@@ -1040,6 +1040,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="started_from">Started from</string>
     <string name="search_by_property_type">Search by Property Type</string>
     <string name="no_messages">You must buy message</string>
+    <string name="show_less">show less</string>
+    <string name="show_more">show more</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

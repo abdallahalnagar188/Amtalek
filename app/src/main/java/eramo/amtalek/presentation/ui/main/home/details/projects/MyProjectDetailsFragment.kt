@@ -52,8 +52,8 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 
     val viewModel: ProjectDetailsViewModel by viewModels()
     private val args: MyProjectDetailsFragmentArgs by navArgs()
-    val listingNumber  get() = args.projectId
-    lateinit var vendorId:String
+    val listingNumber get() = args.projectId
+    lateinit var vendorId: String
     private lateinit var vendorType: String
 
     @Inject
@@ -68,11 +68,11 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     }
 
     private fun clicks() {
-        binding.etName.setText(UserUtil.getUserFirstName() +  UserUtil.getUserLastName())
+        binding.etName.setText(UserUtil.getUserFirstName() + UserUtil.getUserLastName())
         binding.etMail.setText(UserUtil.getUserEmail())
         binding.etPhone.setText(UserUtil.getUserPhone())
-        binding.btnSend.setOnClickListener()    {
-            if (validForm()){
+        binding.btnSend.setOnClickListener() {
+            if (validForm()) {
                 binding.apply {
                     val name = etName.text.toString()
                     val email = etMail.text.toString()
@@ -80,110 +80,126 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
                     val message = etNotes.text.toString()
                     viewModel.sendToBroker(
                         name = name,
-                        email =email,
+                        email = email,
                         phone = phone,
                         message = message,
-                        vendorId =vendorId,
+                        vendorId = vendorId,
                         vendorType = vendorType,
-                        )
+                    )
                 }
-            }else{
+            } else {
                 Toast.makeText(requireContext(), "finish the form", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
     private fun isValidEmail(email: String): Boolean {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-    private fun validForm():Boolean{
+
+    private fun validForm(): Boolean {
         var isValid = true
         binding.apply {
-            if (etName.text.toString().isEmpty()){
+            if (etName.text.toString().isEmpty()) {
                 isValid = false
                 etName.error = getString(R.string.please_enter_a_name)
             }
-            if (!isValidEmail(etMail.text.toString())){
+            if (!isValidEmail(etMail.text.toString())) {
                 isValid = false
                 etMail.error = getString(R.string.please_enter_a_mail)
             }
-            if (etPhone.text.toString().isEmpty()){
+            if (etPhone.text.toString().isEmpty()) {
                 etPhone.error = getString(R.string.please_enter_a_phone_number)
                 isValid = false
             }
-            if (etNotes.text.toString().isEmpty()){
+            if (etNotes.text.toString().isEmpty()) {
                 etNotes.error = getString(R.string.please_enter_a_message)
                 isValid = false
             }
         }
         return isValid
     }
+
     private fun fetchData() {
         fetchProjectDetails()
         fetchSendMessageState()
     }
+
     private fun fetchSendMessageState() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                withContext(coroutineContext){
-                    viewModel.sentToBrokerState.collect{
-                        when(it){
-                            is UiState.Success ->{
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                withContext(coroutineContext) {
+                    viewModel.sentToBrokerState.collect {
+                        when (it) {
+                            is UiState.Success -> {
                                 Toast.makeText(requireContext(), getString(R.string.message_sent_successfully), Toast.LENGTH_SHORT).show()
                                 LoadingDialog.dismissDialog()
                             }
-                            is UiState.Error ->{
+
+                            is UiState.Error -> {
 
                                 LoadingDialog.dismissDialog()
                             }
-                            is UiState.Loading ->{
+
+                            is UiState.Loading -> {
                                 LoadingDialog.showDialog()
 
                             }
-                            is UiState.Empty ->Unit
+
+                            is UiState.Empty -> Unit
                         }
                     }
                 }
             }
         }
     }
+
     private fun fetchProjectDetails() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                withContext(coroutineContext){
-                    viewModel.projectDetailsState.collect{
-                        when(it){
-                            is UiState.Success ->{
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                withContext(coroutineContext) {
+                    viewModel.projectDetailsState.collect {
+                        when (it) {
+                            is UiState.Success -> {
                                 val data = it.data
-                                Log.e("Nega", data.toString())
+                                Log.e("Neg", data.toString())
                                 handleSuccessState(data)
 
                                 LoadingDialog.dismissDialog()
                             }
-                            is UiState.Error ->{
+
+                            is UiState.Error -> {
 
                                 LoadingDialog.dismissDialog()
                             }
-                            is UiState.Loading ->{
+
+                            is UiState.Loading -> {
                                 LoadingDialog.showDialog()
 
                             }
 
-                            is UiState.Empty ->Unit
+                            is UiState.Empty -> Unit
                         }
                     }
                 }
             }
         }
     }
+
     private fun handleSuccessState(data: ProjectDetailsResponse?) {
         val topSliderImages = handleImageTopSlider(data?.data?.get(0)?.sliders)
-        setupImageSliderTop(topSliderImages)
+        if (topSliderImages.isEmpty()) {
+            setupImageSliderTop(data?.data?.get(0)?.primaryImage?.let { listOf(CarouselItem(imageUrl = it)) }!!)
+        } else {
+            setupImageSliderTop(topSliderImages)
+        }
 
-        if (data?.data?.get(0)?.autocad.isNullOrEmpty()){
+
+        if (data?.data?.get(0)?.autocad.isNullOrEmpty()) {
             binding.autocadDrawingsSlider.visibility = View.GONE
             binding.autocadDrawingsSliderDots.visibility = View.GONE
             binding.tvAutocadDrawings.visibility = View.GONE
-        }else{
+        } else {
             val autocadImages = handleAutocadImages(data?.data?.get(0)?.autocad)
             setupAutocadImagesSlider(autocadImages)
         }
@@ -214,8 +230,9 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 
         vendorId = data?.data?.get(0)?.brokerDetails?.get(0)?.id.toString()
         vendorType = data?.data?.get(0)?.brokerDetails?.get(0)?.brokerType.toString()
-        
+
     }
+
     private fun mapSetup(data: String?) {
         data?.let {
             val adjustedData = """
@@ -251,9 +268,6 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         }
 
 
-
-
-
 //        data?.let {
 //            val webSettings: WebSettings = binding.webView.settings
 //            webSettings.javaScriptEnabled = true
@@ -266,6 +280,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 //            binding.webView.loadData(data, "text/html", "utf-8")
 //        }
     }
+
     private fun setupVideo(videoId: String) {
         binding.apply {
             lifecycle.addObserver(youtubePlayerView)
@@ -281,9 +296,9 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
     }
 
     private fun handleAmenities(aminities: List<Aminity?>?): List<AmenityModel> {
-        val amenityModelList :ArrayList<AmenityModel> = ArrayList()
+        val amenityModelList: ArrayList<AmenityModel> = ArrayList()
         aminities?.let {
-            for (amenity in aminities){
+            for (amenity in aminities) {
                 amenityModelList.add(amenity!!.toAmenityModel())
             }
         }
@@ -301,6 +316,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         // Start the share intent
         startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
+
     private fun injectData(data: Data?) {
         binding.apply {
             autocadDrawingsSlider
@@ -308,7 +324,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             tvTitle.text = data?.name
             tvLocation.text = data?.quickSummary?.address
             tvDate.text = data?.deliveryDate
-            Log.e("Nega1", data?.deliveryDate?: "null", )
+            Log.e("Nega1", data?.deliveryDate ?: "null")
             tvDescriptionValue.text = data?.description
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description
@@ -318,19 +334,19 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 
             Glide.with(requireContext()).load(data?.brokerDetails?.get(0)?.logo)
                 .into(ivUserImage)
-            if (UserUtil.getUserType() == "broker"){
+            if (UserUtil.getUserType() == "broker") {
                 tvRegisterWithUs.visibility = View.GONE
                 etNotes.visibility = View.GONE
                 etPhone.visibility = View.GONE
-                etMail.visibility =View.GONE
+                etMail.visibility = View.GONE
                 etName.visibility = View.GONE
                 btnSend.visibility = View.GONE
 
-            }else{
+            } else {
                 tvRegisterWithUs.visibility = View.VISIBLE
                 etNotes.visibility = View.VISIBLE
                 etPhone.visibility = View.VISIBLE
-                etMail.visibility =View.VISIBLE
+                etMail.visibility = View.VISIBLE
                 etName.visibility = View.VISIBLE
             }
 
@@ -338,7 +354,7 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         navigateToProfile(model = data)
     }
 
-    private fun navigateToProfile(model: Data?){
+    private fun navigateToProfile(model: Data?) {
         binding.tvVisitProfile.setOnClickListener() {
             findNavController().navigate(
                 R.id.brokersDetailsFragment,
@@ -348,24 +364,28 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         }
 
     }
+
     private fun handleAutocadImages(autocad: List<Autocad?>?): List<CarouselItem> {
         val imageList = mutableListOf<CarouselItem>()
-        for (image in autocad!!){
+        for (image in autocad!!) {
             imageList.add(CarouselItem(imageUrl = image?.src))
         }
         return imageList
     }
-    private fun handleImageTopSlider(sliders: List<Slider?>?):List<CarouselItem> {
+
+    private fun handleImageTopSlider(sliders: List<Slider?>?): List<CarouselItem> {
         val imageList = mutableListOf<CarouselItem>()
-        for (image in sliders!!){
+        for (image in sliders!!) {
             imageList.add(CarouselItem(imageUrl = image?.src))
         }
         return imageList
     }
+
     override fun onPause() {
         super.onPause()
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
+
     private fun setupViews() {
         setupToolbar()
         binding.ivShare.visibility = View.GONE

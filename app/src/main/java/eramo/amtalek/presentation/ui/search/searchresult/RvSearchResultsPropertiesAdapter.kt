@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.search.searchresult
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
+import eramo.amtalek.databinding.ItemPropSearchBinding
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
 import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
@@ -24,7 +27,7 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
     private lateinit var favListener: FavClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
-        ItemPropertyPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemPropSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
@@ -35,7 +38,7 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
         }
     }
 
-    inner class ProductViewHolder(private val binding: ItemPropertyPreviewBinding) :
+    inner class ProductViewHolder(private val binding: ItemPropSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -78,27 +81,27 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                 }
                 when (model.rentDuration) {
                     "daily" -> {
-                        tvDurationRent.text = itemView.context.getString(R.string.daily)
+                        tvPriceRent.text = itemView.context.getString(R.string.daily)
                     }
 
                     "monthly" -> {
-                        tvDurationRent.text = itemView.context.getString(R.string.monthly)
+                        tvPriceRent.text = itemView.context.getString(R.string.monthly)
                     }
 
                     "3_months" -> {
-                        tvDurationRent.text = itemView.context.getString(R.string._3_months)
+                        tvPriceRent.text = itemView.context.getString(R.string._3_months)
                     }
 
                     "6_months" -> {
-                        tvDurationRent.text = itemView.context.getString(R.string._6_months)
+                        tvPriceRent.text = itemView.context.getString(R.string._6_months)
                     }
 
                     "9_months" -> {
-                        tvDurationRent.text = itemView.context.getString(R.string._9_months)
+                        tvPriceRent.text = itemView.context.getString(R.string._9_months)
                     }
 
                     "yearly" -> {
-                        tvDurationRent.text = itemView.context.getString(R.string.yearly)
+                        tvPriceRent.text = itemView.context.getString(R.string.yearly)
                     }
                 }
                 when (model.type) {
@@ -108,7 +111,7 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                             formatPrice(model.sellPrice.toDouble()),
                             model.currency
                         )
-
+                        tvPriceRent.visibility = View.GONE
                         tvTitle.text = model.title
                         tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                         tvBathroom.text = model.bathroomsCount.toString()
@@ -120,11 +123,12 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
 
                     "for_rent" -> {
                         tvLabel.text = itemView.context.getString(R.string.for_rent)
-                        tvPrice.text = itemView.context.getString(
-                            R.string.s_currency,
-                            formatPrice(model.rentPrice.toDouble()),
-                            model.currency
-                        )
+                        tvPrice.text = getRentPrice(
+                                itemView.context,
+                                model.rentDuration,
+                                model.rentPrice.toDouble(),
+                                model.currency)
+                        tvPriceRent.visibility = View.GONE
                         tvTitle.text = model.title
                         tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                         tvBathroom.text = model.bathroomsCount.toString()
@@ -140,12 +144,13 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                             formatPrice(model.sellPrice.toDouble()),
                             model.currency
                         )
-                        tvDurationRent.text =
-                            itemView.context.getString(
-                                R.string.s_currency,
-                                formatPrice(model.rentPrice.toDouble()),
-                                model.currency
-                            )
+                        tvPriceRent.visibility = View.VISIBLE
+                        tvPriceRent.text =
+                            getRentPrice(
+                                itemView.context,
+                                model.rentDuration,
+                                model.rentPrice.toDouble(),
+                                model.currency)
                         tvTitle.text = model.title
                         tvArea.text = itemView.context.getString(R.string.s_meter_square, formatNumber(model.area))
                         tvBathroom.text = model.bathroomsCount.toString()
@@ -179,6 +184,36 @@ class RvSearchResultsPropertiesAdapter @Inject constructor() :
                     ivFav.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    private fun getRentPrice(context: Context, duration: String, price: Double, currency: String): String {
+        return when (duration) {
+            RentDuration.DAILY.key -> {
+                context.getString(R.string.s_daily_price, formatPrice(price), currency)
+            }
+
+            RentDuration.MONTHLY.key -> {
+                context.getString(R.string.s_monthly_price, formatPrice(price), currency)
+            }
+
+            RentDuration.THREE_MONTHS.key -> {
+                context.getString(R.string.s_3_months_price, formatPrice(price), currency)
+            }
+
+            RentDuration.SIX_MONTHS.key -> {
+                context.getString(R.string.s_6_months_price, formatPrice(price), currency)
+            }
+
+            RentDuration.NINE_MONTHS.key -> {
+                context.getString(R.string.s_9_months_price, formatPrice(price), currency)
+            }
+
+            RentDuration.YEARLY.key -> {
+                context.getString(R.string.s_yearly_price, formatPrice(price), currency)
+            }
+
+            else -> ""
         }
     }
 

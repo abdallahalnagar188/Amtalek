@@ -580,7 +580,7 @@
 
     <string name="new_password">كلمة المرور الجديدة</string>
     <string name="confirm_password">تأكيد كلمة المرور</string>
-    <string name="how_can_we_help_you">كيف يمكننا مساعدتك ؟</string>
+    <string name="how_can_we_help_you">ما نوع العقار الذي تبحث عنه ؟ </string>
 
     <string name="favourite">عقاراتى المفضلة</string>
     <string name="chat">الدردشة</string>
@@ -1071,6 +1071,8 @@
     <string name="started_from">يبدا من</string>
     <string name="search_by_property_type">البحث عن </string>
     <string name="no_messages">يجب عليك شراء رسائل</string>
+    <string name="show_less"> مشاهدة اقل</string>
+    <string name="show_more">مشاهدة الكل</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

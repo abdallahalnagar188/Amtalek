@@ -453,7 +453,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
         fetchHomeNormalProperties()
         fetchGetHomeExtraSections()
         fetchGetNews()
-        fetchAddRemoveToFavState()
+        //fetchAddRemoveToFavState()
         fetchGetPropertyTypes()
         fetchGetPropertyFinishing()
         fetchGetAmenitiesState()
@@ -1631,6 +1631,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     override fun onFavClick(model: PropertyModel) {
         if (UserUtil.isUserLogin()){
             viewModel.addOrRemoveFav(model.id)
+            fetchAddRemoveToFavState()
 
         }else{
             findNavController().navigate(R.id.loginDialog)

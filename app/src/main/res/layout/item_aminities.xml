@@ -13,19 +13,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/ic_aminities"/>
+
     <TextView
         android:id="@+id/amenityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/icon"
-        app:layout_constraintBottom_toBottomOf="@id/icon"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        tools:text="Aminities"
-        android:maxLines="1"
-        android:textSize="@dimen/_9ssp"
         android:layout_marginStart="@dimen/_4sdp"
         android:fontFamily="@font/font_medium"
-        />
+        android:maxLines="2"
+        android:textSize="@dimen/_8ssp"
+        app:layout_constraintBottom_toBottomOf="@id/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toTopOf="@id/icon"
+        tools:text="Aminities" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,13 +22,15 @@
             android:src="@drawable/ic_arrow_left_white" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/cv_back"
+        android:layout_marginTop="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

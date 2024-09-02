@@ -121,17 +121,18 @@
 
         <TextView
             android:id="@+id/tv_location"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/location"
+            android:maxLines="1"
             android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:layout_constraintStart_toEndOf="@id/iv_location"
             app:layout_constraintTop_toTopOf="@id/iv_location"
             app:layout_constraintBottom_toBottomOf="@id/iv_location"
             android:fontFamily="@font/font_medium"
             android:textSize="@dimen/_9ssp"
             android:textColor="@color/text_gray"
-
             />
 
 
@@ -142,6 +143,7 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:fontFamily="@font/font"
             android:paddingBottom="@dimen/_4sdp"
+            android:maxLines="1"
             android:textColor="@color/amtalek_blue"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintStart_toStartOf="@id/tv_title"
