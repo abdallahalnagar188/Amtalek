@@ -8,7 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class AmenityModel(
     val id: Int,
     val name: String,
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
+    var image: String?
 ) : Parcelable
 
 @Parcelize

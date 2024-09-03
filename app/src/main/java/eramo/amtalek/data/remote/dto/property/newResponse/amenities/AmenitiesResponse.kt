@@ -21,9 +21,11 @@ data class Data(
     @SerializedName("id")
     var id: Int?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("image")
+    var image:String?
 ) : Parcelable{
     fun toAmenityModel():AmenityModel{
-        return AmenityModel(id = id?:-1, name = title?:"")
+        return AmenityModel(id = id?:-1, name = title?:"", image = image)
     }
 }

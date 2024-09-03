@@ -125,7 +125,9 @@ data class PropertyDetailsResponse(
             @SerializedName("id")
             val id: Int?,
             @SerializedName("title")
-            val title: String?
+            val title: String?,
+            @SerializedName("image")
+            val image: String?
         )
 
         data class BrokerDetail(
@@ -265,7 +267,7 @@ data class PropertyDetailsResponse(
     private fun propertyFeaturesList(): List<AmenityModel> {
         val list = mutableListOf<AmenityModel>()
         for (i in data?.get(0)?.aminities!!) {
-            list.add(AmenityModel(name = i?.title?:"", id = i?.id?:-1))
+            list.add(AmenityModel(name = i?.title?:"", id = i?.id?:-1, image = i?.image?:"" ))
         }
         return list
     }

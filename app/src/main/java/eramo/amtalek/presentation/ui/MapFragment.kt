@@ -1,8 +1,11 @@
 package eramo.amtalek.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
@@ -18,53 +21,91 @@ import eramo.amtalek.databinding.FragmentMapBinding
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
-class MapFragment : BindingFragment<FragmentMapBinding>(), OnMapReadyCallback {
+class MapFragment : BindingFragment<FragmentMapBinding>(){
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentMapBinding::inflate
 
-    private var locationLatLng: LatLng? = null
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val url = arguments?.getString("url")
-        locationLatLng = extractLatLngFromUrl(url)
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        Log.e("url map", url.toString())
+        binding.webView.apply {
+            url?.let {
+                val adjustedData = """
+            <html>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    iframe, img, video {
+                        max-width: 100%;
+                        width: 100%;
+                        height: 100vh;
+                    }
+                </style>
+                <script>
+                    var lastY;
+                    var scale = 1;
 
-        binding.apply {
-            cvBack.setOnClickListener { findNavController().popBackStack() }
-        }
-    }
+                    document.addEventListener('touchstart', function(e) {
+                        if (e.touches.length == 1) {
+                            lastY = e.touches[0].clientY;
+                        }
+                    });
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        locationLatLng?.let { latLng ->
-            // Move the camera to the extracted location and add a marker
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-            googleMap.addMarker(MarkerOptions().position(latLng).title("Selected Location"))
-        } ?: run {
-            // If no valid location, set a default one (Optional)
-            val defaultLocation = LatLng(0.0, 0.0)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 2f))
-        }
+                    document.addEventListener('touchmove', function(e) {
+                        if (e.touches.length == 1) {
+                            var currentY = e.touches[0].clientY;
+                            var deltaY = currentY - lastY;
 
-        googleMap.uiSettings.isZoomControlsEnabled = true // Enable zoom controls
-    }
+                            scale += deltaY * 0.005;  // Adjust the zoom sensitivity as needed
+                            scale = Math.max(0.5, Math.min(scale, 3));  // Restrict scale between 0.5 and 3
+                            
+                            document.body.style.transform = 'scale(' + scale + ')';
+                            document.body.style.transformOrigin = '50% 50%';
+                            lastY = currentY;
+                        }
+                    });
 
-    private fun extractLatLngFromUrl(url: String?): LatLng? {
-        return url?.let {
-            try {
-                val latLngString = it.removePrefix("geo:") // Remove 'geo:' prefix
-                val latLng = latLngString.split(",")
-                val latitude = latLng[0].toDouble()
-                val longitude = latLng[1].toDouble()
-                LatLng(latitude, longitude)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
+                    document.addEventListener('touchend', function(e) {
+                        lastY = null;
+                    });
+                </script>
+            </head>
+            <body>
+                $url
+            </body>
+            </html>
+        """.trimIndent()
+
+                settings.apply {
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    loadWithOverviewMode = true
+                    useWideViewPort = true
+                    builtInZoomControls = false  // Disable default zoom controls
+                    displayZoomControls = false
+                    setSupportZoom(false)  // Disable native zoom support
+                }
+
+                webChromeClient = WebChromeClient()
+                webViewClient = WebViewClient()
+
+                // Load the adjusted HTML data
+                loadData(adjustedData, "text/html", "utf-8")
             }
         }
+        binding.cvBack.setOnClickListener {
+            findNavController().popBackStack() // Navigate back or close the fragment
+        }
+
     }
 }

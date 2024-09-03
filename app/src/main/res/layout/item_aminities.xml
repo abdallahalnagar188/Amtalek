@@ -4,28 +4,42 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/_2sdp"
+    android:padding="@dimen/_6sdp"
     android:layout_margin="@dimen/_10sdp">
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="@dimen/_16sdp"
-        android:layout_height="@dimen/_16sdp"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="@dimen/_28sdp"
+        android:layout_height="@dimen/_28sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_aminities"/>
+        app:cardCornerRadius="@dimen/_24sdp"
+        android:backgroundTint="@color/gray_low"
+        android:orientation="horizontal"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_aminities"/>
+    </com.google.android.material.card.MaterialCardView>
+
 
     <TextView
         android:id="@+id/amenityName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_4sdp"
-        android:fontFamily="@font/font_medium"
+        android:fontFamily="@font/font"
         android:maxLines="2"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/black"
         android:textSize="@dimen/_8ssp"
-        app:layout_constraintBottom_toBottomOf="@id/icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toTopOf="@id/icon"
+        android:paddingHorizontal="@dimen/_6sdp"
+        app:layout_constraintBottom_toBottomOf="@id/cardView"
+        app:layout_constraintStart_toEndOf="@id/cardView"
+        app:layout_constraintTop_toTopOf="@id/cardView"
         tools:text="Aminities" />
 
 

@@ -1,7 +1,5 @@
 package eramo.amtalek.domain.model.property
 
-import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.Autocad
-import eramo.amtalek.data.remote.dto.property.newResponse.prop_details.BrokerDetail
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.project.AutocadModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel

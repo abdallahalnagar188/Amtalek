@@ -7,18 +7,12 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.Spanned
 import android.text.TextUtils
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Toast
@@ -54,7 +48,7 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
-
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.ImageSliderDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
 import eramo.amtalek.util.LocalUtil
@@ -70,7 +64,6 @@ import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.internal.format
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import org.imaginativeworld.whynotimagecarousel.utils.setImage
@@ -100,6 +93,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
+
 
     @Inject
     lateinit var rvRatingAdapter: RvRatingAdapter
@@ -824,11 +818,15 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     .placeholder(R.drawable.ic_no_image)
                     .into(ivUserImage)
 
+                webView.visibility = View.GONE
+                mymapCardView.visibility = View.GONE
+                tvMyMap.visibility = View.GONE
+
                 if (model.mapUrl.isNullOrEmpty()) {
                     webView.visibility = View.GONE
                     mymapCardView.visibility = View.GONE
-                } else {
-                    mapSetup(model.mapUrl)
+                    cardMap.visibility = View.GONE
+                    tvMyMap.visibility = View.GONE
                 }
                 if (model.videoUrl.isNullOrEmpty()) {
                     tvVideo.visibility = View.GONE
@@ -838,18 +836,20 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         setupVideo(it)
                     }
                 }
-
+                binding.autocadDrawingsSlider.visibility = View.GONE
+                binding.tvAutocadDrawings.visibility = View.GONE
                 if (model.autocad.isEmpty()) {
                     binding.autocadDrawingsSlider.visibility = View.GONE
                     binding.tvAutocadDrawings.visibility = View.GONE
+                    cardAutocadDrawings.visibility = View.GONE
                 } else {
                     val autocadImages = handleAutocadImages(model.autocad)
                     setupAutocadImagesSlider(autocadImages)
                 }
 
-                if(model.roi == "0 %"){
+                if (model.roi == "0.00 %") {
                     propertyDetailsLayout.linearRoi.visibility = View.GONE
-                }else{
+                } else {
                     propertyDetailsLayout.linearRoi.visibility = View.VISIBLE
                     propertyDetailsLayout.tvRoiValue.text = model.roi
                 }
@@ -864,17 +864,24 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 propertyDetailsLayout.tvFloorValue.text = model.landType
 
 
-//                val htmlContent = model.description
-//
-//                // Set initial content in tvDescriptionValue
-//                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
-//                } else {
-//                    Html.fromHtml(htmlContent)
-//                }
-                tvDescriptionValue.text = SpannableString(model.description)
+                val htmlContent = model.description
+
+                // Set initial content in tvDescriptionValue
+                val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(htmlContent)
+                }
+                tvDescriptionValue.text = spannedText
                 // Update the TextView based on the expanded state
                 updateTextView()
+                tvDescriptionValue.post {
+                    if (tvDescriptionValue.lineCount < 3) {
+                        tvShowMore.visibility = View.GONE
+                    } else {
+                        tvShowMore.visibility = View.VISIBLE
+                    }
+                }
 
                 // Set a click listener on the TextView to toggle text expansion
                 tvShowMore.setOnClickListener {
@@ -893,9 +900,31 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         setupVideo(it)
                     }
                 }
-//                cardMap.setOnClickListener(){
-//                    findNavController().navigate(R.id.mapFragment, bundleOf("url" to model.mapUrl))
+                cardMap.setOnClickListener() {
+                    findNavController().navigate(R.id.mapFragment, bundleOf("url" to model.mapUrl))
+                }
+                cardAutocadDrawings.setOnClickListener() {
+                    findNavController().navigate(
+                        R.id.autocadFragment,
+                        bundleOf("autocadList" to model.autocad.toTypedArray(), "title" to model.title)
+                    )
+                }
+//                cardAutocadDrawings.setOnClickListener {
+//                    val imageList = model.autocad // Assuming this is a list of AutocadModel
+//                    if (!imageList.isNullOrEmpty()) {
+//                        showImageSliderInDialogForAutocad(imageList, 0)
+//                    }
 //                }
+
+                binding.imageSlider.carouselListener = object : CarouselListener {
+                    override fun onClick(position: Int, carouselItem: CarouselItem) {
+                        val imageList = model.sliderImages.toMutableList()
+                        if (imageList.isNotEmpty()) {
+                            showImageSliderInDialog(imageList, position)
+                        }
+                    }
+                }
+
 //                if (model.sold) {
 //                    contactUs.root.visibility = View.VISIBLE
 //                }else {
@@ -916,6 +945,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                         Log.e("id for user", model.id.toString())
                     }
                 }
+
 
 
                 tvRatings.text = getString(R.string.s_ratings, model.comments.size.toString())
@@ -994,20 +1024,20 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
-    private fun createClickableSpan(htmlContent: String): SpannableString {
-        val linkText = if (isTextExpanded) getString(R.string.show_less) else getString(R.string.show_more)
-        val spannable = SpannableString("$htmlContent")
-
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-                isTextExpanded = !isTextExpanded
-                updateTextView()
-            }
-        }
-
-        spannable.setSpan(clickableSpan, spannable.length - linkText.length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        return spannable
-    }
+//    private fun createClickableSpan(htmlContent: String): SpannableString {
+//        val linkText = if (isTextExpanded) getString(R.string.show_less) else getString(R.string.show_more)
+//        val spannable = SpannableString("$htmlContent")
+//
+//        val clickableSpan = object : ClickableSpan() {
+//            override fun onClick(widget: View) {
+//                isTextExpanded = !isTextExpanded
+//                updateTextView()
+//            }
+//        }
+//
+//        spannable.setSpan(clickableSpan, spannable.length - linkText.length, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        return spannable
+//    }
 
     private fun updateTextView() {
         binding.apply {
@@ -1130,6 +1160,11 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             )
         }
 
+
+
+
+
+
         binding.apply {
             imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
             imageSlider.setIndicator(imageSliderDots)
@@ -1138,53 +1173,53 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         }
     }
 
-    private fun mapSetup(data: String?) {
-        data?.let {
-            val adjustedData = """
-            <html>
-            <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                    body {
-                        margin: 0;
-                        padding: 0;
-                    }
-                    iframe, img, video {
-                        max-width: 100%;
-                        width: 100%;
-                        height: 24rem;
-                    }
-                </style>
-            </head>
-            <body>
-                $data
-            </body>
-            </html>
-        """.trimIndent()
-
-            binding.webView.settings.apply {
-                javaScriptEnabled = true
-                loadWithOverviewMode = true
-                useWideViewPort = true
-            }
-
-            binding.webView.webChromeClient = WebChromeClient()
-            binding.webView.loadData(adjustedData, "text/html", "utf-8")
-        }
-
-
+//    private fun mapSetup(data: String?) {
 //        data?.let {
-//            val webSettings: WebSettings = binding.webView.settings
-//            webSettings.javaScriptEnabled = true
-//            webSettings.loadWithOverviewMode = true
-//            webSettings.useWideViewPort = true
-//            webSettings.setSupportZoom(false)
-//            webSettings.builtInZoomControls = false
-//            webSettings.displayZoomControls = true
-//            binding.webView.webViewClient = WebViewClient()
-//            binding.webView.loadData(data, "text/html", "utf-8")
+//            val adjustedData = """
+//            <html>
+//            <head>
+//                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//                <style>
+//                    body {
+//                        margin: 0;
+//                        padding: 0;
+//                    }
+//                    iframe, img, video {
+//                        max-width: 100%;
+//                        width: 100%;
+//                        height: 24rem;
+//                    }
+//                </style>
+//            </head>
+//            <body>
+//                $data
+//            </body>
+//            </html>
+//        """.trimIndent()
+//
+//            binding.webView.settings.apply {
+//                javaScriptEnabled = true
+//                loadWithOverviewMode = true
+//                useWideViewPort = true
+//            }
+//
+//            binding.webView.webChromeClient = WebChromeClient()
+//            binding.webView.loadData(adjustedData, "text/html", "utf-8")
 //        }
-    }
+//
+//
+////        data?.let {
+////            val webSettings: WebSettings = binding.webView.settings
+////            webSettings.javaScriptEnabled = true
+////            webSettings.loadWithOverviewMode = true
+////            webSettings.useWideViewPort = true
+////            webSettings.setSupportZoom(false)
+////            webSettings.builtInZoomControls = false
+////            webSettings.displayZoomControls = true
+////            binding.webView.webViewClient = WebViewClient()
+////            binding.webView.loadData(data, "text/html", "utf-8")
+////        }
+//    }
 
     private fun setupAutocadImagesSlider(data: List<CarouselItem>) {
         binding.apply {
@@ -1207,6 +1242,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             })
         }
     }
+
+    private fun showImageSliderInDialog(imageList: List<String>, position: Int) {
+        val dialogFragment = ImageSliderDialogFragment.newInstance(imageList, position)
+        dialogFragment.show(parentFragmentManager, "image_slider_dialog")
+    }
+//    private fun showImageSliderInDialogForAutocad(imageList: List<AutocadModel>, position: Int) {
+//        val dialogFragment = ImageSliderDialogFragment.instance(imageList, position)
+//        dialogFragment.show(parentFragmentManager, "image_slider_dialog_autocad")
+//    }
+
 
     private fun initPropertyFeaturesRv(data: List<AmenityModel>) {
         binding.apply {

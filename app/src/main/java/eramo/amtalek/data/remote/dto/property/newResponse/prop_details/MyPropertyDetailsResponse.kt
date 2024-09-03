@@ -81,7 +81,7 @@ data class MyPropertyDetailsResponse(
     private fun propertyFeaturesList(): List<AmenityModel> {
         val list = mutableListOf<AmenityModel>()
         for (i in data?.get(0)?.aminities!!) {
-            list.add(AmenityModel(name = i.title ?: "", id = i.id ?: -1))
+            list.add(AmenityModel(name = i.title ?: "", id = i.id ?: -1, image = i.image))
         }
         return list
     }
@@ -490,7 +490,9 @@ data class Aminity(
     @SerializedName("id")
     var id: Int?,
     @SerializedName("title")
-    var title: String?
+    var title: String?,
+    @SerializedName("image")
+    var image: String?
 ) : Parcelable
 
 @Parcelize

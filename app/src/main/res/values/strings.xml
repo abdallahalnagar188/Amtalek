@@ -758,7 +758,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="s_ratings">Ratings (%s)</string>
     <string name="s_invoices">INVOICE ( %s )</string>
 
-    <string name="autocad_drawings">Autocad drawings</string>
+    <string name="autocad_drawings">Autocad</string>
     <string name="register_with_us">Register with us</string>
     <string name="notes_with_dots">Notes:</string>
 
@@ -1042,6 +1042,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="no_messages">You must buy message</string>
     <string name="show_less">show less</string>
     <string name="show_more">show more</string>
+    <string name="location_for_property">Location</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

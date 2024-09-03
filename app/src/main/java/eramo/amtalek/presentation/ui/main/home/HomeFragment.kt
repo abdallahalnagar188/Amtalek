@@ -696,33 +696,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
 
     }
 
-    private fun fetchAddRemoveToFavStateTwo() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.favState.collect() { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            showToast(state.data?.message.toString())
-
-                        }
-
-                        is UiState.Error -> {
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                        }
-
-                        else -> {}
-                    }
-                }
-            }
-        }
-
-
-    }
     private fun fetchGetHomeFeaturedProperties() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

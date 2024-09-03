@@ -81,7 +81,7 @@
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toStartOf="@id/iv_fav"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="4,000,000 EGP" />
 
         <TextView
@@ -106,16 +106,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/black"
             android:ellipsize="end"
-            android:fontFamily="@font/font"
+            android:fontFamily="@font/font_extrabold"
             android:maxLines="1"
             android:textAlignment="viewStart"
-            android:textSize="@dimen/_9ssp"
-            app:layout_constraintBottom_toTopOf="@id/iv_area"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/_11ssp"
+
+            app:layout_constraintEnd_toStartOf="@+id/iv_fav"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_duration_rent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Residential apartment for sale in manshetercity" />
 
         <ImageView
@@ -127,7 +129,7 @@
             android:src="@drawable/ic_area"
             app:layout_constraintBottom_toTopOf="@id/iv_location"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_duration_rent" />
 
         <TextView
             android:id="@+id/tv_area"

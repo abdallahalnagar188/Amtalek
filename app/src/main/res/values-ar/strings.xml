@@ -791,7 +791,7 @@
     <string name="s_invoices">فاتوره رقم : %S</string>
 
 
-    <string name="autocad_drawings">رسومات الأوتوكاد</string>
+    <string name="autocad_drawings">مخطط العقار</string>
     <string name="register_with_us">سجل معنا</string>
     <string name="notes_with_dots">ملاحظات:</string>
 
@@ -1073,6 +1073,7 @@
     <string name="no_messages">يجب عليك شراء رسائل</string>
     <string name="show_less"> مشاهدة اقل</string>
     <string name="show_more">مشاهدة الكل</string>
+    <string name="location_for_property">موقع العقار</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

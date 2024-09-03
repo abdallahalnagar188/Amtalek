@@ -12,8 +12,9 @@
         android:layout_marginHorizontal="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/blue_low"
+        android:backgroundTint="#ECF7FF"
         app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="0dp"
         >
         <ImageView
             android:id="@+id/iv_prop_type"

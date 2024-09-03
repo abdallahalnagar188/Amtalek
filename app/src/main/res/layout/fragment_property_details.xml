@@ -95,9 +95,8 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14ssp"
                     android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
                     tools:text="4,000,000 EGP" />
 
                 <com.yy.mobile.rollingtextview.RollingTextView
@@ -109,10 +108,10 @@
                     android:fontFamily="@font/font"
                     android:text="99999999"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
                     tools:text="400,000,000" />
 
                 <TextView
@@ -121,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_price_animation"
                     app:layout_constraintStart_toEndOf="@id/tv_price_animation"
                     app:layout_constraintTop_toTopOf="@id/tv_price_animation"
@@ -150,7 +149,7 @@
                     android:layout_marginTop="@dimen/_12sdp"
                     android:fontFamily="@font/font"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_15ssp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_price"
@@ -162,7 +161,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_price_animation_rent"
                     app:layout_constraintStart_toEndOf="@id/tv_price_animation_rent"
                     app:layout_constraintTop_toTopOf="@id/tv_price_animation_rent"
@@ -174,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_currency_rent"
                     app:layout_constraintStart_toEndOf="@id/tv_currency_rent"
                     app:layout_constraintTop_toTopOf="@id/tv_currency_rent"
@@ -189,7 +188,7 @@
                     android:fontFamily="@font/font"
                     android:text="@string/or"
                     android:textColor="@color/dark_green"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_15ssp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_currency"
                     app:layout_constraintStart_toEndOf="@id/tv_currency"
                     app:layout_constraintTop_toTopOf="@id/tv_currency" />
@@ -202,7 +201,7 @@
                     app:cardBackgroundColor="@color/amtalek_red"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_currency">
+                    app:layout_constraintTop_toTopOf="@id/tv_title">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,13 +219,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/screen_margin_sides"
                     android:layout_marginTop="@dimen/_18sdp"
-                    android:fontFamily="@font/font_medium"
-                    android:textColor="@color/text_gray"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintBottom_toTopOf="@id/iv_location"
+                    android:fontFamily="@font/font_extrabold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp"
                     app:layout_constraintEnd_toStartOf="@id/sold_cardView"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_price_animation_rent"
+                    app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
                     tools:text="Residential apartment for sale, super lux with elevator" />
 
                 <ImageView
@@ -237,7 +235,7 @@
                     android:layout_marginTop="@dimen/_18sdp"
                     android:src="@drawable/ic_location_black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_currency_rent" />
 
                 <TextView
                     android:id="@id/tv_location"
@@ -272,7 +270,6 @@
                     android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_18sdp"
                     android:layout_marginEnd="24dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/font_medium"
@@ -280,7 +277,8 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintTop_toTopOf="@id/tv_location"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_location"
                     tools:text="8/7/2023" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -298,6 +296,7 @@
                         android:id="@+id/iv_finishing"
                         android:layout_width="@dimen/_22sdp"
                         android:layout_height="@dimen/_22sdp"
+                        android:visibility="gone"
                         android:src="@drawable/ic_finishing"
                         app:layout_constraintBottom_toTopOf="@+id/tv_finishing"
                         app:layout_constraintEnd_toStartOf="@id/iv_location2"
@@ -309,6 +308,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/font"
+                        android:visibility="gone"
                         android:gravity="center"
                         android:maxLines="2"
                         android:text="Finishedsdsdsdsdsddddadaavailable"
@@ -323,7 +323,6 @@
                         android:id="@+id/iv_location2"
                         android:layout_width="@dimen/_22sdp"
                         android:layout_height="@dimen/_22sdp"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
                         android:src="@drawable/ic_compass_white"
                         app:layout_constraintBottom_toTopOf="@+id/tv_location2"
                         app:layout_constraintEnd_toStartOf="@id/iv_area"
@@ -349,7 +348,6 @@
                         android:id="@+id/iv_area"
                         android:layout_width="@dimen/_22sdp"
                         android:layout_height="@dimen/_22sdp"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
                         android:src="@drawable/ic_area_rounded_white"
                         app:layout_constraintBottom_toTopOf="@+id/tv_area"
                         app:layout_constraintEnd_toStartOf="@id/iv_bathrooms"
@@ -375,7 +373,6 @@
                         android:id="@+id/iv_bathrooms"
                         android:layout_width="@dimen/_22sdp"
                         android:layout_height="@dimen/_22sdp"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
                         android:src="@drawable/ic_bathrooms2"
                         app:layout_constraintBottom_toTopOf="@+id/tv_area"
                         app:layout_constraintEnd_toStartOf="@id/iv_bedrooms"
@@ -401,7 +398,6 @@
                         android:id="@+id/iv_bedrooms"
                         android:layout_width="@dimen/_22sdp"
                         android:layout_height="@dimen/_22sdp"
-                        android:layout_marginStart="@dimen/screen_margin_sides"
                         android:src="@drawable/ic_bedrooms2"
                         app:layout_constraintBottom_toTopOf="@+id/tv_area"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -529,22 +525,22 @@
                     app:layout_constraintTop_toBottomOf="@id/user_profile_layout"
                     app:layout_constraintStart_toStartOf="parent"
                     android:orientation="horizontal"
-                    android:weightSum="2"
                    >
 
                     <!-- First Card -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_map"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_140sdp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
                         android:layout_margin="8dp"
-                        android:layout_weight="1"
                         app:cardElevation="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:gravity="center"
                             android:background="@drawable/blue_border_with_radius_background"
                             android:padding="16dp">
 
@@ -558,27 +554,29 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/location"
-                                android:textSize="18sp"
+                                android:text="@string/location_for_property"
+                                android:textSize="@dimen/_13ssp"
+                                android:gravity="center"
                                 android:fontFamily="@font/font_medium"
                                 android:textColor="@color/black"
-                                android:layout_gravity="center_vertical"/>
+                                android:layout_gravity="center"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!-- Second Card -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_autocad_drawings"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_140sdp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
                         android:layout_margin="8dp"
-                        android:layout_weight="1"
                         app:cardElevation="0dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:gravity="center"
                             android:background="@drawable/blue_border_with_radius_background"
                             android:padding="16dp">
 
@@ -594,9 +592,9 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/autocad_drawings"
                                 android:fontFamily="@font/font_medium"
-                                android:textSize="18sp"
+                                android:textSize="@dimen/_13ssp"
                                 android:textColor="@color/black"
-                                android:layout_gravity="center_vertical"/>
+                                android:layout_gravity="center"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -673,16 +671,18 @@
 
                 <TextView
                     android:id="@+id/tv_show_more"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/show_more"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
                     android:paddingHorizontal="@dimen/_8sdp"
+                    android:background="#F9F9F9"
+                    android:gravity="end"
+                    android:textSize="@dimen/_8sdp"
                     android:paddingVertical="@dimen/_6sdp"
                     android:fontFamily="@font/font_medium"
                     app:layout_constraintTop_toBottomOf="@id/tv_description_value"
-                    app:layout_constraintStart_toStartOf="@id/tv_description"
+                    app:layout_constraintEnd_toEndOf="parent"
                     />
 
 
@@ -736,6 +736,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_autocad_drawings"
                     app:showNavigationButtons="false"
                     app:showTopShadow="false" />
+
 
                 <include
                     android:id="@+id/property_features_layout"

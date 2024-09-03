@@ -425,6 +425,19 @@
             android:name="news"
             app:argType="eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX" />
     </fragment>
+    <fragment
+        android:id="@+id/autocadFragment"
+        android:name="eramo.amtalek.presentation.ui.drawer.AutoCadFragment"
+        android:label="fragment_autocad"
+        tools:layout="@layout/fragment_auto_cad">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="autocadList"
+            app:argType="eramo.amtalek.domain.model.project.AutocadModel[]" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/newsCategoryFragment"
@@ -490,6 +503,17 @@
             android:name="propertyId"
             app:argType="string" />
     </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/autocadFragment"-->
+<!--        android:name="eramo.amtalek.presentation.ui.drawer.AutoCadFragment"-->
+<!--        android:label="fragment_auto_cad"-->
+<!--        tools:layout="@layout/fragment_auto_cad">-->
+<!--        <argument-->
+<!--            android:name="model"-->
+<!--            app:argType="eramo.amtalek.domain.model.property.PropertyDetailsModel" />-->
+<!--    </fragment>-->
+
     <fragment
         android:id="@+id/myProjectDetailsFragment"
         android:name="eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragment"

@@ -145,8 +145,6 @@ class MainActivity : LocalizationActivity(),
         }
 
 
-
-
     }
 
     private fun logSentFriendRequestEvent(logger: AppEventsLogger) {
@@ -179,6 +177,7 @@ class MainActivity : LocalizationActivity(),
             .setNegativeButton("Cancel", null)
             .show()
     }
+
     private fun handelUserTypes() {
         if (UserUtil.getUserType() == "broker") {
             binding.inDrawerHeader.navHeaderCurrentPackage.visibility = View.GONE
@@ -516,6 +515,8 @@ class MainActivity : LocalizationActivity(),
                 R.id.addAddonsFragment,
                 R.id.newsDetailsFragmentInSeeMore,
                 R.id.newsDetailsInCategoryFragment,
+
+
                     // R.id.myInvoicesFragment
 
                 -> {
@@ -538,6 +539,13 @@ class MainActivity : LocalizationActivity(),
                         binding.mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                         mainBottomAppBar.visibility = View.VISIBLE
                         mainFabHome.visibility = View.VISIBLE
+                    }
+                }
+
+                R.id.mapFragment -> {
+                    binding.apply {
+                        mainBottomAppBar.visibility = View.GONE
+                        mainFabHome.visibility = View.GONE
                     }
                 }
 
