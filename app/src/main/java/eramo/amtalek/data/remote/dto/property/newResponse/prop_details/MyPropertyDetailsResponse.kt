@@ -99,12 +99,12 @@ data class MyPropertyDetailsResponse(
         for (i in data?.get(0)?.comments!!) {
             list.add(
                 RatingCommentsModel(
-                    i?.userName ?: "",
-                    i?.userName ?: "",
-                    i?.userImage ?: "",
-                    i?.userComment ?: "",
-                    i?.createdAt ?: "",
-                    i?.stars?.toFloat() ?: 0.0f
+                    i.userName ?: "",
+                    i.userName ?: "",
+                    i.userImage ?: "",
+                    i.userComment ?: "",
+                    i.createdAt ?: "",
+                    i.stars?.toFloat() ?: 0.0f
                 )
             )
         }

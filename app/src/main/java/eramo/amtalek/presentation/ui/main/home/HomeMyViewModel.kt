@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
+import eramo.amtalek.data.remote.dto.myHome.news.NewsDetailsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse
 import eramo.amtalek.data.remote.dto.project.allProjects.AllProjectsResponse
 import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
@@ -28,6 +29,7 @@ import eramo.amtalek.domain.repository.AllNormalPropertiesRepo
 import eramo.amtalek.domain.repository.AllPropertyRepo
 import eramo.amtalek.domain.repository.MyHomeRepository
 import eramo.amtalek.domain.repository.NewsCategoryRepo
+import eramo.amtalek.domain.repository.NewsDetailsRepo
 import eramo.amtalek.domain.usecase.allcitys.GetAllCities
 import eramo.amtalek.domain.usecase.allprojects.GetAllProjects
 import eramo.amtalek.domain.usecase.allpropety.GetAllNormalProperty
@@ -61,7 +63,8 @@ class HomeMyViewModel @Inject constructor(
     private val allNormalProperty: AllNormalPropertiesRepo,
     private val api: AmtalekApi,// Inject BrokerApi for PagingSource
     private val newsRepo: AllNewsRepo,
-    private val newsCategoryUseCase: NewsCategoryRepo
+    private val newsCategoryUseCase: NewsCategoryRepo,
+    private val newsDetailsRepo: NewsDetailsRepo,
 
 ) : ViewModel() {
 
@@ -118,6 +121,9 @@ class HomeMyViewModel @Inject constructor(
     private val _newsCategory = MutableStateFlow<Resource<NewsCategoryResponse>>(Resource.Loading())
     val newsCategory: StateFlow<Resource<NewsCategoryResponse>> = _newsCategory
 
+    private val _newsDetails = MutableStateFlow<Resource<NewsDetailsResponse>>(Resource.Loading())
+    val newsDetails: StateFlow<Resource<NewsDetailsResponse>> = _newsDetails
+
     //---------------------------------------------------------------------------------//
     private var initScreenJob: Job? = null
     private var getHomeFeaturedPropertiesJob: Job? = null
@@ -172,6 +178,14 @@ class HomeMyViewModel @Inject constructor(
         .cachedIn(viewModelScope)
 
     //---------------------------------------------------------------------------------//
+
+    fun getNewsDetails(id: String) {
+        viewModelScope.launch {
+            newsDetailsRepo.getNewsDetails(id).collectLatest {
+                _newsDetails.value = it
+            }
+        }
+    }
     private fun getHomeFeaturedProperties(cityId: String) {
         getHomeFeaturedPropertiesJob?.cancel()
         getHomeFeaturedPropertiesJob = viewModelScope.launch(Dispatchers.IO) {

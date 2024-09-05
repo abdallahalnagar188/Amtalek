@@ -10,7 +10,7 @@
 
 
     <string name="cancel">Cancel</string>
-    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.9</string>
+    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.9.1</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">Warning!</string>
@@ -726,6 +726,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="whatsapp">WhatsApp</string>
     <string name="call_us">Call Us</string>
     <string name="s_projects">(%s) Projects</string>
+    <string name="s_images">(%s) Images</string>
     <string name="s_satisfied_customers">(%s) Satisfied customers</string>
     <string name="s_all_properties">All Properties (%s)</string>
 
@@ -1043,6 +1044,9 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="show_less">show less</string>
     <string name="show_more">show more</string>
     <string name="location_for_property">Location</string>
+    <string name="no_completed_projects_yet">No Completed Projects Yet</string>
+    <string name="no_search_result">No Search result</string>
+    <string name="no_notifications">no notifications</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

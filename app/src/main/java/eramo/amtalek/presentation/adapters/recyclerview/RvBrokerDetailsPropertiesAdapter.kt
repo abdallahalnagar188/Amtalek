@@ -95,7 +95,7 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                 tvBathroom.text = model.bathRoomNo.toString()
                 tvBed.text = model.bedRoomsNo.toString()
                 tvLocation.text = model.address
-                tvDatePosted.text = model.createdAt
+               // tvDatePosted.text = model.createdAt
 
                 Glide.with(itemView)
                     .load(model.primaryImage)

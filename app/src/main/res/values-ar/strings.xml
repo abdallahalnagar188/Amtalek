@@ -758,6 +758,7 @@
     <string name="whatsapp">واتساب</string>
     <string name="call_us">إتصل بنا</string>
     <string name="s_projects">(%s) المشاريع</string>
+    <string name="s_images">%s صوره  </string>
     <string name="s_satisfied_customers">(%s) العملاء الراضين</string>
     <string name="s_all_properties">كل العقارات (%s)</string>
 
@@ -1074,6 +1075,9 @@
     <string name="show_less"> مشاهدة اقل</string>
     <string name="show_more">مشاهدة الكل</string>
     <string name="location_for_property">موقع العقار</string>
+    <string name="no_completed_projects_yet">لا توجد مشاريع </string>
+    <string name="no_search_result">No Search result</string>
+    <string name="no_notifications">لا توجد اشعارات</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

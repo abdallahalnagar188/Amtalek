@@ -1,20 +1,19 @@
 package eramo.amtalek.data.repository
 
 import eramo.amtalek.data.remote.AmtalekApi
-import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
-import eramo.amtalek.domain.repository.BrokersDetailsRepo
-import eramo.amtalek.util.UserUtil
+import eramo.amtalek.data.remote.dto.myHome.news.NewsDetailsResponse
+import eramo.amtalek.domain.repository.NewsDetailsRepo
 import eramo.amtalek.util.state.ApiState
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.toResultFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class BrokersDetailsRepoImpl(private val apiService: AmtalekApi) : BrokersDetailsRepo {
-    override suspend fun getBrokersDetailsFromRemote(id: Int): Flow<Resource<BrokersDetailsResponse>> {
+class NewsDetailsRepoImpl(private val api: AmtalekApi): NewsDetailsRepo {
+    override suspend fun getNewsDetails(id: String): Flow<Resource<NewsDetailsResponse>> {
         return flow {
             val result = toResultFlow {
-                apiService.getBrokersDetails(id)
+                api.getNewsDetails(id)
             }
             result.collect {
                 when (it) {
@@ -28,6 +27,4 @@ class BrokersDetailsRepoImpl(private val apiService: AmtalekApi) : BrokersDetail
             }
         }
     }
-
-
 }

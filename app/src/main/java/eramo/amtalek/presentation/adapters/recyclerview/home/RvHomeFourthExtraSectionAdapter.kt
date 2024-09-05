@@ -119,7 +119,7 @@ class RvHomeFourthExtraSectionAdapter @Inject constructor() :
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
-                tvDatePosted.text = model.datePosted
+                //tvDatePosted.text = model.datePosted
 
                 Glide.with(itemView)
                     .load(model.imageUrl)

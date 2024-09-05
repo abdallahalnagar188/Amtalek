@@ -4,7 +4,7 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-09-03T07:38:47.014903155Z">
+        <DropdownSelection timestamp="2024-09-05T12:26:23.224503781Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=/home/eramo/.android/avd/Pixel_7a_API_34.avd" />

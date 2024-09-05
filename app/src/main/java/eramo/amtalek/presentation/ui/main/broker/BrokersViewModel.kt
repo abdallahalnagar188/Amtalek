@@ -13,11 +13,14 @@ import eramo.amtalek.data.remote.dto.broker.entity.DataX
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
+import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
+import eramo.amtalek.domain.repository.BrokersDetailsRepo
 import eramo.amtalek.domain.usecase.broker.GetBrokers
 import eramo.amtalek.domain.usecase.broker.GetBrokersDetails
 import eramo.amtalek.domain.usecase.broker.GetBrokersProperties
 import eramo.amtalek.domain.usecase.user.GetUserDetails
+import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,14 +29,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BrokersViewModel @Inject constructor(
-    private val getBrokersDetailsUseCase: GetBrokersDetails,
+    private val getBrokersDetailsUseCase: BrokersDetailsRepo,
     private val getBrokersPropertiesUseCase: GetBrokersProperties,
     private val getUserDetailsUseCase: GetUserDetails,
     private val brokerApi: AmtalekApi // Inject BrokerApi for PagingSource
 ) : ViewModel() {
 
-    private val _brokersDetails: MutableStateFlow<BrokersDetailsResponse?> = MutableStateFlow(null)
-    val brokersDetails: StateFlow<BrokersDetailsResponse?> get() = _brokersDetails
+
+
+    private val _brokersDetails= MutableStateFlow<Resource<BrokersDetailsResponse?>>(Resource.Loading())
+    val brokersDetails: MutableStateFlow<Resource<BrokersDetailsResponse?>> get() = _brokersDetails
+
+//    private val _brokersDetails: MutableStateFlow<BrokersDetailsResponse?> = MutableStateFlow(null)
+//    val brokersDetails: StateFlow<BrokersDetailsResponse?> get() = _brokersDetails
 
     private val _userDetails: MutableStateFlow<UserDetailsResponse?> = MutableStateFlow(null)
     val userDetails: StateFlow<UserDetailsResponse?> get() = _userDetails
@@ -49,12 +57,21 @@ class BrokersViewModel @Inject constructor(
 
     fun getBrokersDetails(id: Int) {
         viewModelScope.launch {
-            try {
-                _brokersDetails.value = getBrokersDetailsUseCase(id)
-                Log.e("success", _brokersDetails.value.toString())
-            } catch (e: Exception) {
-                Log.e("failed", e.message.toString())
-            }
+           getBrokersDetailsUseCase.getBrokersDetailsFromRemote(id).collect {
+               when(it){
+                   is Resource.Success -> {
+                       _brokersDetails.value = Resource.Success(it.data)
+                   }
+
+                   is Resource.Error -> {
+                       _brokersDetails.value = Resource.Error(it.message!!)
+                   }
+                   is Resource.Loading -> {
+                       _brokersDetails.value = Resource.Loading()
+                   }
+               }
+
+           }
         }
     }
 

@@ -482,7 +482,6 @@ class MainActivity : LocalizationActivity(),
                 R.id.joinUsFragment,
                 R.id.completedProjectsFragment,
                 R.id.satisfiedCustomersFragment,
-                R.id.newsDetailsFragment,
                 R.id.offersChatFragment,
                 R.id.usersChatFragment,
                 R.id.userProfileFragment,
@@ -513,8 +512,6 @@ class MainActivity : LocalizationActivity(),
                 R.id.searchResultFragment,
                 R.id.seeMoreNewsFragment,
                 R.id.addAddonsFragment,
-                R.id.newsDetailsFragmentInSeeMore,
-                R.id.newsDetailsInCategoryFragment,
 
 
                     // R.id.myInvoicesFragment

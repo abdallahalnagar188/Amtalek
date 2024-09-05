@@ -77,7 +77,7 @@ class RvHotOffersSellPropertiesAdapter @Inject constructor() :
                 tvBathroom.text = model.bathroomsCount.toString()
                 tvBed.text = model.bedsCount.toString()
                 tvLocation.text = model.location
-                tvDatePosted.text = model.datePosted
+                //tvDatePosted.text = model.datePosted
                 tvLabel.text = itemView.context.getString(R.string.for_sell)
 
                 Glide.with(itemView)

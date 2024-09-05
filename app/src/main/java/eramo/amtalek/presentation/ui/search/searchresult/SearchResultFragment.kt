@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +31,7 @@ import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerSmallAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.FilterDialogFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.drawer.addproperty.fifth.SelectAmenitiesAdapter
 import eramo.amtalek.presentation.ui.interfaces.FavClickListener
@@ -108,6 +108,13 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                     "extra"
                 )
             }
+            btnFilter.setOnClickListener {
+                val couponDialog = FilterDialogFragment()
+                couponDialog.show(
+                    activity?.supportFragmentManager!!,
+                    "extra"
+                )
+            }
             amenitiesSpinner.setOnClickListener(){
                 aminitiesCardView.visibility = View.VISIBLE
             }
@@ -134,6 +141,8 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 }
 
             }
+
+
 
         }
     }
@@ -281,9 +290,9 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     private fun requestData() {
         searchResultViewModel.getSearchResultSlider()
-        val cityfromargs = if(searchQuery.city==0) UserUtil.getCityFiltrationId() else searchQuery.city
+        val cityFromArgs = if(searchQuery.city==0) UserUtil.getCityFiltrationId() else searchQuery.city
         viewModel.search(
-            city = cityfromargs.toString(),
+            city = cityFromArgs.toString(),
             propertyType = if(searchQuery.propertyTypeId=="-1"|| searchQuery.propertyTypeId=="") "" else searchQuery.propertyTypeId,
             minPrice = searchQuery.minPrice,
             maxPrice = searchQuery.maxPrice,
@@ -301,7 +310,6 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             subRegion = null,
             amenitiesListIds = amenitiesAdapter.selectionList.toString(),
             priority_keys = searchQuery.priority_keys,
-
         )
         LoadingDialog.showDialog()
     }
@@ -319,6 +327,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         itemsCount.observe(viewLifecycleOwner) {
             binding.tvTotalPropsValue.text = "(${it})"
         }
+
     }
 
     private fun fetchAddRemoveToFavState() {

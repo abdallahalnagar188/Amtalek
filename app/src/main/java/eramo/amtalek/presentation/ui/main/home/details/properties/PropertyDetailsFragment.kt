@@ -25,6 +25,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -47,7 +49,11 @@ import eramo.amtalek.presentation.adapters.recyclerview.RvAmenitiesAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvRatingAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.RvSimilarPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.AutocadImageDialogFragment
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.AutocadImageRecyclerAdapter
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.ImageRecyclerAdapter
 import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.ImageSliderDialogFragment
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.presentation.viewmodel.navbottom.extension.PropertyDetailsViewModel
@@ -94,6 +100,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     @Inject
     lateinit var rvAmenitiesAdapter: RvAmenitiesAdapter
 
+    private lateinit var recyclerViewAdapter: ImageRecyclerAdapter
 
     @Inject
     lateinit var rvRatingAdapter: RvRatingAdapter
@@ -510,6 +517,21 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             binding.tilOfferName.visibility = View.GONE
             binding.tilOfferMail.visibility = View.GONE
             binding.tilOfferPhone.visibility = View.GONE
+            binding.tilMail.visibility = View.GONE
+            binding.tilPhone.visibility = View.GONE
+            binding.tilName.visibility = View.GONE
+            binding.btnOfferSend.visibility = View.GONE
+            binding.btnMessageSend.visibility = View.GONE
+            binding.btnSendRate.visibility = View.GONE
+            binding.rateBar.visibility = View.GONE
+            binding.etYourRate.visibility = View.GONE
+            binding.tvRatings.visibility = View.GONE
+            binding.ivArrowBroker.visibility = View.GONE
+            binding.toggleGroup.visibility = View.GONE
+            binding.tvRegisterWithUs.visibility = View.GONE
+            binding.offerLayoutRoot.visibility = View.GONE
+            binding.messageLayoutRoot.visibility = View.GONE
+            binding.rateUsLayoutRoot.visibility = View.GONE
 
 
         } else {
@@ -679,12 +701,40 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
+    private fun fetchAddRemoveToFavState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.favState.collect() { state ->
+                    when (state) {
+
+                        is UiState.Success -> {
+                            showToast(state.data?.message.toString())
+
+                        }
+
+                        is UiState.Error -> {
+                            val errorMessage = state.message!!.asString(requireContext())
+                            showToast(errorMessage)
+                        }
+
+                        is UiState.Loading -> {
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+
+    }
     private fun assignData(model: PropertyDetailsModel) {
         try {
             binding.apply {
                 var isFav = model.isFavourite
                 ivFavourite.setOnClickListener {
                     viewModel.addOrRemoveFav(model.id)
+                    fetchAddRemoveToFavState()
                     if (UserUtil.isUserLogin()) {
                         if (isFav == "0") {
                             ivFavourite.setImageResource(R.drawable.ic_heart_fill)
@@ -903,18 +953,35 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 cardMap.setOnClickListener() {
                     findNavController().navigate(R.id.mapFragment, bundleOf("url" to model.mapUrl))
                 }
-                cardAutocadDrawings.setOnClickListener() {
-                    findNavController().navigate(
-                        R.id.autocadFragment,
-                        bundleOf("autocadList" to model.autocad.toTypedArray(), "title" to model.title)
-                    )
-                }
-//                cardAutocadDrawings.setOnClickListener {
-//                    val imageList = model.autocad // Assuming this is a list of AutocadModel
-//                    if (!imageList.isNullOrEmpty()) {
-//                        showImageSliderInDialogForAutocad(imageList, 0)
-//                    }
+//                cardAutocadDrawings.setOnClickListener() {
+//                    findNavController().navigate(
+//                        R.id.autocadFragment,
+//                        bundleOf("autocadList" to model.autocad.toTypedArray(), "title" to model.title)
+//                    )
 //                }
+
+                recyclerViewAdapter = ImageRecyclerAdapter(model.sliderImages, onItemClick = { position ->
+
+                    val imageList = model.sliderImages.toMutableList()
+                    if (imageList.isNotEmpty()) {
+                        showImageSliderInDialog(imageList, position)
+                    }
+
+                    // Handle item click
+                })
+
+                RecyclerViewUtils.setupHorizontalRecyclerView(
+                    requireContext(),
+                    binding.smallImagesRecyclerView,
+                    recyclerViewAdapter
+                )
+
+                cardAutocadDrawings.setOnClickListener {
+                    val imageList = model.autocad // Assuming this is a list of AutocadModel
+                    if (!imageList.isNullOrEmpty()) {
+                        showImageSliderInDialogForAutocad(imageList, 0)
+                    }
+                }
 
                 binding.imageSlider.carouselListener = object : CarouselListener {
                     override fun onClick(position: Int, carouselItem: CarouselItem) {
@@ -1021,6 +1088,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         } catch (e: Exception) {
             dismissShimmerEffect()
             showToast(getString(R.string.invalid_data_parsing))
+        }
+    }
+    object RecyclerViewUtils {
+        fun setupHorizontalRecyclerView(
+            context: Context,
+            recyclerView: RecyclerView,
+            adapter: RecyclerView.Adapter<*>
+        ) {
+            recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            recyclerView.adapter = adapter
         }
     }
 
@@ -1247,10 +1324,10 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         val dialogFragment = ImageSliderDialogFragment.newInstance(imageList, position)
         dialogFragment.show(parentFragmentManager, "image_slider_dialog")
     }
-//    private fun showImageSliderInDialogForAutocad(imageList: List<AutocadModel>, position: Int) {
-//        val dialogFragment = ImageSliderDialogFragment.instance(imageList, position)
-//        dialogFragment.show(parentFragmentManager, "image_slider_dialog_autocad")
-//    }
+    private fun showImageSliderInDialogForAutocad(imageList: List<AutocadModel>, position: Int) {
+        val dialogFragment = AutocadImageDialogFragment.newInstance(imageList, position)
+        dialogFragment.show(parentFragmentManager, "image_slider_dialog_autocad")
+    }
 
 
     private fun initPropertyFeaturesRv(data: List<AmenityModel>) {

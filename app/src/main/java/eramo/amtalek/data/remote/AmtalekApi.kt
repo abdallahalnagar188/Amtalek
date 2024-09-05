@@ -31,6 +31,7 @@ import eramo.amtalek.data.remote.dto.myHome.featured_properety.HomeFeaturedPrope
 import eramo.amtalek.data.remote.dto.myHome.filter_by_city.HomeCitiesResponse
 import eramo.amtalek.data.remote.dto.myHome.mostviewd.HomeMostViewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.HomeNewsResponse
+import eramo.amtalek.data.remote.dto.myHome.news.NewsDetailsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.allnews.AllNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse
 import eramo.amtalek.data.remote.dto.myHome.normal.HomeNormalPropertiesResponse
@@ -254,6 +255,11 @@ interface AmtalekApi {
     suspend fun getHomeNews(
         @Header("Authorization") userToken: String?,
     ): Response<HomeNewsResponse>
+    @GET("/web/news-details/{id}")
+    suspend fun getNewsDetails(
+        @Header("id") id: String?,
+    ): Response<NewsDetailsResponse>
+
 
 
 
@@ -588,7 +594,7 @@ interface AmtalekApi {
     @GET("mobile/broker/{id}/broker")
     suspend fun getBrokersDetails(
         @Path("id") id: Int
-    ): BrokersDetailsResponse
+    ): Response<BrokersDetailsResponse>
 
     @GET("mobile/brokers-properties/{id}")
     suspend fun getBrokersProperties(

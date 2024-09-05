@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import eramo.amtalek.data.remote.dto.broker.entity.DataX
 import eramo.amtalek.databinding.FragmentBrokersBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokersAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.viewmodel.SharedViewModel
 import eramo.amtalek.util.LocalUtil
 import eramo.amtalek.util.UserUtil
@@ -40,96 +42,150 @@ class BrokersFragment : BindingFragment<FragmentBrokersBinding>(),
 
     @Inject
     lateinit var rvBrokersAdapter: RvBrokersAdapter
-
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViews()
+        setupRecyclerView()
+        observeBrokersData()
+    }
+
+    private fun setupRecyclerView() {
+        // Set up the adapter for the RecyclerView
         binding.rvBrokers.adapter = rvBrokersAdapter
         rvBrokersAdapter.setListener(this)
+    }
 
-        lifecycleScope.launch {
+    private fun observeBrokersData() {
+        // Observe brokers data from the ViewModel and handle loading states
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.brokersPaging.collect { pagingData ->
-                    rvBrokersAdapter.submitData(pagingData)
-                }
+                // Start observing the paging data
+                viewModel.brokersPaging
+                    .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED) // Lifecycle-aware collection
+                    .collect { pagingData ->
+
+                        // Submit the data to the adapter
+                        rvBrokersAdapter.submitData(pagingData)
+
+                        // Scroll to the top after new data arrives
+                        binding.rvBrokers.scrollToPosition(0)
+
+                    }
             }
         }
-        setupViews()
+    }
+
+    private fun handleDataLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            LoadingDialog.showDialog()
+        } else {
+            LoadingDialog.dismissDialog()
+        }
     }
 
     private fun setupViews() {
+        // Setup toolbar and visibility logic
         setupToolbar()
     }
 
     private fun setupToolbar() {
-
         binding.inToolbar.apply {
             if (UserUtil.getUserType() == "broker") {
                 inMessaging.root.visibility = View.GONE
                 inNotification.root.visibility = View.GONE
-
             } else {
                 inMessaging.root.visibility = View.VISIBLE
                 inNotification.root.visibility = View.VISIBLE
             }
+
             toolbarIvMenu.setOnClickListener {
                 viewModelShared.openDrawer.value = true
             }
+
             spinnerLayout.setOnClickListener {
-                findNavController().navigate(R.id.filterCitiesDialogFragment, null, navOptionsAnimation())
-
-
+                findNavController().navigate(
+                    R.id.filterCitiesDialogFragment,
+                    null,
+                    navOptionsAnimation()
+                )
             }
-            FHomeEtSearch.setOnClickListener() {
-                findNavController().navigate(R.id.searchFormFragment, null, navOptionsFromTopAnimation())
+
+            FHomeEtSearch.setOnClickListener {
+                findNavController().navigate(
+                    R.id.searchFormFragment,
+                    null,
+                    navOptionsFromTopAnimation()
+                )
             }
+
             inMessaging.ivMessaging.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
-                    findNavController().navigate(R.id.messagingChatFragment, null, navOptionsAnimation())
+                    findNavController().navigate(
+                        R.id.messagingChatFragment,
+                        null,
+                        navOptionsAnimation()
+                    )
                 } else {
                     findNavController().navigate(R.id.loginDialog)
                 }
             }
+
             inNotification.ivNotification.setOnClickListener {
                 if (UserUtil.isUserLogin()) {
-                    findNavController().navigate(R.id.notificationFragment, null, navOptionsAnimation())
+                    findNavController().navigate(
+                        R.id.notificationFragment,
+                        null,
+                        navOptionsAnimation()
+                    )
                 } else {
                     findNavController().navigate(R.id.loginDialog)
                 }
             }
 
-            if (LocalUtil.isEnglish()) {
-                binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleEn()
+            setToolbarCityTitle()
+            setToolbarLogo()
+        }
+    }
 
-            } else {
-                binding.inToolbar.tvSpinnerText.text = UserUtil.getCityFiltrationTitleAr()
-            }
-            if (UserUtil.getCityFiltrationTitleAr().isEmpty() && UserUtil.getCityFiltrationTitleEn().isEmpty()) {
-                binding.inToolbar.tvSpinnerText.text = context?.getString(R.string.egypt)
-
-            }
-            if (LocalUtil.isEnglish()) {
-                binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
-
-            } else {
-                binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_ar))
-            }
+    private fun setToolbarCityTitle() {
+        val cityTitle = if (LocalUtil.isEnglish()) {
+            UserUtil.getCityFiltrationTitleEn()
+        } else {
+            UserUtil.getCityFiltrationTitleAr()
         }
 
+        binding.inToolbar.tvSpinnerText.text = if (cityTitle.isEmpty()) {
+            context?.getString(R.string.egypt)
+        } else {
+            cityTitle
+        }
+    }
 
+    private fun setToolbarLogo() {
+        val logoDrawable = if (LocalUtil.isEnglish()) {
+            R.drawable.top_logo_en
+        } else {
+            R.drawable.top_logo_ar
+        }
+
+        binding.inToolbar.toolbarIvLogo.setImageDrawable(context?.getDrawable(logoDrawable))
     }
 
     override fun onResume() {
         super.onResume()
+        // Clear the search text and remove focus when resuming the fragment
         binding.inToolbar.FHomeEtSearch.text.clear()
         binding.inToolbar.FHomeEtSearch.clearFocus()
     }
 
     override fun onBrokerClick(model: DataX) {
+        // Navigate to the broker details screen with the broker ID
         findNavController().navigate(
             R.id.action_brokersFragment_to_brokersDetailsFragment,
             bundleOf("id" to model.id),
             navOptionsAnimation()
         )
     }
+
 }

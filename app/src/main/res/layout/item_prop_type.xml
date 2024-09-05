@@ -9,7 +9,7 @@
         android:layout_width="@dimen/_90sdp"
         android:layout_height="@dimen/_80sdp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_2sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="#ECF7FF"
@@ -35,7 +35,7 @@
         tools:text="Property Type"
         android:fontFamily="@font/font_medium"
         android:textSize="@dimen/_11sdp"
-        android:textColor="@color/amtalek_blue"
+        android:textColor="@color/black"
         />
 
 

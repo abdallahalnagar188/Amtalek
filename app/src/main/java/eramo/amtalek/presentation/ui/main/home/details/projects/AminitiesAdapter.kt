@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import eramo.amtalek.databinding.ItemAminitiesBinding
 import eramo.amtalek.domain.model.project.AmenityModel
 import javax.inject.Inject
@@ -13,6 +14,7 @@ class AmenitiesAdapter @Inject constructor():RecyclerView.Adapter<AmenitiesAdapt
     inner class AmenityViewHolder(val binding:ItemAminitiesBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(item:AmenityModel){
             binding.amenityName.text = item.name
+            Glide.with(binding.root.context).load(item.image).into(binding.icon)
         }
     }
 

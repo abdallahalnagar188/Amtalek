@@ -14,6 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
+import eramo.amtalek.data.remote.dto.myHome.news.NewsDetailsResponse
 import eramo.amtalek.databinding.FragmentNewsDetailsBinding
 import eramo.amtalek.domain.model.home.news.NewsModel
 import eramo.amtalek.domain.model.social.RatingCommentsModel
@@ -38,15 +39,12 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
     val args: NewsDetailsFragmentArgs by navArgs()
     val news get() = args.news
 
-
-
     val viewModel: HomeMyViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
-        setupListener(news)
-
+        setupListener()
     }
 
     override fun onPause() {
@@ -58,9 +56,9 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         setupToolbar()
         val image = news.image
         Glide.with(requireContext()).load(image).into(binding.ivNewsImage)
-        binding.tvTitle.text = news.title
+        binding.tvTitle.text =news.title
         binding.tvBody.text = news.description
-        binding.tvCategory.text = news.newsCategory.mainTitle
+        binding.tvCategory.text = news.newsCategory?.mainTitle
         val htmlContent = news.description ?: ""
         val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
@@ -73,14 +71,14 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
 //        initRvComments(Dummy.dummyRatingCommentsList())
     }
 
-    fun setupListener(model: NewsModel) {
+    fun setupListener() {
         binding.apply {
             tvCategory.setOnClickListener {
                 findNavController().navigate(
                     R.id.newsCategoryFragment,
                     NewsCategoryFragmentArgs(
-                        categoryId = model.newsCategory.id.toString() ?: "",
-                        titleName = model.newsCategory.mainTitle ?: ""
+                        categoryId = news.newsCategory?.id.toString() ?: "",
+                        titleName = news.newsCategory?.mainTitle ?: ""
                     ).toBundle(), navOptionsAnimation()
                 )
 

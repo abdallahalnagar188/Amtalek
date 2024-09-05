@@ -107,7 +107,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 tvBathroom.text = model.bath_room_no.toString()
                 tvBed.text = model.bed_rooms_no.toString()
                 tvLocation.text = model.address
-                tvDatePosted.text = model.created_at
+                //tvDatePosted.text = model.created_at
 
                 tvBroker.text = itemView.context.getString(R.string.user)
                 when (model.for_what) {
@@ -243,7 +243,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 tvBathroom.text = model.bath_room_no.toString()
                 tvBed.text = model.bed_rooms_no.toString()
                 tvLocation.text = model.address
-                tvDatePosted.text = model.created_at
+               // tvDatePosted.text = model.created_at
                 tvBroker.text = itemView.context.getString(R.string.user)
 
                 Glide.with(itemView)

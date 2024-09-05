@@ -84,7 +84,7 @@ class RvUserDetailsPropertiesForRentAdapter @Inject constructor() :
                 tvBathroom.text = model.bath_room_no.toString()
                 tvBed.text = model.bed_rooms_no.toString()
                 tvLocation.text = model.address
-                tvDatePosted.text = model?.created_at
+                //tvDatePosted.text = model?.created_at
 
                 Glide.with(itemView)
                     .load(model.primary_image)

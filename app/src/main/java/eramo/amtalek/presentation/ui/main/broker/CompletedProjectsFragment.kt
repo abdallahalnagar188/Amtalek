@@ -14,7 +14,10 @@ import eramo.amtalek.data.remote.dto.brokersDetails.Project
 import eramo.amtalek.databinding.FragmentCompletedProjectsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvCompletedProjectsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.main.home.details.projects.MyProjectDetailsFragmentArgs
+import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,15 +47,49 @@ class CompletedProjectsFragment : BindingFragment<FragmentCompletedProjectsBindi
     }
 
     private fun getDetailsListener() {
+
         lifecycleScope.launch {
-            viewModel.brokersDetails.collectLatest {
-                rvCompletedProjectsAdapter.submitList(
-                    viewModel.brokersDetails.value?.data?.get(0)?.projects ?: emptyList()
-                )
+            viewModel.brokersDetails.collect {
+                when (it) {
+                    is Resource.Success -> {
+                        if (viewModel.brokersDetails.value?.data?.data?.get(0)?.projects_count == 0){
+                            binding.noCompletedProjects.visibility = View.VISIBLE
+                        }else{
+                            binding.noCompletedProjects.visibility = View.GONE
+                        }
+                        rvCompletedProjectsAdapter.submitList(
+                            viewModel.brokersDetails.value?.data?.data?.get(0)?.projects ?: emptyList()
+                        )
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Error -> {
+                        showToast(it.message.toString())
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Loading -> {
+                        LoadingDialog.showDialog()
+                    }
+                }
+
             }
         }
+//        lifecycleScope.launch {
+//            viewModel.brokersDetails.collectLatest {
+//                if (viewModel.brokersDetails.value?.data?.get(0)?.projects_count == 0){
+//                    binding.noCompletedProjects.visibility = View.VISIBLE
+//                }else{
+//                    binding.noCompletedProjects.visibility = View.GONE
+//                }
+//                rvCompletedProjectsAdapter.submitList(
+//                    viewModel.brokersDetails.value?.data?.get(0)?.projects ?: emptyList()
+//                )
+//            }
+//        }
     }
     private fun setupViews() {
+
         setupToolbar()
         initRv()
     }

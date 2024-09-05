@@ -56,6 +56,11 @@ object AppModule {
     }
     @Provides
     @Singleton
+    fun provideNewsDetailsRepository(apiService: AmtalekApi): NewsDetailsRepo {
+        return NewsDetailsRepoImpl(apiService)
+    }
+    @Provides
+    @Singleton
     fun provideRepository(apiService: AmtalekApi): BrokersRepo {
         return BrokersRepoImpl(apiService)
     }

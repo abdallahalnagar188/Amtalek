@@ -25,6 +25,7 @@ import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.interfaces.FavClickListenerOriginalItem
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.properties.PropertyDetailsFragmentArgs
@@ -34,6 +35,7 @@ import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -78,11 +80,32 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         viewModel.getBrokersProperties(id)
 
 
+//        lifecycleScope.launch {
+//            viewModel.brokersDetails.collect { state ->
+//                Log.e("details in fragment", state?.data.toString())
+//                state?.data?.firstOrNull()?.let { assignData(it) }
+//                Log.e("projects fragment", state?.data?.get(0)?.projects.toString())
+//            }
+//        }
+
         lifecycleScope.launch {
-            viewModel.brokersDetails.collect { state ->
-                Log.e("details in fragment", state?.data.toString())
-                state?.data?.firstOrNull()?.let { assignData(it) }
-                Log.e("projects fragment", state?.data?.get(0)?.projects.toString())
+            viewModel.brokersDetails.collect {
+                when (it) {
+                    is Resource.Success -> {
+                        it.data?.data?.first()?.let { it1 -> assignData(it1) }
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Error -> {
+                        showToast(it.message.toString())
+                        LoadingDialog.dismissDialog()
+                    }
+
+                    is Resource.Loading -> {
+                        LoadingDialog.showDialog()
+                    }
+                }
+
             }
         }
 

@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/_50sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             tools:src="@color/gold"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@id/tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

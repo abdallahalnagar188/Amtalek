@@ -1,7 +1,6 @@
 package eramo.amtalek.presentation.adapters.recyclerview
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,9 +87,8 @@ class RvSimilarPropertiesAdapter @Inject constructor() :
                     }
 
                     PropertyType.FOR_RENT.key -> {
-                        tvPrice.visibility = View.GONE
-                        tvPriceRent.visibility = View.VISIBLE
-                        tvPriceRent.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble())
+                        tvPriceRent.visibility = View.GONE
+                        tvPrice.text = getRentPrice(itemView.context, model.rentDuration, model.rentPrice.toDouble())
 
                     }
 

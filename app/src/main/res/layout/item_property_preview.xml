@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_167sdp"
+    android:layout_height="@dimen/_150sdp"
     android:layout_margin="@dimen/_4sdp"
     android:background="@color/gray_background"
-    android:paddingVertical="@dimen/_10sdp"
+    android:paddingVertical="@dimen/_30sdp"
     app:cardCornerRadius="@dimen/_12sdp"
     app:cardElevation="0dp"
     app:strokeColor="@color/gray_low"
@@ -14,7 +14,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <ImageView
             android:id="@+id/iv_fav"
@@ -79,9 +80,9 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintEnd_toStartOf="@id/iv_fav"
+            app:layout_constraintEnd_toStartOf="@id/iv_broker_card_view"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/iv_bed"
             tools:text="4,000,000 EGP" />
 
         <TextView
@@ -95,7 +96,9 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintEnd_toStartOf="@id/iv_fav"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_broker_card_view"
             app:layout_constraintStart_toEndOf="@id/iv_image"
             app:layout_constraintTop_toBottomOf="@id/tv_price"
             app:layout_goneMarginTop="@dimen/_12sdp"
@@ -127,9 +130,8 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:src="@drawable/ic_area"
-            app:layout_constraintBottom_toTopOf="@id/iv_location"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@id/tv_duration_rent" />
+            app:layout_constraintTop_toBottomOf="@id/iv_location" />
 
         <TextView
             android:id="@+id/tv_area"
@@ -194,9 +196,9 @@
             android:layout_marginStart="@dimen/_6sdp"
             android:layout_marginTop="@dimen/_9sdp"
             android:src="@drawable/ic_location_green"
-            app:layout_constraintBottom_toTopOf="@id/iv_clock"
+            app:layout_constraintBottom_toTopOf="@id/iv_bed"
             app:layout_constraintStart_toEndOf="@id/iv_image"
-            app:layout_constraintTop_toBottomOf="@id/iv_area" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -223,6 +225,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:src="@drawable/ic_clock"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_image"
             app:layout_constraintTop_toBottomOf="@id/iv_location" />
@@ -234,6 +237,7 @@
             android:layout_marginStart="@dimen/_2sdp"
             android:fontFamily="@font/font_medium"
             android:textSize="@dimen/_8ssp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/iv_clock"
             app:layout_constraintStart_toEndOf="@id/iv_clock"
             app:layout_constraintTop_toTopOf="@id/iv_clock"
@@ -245,10 +249,10 @@
             android:layout_height="@dimen/_26sdp"
             android:layout_marginTop="@dimen/_2sdp"
             app:cardCornerRadius="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_date_posted"
             app:layout_constraintEnd_toEndOf="@id/tv_broker"
             app:layout_constraintStart_toStartOf="@id/tv_broker"
-            app:layout_constraintTop_toTopOf="@id/tv_date_posted"
+           app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_10sdp"
             app:strokeWidth="0dp">
 
             <ImageView

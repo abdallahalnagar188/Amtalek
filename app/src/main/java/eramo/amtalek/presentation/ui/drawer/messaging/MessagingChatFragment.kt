@@ -122,7 +122,7 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
             )
             findNavController().navigate(action)
         } else {
-            showToast(getString(R.string.no_messages))
+            findNavController().navigate(R.id.addAddonsFragment)
         }
     }
 

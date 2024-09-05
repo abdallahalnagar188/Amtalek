@@ -106,6 +106,5 @@ class MapFragment : BindingFragment<FragmentMapBinding>(){
         binding.cvBack.setOnClickListener {
             findNavController().popBackStack() // Navigate back or close the fragment
         }
-
     }
 }
