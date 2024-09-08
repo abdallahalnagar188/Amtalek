@@ -64,7 +64,7 @@
             android:layout_marginHorizontal="@dimen/screen_margin_sides"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/font"
-            android:text="Market latest news"
+            tools:text="Market latest news"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
@@ -87,7 +87,7 @@
                 android:fontFamily="@font/font"
                 android:paddingVertical="@dimen/_6sdp"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:text="category"
+                tools:text="category"
                 android:background="@drawable/blue_border_with_radius_background"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13ssp" />

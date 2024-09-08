@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -14,21 +15,16 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.myHome.news.NewsDetailsResponse
+import eramo.amtalek.data.remote.dto.myHome.news.newsDetails.Data
 import eramo.amtalek.databinding.FragmentNewsDetailsBinding
-import eramo.amtalek.domain.model.home.news.NewsModel
-import eramo.amtalek.domain.model.social.RatingCommentsModel
-import eramo.amtalek.presentation.adapters.recyclerview.RvNewsDetailsCommentsAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
+import eramo.amtalek.presentation.ui.dialog.LoadingDialog
 import eramo.amtalek.presentation.ui.main.home.HomeMyViewModel
 import eramo.amtalek.presentation.ui.main.home.details.newsCategory.NewsCategoryFragmentArgs
-import eramo.amtalek.util.Dummy
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.showToast
-import kotlinx.coroutines.launch
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
-import javax.inject.Inject
+import eramo.amtalek.util.state.Resource
 
 @AndroidEntryPoint
 class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
@@ -36,15 +32,20 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentNewsDetailsBinding::inflate
 
-    val args: NewsDetailsFragmentArgs by navArgs()
-    val news get() = args.news
-
-    val viewModel: HomeMyViewModel by viewModels()
+    private val args: NewsDetailsFragmentArgs by navArgs()
+    private val viewModel: HomeMyViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViews()
+
+        viewModel.getNewsDetails(args.id)
+        Log.e("id news" , args.id)
+        Log.e("data for news" , viewModel.newsDetails.value.toString())
+        // Call the functions to set up UI
+        setupToolbar()
         setupListener()
+
+        observeData()
     }
 
     override fun onPause() {
@@ -52,83 +53,100 @@ class NewsDetailsFragment : BindingFragment<FragmentNewsDetailsBinding>() {
         StatusBarUtil.blackWithBackground(requireActivity(), R.color.white)
     }
 
-    fun setupViews() {
-        setupToolbar()
-        val image = news.image
-        Glide.with(requireContext()).load(image).into(binding.ivNewsImage)
-        binding.tvTitle.text =news.title
-        binding.tvBody.text = news.description
-        binding.tvCategory.text = news.newsCategory?.mainTitle
-        val htmlContent = news.description ?: ""
-        val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
-        } else {
-            Html.fromHtml(htmlContent)
-        }
-        binding.tvBody.text = spannedText
+    private fun observeData() {
 
-//        setupImageSliderTop()
-//        initRvComments(Dummy.dummyRatingCommentsList())
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.newsDetails.collect { resource ->
+                when (resource) {
+                    is Resource.Loading -> {
+                        // Show loading indicator if needed
+                        LoadingDialog.showDialog()
+                    }
+                    is Resource.Success -> {
+                        Log.e("TAG", "observeData: ${resource.data?.data}")
+                        resource.data?.data?.let { assignData(it.first()) }
+                        LoadingDialog.dismissDialog()
+                    }
+                    is Resource.Error -> {
+                        // Handle error
+                        showToast(resource.message.toString())
+                        LoadingDialog.dismissDialog()
+                    }
+                }
+            }
+        }
+
+       // Fetch data based on the ID
     }
 
-    fun setupListener() {
+    private fun assignData(news: Data) {
         binding.apply {
-            tvCategory.setOnClickListener {
-                findNavController().navigate(
-                    R.id.newsCategoryFragment,
-                    NewsCategoryFragmentArgs(
-                        categoryId = news.newsCategory?.id.toString() ?: "",
-                        titleName = news.newsCategory?.mainTitle ?: ""
-                    ).toBundle(), navOptionsAnimation()
-                )
+            // Set data to UI elements
+            tvTitle.text = news.title
+            tvCategory.text = news.categoryDetails?.name
 
+            val htmlContent = news?.description ?: ""
+            val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
+            } else {
+                Html.fromHtml(htmlContent)
+            }
+                tvBody.text = spannedText
+
+            // Load image using Glide
+            Glide.with(this@NewsDetailsFragment)
+                .load(news.image)
+                .into(ivNewsImage)
+
+            binding.apply {
+                tvCategory.setOnClickListener {
+                    findNavController().navigate(
+                        R.id.newsCategoryFragment,
+                        NewsCategoryFragmentArgs(
+                            categoryId = news.categoryDetails?.id.toString(),
+                            titleName = news.categoryDetails?.name.toString()
+                        ).toBundle(), navOptionsAnimation()
+                    )
+                }
+            }
+            // Setup image slider with the news carousel items
+        }
+    }
+
+    private fun setupListener() {
+        binding.apply {
+            ivShare.setOnClickListener {
+                shareContent()
+            }
+            ivBack.setOnClickListener {
+                findNavController().popBackStack()
             }
         }
     }
 
     private fun setupToolbar() {
         StatusBarUtil.transparent()
-        binding.apply {
-            ivShare.setOnClickListener {
-                shareContent()
-            }
-
-            //  ivShare.setOnClickListener { showToast("share") }
-            ivBack.setOnClickListener { findNavController().popBackStack() }
-        }
     }
 
     private fun shareContent() {
-        val htmlContent = news?.description ?: ""
+        val htmlContent = binding.tvBody.text.toString()
         val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
         } else {
             Html.fromHtml(htmlContent)
         }
         // The content you want to share
-        val shareText = news.title + " " + spannedText
+        val shareText = "${binding.tvTitle.text} $spannedText"
 
         // Create the share intent
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, shareText)
-            type = "text/plain"// MIME type for sharing text
+            type = "text/plain" // MIME type for sharing text
         }
 
         // Start the share intent
         startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
 
-    private fun setupImageSliderTop(data: List<CarouselItem>) {
-        binding.apply {
-//            imageSlider.registerLifecycle(viewLifecycleOwner.lifecycle)
-//            imageSlider.setIndicator(imageSliderDots)
-//            imageSlider.setData(data)
-        }
-    }
-
-//    private fun initRvComments(data: List<RatingCommentsModel>) {
-//        binding.rv.adapter = rvNewsDetailsCommentsAdapter
-//        rvNewsDetailsCommentsAdapter.submitList(data)
-//    }
 }

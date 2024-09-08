@@ -29,7 +29,7 @@ data class MyPropertyDetailsResponse(
             currency = data?.get(0)?.currency ?: "",
             rentDuration = data?.get(0)?.rentDuration ?: "",
             title = data?.get(0)?.title ?: "",
-            location = "${data?.get(0)?.city}, ${data?.get(0)?.region}, ${data?.get(0)?.subRegion}",
+            location = " ${data?.get(0)?.region}, ${data?.get(0)?.subRegion}",
             datePosted = data?.get(0)?.createdAt ?: "",
             finishing = data?.get(0)?.finishing ?: "",
             finishingAvailability = "----",

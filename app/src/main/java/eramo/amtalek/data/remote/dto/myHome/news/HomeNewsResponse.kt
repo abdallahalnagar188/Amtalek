@@ -49,7 +49,7 @@ data class MyData(
             id = id?:0,
             image = image?:"",
             love = love?:0,
-            newsCategory = newsCategory?:NewsCategory(0,"",Title("", "")),
+            newsCategory = newsCategory?: NewsCategory(0, "", Title("", "")),
             summary = summary?:"",
             title = title?:"",
             views = views?:0

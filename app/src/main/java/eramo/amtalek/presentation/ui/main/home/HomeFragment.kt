@@ -1528,7 +1528,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     override fun onFeaturedProjectClick(model: ProjectModel) {
         findNavController().navigate(
             R.id.myProjectDetailsFragment,
-            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle()
+            MyProjectDetailsFragmentArgs(model.listingNumber,model.datePosted).toBundle()
         )
     }
 
@@ -1583,7 +1583,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
     override fun onNewsClick(model: NewsModel) {
         findNavController().navigate(
             R.id.newsDetailsFragment,
-            NewsDetailsFragmentArgs(titleName = model.newsCategory.mainTitle ?: "", news = model).toBundle()
+            NewsDetailsFragmentArgs(model.id.toString()).toBundle()
         )
     }
 

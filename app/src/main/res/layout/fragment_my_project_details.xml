@@ -41,11 +41,24 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_18sdp"
                 app:ci_animator="@animator/scale_with_alpha"
+                android:visibility="gone"
                 app:ci_drawable="@drawable/ic_dot_selected"
                 app:ci_drawable_unselected="@drawable/ic_dot_unselected"
                 app:layout_constraintEnd_toEndOf="@+id/image_slider"
                 app:layout_constraintStart_toStartOf="@+id/image_slider"
                 app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/small_images_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal" />
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -89,7 +102,7 @@
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_slider_dots"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
                 tools:text="4,000,000 EGP" />
 
             <TextView
@@ -100,12 +113,11 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/font"
-                android:maxLines="1"
-                android:textColor="@color/text_gray"
-                android:textSize="@dimen/_10ssp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_price"
+                app:layout_constraintTop_toBottomOf="@id/small_images_recycler_view"
                 tools:text="Residential apartment for sale, super lux with elevator" />
 
             <ImageView
@@ -116,7 +128,7 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 android:src="@drawable/ic_location_black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_price" />
 
             <TextView
                 android:id="@id/tv_location"
@@ -141,7 +153,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"
-
                 android:src="@drawable/ic_clock"
                 app:layout_constraintBottom_toBottomOf="@id/tv_date"
                 app:layout_constraintEnd_toStartOf="@id/tv_date"
@@ -152,7 +163,6 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_14sdp"
                 android:layout_marginEnd="@dimen/screen_margin_sides"
                 android:ellipsize="end"
                 android:fontFamily="@font/font_medium"
@@ -160,8 +170,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_location"
                 app:layout_constraintBottom_toBottomOf="@id/iv_location"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
                 tools:text="8/7/2023" />
 
             <TextView
@@ -173,7 +183,7 @@
                 android:fontFamily="@font/font"
                 android:paddingHorizontal="@dimen/screen_margin_sides"
                 android:paddingTop="@dimen/_14sdp"
-                android:text="@string/description"
+                android:text="@string/description_for_project"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -190,12 +200,27 @@
                 android:paddingVertical="@dimen/_14sdp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/_11ssp"
+                android:textSize="@dimen/_10ssp"
+                android:maxLines="3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_description"
                 tools:text="Descriptive Text is a text which says what a person or a thing is like. Its purpose is to describe and reveal a particular person, place, or thing." />
-
+            <TextView
+                android:id="@+id/tv_show_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:background="#F9F9F9"
+                android:gravity="end"
+                android:textSize="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:fontFamily="@font/font_medium"
+                app:layout_constraintTop_toBottomOf="@id/tv_description_value"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/broker_profile_layout"
                 android:layout_width="0dp"
@@ -204,7 +229,7 @@
                 android:background="@drawable/linear_gradient"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_description_value">
+                app:layout_constraintTop_toBottomOf="@id/tv_show_more">
 
 
                 <TextView
@@ -242,7 +267,7 @@
                     android:maxLines="1"
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toTopOf="@id/tv_user_id"
                     app:layout_constraintEnd_toStartOf="@id/tv_visit_profile"
                     app:layout_constraintStart_toEndOf="@id/iv_user_image"
@@ -257,6 +282,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/font_medium"
                     android:maxLines="1"
+                    android:visibility="gone"
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10ssp"
@@ -284,14 +310,64 @@
                     android:id="@+id/iv_arrow_broker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginEnd="@dimen/screen_margin_sides"
                     android:src="@drawable/ic_arrow_right_goldt"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_visit_profile"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tv_visit_profile" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/linear_layout_for_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/broker_profile_layout"
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center"
 
+                >
+
+                <!-- First Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_map"
+                    android:layout_width="@dimen/_140sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="8dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@drawable/blue_border_with_radius_background"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_map"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/location_for_project"
+                            android:textSize="@dimen/_13ssp"
+                            android:gravity="center"
+                            android:fontFamily="@font/font_medium"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Second Card -->
+
+            </LinearLayout>
             <TextView
                 android:id="@+id/tv_autocad_drawings"
                 android:layout_width="0dp"
@@ -304,7 +380,7 @@
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/broker_profile_layout" />
+                app:layout_constraintTop_toBottomOf="@id/linear_layout_for_map" />
 
             <org.imaginativeworld.whynotimagecarousel.ImageCarousel
                 android:id="@+id/autocad_drawings_slider"

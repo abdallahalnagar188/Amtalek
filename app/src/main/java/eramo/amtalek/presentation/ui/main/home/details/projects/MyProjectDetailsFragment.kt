@@ -31,8 +31,12 @@ import eramo.amtalek.data.remote.dto.project.ProjectDetailsResponse
 import eramo.amtalek.data.remote.dto.project.Slider
 import eramo.amtalek.databinding.FragmentMyProjectDetailsBinding
 import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.project.AutocadModel
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.AutocadImageDialogFragment
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.ImageRecyclerAdapter
+import eramo.amtalek.presentation.ui.main.home.details.properties.mapFragment.ImageSliderDialogFragment
 import eramo.amtalek.util.StatusBarUtil
 import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.getYoutubeUrlId
@@ -51,13 +55,21 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
         get() = FragmentMyProjectDetailsBinding::inflate
 
     val viewModel: ProjectDetailsViewModel by viewModels()
+
     private val args: MyProjectDetailsFragmentArgs by navArgs()
+
     val listingNumber get() = args.projectId
+    val createdAt get() = args.createdAt
+
+
     lateinit var vendorId: String
     private lateinit var vendorType: String
+    var isTextExpanded = false
+
 
     @Inject
     lateinit var amenitiesAdapter: AmenitiesAdapter
+    private lateinit var recyclerViewAdapter: ImageRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -199,18 +211,24 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
             binding.autocadDrawingsSlider.visibility = View.GONE
             binding.autocadDrawingsSliderDots.visibility = View.GONE
             binding.tvAutocadDrawings.visibility = View.GONE
+            //binding.cardAutocadDrawings.visibility = View.GONE
         } else {
             val autocadImages = handleAutocadImages(data?.data?.get(0)?.autocad)
             setupAutocadImagesSlider(autocadImages)
         }
 
 
+
         val amenities = handleAmenities(data?.data?.get(0)?.aminities)
         binding.projectFeaturesLayout.recyclerView.adapter = amenitiesAdapter
         amenitiesAdapter.saveData(amenities)
 
+        binding.webView.visibility = View.GONE
+        binding.tvMyMap.visibility = View.GONE
         if (data?.data?.get(0)?.location.isNullOrEmpty()) {
             binding.webView.visibility = View.GONE
+            binding.cardMap.visibility = View.GONE
+            binding.tvMyMap.visibility = View.GONE
         } else {
             mapSetup(data?.data?.get(0)?.location)
         }
@@ -281,6 +299,16 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 //        }
     }
 
+    private fun showImageSliderInDialog(imageList: List<String>, position: Int) {
+        val dialogFragment = ImageSliderDialogFragment.newInstance(imageList, position)
+        dialogFragment.show(parentFragmentManager, "image_slider_dialog")
+    }
+
+    private fun showImageSliderInDialogForAutocad(imageList: List<AutocadModel>, position: Int) {
+        val dialogFragment = AutocadImageDialogFragment.newInstance(imageList, position)
+        dialogFragment.show(parentFragmentManager, "image_slider_dialog_autocad")
+    }
+
     private fun setupVideo(videoId: String) {
         binding.apply {
             lifecycle.addObserver(youtubePlayerView)
@@ -319,13 +347,30 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 
     private fun injectData(data: Data?) {
         binding.apply {
-            autocadDrawingsSlider
             tvPrice.text = data?.startPrice.toString()
             tvTitle.text = data?.name
             tvLocation.text = data?.quickSummary?.address
-            tvDate.text = data?.deliveryDate
+            tvDate.text = createdAt
             Log.e("Nega1", data?.deliveryDate ?: "null")
             tvDescriptionValue.text = data?.description
+            updateTextView()
+            tvDescriptionValue.post {
+                if (tvDescriptionValue.lineCount < 3) {
+                    tvShowMore.visibility = View.GONE
+                } else {
+                    tvShowMore.visibility = View.VISIBLE
+                }
+            }
+
+            cardMap.setOnClickListener() {
+                findNavController().navigate(R.id.mapFragment, bundleOf("url" to data?.location))
+            }
+            // Set a click listener on the TextView to toggle text expansion
+            tvShowMore.setOnClickListener {
+                isTextExpanded = !isTextExpanded
+                updateTextView()
+            }
+
             tvUserName.text = data?.brokerDetails?.get(0)?.name
             tvUserId.text = data?.brokerDetails?.get(0)?.description
 //            ivShare.setOnClickListener {
@@ -352,6 +397,21 @@ class MyProjectDetailsFragment : BindingFragment<FragmentMyProjectDetailsBinding
 
         }
         navigateToProfile(model = data)
+    }
+    private fun updateTextView() {
+        binding.apply {
+            if (isTextExpanded) {
+                // Expand the text and change tvShowMore to "Show Less"
+                tvDescriptionValue.maxLines = Integer.MAX_VALUE
+                tvDescriptionValue.ellipsize = null
+                tvShowMore.text = getString(R.string.show_less)
+            } else {
+                // Collapse the text and change tvShowMore to "Show More"
+                tvDescriptionValue.maxLines = 3
+                tvDescriptionValue.ellipsize = TextUtils.TruncateAt.END
+                tvShowMore.text = getString(R.string.show_more)
+            }
+        }
     }
 
     private fun navigateToProfile(model: Data?) {

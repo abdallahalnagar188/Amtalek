@@ -69,6 +69,7 @@ class CriteriaSpinnerSmallAdapter(context: Context, list: List<CriteriaModel>) :
             }
 
             name.text = getItem(position)?.title
+            name.gravity = View.TEXT_ALIGNMENT_TEXT_START
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }
 

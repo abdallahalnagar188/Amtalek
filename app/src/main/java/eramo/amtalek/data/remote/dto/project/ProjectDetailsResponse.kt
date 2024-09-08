@@ -4,6 +4,7 @@ package eramo.amtalek.data.remote.dto.project
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import eramo.amtalek.domain.model.project.AmenityModel
+import eramo.amtalek.domain.model.project.AutocadModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -132,7 +133,11 @@ data class Autocad(
     var id: Int?,
     @SerializedName("src")
     var src: String?
-) : Parcelable
+) : Parcelable{
+    fun toAutocadModel(): AutocadModel{
+        return AutocadModel(id?:0, src?:"",type = "")
+    }
+}
 
 @Parcelize
 data class QuickSummary(

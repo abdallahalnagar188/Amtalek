@@ -374,7 +374,7 @@
                         android:fontFamily="@font/font"
                         android:gravity="center"
                         android:maxLines="2"
-                        android:text="111\dasdsadsadasdsadasdsadasn m2"
+                        android:text="111m2"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_8ssp"
                         app:layout_constraintBottom_toBottomOf="parent"

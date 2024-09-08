@@ -71,7 +71,7 @@ class AllLocationsPopUp : DialogFragment(R.layout.dialog_all_locations),AllLocat
                             val placeholderLocation = LocationModel(
                                 id = -1, // Unique ID for the placeholder
                                 propertiesCount = 0, // Placeholder value
-                                title = getText(R.string.location).toString(), // Placeholder text
+                                title = getText(R.string.all_locations).toString(), // Placeholder text
                             )
 
                             // Add the placeholder location at index 0

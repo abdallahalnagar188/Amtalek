@@ -99,6 +99,6 @@ class NewsCategoryFragment : BindingFragment<FragmentNewsCategoryBinding>(),
 
     override fun onNewsClick(model: NewsData) {
         findNavController().navigate(R.id.newsDetailsInCategoryFragment,
-            model.let { NewsDetailsInCategoryFragmentArgs(newsCat = model).toBundle() })
+            model.let { NewsDetailsInCategoryFragmentArgs(model.id.toString()).toBundle() })
     }
 }

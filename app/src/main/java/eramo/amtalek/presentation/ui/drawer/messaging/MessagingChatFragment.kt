@@ -122,7 +122,13 @@ class MessagingChatFragment : BindingFragment<FragmentMessagingChatBinding>(),
             )
             findNavController().navigate(action)
         } else {
-            findNavController().navigate(R.id.addAddonsFragment)
+            if (UserUtil.getHasPackage() == "yes"){
+                findNavController().navigate(R.id.addAddonsFragment)
+            }
+            else{
+                findNavController().navigate(R.id.packagesFragment)
+            }
+
         }
     }
 

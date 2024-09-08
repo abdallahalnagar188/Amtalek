@@ -94,6 +94,7 @@
     <string name="features">Features</string>
     <string name="extra_info">Extra info</string>
     <string name="description">Description</string>
+    <string name="description_for_project">Description</string>
     <string name="installment">Installment</string>
     <string name="al_ahly_bank_installment">Al Ahly Bank Installment</string>
     <string name="this_product_can_be_installed">This product can be installed:</string>
@@ -433,6 +434,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="add_comment">Add comment</string>
     <string name="add_your_property">Add Your Property</string>
     <string name="location">Location</string>
+    <string name="all_locations">All Locations</string>
     <string name="nickname">Nickname</string>
     <string name="price">Price</string>
     <string name="status">Status</string>
@@ -590,7 +592,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="s_currency">%s %s</string>
     <string name="s_meter_square">%s sqft</string>
     <string name="s_meter_square_me">%s m&#xB2;</string>
-    <string name="s_meter_square_me_n">%s\n m&#xB2;</string>
+    <string name="s_meter_square_me_n">Area \n%s m&#xB2; </string>
 
     <string name="s_bathroom_count_n">%s\n bathroom</string>
     <string name="s_bedroom_count_n">%s\n bedroom</string>
@@ -760,6 +762,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="s_invoices">INVOICE ( %s )</string>
 
     <string name="autocad_drawings">Autocad</string>
+    <string name="autocad_drawings_for_project">Autocad</string>
     <string name="register_with_us">Register with us</string>
     <string name="notes_with_dots">Notes:</string>
 
@@ -1044,6 +1047,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="show_less">show less</string>
     <string name="show_more">show more</string>
     <string name="location_for_property">Location</string>
+    <string name="location_for_project">Location</string>
+
     <string name="no_completed_projects_yet">No Completed Projects Yet</string>
     <string name="no_search_result">No Search result</string>
     <string name="no_notifications">no notifications</string>

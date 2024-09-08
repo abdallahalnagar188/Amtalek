@@ -92,8 +92,7 @@ class SeeMoreNewsFragment : BindingFragment<FragmentSeeMoreNewsBinding>(),
             R.id.newsDetailsFragmentInSeeMore,
             model.let {
                 NewsDetailsInSeeMoreFragmentArgs(
-                    news = model,
-                    titleName = model.newsCategory?.mainTitle ?: ""
+                  id = it.id.toString()
                 ).toBundle()
             }
         )

@@ -1,7 +1,6 @@
 package eramo.amtalek.domain.model.home.news
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import eramo.amtalek.data.remote.dto.myHome.news.NewsCategory
 import kotlinx.parcelize.Parcelize
 

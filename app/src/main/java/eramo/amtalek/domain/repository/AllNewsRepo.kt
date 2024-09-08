@@ -1,7 +1,6 @@
 package eramo.amtalek.domain.repository
 
 import androidx.paging.PagingSource
-import eramo.amtalek.data.remote.dto.myHome.news.Data
 import eramo.amtalek.data.remote.dto.myHome.news.allnews.AllNewsResponse
 import eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX
 import eramo.amtalek.util.state.Resource

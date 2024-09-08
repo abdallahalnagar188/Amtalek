@@ -518,7 +518,7 @@ class HotOffersFragment : BindingFragment<FragmentHotOffersBinding>(),
     override fun onProjectClick(model: ProjectModel) {
         findNavController().navigate(
             R.id.myProjectDetailsFragment,
-            MyProjectDetailsFragmentArgs(model.listingNumber).toBundle()
+            MyProjectDetailsFragmentArgs(model.listingNumber,model.datePosted).toBundle()
         )
     }
 

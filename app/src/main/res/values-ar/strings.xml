@@ -28,7 +28,7 @@
     <string name="payment_type">نوع الدفع</string>
     <string name="do_you_want_to_add_additional_options_to_your_order">هل تريد إضافة خيارات إضافية لطلبك؟</string>
     <string name="contact_us">اتصل بنا</string>
-    <string name="contact_us_now">تواصل الآن</string>
+    <string name="contact_us_now">تواصل مع الشركة</string>
     <string name="follow_us">تابعنا</string>
     <string name="contact_us_directly">اتصل بنا مباشرة</string>
     <string name="full_name">الاسم بالكامل</string>
@@ -82,6 +82,7 @@
     <string name="features">"سمات "</string>
     <string name="extra_info">معلومات اضافية</string>
     <string name="description">وصف</string>
+    <string name="description_for_project">وصف المشروع</string>
     <string name="installment">تقسيط</string>
     <string name="al_ahly_bank_installment">تقسيط البنك الاهلي</string>
     <string name="this_product_can_be_installed">يمكن تثبيت هذا المنتج :</string>
@@ -549,6 +550,7 @@
     <string name="min_beds">الحد الأدنى من الاسرة</string>
     <string name="projects">المشاريع</string>
     <string name="location">الموقع</string>
+    <string name="all_locations">الكل</string>
     <string name="properties">العقارات</string>
     <string name="latest">الأحدث</string>
 
@@ -617,10 +619,10 @@
     <string name="s_currency">%s %s</string>
     <string name="s_meter_square">م&#xB2; %s</string>
     <string name="s_meter_square_me">%s متر&#xB2;</string>
-    <string name="s_meter_square_me_n">%s\n م&#xB2;</string>
+    <string name="s_meter_square_me_n">  مساحه\n%s م&#xB2;  </string>
 
-    <string name="s_bathroom_count_n">%s\n حمام</string>
-    <string name="s_bedroom_count_n">%s\n غرفة نوم</string>
+    <string name="s_bathroom_count_n">حمام\n%s </string>
+    <string name="s_bedroom_count_n">غرف نوم\n%s</string>
 
     <string name="my_favourite_properties">عقاراتي المفضلة</string>
     <string name="my_favourite">عقاراتي المفضلة</string>
@@ -793,6 +795,7 @@
 
 
     <string name="autocad_drawings">مخطط العقار</string>
+    <string name="autocad_drawings_for_project">مخطط المشروع</string>
     <string name="register_with_us">سجل معنا</string>
     <string name="notes_with_dots">ملاحظات:</string>
 
@@ -1075,6 +1078,7 @@
     <string name="show_less"> مشاهدة اقل</string>
     <string name="show_more">مشاهدة الكل</string>
     <string name="location_for_property">موقع العقار</string>
+    <string name="location_for_project">موقع المشروع</string>
     <string name="no_completed_projects_yet">لا توجد مشاريع </string>
     <string name="no_search_result">No Search result</string>
     <string name="no_notifications">لا توجد اشعارات</string>

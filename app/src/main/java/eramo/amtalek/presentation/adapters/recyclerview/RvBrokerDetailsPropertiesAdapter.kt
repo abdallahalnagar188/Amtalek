@@ -94,7 +94,7 @@ class RvBrokerDetailsPropertiesAdapter @Inject constructor() :
                     model.landArea?.let { formatNumber(it) })
                 tvBathroom.text = model.bathRoomNo.toString()
                 tvBed.text = model.bedRoomsNo.toString()
-                tvLocation.text = model.address
+                tvLocation.text = model.city + ", " + model.region
                // tvDatePosted.text = model.createdAt
 
                 Glide.with(itemView)

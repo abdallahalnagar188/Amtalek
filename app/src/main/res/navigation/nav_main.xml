@@ -383,13 +383,8 @@
         <argument
             android:name="id"
             app:argType="string"
-            android:defaultValue="0"/>
-        <argument
-            android:name="titleName"
-            app:argType="string" />
-        <argument
-            android:name="news"
-            app:argType="eramo.amtalek.domain.model.home.news.NewsModel" />
+            />
+
     </fragment>
     <fragment
         android:id="@+id/newsDetailsInCategoryFragment"
@@ -400,13 +395,7 @@
             android:name="id"
             app:argType="string"
             android:defaultValue="0"/>
-        <argument
-            android:name="titleName"
-            app:argType="string"
-            android:defaultValue=" "/>
-        <argument
-            android:name="newsCat"
-            app:argType="eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsData" />
+
     </fragment>
 
     <fragment
@@ -418,12 +407,6 @@
             android:name="id"
             app:argType="string"
             android:defaultValue="0"/>
-        <argument
-            android:name="titleName"
-            app:argType="string" />
-        <argument
-            android:name="news"
-            app:argType="eramo.amtalek.data.remote.dto.myHome.news.allnews.DataX" />
     </fragment>
     <fragment
         android:id="@+id/autocadFragment"
@@ -521,6 +504,9 @@
         tools:layout="@layout/fragment_my_project_details">
         <argument
             android:name="projectId"
+            app:argType="string" />
+        <argument
+            android:name="createdAt"
             app:argType="string" />
     </fragment>
     <dialog

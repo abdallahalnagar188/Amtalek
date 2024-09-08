@@ -16,6 +16,7 @@ import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
 import eramo.amtalek.domain.repository.BrokersDetailsRepo
+import eramo.amtalek.domain.repository.BrokersPropertiesRepo
 import eramo.amtalek.domain.usecase.broker.GetBrokers
 import eramo.amtalek.domain.usecase.broker.GetBrokersDetails
 import eramo.amtalek.domain.usecase.broker.GetBrokersProperties
@@ -30,7 +31,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BrokersViewModel @Inject constructor(
     private val getBrokersDetailsUseCase: BrokersDetailsRepo,
-    private val getBrokersPropertiesUseCase: GetBrokersProperties,
+    private val getBrokersPropertiesUseCase: BrokersPropertiesRepo,
     private val getUserDetailsUseCase: GetUserDetails,
     private val brokerApi: AmtalekApi // Inject BrokerApi for PagingSource
 ) : ViewModel() {
@@ -46,8 +47,8 @@ class BrokersViewModel @Inject constructor(
     private val _userDetails: MutableStateFlow<UserDetailsResponse?> = MutableStateFlow(null)
     val userDetails: StateFlow<UserDetailsResponse?> get() = _userDetails
 
-    private val _brokersProperties: MutableStateFlow<BrokersPropertyResponse?> = MutableStateFlow(null)
-    val brokersProperties: StateFlow<BrokersPropertyResponse?> get() = _brokersProperties
+    private val _brokersProperties= MutableStateFlow<Resource<BrokersPropertyResponse?>>(Resource.Loading())
+    val brokersProperties: MutableStateFlow<Resource<BrokersPropertyResponse?>> get() = _brokersProperties
 
     val brokersPaging: Flow<PagingData<DataX>> = Pager(
         config = PagingConfig(pageSize = 1, enablePlaceholders = false),
@@ -77,10 +78,20 @@ class BrokersViewModel @Inject constructor(
 
     fun getBrokersProperties(id: Int) {
         viewModelScope.launch {
-            try {
-                _brokersProperties.value = getBrokersPropertiesUseCase(id)
-            } catch (e: Exception) {
-                Log.e("failed", e.message.toString())
+            getBrokersPropertiesUseCase.getBrokersPropertiesFromRemote(id).collect {
+                when(it){
+                    is Resource.Success -> {
+                        _brokersProperties.value =
+                            Resource.Success(it.data)
+                    }
+                    is Resource.Error -> {
+                        _brokersProperties.value = Resource.Error(it.message!!)
+                    }
+                    is Resource.Loading -> {
+                        _brokersProperties.value =
+                            Resource.Loading()
+                    }
+                }
             }
         }
     }

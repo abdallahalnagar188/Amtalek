@@ -71,7 +71,7 @@ class SeeMoreProjectsFragment : BindingFragment<FragmentSeeMoreProjectsBinding>(
     override fun onPropertyClick(model: DataX) {
         findNavController().navigate(
             R.id.myProjectDetailsFragment,
-            model.listingNumber?.let { MyProjectDetailsFragmentArgs(it).toBundle() }
+            model.listingNumber?.let { MyProjectDetailsFragmentArgs(it,model.createdAt.toString()).toBundle() }
         )
     }
 }

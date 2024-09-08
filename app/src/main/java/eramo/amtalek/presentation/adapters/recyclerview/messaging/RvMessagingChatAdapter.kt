@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eightbitlab.com.blurview.RenderScriptBlur
+import eramo.amtalek.R
 import eramo.amtalek.data.remote.dto.contactedAgent.Data
 import eramo.amtalek.databinding.ItemMessagingChatBinding
 import eramo.amtalek.domain.model.drawer.MessagingChatModel
@@ -99,7 +100,7 @@ class RvMessagingChatAdapter @Inject constructor() :
                     setupWith(cvImage)
                         .setBlurAlgorithm(RenderScriptBlur(itemView.context))
                         .setBlurRadius(10f)
-                        .setOverlayColor(Color.parseColor("#6C6C6C"))
+                        .setOverlayColor(Color.parseColor("#D9D9D9"))
                         .setHasFixedTransformationMatrix(true)
                 }
 
@@ -109,7 +110,7 @@ class RvMessagingChatAdapter @Inject constructor() :
                     setupWith(binding.frameName) // Using the FrameLayout that contains the TextView
                         .setBlurAlgorithm(RenderScriptBlur(itemView.context))
                         .setBlurRadius(10f)
-                        .setOverlayColor(Color.parseColor("#6C6C6C"))
+                        .setOverlayColor(Color.parseColor("#D9D9D9"))
                         .setHasFixedTransformationMatrix(true)
                 }
             }

@@ -112,7 +112,7 @@ class CompletedProjectsFragment : BindingFragment<FragmentCompletedProjectsBindi
     override fun onProjectClick(model: Project) {
         findNavController().navigate(
             R.id.myProjectDetailsFragment,
-            model.listing_number?.let { MyProjectDetailsFragmentArgs(it).toBundle() }
+            model.listing_number?.let { MyProjectDetailsFragmentArgs(it,model.created_at.toString()).toBundle() }
         )
     }
 }

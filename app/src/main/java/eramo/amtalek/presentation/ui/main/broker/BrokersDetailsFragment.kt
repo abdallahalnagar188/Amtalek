@@ -111,8 +111,19 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
 
         lifecycleScope.launch {
             viewModel.brokersProperties.collect { state ->
-                Log.e("properties in fragment", state?.data.toString())
-                initRv(state?.data?.original ?: emptyList())
+                when (state) {
+                    is Resource.Success -> {
+                        state.data?.data?.original?.let { initRv(it) }
+                        LoadingDialog.dismissDialog()
+                    }
+                    is Resource.Error -> {
+                        showToast(state.message.toString())
+                        LoadingDialog.dismissDialog()
+                    }
+                    is Resource.Loading -> {
+                        LoadingDialog.showDialog()
+                    }
+                }
             }
         }
 
@@ -144,7 +155,6 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
         binding.apply {
 
             rvForRent.visibility = View.GONE
-
             tvAllProjectsCount.text =
                 "${model.property_for_sale?.plus(model.property_for_rent ?: 0)}  " + getString(R.string.property)
             tvTitle.text = model.name

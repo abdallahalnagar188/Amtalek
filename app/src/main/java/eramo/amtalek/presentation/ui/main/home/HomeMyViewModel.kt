@@ -12,6 +12,7 @@ import eramo.amtalek.data.remote.AmtalekApi
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
 import eramo.amtalek.data.remote.dto.myHome.allCitys.AllCityResponse
 import eramo.amtalek.data.remote.dto.myHome.news.NewsDetailsResponse
+import eramo.amtalek.data.remote.dto.myHome.news.newsDetails.NewsDetailsResponseX
 import eramo.amtalek.data.remote.dto.myHome.news.newscateg.NewsCategoryResponse
 import eramo.amtalek.data.remote.dto.project.allProjects.AllProjectsResponse
 import eramo.amtalek.data.remote.dto.property.allproperty.AllPropertyResponse
@@ -121,8 +122,8 @@ class HomeMyViewModel @Inject constructor(
     private val _newsCategory = MutableStateFlow<Resource<NewsCategoryResponse>>(Resource.Loading())
     val newsCategory: StateFlow<Resource<NewsCategoryResponse>> = _newsCategory
 
-    private val _newsDetails = MutableStateFlow<Resource<NewsDetailsResponse>>(Resource.Loading())
-    val newsDetails: StateFlow<Resource<NewsDetailsResponse>> = _newsDetails
+    private val _newsDetails = MutableStateFlow<Resource<NewsDetailsResponseX>>(Resource.Loading())
+    val newsDetails: StateFlow<Resource<NewsDetailsResponseX>> = _newsDetails
 
     //---------------------------------------------------------------------------------//
     private var initScreenJob: Job? = null
@@ -181,8 +182,19 @@ class HomeMyViewModel @Inject constructor(
 
     fun getNewsDetails(id: String) {
         viewModelScope.launch {
-            newsDetailsRepo.getNewsDetails(id).collectLatest {
-                _newsDetails.value = it
+            newsDetailsRepo.getNewsDetails(id).collect {
+                when (it) {
+                    is Resource.Success -> {
+                        _newsDetails.value = Resource.Success(it.data)
+                    }
+                    is Resource.Error -> {
+                        _newsDetails.value = Resource.Error(it.message!!)
+                    }
+
+                    is Resource.Loading -> {
+                        _newsDetails.value = Resource.Loading()
+                    }
+                }
             }
         }
     }
