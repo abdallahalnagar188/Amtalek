@@ -853,7 +853,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 tvDate.text = model.datePosted
                 // header layout
                 tvFinishing.text = model.finishing
-                tvLocation2.text = "${getString(R.string.location)} \n ${model.areaLocation}}"
+                tvLocation2.text = "${model.areaLocation}"
                 tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(model.area))
                 tvBedrooms.text = getString(R.string.s_bedroom_count_n, model.bedroomsCount.toString())
                 tvBathrooms.text = getString(R.string.s_bathroom_count_n, model.bathroomsCount.toString())
