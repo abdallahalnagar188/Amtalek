@@ -23,6 +23,7 @@ import eramo.amtalek.data.remote.dto.brokersDetails.Data
 import eramo.amtalek.data.remote.dto.brokersDetails.Project
 import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.databinding.FragmentBrokerDetailsBinding
+import eramo.amtalek.databinding.FragmentBrokerDetailsForBrokerBinding
 import eramo.amtalek.presentation.adapters.recyclerview.RvBrokerDetailsPropertiesAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
@@ -41,12 +42,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
+class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsForBrokerBinding>(),
     RvBrokerDetailsPropertiesAdapter.OnItemClickListener,
     FavClickListenerOriginalItem {
 
     override val bindingInflater: (LayoutInflater) -> ViewBinding
-        get() = FragmentBrokerDetailsBinding::inflate
+        get() = FragmentBrokerDetailsForBrokerBinding::inflate
 
     private val viewModelShared: SharedViewModel by viewModels()
     private val viewModel: BrokersViewModel by viewModels()
@@ -71,13 +72,21 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
                 navOptionsAnimation()
             )
 
+
+        }
+        binding.btnProperty.setOnClickListener {
+            findNavController().navigate(
+                R.id.brokerPropertyFragment,
+                bundleOf("id" to id),
+                navOptionsAnimation()
+            )
         }
         fetchData(id)
     }
 
     private fun fetchData(id: Int) {
         viewModel.getBrokersDetails(id)
-        viewModel.getBrokersProperties(id)
+        //viewModel.getBrokersProperties(id)
 
 
 //        lifecycleScope.launch {
@@ -109,23 +118,23 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.brokersProperties.collect { state ->
-                when (state) {
-                    is Resource.Success -> {
-                        state.data?.data?.original?.let { initRv(it) }
-                        LoadingDialog.dismissDialog()
-                    }
-                    is Resource.Error -> {
-                        showToast(state.message.toString())
-                        LoadingDialog.dismissDialog()
-                    }
-                    is Resource.Loading -> {
-                        LoadingDialog.showDialog()
-                    }
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.brokersProperties.collect { state ->
+//                when (state) {
+//                    is Resource.Success -> {
+//                        state.data?.data?.original?.let { initRv(it) }
+//                        LoadingDialog.dismissDialog()
+//                    }
+//                    is Resource.Error -> {
+//                        showToast(state.message.toString())
+//                        LoadingDialog.dismissDialog()
+//                    }
+//                    is Resource.Loading -> {
+//                        LoadingDialog.showDialog()
+//                    }
+//                }
+//            }
+//        }
 
         fetchAddRemoveToFavState(id)
     }
@@ -154,13 +163,15 @@ class BrokersDetailsFragment : BindingFragment<FragmentBrokerDetailsBinding>(),
     private fun assignData(model: Data) {
         binding.apply {
 
-            rvForRent.visibility = View.GONE
+           // rvForRent.visibility = View.GONE
             tvAllProjectsCount.text =
                 "${model.property_for_sale?.plus(model.property_for_rent ?: 0)}  " + getString(R.string.property)
             tvTitle.text = model.name
             tvDescription.text = model.description
             tvLocation.visibility = View.GONE
+            tvAllProjectsCount.visibility = View.GONE
             tvProjectsCount.text = "${model.projects_count}  " + getString(R.string.project)
+            tvPropertyCount.text = "${model.property_for_sale?.plus(model.property_for_rent ?: 0)}  " + getString(R.string.property)
             Glide.with(requireContext()).load(model.logo).into(ivBrokerLogo)
 //            if (model.broker_type == "broker" && model.has_package == "yes") {
 //                shareView.root.visibility = View.VISIBLE

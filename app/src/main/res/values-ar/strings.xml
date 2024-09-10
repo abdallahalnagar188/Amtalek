@@ -721,7 +721,7 @@
 
     <string name="property_added">تمت إضافة العقار</string>
 
-    <string name="packages">باقات مميزة</string>
+    <string name="packages">الباقات </string>
     <string name="packages_details">تفاصيل الباقة</string>
     <string name="free">مجاني</string>
 
@@ -801,7 +801,7 @@
 
     <string name="s_comments">التعليقات (%S)</string>
 
-    <string name="my_subscriptions">أشتراكى</string>
+    <string name="my_subscriptions">باقتك الحالية</string>
     <string name="recharge_the_package">إعادة شحن الباقة</string>
     <string name="change_package">إختار باقة أخرى</string>
     <string name="your_e_wallet">محفظتك الإليكترونية</string>
@@ -1082,6 +1082,9 @@
     <string name="no_completed_projects_yet">لا توجد مشاريع </string>
     <string name="no_search_result">No Search result</string>
     <string name="no_notifications">لا توجد اشعارات</string>
+    <string name="contact_with_us">تواصل مع الشركة</string>
+    <string name="no_properties">لا توجد عقارات</string>
+    <string name="write_message">ادخل رسالتك</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

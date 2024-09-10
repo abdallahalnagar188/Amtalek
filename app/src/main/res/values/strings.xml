@@ -769,7 +769,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="s_comments">Comments (%s)</string>
 
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="my_subscriptions">My subscriptions</string>
+    <string name="my_subscriptions">Current package</string>
     <string name="recharge_the_package">Recharge the package</string>
     <string name="change_package">Change package</string>
     <string name="your_e_wallet">Your e-wallet:</string>
@@ -1052,6 +1052,9 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="no_completed_projects_yet">No Completed Projects Yet</string>
     <string name="no_search_result">No Search result</string>
     <string name="no_notifications">no notifications</string>
+    <string name="contact_with_us">Contact with Us</string>
+    <string name="no_properties">No Properties</string>
+    <string name="write_message">Enter your message</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

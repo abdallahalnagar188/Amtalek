@@ -66,7 +66,8 @@ data class MyPropertyDetailsResponse(
             autocad = propertyAutocadList(),
             facebook = data?.get(0)?.facebook ?: "",
             twitter = data?.get(0)?.twitter ?: "",
-            listingNumber = data?.get(0)?.listingNumber ?: ""
+            listingNumber = data?.get(0)?.listingNumber ?: "",
+            city = data?.get(0)?.city ?: "",
             )
     }
 

@@ -651,7 +651,7 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:fontFamily="@font/font_medium"
                         android:text="@string/sign_out"
-                        android:textColor="@color/black"
+                        android:textColor="@color/red"
                         android:textSize="@dimen/_11ssp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/navHeader_iv_sign_out"
@@ -663,6 +663,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_30sdp"
+
                     android:src="@drawable/top_logo_ar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

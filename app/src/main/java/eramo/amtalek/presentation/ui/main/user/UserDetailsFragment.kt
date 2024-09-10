@@ -1,6 +1,5 @@
 package eramo.amtalek.presentation.ui.main.user
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,7 +16,6 @@ import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.data.remote.dto.userDetials.Data
 import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForRent
 import eramo.amtalek.data.remote.dto.userDetials.SubmittedPropsForSale

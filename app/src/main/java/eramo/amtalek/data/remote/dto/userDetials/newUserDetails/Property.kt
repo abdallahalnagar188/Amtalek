@@ -46,7 +46,7 @@ data class Property(
     val rent_duration: String?,
     val rent_price: Int?,
     val residential_commercial: String?,
-    val roi: Int?,
+    val roi: String?,
     val room_ensuite: Int?,
     val sale_price: Int?,
     val sale_price_roi: Any?,

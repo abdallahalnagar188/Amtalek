@@ -6,8 +6,8 @@
     android:gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_65sdp"
+        android:layout_height="@dimen/_65sdp"
         android:layout_gravity="center"
         app:cardCornerRadius="@dimen/_6sdp"
         app:cardElevation="0dp"

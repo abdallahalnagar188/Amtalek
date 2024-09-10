@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
+import android.text.Spanned
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
@@ -725,9 +726,8 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 }
             }
         }
-
-
     }
+
     private fun assignData(model: PropertyDetailsModel) {
         try {
             binding.apply {
@@ -853,11 +853,16 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                 tvDate.text = model.datePosted
                 // header layout
                 tvFinishing.text = model.finishing
-                tvLocation2.text = "${model.areaLocation}"
+                tvLocation2.text = model.city
                 tvArea.text = getString(R.string.s_meter_square_me_n, formatNumber(model.area))
                 tvBedrooms.text = getString(R.string.s_bedroom_count_n, model.bedroomsCount.toString())
                 tvBathrooms.text = getString(R.string.s_bathroom_count_n, model.bathroomsCount.toString())
 
+                if (model.comments.isEmpty()) {
+                    tvRatings.visibility = View.GONE
+                } else {
+                    tvRatings.visibility = View.VISIBLE
+                }
 
                 offerSpinner.visibility = View.GONE
                 tvUserName.text = model.brokerName
@@ -916,28 +921,38 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 
                 val htmlContent = model.description
 
-                // Set initial content in tvDescriptionValue
+                // Convert HTML to spanned text
                 val spannedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     Html.fromHtml(htmlContent, Html.FROM_HTML_MODE_COMPACT)
                 } else {
                     Html.fromHtml(htmlContent)
                 }
-                tvDescriptionValue.text = spannedText
+
+                // Set the initial text in the TextView
+                binding.tvDescriptionValue.text = spannedText
+
+                // Define a character limit for the collapsed state
+                val maxCharCount = 100
+
                 // Update the TextView based on the expanded state
-                updateTextView()
-                tvDescriptionValue.post {
-                    if (tvDescriptionValue.lineCount < 3) {
-                        tvShowMore.visibility = View.GONE
+                updateTextView(spannedText, maxCharCount)
+
+                // Check if the content exceeds the character limit after it's rendered
+                binding.tvDescriptionValue.post {
+                    if (spannedText.length <= maxCharCount) {
+                        binding.tvShowMore.visibility = View.GONE // Hide 'Show More' if text fits
                     } else {
-                        tvShowMore.visibility = View.VISIBLE
+                        binding.tvShowMore.visibility = View.VISIBLE
                     }
                 }
 
-                // Set a click listener on the TextView to toggle text expansion
-                tvShowMore.setOnClickListener {
+                // Set a click listener on the 'Show More' TextView to toggle text expansion
+                binding.tvShowMore.setOnClickListener {
                     isTextExpanded = !isTextExpanded
-                    updateTextView()
+                    updateTextView(spannedText, maxCharCount)
                 }
+
+                // Function to handle the expanded/collapsed state
 
 
                 initPropertyFeaturesRv(model.propertyAmenities)
@@ -1005,11 +1020,10 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
                     if (model.vendorType == "broker")
                         navigateToProfile(model = model)
                     else if (model.vendorType == "user") {
-                        val action = PropertyDetailsFragmentDirections.actionToUsersDetailsFragment(
-                            model.brokerId.toString()
+                        findNavController().navigate(R.id.userDetailsFragment,
+                            bundleOf("id" to model.brokerId.toString())
                         )
-                        findNavController().navigate(action)
-                        Log.e("id for user", model.id.toString())
+                        Log.e("id for user", model.brokerId.toString())
                     }
                 }
 
@@ -1090,6 +1104,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
             showToast(getString(R.string.invalid_data_parsing))
         }
     }
+
     object RecyclerViewUtils {
         fun setupHorizontalRecyclerView(
             context: Context,
@@ -1116,18 +1131,22 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
 //        return spannable
 //    }
 
-    private fun updateTextView() {
+    private fun updateTextView(spannedText: Spanned, maxCharCount: Int) {
         binding.apply {
             if (isTextExpanded) {
-                // Expand the text and change tvShowMore to "Show Less"
-                tvDescriptionValue.maxLines = Integer.MAX_VALUE
-                tvDescriptionValue.ellipsize = null
+                // Show full text
+                tvDescriptionValue.text = spannedText
                 tvShowMore.text = getString(R.string.show_less)
             } else {
-                // Collapse the text and change tvShowMore to "Show More"
-                tvDescriptionValue.maxLines = 3
-                tvDescriptionValue.ellipsize = TextUtils.TruncateAt.END
-                tvShowMore.text = getString(R.string.show_more)
+                // Show truncated text if it exceeds maxCharCount
+                if (spannedText.length > maxCharCount) {
+                    val truncatedText = spannedText.subSequence(0, maxCharCount).toString() + "..."
+                    tvDescriptionValue.text = truncatedText
+                    tvShowMore.text = getString(R.string.show_more)
+                } else {
+                    tvDescriptionValue.text = spannedText
+                    tvShowMore.visibility = View.GONE // Hide 'Show More' if the text is short
+                }
             }
         }
     }
@@ -1324,6 +1343,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
         val dialogFragment = ImageSliderDialogFragment.newInstance(imageList, position)
         dialogFragment.show(parentFragmentManager, "image_slider_dialog")
     }
+
     private fun showImageSliderInDialogForAutocad(imageList: List<AutocadModel>, position: Int) {
         val dialogFragment = AutocadImageDialogFragment.newInstance(imageList, position)
         dialogFragment.show(parentFragmentManager, "image_slider_dialog_autocad")
@@ -1609,6 +1629,7 @@ class PropertyDetailsFragment : BindingFragment<FragmentPropertyDetailsBinding>(
     override fun onFavClick(model: PropertyModel) {
         if (UserUtil.isUserLogin()) {
             viewModel.addOrRemoveFav(model.id)
+            fetchAddRemoveToFavState()
         } else {
             findNavController().navigate(R.id.loginDialog)
         }

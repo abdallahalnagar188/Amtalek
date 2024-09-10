@@ -33,7 +33,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="@dimen/_240sdp"
         android:layout_centerInParent="true" />
 
     <!-- Horizontal RecyclerView -->

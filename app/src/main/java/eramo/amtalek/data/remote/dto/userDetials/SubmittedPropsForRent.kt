@@ -1,9 +1,5 @@
 package eramo.amtalek.data.remote.dto.userDetials
 
-import android.os.Parcelable
-import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
-import kotlinx.parcelize.Parcelize
-
 data class SubmittedPropsForRent(
     val address: String?,
     val amenities: List<Amenity?>?,

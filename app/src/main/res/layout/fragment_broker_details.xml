@@ -146,6 +146,7 @@
                 android:background="@color/amtalek_blue_dark"
                 android:clickable="true"
                 android:focusable="true"
+                android:visibility="gone"
                 android:paddingTop="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_16sdp"
-                    android:src="@drawable/ic_arrow_right_raw"
+                    android:src="@drawable/ic_arrow_right_goldt"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

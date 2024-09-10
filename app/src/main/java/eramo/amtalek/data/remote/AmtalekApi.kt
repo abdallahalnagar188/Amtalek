@@ -13,6 +13,7 @@ import eramo.amtalek.data.remote.dto.bases.GeneralLoginResponse
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
+import eramo.amtalek.data.remote.dto.brokersProperties.newBrokerProps.AllBrokersPropertysResponse
 import eramo.amtalek.data.remote.dto.contactBrokerDetails.ContactUsResponseInProperty
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.contactedAgent.SentToBrokerMessageResponse
@@ -579,7 +580,7 @@ interface AmtalekApi {
     @GET("mobile/brokers")
     suspend fun getBrokers(
     @Query("page") page: Int,
-    @Query("size") size: Int = 1, // You can set default page size
+    @Query("size") size: Int = 10, // You can set default page size
     ): BrokersResponse
 
     @GET("mobile/news")
@@ -600,10 +601,13 @@ interface AmtalekApi {
 
     @GET("mobile/brokers-properties/{id}")
     suspend fun getBrokersProperties(
-        @Path("id") id: Int
-    ): Response<BrokersPropertyResponse>
+        @Path("id") id: Int,
+        @Query("page") page: Int,
+        @Query("size") size: Int = 1,
 
-    @GET("mobile/user/{id}")
+    ): Response<AllBrokersPropertysResponse>
+
+    @GET("mobile/broker/{id}/user")
     suspend fun getUserDetails(
         @Path("id") id: Int
     ): UserDetailsResponse

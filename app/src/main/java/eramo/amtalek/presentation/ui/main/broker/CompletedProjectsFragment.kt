@@ -54,8 +54,12 @@ class CompletedProjectsFragment : BindingFragment<FragmentCompletedProjectsBindi
                     is Resource.Success -> {
                         if (viewModel.brokersDetails.value?.data?.data?.get(0)?.projects_count == 0){
                             binding.noCompletedProjects.visibility = View.VISIBLE
+                            binding.rv.visibility = View.GONE
+                            binding.ivNoProjects.visibility = View.VISIBLE
                         }else{
                             binding.noCompletedProjects.visibility = View.GONE
+                            binding.rv.visibility = View.VISIBLE
+                            binding.ivNoProjects.visibility = View.GONE
                         }
                         rvCompletedProjectsAdapter.submitList(
                             viewModel.brokersDetails.value?.data?.data?.get(0)?.projects ?: emptyList()

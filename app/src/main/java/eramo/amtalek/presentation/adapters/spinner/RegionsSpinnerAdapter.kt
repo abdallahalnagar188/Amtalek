@@ -42,7 +42,7 @@ class RegionsSpinnerAdapter(context: Context, list: List<RegionModel>) :
 //                LSpinnerCvFlag.visibility = View.VISIBLE
 //            }
 
-            name.text = getItem(position)?.name
+            name.text = getItem(position)?.name?:"empty"
 //            Glide.with(context).load(getItem(position)?.countryFlag).into(LSpinnerIvFlag)
         }
 

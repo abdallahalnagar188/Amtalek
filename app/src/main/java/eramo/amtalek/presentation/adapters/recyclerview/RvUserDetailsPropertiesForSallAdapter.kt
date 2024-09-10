@@ -189,6 +189,7 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                     tvLabel.text = itemView.context.getString(R.string.forBoth)
                 }
 
+
                 when (model.for_what) {
                     PropertyType.FOR_SELL.key -> {
                         tvPrice.visibility = View.VISIBLE
@@ -301,7 +302,6 @@ class RvUserDetailsPropertiesForSallAdapter @Inject constructor() :
                 return oldItem == newItem
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
                 return oldItem == newItem
             }

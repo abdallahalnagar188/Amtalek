@@ -171,6 +171,15 @@
             android:id="@+id/action_brokersDetailsFragment_to_completedProjectsFragment"
             app:destination="@id/completedProjectsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/brokerPropertyFragment"
+        android:name="eramo.amtalek.presentation.ui.main.broker.AllBrokerPropertiesFragment"
+        android:label="Broker property fragment"
+        tools:layout="@layout/fragment_see_more_properties">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
 
     <fragment

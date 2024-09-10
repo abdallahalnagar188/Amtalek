@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import eramo.amtalek.R
-import eramo.amtalek.data.remote.dto.property.allproperty.DataX
+import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
+import eramo.amtalek.data.remote.dto.brokersProperties.newBrokerProps.DataX
 import eramo.amtalek.databinding.ItemPropertyPreviewBinding
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.enum.PropertyType
 import eramo.amtalek.util.enum.RentDuration
 import eramo.amtalek.util.formatNumber
@@ -19,12 +21,12 @@ import eramo.amtalek.util.formatPrice
 import javax.inject.Inject
 
 
-class RvNormalPropertiesAdapter @Inject constructor() :
-    PagingDataAdapter<DataX, RvNormalPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
+class RvAllBrokerPropertiesAdapter @Inject constructor() :
+    PagingDataAdapter<DataX, RvAllBrokerPropertiesAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
     private lateinit var listener: OnItemClickListener
     private lateinit var favListener:OnFavClickListener
-    override fun onBindViewHolder(holder: RvNormalPropertiesAdapter.ProductViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RvAllBrokerPropertiesAdapter.ProductViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
 
     }
@@ -54,12 +56,19 @@ class RvNormalPropertiesAdapter @Inject constructor() :
             binding.apply {
                 ivFav.setOnClickListener {
                     favListener.onFavClick(model)
-                    if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
-                        isFav = "1"
+                    if(UserUtil.isUserLogin()){
+                        if (isFav =="0") {ivFav.setImageResource(R.drawable.ic_heart_fill)
+                            isFav = "1"
+                        }
+                        else {ivFav.setImageResource(R.drawable.ic_heart)
+                            isFav ="0"
+                        }
                     }
-                    else {ivFav.setImageResource(R.drawable.ic_heart)
-                        isFav ="0"
-                    }
+                }
+                if (isFav == "1") {
+                    ivFav.setImageResource(R.drawable.ic_heart_fill)
+                } else {
+                    ivFav.setImageResource(R.drawable.ic_heart)
                 }
 
 
@@ -74,7 +83,7 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                     else -> ""
                 }
 
-                if (model.brokerDetails?.get(0)?.brokerType == "broker"){
+                if (model.brokerDetails?.brokerType == "broker"){
                     tvBroker.text = itemView.context.getString(R.string.agency)
                 }else{
                     tvBroker.text = itemView.context.getString(R.string.user)
@@ -130,12 +139,18 @@ class RvNormalPropertiesAdapter @Inject constructor() :
                 }
 
                 Glide.with(itemView)
-                    .load(model.brokerDetails?.get(0)?.logo)
+                    .load(model.brokerDetails?.companyLogo)
                     .into(ivBroker)
 
+                if (model.priority == "featured") {
+                    tvFeatured.visibility = View.VISIBLE
+                    tvLabel.setBackgroundResource(R.drawable.property_label_background_gold)
+                    root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gold)
+                } else {
                     tvFeatured.visibility = View.GONE
                     tvLabel.setBackgroundResource(R.drawable.property_label_background)
                     root.strokeColor = ContextCompat.getColor(itemView.context, R.color.gray_low)
+                }
 
             }
         }
@@ -166,7 +181,8 @@ class RvNormalPropertiesAdapter @Inject constructor() :
     }
     companion object {
         private val PRODUCT_COMPARATOR = object : DiffUtil.ItemCallback<DataX>() {
-            override fun areItemsTheSame(oldItem: DataX, newItem: DataX) = oldItem.id == newItem.id
+            override fun areItemsTheSame(
+                oldItem: DataX, newItem: DataX) = oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: DataX, newItem: DataX) = oldItem == newItem
         }

@@ -6,7 +6,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="@dimen/_240sdp"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         app:layout_constraintTop_toTopOf="parent"

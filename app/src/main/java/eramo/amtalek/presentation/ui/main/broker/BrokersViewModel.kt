@@ -13,6 +13,7 @@ import eramo.amtalek.data.remote.dto.broker.entity.DataX
 import eramo.amtalek.data.remote.dto.broker.entity.BrokersResponse
 import eramo.amtalek.data.remote.dto.brokersDetails.BrokersDetailsResponse
 import eramo.amtalek.data.remote.dto.brokersProperties.BrokersPropertyResponse
+import eramo.amtalek.data.remote.dto.brokersProperties.OriginalItem
 import eramo.amtalek.data.remote.dto.contactedAgent.ContactedAgentResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
 import eramo.amtalek.domain.repository.BrokersDetailsRepo
@@ -56,6 +57,18 @@ class BrokersViewModel @Inject constructor(
     ).flow.cachedIn(viewModelScope)
 
 
+    fun getAllBrokerPropertyPagingFlow(brokerId: Int): Flow<PagingData<eramo.amtalek.data.remote.dto.brokersProperties.newBrokerProps.DataX>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 1,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { getBrokersPropertiesUseCase.getAllBrokersPropertiesFromRemote(brokerId) } // Pass brokerId here
+        ).flow
+            .cachedIn(viewModelScope)
+    }
+
+
     fun getBrokersDetails(id: Int) {
         viewModelScope.launch {
            getBrokersDetailsUseCase.getBrokersDetailsFromRemote(id).collect {
@@ -76,25 +89,25 @@ class BrokersViewModel @Inject constructor(
         }
     }
 
-    fun getBrokersProperties(id: Int) {
-        viewModelScope.launch {
-            getBrokersPropertiesUseCase.getBrokersPropertiesFromRemote(id).collect {
-                when(it){
-                    is Resource.Success -> {
-                        _brokersProperties.value =
-                            Resource.Success(it.data)
-                    }
-                    is Resource.Error -> {
-                        _brokersProperties.value = Resource.Error(it.message!!)
-                    }
-                    is Resource.Loading -> {
-                        _brokersProperties.value =
-                            Resource.Loading()
-                    }
-                }
-            }
-        }
-    }
+//    fun getBrokersProperties(id: Int) {
+//        viewModelScope.launch {
+//            getBrokersPropertiesUseCase.getBrokersPropertiesFromRemote(id).collect {
+//                when(it){
+//                    is Resource.Success -> {
+//                        _brokersProperties.value =
+//                            Resource.Success(it.data)
+//                    }
+//                    is Resource.Error -> {
+//                        _brokersProperties.value = Resource.Error(it.message!!)
+//                    }
+//                    is Resource.Loading -> {
+//                        _brokersProperties.value =
+//                            Resource.Loading()
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     fun getUserDetails(id: Int) {
         viewModelScope.launch {

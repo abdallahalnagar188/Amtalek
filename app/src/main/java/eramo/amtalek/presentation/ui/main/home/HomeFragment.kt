@@ -684,7 +684,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                         }
 
                         is UiState.Loading -> {
-                            LoadingDialog.showDialog()
+
                         }
 
                         else -> {}
@@ -692,8 +692,6 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(),
                 }
             }
         }
-
-
     }
 
     private fun fetchGetHomeFeaturedProperties() {

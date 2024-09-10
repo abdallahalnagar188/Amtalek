@@ -48,6 +48,7 @@ data class PropertyDetailsModel(
     val autocad:List<AutocadModel>,
     val facebook:String,
     val twitter:String,
-    val listingNumber:String
+    val listingNumber:String,
+    val city:String,
 
     )
