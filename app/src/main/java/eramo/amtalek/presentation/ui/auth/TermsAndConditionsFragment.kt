@@ -3,18 +3,16 @@ package eramo.amtalek.presentation.ui.auth
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
 import eramo.amtalek.databinding.FragmentPolicyBinding
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.viewmodel.auth.TermsAndConditionsViewModel
-import eramo.amtalek.util.StatusBarUtil
 
 @AndroidEntryPoint
 class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
@@ -26,14 +24,36 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val navController = NavHostFragment.findNavController(this@TermsAndConditionsFragment)
+                    navController.navigate(
+                        R.id.signUpFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.termsAndConditionsFragment, true) // Replace with your current fragment's ID
+                            .build()
+                    )
+                }
+            }
+        )
 
         binding.apply {
             ivClose.setOnClickListener {
                 val navController = NavHostFragment.findNavController(this@TermsAndConditionsFragment)
-                navController.navigate(R.id.signUpFragment)
+                navController.navigate(
+                    R.id.signUpFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.termsAndConditionsFragment, true) // Replace with your current fragment's ID
+                        .build()
+                )
             }
         }
     }
+
 }
 
 
