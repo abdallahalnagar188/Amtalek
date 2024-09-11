@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_170sdp"
+        android:layout_height="@dimen/_100sdp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
         android:src="@color/amtalek_blue_dark"

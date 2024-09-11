@@ -27,18 +27,29 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
+                private var backPressCount = 0 // Counter to track back presses
+
                 override fun handleOnBackPressed() {
                     val navController = NavHostFragment.findNavController(this@TermsAndConditionsFragment)
-                    navController.navigate(
-                        R.id.signUpFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.termsAndConditionsFragment, true) // Replace with your current fragment's ID
-                            .build()
-                    )
+
+                    if (backPressCount == 0) {
+                        // First back press: Navigate to the SignUpFragment
+                        navController.navigate(
+                            R.id.signUpFragment,
+                            null,
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.termsAndConditionsFragment, true) // Pop the current fragment from the back stack
+                                .build()
+                        )
+                        backPressCount++ // Increment the counter
+                    } else {
+                        // Second back press: Exit the app
+                        requireActivity().finish() // Finish the app
+                    }
                 }
             }
         )
+
 
         binding.apply {
             ivClose.setOnClickListener {
@@ -53,7 +64,6 @@ class TermsAndConditionsFragment : BindingFragment<FragmentPolicyBinding>() {
             }
         }
     }
-
 }
 
 

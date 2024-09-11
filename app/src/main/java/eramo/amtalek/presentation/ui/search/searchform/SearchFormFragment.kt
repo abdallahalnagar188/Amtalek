@@ -118,12 +118,24 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
 
     private fun setupObservers() {
-        selectedLocation.observe(viewLifecycleOwner){
-            binding.locationValue.text = it.title
-            selectedLocationId = it.id
-            selectedLocationName = it.title
-            Log.e("id", it.id.toString() )
+        selectedLocation.observe(viewLifecycleOwner) { location ->
+            if (location.id != -1) {
+                // If a valid location is chosen, update the UI and variables
+                binding.locationValue.text = location.title
+                selectedLocationId = location.id
+                selectedLocationName = location.title
+            } else {
+                // Reset the location to a default value if no city is selected
+                clearSelectedLocation()
+            }
         }
+    }
+
+    // Method to reset the selected location
+    private fun clearSelectedLocation() {
+        selectedLocationId = -1 // Reset to an invalid ID
+        selectedLocationName = "" // Clear the name
+        binding.locationValue.text = getString(R.string.all_locations) // Set default text in UI
     }
 
     private fun createListsModel(): SearchDataListsModel {

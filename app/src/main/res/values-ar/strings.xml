@@ -1085,6 +1085,8 @@
     <string name="contact_with_us">تواصل مع الشركة</string>
     <string name="no_properties">لا توجد عقارات</string>
     <string name="write_message">ادخل رسالتك</string>
+    <string name="no">لا</string>
+    <string name="select_a_location">Select a Location</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

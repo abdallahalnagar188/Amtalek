@@ -28,6 +28,7 @@ import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.home.slider.SliderModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
+import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerSmallAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -137,13 +138,8 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                     searchQuery.priceArrangeKeys = "desc"
                     requestData()
                     binding.autoCompleteFilterType.setText("")
-
                 }
-
             }
-
-
-
         }
     }
     private fun fetchGetHomeSlider() {
@@ -318,17 +314,24 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     private fun setupObservers() {
         selectedLocation.observe(viewLifecycleOwner) {
-            binding.locationValue.text = it.title
-            selectedLocationId = it.id
-            searchQuery.locationId = selectedLocationId.toString()
-            selectedLocationName = it.title
-            requestData()
+            if (it.id != -1) { // Ensure a valid location is selected
+                binding.locationValue.text = it.title
+                selectedLocationId = it.id
+                searchQuery.locationId = selectedLocationId.toString()
+                selectedLocationName = it.title
+
+                requestData()
+                selectedLocation.value = LocationModel(id = -1, title = R.string.location.toString(), propertiesCount = 0)
+
+                binding.locationValue.text = it.title
+            }
         }
+
         itemsCount.observe(viewLifecycleOwner) {
             binding.tvTotalPropsValue.text = "(${it})"
         }
-
     }
+
 
     private fun fetchAddRemoveToFavState() {
         viewLifecycleOwner.lifecycleScope.launch {

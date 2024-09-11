@@ -82,8 +82,8 @@ class SignUpViewModel @Inject constructor(
         password: String?,
         confirmPassword: String?,
         gender: String?,
-        countryId: String?,
-        cityId: String?,
+//        countryId: String?,
+//        cityId: String?,
         regionId:String?,
         companyName: String?,
         iam:String?,
@@ -98,7 +98,8 @@ class SignUpViewModel @Inject constructor(
                     registerUseCase.register(
                         firstName = convertToRequestBody(firstName), lastName = convertToRequestBody(lastName), phone =  convertToRequestBody(phone), email =  convertToRequestBody(email),
                         password = convertToRequestBody(password), confirmPassword = convertToRequestBody(confirmPassword) ,
-                       gender =  convertToRequestBody(gender), countryId =  convertToRequestBody(countryId), cityId = convertToRequestBody(cityId),
+                       gender =  convertToRequestBody(gender),
+//                        countryId =  convertToRequestBody(countryId), cityId = convertToRequestBody(cityId),
                         regionId = convertToRequestBody(regionId),
                         companyLogo = convertFileToMultipart("company_logo",companyLogo), companyName = convertToRequestBody(companyName), iam = convertToRequestBody(iam),
                         birthday = convertToRequestBody(birthday)

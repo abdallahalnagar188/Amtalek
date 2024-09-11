@@ -3,6 +3,7 @@ package eramo.amtalek.presentation.adapters.recyclerview
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,7 @@ import eramo.amtalek.R
 import eramo.amtalek.databinding.ItemPackagesBinding
 import eramo.amtalek.domain.model.drawer.PackageModel
 import eramo.amtalek.util.UserUtil
+import eramo.amtalek.util.navOptionsAnimation
 import javax.inject.Inject
 
 
@@ -71,8 +73,28 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
                 tvLeadsManagement.text = itemView.context.getString(R.string.s_leads_management, model.leadsManagement)
                 tvProjects.text = itemView.context.getString(R.string.projects_s, model.projects)
                 tvCrmAgents.text = itemView.context.getString(R.string.s_crm_agents, model.crmAgents)
-                tvHrModule.text = itemView.context.getString(R.string.s_hr_module, model.hrModule)
-                tvAccountingModule.text = itemView.context.getString(R.string.s_accounting_module, model.accountingModule)
+                when (model.hrModule) {
+                    "yes" -> {
+                        val yesText = itemView.context.getString(R.string.yes) // Get the actual string value
+                        tvHrModule.text = itemView.context.getString(R.string.s_hr_module, yesText)
+                    }
+                    "no" -> {
+                        val noText = itemView.context.getString(R.string.no) // Get the actual string value
+                        tvHrModule.text = itemView.context.getString(R.string.s_hr_module, noText)
+                    }
+                }
+
+                //   tvHrModule.text = itemView.context.getString(R.string.s_hr_module, model.hrModule)
+                when(model.accountingModule){
+                    "yes" -> {
+                        val yesText = itemView.context.getString(R.string.yes) // Get the actual string value
+                        tvAccountingModule.text = itemView.context.getString(R.string.s_accounting_module, yesText)
+                    }
+                    "no" -> {
+                        val noText = itemView.context.getString(R.string.no) // Get the actual string value
+                        tvAccountingModule.text = itemView.context.getString(R.string.s_accounting_module, noText)
+                    }
+                }
                 tvSupervisors.text = itemView.context.getString(R.string.s_supervisors, model.supervisors)
 
 
@@ -128,10 +150,19 @@ class RvPackagesAgencyMonthlyAdapter @Inject constructor() :
                     cvPrice.setCardBackgroundColor(itemView.context.getColor(R.color.green))
                 }
                 btnSelect.setOnClickListener {
-                    if(UserUtil.getHasPackage() == "no"){
-                        listener.onAgencyMonthlyClick(model)
-                    }else{
-                        Toast.makeText(itemView.context, R.string.you_already_have_a_package, Toast.LENGTH_SHORT).show()
+                    val navController = Navigation.findNavController(itemView) // Get NavController from the itemView
+
+                    // Check if user is logged in
+                    if (UserUtil.isUserLogin()) {
+                        // If logged in, check if they already have a package
+                        if (UserUtil.getHasPackage() == "no") {
+                            listener.onAgencyMonthlyClick(model) // Call your listener
+                        } else {
+                            Toast.makeText(itemView.context, R.string.you_already_have_a_package, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        // If not logged in, navigate to the login dialog
+                        navController.navigate(R.id.loginDialog, null, navOptionsAnimation())
                     }
                 }
             }

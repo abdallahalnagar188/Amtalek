@@ -20,35 +20,34 @@ class SearchResultViewModel @Inject constructor(
 ) : ViewModel() {
     private val _searchResultSliderState = MutableStateFlow<UiState<List<SliderModel>>>(UiState.Empty())
     val searchResultSliderState: StateFlow<UiState<List<SliderModel>>> = _searchResultSliderState
-    private var getHomeSliderJob: Job?=null
+    private var getHomeSliderJob: Job? = null
 
 
-    fun getSearchResultSlider(){
+    fun getSearchResultSlider() {
         getHomeSliderJob?.cancel()
         getHomeSliderJob = viewModelScope.launch(Dispatchers.IO) {
 
-            searchRepository.getSearchResultSlider().collect(){result->
-                when(result){
-                    is Resource.Success ->{
+            searchRepository.getSearchResultSlider().collect() { result ->
+                when (result) {
+                    is Resource.Success -> {
                         val list = mutableListOf<SliderModel>()
-                        for (item in result.data?.data!!){
+                        for (item in result.data?.data!!) {
                             if (item != null) {
                                 list.add(item.toSliderModel())
                             }
                         }
                         _searchResultSliderState.emit(UiState.Success(list))
                     }
-                    is Resource.Error ->{
+
+                    is Resource.Error -> {
                         _searchResultSliderState.emit(UiState.Error(result.message!!))
                     }
-                    is Resource.Loading->{
+
+                    is Resource.Loading -> {
                         _searchResultSliderState.emit(UiState.Loading())
                     }
                 }
-
-
             }
         }
     }
-
 }

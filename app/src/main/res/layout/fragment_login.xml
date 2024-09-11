@@ -171,7 +171,7 @@
                 android:fontFamily="@font/font"
                 android:text="@string/don_t_have_an_account"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_9ssp" />
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:id="@+id/FLogin_tv_signUp"
@@ -181,7 +181,7 @@
                 android:fontFamily="@font/font"
                 android:text="@string/sign_up"
                 android:textColor="@color/amtalek_blue"
-                android:textSize="@dimen/_9ssp" />
+                android:textSize="@dimen/_12ssp" />
 
         </LinearLayout>
 

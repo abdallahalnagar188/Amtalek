@@ -84,7 +84,7 @@
     <string name="extras_fees">Extra Fees:</string>
     <string name="pay_type">Pay Type:</string>
     <string name="cancel_order">Cancel Order</string>
-    <string name="terms_and_conditions"><![CDATA[terms and conditions]]></string>
+    <string name="terms_and_conditions"><![CDATA[Terms and Conditions]]></string>
     <string name="confirm_and_finish"><![CDATA[Confirm & Finish]]></string>
     <string name="start">Start</string>
     <string name="s_dirham">%s DIRHAM</string>
@@ -594,8 +594,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="s_meter_square_me">%s m&#xB2;</string>
     <string name="s_meter_square_me_n">Area \n%s m&#xB2; </string>
 
-    <string name="s_bathroom_count_n">%s\n bathroom</string>
-    <string name="s_bedroom_count_n">%s\n bedroom</string>
+    <string name="s_bathroom_count_n">Bathroom \n %s </string>
+    <string name="s_bedroom_count_n">Bedroom \n %s </string>
 
     <string name="my_favourite_properties">My Favourite</string>
     <string name="my_favourite">My Favourite</string>
@@ -878,9 +878,9 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="agency_s_info">Agency\'s Info:</string>
     <string name="unit_location">Unit location</string>
     <string name="message_sent_successfully">Message Sent Successfully</string>
-    <string name="please_enter_a_name">please enter a name</string>
-    <string name="please_enter_a_mail">please enter a valid email</string>
-    <string name="please_enter_a_phone_number">please enter a phone number</string>
+    <string name="please_enter_a_name">Please enter a name</string>
+    <string name="please_enter_a_mail">Please enter a valid email</string>
+    <string name="please_enter_a_phone_number">Please enter a phone number</string>
     <string name="please_enter_a_message">Please enter a message</string>
     <string name="agency">Agency</string>
     <string name="or">OR</string>
@@ -1038,7 +1038,7 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="from">From</string>
     <string name="to">to</string>
     <string name="you_can_not_offer_to_yourself">you can\'t make offer to yourself</string>
-    <string name="please_enter_a_offer_value">please enter a offer value</string>
+    <string name="please_enter_a_offer_value">Please enter offer value</string>
     <string name="you_already_have_a_package">You already have a package</string>
     <string name="i_found_this_property_on_amtalek_com">I found this property on Amtalek</string>
     <string name="started_from">Started from</string>
@@ -1055,6 +1055,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="contact_with_us">Contact with Us</string>
     <string name="no_properties">No Properties</string>
     <string name="write_message">Enter your message</string>
+    <string name="no">No</string>
+    <string name="select_a_location">Select a Location</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

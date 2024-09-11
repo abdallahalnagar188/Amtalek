@@ -93,16 +93,16 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("selectedCountryPosition", binding.FSignUpCountriesSpinner.selectedItemPosition)
-        outState.putInt("selectedCityPosition", binding.FSignUpCitiesSpinner.selectedItemPosition)
-        outState.putInt("selectedRegionPosition", binding.FSignUpRegionsSpinner.selectedItemPosition)
+//        outState.putInt("selectedCityPosition", binding.FSignUpCitiesSpinner.selectedItemPosition)
+//        outState.putInt("selectedRegionPosition", binding.FSignUpRegionsSpinner.selectedItemPosition)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         savedInstanceState?.let {
             binding.FSignUpCountriesSpinner.setSelection(it.getInt("selectedCountryPosition", 0))
-            binding.FSignUpCitiesSpinner.setSelection(it.getInt("selectedCityPosition", 0))
-            binding.FSignUpRegionsSpinner.setSelection(it.getInt("selectedRegionPosition", 0))
+//            binding.FSignUpCitiesSpinner.setSelection(it.getInt("selectedCityPosition", 0))
+//            binding.FSignUpRegionsSpinner.setSelection(it.getInt("selectedRegionPosition", 0))
         }
     }
 
@@ -118,16 +118,16 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
     override fun onResume() {
         super.onResume()
         selectedCountryId = -1
-        selectedCityId = -1
-        selectedRegionId = -1
+//        selectedCityId = -1
+//        selectedRegionId = -1
     }
 
     //
     override fun onPause() {
         super.onPause()
         binding.FSignUpCountriesSpinner.setSelection(0)
-        binding.FSignUpCitiesSpinner.setSelection(0)
-        binding.FSignUpRegionsSpinner.setSelection(0)
+//        binding.FSignUpCitiesSpinner.setSelection(0)
+//        binding.FSignUpRegionsSpinner.setSelection(0)
     }
 
 
@@ -135,8 +135,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupAnimations()
         binding.FSignUpCountriesSpinner.isSaveEnabled = false
-        binding.FSignUpCitiesSpinner.isSaveEnabled = false
-        binding.FSignUpRegionsSpinner.isSaveEnabled = false
+//        binding.FSignUpCitiesSpinner.isSaveEnabled = false
+//        binding.FSignUpRegionsSpinner.isSaveEnabled = false
         if (LocalUtil.isEnglish()) {
             binding.FSignUpIvLogo.setImageDrawable(context?.getDrawable(R.drawable.top_logo_en))
 
@@ -222,8 +222,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
 
     private fun fetchData() {
         fetchCountries()
-        fetchCities()
-        fetchRegions()
+//        fetchCities()
+//        fetchRegions()
         fetchRegisterState()
         fetchSendingVerificationCodeEmailState()
     }
@@ -299,70 +299,70 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun setupCitiesSpinner(data: List<CityModel>) {
-        binding.apply {
-            FSignUpCitiesSpinner.isSaveEnabled = false
-            val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
-            FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
-            FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val model = parent?.getItemAtPosition(position) as CityModel
-
-                    selectedCityId = model.id
-                    viewModel.getRegions(model.id.toString())
-
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-            }
-
-            // refresh onClick if getting list fail
-            FSignUpCitiesSpinner.setOnTouchListener { view, motionEvent ->
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.performClick()
-                        if (data.isEmpty()) {
-                            viewModel.getCountries()
-                        }
-                    }
-                }
-                return@setOnTouchListener true
-            }
-        }
-    }
-
-    private fun setupRegionsSpinner(data: List<RegionModel>) {
-        binding.apply {
-            FSignUpRegionsSpinner.isSaveEnabled = false
-            val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
-            FSignUpRegionsSpinner.adapter = regionsSpinnerAdapter
-            FSignUpRegionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val model = parent?.getItemAtPosition(position) as RegionModel
-                    selectedRegionId = model.id
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // Handle case when nothing is selected if needed
-                }
-            }
-
-            // Refresh onClick if getting list fails
-            FSignUpRegionsSpinner.setOnTouchListener { view, motionEvent ->
-                when (motionEvent?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.performClick()
-                        if (data.isEmpty()) {
-                            viewModel.getCountries()  // Fetch data if the list is empty
-                        }
-                    }
-                }
-                return@setOnTouchListener true
-            }
-        }
-    }
+//    private fun setupCitiesSpinner(data: List<CityModel>) {
+//        binding.apply {
+//            FSignUpCitiesSpinner.isSaveEnabled = false
+//            val citiesSpinnerAdapter = CitiesSpinnerAdapter(requireContext(), data)
+//            FSignUpCitiesSpinner.adapter = citiesSpinnerAdapter
+//            FSignUpCitiesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                    val model = parent?.getItemAtPosition(position) as CityModel
+//
+//                    selectedCityId = model.id
+//                    viewModel.getRegions(model.id.toString())
+//
+//                }
+//
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//
+//                }
+//            }
+//
+//            // refresh onClick if getting list fail
+//            FSignUpCitiesSpinner.setOnTouchListener { view, motionEvent ->
+//                when (motionEvent?.action) {
+//                    MotionEvent.ACTION_DOWN -> {
+//                        view.performClick()
+//                        if (data.isEmpty()) {
+//                            viewModel.getCountries()
+//                        }
+//                    }
+//                }
+//                return@setOnTouchListener true
+//            }
+//        }
+//    }
+//
+//    private fun setupRegionsSpinner(data: List<RegionModel>) {
+//        binding.apply {
+//            FSignUpRegionsSpinner.isSaveEnabled = false
+//            val regionsSpinnerAdapter = RegionsSpinnerAdapter(requireContext(), data)
+//            FSignUpRegionsSpinner.adapter = regionsSpinnerAdapter
+//            FSignUpRegionsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                    val model = parent?.getItemAtPosition(position) as RegionModel
+//                    selectedRegionId = model.id
+//                }
+//
+//                override fun onNothingSelected(parent: AdapterView<*>?) {
+//                    // Handle case when nothing is selected if needed
+//                }
+//            }
+//
+//            // Refresh onClick if getting list fails
+//            FSignUpRegionsSpinner.setOnTouchListener { view, motionEvent ->
+//                when (motionEvent?.action) {
+//                    MotionEvent.ACTION_DOWN -> {
+//                        view.performClick()
+//                        if (data.isEmpty()) {
+//                            viewModel.getCountries()  // Fetch data if the list is empty
+//                        }
+//                    }
+//                }
+//                return@setOnTouchListener true
+//            }
+//        }
+//    }
 
 
     private fun setupGenderSwitch() {
@@ -508,8 +508,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                             with empty lists to enable refresh onClick
                              **/
                             setupCountriesSpinner(emptyList())
-                            setupCitiesSpinner(emptyList())
-                            setupRegionsSpinner(emptyList())
+//                            setupCitiesSpinner(emptyList())
+//                            setupRegionsSpinner(emptyList())
                         }
 
                         else -> {}
@@ -520,62 +520,62 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
         }
     }
 
-    private fun fetchCities() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.citiesState.collect { state ->
-                    when (state) {
-                        is UiState.Loading -> {
-//                            showShimmerEffect()
-                        }
-
-                        is UiState.Success -> {
-                            dismissShimmerEffect()
-
-                            setupCitiesSpinner(state.data ?: emptyList())
-                        }
-
-                        is UiState.Error -> {
-                            dismissShimmerEffect()
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
-    }
-
-    private fun fetchRegions() {
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.regionsState.collect { state ->
-                    when (state) {
-                        is UiState.Loading -> {
-//                            showShimmerEffect()
-                        }
-
-                        is UiState.Success -> {
-                            dismissShimmerEffect()
-                            setupRegionsSpinner(state.data ?: emptyList())
-                        }
-
-                        is UiState.Error -> {
-                            dismissShimmerEffect()
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
-    }
+//    private fun fetchCities() {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.citiesState.collect { state ->
+//                    when (state) {
+//                        is UiState.Loading -> {
+////                            showShimmerEffect()
+//                        }
+//
+//                        is UiState.Success -> {
+//                            dismissShimmerEffect()
+//
+//                            setupCitiesSpinner(state.data ?: emptyList())
+//                        }
+//
+//                        is UiState.Error -> {
+//                            dismissShimmerEffect()
+//                            val errorMessage = state.message!!.asString(requireContext())
+//                            showToast(errorMessage)
+//                        }
+//
+//                        else -> {}
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
+//
+//    private fun fetchRegions() {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                viewModel.regionsState.collect { state ->
+//                    when (state) {
+//                        is UiState.Loading -> {
+////                            showShimmerEffect()
+//                        }
+//
+//                        is UiState.Success -> {
+//                            dismissShimmerEffect()
+//                            setupRegionsSpinner(state.data ?: emptyList())
+//                        }
+//
+//                        is UiState.Error -> {
+//                            dismissShimmerEffect()
+//                            val errorMessage = state.message!!.asString(requireContext())
+//                            showToast(errorMessage)
+//                        }
+//
+//                        else -> {}
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
     private fun fetchRegisterState() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -743,8 +743,8 @@ class SignUpFragment : BindingFragment<FragmentSignupBinding>() {
                 password = password,
                 confirmPassword = rePassword,
                 gender = selectedGender,
-                countryId = selectedCountryId.toString(),
-                cityId = selectedCityId.toString(),
+//                countryId = selectedCountryId.toString(),
+//                cityId = selectedCityId.toString(),
                 regionId = selectedRegionId.toString(),
                 companyName = binding.FSignUpEtCompanyName.text.toString(),
                 companyLogo = imageUri,

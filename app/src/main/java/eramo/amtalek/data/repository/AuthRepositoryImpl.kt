@@ -53,8 +53,8 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
         confirmPassword: RequestBody?,
         gender: RequestBody?,
         countryId: RequestBody?,
-        cityId: RequestBody?,
-        regionId: RequestBody?,
+//        cityId: RequestBody?,
+//        regionId: RequestBody?,
         birthday: RequestBody?,
         companyName: RequestBody?,
         iam: RequestBody?,
@@ -65,8 +65,10 @@ class AuthRepositoryImpl(private val amtalekApi: AmtalekApi) : AuthRepository {
             val result = toResultFlow {
                 amtalekApi.register(
                     firstName = firstName, lastName = lastName, phone = phone, email = email, password = password,
-                    confirmPassword = confirmPassword, gender = gender, countryId = countryId, cityId = cityId,
-                    regionId = regionId, createdFrom = convertToRequestBody(FROM_ANDROID),
+                    confirmPassword = confirmPassword, gender = gender, countryId = countryId,
+//                    cityId = cityId,
+//                    regionId = regionId,
+                    createdFrom = convertToRequestBody(FROM_ANDROID),
                     acceptCondition = convertToRequestBody(SIGN_UP_GENDER_ACCEPT_CONDITION),
                     notRobot = convertToRequestBody(NOT_ROBOT),
                     companyName = companyName,

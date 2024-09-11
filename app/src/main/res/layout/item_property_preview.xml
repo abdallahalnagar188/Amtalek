@@ -113,7 +113,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:textColor="@color/black"
             android:ellipsize="end"
-            android:fontFamily="@font/font_extrabold"
+            android:fontFamily="@font/font"
             android:maxLines="1"
             android:textAlignment="viewStart"
             android:textSize="@dimen/_11ssp"

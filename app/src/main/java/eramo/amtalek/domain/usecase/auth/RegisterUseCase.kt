@@ -21,8 +21,8 @@ class RegisterUseCase @Inject constructor(private val repository: AuthRepository
         birthday:RequestBody?,
         confirmPassword: RequestBody?,
         gender: RequestBody?,
-        countryId: RequestBody?,
-        cityId: RequestBody?,
+//        countryId: RequestBody?,
+//        cityId: RequestBody?,
         regionId:RequestBody?,
         companyName: RequestBody?,
         iam:RequestBody?,
@@ -30,7 +30,10 @@ class RegisterUseCase @Inject constructor(private val repository: AuthRepository
     ): Flow<Resource<ResultModel>> {
      return repository.register(
             firstName = firstName, lastName = lastName, phone = phone, email =  email, password =  password, birthday =  birthday, confirmPassword = confirmPassword,
-        gender =  gender, countryId =  countryId, cityId = cityId, regionId = regionId, companyName = companyName,
+        gender =  gender,
+//         countryId =  countryId, cityId = cityId,
+
+         regionId = regionId, companyName = companyName,
          iam = iam, companyLogo =  companyLogo
             )
     }

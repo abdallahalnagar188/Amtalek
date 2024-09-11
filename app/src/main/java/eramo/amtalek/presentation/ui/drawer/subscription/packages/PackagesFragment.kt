@@ -314,29 +314,38 @@ class PackagesFragment : BindingFragment<FragmentPackagesBinding>(), RvPackagesU
     }
 
     override fun onAgencyMonthlyClick(model: PackageModel) {
-        if (UserUtil.isUserLogin()) {
+        if (!UserUtil.isUserLogin()) {
+            // If the user is not logged in, navigate to the login dialog
+            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
+        } else {
+            // If the user is logged in, check if they already have a package
             if (UserUtil.getHasPackage() == "no") {
+                // Subscribe to the package if the user doesn't already have one
                 viewModel.subscribeToPackage(duration = "monthly", packageId = model.id.toString(), actorType = "broker")
             } else {
+                // Show a toast if the user already has a package
                 showToast(getString(R.string.you_already_have_a_package))
             }
-        } else {
-            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
 
     }
 
     override fun onAgencyYearlyPlanClick(model: PackageModel) {
-        if (UserUtil.isUserLogin()) {
+        if (!UserUtil.isUserLogin()) {
+            // If the user is not logged in, navigate to the login dialog
+            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
+        } else {
+            // If the user is logged in, check if they already have a package
             if (UserUtil.getHasPackage() == "no") {
+                // Subscribe to the package if the user doesn't already have one
                 viewModel.subscribeToPackage(duration = "yearly", packageId = model.id.toString(), actorType = "broker")
             } else {
+                // Show a toast if the user already has a package
                 showToast(getString(R.string.you_already_have_a_package))
             }
-        } else {
-            findNavController().navigate(R.id.loginDialog, null, navOptionsAnimation())
         }
     }
+
 
     override fun onUserMonthlyClick(model: PackageModel) {
         if (UserUtil.isUserLogin()) {

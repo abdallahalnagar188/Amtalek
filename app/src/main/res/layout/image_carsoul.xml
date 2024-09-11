@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.imaginativeworld.whynotimagecarousel.ImageCarousel xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/carousel_slider"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginTop="8dp"
+    android:scaleType="centerInside"
+    app:autoPlayDelay="2000"
+    app:carouselType="BLOCK"
+    app:showBottomShadow="false"
+    app:showCaption="false"
+    app:showIndicator="false"
+    app:showNavigationButtons="true"
+    app:showTopShadow="false" />

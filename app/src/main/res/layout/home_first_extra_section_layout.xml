@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:ellipsize="end"
-        android:fontFamily="@font/font_extrabold"
+        android:fontFamily="@font/font"
         android:textStyle="bold"
         android:maxLines="1"
         android:textColor="@color/black"
