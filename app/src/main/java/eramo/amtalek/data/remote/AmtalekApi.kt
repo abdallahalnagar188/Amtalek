@@ -58,6 +58,7 @@ import eramo.amtalek.data.remote.dto.property.newResponse.send_prop_comment.Send
 import eramo.amtalek.data.remote.dto.property.newResponse.submit_to_broker.SubmitToBrokerResponse
 import eramo.amtalek.data.remote.dto.search.alllocations.AllLocationsResponse
 import eramo.amtalek.data.remote.dto.search.currencies.CurrenciesResponse
+import eramo.amtalek.data.remote.dto.search.searchform.SearchFilterationResponse
 import eramo.amtalek.data.remote.dto.splash.splashV2.OnBordingResponse
 import eramo.amtalek.data.remote.dto.userDetials.UserDetailsResponse
 import eramo.amtalek.presentation.ui.drawer.messaging.addons.CardReqoest
@@ -493,6 +494,23 @@ interface AmtalekApi {
         @Part("amenities") amenities: RequestBody?,
         @Part("priority_keys") priority_keys: RequestBody?,
     ): Response<eramo.amtalek.data.remote.dto.search.searchresponse.SearchResponse>
+
+    @GET("search-form-filteration")
+    suspend fun getSearchFilteration(
+        @Query("property_type") propertyType: String = "",
+        @Query("purpose") purpose: String = "",
+        @Query("finishing") finishing: String = "",
+        @Query("currency") currency: String = "",
+        @Query("amenities") amenities: List<Int> = emptyList(), // List of integers
+        @Query("min_price") minPrice: String = "",
+        @Query("max_price") maxPrice: String = "",
+        @Query("min_area") minArea: String = "",
+        @Query("max_area") maxArea: String = "",
+        @Query("min_beds") minBeds: String = "",
+        @Query("min_bathes") minBathes: String = ""
+    ): Response<SearchFilterationResponse>
+
+
     ////------------------------------------------------------------------------------------------------//
 
     // ____________________________________________________________________________________________//

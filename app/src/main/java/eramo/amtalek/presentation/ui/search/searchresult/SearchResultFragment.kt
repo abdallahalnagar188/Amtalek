@@ -2,6 +2,7 @@ package eramo.amtalek.presentation.ui.search.searchresult
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
@@ -30,6 +31,7 @@ import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.domain.search.SearchDataListsModel
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvSearchByPropertyTypeSearchResultAdapter
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerSmallAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.FilterDialogFragment
@@ -55,6 +57,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     RvSearchResultsPropertiesAdapter.OnItemClickListener,
+
     FavClickListener {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchResultBinding::inflate
@@ -83,6 +86,8 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     @Inject
     lateinit var propertiesAdapter: RvSearchResultsPropertiesAdapter
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
@@ -93,7 +98,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         setupObservers()
         val data = dataLists
         setupSpinners(data)
-        setupScrollListener()
+        //setupScrollListener()
     }
 
     override fun onResume() {
@@ -142,40 +147,40 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             }
         }
     }
-    private fun fetchGetHomeSlider() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                searchResultViewModel.searchResultSliderState.collect() { state ->
-                    when (state) {
-
-                        is UiState.Success -> {
-                            val data = state.data
-                            if (!data.isNullOrEmpty()) {
-                                binding.carouselSliderBetween.visibility = View.VISIBLE
-                                //   binding.carouselSliderBetweenDots.visibility = View.VISIBLE
-                                setupSliderBetween(parseBetweenCarouselSliderList(data))
-                            } else {
-                                binding.carouselSliderBetween.visibility = View.GONE
-                                //   binding.carouselSliderBetweenDots.visibility = View.GONE
-
-                            }
-                        }
-
-                        is UiState.Error -> {
-                            val errorMessage = state.message!!.asString(requireContext())
-                            showToast(errorMessage)
-                        }
-
-                        is UiState.Loading -> {
-                        }
-
-                        else -> {}
-                    }
-
-                }
-            }
-        }
-    }
+//    private fun fetchGetHomeSlider() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                searchResultViewModel.searchResultSliderState.collect() { state ->
+//                    when (state) {
+//
+//                        is UiState.Success -> {
+//                            val data = state.data
+//                            if (!data.isNullOrEmpty()) {
+//                                binding.carouselSliderBetween.visibility = View.VISIBLE
+//                                //   binding.carouselSliderBetweenDots.visibility = View.VISIBLE
+//                                setupSliderBetween(parseBetweenCarouselSliderList(data))
+//                            } else {
+//                                binding.carouselSliderBetween.visibility = View.GONE
+//                                //   binding.carouselSliderBetweenDots.visibility = View.GONE
+//
+//                            }
+//                        }
+//
+//                        is UiState.Error -> {
+//                            val errorMessage = state.message!!.asString(requireContext())
+//                            showToast(errorMessage)
+//                        }
+//
+//                        is UiState.Loading -> {
+//                        }
+//
+//                        else -> {}
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
     private lateinit var sliderModels: List<SliderModel>
     private lateinit var carouselItems: List<CarouselItem>
@@ -200,66 +205,66 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
     }
 
 
-    private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
-        binding.apply {
-            carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
-            carouselSliderBetween.setData(dataState)
-
-            if (dataState.size == 1) {
-                carouselSliderBetween.infiniteCarousel = false
-                carouselSliderBetween.autoPlay = false
-                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
-            } else {
-                carouselSliderBetween.infiniteCarousel = true
-                carouselSliderBetween.autoPlay = true
-                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
-            }
-
-            carouselSliderBetween.carouselListener = object : CarouselListener {
-                override fun onCreateViewHolder(
-                    layoutInflater: LayoutInflater,
-                    parent: ViewGroup
-                ): ViewBinding {
-                    return ItemSliderTopBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
-                    )
-                }
-
-                override fun onBindViewHolder(
-                    binding: ViewBinding,
-                    item: CarouselItem,
-                    position: Int
-                ) {
-                    val currentBinding = binding as ItemSliderTopBinding
-                    val sliderModel = sliderModels[position]
-
-                    currentBinding.apply {
-                        imageView13.setImage(item)
-                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP
-
-                        // Access the SliderModel variables here
-                        val id = sliderModel.id
-                        val imageUrl = sliderModel.image
-                        val type = sliderModel.type
-                        val inFrame = sliderModel.inFrame
-                        val url = sliderModel.url
-
-                        // Use these variables as needed
-                        this.root.setOnClickListener {
-                            if (url.isNotEmpty()) {
-                                setupListeners(url)
-                                homeMyViewModel.clickedOnAd(id.toString())
-                            }
-                        }
-
-                        this@SearchResultFragment .binding.inToolbar
-                    }
-                }
-            }
-        }
-    }
+//    private fun setupSliderBetween(dataState: ArrayList<CarouselItem>) {
+//        binding.apply {
+//            carouselSliderBetween.registerLifecycle(viewLifecycleOwner.lifecycle)
+//            carouselSliderBetween.setData(dataState)
+//
+//            if (dataState.size == 1) {
+//                carouselSliderBetween.infiniteCarousel = false
+//                carouselSliderBetween.autoPlay = false
+//                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
+//            } else {
+//                carouselSliderBetween.infiniteCarousel = true
+//                carouselSliderBetween.autoPlay = true
+//                carouselSliderBetween.imageScaleType = ImageView.ScaleType.CENTER_INSIDE
+//            }
+//
+//            carouselSliderBetween.carouselListener = object : CarouselListener {
+//                override fun onCreateViewHolder(
+//                    layoutInflater: LayoutInflater,
+//                    parent: ViewGroup
+//                ): ViewBinding {
+//                    return ItemSliderTopBinding.inflate(
+//                        layoutInflater,
+//                        parent,
+//                        false
+//                    )
+//                }
+//
+//                override fun onBindViewHolder(
+//                    binding: ViewBinding,
+//                    item: CarouselItem,
+//                    position: Int
+//                ) {
+//                    val currentBinding = binding as ItemSliderTopBinding
+//                    val sliderModel = sliderModels[position]
+//
+//                    currentBinding.apply {
+//                        imageView13.setImage(item)
+//                        imageView13.scaleType = ImageView.ScaleType.CENTER_CROP
+//
+//                        // Access the SliderModel variables here
+//                        val id = sliderModel.id
+//                        val imageUrl = sliderModel.image
+//                        val type = sliderModel.type
+//                        val inFrame = sliderModel.inFrame
+//                        val url = sliderModel.url
+//
+//                        // Use these variables as needed
+//                        this.root.setOnClickListener {
+//                            if (url.isNotEmpty()) {
+//                                setupListeners(url)
+//                                homeMyViewModel.clickedOnAd(id.toString())
+//                            }
+//                        }
+//
+//                        this@SearchResultFragment .binding.inToolbar
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun setupListeners(url: String) {
         val intent = Intent(Intent.ACTION_VIEW).apply {
@@ -267,6 +272,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
         }
         startActivity(intent)
     }
+
 
     private fun setupSpinners(data: SearchDataListsModel) {
 
@@ -361,7 +367,7 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     }
     private fun fetchData() {
-        fetchGetHomeSlider()
+      //  fetchGetHomeSlider()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchState.collect() { data ->
@@ -402,28 +408,28 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
             }
         }
     }
-    private fun setupScrollListener() {
-        binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-            val lastChild = binding.nestedScrollView.getChildAt(binding.nestedScrollView.childCount - 1)
-            val diff = lastChild.bottom - (binding.nestedScrollView.height + scrollY)
-
-            if (diff <= 200) {
-                // Trigger loading more data when near the bottom
-                viewLifecycleOwner.lifecycleScope.launch {
-                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        viewModel.searchState.collect() { data ->
-                            data?.let {
-                                propertiesAdapter.submitData(viewLifecycleOwner.lifecycle, data)
-                                delay(1000)
-                                binding.rvProperties.scrollToPosition(0)
-                                LoadingDialog.dismissDialog()
-                            }
-                        }
-                    }
-                }
-            }
-        })
-    }
+//    private fun setupScrollListener() {
+//        binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+//            val lastChild = binding.nestedScrollView.getChildAt(binding.nestedScrollView.childCount - 1)
+//            val diff = lastChild.bottom - (binding.nestedScrollView.height + scrollY)
+//
+//            if (diff <= 200) {
+//                // Trigger loading more data when near the bottom
+//                viewLifecycleOwner.lifecycleScope.launch {
+//                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                        viewModel.searchState.collect() { data ->
+//                            data?.let {
+//                                propertiesAdapter.submitData(viewLifecycleOwner.lifecycle, data)
+//                                delay(1000)
+//                                binding.rvProperties.scrollToPosition(0)
+//                                LoadingDialog.dismissDialog()
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        })
+//    }
     private fun setupToolBar() {
         binding.inToolbar.apply {
             tvTitle.text = getString(R.string.find_your_property)
@@ -498,17 +504,14 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
 
     private fun setupTypesSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
-
             val criteriaSpinnerAdapter = CriteriaSpinnerSmallAdapter(requireContext(), data)
             typeSpinner.adapter = criteriaSpinnerAdapter
 
-
-            if (searchQuery.propertyTypeId != "") {
-                val selectedIndex =
-                    data.indexOfFirst { it.id == searchQuery.propertyTypeId?.toInt() }
-                if (selectedIndex != -1) {
-                    typeSpinner.setSelection(selectedIndex)
-                }
+            // Handle the propertyTypeId safely and default to 0 if null
+            val propertyTypeId = searchQuery.propertyTypeId?.toIntOrNull() ?: 0
+            val selectedIndex = data.indexOfFirst { it.id == propertyTypeId }
+            if (selectedIndex != -1) {
+                typeSpinner.setSelection(selectedIndex)
             }
 
             typeSpinner.setOnTouchListener { _, _ ->
@@ -528,19 +531,17 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                         selectedTypeId = model.id
                         searchQuery.propertyTypeId = selectedTypeId.toString()
                         requestData()
-                        isUserInteracting =
-                            false // Reset the flag after handling the user interaction
+                        isUserInteracting = false // Reset the flag after handling the user interaction
                     }
-
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
+                    // Handle no selection if necessary
                 }
             }
-
         }
     }
+
 
 
 
@@ -634,8 +635,9 @@ class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
-
             }
         }
     }
+
+
 }

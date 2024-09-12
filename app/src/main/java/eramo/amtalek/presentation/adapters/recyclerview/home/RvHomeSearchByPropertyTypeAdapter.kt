@@ -16,6 +16,7 @@ class RvHomeSearchByPropertyTypeAdapter @Inject constructor() :
     private lateinit var listener: OnItemClickListener
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )

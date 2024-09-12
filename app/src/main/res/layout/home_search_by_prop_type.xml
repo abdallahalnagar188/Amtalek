@@ -6,14 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="@dimen/_230sdp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_14sdp"
         android:layout_marginEnd="@dimen/_14sdp"
         android:ellipsize="end"
-        android:fontFamily="@font/font"
+        android:fontFamily="@font/font_black"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"

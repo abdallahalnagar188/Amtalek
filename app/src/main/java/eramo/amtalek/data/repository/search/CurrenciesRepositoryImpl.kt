@@ -30,7 +30,5 @@ class CurrenciesRepositoryImpl @Inject constructor(
                 }
             }
         }
-
     }
-
 }

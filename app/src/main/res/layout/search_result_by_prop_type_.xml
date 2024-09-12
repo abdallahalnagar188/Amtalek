@@ -6,20 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="@dimen/_230sdp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_14sdp"
+        android:layout_marginEnd="@dimen/_14sdp"
         android:ellipsize="end"
         android:fontFamily="@font/font_black"
-        android:textStyle="bold"
         android:maxLines="1"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/the_newest_apartments_in_egypt" />
+        tools:text="@string/featured_projects_in_egypt" />
 
     <TextView
         android:id="@+id/tv_see_more"
@@ -28,12 +31,12 @@
         android:layout_marginEnd="@dimen/_11sdp"
         android:fontFamily="@font/font_medium"
         android:text="@string/see_more"
+        android:visibility="gone"
         android:textColor="@color/text_gray"
         android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="@id/tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_title" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
@@ -49,8 +52,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_see_more"
-        tools:listitem="@layout/item_property_preview" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:listitem="@layout/item_prop_type_search_result" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

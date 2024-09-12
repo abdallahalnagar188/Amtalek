@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:fontFamily="@font/font"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_13ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

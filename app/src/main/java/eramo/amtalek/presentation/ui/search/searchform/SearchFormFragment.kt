@@ -1,5 +1,6 @@
 package eramo.amtalek.presentation.ui.search.searchform
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import eramo.amtalek.R
@@ -20,6 +22,7 @@ import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.domain.search.SearchModelDto
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvSearchByPropertyTypeSearchResultAdapter
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
 import eramo.amtalek.presentation.ui.dialog.LoadingDialog
@@ -28,23 +31,24 @@ import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocatio
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.selectedLocation
+import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.log
 
 @AndroidEntryPoint
-class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
+class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearchByPropertyTypeSearchResultAdapter.OnItemClickListener {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchFormBinding::inflate
 
     @Inject
     lateinit var amenitiesAdapter: SelectAmenitiesAdapter
 
-    private var selectedPurposeId:Int? =null
-    private var selectedFinishingId:Int? = null
-    private var selectedTypeId:Int? = null
-    private var selectedCurrencyId:Int? = null
+    private var selectedPurposeId: Int? = null
+    private var selectedFinishingId: Int? = null
+    private var selectedTypeId: Int? = null
+    private var selectedCurrencyId: Int? = null
 
     private var listOfPurposeItems = ArrayList<CriteriaModel>()
     private var listOfFinishingItems = ArrayList<CriteriaModel>()
@@ -52,11 +56,14 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     private var listOfCurrencyItems = ArrayList<CriteriaModel>()
     private var listOfAmenitiesItems = ArrayList<AmenityModel>()
 
+    @Inject
+    lateinit var rvSearchResultsPropertiesAdapter: RvSearchByPropertyTypeSearchResultAdapter
+
     private var isAmenityOpen = false
 
     private val viewModel by viewModels<SearchFormViewModel>()
-    private var selectedLocationId:Int? = null
-    private var selectedLocationName:String? = null
+    private var selectedLocationId: Int? = null
+    private var selectedLocationName: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -93,24 +100,27 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
     private fun fetchCurrencies() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.currenciesState.collect(){
-                    when(it){
-                        is UiState.Loading->{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.currenciesState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Success->{
+
+                        is UiState.Success -> {
                             val currencies = it.data
-                            Log.e("ahh", currencies.toString(), )
+                            Log.e("ahh", currencies.toString())
                             if (currencies != null) {
                                 setupCurrenciesSpinner(currencies.toMutableList())
                             }
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Empty->Unit
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }
@@ -138,8 +148,37 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
         binding.locationValue.text = getString(R.string.all_locations) // Set default text in UI
     }
 
+    private fun setupSearchFunctionality(data: List<CriteriaModel>) {
+        // Set the adapter's listener to handle item clicks
+        rvSearchResultsPropertiesAdapter.setListener(object : RvSearchByPropertyTypeSearchResultAdapter.OnItemClickListener {
+            override fun onItemClick(model: CriteriaModel) {
+                selectedTypeId = model.id
+
+                // Find the index of the selected item
+                val selectedIndex = data.indexOfFirst { it.id == model.id }
+
+                // Get the previously selected position
+                val previousPosition = rvSearchResultsPropertiesAdapter.selectedPosition
+
+                // Update the selected position in the adapter
+                rvSearchResultsPropertiesAdapter.selectedPosition = selectedIndex
+
+                // Notify changes to the adapter
+                if (previousPosition != RecyclerView.NO_POSITION && previousPosition != selectedIndex) {
+                    rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition) // Refresh previously selected item
+                }
+                rvSearchResultsPropertiesAdapter.notifyItemChanged(selectedIndex) // Refresh newly selected item
+            }
+        })
+
+        // Set the adapter to the RecyclerView and submit the data
+        binding.inSearchByPropertyType.rv.adapter = rvSearchResultsPropertiesAdapter
+        rvSearchResultsPropertiesAdapter.submitList(data)
+    }
+
+
     private fun createListsModel(): SearchDataListsModel {
-        val data =  SearchDataListsModel(
+        val data = SearchDataListsModel(
             listOfTypesItems = listOfTypeItems,
             listOfCurrencyItems = listOfCurrencyItems,
             listOfFinishingItems = listOfFinishingItems,
@@ -150,22 +189,23 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
     }
 
     private fun clickListeners() {
-        binding.btnConfirm.setOnClickListener(){
-            if (isValidForm()){
+        binding.btnConfirm.setOnClickListener() {
+            if (isValidForm()) {
                 binding.apply {
                     val myModel = createModel()
                     val listsModel = createListsModel()
-                    findNavController().navigate(R.id.searchResultFragment,
-                        SearchResultFragmentArgs(searchQuery = myModel,
+                    findNavController().navigate(
+                        R.id.searchResultFragment,
+                        SearchResultFragmentArgs(
+                            searchQuery = myModel,
                             dataLists = listsModel
                         ).toBundle(),
                         navOptionsAnimation()
                     )
-
                 }
             }
         }
-        binding.locationSpinner.setOnClickListener(){
+        binding.locationSpinner.setOnClickListener() {
             val couponDialog = AllLocationsPopUp()
             couponDialog.show(
                 activity?.supportFragmentManager!!,
@@ -173,12 +213,12 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             )
         }
         // hide and show amenities spinner on click on any part of the view
-        binding.amenitiesSpinner.setOnClickListener(){
-            if (!isAmenityOpen){
+        binding.amenitiesSpinner.setOnClickListener() {
+            if (!isAmenityOpen) {
                 binding.amenitesArrow.rotationX = 180f
                 binding.amenitiesRv.visibility = View.VISIBLE
                 isAmenityOpen = true
-            }else{
+            } else {
                 binding.amenitesArrow.rotationX = 0f
                 binding.amenitiesRv.visibility = View.GONE
                 isAmenityOpen = false
@@ -191,22 +231,23 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
             val searchKeyWords = if (etMainKey.text.toString().isEmpty()) "" else etMainKey.text.toString()
             val bedrooms = if (etBedroomsNumber.text.toString().isEmpty()) "" else etBedroomsNumber.text.toString()
             val bathrooms = if (etBathroomsNumber.text.toString().isEmpty()) "" else etBathroomsNumber.text.toString()
-            val minPrice = if (etMinPrice.text.toString().toInt() ==0) "" else etMinPrice.text.toString()
-            val maxPrice = if (etMaxPrice.text.toString().toInt() ==0) "" else etMaxPrice.text.toString()
-            val minArea = if (etMinArea.text.toString().toInt() ==0) "" else etMinArea.text.toString()
-            val maxArea = if (etMaxArea.text.toString().toInt() ==0) "" else etMaxArea.text.toString()
-            val locationId = if(locationValue.text.toString()==getString(R.string.location)) "" else selectedLocationId
-            val locationName = if(locationValue.text.toString()==getString(R.string.location)) getString(R.string.location) else selectedLocationName
-            val purposeId = if(selectedPurposeId==-1) "" else selectedPurposeId
-            val finishingId = if(selectedFinishingId==-1) "" else selectedFinishingId
-            val typeId = if(selectedTypeId==-1) "" else selectedTypeId
-            val currencyId = if(selectedCurrencyId==-1) -1 else selectedCurrencyId
+            val minPrice = if (etMinPrice.text.toString().toInt() == 0) "" else etMinPrice.text.toString()
+            val maxPrice = if (etMaxPrice.text.toString().toInt() == 0) "" else etMaxPrice.text.toString()
+            val minArea = if (etMinArea.text.toString().toInt() == 0) "" else etMinArea.text.toString()
+            val maxArea = if (etMaxArea.text.toString().toInt() == 0) "" else etMaxArea.text.toString()
+            val locationId = if (locationValue.text.toString() == getString(R.string.location)) "" else selectedLocationId
+            val locationName =
+                if (locationValue.text.toString() == getString(R.string.location)) getString(R.string.location) else selectedLocationName
+            val purposeId = if (selectedPurposeId == -1) "" else selectedPurposeId
+            val finishingId = if (selectedFinishingId == -1) "" else selectedFinishingId
+            val typeId = if (selectedTypeId == -1) "" else selectedTypeId
+            val currencyId = if (selectedCurrencyId == -1) -1 else selectedCurrencyId
 
             val myModel = SearchModelDto(
                 searchKeyWords = searchKeyWords,
                 locationId = locationId.toString(),
                 locationName = locationName,
-                currencyId =currencyId ,
+                currencyId = currencyId,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
                 propertyTypeId = typeId.toString(),
@@ -221,104 +262,119 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                 city = 0,
                 priority_keys = ""
             )
-            Log.e("Yarab", amenitiesAdapter.selectionList.toString(), )
+            Log.e("Yarab", amenitiesAdapter.selectionList.toString())
             return myModel
         }
     }
 
-    private fun isValidForm():Boolean{
+    private fun isValidForm(): Boolean {
         var isValid = true
-        if (binding.etMinArea.text.toString().toInt()>binding.etMaxArea.text.toString().toInt()){
+        if (binding.etMinArea.text.toString().toInt() > binding.etMaxArea.text.toString().toInt()) {
             isValid = false
             Toast.makeText(requireContext(), getString(R.string.min_area_must_be_greater_than_max_area), Toast.LENGTH_SHORT).show()
         }
-        if (binding.etMinPrice.text.toString().toInt()>binding.etMaxPrice.text.toString().toInt()){
+        if (binding.etMinPrice.text.toString().toInt() > binding.etMaxPrice.text.toString().toInt()) {
             isValid = false
             Toast.makeText(requireContext(), getString(R.string.min_price_must_be_greater_than_max_price), Toast.LENGTH_SHORT).show()
         }
         return isValid
     }
+
     private fun setupToolBar() {
         binding.inToolbar.apply {
             tvTitle.text = getString(R.string.find_your_property)
             ivBack.setOnClickListener { findNavController().popBackStack() }
         }
     }
-    private fun fetchInitApis(){
+
+    private fun fetchInitApis() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.initScreenState.collect(){state->
-                    when(state){
-                        is UiState.Loading->{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.initScreenState.collect() { state ->
+                    when (state) {
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Success->{
+
+                        is UiState.Success -> {
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Empty->Unit
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }
         }
     }
-    private fun fetchGetPropertyFinishing(){
+
+    private fun fetchGetPropertyFinishing() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.propertyFinishingState.collect(){
-                    when(it){
-                        is UiState.Loading->{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.propertyFinishingState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Success->{
+
+                        is UiState.Success -> {
                             val types = it.data
                             setupFinishingSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
 
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Empty->Unit
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }
         }
     }
-    private fun fetchGetPropertyTypes(){
+
+    private fun fetchGetPropertyTypes() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.propertyTypesState.collect(){
-                    when(it){
-                        is UiState.Loading->{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.propertyTypesState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Success->{
+
+                        is UiState.Success -> {
                             val types = it.data
                             if (types != null) {
                                 setupTypesSpinner(types.toMutableList())
+                                setupSearchFunctionality(types)
                             }
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
 
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Empty->Unit
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }
         }
 
     }
+
     private fun fetchGetAmenitiesState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.propertyAmenitiesState.collect(){
-                    when (it){
-                        is UiState.Success->{
+                viewModel.propertyAmenitiesState.collect() {
+                    when (it) {
+                        is UiState.Success -> {
                             amenitiesAdapter.saveData(it.data!!)
 
                             listOfAmenitiesItems = it.data as ArrayList<AmenityModel>
@@ -327,48 +383,55 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
                             binding.amenitiesRv.adapter = amenitiesAdapter
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
                             Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Loading->{
+
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Empty->Unit
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }
         }
     }
-    private fun fetchGetPropertyPurpose(){
+
+    private fun fetchGetPropertyPurpose() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.propertyPurposeState.collect(){
-                    when(it){
-                        is UiState.Loading->{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.propertyPurposeState.collect() {
+                    when (it) {
+                        is UiState.Loading -> {
                             LoadingDialog.showDialog()
                         }
-                        is UiState.Success->{
+
+                        is UiState.Success -> {
                             val types = it.data
                             setupPurposeSpinner(types!!.toMutableList())
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Error->{
+
+                        is UiState.Error -> {
 
                             LoadingDialog.dismissDialog()
                         }
-                        is UiState.Empty->Unit
+
+                        is UiState.Empty -> Unit
                     }
                 }
             }
         }
     }
 
-    private fun setupFinishingSpinner(data:MutableList<CriteriaModel>) {
+    private fun setupFinishingSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.finishing), image = ""))
+            data.add(0, CriteriaModel(-1, -1, getString(R.string.finishing), image = ""))
             listOfFinishingItems.clear()
-            for (item in data){
+            for (item in data) {
                 listOfFinishingItems.add(item)
             }
 
@@ -385,15 +448,14 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
                 }
             }
-
         }
-
     }
-    private fun setupTypesSpinner(data:MutableList<CriteriaModel>) {
+
+    private fun setupTypesSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.typee), image = ""))
+            data.add(0, CriteriaModel(-1, -1, getString(R.string.typee), image = ""))
             listOfTypeItems.clear()
-            for (item in data){
+            for (item in data) {
                 listOfTypeItems.add(item)
             }
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
@@ -409,15 +471,14 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
                 }
             }
-
-
         }
     }
-    private fun setupPurposeSpinner(data:MutableList<CriteriaModel>) {
+
+    private fun setupPurposeSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.purpose), image = ""))
+            data.add(0, CriteriaModel(-1, -1, getString(R.string.purpose), image = ""))
             listOfPurposeItems.clear()
-            for (item in data){
+            for (item in data) {
                 listOfPurposeItems.add(item)
             }
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
@@ -436,11 +497,12 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
         }
     }
-    private fun setupCurrenciesSpinner(data:MutableList<CriteriaModel>) {
+
+    private fun setupCurrenciesSpinner(data: MutableList<CriteriaModel>) {
         binding.apply {
-            data.add(0, CriteriaModel(-1,-1, getString(R.string.currency), image = ""))
+            data.add(0, CriteriaModel(-1, -1, getString(R.string.currency), image = ""))
             listOfCurrencyItems.clear()
-            for (item in data){
+            for (item in data) {
                 listOfCurrencyItems.add(item)
             }
             val criteriaSpinnerAdapter = CriteriaSpinnerAdapter(requireContext(), data)
@@ -456,10 +518,13 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>() {
 
                 }
             }
-
         }
     }
 
+    override fun onItemClick(model: CriteriaModel) {
+
+
+    }
 
 
 }

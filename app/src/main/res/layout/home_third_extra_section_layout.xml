@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_18sdp"
         android:ellipsize="end"
-        android:fontFamily="@font/font"
+        android:fontFamily="@font/font_black"
         android:maxLines="1"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/the_newest_duplexes_in_egypt" />
