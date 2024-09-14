@@ -1,10 +1,8 @@
 package eramo.amtalek.presentation.ui.search.searchform
 
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -31,11 +29,9 @@ import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocatio
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.selectedLocation
-import eramo.amtalek.util.showToast
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.math.log
 
 @AndroidEntryPoint
 class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearchByPropertyTypeSearchResultAdapter.OnItemClickListener {
@@ -149,25 +145,33 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
     }
 
     private fun setupSearchFunctionality(data: List<CriteriaModel>) {
-        // Set the adapter's listener to handle item clicks
+
         rvSearchResultsPropertiesAdapter.setListener(object : RvSearchByPropertyTypeSearchResultAdapter.OnItemClickListener {
             override fun onItemClick(model: CriteriaModel) {
-                selectedTypeId = model.id
 
-                // Find the index of the selected item
                 val selectedIndex = data.indexOfFirst { it.id == model.id }
 
-                // Get the previously selected position
+
                 val previousPosition = rvSearchResultsPropertiesAdapter.selectedPosition
 
-                // Update the selected position in the adapter
-                rvSearchResultsPropertiesAdapter.selectedPosition = selectedIndex
+                if (selectedIndex == previousPosition) {
+                    rvSearchResultsPropertiesAdapter.selectedPosition = -1
+                    rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition)
+                } else {
+                    rvSearchResultsPropertiesAdapter.selectedPosition = selectedIndex
 
-                // Notify changes to the adapter
-                if (previousPosition != RecyclerView.NO_POSITION && previousPosition != selectedIndex) {
-                    rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition) // Refresh previously selected item
+
+                    if (previousPosition != RecyclerView.NO_POSITION) {
+                        rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition)
+                    }
+                    rvSearchResultsPropertiesAdapter.notifyItemChanged(selectedIndex)
                 }
-                rvSearchResultsPropertiesAdapter.notifyItemChanged(selectedIndex) // Refresh newly selected item
+                selectedTypeId =
+                    if (selectedIndex == rvSearchResultsPropertiesAdapter.selectedPosition) {
+                        model.id
+                    } else {
+                        null
+                    }
             }
         })
 
@@ -236,11 +240,10 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
             val minArea = if (etMinArea.text.toString().toInt() == 0) "" else etMinArea.text.toString()
             val maxArea = if (etMaxArea.text.toString().toInt() == 0) "" else etMaxArea.text.toString()
             val locationId = if (locationValue.text.toString() == getString(R.string.location)) "" else selectedLocationId
-            val locationName =
-                if (locationValue.text.toString() == getString(R.string.location)) getString(R.string.location) else selectedLocationName
+            val locationName = if (locationValue.text.toString() == getString(R.string.location)) getString(R.string.location) else selectedLocationName
             val purposeId = if (selectedPurposeId == -1) "" else selectedPurposeId
             val finishingId = if (selectedFinishingId == -1) "" else selectedFinishingId
-            val typeId = if (selectedTypeId == -1) "" else selectedTypeId
+            val typeId = selectedTypeId?.toString() ?: "0"  // If selectedTypeId is null, use "0"
             val currencyId = if (selectedCurrencyId == -1) -1 else selectedCurrencyId
 
             val myModel = SearchModelDto(
@@ -250,7 +253,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                 currencyId = currencyId,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
-                propertyTypeId = typeId.toString(),
+                propertyTypeId = typeId,  // Using the modified typeId
                 propertyFinishingId = finishingId.toString(),
                 minPrice = minPrice,
                 maxPrice = maxPrice,
@@ -266,6 +269,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
             return myModel
         }
     }
+
 
     private fun isValidForm(): Boolean {
         var isValid = true
