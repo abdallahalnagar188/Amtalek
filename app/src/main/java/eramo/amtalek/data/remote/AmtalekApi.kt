@@ -497,17 +497,17 @@ interface AmtalekApi {
 
     @GET("search-form-filteration")
     suspend fun getSearchFilteration(
-        @Query("property_type") propertyType: String = "",
-        @Query("purpose") purpose: String = "",
-        @Query("finishing") finishing: String = "",
-        @Query("currency") currency: String = "",
-        @Query("amenities") amenities: List<Int> = emptyList(), // List of integers
-        @Query("min_price") minPrice: String = "",
-        @Query("max_price") maxPrice: String = "",
-        @Query("min_area") minArea: String = "",
-        @Query("max_area") maxArea: String = "",
-        @Query("min_beds") minBeds: String = "",
-        @Query("min_bathes") minBathes: String = ""
+        @Query("property_type") propertyType: String?,
+        @Query("purpose") purpose: String ?,
+        @Query("finishing") finishing: String?,
+        @Query("currency") currency: String?,
+        @Query("amenities") amenities: List<String> = emptyList(), // List of integers
+        @Query("min_price") minPrice: String ?,
+        @Query("max_price") maxPrice: String ?,
+        @Query("min_area") minArea: String?,
+        @Query("max_area") maxArea: String ?,
+        @Query("min_beds") minBeds: String ?,
+        @Query("min_bathes") minBathes: String ?
     ): Response<SearchFilterationResponse>
 
 

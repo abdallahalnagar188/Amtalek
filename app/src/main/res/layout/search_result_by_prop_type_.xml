@@ -16,13 +16,12 @@
         android:ellipsize="end"
         android:fontFamily="@font/font_black"
         android:maxLines="1"
-        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="@dimen/_13ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/featured_projects_in_egypt" />
+        android:text="@string/property_type" />
 
     <TextView
         android:id="@+id/tv_see_more"
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:clipToPadding="false"
         android:nestedScrollingEnabled="false"
         android:orientation="horizontal"

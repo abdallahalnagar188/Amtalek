@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ui.search.searchform.SearchFormFragment">
 
     <include
@@ -20,14 +20,17 @@
         android:layout_height="0dp"
         android:fillViewport="true"
         android:fitsSystemWindows="true"
-        app:layout_constraintTop_toBottomOf="@id/in_toolbar"
+        android:layout_marginBottom="@dimen/_70sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/in_toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
 
             <TextView
                 android:id="@+id/main_key_tv"
@@ -64,12 +67,11 @@
                     android:background="@drawable/edittext_background"
                     android:fontFamily="@font/font_medium"
                     android:hint="@string/keyword_ex_flat_for_rent"
-                    android:textSize="@dimen/_12ssp"
+                    android:inputType="text"
                     android:textColor="@color/black"
 
-                    android:inputType="text"
                     android:textCursorDrawable="@null"
-                   />
+                    android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -93,35 +95,36 @@
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_marginBottom="@dimen/_24sdp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/location_tv"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/transparent"
-                >
+                app:strokeColor="@color/transparent">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/spinner_background"
-                        />
+                        android:src="@drawable/spinner_background" />
+
                     <TextView
                         android:id="@+id/location_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:fontFamily="@font/font_medium"
                         android:text="@string/location"
-                        android:textSize="@dimen/_12ssp"
                         android:textColor="@color/black"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        />
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
+
             <include
                 android:id="@+id/in_search_by_property_type"
                 layout="@layout/search_result_by_prop_type_"
@@ -131,6 +134,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/location_spinner" />
+
             <TextView
                 android:id="@+id/property_type_tv"
                 android:layout_width="wrap_content"
@@ -138,11 +142,11 @@
                 android:layout_marginStart="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/font"
-                android:visibility="gone"
                 android:text="@string/property_type"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/in_search_by_property_type" />
 
@@ -158,8 +162,8 @@
                 android:clickable="true"
                 android:paddingHorizontal="@dimen/_6sdp"
                 android:spinnerMode="dropdown"
-                android:visibility="gone"
                 android:textAlignment="viewStart"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/property_type_tv"
@@ -213,6 +217,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/currency_spinner" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFinishing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                app:layout_constraintStart_toStartOf="@id/bathrooms_number_tv"
+                app:layout_constraintTop_toBottomOf="@id/property_finishing_tv"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_number" />
             <Spinner
                 android:id="@+id/finishing_spinner"
                 android:layout_width="0dp"
@@ -223,13 +238,13 @@
                 android:allowClickWhenDisabled="true"
                 android:background="@drawable/spinner_background"
                 android:clickable="true"
+                android:visibility="gone"
                 android:paddingHorizontal="@dimen/_6sdp"
                 android:spinnerMode="dropdown"
                 android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/property_finishing_tv"
-                />
+                app:layout_constraintTop_toBottomOf="@id/property_finishing_tv" />
 
             <TextView
                 android:id="@+id/bathrooms_number_tv"
@@ -243,7 +258,19 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/finishing_spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/rvFinishing" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBathrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
+                app:layout_constraintStart_toStartOf="@id/bathrooms_number_tv"
+                app:layout_constraintTop_toBottomOf="@id/bathrooms_number_tv"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_number" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_bathrooms_number"
@@ -254,6 +281,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/font_medium"
                 android:textColorHint="@color/text_gray"
+                android:visibility="gone"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -284,7 +312,18 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_bathrooms_number" />
+                app:layout_constraintTop_toBottomOf="@+id/rvBathrooms" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBedrooms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="@dimen/_8sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                app:layout_constraintStart_toStartOf="@id/bathrooms_number_tv"
+                app:layout_constraintTop_toBottomOf="@id/bedrooms_number_tv"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_number" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_bedrooms_number"
@@ -295,6 +334,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/font_medium"
                 android:textColorHint="@color/text_gray"
+                android:visibility="gone"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -318,14 +358,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginVertical="@dimen/_8sdp"
                 android:fontFamily="@font/font"
                 android:text="@string/purpose"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_bedrooms_number" />
+                app:layout_constraintTop_toBottomOf="@+id/rvBedrooms" />
 
             <Spinner
                 android:id="@+id/purpose_spinner"
@@ -342,8 +382,7 @@
                 android:textAlignment="viewStart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/property_purpose_tv"
-                />
+                app:layout_constraintTop_toBottomOf="@id/property_purpose_tv" />
 
 
             <TextView
@@ -361,6 +400,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/purpose_spinner"
 
                 />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_min_area"
                 style="@style/TextInputLayoutStyle"
@@ -371,8 +411,8 @@
                 android:fontFamily="@font/font_medium"
                 android:textColorHint="@color/text_gray"
                 app:hintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline7"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/min_area_tv">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -385,8 +425,7 @@
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
+                    android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -404,6 +443,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/purpose_spinner"
 
                 />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_max_area"
                 style="@style/TextInputLayoutStyle"
@@ -447,6 +487,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/til_min_area"
 
                 />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_min_price"
                 style="@style/TextInputLayoutStyle"
@@ -457,8 +498,8 @@
                 android:fontFamily="@font/font_medium"
                 android:textColorHint="@color/text_gray"
                 app:hintEnabled="false"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline7"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/min_price_tv">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -489,6 +530,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/til_min_area"
 
                 />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_max_price"
                 style="@style/TextInputLayoutStyle"
@@ -501,8 +543,7 @@
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline7"
-                app:layout_constraintTop_toBottomOf="@+id/max_price_tv"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/max_price_tv">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_max_price"
@@ -514,23 +555,23 @@
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null"
-                    android:textSize="@dimen/_12ssp"
-                    />
+                    android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <TextView
                 android:id="@+id/property_features_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/property_features"
-               app:layout_constraintTop_toBottomOf="@+id/til_max_price"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/screen_margin_sides"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:fontFamily="@font/font"
+                android:text="@string/property_features"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
-                android:textAllCaps="true"
-                android:layout_marginTop="@dimen/_20sdp"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_max_price" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/amenities_spinner"
                 android:layout_width="0dp"
@@ -538,119 +579,52 @@
                 android:layout_marginHorizontal="@dimen/screen_margin_sides"
                 android:layout_marginTop="@dimen/edit_text_margin_top"
                 android:layout_marginBottom="@dimen/_24sdp"
+                app:cardElevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/property_features_tv"
-                app:cardElevation="0dp"
                 app:strokeColor="@color/transparent">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
                         android:id="@+id/amenites_arrow"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/spinner_background"
-                        />
+                        android:src="@drawable/spinner_background" />
+
                     <TextView
                         android:id="@+id/amenityName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:fontFamily="@font/font_medium"
                         android:text="@string/amenities"
-                        android:textSize="@dimen/_12ssp"
                         android:textColor="@color/black"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        />
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-        <androidx.recyclerview.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/amenitiesRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/amenities_spinner"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:listitem="@layout/item_aminities"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:visibility="gone"
-                />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btn_confirm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/home_margin_top"
-                android:layout_marginBottom="@dimen/_16sdp"
-                app:cardCornerRadius="@dimen/_10sdp"
-                app:cardElevation="4dp"
-                android:background="@drawable/button_background_long"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/amenitiesRv">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_background_long"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal"
-                    android:padding="@dimen/_10sdp">
-
-                    <!-- First TextView -->
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/font_medium"
-                        android:text="@string/confirm"
-
-                        android:layout_gravity="center_horizontal"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        tools:text="Title" />
-
-                    <!-- Second TextView -->
-                    <TextView
-                        android:id="@+id/tv_description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/font_medium"
-                        android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_12ssp"
-                        android:layout_gravity="center"
-                        tools:text="Description" />
+                app:layout_constraintTop_toBottomOf="@+id/amenities_spinner"
+                app:spanCount="2"
+                tools:listitem="@layout/item_aminities" />
 
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/screen_margin_sides"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_16sdp"
-                android:background="@drawable/button_background_long_faded"
-                android:fontFamily="@font/font"
-                android:text="@string/cancel"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_confirm" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline7"
@@ -662,5 +636,74 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:padding="@dimen/_8sdp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Confirm Button (CardView) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/button_background_long"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_background_long"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <!-- First TextView -->
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_medium"
+                    android:text="@string/confirm"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp"
+                    tools:text="Title" />
+
+                <!-- Second TextView -->
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:fontFamily="@font/font_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp"
+                    tools:text="Description" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/button_background_long_faded"
+            android:fontFamily="@font/font"
+            android:text="@string/clear_all"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

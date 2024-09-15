@@ -128,6 +128,7 @@
     <string name="something_went_wrong">هناك خطأ ما!</string>
     <string name="check_your_internet_connection">تحقق من اتصالك بالإنترنت</string>
     <string name="cancel">إلغاء</string>
+    <string name="clear_all">مسح الكل</string>
     <string name="type">النوع :</string>
     <string name="maintenance">اعمال صيانة</string>
     <string name="store">المتجر</string>
@@ -544,7 +545,7 @@
     <string name="property_status">حالة الملكية</string>
     <string name="beds_number">عدد الأسرة</string>
     <string name="bathrooms_number">عدد الحمامات</string>
-    <string name="property_type">نوع الملكية</string>
+    <string name="property_type">نوع العقار</string>
     <string name="currency">العملة</string>
     <string name="min_bathrooms">الحد الأدنى من الحمامات</string>
     <string name="min_beds">الحد الأدنى من الاسرة</string>

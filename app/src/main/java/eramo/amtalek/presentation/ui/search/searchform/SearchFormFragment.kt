@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,7 @@ import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
 import eramo.amtalek.domain.search.SearchDataListsModel
 import eramo.amtalek.domain.search.SearchModelDto
+import eramo.amtalek.presentation.adapters.recyclerview.home.RvSearchByFinsingInSearchFormAdapter
 import eramo.amtalek.presentation.adapters.recyclerview.home.RvSearchByPropertyTypeSearchResultAdapter
 import eramo.amtalek.presentation.adapters.spinner.CriteriaSpinnerAdapter
 import eramo.amtalek.presentation.ui.BindingFragment
@@ -29,6 +31,8 @@ import eramo.amtalek.presentation.ui.search.searchform.locationspopup.AllLocatio
 import eramo.amtalek.presentation.ui.search.searchresult.SearchResultFragmentArgs
 import eramo.amtalek.util.navOptionsAnimation
 import eramo.amtalek.util.selectedLocation
+import eramo.amtalek.util.showToast
+import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,6 +49,9 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
     private var selectedFinishingId: Int? = null
     private var selectedTypeId: Int? = null
     private var selectedCurrencyId: Int? = null
+    private var selectedBedrooms: Int? = null
+    private var selectedBathrooms: Int? = null
+
 
     private var listOfPurposeItems = ArrayList<CriteriaModel>()
     private var listOfFinishingItems = ArrayList<CriteriaModel>()
@@ -55,6 +62,9 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
     @Inject
     lateinit var rvSearchResultsPropertiesAdapter: RvSearchByPropertyTypeSearchResultAdapter
 
+    @Inject
+    lateinit var rvSearchByFinsingInSearchFormAdapter: RvSearchByFinsingInSearchFormAdapter
+
     private var isAmenityOpen = false
 
     private val viewModel by viewModels<SearchFormViewModel>()
@@ -64,11 +74,30 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolBar()
+        setupListOfNumbers()
         clickListeners()
         setupObservers()
         fetchData()
         initViews()
         getApis()
+        binding.btnCancel.setOnClickListener {
+            selectedLocationId = -1
+            selectedLocationName = getString(R.string.location)
+            binding.locationValue.text = getString(R.string.location)
+            viewModel.getSearchFilltration(
+                propertyType = "",
+                purpose = "",
+                finishing = "",
+                currency = "",
+                amenities = emptyList(),
+                minPrice = "",
+                maxPrice = "",
+                minArea = "",
+                maxArea = "",
+                minBedrooms = "",
+                minBathrooms = ""
+            )
+        }
     }
 
     private fun getApis() {
@@ -83,6 +112,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
             binding.etMinArea.setText(0.toString())
         }
 
+
     }
 
     private fun fetchData() {
@@ -92,6 +122,73 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         fetchGetAmenitiesState()
         fetchGetPropertyPurpose()
         fetchCurrencies()
+        fetchTotalProperties()
+    }
+
+
+    private fun fetchTotalProperties(
+//        propertyType: String?,
+//        purpose: String?,
+//        finishing: String?,
+//        currency: String?,
+//        amenities: List<Int> = emptyList(), // List of integers for amenities
+//        minPrice: String?,
+//        maxPrice: String?,
+//        minArea: String?,
+//        maxArea: String?,
+//        minBedrooms: String?,
+//        minBathrooms: String?
+    ) {
+        viewModel.getSearchFilltration(
+            propertyType = selectedTypeId?.toString() ?: "",
+            purpose = ((if (selectedPurposeId == -1) "" else selectedPurposeId)?.toString())?:"",
+            finishing =((if (selectedFinishingId == -1 ) "" else selectedFinishingId)?.toString())?:"",
+            currency = ((if(selectedCurrencyId == -1) "" else selectedCurrencyId)?.toString())?:"",
+          //   amenities = listOfAmenitiesItems.map { it.id.toString() }, // List of integers for amenities,
+            minPrice = if (binding.etMinPrice.text.toString().isNotEmpty() && binding.etMinPrice.text.toString().toInt() != 0)
+                binding.etMinPrice.text.toString()
+            else
+                "",
+            maxPrice = if (binding.etMaxPrice.text.toString().isNotEmpty() && binding.etMaxPrice.text.toString().toInt() != 0)
+                binding.etMaxPrice.text.toString()
+            else
+                "",
+            minArea = if (binding.etMinArea.text.toString().isNotEmpty() && binding.etMinArea.text.toString().toInt() != 0)
+                binding.etMinArea.text.toString()
+            else
+                "",
+            maxArea = if (binding.etMaxArea.text.toString().isNotEmpty() && binding.etMaxArea.text.toString().toInt() != 0)
+                binding.etMaxArea.text.toString()
+            else
+                "",
+            minBedrooms = selectedBedrooms?.toString() ?: "",
+            minBathrooms = selectedBathrooms?.toString() ?: ""
+        )
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.searchFilltrationState.collect() {
+                    when(it) {
+                        is Resource.Loading -> {
+                            LoadingDialog.showDialog()
+                        }
+                        is Resource.Success -> {
+                            LoadingDialog.dismissDialog()
+                            if (it.data?.data?.totalProps != null) {
+                                binding.tvDescription.text = it.data.data?.totalProps.toString()
+                                Log.e("ahh", it.data.data?.totalProps.toString())
+                            } else {
+                                binding.tvDescription.text = "0"
+
+                                }
+                        }
+                        is Resource.Error -> {
+                            LoadingDialog.dismissDialog()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun fetchCurrencies() {
@@ -113,6 +210,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                         }
 
                         is UiState.Error -> {
+                            showToast("Error fetching currencies")
                             LoadingDialog.dismissDialog()
                         }
 
@@ -172,14 +270,78 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                     } else {
                         null
                     }
+                fetchTotalProperties(
+//                    propertyType = model.id.toString(),
+//                    minPrice = null,
+//                    maxPrice = null,
+//                    minArea = "",
+//                    maxArea = "",
+//                    minBedrooms = "",
+//                    minBathrooms = "",
+//                    amenities = emptyList(),
+//                    currency = "",
+//                    finishing = "",
+//                    purpose = ""
+
+                )
             }
         })
 
         // Set the adapter to the RecyclerView and submit the data
         binding.inSearchByPropertyType.rv.adapter = rvSearchResultsPropertiesAdapter
         rvSearchResultsPropertiesAdapter.submitList(data)
+        binding.inSearchByPropertyType.tvTitle.visibility = View.VISIBLE
     }
 
+    private fun setupSearchRvFinshing(data: List<CriteriaModel>) {
+
+        rvSearchByFinsingInSearchFormAdapter.setListener(object : RvSearchByFinsingInSearchFormAdapter.OnItemClickListener {
+            override fun onItemClick(model: CriteriaModel) {
+
+                val selectedIndex = data.indexOfFirst { it.id == model.id }
+
+
+                val previousPosition = rvSearchByFinsingInSearchFormAdapter.selectedPosition
+
+                if (selectedIndex == previousPosition) {
+                    rvSearchByFinsingInSearchFormAdapter.selectedPosition = -1
+                    rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(previousPosition)
+                } else {
+                    rvSearchByFinsingInSearchFormAdapter.selectedPosition = selectedIndex
+
+
+                    if (previousPosition != RecyclerView.NO_POSITION) {
+                        rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(previousPosition)
+                    }
+                    rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(selectedIndex)
+                }
+                selectedFinishingId =
+                    if (selectedIndex == rvSearchByFinsingInSearchFormAdapter.selectedPosition) {
+                        model.id
+                    } else {
+                        null
+                    }
+                fetchTotalProperties(
+//                    finishing = model.id.toString(),
+//                    minPrice = null,
+//                    maxPrice = null,
+//                    minArea = null,
+//                    maxArea = null,
+//                    minBedrooms = null,
+//                    minBathrooms = null,
+//                    amenities = emptyList(),
+//                    currency = null,
+//                    propertyType = null,
+//                    purpose = null
+
+                )
+            }
+        })
+
+        // Set the adapter to the RecyclerView and submit the data
+        binding.rvFinishing.adapter = rvSearchByFinsingInSearchFormAdapter
+        rvSearchByFinsingInSearchFormAdapter.submitList(data)
+    }
 
     private fun createListsModel(): SearchDataListsModel {
         val data = SearchDataListsModel(
@@ -230,20 +392,77 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         }
     }
 
+    private fun setupListOfNumbers() {
+        val numbersOfBedrooms = (1..5).toList() + listOf(0) // Add 0 at the end
+        val numbersOfBathrooms = (1..4).toList() + listOf(0) // Add 0 at the end
+
+
+        // Set up both RecyclerViews using a helper function
+        setupRecyclerView(binding.rvBedrooms, numbersOfBedrooms) { selectedNumber ->
+            selectedBedrooms = selectedNumber ?: 0 // Update the selected number of bedrooms, default to 0 if null
+            fetchTotalProperties(
+//                minBedrooms = selectedNumber.toString(),
+//                minBathrooms = null,
+//                maxPrice = null,
+//                minArea = null,
+//                maxArea = null,
+//                propertyType = null,
+//                purpose = null,
+//                finishing = null,
+//                currency = null,
+//                amenities = emptyList(),
+//                minPrice = null
+            )
+        }
+
+        setupRecyclerView(binding.rvBathrooms, numbersOfBathrooms) { selectedNumber ->
+            selectedBathrooms = selectedNumber ?: 0 // Update the selected number of bathrooms, default to 0 if null
+            fetchTotalProperties(
+//                minBathrooms = selectedNumber.toString(),
+//                minBedrooms = null,
+//                maxPrice = null,
+//                minArea = null,
+//                maxArea = null,
+//                propertyType = null,
+//                purpose = null,
+//                finishing = null,
+//                currency = null,
+//                amenities = emptyList(),
+//                minPrice = null
+            )
+        }
+    }
+
+
+    private fun setupRecyclerView(
+        recyclerView: RecyclerView,
+        numbers: List<Int>,
+        onClick: (Int?) -> Unit
+    ) {
+        val adapter = NumberAdapter(numbers, onClick)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+
     private fun createModel(): SearchModelDto {
         binding.apply {
             val searchKeyWords = if (etMainKey.text.toString().isEmpty()) "" else etMainKey.text.toString()
-            val bedrooms = if (etBedroomsNumber.text.toString().isEmpty()) "" else etBedroomsNumber.text.toString()
-            val bathrooms = if (etBathroomsNumber.text.toString().isEmpty()) "" else etBathroomsNumber.text.toString()
+
+            // Use selected bedrooms and bathrooms numbers
+            val bedrooms = selectedBedrooms?.toString() ?: "" // Use the selected value, or default to an empty string
+            val bathrooms = selectedBathrooms?.toString() ?: "" // Use the selected value, or default to an empty string
+
             val minPrice = if (etMinPrice.text.toString().toInt() == 0) "" else etMinPrice.text.toString()
             val maxPrice = if (etMaxPrice.text.toString().toInt() == 0) "" else etMaxPrice.text.toString()
             val minArea = if (etMinArea.text.toString().toInt() == 0) "" else etMinArea.text.toString()
             val maxArea = if (etMaxArea.text.toString().toInt() == 0) "" else etMaxArea.text.toString()
             val locationId = if (locationValue.text.toString() == getString(R.string.location)) "" else selectedLocationId
-            val locationName = if (locationValue.text.toString() == getString(R.string.location)) getString(R.string.location) else selectedLocationName
+            val locationName =
+                if (locationValue.text.toString() == getString(R.string.location)) getString(R.string.location) else selectedLocationName
             val purposeId = if (selectedPurposeId == -1) "" else selectedPurposeId
-            val finishingId = if (selectedFinishingId == -1) "" else selectedFinishingId
-            val typeId = selectedTypeId?.toString() ?: "0"  // If selectedTypeId is null, use "0"
+            val finishingId = selectedFinishingId?.toString() ?: "0"
+            val typeId = selectedTypeId?.toString() ?: "0"
             val currencyId = if (selectedCurrencyId == -1) -1 else selectedCurrencyId
 
             val myModel = SearchModelDto(
@@ -253,8 +472,8 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                 currencyId = currencyId,
                 bathroomsNumber = bathrooms,
                 bedroomsNumber = bedrooms,
-                propertyTypeId = typeId,  // Using the modified typeId
-                propertyFinishingId = finishingId.toString(),
+                propertyTypeId = typeId,
+                propertyFinishingId = finishingId,
                 minPrice = minPrice,
                 maxPrice = maxPrice,
                 minArea = minArea,
@@ -327,6 +546,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                         is UiState.Success -> {
                             val types = it.data
                             setupFinishingSpinner(types!!.toMutableList())
+                            setupSearchRvFinshing(types)
                             LoadingDialog.dismissDialog()
                         }
 

@@ -6,6 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eramo.amtalek.data.remote.dto.fav.AddOrRemoveFavResponse
+import eramo.amtalek.data.remote.dto.search.searchform.SearchFilterationResponse
 import eramo.amtalek.domain.model.drawer.myfavourites.PropertyModel
 import eramo.amtalek.domain.model.project.AmenityModel
 import eramo.amtalek.domain.model.property.CriteriaModel
@@ -16,6 +17,7 @@ import eramo.amtalek.domain.repository.certaria.PropertyPurposeRepository
 import eramo.amtalek.domain.repository.certaria.PropertyTypesRepository
 import eramo.amtalek.domain.repository.search.AllLocationsRepository
 import eramo.amtalek.domain.repository.search.CurrenciesRepository
+import eramo.amtalek.domain.repository.search.SearchFilltrationRepo
 import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.domain.search.LocationModel
 import eramo.amtalek.util.state.Resource
@@ -41,7 +43,8 @@ class SearchFormViewModel @Inject constructor(
     private val propertyAmenitiesRepository: PropertyAmenitiesRepository,
     private val currenciesRepository: CurrenciesRepository,
     private val searchRepository: SearchRepository,
-    private val addOrRemoveFavRepository: AddOrRemoveFavRepository
+    private val addOrRemoveFavRepository: AddOrRemoveFavRepository,
+    private val searchFilltrationRepo: SearchFilltrationRepo
 ) : ViewModel() {
 
     private var _allLocationsState = MutableStateFlow<UiState<List<LocationModel>>>(UiState.Empty())
@@ -73,8 +76,10 @@ class SearchFormViewModel @Inject constructor(
     val favState: StateFlow<UiState<AddOrRemoveFavResponse>> = _favState
 
 
+    private val _searchFilltrationState = MutableStateFlow<Resource<SearchFilterationResponse>>(Resource.Loading())
+    val searchFilltrationState: StateFlow<Resource<SearchFilterationResponse>> = _searchFilltrationState
 
-    private var searchJob:Job? = null
+    private var searchJob: Job? = null
     private var initScreenJob: Job? = null
     private var allLocationJob: Job? = null
     private var propertyTypesJob: Job? = null
@@ -83,6 +88,50 @@ class SearchFormViewModel @Inject constructor(
     private var propertyAmenitiesJob: Job? = null
     private var currenciesJob: Job? = null
 
+
+    fun getSearchFilltration(
+        propertyType: String,
+        purpose: String,
+        finishing: String,
+        currency: String,
+       amenities: List<String> = emptyList(), // List of integers for amenities
+        minPrice: String,
+        maxPrice: String,
+        minArea: String,
+        maxArea: String,
+        minBedrooms: String,
+        minBathrooms: String
+    ) {
+        viewModelScope.launch {
+            searchFilltrationRepo.getSearchFilteration(
+                propertyType = propertyType,
+                purpose = purpose,
+                finishing = finishing,
+                currency = currency,
+                amenities = amenities,
+                minPrice = minPrice,
+                maxPrice = maxPrice,
+                minArea = minArea,
+                maxArea = maxArea,
+                minBedrooms = minBedrooms,
+                minBathrooms = minBathrooms
+            ).collect() {
+                when (it) {
+                    is Resource.Success -> {
+                        _searchFilltrationState.value = Resource.Success(it.data!!)
+                    }
+                    is Resource.Loading -> {
+                        _searchFilltrationState.value = Resource.Loading()
+                    }
+                    is Resource.Error -> {
+                        _searchFilltrationState.value = Resource.Error(it.message!!)
+                    }
+                    else -> {}
+                }
+
+            }
+        }
+    }
 
     fun search(
         keyword: String?,
@@ -101,35 +150,35 @@ class SearchFormViewModel @Inject constructor(
         purpose: String?,
         region: String?,
         subRegion: String?,
-        amenitiesListIds:String?,
-        priority_keys:String?
-    ){
+        amenitiesListIds: String?,
+        priority_keys: String?
+    ) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch(Dispatchers.IO) {
-                    searchRepository.search(
-                        keyword = convertToRequestBody(keyword),
-                        city =  convertToRequestBody(city),
-                        country = convertToRequestBody(country),
-                        currency = convertToRequestBodyInt(currency),
-                        finishing = convertToRequestBody(finishing),
-                        maxArea = convertToRequestBody(maxArea),
-                        minArea = convertToRequestBody(minArea),
-                        maxPrice = convertToRequestBody(maxPrice),
-                        minPrice = convertToRequestBody(minPrice),
-                        minBathes = convertToRequestBody(minBathes),
-                        minBeds = convertToRequestBody(minBeds),
-                        priceArrangeKeys = convertToRequestBody(priceArrangeKeys),
-                        propertyType = convertToRequestBody(propertyType),
-                        purpose = convertToRequestBody(purpose),
-                        region = convertToRequestBody(region),
-                        subRegion = convertToRequestBody(subRegion),
-                        amenities = convertToRequestBody(amenitiesListIds),
-                        priority_keys = convertToRequestBody(priority_keys)
+            searchRepository.search(
+                keyword = convertToRequestBody(keyword),
+                city = convertToRequestBody(city),
+                country = convertToRequestBody(country),
+                currency = convertToRequestBodyInt(currency),
+                finishing = convertToRequestBody(finishing),
+                maxArea = convertToRequestBody(maxArea),
+                minArea = convertToRequestBody(minArea),
+                maxPrice = convertToRequestBody(maxPrice),
+                minPrice = convertToRequestBody(minPrice),
+                minBathes = convertToRequestBody(minBathes),
+                minBeds = convertToRequestBody(minBeds),
+                priceArrangeKeys = convertToRequestBody(priceArrangeKeys),
+                propertyType = convertToRequestBody(propertyType),
+                purpose = convertToRequestBody(purpose),
+                region = convertToRequestBody(region),
+                subRegion = convertToRequestBody(subRegion),
+                amenities = convertToRequestBody(amenitiesListIds),
+                priority_keys = convertToRequestBody(priority_keys)
 
 
-                    ).cachedIn(viewModelScope).collect(){
-                        _searchState.value = it
-                    }
+            ).cachedIn(viewModelScope).collect() {
+                _searchState.value = it
+            }
         }
     }
 
@@ -141,17 +190,19 @@ class SearchFormViewModel @Inject constructor(
         }
 
     }
+
     fun convertToRequestBodyInt(part: Int?): RequestBody? {
         return try {
-            if (part.toString() == "null"){
+            if (part.toString() == "null") {
                 null
-            }else{
+            } else {
                 RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part.toString())
             }
         } catch (e: Exception) {
             null
         }
     }
+
     fun getPropertyTypes() {
         propertyTypesJob?.cancel()
         propertyTypesJob = viewModelScope.launch {
@@ -294,15 +345,17 @@ class SearchFormViewModel @Inject constructor(
     fun getCurrencies() {
         currenciesJob?.cancel()
         currenciesJob = viewModelScope.launch {
-            withContext(coroutineContext){
-                currenciesRepository.getAllCurrencies().collect(){
-                    when(it){
+            withContext(coroutineContext) {
+                currenciesRepository.getAllCurrencies().collect() {
+                    when (it) {
                         is Resource.Success -> {
                             _currenciesState.value = UiState.Success(it.data?.toCriteriaModels())
                         }
+
                         is Resource.Error -> {
                             _currenciesState.value = UiState.Error(it.message!!)
                         }
+
                         is Resource.Loading -> {
                             _currenciesState.value = UiState.Loading()
                         }
@@ -311,6 +364,7 @@ class SearchFormViewModel @Inject constructor(
             }
         }
     }
+
     fun getInitApis() {
         initScreenJob?.cancel()
         initScreenJob = viewModelScope.launch {
@@ -321,26 +375,31 @@ class SearchFormViewModel @Inject constructor(
                 getPropertyPurpose()
                 getPropertyAmenities()
                 getCurrencies()
-                joinAll(propertyTypesJob!!,
+                joinAll(
+                    propertyTypesJob!!,
                     propertyFinishingJob!!, propertyPurposeJob!!,
                     propertyAmenitiesJob!!,
-                    currenciesJob!!)
+                    currenciesJob!!
+                )
                 _initScreenState.value = UiState.Success(null)
             }
         }
     }
+
     fun addOrRemoveFav(propertyId: Int) {
         viewModelScope.launch {
-            withContext(coroutineContext){
-                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect(){result->
-                    when(result){
-                        is Resource.Success->{
+            withContext(coroutineContext) {
+                addOrRemoveFavRepository.addOrRemoveFav(propertyId).collect() { result ->
+                    when (result) {
+                        is Resource.Success -> {
                             _favState.value = UiState.Success(result.data)
                         }
-                        is Resource.Error->{
+
+                        is Resource.Error -> {
                             _favState.value = UiState.Error(result.message!!)
                         }
-                        is Resource.Loading->{
+
+                        is Resource.Loading -> {
                             _favState.value = UiState.Loading()
                         }
                     }
