@@ -11,7 +11,7 @@
 
     <string name="cancel">Cancel</string>
     <string name="clear_all">Clear All</string>
-    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.9.1</string>
+    <string name="powered_by" translatable="false">© Amtalek 2024 | Developed by e-RAMO\n V 1.9.2</string>
     <string name="www_e_ramo_net">www.e-RAMO.net</string>
     <string name="_201011559674">+201011559674</string>
     <string name="txt_warning">Warning!</string>
@@ -1058,6 +1058,8 @@ If you have any queries, complaints or recommendations about these Terms of Use,
     <string name="write_message">Enter your message</string>
     <string name="no">No</string>
     <string name="select_a_location">Select a Location</string>
+    <string name="s_result"> %s Results</string>
+    <string name="show">Show</string>
 
     <string-array name="durations_array">
         <item>"Daily"</item>

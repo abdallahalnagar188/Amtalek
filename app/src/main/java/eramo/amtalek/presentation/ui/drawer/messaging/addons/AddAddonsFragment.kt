@@ -75,7 +75,7 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                                     when (it) {
                                         is Resource.Success -> {
                                             viewModel.addons.value.data?.data?.let { initMonthlyRv(it) }
-                                            setupListeners(it.data?.data ?: emptyList(), "yearly")
+                                            setupListeners(it.data?.data ?: emptyList(), "monthly")
                                             LoadingDialog.dismissDialog()
                                         }
 

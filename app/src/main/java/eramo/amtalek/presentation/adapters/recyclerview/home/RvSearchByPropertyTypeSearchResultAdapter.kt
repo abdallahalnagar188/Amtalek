@@ -18,7 +18,7 @@ class RvSearchByPropertyTypeSearchResultAdapter @Inject constructor() :
 
 
     private lateinit var listener: OnItemClickListener
-    var selectedPosition: Int = -1 // Track the selected item position
+    var selectedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropTypeSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)

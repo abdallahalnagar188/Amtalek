@@ -11,12 +11,13 @@ interface SearchFilltrationRepo {
         purpose: String? = "",
         finishing: String? = "",
         currency: String? = "",
-        amenities: List<String> = emptyList(), // List of integers for amenities
+        amenities: List<Int?> = emptyList(), // List of integers for amenities
         minPrice: String? = "",
         maxPrice: String? = "",
         minArea: String? = "",
         maxArea: String? = "",
         minBedrooms: String ?= "",
-        minBathrooms: String ?= ""
+        minBathrooms: String ?= "",
+        city: String? = ""
     ): Flow<Resource<SearchFilterationResponse>>
 }

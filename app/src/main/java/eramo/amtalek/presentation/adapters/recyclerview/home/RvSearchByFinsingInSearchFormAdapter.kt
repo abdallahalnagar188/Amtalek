@@ -19,7 +19,7 @@ class RvSearchByFinsingInSearchFormAdapter @Inject constructor() :
     ListAdapter<CriteriaModel, RvSearchByFinsingInSearchFormAdapter.ProductViewHolder>(PRODUCT_COMPARATOR) {
 
     private var listener: OnItemClickListener? = null
-    var selectedPosition: Int = -1 // Track the selected item position
+    var selectedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemFinishingSearchFormBinding.inflate(LayoutInflater.from(parent.context), parent, false)

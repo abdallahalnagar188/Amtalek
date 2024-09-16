@@ -20,6 +20,7 @@ import eramo.amtalek.domain.repository.search.CurrenciesRepository
 import eramo.amtalek.domain.repository.search.SearchFilltrationRepo
 import eramo.amtalek.domain.repository.search.SearchRepository
 import eramo.amtalek.domain.search.LocationModel
+import eramo.amtalek.util.UserUtil
 import eramo.amtalek.util.state.Resource
 import eramo.amtalek.util.state.UiState
 import kotlinx.coroutines.Dispatchers
@@ -94,7 +95,7 @@ class SearchFormViewModel @Inject constructor(
         purpose: String,
         finishing: String,
         currency: String,
-       amenities: List<String> = emptyList(), // List of integers for amenities
+       amenities: List<Int> = emptyList(), // List of integers for amenities
         minPrice: String,
         maxPrice: String,
         minArea: String,
@@ -114,7 +115,8 @@ class SearchFormViewModel @Inject constructor(
                 minArea = minArea,
                 maxArea = maxArea,
                 minBedrooms = minBedrooms,
-                minBathrooms = minBathrooms
+                minBathrooms = minBathrooms,
+                city = UserUtil.getCityFiltrationId()
             ).collect() {
                 when (it) {
                     is Resource.Success -> {

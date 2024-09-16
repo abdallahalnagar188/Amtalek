@@ -1088,6 +1088,8 @@
     <string name="write_message">ادخل رسالتك</string>
     <string name="no">لا</string>
     <string name="select_a_location">Select a Location</string>
+    <string name="s_result">  %s نتائج </string>
+    <string name="show">عرض</string>
 
     <string-array name="durations_array">
         <item>"يوميا"</item>

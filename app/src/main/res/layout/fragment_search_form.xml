@@ -73,6 +73,15 @@
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/til_main_key"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
 
             <TextView
                 android:id="@+id/location_tv"
@@ -86,7 +95,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/til_main_key" />
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/location_spinner"
@@ -125,6 +134,16 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/location_spinner"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
+
             <include
                 android:id="@+id/in_search_by_property_type"
                 layout="@layout/search_result_by_prop_type_"
@@ -133,7 +152,16 @@
                 android:layout_marginTop="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/location_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/view2" />
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/in_search_by_property_type"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
 
             <TextView
                 android:id="@+id/property_type_tv"
@@ -148,7 +176,7 @@
                 android:textSize="@dimen/_12ssp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/in_search_by_property_type" />
+                app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <Spinner
                 android:id="@+id/type_spinner"
@@ -202,6 +230,15 @@
                 app:layout_constraintTop_toBottomOf="@id/currency_tv"
 
                 />
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/currency_spinner"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
 
             <TextView
                 android:id="@+id/property_finishing_tv"
@@ -215,7 +252,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/currency_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/view4" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFinishing"
@@ -227,7 +264,7 @@
                 app:layout_constraintStart_toStartOf="@id/bathrooms_number_tv"
                 app:layout_constraintTop_toBottomOf="@id/property_finishing_tv"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_number" />
+                tools:listitem="@layout/item_finishing_search_form" />
             <Spinner
                 android:id="@+id/finishing_spinner"
                 android:layout_width="0dp"
@@ -246,6 +283,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/property_finishing_tv" />
 
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/rvFinishing"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
             <TextView
                 android:id="@+id/bathrooms_number_tv"
                 android:layout_width="wrap_content"
@@ -258,7 +304,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvFinishing" />
+                app:layout_constraintTop_toBottomOf="@+id/view5" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBathrooms"
@@ -300,6 +346,16 @@
                     android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/rvBathrooms"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
+
             <TextView
                 android:id="@+id/bedrooms_number_tv"
                 android:layout_width="wrap_content"
@@ -312,7 +368,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvBathrooms" />
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBedrooms"
                 android:layout_width="match_parent"
@@ -352,6 +408,15 @@
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/_12ssp" />
             </com.google.android.material.textfield.TextInputLayout>
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/rvBedrooms"
+                android:background="#4D005879"
+                android:layout_marginTop="@dimen/_16sdp"
+                />
 
             <TextView
                 android:id="@+id/property_purpose_tv"
@@ -365,7 +430,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvBedrooms" />
+                app:layout_constraintTop_toBottomOf="@+id/view7" />
 
             <Spinner
                 android:id="@+id/purpose_spinner"
@@ -653,7 +718,7 @@
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.65"
             android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/button_background_long"
             app:cardCornerRadius="@dimen/_10sdp"
@@ -673,9 +738,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_medium"
-                    android:text="@string/confirm"
+                    android:text="@string/show"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_14ssp"
+                    android:textSize="@dimen/_12ssp"
                     tools:text="Title" />
 
                 <!-- Second TextView -->
@@ -696,10 +761,10 @@
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.35"
             android:layout_marginStart="@dimen/_8sdp"
             android:background="@drawable/button_background_long_faded"
-            android:fontFamily="@font/font"
+            android:fontFamily="@font/font_medium"
             android:text="@string/clear_all"
             android:textAllCaps="false"
             android:textColor="@color/white"

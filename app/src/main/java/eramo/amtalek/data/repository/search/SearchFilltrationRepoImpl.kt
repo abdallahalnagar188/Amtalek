@@ -17,13 +17,14 @@ class SearchFilltrationRepoImpl @Inject constructor(val amtalekApi: AmtalekApi) 
         purpose: String?,
         finishing: String?,
         currency: String?,
-        amenities: List<String>,
+        amenities: List<Int?>,
         minPrice: String?,
         maxPrice: String?,
         minArea: String?,
         maxArea: String?,
         minBedrooms: String?,
-        minBathrooms: String?
+        minBathrooms: String?,
+        city: String?
     ): Flow<Resource<SearchFilterationResponse>> {
         return flow {
             val result = toResultFlow {
@@ -32,13 +33,14 @@ class SearchFilltrationRepoImpl @Inject constructor(val amtalekApi: AmtalekApi) 
                     purpose = purpose?:"",
                     finishing = finishing?:"",
                     currency = currency?:"",
-                    amenities = amenities,
+                    amenities = amenities?:emptyList(),
                     minPrice = minPrice?:"",
                     maxPrice = maxPrice?:"",
                     minArea = minArea?:"",
                     maxArea = maxArea?:"",
                     minBeds = minBedrooms?:"",
-                    minBathes = minBathrooms?:""
+                    minBathes = minBathrooms?:"",
+                    city =city?:""
                 )
             }
             result.collect {

@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearchByPropertyTypeSearchResultAdapter.OnItemClickListener {
+class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(){
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchFormBinding::inflate
 
@@ -58,6 +58,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
     private var listOfTypeItems = ArrayList<CriteriaModel>()
     private var listOfCurrencyItems = ArrayList<CriteriaModel>()
     private var listOfAmenitiesItems = ArrayList<AmenityModel>()
+    private var listOfNumbers : ArrayList<Int> = listOfAmenitiesItems.map { it.id } as ArrayList<Int>
 
     @Inject
     lateinit var rvSearchResultsPropertiesAdapter: RvSearchByPropertyTypeSearchResultAdapter
@@ -73,6 +74,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        clearAllFields()
         setupToolBar()
         setupListOfNumbers()
         clickListeners()
@@ -80,24 +82,6 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         fetchData()
         initViews()
         getApis()
-        binding.btnCancel.setOnClickListener {
-            selectedLocationId = -1
-            selectedLocationName = getString(R.string.location)
-            binding.locationValue.text = getString(R.string.location)
-            viewModel.getSearchFilltration(
-                propertyType = "",
-                purpose = "",
-                finishing = "",
-                currency = "",
-                amenities = emptyList(),
-                minPrice = "",
-                maxPrice = "",
-                minArea = "",
-                maxArea = "",
-                minBedrooms = "",
-                minBathrooms = ""
-            )
-        }
     }
 
     private fun getApis() {
@@ -125,26 +109,56 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         fetchTotalProperties()
     }
 
+    private fun clearAllFields() {
+        binding.btnCancel.setOnClickListener {
+            // Reset all selections
+            selectedPurposeId = -1
+            selectedFinishingId = null
+            selectedTypeId = null
+            selectedCurrencyId = null
+            selectedBedrooms = null
+            selectedBathrooms = null
 
-    private fun fetchTotalProperties(
-//        propertyType: String?,
-//        purpose: String?,
-//        finishing: String?,
-//        currency: String?,
-//        amenities: List<Int> = emptyList(), // List of integers for amenities
-//        minPrice: String?,
-//        maxPrice: String?,
-//        minArea: String?,
-//        maxArea: String?,
-//        minBedrooms: String?,
-//        minBathrooms: String?
-    ) {
+            // Clear the selected position in the adapters
+            rvSearchResultsPropertiesAdapter.selectedPosition = RecyclerView.NO_POSITION
+            rvSearchByFinsingInSearchFormAdapter.selectedPosition = RecyclerView.NO_POSITION
+            (binding.rvBedrooms.adapter as? NumberAdapter)?.selectedPosition = RecyclerView.NO_POSITION
+            (binding.rvBathrooms.adapter as? NumberAdapter)?.selectedPosition = RecyclerView.NO_POSITION
+
+            // Notify the adapters to refresh all items
+            rvSearchResultsPropertiesAdapter.notifyDataSetChanged()
+            rvSearchByFinsingInSearchFormAdapter.notifyDataSetChanged()
+            (binding.rvBedrooms.adapter as? NumberAdapter)?.notifyDataSetChanged()
+            (binding.rvBathrooms.adapter as? NumberAdapter)?.notifyDataSetChanged()
+
+            // Optionally clear any filters or search parameters
+            viewModel.getSearchFilltration(
+                propertyType = "",
+                purpose = "",
+                finishing = "",
+                currency = "",
+                amenities = emptyList(),
+                minPrice = "",
+                maxPrice = "",
+                minArea = "",
+                maxArea = "",
+                minBedrooms = "",
+                minBathrooms = ""
+            )
+        }
+    }
+
+
+
+
+
+    private fun fetchTotalProperties() {
         viewModel.getSearchFilltration(
             propertyType = selectedTypeId?.toString() ?: "",
             purpose = ((if (selectedPurposeId == -1) "" else selectedPurposeId)?.toString())?:"",
             finishing =((if (selectedFinishingId == -1 ) "" else selectedFinishingId)?.toString())?:"",
             currency = ((if(selectedCurrencyId == -1) "" else selectedCurrencyId)?.toString())?:"",
-          //   amenities = listOfAmenitiesItems.map { it.id.toString() }, // List of integers for amenities,
+         //   amenities = listOfAmenitiesItems.map { it.id } as ArrayList<Int?>?: emptyList(), // List of integers for amenities,
             minPrice = if (binding.etMinPrice.text.toString().isNotEmpty() && binding.etMinPrice.text.toString().toInt() != 0)
                 binding.etMinPrice.text.toString()
             else
@@ -175,7 +189,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                         is Resource.Success -> {
                             LoadingDialog.dismissDialog()
                             if (it.data?.data?.totalProps != null) {
-                                binding.tvDescription.text = it.data.data?.totalProps.toString()
+                                binding.tvDescription.text =  getString(R.string.s_result,it.data.data?.totalProps.toString())
                                 Log.e("ahh", it.data.data?.totalProps.toString())
                             } else {
                                 binding.tvDescription.text = "0"
@@ -241,49 +255,38 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         selectedLocationName = "" // Clear the name
         binding.locationValue.text = getString(R.string.all_locations) // Set default text in UI
     }
-
     private fun setupSearchFunctionality(data: List<CriteriaModel>) {
-
         rvSearchResultsPropertiesAdapter.setListener(object : RvSearchByPropertyTypeSearchResultAdapter.OnItemClickListener {
             override fun onItemClick(model: CriteriaModel) {
-
                 val selectedIndex = data.indexOfFirst { it.id == model.id }
-
-
                 val previousPosition = rvSearchResultsPropertiesAdapter.selectedPosition
 
+                // Toggle selection within the adapter
                 if (selectedIndex == previousPosition) {
+                    // Deselect the item
                     rvSearchResultsPropertiesAdapter.selectedPosition = -1
-                    rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition)
+                    rvSearchResultsPropertiesAdapter.notifyDataSetChanged()
                 } else {
+                    // Select the new item
                     rvSearchResultsPropertiesAdapter.selectedPosition = selectedIndex
-
-
-                    if (previousPosition != RecyclerView.NO_POSITION) {
-                        rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition)
-                    }
-                    rvSearchResultsPropertiesAdapter.notifyItemChanged(selectedIndex)
                 }
-                selectedTypeId =
-                    if (selectedIndex == rvSearchResultsPropertiesAdapter.selectedPosition) {
-                        model.id
-                    } else {
-                        null
-                    }
-                fetchTotalProperties(
-//                    propertyType = model.id.toString(),
-//                    minPrice = null,
-//                    maxPrice = null,
-//                    minArea = "",
-//                    maxArea = "",
-//                    minBedrooms = "",
-//                    minBathrooms = "",
-//                    amenities = emptyList(),
-//                    currency = "",
-//                    finishing = "",
-//                    purpose = ""
 
-                )
+                // Notify changes for both new and old selected items
+                if (previousPosition != RecyclerView.NO_POSITION) {
+                    rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition)
+                }
+                rvSearchResultsPropertiesAdapter.notifyItemChanged(selectedIndex)
+
+                // Update the selectedTypeId accordingly
+                selectedTypeId = if (selectedIndex == rvSearchResultsPropertiesAdapter.selectedPosition) {
+                    model.id
+                } else {
+                    null
+                }
+
+
+                // Fetch properties based on the selected type
+                fetchTotalProperties()
             }
         })
 
@@ -293,48 +296,39 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         binding.inSearchByPropertyType.tvTitle.visibility = View.VISIBLE
     }
 
-    private fun setupSearchRvFinshing(data: List<CriteriaModel>) {
 
+
+    private fun setupSearchRvFinshing(data: List<CriteriaModel>) {
         rvSearchByFinsingInSearchFormAdapter.setListener(object : RvSearchByFinsingInSearchFormAdapter.OnItemClickListener {
             override fun onItemClick(model: CriteriaModel) {
-
                 val selectedIndex = data.indexOfFirst { it.id == model.id }
-
-
                 val previousPosition = rvSearchByFinsingInSearchFormAdapter.selectedPosition
 
+                // Toggle selection within the adapter
                 if (selectedIndex == previousPosition) {
+                    // Deselect the item
                     rvSearchByFinsingInSearchFormAdapter.selectedPosition = -1
-                    rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(previousPosition)
+                    rvSearchByFinsingInSearchFormAdapter.notifyDataSetChanged()
                 } else {
+                    // Select the new item
                     rvSearchByFinsingInSearchFormAdapter.selectedPosition = selectedIndex
-
-
-                    if (previousPosition != RecyclerView.NO_POSITION) {
-                        rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(previousPosition)
-                    }
-                    rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(selectedIndex)
                 }
-                selectedFinishingId =
-                    if (selectedIndex == rvSearchByFinsingInSearchFormAdapter.selectedPosition) {
-                        model.id
-                    } else {
-                        null
-                    }
-                fetchTotalProperties(
-//                    finishing = model.id.toString(),
-//                    minPrice = null,
-//                    maxPrice = null,
-//                    minArea = null,
-//                    maxArea = null,
-//                    minBedrooms = null,
-//                    minBathrooms = null,
-//                    amenities = emptyList(),
-//                    currency = null,
-//                    propertyType = null,
-//                    purpose = null
 
-                )
+                // Notify changes for both new and old selected items
+                if (previousPosition != RecyclerView.NO_POSITION) {
+                    rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(previousPosition)
+                }
+                rvSearchByFinsingInSearchFormAdapter.notifyItemChanged(selectedIndex)
+
+                // Update the selectedFinishingId accordingly
+                selectedFinishingId = if (selectedIndex == rvSearchByFinsingInSearchFormAdapter.selectedPosition) {
+                    model.id
+                } else {
+                    null
+                }
+
+                // Fetch properties based on the selected finishing type
+                fetchTotalProperties()
             }
         })
 
@@ -342,6 +336,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         binding.rvFinishing.adapter = rvSearchByFinsingInSearchFormAdapter
         rvSearchByFinsingInSearchFormAdapter.submitList(data)
     }
+
 
     private fun createListsModel(): SearchDataListsModel {
         val data = SearchDataListsModel(
@@ -393,43 +388,21 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
     }
 
     private fun setupListOfNumbers() {
+
         val numbersOfBedrooms = (1..5).toList() + listOf(0) // Add 0 at the end
-        val numbersOfBathrooms = (1..4).toList() + listOf(0) // Add 0 at the end
+        val numbersOfBathrooms = (1..5).toList() + listOf(0) // Add 0 at the end
 
 
         // Set up both RecyclerViews using a helper function
         setupRecyclerView(binding.rvBedrooms, numbersOfBedrooms) { selectedNumber ->
             selectedBedrooms = selectedNumber ?: 0 // Update the selected number of bedrooms, default to 0 if null
-            fetchTotalProperties(
-//                minBedrooms = selectedNumber.toString(),
-//                minBathrooms = null,
-//                maxPrice = null,
-//                minArea = null,
-//                maxArea = null,
-//                propertyType = null,
-//                purpose = null,
-//                finishing = null,
-//                currency = null,
-//                amenities = emptyList(),
-//                minPrice = null
-            )
+            fetchTotalProperties()
         }
 
         setupRecyclerView(binding.rvBathrooms, numbersOfBathrooms) { selectedNumber ->
             selectedBathrooms = selectedNumber ?: 0 // Update the selected number of bathrooms, default to 0 if null
-            fetchTotalProperties(
-//                minBathrooms = selectedNumber.toString(),
-//                minBedrooms = null,
-//                maxPrice = null,
-//                minArea = null,
-//                maxArea = null,
-//                propertyType = null,
-//                purpose = null,
-//                finishing = null,
-//                currency = null,
-//                amenities = emptyList(),
-//                minPrice = null
-            )
+            fetchTotalProperties()
+
         }
     }
 
@@ -442,6 +415,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
         val adapter = NumberAdapter(numbers, onClick)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
     }
 
 
@@ -666,6 +640,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CriteriaModel
                     selectedFinishingId = model.id
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -712,6 +687,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CriteriaModel
                     selectedPurposeId = model.id
+                    fetchTotalProperties()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -736,6 +712,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val model = parent?.getItemAtPosition(position) as CriteriaModel
                     selectedCurrencyId = model.id
+                    fetchTotalProperties()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -744,11 +721,5 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(), RvSearc
             }
         }
     }
-
-    override fun onItemClick(model: CriteriaModel) {
-
-
-    }
-
 
 }
