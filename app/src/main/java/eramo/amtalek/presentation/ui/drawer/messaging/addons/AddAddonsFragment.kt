@@ -87,7 +87,6 @@ class AddAddonsFragment : BindingFragment<FragmentAddAdomsBinding>() {
                                             LoadingDialog.dismissDialog()
                                         }
                                     }
-
                                 }
                             }
                         }
