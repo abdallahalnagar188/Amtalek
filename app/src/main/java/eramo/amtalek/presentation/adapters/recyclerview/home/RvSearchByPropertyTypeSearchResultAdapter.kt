@@ -19,6 +19,7 @@ class RvSearchByPropertyTypeSearchResultAdapter @Inject constructor() :
 
     private lateinit var listener: OnItemClickListener
     var selectedPosition: Int = -1
+    var isSelected:Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemPropTypeSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -37,12 +38,13 @@ class RvSearchByPropertyTypeSearchResultAdapter @Inject constructor() :
                     val position = bindingAdapterPosition
                     val model = getItem(position)
                     listener.onItemClick(model)
+                    isSelected = !isSelected
 
                     // Update the selected item ID and notify changes
                     val previousPosition = selectedPosition
                     selectedPosition = position
-                    notifyItemChanged(previousPosition) // Refresh previously selected item
-                    notifyItemChanged(selectedPosition) // Refresh newly selected item
+                    notifyItemChanged(previousPosition)
+                    notifyItemChanged(selectedPosition)
                 }
             }
         }
@@ -56,7 +58,7 @@ class RvSearchByPropertyTypeSearchResultAdapter @Inject constructor() :
                 tvPropTypeCount.text = model.propertyCount.toString()
 
                 // Change the background based on selection
-                val backgroundDrawable = if (position == selectedPosition) {
+                val backgroundDrawable = if (position == selectedPosition && isSelected) {
                     ContextCompat.getDrawable(itemView.context, R.drawable.blue_border_with_radius_background)
                 } else {
                     ContextCompat.getDrawable(itemView.context, R.drawable.edittext_background_for_search)

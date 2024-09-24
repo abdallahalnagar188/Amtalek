@@ -56,9 +56,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchResultFragment : BindingFragment<FragmentSearchResultBinding>(),
-    RvSearchResultsPropertiesAdapter.OnItemClickListener,
-
-    FavClickListener {
+    RvSearchResultsPropertiesAdapter.OnItemClickListener, FavClickListener {
     override val bindingInflater: (LayoutInflater) -> ViewBinding
         get() = FragmentSearchResultBinding::inflate
 

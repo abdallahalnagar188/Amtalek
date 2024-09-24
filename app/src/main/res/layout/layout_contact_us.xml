@@ -79,7 +79,7 @@
             android:focusable="true"
             android:fontFamily="@font/font"
             android:gravity="center"
-            android:paddingHorizontal="@dimen/_20sdp"
+            android:paddingHorizontal="@dimen/_18sdp"
             android:text="@string/whatsapp"
             android:textColor="@color/black"
             android:maxLines="1"

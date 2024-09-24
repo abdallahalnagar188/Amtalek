@@ -20,6 +20,7 @@ class RvSearchByFinsingInSearchFormAdapter @Inject constructor() :
 
     private var listener: OnItemClickListener? = null
     var selectedPosition: Int = -1
+    var isItemSelected = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ProductViewHolder(
         ItemFinishingSearchFormBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -38,6 +39,7 @@ class RvSearchByFinsingInSearchFormAdapter @Inject constructor() :
                     val position = bindingAdapterPosition
                     val model = getItem(position)
                     listener?.onItemClick(model)
+                    isItemSelected = !isItemSelected
 
                     // Update the selected item ID and notify changes
                     val previousPosition = selectedPosition
@@ -53,7 +55,7 @@ class RvSearchByFinsingInSearchFormAdapter @Inject constructor() :
                 tvPropType.text = model.title
 
                 // Change the background based on selection
-                val backgroundDrawable = if (position == selectedPosition) {
+                val backgroundDrawable = if (position == selectedPosition && isItemSelected) {
                     ContextCompat.getDrawable(itemView.context, R.drawable.bg_finishing_search_if_selected)
                 } else {
                     ContextCompat.getDrawable(itemView.context, R.drawable.bg_finishing_in_search)

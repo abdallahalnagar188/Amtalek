@@ -701,7 +701,7 @@
     <string name="property_area">المساحة:</string>
     <string name="property_bedrooms">غرف النوم:</string>
     <string name="property_bathrooms">دورة المياه:</string>
-    <string name="property_finishing">التشطيب:</string>
+    <string name="property_finishing">التشطيب</string>
     <string name="property_currency">العملة:</string>
 
     <string name="edit_text_hint_description">وصف العقار:</string>

@@ -184,7 +184,7 @@ class SearchFormViewModel @Inject constructor(
         }
     }
 
-    fun convertToRequestBody(part: String?): RequestBody? {
+    private fun convertToRequestBody(part: String?): RequestBody? {
         return try {
             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), part!!)
         } catch (e: Exception) {
@@ -193,7 +193,7 @@ class SearchFormViewModel @Inject constructor(
 
     }
 
-    fun convertToRequestBodyInt(part: Int?): RequestBody? {
+    private fun convertToRequestBodyInt(part: Int?): RequestBody? {
         return try {
             if (part.toString() == "null") {
                 null

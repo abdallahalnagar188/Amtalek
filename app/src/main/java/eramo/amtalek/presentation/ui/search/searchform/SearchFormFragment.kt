@@ -148,10 +148,6 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(){
         }
     }
 
-
-
-
-
     private fun fetchTotalProperties() {
         viewModel.getSearchFilltration(
             propertyType = selectedTypeId?.toString() ?: "",
@@ -273,6 +269,7 @@ class SearchFormFragment : BindingFragment<FragmentSearchFormBinding>(){
 
                 // Notify changes for both new and old selected items
                 if (previousPosition != RecyclerView.NO_POSITION) {
+
                     rvSearchResultsPropertiesAdapter.notifyItemChanged(previousPosition)
                 }
                 rvSearchResultsPropertiesAdapter.notifyItemChanged(selectedIndex)
